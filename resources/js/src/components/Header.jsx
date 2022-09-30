@@ -1,0 +1,265 @@
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Link from '@mui/material/Link';
+import Menu from '@mui/material/Menu';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import SvgIcon from '@mui/material/SvgIcon';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+
+import AddIcon from '@mui/icons-material/Add';
+import EastIcon from '@mui/icons-material/East';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import PersonIcon from '@mui/icons-material/Person';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CloseIcon from '@mui/icons-material/Close';
+
+import { HStack } from './Base';
+
+import logo from '../assets/img/logo/logo.png';
+import { Promotion } from '../assets/img/feature/svgIcon';
+import present from '../assets/img/feature/present-light.png';
+import enlang from '../assets/img/feature/en.svg';
+import ptlang from '../assets/img/feature/pt.svg';
+
+
+const Header = () => {
+  const navigate = useNavigate();
+  const list = [{ name: 'Home', route: '/home' }, { name: 'Live', route: '/sports/live' }, { name: 'Sports', route: '/sports/prematch' }, { name: 'Casino', route: '/casino' }, { name: 'Live-Casino', route: '/live-casino' }, { name: 'Poker', route: '/poker' }];
+  const profile = ['Withdraw', 'Setting', 'Bet History', 'Log Out']
+  const [active, setActive] = useState(0);
+  const [langList, setLangList] = useState(null);
+  const [showProfile, setShowProfile] = useState(null);
+
+  const showLang = (event) => {
+    setLangList(event.currentTarget);
+  };
+
+  const closeLang = () => {
+    setLangList(null);
+  };
+
+  const openProfile = (event) => {
+    setShowProfile(event.currentTarget);
+  };
+
+  const closeProfile = () => {
+    setShowProfile(null);
+  };
+
+  const go = (idx) => {
+    setActive(idx);
+    navigate(list[idx].route);
+  }
+
+  useEffect(() => {
+    const path = location.pathname;
+    const idx = list.findIndex((e) => e.route === path);
+    setActive(idx);
+  }, [])
+
+  return (
+    <>
+      <HStack className='header_top'>
+        <Stack>
+          <Link className='free_link'>
+            <Typography component='span' sx={{ fontSize: '11px', lineHeight: 1 }}>
+              Free Money!
+            </Typography>
+            <Box className='money_img' />
+            <EastIcon sx={{
+              position: 'absolute',
+              top: 0,
+              right: '10px',
+              bottom: 0,
+              margin: 'auto',
+              color: 'rgba(0,0,0,.3)',
+              fontSize: '13px'
+            }} />
+          </Link>
+        </Stack>
+        <HStack>
+          <Stack className='top_promotion'>
+            <Stack className='top_BonusLink'>
+              <Stack className='top_circle'>
+                <SvgIcon
+                  component={Promotion}
+                  inheritViewBox
+                />
+              </Stack>
+              <Typography sx={{ mr: 3, fontSize: 11 }}>
+                Promotions and bonuses
+              </Typography>
+              <Box component='img' src={present} className='top_bonus_img' />
+            </Stack>
+          </Stack>
+          <Box sx={{ flexGrow: 0 }}>
+            <Button
+              onClick={showLang}
+              className='lang_btn'
+            >
+              <Typography sx={{ fontSize: 12 }}>
+                EN
+              </Typography>
+              <KeyboardArrowDownIcon sx={{ fontSize: '14px !important' }} />
+              <Box component='img' className='lang_icon' src={enlang} />
+            </Button>
+            <Menu
+              sx={{
+                mt: (theme) => theme.spacing(3),
+                [`& .MuiPopover-paper`]: {
+                  bgcolor: 'white',
+                  borderRadius: 2,
+                },
+                [`& .MuiPopover-paper ul`]: {
+                  minWidth: (theme) => theme.spacing(8)
+                }
+              }}
+              id="menu-appbar"
+              anchorEl={langList}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(langList)}
+              onClose={closeLang}
+            >
+              <MenuItem onClick={closeLang}>
+                <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>EN</Typography>
+                <Box component='img' src={enlang} sx={{
+                  width: '15px',
+                  height: '15px',
+                  borderRadius: 50,
+                  ml: 1
+                }} />
+              </MenuItem>
+              <MenuItem onClick={closeLang}>
+                <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>PT</Typography>
+                <Box component='img' src={ptlang} sx={{
+                  width: '15px',
+                  height: '15px',
+                  borderRadius: 50,
+                  ml: 1
+                }} />
+              </MenuItem>
+            </Menu>
+          </Box>
+        </HStack>
+      </HStack>
+      <HStack className='header_wraper'>
+        <HStack className="header">
+          <HStack>
+            <HStack className="level-item" alignItems='center'>
+              <Stack className="logo-container">
+                <Link>
+                  <Box component='img' src={logo} sx={{ maxHeight: (theme) => theme.spacing(4), ml: 2 }} />
+                </Link>
+              </Stack>
+            </HStack>
+            <Stack className="level-item">
+              <Tabs
+                value={active}
+                onChange={(e, newValue) => go(newValue)}
+                sx={{
+                  ['& .MuiTabs-indicator']: {
+                    backgroundImage: 'linear-gradient(103deg,#108de7 -30%,#0855c4)',
+                    borderRadius: '4px 4px 0 0',
+                    height: '4px'
+                  }
+                }}
+              >
+                {
+                  list.map((item, idx) => (
+                    <Tab
+                      label={item.name}
+                      key={idx}
+                      sx={{
+                        padding: '2px',
+                        mx: 2,
+                        color: '#fff !important',
+                        minWidth: '0px !important',
+                        textTransform: 'capitalize',
+                        ['& .MuiTouchRipple-root']: {
+                          display: 'none'
+                        }
+                      }} />
+                  ))
+                }
+              </Tabs>
+            </Stack>
+          </HStack>
+          <Stack className="level-item">
+            <HStack>
+              <Button className='user_btn' onClick={openProfile}>
+                <Box className='icon-wrap'>
+                  <PersonIcon />
+                </Box>
+                <Box className='close-wrap'>
+                  {
+                    showProfile ? <CloseIcon /> : <MoreVertIcon />
+                  }
+                </Box>
+              </Button>
+              <Menu
+                sx={{
+                  mt: (theme) => theme.spacing(5),
+                  [`& .MuiPopover-paper`]: {
+                    bgcolor: 'white',
+                    borderRadius: 2,
+                  },
+                  [`& .MuiPopover-paper ul`]: {
+                    minWidth: (theme) => theme.spacing(8)
+                  }
+                }}
+                id="menu-appbar"
+                anchorEl={showProfile}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(showProfile)}
+                onClose={closeProfile}
+              >
+                {
+                  profile.map((item, idx) => (
+                    <MenuItem key={idx} onClick={closeProfile}>
+                      <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>{item}</Typography>
+                    </MenuItem>
+                  ))
+                }
+              </Menu>
+              <Button className='login_btn'>
+                <Typography component='span'>
+                  Login
+                </Typography>
+              </Button>
+              <Button className='register_btn'>
+                <Typography component='span' className='icon-wrap'>
+                  <AddIcon sx={{ fontSize: '15px' }} />
+                </Typography>
+                <Typography component='span'>
+                  Registeration
+                </Typography>
+              </Button>
+            </HStack>
+          </Stack>
+        </HStack>
+      </HStack>
+    </>
+  );
+};
+export default Header;

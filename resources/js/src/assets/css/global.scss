@@ -1,0 +1,222 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* Scroll */
+.bet-swiper {
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px #c0c0c0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+// sports icons
+.sports-icon {
+  -webkit-box-align: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  display: -webkit-box;
+  display: flex;
+  font-size: 14px;
+  height: 1em;
+  -webkit-box-pack: center;
+  justify-content: center;
+  object-fit: cover;
+  overflow: visible;
+  width: 1em;
+  min-width: 1em;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: 100%;
+  background: #fff;
+}
+
+.betslip-icon {
+  background-color: #94a6cd;
+}
+
+.icon-soccer {
+  -webkit-mask-image: url(../img/sports/icons_football.svg);
+  mask-image: url(../img/sports/icons_football.svg);
+}
+
+.icon-basketball {
+  -webkit-mask-image: url(../img/sports/icons_basketball.svg);
+  mask-image: url(../img/sports/icons_basketball.svg);
+}
+
+.icon-cricket {
+  -webkit-mask-image: url(../img/sports/icons_criket.svg);
+  mask-image: url(../img/sports/icons_criket.svg);
+}
+
+.icon-american-football {
+  -webkit-mask-image: url(../img/sports/icons_regbi.svg);
+  mask-image: url(../img/sports/icons_regbi.svg);
+}
+
+.icon-tennis {
+  -webkit-mask-image: url(../img/sports/icons_tennis.svg);
+  mask-image: url(../img/sports/icons_tennis.svg);
+}
+
+/* Swiper slider */
+.bet-swiper {
+  height: 100%;
+  border-radius: 20px;
+
+  .swiper-button-prev {
+    z-index: 11;
+    left: unset;
+    top: unset;
+    bottom: 10px;
+    right: 55px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+
+    &::after {
+      color: rgb(218, 218, 218, 0.3);
+      font-size: 20px;
+      font-weight: bolder;
+    }
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.473);
+      &::after {
+        color: white;
+      }
+    }
+  }
+
+  .swiper-button-next {
+    z-index: 11;
+    bottom: 10px;
+    right: 10px;
+    top: unset;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+
+    &::after {
+      color: rgb(218, 218, 218, 0.3);
+      font-size: 20px;
+      font-weight: bolder;
+    }
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.473);
+      &::after {
+        color: white;
+      }
+    }
+  }
+
+  .swiper-pagination {
+    .swiper-pagination-bullet {
+      background: #5c636e;
+      opacity: 1;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #ffffff;
+    }
+  }
+
+  .swiper-slide {
+    height: unset !important;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+/*.popular-events */
+.popular-events {
+  height: 100%;
+  width: 100%;
+  padding-bottom: 16px !important;
+
+  &:hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+      opacity: 1;
+    }
+  }
+
+  .swiper-button-prev {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    opacity: 0;
+    background-color: #edf2ff;
+    box-shadow: 0 0 5px 0px #132034;
+
+    &::after {
+      color: #132034;
+      font-size: 12px;
+      font-weight: 900;
+    }
+  }
+
+  .swiper-button-next {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    opacity: 0;
+    background-color: #edf2ff;
+    box-shadow: 0 0 5px 0px #132034;
+
+    &::after {
+      color: #132034;
+      font-size: 12px;
+      font-weight: 900;
+    }
+  }
+
+  .swiper-pagination {
+    bottom: -6px !important;
+    .swiper-pagination-bullet {
+      background: #5c636e;
+      opacity: 1;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #5b8fdd;
+    }
+  }
+}
