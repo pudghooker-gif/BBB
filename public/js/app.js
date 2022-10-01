@@ -28927,7 +28927,12 @@ var Desktop = function Desktop(_ref) {
   });
 };
 
-var Mobile = function Mobile() {
+var Mobile = function Mobile(_ref3) {
+  var _ref4;
+
+  var langList = _ref3.langList,
+      showLang = _ref3.showLang,
+      closeLang = _ref3.closeLang;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
     className: "footer",
     sx: {
@@ -29332,101 +29337,273 @@ var Mobile = function Mobile() {
         my: 2
       },
       className: "footer-line-full"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+      alignItems: "center",
+      justifyContent: "space-between",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
         alignItems: "center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-              component: "img",
-              src: _assets_img_feature_casino_mentor_png__WEBPACK_IMPORTED_MODULE_9__["default"],
-              sx: {
-                height: '25px'
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-            className: "split"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-              component: "img",
-              src: _assets_img_feature_migliori_casino_online_png__WEBPACK_IMPORTED_MODULE_10__["default"],
-              sx: {
-                height: '25px'
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-            className: "split"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-              component: "img",
-              src: _assets_img_feature_best_bitcoin_casino_png__WEBPACK_IMPORTED_MODULE_11__["default"],
-              sx: {
-                height: '25px'
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-            className: "split"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-              component: "img",
-              src: _assets_img_feature_casinos_analyzer_png__WEBPACK_IMPORTED_MODULE_12__["default"],
-              sx: {
-                height: '25px'
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-            className: "split"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-              component: "img",
-              src: _assets_img_feature_cricket_betting_wali_png__WEBPACK_IMPORTED_MODULE_13__["default"],
-              sx: {
-                height: '25px'
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-            className: "split"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+        justifyContent: "center",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_18__["default"], {
           alignItems: "center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-              component: "img",
-              src: _assets_img_feature_br_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
-              sx: {
-                height: '39px'
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-            className: "split"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-          alignItems: "center",
+          justifyContent: "center",
           sx: {
-            textDecoration: "none",
-            color: '#34405e',
-            fontSize: 16,
-            fontWeight: 800
+            mr: 1.25,
+            height: '22px',
+            width: '15px',
+            position: 'relative',
+            '&:before': {
+              content: "\"\"",
+              position: 'absolute',
+              minWidth: '1px',
+              background: 'hsla(0,0%,100%,.1)',
+              top: '5px',
+              bottom: '5px',
+              right: '-5px'
+            }
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
-              component: "img",
-              src: _assets_img_feature_verified_seibet_png__WEBPACK_IMPORTED_MODULE_15__["default"],
-              sx: {
-                height: '39px'
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            component: "img",
+            src: _assets_img_feature_verified_seibet_png__WEBPACK_IMPORTED_MODULE_15__["default"],
+            sx: {
+              width: '15px',
+              height: '22px'
+            }
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+          sx: {
+            flexWrap: 'wrap',
+            maxWidth: '156px'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+            alignItems: "center",
+            sx: {
+              mr: '5px',
+              position: 'relative',
+              '&:before': {
+                content: "\"\"",
+                position: 'absolute',
+                minWidth: '1px',
+                background: 'hsla(0,0%,100%,.1)',
+                top: '5px',
+                bottom: '10px',
+                right: '-5px'
               }
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                component: "img",
+                src: _assets_img_feature_br_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
+                sx: {
+                  height: '23px',
+                  width: '23px'
+                }
+              })
             })
-          }), "18+"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+            sx: {
+              mx: '5px',
+              my: '2px'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                component: "img",
+                src: _assets_img_feature_casino_mentor_png__WEBPACK_IMPORTED_MODULE_9__["default"],
+                sx: {
+                  height: '18px'
+                }
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+            sx: {
+              mx: '5px',
+              my: '2px'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                component: "img",
+                src: _assets_img_feature_migliori_casino_online_png__WEBPACK_IMPORTED_MODULE_10__["default"],
+                sx: {
+                  height: '18px'
+                }
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+            sx: {
+              mx: '5px',
+              my: '2px'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                component: "img",
+                src: _assets_img_feature_best_bitcoin_casino_png__WEBPACK_IMPORTED_MODULE_11__["default"],
+                sx: {
+                  height: '18px'
+                }
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                component: "img",
+                src: _assets_img_feature_casinos_analyzer_png__WEBPACK_IMPORTED_MODULE_12__["default"],
+                sx: {
+                  height: '18px'
+                }
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+            sx: {
+              mx: '5px',
+              my: '2px'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                component: "img",
+                src: _assets_img_feature_cricket_betting_wali_png__WEBPACK_IMPORTED_MODULE_13__["default"],
+                sx: {
+                  height: '18px'
+                }
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+            sx: {
+              mx: '5px',
+              my: '2px'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              sx: {
+                fontWeight: 800,
+                fontSize: '14px',
+                lineHeight: '16px',
+                color: 'rgba(119,130,155,.4)',
+                marginLeft: '5px'
+              },
+              children: "+18"
+            })
+          })]
         })]
-      })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+        alignItems: "center",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+          sx: {
+            flexGrow: 0
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+            onClick: showLang,
+            className: "footer-btn",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              sx: {
+                fontSize: 12,
+                color: '#fff',
+                fontWeight: 700
+              },
+              children: "EN"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              component: "img",
+              sx: {
+                ml: 1.25,
+                width: 22
+              },
+              src: _assets_img_feature_en_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Menu__WEBPACK_IMPORTED_MODULE_30__["default"], {
+            sx: (_ref4 = {
+              mb: function mb(theme) {
+                return theme.spacing(6);
+              }
+            }, _defineProperty(_ref4, "& .MuiPopover-paper", {
+              bgcolor: 'white',
+              borderRadius: 2
+            }), _defineProperty(_ref4, "& .MuiPopover-paper ul", {
+              minWidth: function minWidth(theme) {
+                return theme.spacing(8);
+              }
+            }), _ref4),
+            id: "menu-appbar",
+            anchorEl: langList,
+            anchorOrigin: {
+              vertical: 'top',
+              horizontal: 'right'
+            },
+            keepMounted: true,
+            transformOrigin: {
+              vertical: 'bottom',
+              horizontal: 'right'
+            },
+            open: Boolean(langList),
+            onClose: closeLang,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_31__["default"], {
+              onClick: closeLang,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                textAlign: "center",
+                sx: {
+                  color: 'black',
+                  fontSize: function fontSize(theme) {
+                    return theme.spacing(1.5);
+                  }
+                },
+                children: "EN"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                component: "img",
+                src: _assets_img_feature_en_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
+                sx: {
+                  width: '15px',
+                  height: '15px',
+                  borderRadius: 50,
+                  ml: 1
+                }
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_31__["default"], {
+              onClick: closeLang,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                textAlign: "center",
+                sx: {
+                  color: 'black',
+                  fontSize: function fontSize(theme) {
+                    return theme.spacing(1.5);
+                  }
+                },
+                children: "PT"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                component: "img",
+                src: _assets_img_feature_pt_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
+                sx: {
+                  width: '15px',
+                  height: '15px',
+                  borderRadius: 50,
+                  ml: 1
+                }
+              })]
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          className: "footer-btn",
+          sx: {
+            ml: 1.25
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_icons_material_Publish__WEBPACK_IMPORTED_MODULE_32__["default"], {})
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        component: "span",
+        sx: {
+          fontSize: '9px',
+          fontWeight: 400,
+          color: '#34405e',
+          flex: 'auto'
+        },
+        children: "\xA9 2022 Seibet. "
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        component: "span",
+        sx: {
+          fontSize: '9px',
+          fontWeight: 400,
+          color: '#34405e',
+          flex: 'auto'
+        },
+        children: "1win.pro operated by 1WIN N.V. which is registered at Dr. H. Fergusonweg 1, Cura\xE7ao, with company number 147039, and having gaming license 8048/JAZ2018-040 and all rights to operate the gaming software. MFI INVESTMENTS LIMITED, a company, whose registered office is at 3, Chytron Street, Flat/Office 301, P.C. 1075 Nicosia, Cyprus with company number HE386738.EU company MFI Investments Ltd is providing payment services as an agent according to the license agreement concluded between MFI INVESTMENTS LIMITED and 1WIN N.V."
+      })]
     })]
   });
 };
@@ -29446,7 +29623,11 @@ var Footer = function Footer() {
   };
 
   var isMobile = (0,_mui_material_useMediaQuery__WEBPACK_IMPORTED_MODULE_38__["default"])('(max-width:425px)');
-  return isMobile ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(Mobile, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(Desktop, {
+  return isMobile ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(Mobile, {
+    langList: langList,
+    showLang: showLang,
+    closeLang: closeLang
+  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(Desktop, {
     langList: langList,
     showLang: showLang,
     closeLang: closeLang

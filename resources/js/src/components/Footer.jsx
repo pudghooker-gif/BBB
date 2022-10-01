@@ -296,7 +296,7 @@ const Desktop = ({ langList, showLang, closeLang }) => {
     );
 };
 
-const Mobile = () => {
+const Mobile = ({ langList, showLang, closeLang }) => {
     return (
         <Box className='footer' sx={{ p: 2 }}>
             <HStack sx={{ mb: 6, alignItems: 'center' }}>
@@ -430,53 +430,124 @@ const Mobile = () => {
                 <AstroPay />
             </HStack>
             <Box sx={{ my: 2 }} className='footer-line-full' />
-            <HStack>
-                <HStack alignItems='center'>
-                    <HStack>
-                        <Link>
-                            <Box component='img' src={casinoMentor} sx={{ height: '25px' }} />
-                        </Link>
-                        <Box className='split' />
-                    </HStack>
-                    <HStack>
-                        <Link>
-                            <Box component='img' src={miglioriCasinoOnline} sx={{ height: '25px' }} />
-                        </Link>
-                        <Box className='split' />
-                    </HStack>
-                    <HStack>
-                        <Link>
-                            <Box component='img' src={bestBitcoinCasino} sx={{ height: '25px' }} />
-                        </Link>
-                        <Box className='split' />
-                    </HStack>
-                    <HStack>
-                        <Link>
-                            <Box component='img' src={casinosAnalyzer} sx={{ height: '25px' }} />
-                        </Link>
-                        <Box className='split' />
-                    </HStack>
-                    <HStack>
-                        <Link>
-                            <Box component='img' src={cricketBettingWali} sx={{ height: '25px' }} />
-                        </Link>
-                        <Box className='split' />
-                    </HStack>
-                    <HStack alignItems='center'>
-                        <Link>
-                            <Box component='img' src={br} sx={{ height: '39px' }} />
-                        </Link>
-                        <Box className='split' />
-                    </HStack>
-                    <HStack alignItems='center' sx={{ textDecoration: "none", color: '#34405e', fontSize: 16, fontWeight: 800 }}>
-                        <Link>
-                            <Box component='img' src={verifiedSeibet} sx={{ height: '39px' }} />
-                        </Link>
-                        18+
+            <HStack alignItems='center' justifyContent="space-between">
+                <HStack alignItems='center' justifyContent="center">
+                    <Stack alignItems='center' justifyContent="center" sx={{
+                        mr: 1.25, height: '22px', width: '15px', position: 'relative', '&:before': {
+                            content: `""`, position: 'absolute', minWidth: '1px', background: 'hsla(0,0%,100%,.1)', top: '5px', bottom: '5px', right: '-5px'
+                        }
+                    }}>
+                        <Box component='img' src={verifiedSeibet} sx={{ width: '15px', height: '22px' }} />
+                    </Stack>
+                    <HStack sx={{ flexWrap: 'wrap', maxWidth: '156px' }}>
+                        <HStack alignItems='center' sx={{
+                            mr: '5px', position: 'relative',
+                            '&:before': {
+                                content: `""`, position: 'absolute', minWidth: '1px', background: 'hsla(0,0%,100%,.1)', top: '5px', bottom: '10px', right: '-5px'
+                            }
+                        }}>
+                            <Link>
+                                <Box component='img' src={br} sx={{ height: '23px', width: '23px' }} />
+                            </Link>
+                        </HStack>
+                        <HStack sx={{ mx: '5px', my: '2px' }}>
+                            <Link>
+                                <Box component='img' src={casinoMentor} sx={{ height: '18px' }} />
+                            </Link>
+                        </HStack>
+                        <HStack sx={{ mx: '5px', my: '2px' }}>
+                            <Link>
+                                <Box component='img' src={miglioriCasinoOnline} sx={{ height: '18px' }} />
+                            </Link>
+                        </HStack>
+                        <HStack sx={{ mx: '5px', my: '2px' }}>
+                            <Link>
+                                <Box component='img' src={bestBitcoinCasino} sx={{ height: '18px' }} />
+                            </Link>
+                        </HStack>
+                        <HStack>
+                            <Link>
+                                <Box component='img' src={casinosAnalyzer} sx={{ height: '18px' }} />
+                            </Link>
+                        </HStack>
+                        <HStack sx={{ mx: '5px', my: '2px' }}>
+                            <Link>
+                                <Box component='img' src={cricketBettingWali} sx={{ height: '18px' }} />
+                            </Link>
+                        </HStack>
+                        <HStack sx={{ mx: '5px', my: '2px' }}>
+                            <Typography sx={{
+                                fontWeight: 800, fontSize: '14px', lineHeight: '16px', color: 'rgba(119,130,155,.4)', marginLeft: '5px'
+                            }}>+18</Typography>
+                        </HStack>
                     </HStack>
                 </HStack>
+                <HStack alignItems='center'>
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Button
+                            onClick={showLang}
+                            className='footer-btn'
+                        >
+                            <Typography sx={{ fontSize: 12, color: '#fff', fontWeight: 700 }}>
+                                EN
+                            </Typography>
+                            <Box component='img' sx={{ ml: 1.25, width: 22 }} src={enlang} />
+                        </Button>
+                        <Menu
+                            sx={{
+                                mb: (theme) => theme.spacing(6),
+                                [`& .MuiPopover-paper`]: {
+                                    bgcolor: 'white',
+                                    borderRadius: 2,
+                                },
+                                [`& .MuiPopover-paper ul`]: {
+                                    minWidth: (theme) => theme.spacing(8)
+                                }
+                            }}
+                            id="menu-appbar"
+                            anchorEl={langList}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(langList)}
+                            onClose={closeLang}
+                        >
+                            <MenuItem onClick={closeLang}>
+                                <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>EN</Typography>
+                                <Box component='img' src={enlang} sx={{
+                                    width: '15px',
+                                    height: '15px',
+                                    borderRadius: 50,
+                                    ml: 1
+                                }} />
+                            </MenuItem>
+                            <MenuItem onClick={closeLang}>
+                                <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>PT</Typography>
+                                <Box component='img' src={ptlang} sx={{
+                                    width: '15px',
+                                    height: '15px',
+                                    borderRadius: 50,
+                                    ml: 1
+                                }} />
+                            </MenuItem>
+                        </Menu>
+                    </Box>
+                    <IconButton className='footer-btn' sx={{ ml: 1.25 }}>
+                        <PublishIcon />
+                    </IconButton>
+                </HStack>
             </HStack>
-        </Box>
+            <Box>
+                <Typography component='span' sx={{ fontSize: '9px', fontWeight: 400, color: '#34405e', flex: 'auto' }}>© 2022 Seibet. </Typography>
+                <Typography component='span' sx={{ fontSize: '9px', fontWeight: 400, color: '#34405e', flex: 'auto' }}>1win.pro operated by 1WIN N.V. which is registered at Dr. H. Fergusonweg 1, Curaçao, with company number 147039, and having gaming license 8048/JAZ2018-040 and all rights to operate the gaming software. MFI INVESTMENTS LIMITED, a company, whose registered office is at 3, Chytron Street, Flat/Office 301, P.C. 1075 Nicosia, Cyprus with company number HE386738.EU company MFI Investments Ltd is providing payment services as an agent according to the license agreement concluded between MFI INVESTMENTS LIMITED and 1WIN N.V.</Typography>
+            </Box>
+        </Box >
     )
 }
 
@@ -494,7 +565,7 @@ const Footer = () => {
     const isMobile = useMediaQuery('(max-width:425px)');
 
     return (
-        isMobile ? <Mobile /> : <Desktop {...{ langList, showLang, closeLang }} />
+        isMobile ? <Mobile {...{ langList, showLang, closeLang }} /> : <Desktop {...{ langList, showLang, closeLang }} />
     )
 }
 
