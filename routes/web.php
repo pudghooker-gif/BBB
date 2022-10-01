@@ -388,13 +388,15 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
 
     Route::get('sports/live', [
         'as' => 'frontend.sports.live',
-        'uses' => 'SportsController@live'
-        // 'uses' => 'SportsController@home'
+        // 'uses' => 'SportsController@live'
+        'uses' => 'SportsController@home'
     ]);
 
     Route::get('sports/prematch', [
         'as' => 'frontend.sports.prematch',
-        'uses' => 'SportsController@prematch'
+        // 'uses' => 'SportsController@prematch'
+        'uses' => 'SportsController@home'
+
     ]);
 
     Route::get('sports/event/{id}', [

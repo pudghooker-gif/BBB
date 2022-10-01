@@ -577,34 +577,6 @@
                     top: -100%;
                     left: -100%;
                 }
-
-                @-webkit-keyframes pulse-dot {
-                    0% {
-                        -webkit-transform: scale(0.33);
-                        transform: scale(0.33);
-                        opacity: 1;
-                    }
-
-                    to {
-                        -webkit-transform: scale(1);
-                        transform: scale(1);
-                        opacity: 0;
-                    }
-                }
-
-                @keyframes pulse-dot {
-                    0% {
-                        -webkit-transform: scale(0.33);
-                        transform: scale(0.33);
-                        opacity: 1;
-                    }
-
-                    to {
-                        -webkit-transform: scale(1);
-                        transform: scale(1);
-                        opacity: 0;
-                    }
-                }
             }
         }
     }
@@ -1999,5 +1971,111 @@
                 z-index: 2;
             }
         }
+    }
+}
+
+// component
+.animation-btn {
+    height: 30px;
+    border-radius: 8px !important;
+    text-transform: capitalize !important;
+    color: white !important;
+    margin-left: 10px;
+    box-shadow: 0 6px 18px 0 rgb(14 161 81 / 30%);
+    background-image: -webkit-linear-gradient(202deg, #009746 100%, #38c172 0);
+    background-image: linear-gradient(248deg, #009746 100%, #38c172 0);
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    line-height: 18px;
+    letter-spacing: -0.15px;
+    padding: 0 14px !important;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: calc(50% - 62px);
+        width: 92px;
+        height: 92px;
+        background-image: -webkit-radial-gradient(
+            16.68% 41.55%,
+            19.58% 37.96%,
+            hsla(0, 0%, 100%, 0.6) 0,
+            hsla(0, 0%, 100%, 0) 100%
+        );
+        background-image: radial-gradient(
+            19.58% 37.96% at 16.68% 41.55%,
+            hsla(0, 0%, 100%, 0.6) 0,
+            hsla(0, 0%, 100%, 0) 100%
+        );
+        -webkit-animation: flare-2 5s ease-in-out infinite;
+        animation: flare-2 5s ease-in-out infinite;
+    }
+}
+
+.btn {
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    height: 35px;
+    min-width: 36px;
+    overflow: hidden;
+    padding: 0 15px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    text-transform: capitalize !important;
+}
+
+.btn.success {
+    background-image: -webkit-linear-gradient(10deg, #31bc69 -8%, #089e4e 93%);
+    background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);
+    box-shadow: 0 6px 18px 0 rgb(14 161 81 / 30%);
+}
+
+.btn.primary {
+    background-image: -webkit-linear-gradient(top left, #0095ff, #0855c4);
+    background-image: linear-gradient(to bottom right, #0095ff, #0855c4);
+    box-shadow: 0 6px 22px 0 rgb(5 109 218 / 30%);
+}
+
+.btn.animation {
+    &:before {
+        content: "";
+        position: absolute;
+        top: calc(50% - 62px);
+        width: 92px;
+        height: 92px;
+        background-image: -webkit-radial-gradient(
+            16.68% 41.55%,
+            19.58% 37.96%,
+            hsla(0, 0%, 100%, 0.6) 0,
+            hsla(0, 0%, 100%, 0) 100%
+        );
+        background-image: radial-gradient(
+            19.58% 37.96% at 16.68% 41.55%,
+            hsla(0, 0%, 100%, 0.6) 0,
+            hsla(0, 0%, 100%, 0) 100%
+        );
+        -webkit-animation: flare-2 5s ease-in-out infinite;
+        animation: flare-2 5s ease-in-out infinite;
     }
 }

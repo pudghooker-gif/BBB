@@ -212,7 +212,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
 
         public function home(\Illuminate\Http\Request $request, $category1 = '', $category2 = '')
         {
-            // return view('frontend.app');
+            return view('frontend.app');
             $categories = [];
             $game_ids = [];
             $cat1 = false;

@@ -7,7 +7,7 @@ import { Slider, SportList, Tournament, Event } from '../../components/Part';
 const Live = () => {
     return (
         <Box sx={{ pt: 2 }}>
-            <Grid container spacing={2}>
+            {/* <Grid container spacing={2}>
                 <Grid item xs={2.2}>
                     <SportList />
                 </Grid>
@@ -22,7 +22,7 @@ const Live = () => {
                 <Grid item xs={2.2}>
                     <BetSlip />
                 </Grid>
-            </Grid>
+            </Grid> */}
         </Box>
     )
 };
