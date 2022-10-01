@@ -4391,6 +4391,34 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/ExpandLess.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@mui/icons-material/ExpandLess.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+}), 'ExpandLess');
+
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/Facebook.js":
 /*!******************************************************!*\
   !*** ./node_modules/@mui/icons-material/Facebook.js ***!
@@ -14299,6 +14327,153 @@ const tabClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiTab
 
 /***/ }),
 
+/***/ "./node_modules/@mui/material/esm/TableBody/TableBody.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/TableBody/TableBody.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/composeClasses/composeClasses.js");
+/* harmony import */ var _Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Table/Tablelvl2Context */ "./node_modules/@mui/material/esm/Table/Tablelvl2Context.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/esm/styles/useThemeProps.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/esm/styles/styled.js");
+/* harmony import */ var _tableBodyClasses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tableBodyClasses */ "./node_modules/@mui/material/esm/TableBody/tableBodyClasses.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["className", "component"];
+
+
+
+
+
+
+
+
+
+
+const useUtilityClasses = ownerState => {
+  const {
+    classes
+  } = ownerState;
+  const slots = {
+    root: ['root']
+  };
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_5__["default"])(slots, _tableBodyClasses__WEBPACK_IMPORTED_MODULE_6__.getTableBodyUtilityClass, classes);
+};
+
+const TableBodyRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])('tbody', {
+  name: 'MuiTableBody',
+  slot: 'Root',
+  overridesResolver: (props, styles) => styles.root
+})({
+  display: 'table-row-group'
+});
+const tablelvl2 = {
+  variant: 'body'
+};
+const defaultComponent = 'tbody';
+const TableBody = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function TableBody(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__["default"])({
+    props: inProps,
+    name: 'MuiTableBody'
+  });
+
+  const {
+    className,
+    component = defaultComponent
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(props, _excluded);
+
+  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+    component
+  });
+
+  const classes = useUtilityClasses(ownerState);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_9__["default"].Provider, {
+    value: tablelvl2,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(TableBodyRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, className),
+      as: component,
+      ref: ref,
+      role: component === defaultComponent ? null : 'rowgroup',
+      ownerState: ownerState
+    }, other))
+  });
+});
+ true ? TableBody.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * The content of the component, normally `TableRow`.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().node),
+
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object),
+
+  /**
+   * @ignore
+   */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string),
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().elementType),
+
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_10___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().bool)])), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object)])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TableBody);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/TableBody/tableBodyClasses.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/TableBody/tableBodyClasses.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "getTableBodyUtilityClass": () => (/* binding */ getTableBodyUtilityClass)
+/* harmony export */ });
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClass/generateUtilityClass.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClasses/generateUtilityClasses.js");
+
+function getTableBodyUtilityClass(slot) {
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_0__["default"])('MuiTableBody', slot);
+}
+const tableBodyClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiTableBody', ['root']);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (tableBodyClasses);
+
+/***/ }),
+
 /***/ "./node_modules/@mui/material/esm/TableCell/TableCell.js":
 /*!***************************************************************!*\
   !*** ./node_modules/@mui/material/esm/TableCell/TableCell.js ***!
@@ -14585,6 +14760,370 @@ const tableCellClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('
 
 /***/ }),
 
+/***/ "./node_modules/@mui/material/esm/TableRow/TableRow.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/TableRow/TableRow.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/composeClasses/composeClasses.js");
+/* harmony import */ var _mui_system__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/system */ "./node_modules/@mui/system/esm/colorManipulator.js");
+/* harmony import */ var _Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../Table/Tablelvl2Context */ "./node_modules/@mui/material/esm/Table/Tablelvl2Context.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/esm/styles/useThemeProps.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/esm/styles/styled.js");
+/* harmony import */ var _tableRowClasses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tableRowClasses */ "./node_modules/@mui/material/esm/TableRow/tableRowClasses.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["className", "component", "hover", "selected"];
+
+
+
+
+
+
+
+
+
+
+
+const useUtilityClasses = ownerState => {
+  const {
+    classes,
+    selected,
+    hover,
+    head,
+    footer
+  } = ownerState;
+  const slots = {
+    root: ['root', selected && 'selected', hover && 'hover', head && 'head', footer && 'footer']
+  };
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_5__["default"])(slots, _tableRowClasses__WEBPACK_IMPORTED_MODULE_6__.getTableRowUtilityClass, classes);
+};
+
+const TableRowRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])('tr', {
+  name: 'MuiTableRow',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, ownerState.head && styles.head, ownerState.footer && styles.footer];
+  }
+})(({
+  theme
+}) => ({
+  color: 'inherit',
+  display: 'table-row',
+  verticalAlign: 'middle',
+  // We disable the focus ring for mouse, touch and keyboard users.
+  outline: 0,
+  [`&.${_tableRowClasses__WEBPACK_IMPORTED_MODULE_6__["default"].hover}:hover`]: {
+    backgroundColor: (theme.vars || theme).palette.action.hover
+  },
+  [`&.${_tableRowClasses__WEBPACK_IMPORTED_MODULE_6__["default"].selected}`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : (0,_mui_system__WEBPACK_IMPORTED_MODULE_8__.alpha)(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+    '&:hover': {
+      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.hoverOpacity}))` : (0,_mui_system__WEBPACK_IMPORTED_MODULE_8__.alpha)(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity)
+    }
+  }
+}));
+const defaultComponent = 'tr';
+/**
+ * Will automatically set dynamic row height
+ * based on the material table element parent (head, body, etc).
+ */
+
+const TableRow = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function TableRow(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_9__["default"])({
+    props: inProps,
+    name: 'MuiTableRow'
+  });
+
+  const {
+    className,
+    component = defaultComponent,
+    hover = false,
+    selected = false
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(props, _excluded);
+
+  const tablelvl2 = react__WEBPACK_IMPORTED_MODULE_2__.useContext(_Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_10__["default"]);
+
+  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+    component,
+    hover,
+    selected,
+    head: tablelvl2 && tablelvl2.variant === 'head',
+    footer: tablelvl2 && tablelvl2.variant === 'footer'
+  });
+
+  const classes = useUtilityClasses(ownerState);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(TableRowRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    as: component,
+    ref: ref,
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, className),
+    role: component === defaultComponent ? null : 'row',
+    ownerState: ownerState
+  }, other));
+});
+ true ? TableRow.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * Should be valid <tr> children such as `TableCell`.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().node),
+
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().object),
+
+  /**
+   * @ignore
+   */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().string),
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().elementType),
+
+  /**
+   * If `true`, the table row will shade on hover.
+   * @default false
+   */
+  hover: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().bool),
+
+  /**
+   * If `true`, the table row will have the selected shading.
+   * @default false
+   */
+  selected: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().bool),
+
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_11___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_11___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_11___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_11___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_11___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_11___default().bool)])), (prop_types__WEBPACK_IMPORTED_MODULE_11___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_11___default().object)])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TableRow);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/TableRow/tableRowClasses.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/TableRow/tableRowClasses.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "getTableRowUtilityClass": () => (/* binding */ getTableRowUtilityClass)
+/* harmony export */ });
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClass/generateUtilityClass.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClasses/generateUtilityClasses.js");
+
+function getTableRowUtilityClass(slot) {
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_0__["default"])('MuiTableRow', slot);
+}
+const tableRowClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiTableRow', ['root', 'selected', 'hover', 'head', 'footer']);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (tableRowClasses);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/Table/Table.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@mui/material/esm/Table/Table.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/composeClasses/composeClasses.js");
+/* harmony import */ var _TableContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./TableContext */ "./node_modules/@mui/material/esm/Table/TableContext.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/esm/styles/useThemeProps.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/esm/styles/styled.js");
+/* harmony import */ var _tableClasses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tableClasses */ "./node_modules/@mui/material/esm/Table/tableClasses.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["className", "component", "padding", "size", "stickyHeader"];
+
+
+
+
+
+
+
+
+
+
+const useUtilityClasses = ownerState => {
+  const {
+    classes,
+    stickyHeader
+  } = ownerState;
+  const slots = {
+    root: ['root', stickyHeader && 'stickyHeader']
+  };
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_5__["default"])(slots, _tableClasses__WEBPACK_IMPORTED_MODULE_6__.getTableUtilityClass, classes);
+};
+
+const TableRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])('table', {
+  name: 'MuiTable',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, ownerState.stickyHeader && styles.stickyHeader];
+  }
+})(({
+  theme,
+  ownerState
+}) => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+  display: 'table',
+  width: '100%',
+  borderCollapse: 'collapse',
+  borderSpacing: 0,
+  '& caption': (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, theme.typography.body2, {
+    padding: theme.spacing(2),
+    color: (theme.vars || theme).palette.text.secondary,
+    textAlign: 'left',
+    captionSide: 'bottom'
+  })
+}, ownerState.stickyHeader && {
+  borderCollapse: 'separate'
+}));
+const defaultComponent = 'table';
+const Table = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function Table(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__["default"])({
+    props: inProps,
+    name: 'MuiTable'
+  });
+
+  const {
+    className,
+    component = defaultComponent,
+    padding = 'normal',
+    size = 'medium',
+    stickyHeader = false
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(props, _excluded);
+
+  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, {
+    component,
+    padding,
+    size,
+    stickyHeader
+  });
+
+  const classes = useUtilityClasses(ownerState);
+  const table = react__WEBPACK_IMPORTED_MODULE_2__.useMemo(() => ({
+    padding,
+    size,
+    stickyHeader
+  }), [padding, size, stickyHeader]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_TableContext__WEBPACK_IMPORTED_MODULE_9__["default"].Provider, {
+    value: table,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(TableRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+      as: component,
+      role: component === defaultComponent ? null : 'table',
+      ref: ref,
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, className),
+      ownerState: ownerState
+    }, other))
+  });
+});
+ true ? Table.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * The content of the table, normally `TableHead` and `TableBody`.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().node),
+
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object),
+
+  /**
+   * @ignore
+   */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string),
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().elementType),
+
+  /**
+   * Allows TableCells to inherit padding of the Table.
+   * @default 'normal'
+   */
+  padding: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOf(['checkbox', 'none', 'normal']),
+
+  /**
+   * Allows TableCells to inherit size of the Table.
+   * @default 'medium'
+   */
+  size: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOf(['medium', 'small']), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string)]),
+
+  /**
+   * Set the header sticky.
+   *
+   * ⚠️ It doesn't work with IE11.
+   * @default false
+   */
+  stickyHeader: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().bool),
+
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_10___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().bool)])), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object)])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Table);
+
+/***/ }),
+
 /***/ "./node_modules/@mui/material/esm/Table/TableContext.js":
 /*!**************************************************************!*\
   !*** ./node_modules/@mui/material/esm/Table/TableContext.js ***!
@@ -14638,6 +15177,29 @@ if (true) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tablelvl2Context);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/Table/tableClasses.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/Table/tableClasses.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "getTableUtilityClass": () => (/* binding */ getTableUtilityClass)
+/* harmony export */ });
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClass/generateUtilityClass.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClasses/generateUtilityClasses.js");
+
+function getTableUtilityClass(slot) {
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_0__["default"])('MuiTable', slot);
+}
+const tableClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiTable', ['root', 'stickyHeader']);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (tableClasses);
 
 /***/ }),
 
@@ -27678,6 +28240,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @mui/material/MenuItem */ "./node_modules/@mui/material/esm/MenuItem/MenuItem.js");
 /* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
 /* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
+/* harmony import */ var _mui_material_useMediaQuery__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @mui/material/useMediaQuery */ "./node_modules/@mui/material/esm/useMediaQuery/useMediaQuery.js");
+/* harmony import */ var _mui_material_Table__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @mui/material/Table */ "./node_modules/@mui/material/esm/Table/Table.js");
+/* harmony import */ var _mui_material_TableBody__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @mui/material/TableBody */ "./node_modules/@mui/material/esm/TableBody/TableBody.js");
+/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
+/* harmony import */ var _mui_material_TableRow__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @mui/material/TableRow */ "./node_modules/@mui/material/esm/TableRow/TableRow.js");
 /* harmony import */ var _mui_icons_material_MarkChatUnread__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material/MarkChatUnread */ "./node_modules/@mui/icons-material/MarkChatUnread.js");
 /* harmony import */ var _mui_icons_material_ChevronRight__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @mui/icons-material/ChevronRight */ "./node_modules/@mui/icons-material/ChevronRight.js");
 /* harmony import */ var _mui_icons_material_Help__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/icons-material/Help */ "./node_modules/@mui/icons-material/Help.js");
@@ -27686,6 +28253,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_icons_material_Instagram__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/icons-material/Instagram */ "./node_modules/@mui/icons-material/Instagram.js");
 /* harmony import */ var _mui_icons_material_Facebook__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @mui/icons-material/Facebook */ "./node_modules/@mui/icons-material/Facebook.js");
 /* harmony import */ var _mui_icons_material_Twitter__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @mui/icons-material/Twitter */ "./node_modules/@mui/icons-material/Twitter.js");
+/* harmony import */ var _mui_icons_material_ExpandLess__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @mui/icons-material/ExpandLess */ "./node_modules/@mui/icons-material/ExpandLess.js");
 /* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
 /* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
 /* harmony import */ var _assets_img_logo_logo_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../assets/img/logo/logo.png */ "./resources/js/src/assets/img/logo/logo.png");
@@ -27702,8 +28270,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_img_feature_br_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../assets/img/feature/br.svg */ "./resources/js/src/assets/img/feature/br.svg");
 /* harmony import */ var _assets_img_feature_verified_seibet_png__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../assets/img/feature/verified-seibet.png */ "./resources/js/src/assets/img/feature/verified-seibet.png");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -27716,6 +28282,7 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -27751,22 +28318,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var Footer = function Footer() {
-  var _ref;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-      _useState2 = _slicedToArray(_useState, 2),
-      langList = _useState2[0],
-      setLangList = _useState2[1];
 
-  var showLang = function showLang(event) {
-    setLangList(event.currentTarget);
-  };
 
-  var closeLang = function closeLang() {
-    setLangList(null);
-  };
 
+
+
+
+var Desktop = function Desktop(_ref) {
+  var _ref2;
+
+  var langList = _ref.langList,
+      showLang = _ref.showLang,
+      closeLang = _ref.closeLang;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
     className: "footer",
     sx: {
@@ -27932,7 +28496,11 @@ var Footer = function Footer() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_18__["default"], {
           sx: {
             mr: 1.25,
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            flexDirection: {
+              md: 'column',
+              xs: 'row'
+            }
           },
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
             className: "app-download",
@@ -28019,7 +28587,10 @@ var Footer = function Footer() {
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
           sx: {
-            display: 'flex',
+            display: {
+              md: 'flex',
+              xs: 'none'
+            },
             flexDirection: 'column',
             padding: 1.25,
             border: '1px solid hsla(0,0%,100%,.15)',
@@ -28141,18 +28712,18 @@ var Footer = function Footer() {
               src: _assets_img_feature_en_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Menu__WEBPACK_IMPORTED_MODULE_30__["default"], {
-            sx: (_ref = {
+            sx: (_ref2 = {
               mb: function mb(theme) {
                 return theme.spacing(6);
               }
-            }, _defineProperty(_ref, "& .MuiPopover-paper", {
+            }, _defineProperty(_ref2, "& .MuiPopover-paper", {
               bgcolor: 'white',
               borderRadius: 2
-            }), _defineProperty(_ref, "& .MuiPopover-paper ul", {
+            }), _defineProperty(_ref2, "& .MuiPopover-paper ul", {
               minWidth: function minWidth(theme) {
                 return theme.spacing(8);
               }
-            }), _ref),
+            }), _ref2),
             id: "menu-appbar",
             anchorEl: langList,
             anchorOrigin: {
@@ -28353,6 +28924,532 @@ var Footer = function Footer() {
         })
       })]
     })]
+  });
+};
+
+var Mobile = function Mobile() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    className: "footer",
+    sx: {
+      p: 2
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+      sx: {
+        mb: 6,
+        alignItems: 'center'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        component: "img",
+        src: _assets_img_logo_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"],
+        sx: {
+          height: 20
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        sx: {
+          ml: 3
+        },
+        className: "footer-line"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+      sx: {
+        position: 'relative'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_20__["default"], {
+        sx: {
+          ml: 1,
+          bgcolor: '#252f4b',
+          borderRadius: 2,
+          p: 0,
+          width: 24,
+          height: 24,
+          position: 'absolute',
+          bottom: '10px',
+          right: 0,
+          '&:hover': {
+            bgcolor: '#252f4b'
+          }
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_icons_material_ExpandLess__WEBPACK_IMPORTED_MODULE_33__["default"], {
+          sx: {
+            fontSize: '16px'
+          }
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_34__["default"], {
+        sx: {
+          width: 'auto'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_35__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_36__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_37__["default"], {
+              sx: {
+                p: 0,
+                border: 'unset'
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  color: '#5c72a380',
+                  pb: 1.25,
+                  lineHeight: 1.3,
+                  fontSize: 10,
+                  textTransform: 'uppercase'
+                },
+                children: "Information"
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_36__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_37__["default"], {
+              sx: {
+                p: 0,
+                border: 'unset'
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  pb: 1.25,
+                  fontWeight: 600,
+                  linHeight: 1.3,
+                  fontSize: 10
+                },
+                children: "Rules"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  pb: 1.25,
+                  fontWeight: 600,
+                  linHeight: 1.3,
+                  fontSize: 10
+                },
+                children: "Bonuses and promotions"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_37__["default"], {
+              sx: {
+                p: 0,
+                pl: 3,
+                border: 'unset'
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  pb: 1.25,
+                  fontWeight: 600,
+                  linHeight: 1.3,
+                  fontSize: 10
+                },
+                children: "Affiliate Program"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  pb: 1.25,
+                  fontWeight: 600,
+                  linHeight: 1.3,
+                  fontSize: 10
+                },
+                children: "Risk Disclosure"
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_36__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_37__["default"], {
+              sx: {
+                p: 0,
+                border: 'unset'
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  color: '#5c72a380',
+                  pb: 1.25,
+                  lineHeight: 1.3,
+                  fontSize: 10,
+                  textTransform: 'uppercase'
+                },
+                children: "Categories"
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_36__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_37__["default"], {
+              sx: {
+                p: 0,
+                border: 'unset'
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  pb: 1.25,
+                  fontWeight: 600,
+                  linHeight: 1.3,
+                  fontSize: 10
+                },
+                children: "Live"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  pb: 1.25,
+                  fontWeight: 600,
+                  linHeight: 1.3,
+                  fontSize: 10
+                },
+                children: "Sports"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  pb: 1.25,
+                  fontWeight: 600,
+                  linHeight: 1.3,
+                  fontSize: 10
+                },
+                children: "Promotions"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_37__["default"], {
+              sx: {
+                p: 0,
+                pl: 3,
+                border: 'unset'
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  pb: 1.25,
+                  fontWeight: 600,
+                  linHeight: 1.3,
+                  fontSize: 10
+                },
+                children: "Live-games"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  pb: 1.25,
+                  fontWeight: 600,
+                  linHeight: 1.3,
+                  fontSize: 10
+                },
+                children: "Pocker"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  pb: 1.25,
+                  fontWeight: 600,
+                  linHeight: 1.3,
+                  fontSize: 10
+                },
+                children: "Casino"
+              })]
+            })]
+          })]
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      sx: {
+        my: 2
+      },
+      className: "footer-line-full"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_18__["default"], {
+        sx: {
+          width: '100%',
+          justifyContent: 'space-between',
+          flexDirection: {
+            md: 'column',
+            xs: 'row'
+          }
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+          className: "app-download",
+          sx: {
+            display: 'flex',
+            width: 'calc(50% - 8px) !important'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+            alignItems: "center",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              component: "img",
+              src: _assets_img_feature_ios_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
+              sx: {
+                height: '25px'
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_18__["default"], {
+              sx: {
+                ml: 1,
+                textTransform: 'capitalize',
+                textAlign: 'start',
+                color: 'white'
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  fontSize: 8,
+                  lineHeight: '10px',
+                  color: 'hsla(0,0%,100%,.5)'
+                },
+                children: "Application"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  fontWeight: 600,
+                  fontSize: 10
+                },
+                children: "for IOS"
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_icons_material_Help__WEBPACK_IMPORTED_MODULE_24__["default"], {
+            sx: {
+              height: 16,
+              opacity: .45
+            }
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+          className: "app-download",
+          sx: {
+            display: 'flex',
+            width: 'calc(50% - 8px) !important'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+            alignItems: "center",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              component: "img",
+              src: _assets_img_feature_android_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
+              sx: {
+                height: '25px'
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_18__["default"], {
+              sx: {
+                ml: 1,
+                textTransform: 'capitalize',
+                textAlign: 'start',
+                color: 'white'
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  fontSize: 8,
+                  lineHeight: '10px',
+                  color: 'hsla(0,0%,100%,.5)'
+                },
+                children: "Application"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  fontWeight: 600,
+                  fontSize: 10
+                },
+                children: "for Android"
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_icons_material_Help__WEBPACK_IMPORTED_MODULE_24__["default"], {
+            sx: {
+              height: 16,
+              opacity: .45
+            }
+          })]
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+      sx: {
+        mt: 2,
+        p: 1.25,
+        borderRadius: 3,
+        alignItems: 'center',
+        background: 'linear-gradient(107.15deg,#1e283f,#141b2e99)'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_18__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          sx: {
+            fontSize: 10,
+            lineHeight: 1.3,
+            fontWeight: 600
+          },
+          children: "Support 24/7"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          sx: {
+            fontSize: 8,
+            lineHeight: 1.3,
+            mt: .1
+          },
+          children: "Write to us if you still have any questions!"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+        className: "btn active",
+        sx: {
+          borderRadius: 50,
+          height: 25,
+          width: 75,
+          ml: 'auto'
+        },
+        children: "Chat"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+      sx: {
+        mt: 2,
+        justifyContent: 'space-around'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.UEFA, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.UFC, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.WTA, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.FIBA, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.NNL, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.ATP, {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      sx: {
+        my: 2
+      },
+      className: "footer-line-full"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+      alignItems: "center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_20__["default"], {
+        className: "social_link",
+        sx: {
+          mr: 1.25,
+          width: 'calc(100% / 4 - 10px) !important'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+          href: "#",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_icons_material_Telegram__WEBPACK_IMPORTED_MODULE_26__["default"], {})
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_20__["default"], {
+        className: "social_link",
+        sx: {
+          mr: 1.25,
+          width: 'calc(100% / 4 - 10px) !important'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+          href: "#",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_icons_material_Instagram__WEBPACK_IMPORTED_MODULE_27__["default"], {})
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_20__["default"], {
+        className: "social_link",
+        sx: {
+          mr: 1.25,
+          width: 'calc(100% / 4 - 10px) !important'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+          href: "#",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_icons_material_Facebook__WEBPACK_IMPORTED_MODULE_28__["default"], {})
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_20__["default"], {
+        className: "social_link",
+        sx: {
+          width: 'calc(100% / 4 - 10px) !important'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+          href: "#",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_icons_material_Twitter__WEBPACK_IMPORTED_MODULE_29__["default"], {})
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      sx: {
+        my: 2
+      },
+      className: "footer-line-full"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+      sx: {
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        mx: -2
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Visa, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Master, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.GooglePay, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.ApplePay, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.BitCoin, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Qiwi, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Ether, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Tether, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Skrill, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Paytm, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Payneer, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Cos, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.FK, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.WebMoney, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.MuchBetter, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.JCB, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Discover, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Interace, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.AstroPay, {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      sx: {
+        my: 2
+      },
+      className: "footer-line-full"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+        alignItems: "center",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              component: "img",
+              src: _assets_img_feature_casino_mentor_png__WEBPACK_IMPORTED_MODULE_9__["default"],
+              sx: {
+                height: '25px'
+              }
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            className: "split"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              component: "img",
+              src: _assets_img_feature_migliori_casino_online_png__WEBPACK_IMPORTED_MODULE_10__["default"],
+              sx: {
+                height: '25px'
+              }
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            className: "split"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              component: "img",
+              src: _assets_img_feature_best_bitcoin_casino_png__WEBPACK_IMPORTED_MODULE_11__["default"],
+              sx: {
+                height: '25px'
+              }
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            className: "split"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              component: "img",
+              src: _assets_img_feature_casinos_analyzer_png__WEBPACK_IMPORTED_MODULE_12__["default"],
+              sx: {
+                height: '25px'
+              }
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            className: "split"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              component: "img",
+              src: _assets_img_feature_cricket_betting_wali_png__WEBPACK_IMPORTED_MODULE_13__["default"],
+              sx: {
+                height: '25px'
+              }
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            className: "split"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+          alignItems: "center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              component: "img",
+              src: _assets_img_feature_br_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
+              sx: {
+                height: '39px'
+              }
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            className: "split"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+          alignItems: "center",
+          sx: {
+            textDecoration: "none",
+            color: '#34405e',
+            fontSize: 16,
+            fontWeight: 800
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              component: "img",
+              src: _assets_img_feature_verified_seibet_png__WEBPACK_IMPORTED_MODULE_15__["default"],
+              sx: {
+                height: '39px'
+              }
+            })
+          }), "18+"]
+        })]
+      })
+    })]
+  });
+};
+
+var Footer = function Footer() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      langList = _useState2[0],
+      setLangList = _useState2[1];
+
+  var showLang = function showLang(event) {
+    setLangList(event.currentTarget);
+  };
+
+  var closeLang = function closeLang() {
+    setLangList(null);
+  };
+
+  var isMobile = (0,_mui_material_useMediaQuery__WEBPACK_IMPORTED_MODULE_38__["default"])('(max-width:425px)');
+  return isMobile ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(Mobile, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(Desktop, {
+    langList: langList,
+    showLang: showLang,
+    closeLang: closeLang
   });
 };
 
@@ -29291,7 +30388,7 @@ var MainLayout = function MainLayout() {
     sx: {
       px: '0 !important'
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Header__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Wrapper__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Header__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Wrapper__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Footer__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
   });
 };
 
@@ -29644,7 +30741,7 @@ var ___CSS_LOADER_URL_REPLACEMENT_4___ = _node_modules_css_loader_dist_runtime_g
 var ___CSS_LOADER_URL_REPLACEMENT_5___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_img_feature_separator_svg__WEBPACK_IMPORTED_MODULE_7__["default"]);
 var ___CSS_LOADER_URL_REPLACEMENT_6___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_img_feature_volleyball_png__WEBPACK_IMPORTED_MODULE_8__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* @font-face {\n    font-family: 'font name';\n    src: url(\"url\");\n} */\nbody {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, \"Courier New\", monospace;\n}\n\n/* Scroll */\n.bet-swiper {\n  height: 100%;\n}\n\n::-webkit-scrollbar {\n  width: 6px;\n}\n\n::-webkit-scrollbar-track {\n  box-shadow: inset 0 0 6px #c0c0c0;\n}\n\n::-webkit-scrollbar-thumb {\n  background-color: rgba(0, 0, 0, 0.7);\n}\n\n::-webkit-scrollbar-thumb:hover {\n  background: rgba(0, 0, 0, 0.1);\n}\n\n.sports-icon {\n  align-items: center;\n  background-repeat: no-repeat;\n  display: flex;\n  font-size: 14px;\n  height: 1em;\n  justify-content: center;\n  -o-object-fit: cover;\n     object-fit: cover;\n  overflow: visible;\n  width: 1em;\n  min-width: 1em;\n  -webkit-mask-repeat: no-repeat;\n  -webkit-mask-position: center;\n  -webkit-mask-size: 100%;\n  background: #fff;\n}\n\n.betslip-icon {\n  background-color: #94a6cd;\n}\n\n.icon-soccer {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n\n.icon-basketball {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n}\n\n.icon-cricket {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n}\n\n.icon-american-football {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n}\n\n.icon-tennis {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n}\n\n/* Swiper slider */\n.bet-swiper {\n  height: 100%;\n  border-radius: 20px;\n}\n.bet-swiper .swiper-button-prev {\n  z-index: 11;\n  left: unset;\n  top: unset;\n  bottom: 10px;\n  right: 55px;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-prev::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-prev:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-prev:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-button-next {\n  z-index: 11;\n  bottom: 10px;\n  right: 10px;\n  top: unset;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-next::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-next:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-next:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet-active {\n  background: #ffffff;\n}\n.bet-swiper .swiper-slide {\n  height: unset !important;\n}\n.bet-swiper .swiper-slide img {\n  width: 100%;\n  height: 100%;\n}\n\n/*.popular-events */\n.popular-events {\n  height: 100%;\n  width: 100%;\n  padding-bottom: 16px !important;\n}\n.popular-events:hover .swiper-button-prev,\n.popular-events:hover .swiper-button-next {\n  opacity: 1;\n}\n.popular-events .swiper-button-prev {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-prev::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-button-next {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-next::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-pagination {\n  bottom: -6px !important;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet-active {\n  background: #5b8fdd;\n}\n\n@-webkit-keyframes flare {\n  0% {\n    left: -45px;\n  }\n  20% {\n    left: calc(100% + 15px);\n  }\n  to {\n    left: calc(100% + 15px);\n  }\n}\n@keyframes flare {\n  0% {\n    left: -45px;\n  }\n  20% {\n    left: calc(100% + 15px);\n  }\n  to {\n    left: calc(100% + 15px);\n  }\n}\n@-webkit-keyframes flare-2 {\n  0% {\n    transform: translateX(-115%) rotate(-45deg);\n  }\n  20% {\n    transform: translateX(140%) rotate(-45deg);\n  }\n  to {\n    transform: translateX(140%) rotate(-45deg);\n  }\n}\n@keyframes flare-2 {\n  0% {\n    transform: translateX(-115%) rotate(-45deg);\n  }\n  20% {\n    transform: translateX(140%) rotate(-45deg);\n  }\n  to {\n    transform: translateX(140%) rotate(-45deg);\n  }\n}\n@-webkit-keyframes pulse-dot {\n  0% {\n    transform: scale(0.33);\n    opacity: 1;\n  }\n  to {\n    transform: scale(1);\n    opacity: 0;\n  }\n}\n@keyframes pulse-dot {\n  0% {\n    transform: scale(0.33);\n    opacity: 1;\n  }\n  to {\n    transform: scale(1);\n    opacity: 0;\n  }\n}\n.header_top {\n  height: 52px;\n  align-items: center;\n  justify-content: space-between !important;\n}\n.header_top .free_link {\n  padding: 5px 28px 6px 50px;\n  border-radius: 15px;\n  background-image: linear-gradient(285.39deg, #ffb800 -4.36%, #fff173 115.87%);\n  font-weight: 600;\n  color: #090f1e;\n  position: relative;\n  text-decoration: none;\n  align-items: center;\n  line-height: 1;\n  cursor: pointer;\n}\n.header_top .free_link .money_img {\n  background-image: url(\"https://cdn-1win.xyz/img/free-money-link-image.ac893118-120.png\");\n  display: \"block\";\n  width: 60px;\n  height: 33px;\n  position: absolute;\n  bottom: 0;\n  left: -6px;\n  background-size: 100%;\n  background-repeat: no-repeat;\n  pointer-events: none;\n}\n.header_top .top_promotion {\n  margin-right: 21px;\n  position: relative;\n}\n.header_top .top_promotion:before {\n  content: \"\";\n  display: block;\n  height: 14px;\n  width: 1px;\n  background: hsla(0deg, 0%, 100%, 0.2);\n  position: absolute;\n  right: -10px;\n  top: calc(50% - 7px);\n}\n.header_top .top_promotion .top_BonusLink {\n  height: 24px;\n  display: flex;\n  align-items: center;\n  border-radius: 13px;\n  background-color: rgba(78, 93, 134, 0.3);\n  border-bottom-left-radius: 30px;\n  border-top-left-radius: 30px;\n  position: relative;\n  cursor: pointer;\n  flex-direction: row;\n}\n.header_top .top_promotion .top_BonusLink .top_circle {\n  height: 28px;\n  width: 28px;\n  background: linear-gradient(86.37deg, #d062ff 2.96%, #7bb0ff 99.68%), linear-gradient(90deg, #ed6ea0, #ec8c69);\n  box-shadow: 0 5px 15px rgba(201, 85, 255, 0.4);\n  border-radius: 50%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-right: 10px;\n}\n.header_top .top_promotion .top_BonusLink .top_circle svg {\n  height: 1em;\n}\n.header_top .top_promotion .top_BonusLink .top_bonus_img {\n  position: absolute;\n  height: 54px;\n  transform: rotate(-13deg);\n  right: -17px;\n  top: -17px;\n  pointer-events: none;\n}\n.header_top .lang_btn {\n  width: 60px;\n  height: 24px;\n  min-height: 24px;\n  padding: 0;\n  background: rgba(78, 93, 134, 0.3);\n  font-size: 12px;\n  color: #fff;\n  border-radius: 8px;\n}\n.header_top .lang_btn .MuiButton-endIcon {\n  margin-left: 0px !important;\n}\n.header_top .lang_icon {\n  width: 15px;\n  height: 15px;\n  border-radius: 50px;\n  margin-left: 4px;\n}\n\n.header_wraper {\n  position: sticky;\n  z-index: 100;\n  top: -1px;\n  height: 47px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.header_wraper .header {\n  max-width: 1900px;\n  max-height: 47px;\n  height: 100%;\n  width: 100%;\n  margin: 0 auto;\n  padding: 0 10px;\n  display: flex;\n  -webkit-box-align: center;\n  justify-content: space-between;\n  align-items: center;\n  background-image: linear-gradient(92deg, #1e283f, rgba(20, 27, 46, 0.6));\n  background-color: #090f1e;\n  box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.6);\n  border-radius: 10px;\n  transition: border-radius 0.2s;\n  will-change: border-radius, transform;\n  position: relative;\n}\n.header_wraper .header .level-item {\n  align-items: center;\n  display: flex;\n}\n.header_wraper .header .level-item:not(:last-child) {\n  margin-right: 1rem;\n}\n.header_wraper .header .level-item .logo-container {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.header_wraper .header .level-item .logo-container a {\n  display: flex;\n}\n.header_wraper .header .level-item .user_btn {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n  background: #1f2841;\n  border-radius: 20px 8px 8px 20px;\n  padding: 3px 8px 3px 3px;\n  min-width: 0;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap {\n  align-items: center;\n  border-radius: 50%;\n  background-color: #2c3756;\n  display: flex;\n  font-size: 10px;\n  justify-content: center;\n  height: 29px;\n  width: 29px;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap svg {\n  font-size: 18px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-left: 5px;\n  width: 10px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap svg {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .login_btn {\n  background-image: linear-gradient(0deg, transparent, transparent);\n  background-color: #1f2841;\n  cursor: pointer;\n  border-radius: 8px;\n  color: #fff;\n  text-transform: capitalize;\n  padding: 6px 15px;\n  margin-right: 8px;\n}\n.header_wraper .header .level-item .login_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn {\n  background-image: linear-gradient(70deg, #31bc69 -8%, #089e4e 96%);\n  border-style: none;\n  text-transform: capitalize;\n  border-radius: 8px;\n  color: #fff;\n  padding: 6px 15px;\n}\n.header_wraper .header .level-item .register_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn .icon-wrap {\n  width: 20px;\n  height: 20px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background-image: linear-gradient(210deg, hsla(0deg, 0%, 100%, 0) 25%, hsla(0deg, 0%, 100%, 0.06) 48%, #fff 133%);\n  margin-right: 12px;\n  margin-left: -5px;\n}\n\n.footer .footer-line {\n  flex: 1;\n  height: 1px;\n  background: linear-gradient(90deg, hsla(0deg, 0%, 100%, 0.2) 9.92%, transparent);\n}\n.footer .footer-line-full {\n  flex: 1;\n  height: 1px;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n}\n.footer .contact-btn {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  border-radius: 6px !important;\n  background-image: linear-gradient(144deg, #0095ff -27%, #0855c4 151%, #0855c4 0);\n  padding: 0;\n}\n.footer .app-download {\n  width: 175px;\n  height: 42px;\n  display: flex;\n  border: 1px solid hsla(0deg, 0%, 100%, 0.15);\n  border-radius: 12px;\n  align-items: center;\n  padding: 0 15px;\n  transition: border 0.25s ease-out;\n  cursor: pointer;\n  justify-content: space-between;\n}\n.footer .social_link {\n  border-radius: 10px;\n  align-items: center;\n  display: flex;\n  height: 35px;\n  justify-content: center;\n  text-align: center;\n  width: 35px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.footer .social_link:hover {\n  transform: scale(1.1);\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition: transform 0.3s ease-out;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition-property: transform;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n}\n.footer .social_link a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.footer .social_link a svg {\n  color: white;\n}\n.footer .social_link:nth-child(1) {\n  background: linear-gradient(240.2deg, #0fb1d6, #08c 61.34%);\n  box-shadow: 0 5px 16px rgba(76, 162, 246, 0.3);\n}\n.footer .social_link:nth-child(2) {\n  background: linear-gradient(214.99deg, #7e2bf4 7.65%, #ed146e 51.93%, #ffc90c 95.29%);\n  box-shadow: 0 5px 16px rgba(186, 77, 101, 0.3);\n}\n.footer .social_link:nth-child(3) {\n  background: linear-gradient(135deg, #82a4e9, #4267b2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .social_link:nth-child(4) {\n  background: linear-gradient(135deg, #79ccff, #1da1f2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .footer-btn {\n  background: linear-gradient(92.58deg, #1e283f, rgba(20, 27, 46, 0.6) 99.71%);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 10px;\n  height: 100%;\n}\n.footer .payments {\n  align-items: center;\n  justify-content: space-around;\n  width: 100%;\n  margin: 0 124px;\n}\n.footer .payments svg {\n  font-size: 25px;\n  width: auto;\n}\n.footer .PaymentSection_icon_17jgt [class$=mono] {\n  opacity: 1;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt {\n  cursor: pointer;\n  width: auto;\n  font-size: 19px;\n}\n.footer .PaymentSection_icon_17jgt [class$=color] {\n  opacity: 0;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=color],\n.footer .PaymentSection_icon_17jgt:hover [class$=color] {\n  opacity: 1;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=mono],\n.footer .PaymentSection_icon_17jgt:hover [class$=mono] {\n  opacity: 0;\n}\n.footer .split {\n  height: 25px;\n  width: 1px;\n  background: rgba(151, 174, 225, 0.11);\n  margin: 0 10px;\n}\n\n.middle-item {\n  height: 75px;\n  border-radius: 12px;\n  padding-left: 25px;\n  display: flex;\n  justify-content: center;\n  flex-direction: column !important;\n  position: relative;\n  cursor: pointer;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  color: white;\n}\n.middle-item:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  border-radius: inherit;\n  z-index: 0;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  opacity: 0.7;\n  transition: opacity 0.15s ease-in-out;\n}\n.middle-item:hover:before {\n  opacity: 1;\n}\n.middle-item .middle-item-img-wrap {\n  position: absolute;\n  right: 17px;\n  width: 40%;\n  height: 0;\n  max-width: 61px;\n  display: flex;\n  align-items: center;\n}\n.middle-item .middle-item-img-wrap .middle-item-img {\n  position: absolute;\n  width: 100%;\n}\n.middle-item .middle-item-img-wrap .middle-item-img img {\n  height: auto;\n  max-width: 100%;\n}\n\n.home-tab {\n  border-top-left-radius: 12px;\n  overflow: hidden;\n  z-index: 2;\n  pointer-events: none;\n  filter: drop-shadow(0 1px 0 #edf2ff);\n}\n.home-tab .home-tab-title {\n  position: relative;\n  height: 34px;\n  padding: 16px 30px 0px 25px;\n  margin-right: 15px;\n  display: -webkit-box;\n  justify-content: center;\n  align-items: flex-end;\n  color: #090f1e;\n  font-size: 17px;\n  letter-spacing: -0.4px;\n  font-weight: 700;\n}\n.home-tab .home-tab-title:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: calc(100% + 16px);\n  top: 0;\n  left: -16px;\n  background-color: #edf2ff;\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n.home-tab .home-tab-title:after {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  border-radius: 5px;\n  width: 10px;\n  right: -10px;\n  top: 0;\n  transform: skewX(30deg);\n  box-sizing: unset;\n  box-shadow: 0 0 0 5px #edf2ff;\n  clip: rect(16px, 6px, 50px, -10px);\n}\n.home-tab .home-tab-title .populart-icon {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center {\n  background: #fa203b;\n  border-radius: 50%;\n  display: block;\n  position: relative;\n  min-width: 7px;\n  min-height: 7px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center:before {\n  content: \"\";\n  -webkit-animation: pulse-dot 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n  animation: pulse-dot 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n  position: absolute;\n  width: 300%;\n  height: 300%;\n  border-radius: 50%;\n  background: #fa203b;\n  top: -100%;\n  left: -100%;\n}\n\n.home-tab-all {\n  position: relative;\n  height: 34px;\n  justify-content: center;\n  padding: 0 16px 0 34px;\n  margin-left: -30px;\n  font-weight: 600;\n  z-index: 1;\n  font-size: 11px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n}\n.home-tab-all:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  top: 0;\n  background-image: linear-gradient(-45deg, #0855c4, #0095ff);\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n\n.toggle-switcher-item {\n  height: 30px;\n  max-width: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  display: flex;\n  align-items: center;\n}\n.toggle-switcher-item:not(:first-child) {\n  margin-left: 5px;\n}\n.toggle-switcher-item:after, .toggle-switcher-item:before {\n  transition: opacity 0.25s;\n  will-change: opacity;\n  content: \"\";\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  opacity: 0;\n  border-radius: inherit;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper {\n  z-index: 1;\n  display: inline-flex;\n  align-items: center;\n  position: relative;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon {\n  min-width: 30px;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon .no-margin {\n  margin: 0px !important;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-label {\n  font-size: 13px;\n  color: #fff;\n  font-weight: 700;\n  margin-right: 10px;\n  margin-left: 2px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  opacity: 1;\n  white-space: nowrap;\n}\n\n.toggle-switcher-item.active {\n  height: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  max-width: 158px;\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n}\n\n.home-tab-content {\n  border-radius: 12px;\n  border-top-left-radius: 0;\n  background-color: #edf2ff;\n  display: flex;\n  flex-direction: column;\n  position: relative;\n}\n.home-tab-content .match-table-head-underlay {\n  border-radius: 8px;\n  background-image: linear-gradient(273deg, #0855c4, #0095ff);\n  position: absolute;\n  width: calc(100% - 40px);\n  height: 30px;\n  left: 20px;\n  top: 32px;\n}\n.home-tab-content .sport-grids {\n  margin: 20px 0;\n  width: 100%;\n  position: relative;\n  z-index: 1;\n  color: black;\n}\n.home-tab-content .sport-grids th,\n.home-tab-content .sport-grids td {\n  border-bottom: unset !important;\n}\n.home-tab-content .sport-grids .match-table-match-row {\n  min-height: 50px;\n  height: 50px;\n  cursor: pointer;\n}\n.home-tab-content .sport-grids .match-table-match-row:nth-child(even) {\n  background-color: #dce6f7;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell {\n  padding: 10px 5px;\n  width: 1px;\n  height: 70px;\n  max-height: 70px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:first-child {\n  padding-left: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:last-child {\n  padding-right: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info {\n  display: flex;\n  align-items: center;\n  justify-content: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-date {\n  font-size: 11px;\n  opacity: 0.5;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-time {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info {\n  position: relative;\n  padding-left: 13px;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info:before {\n  content: \"\";\n  position: absolute;\n  width: 3px;\n  height: 100%;\n  border-radius: 1.5px;\n  left: 0;\n  background-image: linear-gradient(356deg, #0095ff, #0855c4);\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-team {\n  font-size: 13px;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info {\n  margin-top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info span {\n  font-size: 11px;\n  font-weight: 500;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-period-score {\n  color: #888;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-separator {\n  color: #888;\n  display: inline-block;\n  margin: 0 7px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time span {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time svg {\n  font-size: 12px;\n  margin-right: 8px;\n  color: #87a2da;\n  position: relative;\n  top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-odds-chip-wrap .match-table-odds-chip {\n  height: 30px;\n  background-color: rgba(8, 84, 195, 0.2);\n  padding: 0 10px;\n  font-size: 11px;\n  font-weight: 500;\n  border-radius: 8px;\n  align-items: center;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell button {\n  border-radius: 12px;\n  color: black;\n}\n\n.popular-wrap {\n  width: 100%;\n}\n.popular-wrap .live-event-main {\n  height: 145px;\n  background-color: #fff;\n  border-radius: 12px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  color: #090f1e;\n  padding: 16px;\n  border: 1px solid #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  cursor: pointer;\n}\n.popular-wrap .live-event-main:hover {\n  border: 1px solid #a1c3e1;\n}\n.popular-wrap .live-event-main .match-header {\n  align-items: flex-start;\n  display: flex;\n  align-items: center;\n  height: 20px;\n  box-sizing: initial;\n}\n.popular-wrap .live-event-main .match-header .top-live-match-score {\n  font-size: 20px;\n  font-weight: 800;\n  letter-spacing: 0.3px;\n  line-height: 0.95;\n  margin-right: 1rem;\n}\n.popular-wrap .live-event-main .match-header .match-score-period {\n  border: 0.5px solid rgba(108, 125, 163, 0.4);\n  border-radius: 7px;\n  font-size: 11px;\n  padding: 3px 6px;\n}\n.popular-wrap .live-event-main .top-live-match-info {\n  align-items: center;\n  display: flex;\n  height: 30px;\n  margin: 8px 0px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams {\n  overflow: hidden;\n  padding: 0 10px;\n  position: relative;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams:before {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n  border-radius: 290486px;\n  bottom: 0;\n  content: \"\";\n  left: 0;\n  position: absolute;\n  top: 0;\n  width: 3px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team {\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team .helper-line {\n  font-size: 12px;\n  font-weight: 600;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .match-details {\n  align-items: center;\n  color: #6c7da3;\n  display: flex;\n  font-size: 11px;\n  line-height: 1;\n  margin-bottom: 8px;\n}\n.popular-wrap .live-event-main .match-odd-list {\n  display: flex;\n  list-style: none;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item {\n  flex: 1;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd {\n  align-items: center;\n  background-color: rgba(108, 125, 163, 0.2);\n  border-radius: 12px;\n  cursor: pointer;\n  font-size: 14px;\n  height: 36px;\n  min-width: 36px;\n  padding: 0 10px;\n  transition: all 0.3s;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values {\n  will-change: contents;\n  transition: all 0.3s;\n  align-items: center;\n  display: flex;\n  pointer-events: none;\n  height: 100%;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-name {\n  margin-right: 5px;\n  text-transform: uppercase;\n  color: black;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-value {\n  margin-left: auto;\n  font-weight: 700;\n  text-align: right;\n  color: black;\n}\n\n.section-card {\n  border-radius: 12px;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  position: relative;\n  padding: 25px;\n}\n.section-card .section-card-top-line {\n  position: absolute;\n  top: 0;\n  left: 25px;\n  right: 25px;\n  height: 4px;\n  border-bottom-left-radius: 100px;\n  border-bottom-right-radius: 100px;\n  background-size: 200% auto;\n  -webkit-animation: notch-bg-slide-01a6027a 4s linear 0s infinite alternate;\n  animation: notch-bg-slide-01a6027a 4s linear 0s infinite alternate;\n  will-change: background-position;\n  background-image: linear-gradient(90deg, rgb(0, 183, 255) 0%, rgb(199, 0, 255) 50%, rgb(255, 187, 0) 100%);\n}\n.section-card .section-card-header {\n  justify-content: space-between;\n  align-items: flex-end;\n  z-index: 10;\n}\n.section-card .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-bottom: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.section-card .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.section-card .game-card .game-card-image-container {\n  padding-bottom: 75%;\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.section-card .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n.section-card .section-card-bg {\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  border-radius: 12px;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg {\n  height: 100%;\n  display: flex;\n  justify-content: flex-end;\n  align-items: flex-end;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow {\n  position: relative;\n  height: 100%;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-glow {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  filter: blur(30px) saturate(1);\n  top: 0px;\n  opacity: 0.5;\n  transform: translateZ(0px);\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-content-wrapper {\n  position: relative;\n  height: 100%;\n  width: 100%;\n}\n.section-card .SectionPokerBanner_contentButton {\n  height: 45px;\n  color: #fff;\n  text-transform: capitalize !important;\n  border-radius: 8px;\n  background-image: linear-gradient(255deg, #00b7ff, #8d53e9);\n  padding: 0 25px;\n  cursor: pointer;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  font-size: 15px;\n  position: relative;\n  overflow: hidden;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  margin-top: 10px;\n}\n.section-card .SectionPokerBanner_contentButton:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 20%;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  left: -25%;\n  transform: skewX(-20deg);\n}\n\n.sports-list {\n  background-color: rgb(20, 27, 46);\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  overflow: hidden;\n  height: 100%;\n  flex-shrink: 0;\n  max-height: 100%;\n  border-radius: 8px;\n  display: flex;\n  padding: 10px;\n  height: calc(100vh - 80px);\n  position: sticky;\n  top: 64px;\n}\n.sports-list .sports-search-wrap {\n  position: relative;\n  margin: 10px 0px;\n  padding: 10px 0px;\n}\n.sports-list .sports-search-wrap:before {\n  bottom: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap:after {\n  top: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap .search-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n}\n.sports-list .sports-search-wrap .search-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-search-wrap .casino-search {\n  width: 100%;\n  border-radius: 8px;\n  background-color: #1f2941;\n}\n.sports-list .sports-search-wrap .casino-search input {\n  color: #7388b6;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: -0.19px;\n  width: 201px;\n  padding: 10px 10px 10px 0px;\n}\n.sports-list .sports-search-wrap .casino-search fieldset {\n  display: none;\n}\n.sports-list .sports-list-body {\n  overflow: hidden auto;\n}\n.sports-list .sports-list-body .list-item {\n  position: relative;\n}\n.sports-list .sports-list-body .list-item .item-btn-wrap {\n  position: sticky;\n  top: 0;\n  z-index: 3;\n}\n.sports-list .sports-list-body .list-item .section-list {\n  padding: 0.5rem 0;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header {\n  align-items: center;\n  color: #616e8c;\n  display: flex;\n  line-height: 25px;\n  min-height: 25px;\n  font-size: 12px;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header:after {\n  background-color: currentColor;\n  content: \"\";\n  display: block;\n  flex-grow: 1;\n  height: 1px;\n  margin-left: 8px;\n}\n.sports-list .sports-list-item-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n}\n.sports-list .sports-list-item-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-list-item-btn:hover {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n\n.betslip {\n  border-radius: 10px;\n  padding: 10px;\n  margin-bottom: 15px;\n  position: sticky;\n  top: 64px;\n  background-image: linear-gradient(135deg, #233358, rgba(20, 27, 46, 0.6));\n}\n.betslip .bet-tabbar {\n  margin-bottom: 15px;\n}\n.betslip .bet-tabbar .slip-title {\n  align-items: center;\n  background-color: hsla(0deg, 0%, 100%, 0.1);\n  border-radius: 8px;\n  display: flex;\n  flex: auto;\n  font-size: 12px;\n  height: 30px;\n  justify-content: center;\n  text-align: center;\n  transition: opacity 0.2s;\n  position: relative;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n.betslip .bet-tabbar .slip-title .slip-count {\n  background-color: white;\n  color: #0059c5;\n  border-radius: 50px;\n  width: 14px;\n  height: 14px;\n  font-size: 10px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  right: 32%;\n  position: absolute;\n  letter-spacing: 1px;\n  line-height: 1;\n}\n.betslip .slip-Odd {\n  align-items: center;\n  display: flex;\n  flex-shrink: 0;\n  justify-content: center;\n  font-weight: 700;\n  font-size: 12px;\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n  align-self: stretch;\n  margin-right: 8px;\n  width: 46px;\n  min-width: none;\n  padding: 0px !important;\n  min-width: 0px !important;\n  z-index: 2;\n}\n.betslip .close-odd {\n  color: #94a6cd;\n  font-size: 11px;\n  z-index: 1;\n  background-color: rgba(148, 166, 205, 0.11);\n  border-radius: 10px;\n  width: 28px;\n  height: 28px;\n  margin-left: auto;\n  padding: 0px;\n}\n.betslip .close-odd:hover {\n  background-color: #60afff;\n}\n.betslip .close-odd:hover svg {\n  color: white;\n}\n.betslip .sliip-teams {\n  grid-area: teams;\n  padding: 2px 0 2px 10px;\n  position: relative;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.betslip .sliip-teams:before {\n  content: \"\";\n  width: 3.5px;\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.3);\n  border-radius: 0 10px 10px 0;\n}\n.betslip .live-mark {\n  align-self: end;\n  border-radius: 10px;\n  color: #f62525;\n  display: flex;\n  font-size: 9px;\n  font-weight: 700;\n  grid-area: service;\n  letter-spacing: 0.17px;\n  text-transform: uppercase;\n  position: relative;\n  padding-right: 10px;\n  align-items: center;\n}\n.betslip .live-mark .live-dot {\n  background-image: radial-gradient(50% 50% at 50% 50%, rgba(246, 37, 37, 0) 0, rgba(246, 37, 37, 0.2) 100%);\n  border-radius: 50px;\n  height: 12px;\n  margin-right: 3px;\n  width: 12px;\n  position: relative;\n}\n.betslip .live-mark .live-dot:before {\n  content: \"\";\n  width: 4px;\n  height: 4px;\n  border-radius: 50px;\n  background-color: #f62525;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  margin: auto;\n}\n.betslip .live-mark span {\n  font-family: Tahoma, \"sans-serif\";\n}\n.betslip .enter-stake {\n  width: 100%;\n}\n.betslip .enter-stake input {\n  font-size: 12px;\n  width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  color: #090f1e;\n  height: 14px;\n  padding: 7px 10px 9px;\n}\n.betslip .enter-stake fieldset {\n  display: none;\n}\n.betslip .express-slip {\n  position: relative;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  overflow: hidden;\n}\n.betslip .express-slip:first-child {\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n}\n.betslip .express-slip:after {\n  content: \"\";\n  bottom: 0px;\n  left: 15px;\n  position: absolute;\n  right: 15px;\n  z-index: 110;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_5___ + ");\n  height: 1px;\n}\n.betslip .total-odd {\n  background-color: #fff;\n  border-bottom-left-radius: 10px;\n  border-bottom-right-radius: 10px;\n  margin-bottom: 10px;\n  padding: 10px;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.betslip .total-odd .btn {\n  background-image: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  border-radius: 8px;\n  color: white;\n  text-transform: capitalize;\n  font-size: 12px;\n  font-weight: 800;\n  padding: 4px 24px;\n}\n\n.tournament-table {\n  border-radius: 8px;\n  color: #000;\n  contain: content;\n  overflow: hidden;\n  text-align: center;\n  width: 100%;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  table-layout: fixed;\n}\n.tournament-table .table-header {\n  color: #fff;\n}\n.tournament-table .table-header .table-row {\n  height: 40px;\n}\n.tournament-table .table-header .table-row .tournament-cell {\n  font-size: 14px;\n  line-height: 1.1;\n  text-align: left;\n  position: relative;\n}\n.tournament-table .table-header .table-row .tournament-cell .tournament-cell-inner {\n  display: flex;\n  align-items: center;\n  padding: 10px 15px;\n}\n.tournament-table .table-header .table-row .odd-cell-h {\n  color: #b1d1ff;\n  font-size: 11px;\n  letter-spacing: -0.1px;\n  min-width: 30px;\n  text-align: center;\n  text-transform: uppercase;\n  width: 6%;\n}\n.tournament-table .table-header .table-row th {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row {\n  background-color: #edf2ff;\n  cursor: pointer;\n}\n.tournament-table .table-body .match-row:hover {\n  background-color: #1b2029;\n}\n.tournament-table .table-body .match-row:hover .match-info .favourite,\n.tournament-table .table-body .match-row:hover .match-info .match-date,\n.tournament-table .table-body .match-row:hover .odd-cell .odd-coefficient,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed,\n.tournament-table .table-body .match-row:hover .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  color: white;\n}\n.tournament-table .table-body .match-row td {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row .match-info {\n  align-items: center;\n  display: flex;\n  padding: 5px;\n}\n.tournament-table .table-body .match-row .match-info .favourite {\n  color: #bfd2f3;\n}\n.tournament-table .table-body .match-row .match-info .match-date {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .match-separator {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  border-radius: 1.5px;\n  flex: none;\n  height: 2rem;\n  margin: 2px 6px;\n  opacity: 0.8;\n  width: 3px;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container {\n  align-items: center;\n  display: flex;\n  flex: 1;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block {\n  align-items: center;\n  display: flex;\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams {\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team {\n  display: flex;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  overflow: hidden;\n  position: relative;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto {\n  display: flex;\n  margin-left: auto;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics {\n  font-weight: 500;\n  letter-spacing: -0.1px;\n  margin-right: 5px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line {\n  display: flex;\n  justify-content: flex-end;\n  text-align: right;\n  margin: 0px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-periods {\n  color: #888;\n  font-size: 10px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed {\n  color: black;\n  font-size: 12px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line svg {\n  color: #87a2da;\n  font-size: 16px;\n}\n.tournament-table .table-body .match-row .odd-cell {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  position: relative;\n}\n.tournament-table .table-body .match-row .odd-cell:before {\n  position: absolute;\n  content: \"\";\n  background-color: rgba(152, 160, 181, 0.1019607843);\n  /* background-color: rgb(20 27 46 / 15%); */\n  width: 100%;\n  height: 100%;\n  top: 0;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient {\n  border-radius: 8px;\n  font-weight: 600;\n  letter-spacing: -0.2px;\n  padding: 2px 12px;\n  text-align: center;\n  min-width: 0;\n  color: black;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient:hover {\n  background-color: #9ea5b4;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient.active {\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n}\n.tournament-table .table-body .match-row .odd-cell.disable {\n  background-color: rgba(20, 27, 46, 0.7);\n  cursor: initial;\n}\n\n.event-content {\n  flex: 1;\n  background-size: 100% auto;\n  background-repeat: no-repeat;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_6___ + ");\n}\n.event-content .btn {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  align-items: center;\n  background-color: #252f4b;\n  border-radius: 8px;\n  color: #fff;\n  display: flex;\n  font-size: 12px;\n  font-weight: 500;\n  height: 30px;\n  min-width: 0px;\n  justify-content: center;\n  letter-spacing: 0.2px;\n  padding: 0 10px;\n  text-align: center;\n  transition: all 0.2s ease-out;\n}\n.event-content .market-head {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  cursor: pointer;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0px 10px;\n}\n.event-content .market-body {\n  display: flex;\n  flex-wrap: wrap;\n  margin-right: -1px;\n  margin-bottom: -1px;\n}\n.event-content .market-body .market-wrap {\n  padding-right: 1px;\n  min-width: 30%;\n  display: flex;\n  flex-grow: 1;\n}\n.event-content .market-body .market-wrap .market-btn {\n  width: 100%;\n  margin-bottom: 1px;\n  background-color: #e4ebff;\n  border-radius: 0px;\n  display: flex;\n  justify-content: space-between;\n  padding: 4px 0px 4px 10px;\n}\n.event-content .market-body .market-wrap .market-btn:hover {\n  background-color: #1b2029;\n}\n.event-content .market-body .market-wrap .market-btn:hover p {\n  color: white !important;\n}\n.event-content .market-body .market-wrap .market-btn .market-name {\n  font-size: 12px;\n  color: #252f4b;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd {\n  font-size: 14px;\n  font-weight: 600;\n  color: #090f1e;\n  padding: 5px 8px;\n  border-radius: 8px;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd.active {\n  background-image: linear-gradient(135deg, #108de7, #0855c4);\n  color: white;\n}\n\n.casino .casino-top {\n  padding: 0 15px 15px 15px;\n  align-items: center;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  color: #fff;\n  opacity: 1;\n  position: relative;\n  z-index: 1;\n  cursor: pointer;\n  flex: 1;\n  height: 100%;\n}\n.casino .casino-top:before {\n  content: \"\";\n  position: absolute;\n  border-radius: 12px;\n  z-index: -2;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: radial-gradient(circle at -65% 157%, #c5991e, #b68100 7%, #fff29d 66%, #b57f00 113%, #c7940f 138%);\n}\n.casino .casino-top:after {\n  content: \"\";\n  position: absolute;\n  border-radius: 10px;\n  z-index: -1;\n  top: 2px;\n  bottom: 2px;\n  left: 2px;\n  right: 2px;\n  background: #090f1f;\n  box-shadow: 0 9px 17px 0 rgba(214, 179, 71, 0), inset 0 1px 29px 0 #000;\n}\n.casino .casino-top .casino-top-title {\n  align-items: center;\n  display: flex;\n  margin-top: auto;\n}\n.casino .casino-top .casino-top-title .title-separator {\n  background: linear-gradient(270deg, #fff, transparent);\n  height: 1px;\n  opacity: 0.3;\n  width: 2vw;\n}\n.casino .casino-top .casino-top-title .casino-title-name {\n  font-size: 2vw;\n  font-weight: 900;\n  letter-spacing: -1.96px;\n  text-shadow: 0 2px 87px #0c1820;\n}\n.casino .casino-top .casino-get-price {\n  font-size: 51px;\n  font-weight: 900;\n  background: -webkit-linear-gradient(#000000, #ffe55d, #080700);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: #ffe55d;\n}\n.casino .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-right: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.casino .game-card:last-child {\n  margin-right: 0px;\n}\n.casino .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.casino .game-card .game-card-image-container {\n  padding-bottom: 75%;\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.casino .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff !important;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  bottom: 0;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  transform: skewX(-30deg);\n  width: 30px;\n  will-change: left;\n  z-index: 1;\n  -webkit-animation: flare 5s ease infinite;\n  animation: flare 5s ease infinite;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* @font-face {\n    font-family: 'font name';\n    src: url(\"url\");\n} */\nbody {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, \"Courier New\", monospace;\n}\n\n/* Scroll */\n.bet-swiper {\n  height: 100%;\n}\n\n::-webkit-scrollbar {\n  width: 6px;\n}\n\n::-webkit-scrollbar-track {\n  box-shadow: inset 0 0 6px #c0c0c0;\n}\n\n::-webkit-scrollbar-thumb {\n  background-color: rgba(0, 0, 0, 0.7);\n}\n\n::-webkit-scrollbar-thumb:hover {\n  background: rgba(0, 0, 0, 0.1);\n}\n\n.sports-icon {\n  align-items: center;\n  background-repeat: no-repeat;\n  display: flex;\n  font-size: 14px;\n  height: 1em;\n  justify-content: center;\n  -o-object-fit: cover;\n     object-fit: cover;\n  overflow: visible;\n  width: 1em;\n  min-width: 1em;\n  -webkit-mask-repeat: no-repeat;\n  -webkit-mask-position: center;\n  -webkit-mask-size: 100%;\n  background: #fff;\n}\n\n.betslip-icon {\n  background-color: #94a6cd;\n}\n\n.icon-soccer {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n\n.icon-basketball {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n}\n\n.icon-cricket {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n}\n\n.icon-american-football {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n}\n\n.icon-tennis {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n}\n\n/* Swiper slider */\n.bet-swiper {\n  height: 100%;\n  border-radius: 20px;\n}\n.bet-swiper .swiper-button-prev {\n  z-index: 11;\n  left: unset;\n  top: unset;\n  bottom: 10px;\n  right: 55px;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-prev::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-prev:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-prev:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-button-next {\n  z-index: 11;\n  bottom: 10px;\n  right: 10px;\n  top: unset;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-next::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-next:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-next:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet-active {\n  background: #ffffff;\n}\n.bet-swiper .swiper-slide {\n  height: unset !important;\n}\n.bet-swiper .swiper-slide img {\n  width: 100%;\n  height: 100%;\n}\n\n/*.popular-events */\n.popular-events {\n  height: 100%;\n  width: 100%;\n  padding-bottom: 16px !important;\n}\n.popular-events:hover .swiper-button-prev,\n.popular-events:hover .swiper-button-next {\n  opacity: 1;\n}\n.popular-events .swiper-button-prev {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-prev::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-button-next {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-next::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-pagination {\n  bottom: -6px !important;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet-active {\n  background: #5b8fdd;\n}\n\n@-webkit-keyframes flare {\n  0% {\n    left: -45px;\n  }\n  20% {\n    left: calc(100% + 15px);\n  }\n  to {\n    left: calc(100% + 15px);\n  }\n}\n@keyframes flare {\n  0% {\n    left: -45px;\n  }\n  20% {\n    left: calc(100% + 15px);\n  }\n  to {\n    left: calc(100% + 15px);\n  }\n}\n@-webkit-keyframes flare-2 {\n  0% {\n    transform: translateX(-115%) rotate(-45deg);\n  }\n  20% {\n    transform: translateX(140%) rotate(-45deg);\n  }\n  to {\n    transform: translateX(140%) rotate(-45deg);\n  }\n}\n@keyframes flare-2 {\n  0% {\n    transform: translateX(-115%) rotate(-45deg);\n  }\n  20% {\n    transform: translateX(140%) rotate(-45deg);\n  }\n  to {\n    transform: translateX(140%) rotate(-45deg);\n  }\n}\n@-webkit-keyframes pulse-dot {\n  0% {\n    transform: scale(0.33);\n    opacity: 1;\n  }\n  to {\n    transform: scale(1);\n    opacity: 0;\n  }\n}\n@keyframes pulse-dot {\n  0% {\n    transform: scale(0.33);\n    opacity: 1;\n  }\n  to {\n    transform: scale(1);\n    opacity: 0;\n  }\n}\n.header_top {\n  height: 52px;\n  align-items: center;\n  justify-content: space-between !important;\n}\n.header_top .free_link {\n  padding: 5px 28px 6px 50px;\n  border-radius: 15px;\n  background-image: linear-gradient(285.39deg, #ffb800 -4.36%, #fff173 115.87%);\n  font-weight: 600;\n  color: #090f1e;\n  position: relative;\n  text-decoration: none;\n  align-items: center;\n  line-height: 1;\n  cursor: pointer;\n}\n.header_top .free_link .money_img {\n  background-image: url(\"https://cdn-1win.xyz/img/free-money-link-image.ac893118-120.png\");\n  display: \"block\";\n  width: 60px;\n  height: 33px;\n  position: absolute;\n  bottom: 0;\n  left: -6px;\n  background-size: 100%;\n  background-repeat: no-repeat;\n  pointer-events: none;\n}\n.header_top .top_promotion {\n  margin-right: 21px;\n  position: relative;\n}\n.header_top .top_promotion:before {\n  content: \"\";\n  display: block;\n  height: 14px;\n  width: 1px;\n  background: hsla(0deg, 0%, 100%, 0.2);\n  position: absolute;\n  right: -10px;\n  top: calc(50% - 7px);\n}\n.header_top .top_promotion .top_BonusLink {\n  height: 24px;\n  display: flex;\n  align-items: center;\n  border-radius: 13px;\n  background-color: rgba(78, 93, 134, 0.3);\n  border-bottom-left-radius: 30px;\n  border-top-left-radius: 30px;\n  position: relative;\n  cursor: pointer;\n  flex-direction: row;\n}\n.header_top .top_promotion .top_BonusLink .top_circle {\n  height: 28px;\n  width: 28px;\n  background: linear-gradient(86.37deg, #d062ff 2.96%, #7bb0ff 99.68%), linear-gradient(90deg, #ed6ea0, #ec8c69);\n  box-shadow: 0 5px 15px rgba(201, 85, 255, 0.4);\n  border-radius: 50%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-right: 10px;\n}\n.header_top .top_promotion .top_BonusLink .top_circle svg {\n  height: 1em;\n}\n.header_top .top_promotion .top_BonusLink .top_bonus_img {\n  position: absolute;\n  height: 54px;\n  transform: rotate(-13deg);\n  right: -17px;\n  top: -17px;\n  pointer-events: none;\n}\n.header_top .lang_btn {\n  width: 60px;\n  height: 24px;\n  min-height: 24px;\n  padding: 0;\n  background: rgba(78, 93, 134, 0.3);\n  font-size: 12px;\n  color: #fff;\n  border-radius: 8px;\n}\n.header_top .lang_btn .MuiButton-endIcon {\n  margin-left: 0px !important;\n}\n.header_top .lang_icon {\n  width: 15px;\n  height: 15px;\n  border-radius: 50px;\n  margin-left: 4px;\n}\n\n.header_wraper {\n  position: sticky;\n  z-index: 100;\n  top: -1px;\n  height: 47px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.header_wraper .header {\n  max-width: 1900px;\n  max-height: 47px;\n  height: 100%;\n  width: 100%;\n  margin: 0 auto;\n  padding: 0 10px;\n  display: flex;\n  -webkit-box-align: center;\n  justify-content: space-between;\n  align-items: center;\n  background-image: linear-gradient(92deg, #1e283f, rgba(20, 27, 46, 0.6));\n  background-color: #090f1e;\n  box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.6);\n  border-radius: 10px;\n  transition: border-radius 0.2s;\n  will-change: border-radius, transform;\n  position: relative;\n}\n.header_wraper .header .level-item {\n  align-items: center;\n  display: flex;\n}\n.header_wraper .header .level-item:not(:last-child) {\n  margin-right: 1rem;\n}\n.header_wraper .header .level-item .logo-container {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.header_wraper .header .level-item .logo-container a {\n  display: flex;\n}\n.header_wraper .header .level-item .user_btn {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n  background: #1f2841;\n  border-radius: 20px 8px 8px 20px;\n  padding: 3px 8px 3px 3px;\n  min-width: 0;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap {\n  align-items: center;\n  border-radius: 50%;\n  background-color: #2c3756;\n  display: flex;\n  font-size: 10px;\n  justify-content: center;\n  height: 29px;\n  width: 29px;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap svg {\n  font-size: 18px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-left: 5px;\n  width: 10px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap svg {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .login_btn {\n  background-image: linear-gradient(0deg, transparent, transparent);\n  background-color: #1f2841;\n  cursor: pointer;\n  border-radius: 8px;\n  color: #fff;\n  text-transform: capitalize;\n  padding: 6px 15px;\n  margin-right: 8px;\n}\n.header_wraper .header .level-item .login_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn {\n  background-image: linear-gradient(70deg, #31bc69 -8%, #089e4e 96%);\n  border-style: none;\n  text-transform: capitalize;\n  border-radius: 8px;\n  color: #fff;\n  padding: 6px 15px;\n}\n.header_wraper .header .level-item .register_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn .icon-wrap {\n  width: 20px;\n  height: 20px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background-image: linear-gradient(210deg, hsla(0deg, 0%, 100%, 0) 25%, hsla(0deg, 0%, 100%, 0.06) 48%, #fff 133%);\n  margin-right: 12px;\n  margin-left: -5px;\n}\n\n.footer .footer-line {\n  flex: 1;\n  height: 1px;\n  background: linear-gradient(90deg, hsla(0deg, 0%, 100%, 0.2) 9.92%, transparent);\n}\n.footer .footer-line-full {\n  flex: 1;\n  height: 1px;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n}\n.footer .contact-btn {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  border-radius: 6px !important;\n  background-image: linear-gradient(144deg, #0095ff -27%, #0855c4 151%, #0855c4 0);\n  padding: 0;\n}\n.footer .app-download {\n  width: 175px;\n  height: 42px;\n  display: flex;\n  border: 1px solid hsla(0deg, 0%, 100%, 0.15);\n  border-radius: 12px;\n  align-items: center;\n  padding: 0 15px;\n  transition: border 0.25s ease-out;\n  cursor: pointer;\n  justify-content: space-between;\n}\n.footer .social_link {\n  border-radius: 10px;\n  align-items: center;\n  display: flex;\n  height: 35px;\n  justify-content: center;\n  text-align: center;\n  width: 35px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.footer .social_link:hover {\n  transform: scale(1.1);\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition: transform 0.3s ease-out;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition-property: transform;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n}\n.footer .social_link a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.footer .social_link a svg {\n  color: white;\n}\n.footer .social_link:nth-child(1) {\n  background: linear-gradient(240.2deg, #0fb1d6, #08c 61.34%);\n  box-shadow: 0 5px 16px rgba(76, 162, 246, 0.3);\n}\n.footer .social_link:nth-child(2) {\n  background: linear-gradient(214.99deg, #7e2bf4 7.65%, #ed146e 51.93%, #ffc90c 95.29%);\n  box-shadow: 0 5px 16px rgba(186, 77, 101, 0.3);\n}\n.footer .social_link:nth-child(3) {\n  background: linear-gradient(135deg, #82a4e9, #4267b2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .social_link:nth-child(4) {\n  background: linear-gradient(135deg, #79ccff, #1da1f2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .footer-btn {\n  background: linear-gradient(92.58deg, #1e283f, rgba(20, 27, 46, 0.6) 99.71%);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 10px;\n  height: 100%;\n}\n.footer .payments {\n  align-items: center;\n  justify-content: space-around;\n  width: 100%;\n  margin: 0 124px;\n}\n.footer .payments svg {\n  font-size: 25px;\n  width: auto;\n}\n.footer .PaymentSection_icon_17jgt [class$=mono] {\n  opacity: 1;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt {\n  cursor: pointer;\n  width: auto;\n  font-size: 19px;\n}\n@media screen and (max-width: 425px) {\n  .footer .PaymentSection_icon_17jgt {\n    cursor: pointer;\n    margin: 0 18px 15px;\n    font-size: 15px;\n  }\n}\n.footer .PaymentSection_icon_17jgt [class$=color] {\n  opacity: 0;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=color],\n.footer .PaymentSection_icon_17jgt:hover [class$=color] {\n  opacity: 1;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=mono],\n.footer .PaymentSection_icon_17jgt:hover [class$=mono] {\n  opacity: 0;\n}\n.footer .split {\n  height: 25px;\n  width: 1px;\n  background: rgba(151, 174, 225, 0.11);\n  margin: 0 10px;\n}\n\n.middle-item {\n  height: 75px;\n  border-radius: 12px;\n  padding-left: 25px;\n  display: flex;\n  justify-content: center;\n  flex-direction: column !important;\n  position: relative;\n  cursor: pointer;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  color: white;\n}\n.middle-item:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  border-radius: inherit;\n  z-index: 0;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  opacity: 0.7;\n  transition: opacity 0.15s ease-in-out;\n}\n.middle-item:hover:before {\n  opacity: 1;\n}\n.middle-item .middle-item-img-wrap {\n  position: absolute;\n  right: 17px;\n  width: 40%;\n  height: 0;\n  max-width: 61px;\n  display: flex;\n  align-items: center;\n}\n.middle-item .middle-item-img-wrap .middle-item-img {\n  position: absolute;\n  width: 100%;\n}\n.middle-item .middle-item-img-wrap .middle-item-img img {\n  height: auto;\n  max-width: 100%;\n}\n\n.home-tab {\n  border-top-left-radius: 12px;\n  overflow: hidden;\n  z-index: 2;\n  pointer-events: none;\n  filter: drop-shadow(0 1px 0 #edf2ff);\n}\n.home-tab .home-tab-title {\n  position: relative;\n  height: 34px;\n  padding: 16px 30px 0px 25px;\n  margin-right: 15px;\n  display: -webkit-box;\n  justify-content: center;\n  align-items: flex-end;\n  color: #090f1e;\n  font-size: 17px;\n  letter-spacing: -0.4px;\n  font-weight: 700;\n}\n.home-tab .home-tab-title:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: calc(100% + 16px);\n  top: 0;\n  left: -16px;\n  background-color: #edf2ff;\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n.home-tab .home-tab-title:after {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  border-radius: 5px;\n  width: 10px;\n  right: -10px;\n  top: 0;\n  transform: skewX(30deg);\n  box-sizing: unset;\n  box-shadow: 0 0 0 5px #edf2ff;\n  clip: rect(16px, 6px, 50px, -10px);\n}\n.home-tab .home-tab-title .populart-icon {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center {\n  background: #fa203b;\n  border-radius: 50%;\n  display: block;\n  position: relative;\n  min-width: 7px;\n  min-height: 7px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center:before {\n  content: \"\";\n  -webkit-animation: pulse-dot 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n  animation: pulse-dot 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n  position: absolute;\n  width: 300%;\n  height: 300%;\n  border-radius: 50%;\n  background: #fa203b;\n  top: -100%;\n  left: -100%;\n}\n\n.home-tab-all {\n  position: relative;\n  height: 34px;\n  justify-content: center;\n  padding: 0 16px 0 34px;\n  margin-left: -30px;\n  font-weight: 600;\n  z-index: 1;\n  font-size: 11px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n}\n.home-tab-all:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  top: 0;\n  background-image: linear-gradient(-45deg, #0855c4, #0095ff);\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n\n.toggle-switcher-item {\n  height: 30px;\n  max-width: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  display: flex;\n  align-items: center;\n}\n.toggle-switcher-item:not(:first-child) {\n  margin-left: 5px;\n}\n.toggle-switcher-item:after, .toggle-switcher-item:before {\n  transition: opacity 0.25s;\n  will-change: opacity;\n  content: \"\";\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  opacity: 0;\n  border-radius: inherit;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper {\n  z-index: 1;\n  display: inline-flex;\n  align-items: center;\n  position: relative;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon {\n  min-width: 30px;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon .no-margin {\n  margin: 0px !important;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-label {\n  font-size: 13px;\n  color: #fff;\n  font-weight: 700;\n  margin-right: 10px;\n  margin-left: 2px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  opacity: 1;\n  white-space: nowrap;\n}\n\n.toggle-switcher-item.active {\n  height: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  max-width: 158px;\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n}\n\n.home-tab-content {\n  border-radius: 12px;\n  border-top-left-radius: 0;\n  background-color: #edf2ff;\n  display: flex;\n  flex-direction: column;\n  position: relative;\n}\n.home-tab-content .match-table-head-underlay {\n  border-radius: 8px;\n  background-image: linear-gradient(273deg, #0855c4, #0095ff);\n  position: absolute;\n  width: calc(100% - 40px);\n  height: 30px;\n  left: 20px;\n  top: 32px;\n}\n.home-tab-content .sport-grids {\n  margin: 20px 0;\n  width: 100%;\n  position: relative;\n  z-index: 1;\n  color: black;\n}\n.home-tab-content .sport-grids th,\n.home-tab-content .sport-grids td {\n  border-bottom: unset !important;\n}\n.home-tab-content .sport-grids .match-table-match-row {\n  min-height: 50px;\n  height: 50px;\n  cursor: pointer;\n}\n.home-tab-content .sport-grids .match-table-match-row:nth-child(even) {\n  background-color: #dce6f7;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell {\n  padding: 10px 5px;\n  width: 1px;\n  height: 70px;\n  max-height: 70px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:first-child {\n  padding-left: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:last-child {\n  padding-right: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info {\n  display: flex;\n  align-items: center;\n  justify-content: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-date {\n  font-size: 11px;\n  opacity: 0.5;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-time {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info {\n  position: relative;\n  padding-left: 13px;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info:before {\n  content: \"\";\n  position: absolute;\n  width: 3px;\n  height: 100%;\n  border-radius: 1.5px;\n  left: 0;\n  background-image: linear-gradient(356deg, #0095ff, #0855c4);\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-team {\n  font-size: 13px;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info {\n  margin-top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info span {\n  font-size: 11px;\n  font-weight: 500;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-period-score {\n  color: #888;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-separator {\n  color: #888;\n  display: inline-block;\n  margin: 0 7px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time span {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time svg {\n  font-size: 12px;\n  margin-right: 8px;\n  color: #87a2da;\n  position: relative;\n  top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-odds-chip-wrap .match-table-odds-chip {\n  height: 30px;\n  background-color: rgba(8, 84, 195, 0.2);\n  padding: 0 10px;\n  font-size: 11px;\n  font-weight: 500;\n  border-radius: 8px;\n  align-items: center;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell button {\n  border-radius: 12px;\n  color: black;\n}\n\n.popular-wrap {\n  width: 100%;\n}\n.popular-wrap .live-event-main {\n  height: 145px;\n  background-color: #fff;\n  border-radius: 12px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  color: #090f1e;\n  padding: 16px;\n  border: 1px solid #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  cursor: pointer;\n}\n.popular-wrap .live-event-main:hover {\n  border: 1px solid #a1c3e1;\n}\n.popular-wrap .live-event-main .match-header {\n  align-items: flex-start;\n  display: flex;\n  align-items: center;\n  height: 20px;\n  box-sizing: initial;\n}\n.popular-wrap .live-event-main .match-header .top-live-match-score {\n  font-size: 20px;\n  font-weight: 800;\n  letter-spacing: 0.3px;\n  line-height: 0.95;\n  margin-right: 1rem;\n}\n.popular-wrap .live-event-main .match-header .match-score-period {\n  border: 0.5px solid rgba(108, 125, 163, 0.4);\n  border-radius: 7px;\n  font-size: 11px;\n  padding: 3px 6px;\n}\n.popular-wrap .live-event-main .top-live-match-info {\n  align-items: center;\n  display: flex;\n  height: 30px;\n  margin: 8px 0px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams {\n  overflow: hidden;\n  padding: 0 10px;\n  position: relative;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams:before {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n  border-radius: 290486px;\n  bottom: 0;\n  content: \"\";\n  left: 0;\n  position: absolute;\n  top: 0;\n  width: 3px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team {\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team .helper-line {\n  font-size: 12px;\n  font-weight: 600;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .match-details {\n  align-items: center;\n  color: #6c7da3;\n  display: flex;\n  font-size: 11px;\n  line-height: 1;\n  margin-bottom: 8px;\n}\n.popular-wrap .live-event-main .match-odd-list {\n  display: flex;\n  list-style: none;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item {\n  flex: 1;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd {\n  align-items: center;\n  background-color: rgba(108, 125, 163, 0.2);\n  border-radius: 12px;\n  cursor: pointer;\n  font-size: 14px;\n  height: 36px;\n  min-width: 36px;\n  padding: 0 10px;\n  transition: all 0.3s;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values {\n  will-change: contents;\n  transition: all 0.3s;\n  align-items: center;\n  display: flex;\n  pointer-events: none;\n  height: 100%;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-name {\n  margin-right: 5px;\n  text-transform: uppercase;\n  color: black;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-value {\n  margin-left: auto;\n  font-weight: 700;\n  text-align: right;\n  color: black;\n}\n\n.section-card {\n  border-radius: 12px;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  position: relative;\n  padding: 25px;\n}\n.section-card .section-card-top-line {\n  position: absolute;\n  top: 0;\n  left: 25px;\n  right: 25px;\n  height: 4px;\n  border-bottom-left-radius: 100px;\n  border-bottom-right-radius: 100px;\n  background-size: 200% auto;\n  -webkit-animation: notch-bg-slide-01a6027a 4s linear 0s infinite alternate;\n  animation: notch-bg-slide-01a6027a 4s linear 0s infinite alternate;\n  will-change: background-position;\n  background-image: linear-gradient(90deg, rgb(0, 183, 255) 0%, rgb(199, 0, 255) 50%, rgb(255, 187, 0) 100%);\n}\n.section-card .section-card-header {\n  justify-content: space-between;\n  align-items: flex-end;\n  z-index: 10;\n}\n.section-card .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-bottom: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.section-card .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.section-card .game-card .game-card-image-container {\n  padding-bottom: 75%;\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.section-card .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n.section-card .section-card-bg {\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  border-radius: 12px;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg {\n  height: 100%;\n  display: flex;\n  justify-content: flex-end;\n  align-items: flex-end;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow {\n  position: relative;\n  height: 100%;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-glow {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  filter: blur(30px) saturate(1);\n  top: 0px;\n  opacity: 0.5;\n  transform: translateZ(0px);\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-content-wrapper {\n  position: relative;\n  height: 100%;\n  width: 100%;\n}\n.section-card .SectionPokerBanner_contentButton {\n  height: 45px;\n  color: #fff;\n  text-transform: capitalize !important;\n  border-radius: 8px;\n  background-image: linear-gradient(255deg, #00b7ff, #8d53e9);\n  padding: 0 25px;\n  cursor: pointer;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  font-size: 15px;\n  position: relative;\n  overflow: hidden;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  margin-top: 10px;\n}\n.section-card .SectionPokerBanner_contentButton:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 20%;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  left: -25%;\n  transform: skewX(-20deg);\n}\n\n.sports-list {\n  background-color: rgb(20, 27, 46);\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  overflow: hidden;\n  height: 100%;\n  flex-shrink: 0;\n  max-height: 100%;\n  border-radius: 8px;\n  display: flex;\n  padding: 10px;\n  height: calc(100vh - 80px);\n  position: sticky;\n  top: 64px;\n}\n.sports-list .sports-search-wrap {\n  position: relative;\n  margin: 10px 0px;\n  padding: 10px 0px;\n}\n.sports-list .sports-search-wrap:before {\n  bottom: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap:after {\n  top: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap .search-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n}\n.sports-list .sports-search-wrap .search-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-search-wrap .casino-search {\n  width: 100%;\n  border-radius: 8px;\n  background-color: #1f2941;\n}\n.sports-list .sports-search-wrap .casino-search input {\n  color: #7388b6;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: -0.19px;\n  width: 201px;\n  padding: 10px 10px 10px 0px;\n}\n.sports-list .sports-search-wrap .casino-search fieldset {\n  display: none;\n}\n.sports-list .sports-list-body {\n  overflow: hidden auto;\n}\n.sports-list .sports-list-body .list-item {\n  position: relative;\n}\n.sports-list .sports-list-body .list-item .item-btn-wrap {\n  position: sticky;\n  top: 0;\n  z-index: 3;\n}\n.sports-list .sports-list-body .list-item .section-list {\n  padding: 0.5rem 0;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header {\n  align-items: center;\n  color: #616e8c;\n  display: flex;\n  line-height: 25px;\n  min-height: 25px;\n  font-size: 12px;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header:after {\n  background-color: currentColor;\n  content: \"\";\n  display: block;\n  flex-grow: 1;\n  height: 1px;\n  margin-left: 8px;\n}\n.sports-list .sports-list-item-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n}\n.sports-list .sports-list-item-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-list-item-btn:hover {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n\n.betslip {\n  border-radius: 10px;\n  padding: 10px;\n  margin-bottom: 15px;\n  position: sticky;\n  top: 64px;\n  background-image: linear-gradient(135deg, #233358, rgba(20, 27, 46, 0.6));\n}\n.betslip .bet-tabbar {\n  margin-bottom: 15px;\n}\n.betslip .bet-tabbar .slip-title {\n  align-items: center;\n  background-color: hsla(0deg, 0%, 100%, 0.1);\n  border-radius: 8px;\n  display: flex;\n  flex: auto;\n  font-size: 12px;\n  height: 30px;\n  justify-content: center;\n  text-align: center;\n  transition: opacity 0.2s;\n  position: relative;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n.betslip .bet-tabbar .slip-title .slip-count {\n  background-color: white;\n  color: #0059c5;\n  border-radius: 50px;\n  width: 14px;\n  height: 14px;\n  font-size: 10px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  right: 32%;\n  position: absolute;\n  letter-spacing: 1px;\n  line-height: 1;\n}\n.betslip .slip-Odd {\n  align-items: center;\n  display: flex;\n  flex-shrink: 0;\n  justify-content: center;\n  font-weight: 700;\n  font-size: 12px;\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n  align-self: stretch;\n  margin-right: 8px;\n  width: 46px;\n  min-width: none;\n  padding: 0px !important;\n  min-width: 0px !important;\n  z-index: 2;\n}\n.betslip .close-odd {\n  color: #94a6cd;\n  font-size: 11px;\n  z-index: 1;\n  background-color: rgba(148, 166, 205, 0.11);\n  border-radius: 10px;\n  width: 28px;\n  height: 28px;\n  margin-left: auto;\n  padding: 0px;\n}\n.betslip .close-odd:hover {\n  background-color: #60afff;\n}\n.betslip .close-odd:hover svg {\n  color: white;\n}\n.betslip .sliip-teams {\n  grid-area: teams;\n  padding: 2px 0 2px 10px;\n  position: relative;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.betslip .sliip-teams:before {\n  content: \"\";\n  width: 3.5px;\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.3);\n  border-radius: 0 10px 10px 0;\n}\n.betslip .live-mark {\n  align-self: end;\n  border-radius: 10px;\n  color: #f62525;\n  display: flex;\n  font-size: 9px;\n  font-weight: 700;\n  grid-area: service;\n  letter-spacing: 0.17px;\n  text-transform: uppercase;\n  position: relative;\n  padding-right: 10px;\n  align-items: center;\n}\n.betslip .live-mark .live-dot {\n  background-image: radial-gradient(50% 50% at 50% 50%, rgba(246, 37, 37, 0) 0, rgba(246, 37, 37, 0.2) 100%);\n  border-radius: 50px;\n  height: 12px;\n  margin-right: 3px;\n  width: 12px;\n  position: relative;\n}\n.betslip .live-mark .live-dot:before {\n  content: \"\";\n  width: 4px;\n  height: 4px;\n  border-radius: 50px;\n  background-color: #f62525;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  margin: auto;\n}\n.betslip .live-mark span {\n  font-family: Tahoma, \"sans-serif\";\n}\n.betslip .enter-stake {\n  width: 100%;\n}\n.betslip .enter-stake input {\n  font-size: 12px;\n  width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  color: #090f1e;\n  height: 14px;\n  padding: 7px 10px 9px;\n}\n.betslip .enter-stake fieldset {\n  display: none;\n}\n.betslip .express-slip {\n  position: relative;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  overflow: hidden;\n}\n.betslip .express-slip:first-child {\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n}\n.betslip .express-slip:after {\n  content: \"\";\n  bottom: 0px;\n  left: 15px;\n  position: absolute;\n  right: 15px;\n  z-index: 110;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_5___ + ");\n  height: 1px;\n}\n.betslip .total-odd {\n  background-color: #fff;\n  border-bottom-left-radius: 10px;\n  border-bottom-right-radius: 10px;\n  margin-bottom: 10px;\n  padding: 10px;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.betslip .total-odd .btn {\n  background-image: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  border-radius: 8px;\n  color: white;\n  text-transform: capitalize;\n  font-size: 12px;\n  font-weight: 800;\n  padding: 4px 24px;\n}\n\n.tournament-table {\n  border-radius: 8px;\n  color: #000;\n  contain: content;\n  overflow: hidden;\n  text-align: center;\n  width: 100%;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  table-layout: fixed;\n}\n.tournament-table .table-header {\n  color: #fff;\n}\n.tournament-table .table-header .table-row {\n  height: 40px;\n}\n.tournament-table .table-header .table-row .tournament-cell {\n  font-size: 14px;\n  line-height: 1.1;\n  text-align: left;\n  position: relative;\n}\n.tournament-table .table-header .table-row .tournament-cell .tournament-cell-inner {\n  display: flex;\n  align-items: center;\n  padding: 10px 15px;\n}\n.tournament-table .table-header .table-row .odd-cell-h {\n  color: #b1d1ff;\n  font-size: 11px;\n  letter-spacing: -0.1px;\n  min-width: 30px;\n  text-align: center;\n  text-transform: uppercase;\n  width: 6%;\n}\n.tournament-table .table-header .table-row th {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row {\n  background-color: #edf2ff;\n  cursor: pointer;\n}\n.tournament-table .table-body .match-row:hover {\n  background-color: #1b2029;\n}\n.tournament-table .table-body .match-row:hover .match-info .favourite,\n.tournament-table .table-body .match-row:hover .match-info .match-date,\n.tournament-table .table-body .match-row:hover .odd-cell .odd-coefficient,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed,\n.tournament-table .table-body .match-row:hover .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  color: white;\n}\n.tournament-table .table-body .match-row td {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row .match-info {\n  align-items: center;\n  display: flex;\n  padding: 5px;\n}\n.tournament-table .table-body .match-row .match-info .favourite {\n  color: #bfd2f3;\n}\n.tournament-table .table-body .match-row .match-info .match-date {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .match-separator {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  border-radius: 1.5px;\n  flex: none;\n  height: 2rem;\n  margin: 2px 6px;\n  opacity: 0.8;\n  width: 3px;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container {\n  align-items: center;\n  display: flex;\n  flex: 1;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block {\n  align-items: center;\n  display: flex;\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams {\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team {\n  display: flex;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  overflow: hidden;\n  position: relative;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto {\n  display: flex;\n  margin-left: auto;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics {\n  font-weight: 500;\n  letter-spacing: -0.1px;\n  margin-right: 5px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line {\n  display: flex;\n  justify-content: flex-end;\n  text-align: right;\n  margin: 0px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-periods {\n  color: #888;\n  font-size: 10px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed {\n  color: black;\n  font-size: 12px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line svg {\n  color: #87a2da;\n  font-size: 16px;\n}\n.tournament-table .table-body .match-row .odd-cell {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  position: relative;\n}\n.tournament-table .table-body .match-row .odd-cell:before {\n  position: absolute;\n  content: \"\";\n  background-color: rgba(152, 160, 181, 0.1019607843);\n  /* background-color: rgb(20 27 46 / 15%); */\n  width: 100%;\n  height: 100%;\n  top: 0;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient {\n  border-radius: 8px;\n  font-weight: 600;\n  letter-spacing: -0.2px;\n  padding: 2px 12px;\n  text-align: center;\n  min-width: 0;\n  color: black;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient:hover {\n  background-color: #9ea5b4;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient.active {\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n}\n.tournament-table .table-body .match-row .odd-cell.disable {\n  background-color: rgba(20, 27, 46, 0.7);\n  cursor: initial;\n}\n\n.event-content {\n  flex: 1;\n  background-size: 100% auto;\n  background-repeat: no-repeat;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_6___ + ");\n}\n.event-content .btn {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  align-items: center;\n  background-color: #252f4b;\n  border-radius: 8px;\n  color: #fff;\n  display: flex;\n  font-size: 12px;\n  font-weight: 500;\n  height: 30px;\n  min-width: 0px;\n  justify-content: center;\n  letter-spacing: 0.2px;\n  padding: 0 10px;\n  text-align: center;\n  transition: all 0.2s ease-out;\n}\n.event-content .market-head {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  cursor: pointer;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0px 10px;\n}\n.event-content .market-body {\n  display: flex;\n  flex-wrap: wrap;\n  margin-right: -1px;\n  margin-bottom: -1px;\n}\n.event-content .market-body .market-wrap {\n  padding-right: 1px;\n  min-width: 30%;\n  display: flex;\n  flex-grow: 1;\n}\n.event-content .market-body .market-wrap .market-btn {\n  width: 100%;\n  margin-bottom: 1px;\n  background-color: #e4ebff;\n  border-radius: 0px;\n  display: flex;\n  justify-content: space-between;\n  padding: 4px 0px 4px 10px;\n}\n.event-content .market-body .market-wrap .market-btn:hover {\n  background-color: #1b2029;\n}\n.event-content .market-body .market-wrap .market-btn:hover p {\n  color: white !important;\n}\n.event-content .market-body .market-wrap .market-btn .market-name {\n  font-size: 12px;\n  color: #252f4b;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd {\n  font-size: 14px;\n  font-weight: 600;\n  color: #090f1e;\n  padding: 5px 8px;\n  border-radius: 8px;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd.active {\n  background-image: linear-gradient(135deg, #108de7, #0855c4);\n  color: white;\n}\n\n.casino .casino-top {\n  padding: 0 15px 15px 15px;\n  align-items: center;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  color: #fff;\n  opacity: 1;\n  position: relative;\n  z-index: 1;\n  cursor: pointer;\n  flex: 1;\n  height: 100%;\n}\n.casino .casino-top:before {\n  content: \"\";\n  position: absolute;\n  border-radius: 12px;\n  z-index: -2;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: radial-gradient(circle at -65% 157%, #c5991e, #b68100 7%, #fff29d 66%, #b57f00 113%, #c7940f 138%);\n}\n.casino .casino-top:after {\n  content: \"\";\n  position: absolute;\n  border-radius: 10px;\n  z-index: -1;\n  top: 2px;\n  bottom: 2px;\n  left: 2px;\n  right: 2px;\n  background: #090f1f;\n  box-shadow: 0 9px 17px 0 rgba(214, 179, 71, 0), inset 0 1px 29px 0 #000;\n}\n.casino .casino-top .casino-top-title {\n  align-items: center;\n  display: flex;\n  margin-top: auto;\n}\n.casino .casino-top .casino-top-title .title-separator {\n  background: linear-gradient(270deg, #fff, transparent);\n  height: 1px;\n  opacity: 0.3;\n  width: 2vw;\n}\n.casino .casino-top .casino-top-title .casino-title-name {\n  font-size: 2vw;\n  font-weight: 900;\n  letter-spacing: -1.96px;\n  text-shadow: 0 2px 87px #0c1820;\n}\n.casino .casino-top .casino-get-price {\n  font-size: 51px;\n  font-weight: 900;\n  background: -webkit-linear-gradient(#000000, #ffe55d, #080700);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: #ffe55d;\n}\n.casino .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-right: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.casino .game-card:last-child {\n  margin-right: 0px;\n}\n.casino .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.casino .game-card .game-card-image-container {\n  padding-bottom: 75%;\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.casino .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff !important;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  bottom: 0;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  transform: skewX(-30deg);\n  width: 30px;\n  will-change: left;\n  z-index: 1;\n  -webkit-animation: flare 5s ease infinite;\n  animation: flare 5s ease infinite;\n}\n\n.btn.active {\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

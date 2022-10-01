@@ -396,6 +396,14 @@
         font-size: 19px;
     }
 
+    @media screen and (max-width: 425px) {
+        .PaymentSection_icon_17jgt {
+            cursor: pointer;
+            margin: 0 18px 15px;
+            font-size: 15px;
+        }
+    }
+
     .PaymentSection_icon_17jgt [class$="color"] {
         opacity: 0;
         transition: opacity 0.2s ease;
@@ -2037,8 +2045,8 @@
     position: relative;
     text-align: center;
     text-decoration: none;
-    -webkit-transition: all .2s;
-    transition: all .2s;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;

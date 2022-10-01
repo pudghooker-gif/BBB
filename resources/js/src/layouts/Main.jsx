@@ -9,7 +9,7 @@ const MainLayout = () => (
     <Container maxWidth="xl" sx={{ px: '0 !important' }}>
         <Header />
         <Wrapper />
-        {/* <Footer /> */}
+        <Footer />
     </Container>
 );
 

@@ -7,7 +7,12 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 
 import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -17,6 +22,7 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 import { HStack } from './Base';
 import {
@@ -38,16 +44,7 @@ import cricketBettingWali from '../assets/img/feature/cricket-betting-wali.png';
 import br from '../assets/img/feature/br.svg';
 import verifiedSeibet from '../assets/img/feature/verified-seibet.png';
 
-const Footer = () => {
-    const [langList, setLangList] = useState(null);
-
-    const showLang = (event) => {
-        setLangList(event.currentTarget);
-    };
-
-    const closeLang = () => {
-        setLangList(null);
-    };
+const Desktop = ({ langList, showLang, closeLang }) => {
     return (
         <Box className='footer' sx={{ py: 4 }}>
             <HStack sx={{ mb: 6, alignItems: 'center' }}>
@@ -90,7 +87,7 @@ const Footer = () => {
                     </HStack>
                 </HStack>
                 <HStack sx={{ mt: 'auto', ml: 'auto' }}>
-                    <Stack sx={{ mr: 1.25, justifyContent: 'space-between' }}>
+                    <Stack sx={{ mr: 1.25, justifyContent: 'space-between', flexDirection: { md: 'column', xs: 'row' } }}>
                         <Button className='app-download' sx={{ display: 'flex' }}>
                             <HStack alignItems='center'>
                                 <Box component='img' src={ios} sx={{ height: '25px' }} />
@@ -112,7 +109,7 @@ const Footer = () => {
                             <HelpIcon sx={{ height: 16, opacity: .45 }} />
                         </Button>
                     </Stack>
-                    <Button sx={{ display: 'flex', flexDirection: 'column', padding: 1.25, border: '1px solid hsla(0,0%,100%,.15)', height: '94px', width: '94px', borderRadius: '12px', justifyContent: 'space-between', cursor: 'pointer' }}>
+                    <Button sx={{ display: { md: 'flex', xs: 'none' }, flexDirection: 'column', padding: 1.25, border: '1px solid hsla(0,0%,100%,.15)', height: '94px', width: '94px', borderRadius: '12px', justifyContent: 'space-between', cursor: 'pointer' }}>
                         <HStack alignItems='center' justifyContent='space-between' sx={{ width: '100%' }}>
                             <Box component='img' src={win10} sx={{ height: '25px' }} />
                             <ChevronRightIcon sx={{ height: 16, opacity: .45 }} />
@@ -298,5 +295,207 @@ const Footer = () => {
         </Box>
     );
 };
+
+const Mobile = () => {
+    return (
+        <Box className='footer' sx={{ p: 2 }}>
+            <HStack sx={{ mb: 6, alignItems: 'center' }}>
+                <Box component='img' src={logo} sx={{ height: 20 }} />
+                <Box sx={{ ml: 3 }} className='footer-line' />
+            </HStack>
+            <HStack sx={{ position: 'relative' }}>
+                <IconButton sx={{ ml: 1, bgcolor: '#252f4b', borderRadius: 2, p: 0, width: 24, height: 24, position: 'absolute', bottom: '10px', right: 0, '&:hover': { bgcolor: '#252f4b' } }}>
+                    <ExpandLessIcon sx={{ fontSize: '16px' }} />
+                </IconButton>
+                <Table sx={{ width: 'auto' }}>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell sx={{ p: 0, border: 'unset' }}>
+                                <Typography sx={{ color: '#5c72a380', pb: 1.25, lineHeight: 1.3, fontSize: 10, textTransform: 'uppercase' }}>Information</Typography>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell sx={{ p: 0, border: 'unset' }}>
+                                <Typography sx={{ pb: 1.25, fontWeight: 600, linHeight: 1.3, fontSize: 10 }}>Rules</Typography>
+                                <Typography sx={{ pb: 1.25, fontWeight: 600, linHeight: 1.3, fontSize: 10 }}>Bonuses and promotions</Typography>
+                            </TableCell>
+                            <TableCell sx={{ p: 0, pl: 3, border: 'unset' }}>
+                                <Typography sx={{ pb: 1.25, fontWeight: 600, linHeight: 1.3, fontSize: 10 }}>Affiliate Program</Typography>
+                                <Typography sx={{ pb: 1.25, fontWeight: 600, linHeight: 1.3, fontSize: 10 }}>Risk Disclosure</Typography>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell sx={{ p: 0, border: 'unset' }}>
+                                <Typography sx={{ color: '#5c72a380', pb: 1.25, lineHeight: 1.3, fontSize: 10, textTransform: 'uppercase' }}>Categories</Typography>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell sx={{ p: 0, border: 'unset' }}>
+                                <Typography sx={{ pb: 1.25, fontWeight: 600, linHeight: 1.3, fontSize: 10 }}>Live</Typography>
+                                <Typography sx={{ pb: 1.25, fontWeight: 600, linHeight: 1.3, fontSize: 10 }}>Sports</Typography>
+                                <Typography sx={{ pb: 1.25, fontWeight: 600, linHeight: 1.3, fontSize: 10 }}>Promotions</Typography>
+                            </TableCell>
+                            <TableCell sx={{ p: 0, pl: 3, border: 'unset' }}>
+                                <Typography sx={{ pb: 1.25, fontWeight: 600, linHeight: 1.3, fontSize: 10 }}>Live-games</Typography>
+                                <Typography sx={{ pb: 1.25, fontWeight: 600, linHeight: 1.3, fontSize: 10 }}>Pocker</Typography>
+                                <Typography sx={{ pb: 1.25, fontWeight: 600, linHeight: 1.3, fontSize: 10 }}>Casino</Typography>
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </HStack>
+            <Box sx={{ my: 2 }} className='footer-line-full' />
+            <HStack>
+                <Stack sx={{ width: '100%', justifyContent: 'space-between', flexDirection: { md: 'column', xs: 'row' } }}>
+                    <Button className='app-download' sx={{ display: 'flex', width: 'calc(50% - 8px) !important' }}>
+                        <HStack alignItems='center'>
+                            <Box component='img' src={ios} sx={{ height: '25px' }} />
+                            <Stack sx={{ ml: 1, textTransform: 'capitalize', textAlign: 'start', color: 'white' }}>
+                                <Typography sx={{ fontSize: 8, lineHeight: '10px', color: 'hsla(0,0%,100%,.5)' }}>Application</Typography>
+                                <Typography sx={{ fontWeight: 600, fontSize: 10 }}>for IOS</Typography>
+                            </Stack>
+                        </HStack>
+                        <HelpIcon sx={{ height: 16, opacity: .45 }} />
+                    </Button>
+                    <Button className='app-download' sx={{ display: 'flex', width: 'calc(50% - 8px) !important' }}>
+                        <HStack alignItems='center'>
+                            <Box component='img' src={android} sx={{ height: '25px' }} />
+                            <Stack sx={{ ml: 1, textTransform: 'capitalize', textAlign: 'start', color: 'white' }}>
+                                <Typography sx={{ fontSize: 8, lineHeight: '10px', color: 'hsla(0,0%,100%,.5)' }}>Application</Typography>
+                                <Typography sx={{ fontWeight: 600, fontSize: 10 }}>for Android</Typography>
+                            </Stack>
+                        </HStack>
+                        <HelpIcon sx={{ height: 16, opacity: .45 }} />
+                    </Button>
+                </Stack>
+            </HStack>
+            <HStack sx={{ mt: 2, p: 1.25, borderRadius: 3, alignItems: 'center', background: 'linear-gradient(107.15deg,#1e283f,#141b2e99)' }}>
+                <Stack>
+                    <Typography sx={{ fontSize: 10, lineHeight: 1.3, fontWeight: 600 }}>Support 24/7</Typography>
+                    <Typography sx={{ fontSize: 8, lineHeight: 1.3, mt: .1 }}>Write to us if you still have any questions!</Typography>
+                </Stack>
+                <Button className='btn active' sx={{ borderRadius: 50, height: 25, width: 75, ml: 'auto' }}>Chat</Button>
+            </HStack>
+            <HStack sx={{ mt: 2, justifyContent: 'space-around' }}>
+                <UEFA />
+                <UFC />
+                <WTA />
+                <FIBA />
+                <NNL />
+                <ATP />
+            </HStack>
+            <Box sx={{ my: 2 }} className='footer-line-full' />
+            <HStack alignItems='center'>
+                <IconButton className='social_link' sx={{ mr: 1.25, width: 'calc(100% / 4 - 10px) !important' }}>
+                    <Link href="#" >
+                        <TelegramIcon />
+                    </Link>
+                </IconButton>
+                <IconButton className='social_link' sx={{ mr: 1.25, width: 'calc(100% / 4 - 10px) !important' }}>
+                    <Link href="#">
+                        <InstagramIcon />
+                    </Link>
+                </IconButton>
+                <IconButton className='social_link' sx={{ mr: 1.25, width: 'calc(100% / 4 - 10px) !important' }}>
+                    <Link href="#">
+                        <FacebookIcon />
+                    </Link>
+                </IconButton>
+                <IconButton className='social_link' sx={{ width: 'calc(100% / 4 - 10px) !important' }}>
+                    <Link href="#">
+                        <TwitterIcon />
+                    </Link>
+                </IconButton>
+            </HStack>
+            <Box sx={{ my: 2 }} className='footer-line-full' />
+            <HStack sx={{ flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', mx: -2 }} >
+                <Visa />
+                <Master />
+                <GooglePay />
+                <ApplePay />
+                <BitCoin />
+                <Qiwi />
+                <Ether />
+                <Tether />
+                <Skrill />
+                <Paytm />
+                <Payneer />
+                <Cos />
+                <FK />
+                <WebMoney />
+                <MuchBetter />
+                <JCB />
+                <Discover />
+                <Interace />
+                <AstroPay />
+            </HStack>
+            <Box sx={{ my: 2 }} className='footer-line-full' />
+            <HStack>
+                <HStack alignItems='center'>
+                    <HStack>
+                        <Link>
+                            <Box component='img' src={casinoMentor} sx={{ height: '25px' }} />
+                        </Link>
+                        <Box className='split' />
+                    </HStack>
+                    <HStack>
+                        <Link>
+                            <Box component='img' src={miglioriCasinoOnline} sx={{ height: '25px' }} />
+                        </Link>
+                        <Box className='split' />
+                    </HStack>
+                    <HStack>
+                        <Link>
+                            <Box component='img' src={bestBitcoinCasino} sx={{ height: '25px' }} />
+                        </Link>
+                        <Box className='split' />
+                    </HStack>
+                    <HStack>
+                        <Link>
+                            <Box component='img' src={casinosAnalyzer} sx={{ height: '25px' }} />
+                        </Link>
+                        <Box className='split' />
+                    </HStack>
+                    <HStack>
+                        <Link>
+                            <Box component='img' src={cricketBettingWali} sx={{ height: '25px' }} />
+                        </Link>
+                        <Box className='split' />
+                    </HStack>
+                    <HStack alignItems='center'>
+                        <Link>
+                            <Box component='img' src={br} sx={{ height: '39px' }} />
+                        </Link>
+                        <Box className='split' />
+                    </HStack>
+                    <HStack alignItems='center' sx={{ textDecoration: "none", color: '#34405e', fontSize: 16, fontWeight: 800 }}>
+                        <Link>
+                            <Box component='img' src={verifiedSeibet} sx={{ height: '39px' }} />
+                        </Link>
+                        18+
+                    </HStack>
+                </HStack>
+            </HStack>
+        </Box>
+    )
+}
+
+const Footer = () => {
+    const [langList, setLangList] = useState(null);
+
+    const showLang = (event) => {
+        setLangList(event.currentTarget);
+    };
+
+    const closeLang = () => {
+        setLangList(null);
+    };
+
+    const isMobile = useMediaQuery('(max-width:425px)');
+
+    return (
+        isMobile ? <Mobile /> : <Desktop {...{ langList, showLang, closeLang }} />
+    )
+}
 
 export default Footer;
