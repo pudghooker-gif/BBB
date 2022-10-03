@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -24,11 +25,20 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import popularIcon from '../../assets/img/feature/fire.svg'
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+
+import popularIcon from '../../assets/img/feature/fire.svg';
+import qatar from '../../assets/img/feature/qatar.svg';
+import timerWing from '../../assets/img/feature/timer-wing.svg';
+import timerSpace from '../../assets/img/feature/timer-space.svg';
 
 const Home = () => {
-    const sportsList = ['Soccer', 'Cricket', 'American Football', 'Tennis', 'Basketball'];
+    const navigate = useNavigate();
+
+    const sportsList = ['Soccer', 'Basketball', 'Cricket', 'Table Tennis', 'American Football', 'Tennis'];
     const [actLiveItem, setActLiveItem] = useState(0);
+    const [actSport, setActSport] = useState(0);
+
     const eg = async () => {
         axios.post('/api/test', {})
             .then(
@@ -141,52 +151,46 @@ const Home = () => {
                 </Box>
             </HStack>
             <Box>
-                <Grid container spacing={2}>
-                    <Grid item xs={3} >
-                        <Box className='middle-item'>
-                            <Typography sx={{ lineHeight: 1, zIndex: 1, fontSize: '24px', fontWeight: '600' }}>Live</Typography>
-                            <Typography sx={{ lineHeight: 1, zIndex: 1, fontSize: '13', mt: '3px' }}>Live Games 24/7</Typography>
-                            <HStack className='middle-item-img-wrap'>
-                                <Box className='middle-item-img'>
-                                    <Box component='img' src='frontend/Default/img/svg/tvbet.svg' />
-                                </Box>
-                            </HStack>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={3} >
-                        <Box className='middle-item'>
-                            <Typography sx={{ lineHeight: 1, zIndex: 1, fontSize: '24px', fontWeight: '600' }}>Casino</Typography>
-                            <Typography sx={{ lineHeight: 1, zIndex: 1, fontSize: '13', mt: '3px' }}>Over 3000 games</Typography>
-                            <HStack className='middle-item-img-wrap'>
-                                <Box className='middle-item-img'>
-                                    <Box component='img' src='frontend/Default/img/svg/casino.svg' />
-                                </Box>
-                            </HStack>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={3} >
-                        <Box className='middle-item'>
-                            <Typography sx={{ lineHeight: 1, zIndex: 1, fontSize: '24px', fontWeight: '600' }}>Live Games</Typography>
-                            <Typography sx={{ lineHeight: 1, zIndex: 1, fontSize: '13', mt: '3px' }}>Live dealers</Typography>
-                            <HStack className='middle-item-img-wrap'>
-                                <Box className='middle-item-img'>
-                                    <Box component='img' src='frontend/Default/img/svg/live-game.svg' />
-                                </Box>
-                            </HStack>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={3} >
-                        <Box className='middle-item'>
-                            <Typography sx={{ lineHeight: 1, zIndex: 1, fontSize: '24px', fontWeight: '600' }}>Poker</Typography>
-                            <Typography sx={{ lineHeight: 1, zIndex: 1, fontSize: '13', mt: '3px' }}>Free Tournaments</Typography>
-                            <HStack className='middle-item-img-wrap'>
-                                <Box className='middle-item-img'>
-                                    <Box component='img' src='frontend/Default/img/svg/poker.svg' />
-                                </Box>
-                            </HStack>
-                        </Box>
-                    </Grid>
-                </Grid>
+                <HStack
+                    sx={{
+                        px: 4,
+                        py: 2,
+                        borderRadius: 4,
+                        alignItems: 'center',
+                        bgcolor: 'rgb(36,0,0)',
+                        background: 'linear-gradient(90deg, rgba(36,0,16,0.6138830532212884) 0%, rgba(121,9,26,0.7315301120448179) 69%, rgba(255,0,74,1) 100%)'
+                    }}>
+                    <Box component='img' src={qatar} sx={{ height: 100 }} />
+                    <HStack
+                        sx={{
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
+                            width: '75%',
+                            ml: 'auto'
+                        }}>
+                        <Box component='img' src={timerWing} sx={{ height: 40 }} />
+                        <Stack alignItems='center' sx={{ mx: 1 }}>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>48</Typography>
+                            <Typography sx={{ fontSize: 16 }}>Days</Typography>
+                        </Stack>
+                        <Box component='img' src={timerSpace} sx={{ width: 20 }} />
+                        <Stack alignItems='center' sx={{ mx: 1 }}>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>07</Typography>
+                            <Typography sx={{ fontSize: 16 }}>Hours</Typography>
+                        </Stack>
+                        <Box component='img' src={timerSpace} sx={{ width: 20 }} />
+                        <Stack alignItems='center' sx={{ mx: 1 }}>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>08</Typography>
+                            <Typography sx={{ fontSize: 16 }}>Minutes</Typography>
+                        </Stack>
+                        <Box component='img' src={timerSpace} sx={{ width: 20 }} />
+                        <Stack alignItems='center' sx={{ mx: 1 }}>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>01</Typography>
+                            <Typography sx={{ fontSize: 16 }}>Seconds</Typography>
+                        </Stack>
+                        <Box component='img' src={timerWing} sx={{ height: 40, transform: 'rotate(180deg)' }} />
+                    </HStack>
+                </HStack>
             </Box>
             <Box sx={{ my: 2 }} >
                 <HStack justifyContent='space-between'>
@@ -259,6 +263,51 @@ const Home = () => {
                         }
                     </Swiper>
                 </Stack>
+            </Box>
+            <Box sx={{ mb: 2 }}>
+                <Grid container spacing={2}>
+                    {
+                        sportsList.map((item, idx) => (
+                            <Grid item xs={12 / 7} key={idx}>
+                                <Button
+                                    onClick={() => setActSport(idx)}
+                                    className='middle-item'
+                                    sx={{
+                                        width: '100%',
+                                        height: '100%',
+                                        boxShadow: actSport === idx ? '0 0 20px #000000' : 'unset'
+                                    }}>
+                                    <Box sx={{ mb: 2 }}>
+                                        <i className={classNames("sports-icon", `icon-${item.toLocaleLowerCase().replaceAll(' ', '-')}`)} style={{ fontSize: 40, marginTop: '14px', marginBottom: '14px', marginLeft: 'auto', marginRight: 'auto', backgroundColor: actSport !== idx ? '#888fa9' : '', backgroundImage: actSport === idx ? 'linear-gradient(300deg, rgb(118, 200, 245), #005add)' : '' }} />
+                                        <Typography
+                                            sx={{
+                                                zIndex: 1,
+                                                position: 'relative',
+                                                textTransform: 'capitalize',
+                                                color: idx === actSport ? '' : '#888fa9'
+                                            }}>
+                                            {item}
+                                        </Typography>
+                                    </Box>
+                                </Button>
+                            </Grid>
+                        ))
+                    }
+                    <Grid item xs={12 / 7}>
+                        <Button
+                            onClick={() => navigate('/sports/prematch')}
+                            className='middle-item'
+                            sx={{
+                                width: '100%',
+                                height: '100%',
+                            }}>
+                            <Box sx={{ mb: 2 }}>
+                                <AccessTimeIcon style={{ fontSize: 60, margin: '14px' }} />
+                                <Typography sx={{ textTransform: 'capitalize', zIndex: 1, position: 'relative' }}>All</Typography>
+                            </Box>
+                        </Button>
+                    </Grid>
+                </Grid>
             </Box>
             <Box>
                 <Grid container spacing={2}>
@@ -449,6 +498,39 @@ const Home = () => {
                             </Table>
                         </Stack>
                     </Grid>
+                    <Grid item xs={12}>
+                        <Stack className="section-card">
+                            <Box className="section-card-top-line"></Box>
+                            <HStack className="section-card-header" sx={{ mb: 3 }}>
+                                <HStack alignItems='self-end'>
+                                    <Typography variant='h6' sx={{ lineHeight: 1, fontWeight: 700, cursor: 'pointer', letterSpacing: '-.41px' }}>
+                                        Seibet Games
+                                    </Typography>
+                                    <Typography sx={{ ml: 1, opacity: 0.5, lineHeight: 1.2, fontSize: '12px', letterSpacing: '-.29px', fontWeight: 400 }}>8314</Typography>
+                                </HStack>
+                                <Typography sx={{ fontSize: '11px', letterSpacing: '.07px', fontWeight: 600, color: '#1a68db', cursor: 'pointer' }}>All</Typography>
+                            </HStack>
+                            <Swiper
+                                navigation={true}
+                                modules={[Navigation]}
+                                slidesPerView={7}
+                                spaceBetween={16}
+                                className='top-live-casino'
+                            >
+                                {
+                                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((item, idx) => (
+                                        <SwiperSlide key={idx}>
+                                            <Box className="game-card">
+                                                <Box className="game-card-image-container" sx={{ pb: '130% !important' }}>
+                                                    <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" />
+                                                </Box>
+                                            </Box>
+                                        </SwiperSlide>
+                                    ))
+                                }
+                            </Swiper>
+                        </Stack>
+                    </Grid>
                     <Grid item xs={6}>
                         <Stack className="section-card">
                             <Box className="section-card-top-line"></Box>
@@ -503,64 +585,37 @@ const Home = () => {
                             </Grid>
                         </Stack>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                         <Stack className="section-card">
                             <Box className="section-card-top-line"></Box>
                             <HStack className="section-card-header" sx={{ mb: 3 }}>
                                 <HStack alignItems='self-end'>
-                                    <Typography variant='h4' sx={{ lineHeight: 1, fontWeight: 700, cursor: 'pointer', letterSpacing: '-.41px' }}>
-                                        Seibet Games
+                                    <Typography variant='h6' sx={{ lineHeight: 1, fontWeight: 700, cursor: 'pointer', letterSpacing: '-.41px' }}>
+                                        Top Live Casino
                                     </Typography>
+                                    <Typography sx={{ ml: 1, opacity: 0.5, lineHeight: 1.2, fontSize: '12px', letterSpacing: '-.29px', fontWeight: 400 }}>8314</Typography>
                                 </HStack>
                                 <Typography sx={{ fontSize: '11px', letterSpacing: '.07px', fontWeight: 600, color: '#1a68db', cursor: 'pointer' }}>All</Typography>
                             </HStack>
-                            <Grid container spacing={2}>
+                            <Swiper
+                                navigation={true}
+                                modules={[Navigation]}
+                                slidesPerView={6}
+                                spaceBetween={16}
+                                className='top-live-casino'
+                            >
                                 {
-                                    [1, 2, 3, 4].map((item, idx) => (
-                                        <Grid item xs={3} key={idx}>
+                                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((item, idx) => (
+                                        <SwiperSlide key={idx}>
                                             <Box className="game-card">
                                                 <Box className="game-card-image-container">
                                                     <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" />
                                                 </Box>
                                             </Box>
-                                        </Grid>
+                                        </SwiperSlide>
                                     ))
                                 }
-                            </Grid>
-                        </Stack>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Stack className="section-card" sx={{ height: '100%', padding: 0 }}>
-                            <Box className="section-card-top-line"></Box>
-                            <Box className="section-card-bg">
-                                <HStack className="SectionPokerBanner-bg" justifyContent='flex-end'>
-                                    <Box className="WithSelfBlurGlow">
-                                        <Box className="WithSelfBlurGlow-glow">
-                                            <Box sx={{ width: 'auto', height: '100%', pointerEvents: 'none' }}>
-                                                <Box component='img' src='frontend/Default/img/_src/home-poker-banner-bg.webp' sx={{ height: '100%', width: '100%' }} />
-                                            </Box>
-                                        </Box>
-                                        <Box className="WithSelfBlurGlow-content-wrapper">
-                                            <Box sx={{ width: 'auto', height: '100%', pointerEvents: 'none' }}>
-                                                <Box component='img' src='frontend/Default/img/_src/home-poker-banner-bg.webp' sx={{ height: '100%', maxWidth: '100%', objectFit: 'contain', opacity: 1 }} />
-                                            </Box>
-                                        </Box>
-                                    </Box>
-                                </HStack>
-                            </Box>
-                            <HStack className="section-card-header" sx={{ mb: 3, padding: '25px' }}>
-                                <HStack alignItems='self-end'>
-                                    <Typography variant='h4' sx={{ lineHeight: 1, fontWeight: 700, cursor: 'pointer', letterSpacing: '-.41px' }}>
-                                        Poker
-                                    </Typography>
-                                </HStack>
-                            </HStack>
-                            <Box sx={{ flexGrow: 1, padding: '25px' }}>
-                                <Stack sx={{ height: '100%', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                                    <Typography sx={{ fontSize: '16px', lineHeight: '24px', fontWeight: 400 }}>Come in, play and win</Typography>
-                                    <Button className="SectionPokerBanner_contentButton">Get bonus</Button>
-                                </Stack>
-                            </Box>
+                            </Swiper>
                         </Stack>
                     </Grid>
                 </Grid>

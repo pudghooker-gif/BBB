@@ -1,5 +1,35 @@
 (self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_src_pages_player_Home_jsx"],{
 
+/***/ "./node_modules/@mui/icons-material/AccessTime.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@mui/icons-material/AccessTime.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)([/*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+}, "0"), /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+}, "1")], 'AccessTime');
+
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/KeyboardArrowUp.js":
 /*!*************************************************************!*\
   !*** ./node_modules/@mui/icons-material/KeyboardArrowUp.js ***!
@@ -5461,19 +5491,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
-/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
-/* harmony import */ var _mui_material_Link__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material/Link */ "./node_modules/@mui/material/esm/Link/Link.js");
-/* harmony import */ var _mui_material_Table__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/Table */ "./node_modules/@mui/material/esm/Table/Table.js");
-/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
-/* harmony import */ var _mui_material_TableRow__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/material/TableRow */ "./node_modules/@mui/material/esm/TableRow/TableRow.js");
-/* harmony import */ var _mui_material_TableHead__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/TableHead */ "./node_modules/@mui/material/esm/TableHead/TableHead.js");
-/* harmony import */ var _mui_material_TableBody__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/material/TableBody */ "./node_modules/@mui/material/esm/TableBody/TableBody.js");
-/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
-/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
+/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
+/* harmony import */ var _mui_material_Link__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/Link */ "./node_modules/@mui/material/esm/Link/Link.js");
+/* harmony import */ var _mui_material_Table__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/material/Table */ "./node_modules/@mui/material/esm/Table/Table.js");
+/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
+/* harmony import */ var _mui_material_TableRow__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @mui/material/TableRow */ "./node_modules/@mui/material/esm/TableRow/TableRow.js");
+/* harmony import */ var _mui_material_TableHead__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @mui/material/TableHead */ "./node_modules/@mui/material/esm/TableHead/TableHead.js");
+/* harmony import */ var _mui_material_TableBody__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @mui/material/TableBody */ "./node_modules/@mui/material/esm/TableBody/TableBody.js");
+/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
 /* harmony import */ var _components_Base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/Base */ "./resources/js/src/components/Base.jsx");
 /* harmony import */ var _components_Part__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/Part */ "./resources/js/src/components/Part.jsx");
 /* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
@@ -5484,8 +5515,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! swiper/css */ "./node_modules/swiper/swiper.min.css");
 /* harmony import */ var swiper_css_navigation__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! swiper/css/navigation */ "./node_modules/swiper/modules/navigation/navigation.min.css");
 /* harmony import */ var swiper_css_pagination__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! swiper/css/pagination */ "./node_modules/swiper/modules/pagination/pagination.min.css");
+/* harmony import */ var _mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/icons-material/AccessTime */ "./node_modules/@mui/icons-material/AccessTime.js");
 /* harmony import */ var _assets_img_feature_fire_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../assets/img/feature/fire.svg */ "./resources/js/src/assets/img/feature/fire.svg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _assets_img_feature_qatar_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../assets/img/feature/qatar.svg */ "./resources/js/src/assets/img/feature/qatar.svg");
+/* harmony import */ var _assets_img_feature_timer_wing_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../assets/img/feature/timer-wing.svg */ "./resources/js/src/assets/img/feature/timer-wing.svg");
+/* harmony import */ var _assets_img_feature_timer_space_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../assets/img/feature/timer-space.svg */ "./resources/js/src/assets/img/feature/timer-space.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -5532,13 +5567,24 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
+
+
 var Home = function Home() {
-  var sportsList = ['Soccer', 'Cricket', 'American Football', 'Tennis', 'Basketball'];
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_16__.useNavigate)();
+  var sportsList = ['Soccer', 'Basketball', 'Cricket', 'Table Tennis', 'American Football', 'Tennis'];
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState2 = _slicedToArray(_useState, 2),
       actLiveItem = _useState2[0],
       setActLiveItem = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      actSport = _useState4[0],
+      setActSport = _useState4[1];
 
   var eg = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -5568,19 +5614,19 @@ var Home = function Home() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     eg();
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
       sx: {
         py: 2,
         height: 350
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
         sx: {
           width: '60%',
           mr: 2
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Part__WEBPACK_IMPORTED_MODULE_3__.Slider, {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Part__WEBPACK_IMPORTED_MODULE_3__.Slider, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
         sx: {
           width: '20%',
           borderRadius: '20px',
@@ -5588,17 +5634,17 @@ var Home = function Home() {
           mr: 2,
           overflow: 'hidden'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
           sx: {
             position: 'relative',
             height: '100%',
             width: '100%'
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
             sx: {
               height: '100%'
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
               sx: {
                 height: '100%',
                 width: '100%',
@@ -5606,7 +5652,7 @@ var Home = function Home() {
                 left: 0,
                 position: 'absolute'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                 component: "img",
                 src: "frontend/Default/img/_src/bonus-banner-cashback-casino.png",
                 sx: {
@@ -5615,13 +5661,13 @@ var Home = function Home() {
                   objectFit: 'cover'
                 }
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.VStack, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.VStack, {
               sx: {
                 padding: 3,
                 height: '100%',
                 position: 'relative'
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                 sx: {
                   width: '100%',
                   fontSize: '30px',
@@ -5633,7 +5679,7 @@ var Home = function Home() {
                   fontWeight: 800
                 },
                 children: "Cashback up to 30% on casinos"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_16__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_20__["default"], {
                 src: "casino",
                 sx: {
                   fontSize: '20px',
@@ -5662,24 +5708,24 @@ var Home = function Home() {
             })]
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
         sx: {
           width: '20%',
           borderRadius: '20px',
           bgcolor: '#a115fb',
           overflow: 'hidden'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
           sx: {
             position: 'relative',
             height: '100%',
             width: '100%'
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
             sx: {
               height: '100%'
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
               sx: {
                 height: '100%',
                 width: '100%',
@@ -5687,7 +5733,7 @@ var Home = function Home() {
                 left: 0,
                 position: 'absolute'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                 component: "img",
                 src: "frontend/Default/img/_src/bonus-banner-deposit.avif",
                 sx: {
@@ -5696,13 +5742,13 @@ var Home = function Home() {
                   objectFit: 'cover'
                 }
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.VStack, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.VStack, {
               sx: {
                 padding: 3,
                 height: '100%',
                 position: 'relative'
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                 sx: {
                   width: '100%',
                   fontSize: '30px',
@@ -5714,7 +5760,7 @@ var Home = function Home() {
                   fontWeight: 800
                 },
                 children: "Bonus + 500%"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_16__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_20__["default"], {
                 src: "casino",
                 sx: {
                   fontSize: '20px',
@@ -5744,156 +5790,155 @@ var Home = function Home() {
           })
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
-        container: true,
-        spacing: 2,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
-          item: true,
-          xs: 3,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-            className: "middle-item",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+        sx: {
+          px: 4,
+          py: 2,
+          borderRadius: 4,
+          alignItems: 'center',
+          bgcolor: 'rgb(36,0,0)',
+          background: 'linear-gradient(90deg, rgba(36,0,16,0.6138830532212884) 0%, rgba(121,9,26,0.7315301120448179) 69%, rgba(255,0,74,1) 100%)'
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+          component: "img",
+          src: _assets_img_feature_qatar_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
+          sx: {
+            height: 100
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+          sx: {
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            width: '75%',
+            ml: 'auto'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+            component: "img",
+            src: _assets_img_feature_timer_wing_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
+            sx: {
+              height: 40
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            alignItems: "center",
+            sx: {
+              mx: 1
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              varient: "h1",
               sx: {
-                lineHeight: 1,
-                zIndex: 1,
-                fontSize: '24px',
-                fontWeight: '600'
+                fontSize: 50,
+                lineHeight: 1.2,
+                fontWeight: 600
               },
-              children: "Live"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              children: "48"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
               sx: {
-                lineHeight: 1,
-                zIndex: 1,
-                fontSize: '13',
-                mt: '3px'
+                fontSize: 16
               },
-              children: "Live Games 24/7"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
-              className: "middle-item-img-wrap",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                className: "middle-item-img",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                  component: "img",
-                  src: "frontend/Default/img/svg/tvbet.svg"
-                })
-              })
+              children: "Days"
             })]
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
-          item: true,
-          xs: 3,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-            className: "middle-item",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+            component: "img",
+            src: _assets_img_feature_timer_space_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
+            sx: {
+              width: 20
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            alignItems: "center",
+            sx: {
+              mx: 1
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              varient: "h1",
               sx: {
-                lineHeight: 1,
-                zIndex: 1,
-                fontSize: '24px',
-                fontWeight: '600'
+                fontSize: 50,
+                lineHeight: 1.2,
+                fontWeight: 600
               },
-              children: "Casino"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              children: "07"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
               sx: {
-                lineHeight: 1,
-                zIndex: 1,
-                fontSize: '13',
-                mt: '3px'
+                fontSize: 16
               },
-              children: "Over 3000 games"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
-              className: "middle-item-img-wrap",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                className: "middle-item-img",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                  component: "img",
-                  src: "frontend/Default/img/svg/casino.svg"
-                })
-              })
+              children: "Hours"
             })]
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
-          item: true,
-          xs: 3,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-            className: "middle-item",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+            component: "img",
+            src: _assets_img_feature_timer_space_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
+            sx: {
+              width: 20
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            alignItems: "center",
+            sx: {
+              mx: 1
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              varient: "h1",
               sx: {
-                lineHeight: 1,
-                zIndex: 1,
-                fontSize: '24px',
-                fontWeight: '600'
+                fontSize: 50,
+                lineHeight: 1.2,
+                fontWeight: 600
               },
-              children: "Live Games"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              children: "08"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
               sx: {
-                lineHeight: 1,
-                zIndex: 1,
-                fontSize: '13',
-                mt: '3px'
+                fontSize: 16
               },
-              children: "Live dealers"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
-              className: "middle-item-img-wrap",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                className: "middle-item-img",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                  component: "img",
-                  src: "frontend/Default/img/svg/live-game.svg"
-                })
-              })
+              children: "Minutes"
             })]
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
-          item: true,
-          xs: 3,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-            className: "middle-item",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+            component: "img",
+            src: _assets_img_feature_timer_space_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
+            sx: {
+              width: 20
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            alignItems: "center",
+            sx: {
+              mx: 1
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              varient: "h1",
               sx: {
-                lineHeight: 1,
-                zIndex: 1,
-                fontSize: '24px',
-                fontWeight: '600'
+                fontSize: 50,
+                lineHeight: 1.2,
+                fontWeight: 600
               },
-              children: "Poker"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              children: "01"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
               sx: {
-                lineHeight: 1,
-                zIndex: 1,
-                fontSize: '13',
-                mt: '3px'
+                fontSize: 16
               },
-              children: "Free Tournaments"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
-              className: "middle-item-img-wrap",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                className: "middle-item-img",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                  component: "img",
-                  src: "frontend/Default/img/svg/poker.svg"
-                })
-              })
+              children: "Seconds"
             })]
-          })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+            component: "img",
+            src: _assets_img_feature_timer_wing_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
+            sx: {
+              height: 40,
+              transform: 'rotate(180deg)'
+            }
+          })]
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
       sx: {
         my: 2
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
         justifyContent: "space-between",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
             className: "home-tab",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
               className: "home-tab-title",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                 alignItems: "center",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                   className: "populart-icon",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                     component: "img",
                     src: _assets_img_feature_fire_svg__WEBPACK_IMPORTED_MODULE_11__["default"],
                     sx: {
@@ -5906,13 +5951,13 @@ var Home = function Home() {
             })
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
         className: "home-tab-content",
         sx: {
           padding: 2,
           pb: '6px'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.Swiper, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.Swiper, {
           navigation: true,
           autoplay: true,
           loop: true,
@@ -5924,75 +5969,75 @@ var Home = function Home() {
           },
           className: "popular-events",
           children: [1, 2, 3, 4, 5].map(function (item, idx) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                 className: "popular-wrap",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
                   className: "live-event-main",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                     className: "match-header",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                       component: "div",
                       className: "top-live-match-score",
                       children: "252:559"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                       component: "div",
                       className: "match-score-period",
                       children: "(196:219 - 56:340)"
                     })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                     className: "top-live-match-info",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                       className: "match-teams",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
                         className: "match-team",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                           component: "span",
                           className: "helper-line",
                           children: "Warwickshire"
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
                         className: "match-team",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                           component: "span",
                           className: "helper-line",
                           children: "Warwickshire"
                         })
                       })]
                     })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                     className: "match-details",
                     children: "Cricket \xB7 County Championship Division One"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                     className: "match-odd-list",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                       className: "match-odd-item",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         className: "live-top-odd",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                           className: "odd-values",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                             className: "odd-name",
                             children: "1"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                             className: "odd-value",
                             children: "5.15"
                           })]
                         })
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                       className: "match-odd-item",
                       sx: {
                         ml: 1
                       },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         className: "live-top-odd",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                           className: "odd-values",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                             className: "odd-name",
                             children: "1"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                             className: "odd-value",
                             children: "5.15"
                           })]
@@ -6006,55 +6051,136 @@ var Home = function Home() {
           })
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+      sx: {
+        mb: 2
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
         container: true,
         spacing: 2,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        children: [sportsList.map(function (item, idx) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
+            item: true,
+            xs: 12 / 7,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              onClick: function onClick() {
+                return setActSport(idx);
+              },
+              className: "middle-item",
+              sx: {
+                width: '100%',
+                height: '100%',
+                boxShadow: actSport === idx ? '0 0 20px #000000' : 'unset'
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                sx: {
+                  mb: 2
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("i", {
+                  className: classnames__WEBPACK_IMPORTED_MODULE_5___default()("sports-icon", "icon-".concat(item.toLocaleLowerCase().replaceAll(' ', '-'))),
+                  style: {
+                    fontSize: 40,
+                    marginTop: '14px',
+                    marginBottom: '14px',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    backgroundColor: actSport !== idx ? '#888fa9' : '',
+                    backgroundImage: actSport === idx ? 'linear-gradient(300deg, rgb(118, 200, 245), #005add)' : ''
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                  sx: {
+                    zIndex: 1,
+                    position: 'relative',
+                    textTransform: 'capitalize',
+                    color: idx === actSport ? '' : '#888fa9'
+                  },
+                  children: item
+                })]
+              })
+            })
+          }, idx);
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
+          item: true,
+          xs: 12 / 7,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            onClick: function onClick() {
+              return navigate('/sports/prematch');
+            },
+            className: "middle-item",
+            sx: {
+              width: '100%',
+              height: '100%'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+              sx: {
+                mb: 2
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                style: {
+                  fontSize: 60,
+                  margin: '14px'
+                }
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  textTransform: 'capitalize',
+                  zIndex: 1,
+                  position: 'relative'
+                },
+                children: "All"
+              })]
+            })
+          })
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
+        container: true,
+        spacing: 2,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
           item: true,
           xs: 6,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
             justifyContent: "space-between",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                 className: "home-tab",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                   className: "home-tab-title",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                     alignItems: "center",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                       className: "tab-live-bage",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                         className: "tab-live-bage-center"
                       })
                     }), "Live"]
                   })
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                 className: "home-tab-all",
                 children: "All"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
               sx: {
                 overflowX: 'auto'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                 children: sportsList.map(function (item, idx) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                     className: classnames__WEBPACK_IMPORTED_MODULE_5___default()("toggle-switcher-item", {
                       'active': actLiveItem === idx
                     }),
                     onClick: function onClick() {
                       return setActLiveItem(idx);
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                       className: "toggle-switcher-icon-wrapper",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                         className: "toggle-switcher-icon",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("i", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("i", {
                           className: classnames__WEBPACK_IMPORTED_MODULE_5___default()("sports-icon", "icon-".concat(item.toLocaleLowerCase().replaceAll(' ', '-')), "no-margin")
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                         component: "div",
                         className: "toggle-switcher-label",
                         children: item
@@ -6064,40 +6190,40 @@ var Home = function Home() {
                 })
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
             className: "home-tab-content",
             sx: {
               minHeight: 350
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
               className: "match-table-head-underlay"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_24__["default"], {
               className: "sport-grids",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableHead__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableHead__WEBPACK_IMPORTED_MODULE_25__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_26__["default"], {
                   sx: {
                     height: '30px'
                   },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                     sx: {
                       pl: '36px',
                       pr: 0
                     },
                     align: "right",
                     children: "Time"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                     sx: {
                       pl: '16px'
                     },
                     colSpan: "2",
                     children: "Teams"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                     align: "center",
                     children: "1"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                     align: "center",
                     children: "X"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                     align: "center",
                     sx: {
                       pr: '30px'
@@ -6105,84 +6231,84 @@ var Home = function Home() {
                     children: "2"
                   })]
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_23__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_28__["default"], {
                 children: [1, 2, 3, 4].map(function (item, idx) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_26__["default"], {
                     className: "match-table-match-row",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                         className: "match-table-date-info",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                           className: "match-table-date-time",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                             className: "match-table-date",
                             children: "18 sep"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                             className: "match-table-time",
                             children: "21:00"
                           })]
                         })
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
                       colSpan: "2",
                       align: "left",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                         className: "match-table-primary-info",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                           className: "match-table-team",
                           children: "Entebbe Archers"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                           className: "match-table-team",
                           children: "Miracle Eagles"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                           className: "match-table-score-info",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                             component: "span",
                             className: "match-table-score",
                             children: "35:44"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                             component: "span",
                             className: "match-table-period-score",
                             children: " (12:20 - 7:14 - 16:10)"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                             component: "span",
                             className: "match-table-separator",
                             children: "|"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                             component: "span",
                             className: "match-table-match-time",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__.Clock, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__.Clock, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                               component: "span",
                               children: "6'"
                             })]
                           })]
                         })]
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                         justifyContent: "center",
                         className: "match-table-odds-chip-wrap",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                           className: "match-table-odds-chip",
                           children: "+1.6"
                         })
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         children: "1.1"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         children: "1.1"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         children: "1.1"
                       })
                     })]
@@ -6191,21 +6317,21 @@ var Home = function Home() {
               })]
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
           item: true,
           xs: 6,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
             justifyContent: "space-between",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                 className: "home-tab",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                   className: "home-tab-title",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                     alignItems: "center",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                       className: "populart-icon",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                         component: "img",
                         src: _assets_img_feature_fire_svg__WEBPACK_IMPORTED_MODULE_11__["default"],
                         sx: {
@@ -6217,27 +6343,27 @@ var Home = function Home() {
                   })
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
               sx: {
                 overflowX: 'auto'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                 children: sportsList.map(function (item, idx) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                     className: classnames__WEBPACK_IMPORTED_MODULE_5___default()("toggle-switcher-item", {
                       'active': actLiveItem === idx
                     }),
                     onClick: function onClick() {
                       return setActLiveItem(idx);
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                       className: "toggle-switcher-icon-wrapper",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                         className: "toggle-switcher-icon",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("i", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("i", {
                           className: classnames__WEBPACK_IMPORTED_MODULE_5___default()("sports-icon", "icon-".concat(item.toLocaleLowerCase().replaceAll(' ', '-')), "no-margin")
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                         component: "div",
                         className: "toggle-switcher-label",
                         children: item
@@ -6247,40 +6373,40 @@ var Home = function Home() {
                 })
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
             className: "home-tab-content",
             sx: {
               minHeight: 350
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
               className: "match-table-head-underlay"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_24__["default"], {
               className: "sport-grids",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableHead__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableHead__WEBPACK_IMPORTED_MODULE_25__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_26__["default"], {
                   sx: {
                     height: '30px'
                   },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                     sx: {
                       pl: '36px',
                       pr: 0
                     },
                     align: "right",
                     children: "Time"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                     sx: {
                       pl: '16px'
                     },
                     colSpan: "2",
                     children: "Teams"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                     align: "center",
                     children: "1"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                     align: "center",
                     children: "X"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                     align: "center",
                     sx: {
                       pr: '30px'
@@ -6288,84 +6414,84 @@ var Home = function Home() {
                     children: "2"
                   })]
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_23__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_28__["default"], {
                 children: [1, 2, 3, 4].map(function (item, idx) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_26__["default"], {
                     className: "match-table-match-row",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                         className: "match-table-date-info",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                           className: "match-table-date-time",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                             className: "match-table-date",
                             children: "18 sep"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                             className: "match-table-time",
                             children: "21:00"
                           })]
                         })
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
                       colSpan: "2",
                       align: "left",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                         className: "match-table-primary-info",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                           className: "match-table-team",
                           children: "Entebbe Archers"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                           className: "match-table-team",
                           children: "Miracle Eagles"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                           className: "match-table-score-info",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                             component: "span",
                             className: "match-table-score",
                             children: "35:44"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                             component: "span",
                             className: "match-table-period-score",
                             children: " (12:20 - 7:14 - 16:10)"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                             component: "span",
                             className: "match-table-separator",
                             children: "|"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                             component: "span",
                             className: "match-table-match-time",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__.Clock, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__.Clock, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                               component: "span",
                               children: "6'"
                             })]
                           })]
                         })]
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                         justifyContent: "center",
                         className: "match-table-odds-chip-wrap",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                           className: "match-table-odds-chip",
                           children: "+1.6"
                         })
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         children: "1.1"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         children: "1.1"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_27__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         children: "1.1"
                       })
                     })]
@@ -6374,21 +6500,91 @@ var Home = function Home() {
               })]
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
           item: true,
-          xs: 6,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          xs: 12,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
             className: "section-card",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
               className: "section-card-top-line"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
               className: "section-card-header",
               sx: {
                 mb: 3
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                 alignItems: "self-end",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                  variant: "h6",
+                  sx: {
+                    lineHeight: 1,
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    letterSpacing: '-.41px'
+                  },
+                  children: "Seibet Games"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                  sx: {
+                    ml: 1,
+                    opacity: 0.5,
+                    lineHeight: 1.2,
+                    fontSize: '12px',
+                    letterSpacing: '-.29px',
+                    fontWeight: 400
+                  },
+                  children: "8314"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                sx: {
+                  fontSize: '11px',
+                  letterSpacing: '.07px',
+                  fontWeight: 600,
+                  color: '#1a68db',
+                  cursor: 'pointer'
+                },
+                children: "All"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.Swiper, {
+              navigation: true,
+              modules: [swiper__WEBPACK_IMPORTED_MODULE_7__.Navigation],
+              slidesPerView: 7,
+              spaceBetween: 16,
+              className: "top-live-casino",
+              children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(function (item, idx) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                    className: "game-card",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                      className: "game-card-image-container",
+                      sx: {
+                        pb: '130% !important'
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                        component: "img",
+                        src: "frontend/Default/img/_src/bonus-banner-deposit.avif",
+                        className: "game-card-image"
+                      })
+                    })
+                  })
+                }, idx);
+              })
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
+          item: true,
+          xs: 6,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            className: "section-card",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
+              className: "section-card-top-line"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              className: "section-card-header",
+              sx: {
+                mb: 3
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+                alignItems: "self-end",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                   variant: "h6",
                   sx: {
                     lineHeight: 1,
@@ -6397,7 +6593,7 @@ var Home = function Home() {
                     letterSpacing: '-.41px'
                   },
                   children: "Casino"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                   sx: {
                     ml: 1,
                     opacity: 0.5,
@@ -6408,7 +6604,7 @@ var Home = function Home() {
                   },
                   children: "8314"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                 sx: {
                   fontSize: '11px',
                   letterSpacing: '.07px',
@@ -6418,18 +6614,18 @@ var Home = function Home() {
                 },
                 children: "All"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
               container: true,
               spacing: 2,
               children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3].map(function (item, idx) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
                   item: true,
                   xs: 3,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                     className: "game-card",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                       className: "game-card-image-container",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                         component: "img",
                         src: "frontend/Default/img/_src/bonus-banner-deposit.avif",
                         className: "game-card-image"
@@ -6440,21 +6636,21 @@ var Home = function Home() {
               })
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
           item: true,
           xs: 6,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
             className: "section-card",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
               className: "section-card-top-line"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
               className: "section-card-header",
               sx: {
                 mb: 3
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                 alignItems: "self-end",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                   variant: "h6",
                   sx: {
                     lineHeight: 1,
@@ -6463,7 +6659,7 @@ var Home = function Home() {
                     letterSpacing: '-.41px'
                   },
                   children: "LiveGames"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                   sx: {
                     ml: 1,
                     opacity: 0.5,
@@ -6474,7 +6670,7 @@ var Home = function Home() {
                   },
                   children: "8314"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                 sx: {
                   fontSize: '11px',
                   letterSpacing: '.07px',
@@ -6484,18 +6680,18 @@ var Home = function Home() {
                 },
                 children: "All"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
               container: true,
               spacing: 2,
               children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3].map(function (item, idx) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
                   item: true,
                   xs: 3,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                     className: "game-card",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                       className: "game-card-image-container",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                         component: "img",
                         src: "frontend/Default/img/_src/bonus-banner-deposit.avif",
                         className: "game-card-image"
@@ -6506,31 +6702,41 @@ var Home = function Home() {
               })
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_22__["default"], {
           item: true,
-          xs: 6,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          xs: 12,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_17__["default"], {
             className: "section-card",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
               className: "section-card-top-line"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
               className: "section-card-header",
               sx: {
                 mb: 3
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
                 alignItems: "self-end",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                  variant: "h4",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                  variant: "h6",
                   sx: {
                     lineHeight: 1,
                     fontWeight: 700,
                     cursor: 'pointer',
                     letterSpacing: '-.41px'
                   },
-                  children: "Seibet Games"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                  children: "Top Live Casino"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                  sx: {
+                    ml: 1,
+                    opacity: 0.5,
+                    lineHeight: 1.2,
+                    fontSize: '12px',
+                    letterSpacing: '-.29px',
+                    fontWeight: 400
+                  },
+                  children: "8314"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                 sx: {
                   fontSize: '11px',
                   letterSpacing: '.07px',
@@ -6540,18 +6746,19 @@ var Home = function Home() {
                 },
                 children: "All"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
-              container: true,
-              spacing: 2,
-              children: [1, 2, 3, 4].map(function (item, idx) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
-                  item: true,
-                  xs: 3,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.Swiper, {
+              navigation: true,
+              modules: [swiper__WEBPACK_IMPORTED_MODULE_7__.Navigation],
+              slidesPerView: 6,
+              spaceBetween: 16,
+              className: "top-live-casino",
+              children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(function (item, idx) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                     className: "game-card",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                       className: "game-card-image-container",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_18__["default"], {
                         component: "img",
                         src: "frontend/Default/img/_src/bonus-banner-deposit.avif",
                         className: "game-card-image"
@@ -6559,107 +6766,6 @@ var Home = function Home() {
                     })
                   })
                 }, idx);
-              })
-            })]
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
-          item: true,
-          xs: 6,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
-            className: "section-card",
-            sx: {
-              height: '100%',
-              padding: 0
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-              className: "section-card-top-line"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-              className: "section-card-bg",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
-                className: "SectionPokerBanner-bg",
-                justifyContent: "flex-end",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                  className: "WithSelfBlurGlow",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                    className: "WithSelfBlurGlow-glow",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                      sx: {
-                        width: 'auto',
-                        height: '100%',
-                        pointerEvents: 'none'
-                      },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                        component: "img",
-                        src: "frontend/Default/img/_src/home-poker-banner-bg.webp",
-                        sx: {
-                          height: '100%',
-                          width: '100%'
-                        }
-                      })
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                    className: "WithSelfBlurGlow-content-wrapper",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                      sx: {
-                        width: 'auto',
-                        height: '100%',
-                        pointerEvents: 'none'
-                      },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                        component: "img",
-                        src: "frontend/Default/img/_src/home-poker-banner-bg.webp",
-                        sx: {
-                          height: '100%',
-                          maxWidth: '100%',
-                          objectFit: 'contain',
-                          opacity: 1
-                        }
-                      })
-                    })
-                  })]
-                })
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
-              className: "section-card-header",
-              sx: {
-                mb: 3,
-                padding: '25px'
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
-                alignItems: "self-end",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                  variant: "h4",
-                  sx: {
-                    lineHeight: 1,
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                    letterSpacing: '-.41px'
-                  },
-                  children: "Poker"
-                })
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
-              sx: {
-                flexGrow: 1,
-                padding: '25px'
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
-                sx: {
-                  height: '100%',
-                  alignItems: 'flex-start',
-                  justifyContent: 'space-between'
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                  sx: {
-                    fontSize: '16px',
-                    lineHeight: '24px',
-                    fontWeight: 400
-                  },
-                  children: "Come in, play and win"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_18__["default"], {
-                  className: "SectionPokerBanner_contentButton",
-                  children: "Get bonus"
-                })]
               })
             })]
           })
@@ -6826,6 +6932,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/fire.svg?f0ed51831accab600f6693e2a2f74128");
+
+/***/ }),
+
+/***/ "./resources/js/src/assets/img/feature/qatar.svg":
+/*!*******************************************************!*\
+  !*** ./resources/js/src/assets/img/feature/qatar.svg ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/qatar.svg?f142015c0644939f3cb5d544695d78a8");
+
+/***/ }),
+
+/***/ "./resources/js/src/assets/img/feature/timer-space.svg":
+/*!*************************************************************!*\
+  !*** ./resources/js/src/assets/img/feature/timer-space.svg ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/timer-space.svg?ae5cadf9676ae760eccb12ec8a2f280a");
+
+/***/ }),
+
+/***/ "./resources/js/src/assets/img/feature/timer-wing.svg":
+/*!************************************************************!*\
+  !*** ./resources/js/src/assets/img/feature/timer-wing.svg ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/timer-wing.svg?1600cef46c7e10b08bffe0752b37f671");
 
 /***/ }),
 
