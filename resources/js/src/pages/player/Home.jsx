@@ -504,7 +504,7 @@ const Home = () => {
                             <HStack className="section-card-header" sx={{ mb: 3 }}>
                                 <HStack alignItems='self-end'>
                                     <Typography variant='h6' sx={{ lineHeight: 1, fontWeight: 700, cursor: 'pointer', letterSpacing: '-.41px' }}>
-                                        Top Live Casino
+                                        Seibet Games
                                     </Typography>
                                     <Typography sx={{ ml: 1, opacity: 0.5, lineHeight: 1.2, fontSize: '12px', letterSpacing: '-.29px', fontWeight: 400 }}>8314</Typography>
                                 </HStack>

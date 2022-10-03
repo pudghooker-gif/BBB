@@ -6522,7 +6522,7 @@ var Home = function Home() {
                     cursor: 'pointer',
                     letterSpacing: '-.41px'
                   },
-                  children: "Top Live Casino"
+                  children: "Seibet Games"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_19__["default"], {
                   sx: {
                     ml: 1,
