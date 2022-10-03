@@ -80,6 +80,11 @@ code {
   mask-image: url(../img/sports/icons_tennis.svg);
 }
 
+.icon-table-tennis {
+  -webkit-mask-image: url(../img/sports/icons_tennis.svg);
+  mask-image: url(../img/sports/icons_tennis.svg);
+}
+
 /* Swiper slider */
 .bet-swiper {
   height: 100%;
@@ -217,6 +222,54 @@ code {
 
     .swiper-pagination-bullet-active {
       background: #5b8fdd;
+    }
+  }
+}
+
+.top-live-casino {
+  height: 100%;
+  width: 100%;
+
+  &:hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+      opacity: 1 !important;
+    }
+  }
+
+  .swiper-button-prev {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    opacity: 0 !important;
+    background-color: #edf2ff;
+    box-shadow: 0 0 5px 0px #132034;
+
+    &::after {
+      color: #132034;
+      font-size: 12px;
+      font-weight: 900;
+    }
+  }
+
+  .swiper-button-next {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    opacity: 0 !important;
+    background-color: #edf2ff;
+    box-shadow: 0 0 5px 0px #132034;
+
+    &::after {
+      color: #132034;
+      font-size: 12px;
+      font-weight: 900;
     }
   }
 }

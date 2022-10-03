@@ -29,6 +29,12 @@ import enlang from '../assets/img/feature/en.svg';
 import ptlang from '../assets/img/feature/pt.svg';
 import { IconButton } from '@mui/material';
 
+const New = () => {
+  return (
+    <Typography sx={{ color: 'white', fontSize: 10, px: .5, ml: .5, bgcolor: theme => theme.palette.success.dark, borderRadius: 2, border: '1px solid white' }}>New</Typography>
+  )
+}
+
 const Desktop = ({ langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go }) => {
   return (
     <>
@@ -148,12 +154,16 @@ const Desktop = ({ langList, showProfile, list, profile, active, showLang, close
                 {
                   list.map((item, idx) => (
                     <Tab
-                      label={item.name}
                       key={idx}
+                      icon={<New />}
+                      iconPosition="end"
+                      label={item.name}
+                      {...  { icon: idx === 3 ? <New /> : null }}
                       sx={{
                         padding: '2px',
                         mx: 2,
-                        color: '#fff !important',
+                        color: idx === active ? '#fff !important' : '#ffffffad',
+                        minHeight: theme => theme.spacing(6),
                         minWidth: '0px !important',
                         textTransform: 'capitalize',
                         ['& .MuiTouchRipple-root']: {
@@ -264,7 +274,7 @@ const Header = () => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery('(max-width:425px)');
 
-  const list = [{ name: 'Home', route: '/home' }, { name: 'Live', route: '/sports/live' }, { name: 'Sports', route: '/sports/prematch' }, { name: 'Casino', route: '/casino' }, { name: 'Live-Casino', route: '/live-casino' }, { name: 'Poker', route: '/poker' }];
+  const list = [{ name: 'Home', route: '/home' }, { name: 'Live', route: '/sports/live' }, { name: 'Sports', route: '/sports/prematch' }, { name: 'World Cup 22', route: '/sports/prematch' }, { name: 'Casino', route: '/casino' }, { name: 'Live-Casino', route: '/live-casino' }, { name: 'Poker', route: '/poker' }];
   const profile = ['Withdraw', 'Setting', 'Bet History', 'Log Out']
   const [active, setActive] = useState(0);
   const [langList, setLangList] = useState(null);
