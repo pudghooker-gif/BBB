@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
@@ -30,12 +30,19 @@ const Home = () => {
     const sportsList = ['Soccer', 'Cricket', 'American Football', 'Tennis', 'Basketball'];
     const [actLiveItem, setActLiveItem] = useState(0);
     const eg = async () => {
-        const response = await Axios({
-            endpoint: "/sports/get-live",
-            method: "POST",
-            params: request
-        })
+        axios.post('/api/test', {})
+            .then(
+                response => console.log(JSON.stringify(response.data))
+            )
+            .catch(error => {
+                console.log("ERROR:: ", error.response.data);
+            });
     }
+
+    useEffect(() => {
+        eg();
+    }, []);
+
     return (
         <Stack>
             <HStack sx={{ py: 2, height: 350 }}>

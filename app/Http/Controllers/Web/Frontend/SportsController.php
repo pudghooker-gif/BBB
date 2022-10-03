@@ -205,6 +205,10 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             return array($title, $categories, $category1);
         }
 
+        public function test() {
+            return json_decode('this is test response!');
+        }
+
         public function index()
         {
             return redirect()->route('frontend.home');

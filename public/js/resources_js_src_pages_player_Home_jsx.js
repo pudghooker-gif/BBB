@@ -5542,22 +5542,17 @@ var Home = function Home() {
 
   var eg = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var response;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default()({
-                endpoint: "/sports/get-live",
-                method: "POST",
-                params: request
+              axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/test', {}).then(function (response) {
+                return console.log(JSON.stringify(response.data));
+              })["catch"](function (error) {
+                console.log("ERROR:: ", error.response.data);
               });
 
-            case 2:
-              response = _context.sent;
-
-            case 3:
+            case 1:
             case "end":
               return _context.stop();
           }
@@ -5570,6 +5565,9 @@ var Home = function Home() {
     };
   }();
 
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    eg();
+  }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
       sx: {
