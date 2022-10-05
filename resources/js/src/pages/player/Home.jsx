@@ -18,6 +18,7 @@ import { Slider } from '../../components/Part';
 import { Clock } from '../../assets/img/feature/svgIcon';
 
 import classNames from 'classnames';
+import moment from 'moment';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
 
@@ -38,6 +39,7 @@ const Home = () => {
     const sportsList = ['Soccer', 'Basketball', 'Cricket', 'Table Tennis', 'American Football', 'Tennis'];
     const [actLiveItem, setActLiveItem] = useState(0);
     const [actSport, setActSport] = useState(0);
+    const [timer, setTimer] = useState({});
 
     const eg = async () => {
         axios.post('/api/test', {})
@@ -49,8 +51,32 @@ const Home = () => {
             });
     }
 
+    const numberFormat = (e) => {
+        e = String(e);
+        return e.length == 1 ? `0${e}` : e;
+    }
+
+    const countDown = () => {
+        const now = new Date(moment(new Date()).utcOffset('GMT-05:00').format()).getTime();
+        const expiration = new Date('2022-11-20 00:00').getTime();
+        const diff = expiration - now;
+        const day = numberFormat(Math.ceil(diff / (1000 * 3600 * 24)));
+        const mod = diff % (1000 * 3600 * 24);
+        const hour = numberFormat(Math.ceil(mod / (1000 * 3600)));
+        const mod1 = mod % (1000 * 3600);
+        const minute = numberFormat(Math.floor(mod1 / (1000 * 60)));
+        const mod2 = mod1 % (1000 * 60);
+        const second = numberFormat(Math.floor(mod2 / 1000));
+        setTimer({ day, hour, minute, second });
+    }
+
+    const countStart = () => {
+        countDown();
+        setInterval(countDown, 1000)
+    }
+
     useEffect(() => {
-        eg();
+        countStart();
     }, []);
 
     return (
@@ -170,22 +196,22 @@ const Home = () => {
                         }}>
                         <Box component='img' src={timerWing} sx={{ height: 40 }} />
                         <Stack alignItems='center' sx={{ mx: 1 }}>
-                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>48</Typography>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>{timer.day}</Typography>
                             <Typography sx={{ fontSize: 16 }}>Days</Typography>
                         </Stack>
                         <Box component='img' src={timerSpace} sx={{ width: 20 }} />
                         <Stack alignItems='center' sx={{ mx: 1 }}>
-                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>07</Typography>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>{timer.hour}</Typography>
                             <Typography sx={{ fontSize: 16 }}>Hours</Typography>
                         </Stack>
                         <Box component='img' src={timerSpace} sx={{ width: 20 }} />
                         <Stack alignItems='center' sx={{ mx: 1 }}>
-                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>08</Typography>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>{timer.minute}</Typography>
                             <Typography sx={{ fontSize: 16 }}>Minutes</Typography>
                         </Stack>
                         <Box component='img' src={timerSpace} sx={{ width: 20 }} />
                         <Stack alignItems='center' sx={{ mx: 1 }}>
-                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>01</Typography>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>{timer.second}</Typography>
                             <Typography sx={{ fontSize: 16 }}>Seconds</Typography>
                         </Stack>
                         <Box component='img' src={timerWing} sx={{ height: 40, transform: 'rotate(180deg)' }} />
