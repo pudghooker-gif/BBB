@@ -57,9 +57,9 @@ const Home = () => {
     }
 
     const countDown = () => {
-        const now = new Date(moment(new Date()).utcOffset('GMT-05:00').format()).getTime();
+        const now = new Date(moment(new Date()).utcOffset('GMT-03:00').format()).getTime();
         const expiration = new Date('2022-11-20 00:00').getTime();
-        const diff = expiration - now;
+        const diff = expiration - now + (3600 * 12 * 1000);
         const day = numberFormat(Math.ceil(diff / (1000 * 3600 * 24)));
         const mod = diff % (1000 * 3600 * 24);
         const hour = numberFormat(Math.ceil(mod / (1000 * 3600)));
@@ -102,7 +102,7 @@ const Home = () => {
                                     letterSpacing: '0.33px',
                                     fontWeight: 800
                                 }}>Cashback up to 30% on casinos</Typography>
-                                <Link src='casino' sx={{
+                                <Link src='casino' onClick={() => navigate('/casino')} sx={{
                                     fontSize: '20px',
                                     padding: '0 25px',
                                     width: '100%',

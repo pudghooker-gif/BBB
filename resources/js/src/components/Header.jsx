@@ -305,7 +305,7 @@ const Header = () => {
     const path = location.pathname;
     const idx = list.findIndex((e) => e.route === path);
     setActive(idx);
-  }, [])
+  }, [location.pathname])
 
   return (
     <>

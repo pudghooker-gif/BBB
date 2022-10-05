@@ -5625,9 +5625,9 @@ var Home = function Home() {
   };
 
   var countDown = function countDown() {
-    var now = new Date(moment__WEBPACK_IMPORTED_MODULE_6___default()(new Date()).utcOffset('GMT-05:00').format()).getTime();
+    var now = new Date(moment__WEBPACK_IMPORTED_MODULE_6___default()(new Date()).utcOffset('GMT-03:00').format()).getTime();
     var expiration = new Date('2022-11-20 00:00').getTime();
-    var diff = expiration - now;
+    var diff = expiration - now + 3600 * 12 * 1000;
     var day = numberFormat(Math.ceil(diff / (1000 * 3600 * 24)));
     var mod = diff % (1000 * 3600 * 24);
     var hour = numberFormat(Math.ceil(mod / (1000 * 3600)));
@@ -5718,6 +5718,9 @@ var Home = function Home() {
                 children: "Cashback up to 30% on casinos"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_21__["default"], {
                 src: "casino",
+                onClick: function onClick() {
+                  return navigate('/casino');
+                },
                 sx: {
                   fontSize: '20px',
                   padding: '0 25px',
