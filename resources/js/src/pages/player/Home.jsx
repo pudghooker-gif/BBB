@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment';
 import axios from 'axios';
+import classNames from 'classnames';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper';
+
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
@@ -13,29 +19,27 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 
-import { HStack, VStack } from '../../components/Base';
-import { Slider } from '../../components/Part';
-import { Clock } from '../../assets/img/feature/svgIcon';
-
-import classNames from 'classnames';
-import moment from 'moment';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+
+import { Clock } from '../../assets/img/feature/svgIcon';
+import { Slider } from '../../components/Part';
+import { HStack, VStack } from '../../components/Base';
+
+// import { auth } from '../../state/user/actions';
 
 import popularIcon from '../../assets/img/feature/fire.svg';
 import qatar from '../../assets/img/feature/qatar.svg';
 import timerWing from '../../assets/img/feature/timer-wing.svg';
 import timerSpace from '../../assets/img/feature/timer-space.svg';
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
 const Home = () => {
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
     const sportsList = ['Soccer', 'Basketball', 'Cricket', 'Table Tennis', 'American Football', 'Tennis'];
     const [actLiveItem, setActLiveItem] = useState(0);
     const [actSport, setActSport] = useState(0);
@@ -49,6 +53,10 @@ const Home = () => {
             .catch(error => {
                 console.log("ERROR:: ", error.response.data);
             });
+    }
+
+    const register = () => {
+        document.getElementsByClassName('register_btn')[0].click();
     }
 
     const numberFormat = (e) => {
@@ -147,28 +155,29 @@ const Home = () => {
                                     letterSpacing: '0.33px',
                                     fontWeight: 800
                                 }}>Bonus + 500%</Typography>
-                                <Link src='casino' sx={{
-                                    fontSize: '20px',
-                                    padding: '0 25px',
-                                    width: '100%',
-                                    backgroundColor: '#fff',
-                                    boxShadow: '0 10px 35px rgb(0 0 0 / 20%)',
-                                    borderRadius: '10px',
-                                    fontStyle: 'normal',
-                                    fontWeight: 600,
-                                    lineHeight: '15px',
-                                    marginTop: 'auto',
-                                    minHeight: '45px',
-                                    color: '#000 !important',
-                                    whiteSpace: 'nowrap',
-                                    mixBlendMode: 'lighten',
-                                    textAlign: 'center',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    textDecoration: "none",
-                                    cursor: 'pointer'
-                                }}>
+                                <Link onClick={() => register()}
+                                    sx={{
+                                        fontSize: '20px',
+                                        padding: '0 25px',
+                                        width: '100%',
+                                        backgroundColor: '#fff',
+                                        boxShadow: '0 10px 35px rgb(0 0 0 / 20%)',
+                                        borderRadius: '10px',
+                                        fontStyle: 'normal',
+                                        fontWeight: 600,
+                                        lineHeight: '15px',
+                                        marginTop: 'auto',
+                                        minHeight: '45px',
+                                        color: '#000 !important',
+                                        whiteSpace: 'nowrap',
+                                        mixBlendMode: 'lighten',
+                                        textAlign: 'center',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        textDecoration: "none",
+                                        cursor: 'pointer'
+                                    }}>
                                     Registration
                                 </Link>
                             </VStack>

@@ -399,6 +399,12 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
 
     ]);
 
+    Route::get('sports/event', [
+        'as' => 'frontend.sports.event',
+        // 'uses' => 'SportsController@event'
+        'uses' => 'SportsController@home'
+    ]);
+
     Route::get('sports/event/{id}', [
         'as' => 'frontend.sports.event',
         'uses' => 'SportsController@event'
