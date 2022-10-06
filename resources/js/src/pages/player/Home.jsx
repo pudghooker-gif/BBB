@@ -89,6 +89,14 @@ const Home = () => {
             });
     }
 
+    const goGame = (item) => {
+        if (user.isAuth) {
+            window.open(`${location.origin}/${item.name}/?api_exit=/`, "_blank");
+        } else {
+            document.getElementsByClassName('login_btn ')[0].click();
+        }
+    }
+
     useEffect(() => {
         getCasino();
         countStart();
@@ -566,7 +574,7 @@ const Home = () => {
                                         <SwiperSlide key={idx}>
                                             <Box className="game-card">
                                                 <Box className="game-card-image-container" >
-                                                    <Box sx={{ pb: '130% !important', backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
+                                                    <Box sx={{ pb: '130% !important', backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} onClick={() => goGame(casino[item])} />
                                                     {/* <Box component='img' src={`/frontend/Default/ico/${casino[idx].name}.jpg`} alt={casino[idx].title} className="game-card-image" /> */}
                                                 </Box>
                                             </Box>
@@ -594,7 +602,7 @@ const Home = () => {
                                         <Grid item xs={3} key={idx}>
                                             <Box className="game-card">
                                                 <Box className="game-card-image-container">
-                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
+                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} onClick={() => goGame(casino[item])} />
                                                     {/* <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" /> */}
                                                 </Box>
                                             </Box>
@@ -622,7 +630,7 @@ const Home = () => {
                                         <Grid item xs={3} key={idx}>
                                             <Box className="game-card">
                                                 <Box className="game-card-image-container" >
-                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
+                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} onClick={() => goGame(casino[item])} />
 
                                                     {/* <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" /> */}
                                                 </Box>
@@ -657,7 +665,7 @@ const Home = () => {
                                         <SwiperSlide key={idx}>
                                             <Box className="game-card">
                                                 <Box className="game-card-image-container">
-                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
+                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} onClick={() => goGame(casino[item])} />
                                                     {/* <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" /> */}
                                                 </Box>
                                             </Box>

@@ -299,7 +299,7 @@ const Header = () => {
   const user = useSelector((state) => state.user);
   const isMobile = useMediaQuery('(max-width:425px)');
 
-  const list = [{ name: 'Home', route: '/home' }, { name: 'Live', route: '/sports/live' }, { name: 'Sports', route: '/sports/prematch' }, { name: 'World Cup 22', route: '/sports/prematch' }, { name: 'Casino', route: '/casino' }, { name: 'Live-Casino', route: '/live-casino' }, { name: 'Poker', route: '/poker' }];
+  const list = [{ name: 'Home', route: '/home' }, { name: 'Live', route: '/sports/live' }, { name: 'Sports', route: '/sports/prematch' }, { name: 'World Cup 22', route: '/sports/prematch' }, { name: 'Casino', route: '/casino/all' }, { name: 'Live-Casino', route: '/live-casino' }, { name: 'Poker', route: '/poker' }];
   const profile = ['Withdraw', 'Setting', 'Bet History', 'Log Out']
   const [active, setActive] = useState(0);
   const [login, setLogin] = useState(false);
@@ -381,8 +381,13 @@ const Header = () => {
 
   useEffect(() => {
     const path = location.pathname;
-    const idx = list.findIndex((e) => e.route === path);
-    setActive(idx);
+    let idx = list.findIndex((e) => e.route === path);
+    if (idx > 0) {
+      setActive(idx);
+    } else {
+      idx = list.findIndex((e) => e.route.search(`/${path.split('/')[1]}`) !== -1);
+      setActive(idx);
+    }
   }, [location.pathname])
 
   return (

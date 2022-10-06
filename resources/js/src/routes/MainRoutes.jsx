@@ -18,7 +18,7 @@ export const BaseRoutes = {
             element: <Home />
         },
         {
-            path: 'casino',
+            path: 'casino/:id',
             element: <Casino />
         }
     ]

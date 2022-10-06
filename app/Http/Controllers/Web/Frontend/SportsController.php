@@ -610,10 +610,26 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
         {
             $categories = \VanguardLTE\GameCategory::Select(\DB::raw('COUNT(*) as count'), 'category_id', 'title', 'href')
                 ->groupBy('category_id')
-                ->rightJoin('categories', 'game_categories.category_id', '=', 'categories.id')
+                ->leftJoin('categories', 'game_categories.category_id', '=', 'categories.id')
                 ->get();
-            // $categories = \VanguardLTE\Category::get();
             return json_decode($categories);
+        }
+
+        public function get_casino_game(\Illuminate\Http\Request $request)
+        {
+            if ($request->id == 'all') {
+                $games = \VanguardLTE\Game::offset($request->page * 12)->take(12)->get();
+                return json_decode($games);
+            } else {
+                $gameId = \VanguardLTE\GameCategory::where('category_id', $request->id)->get();
+
+                if (count($gameId)) {
+                    $games = \VanguardLTE\Game::whereIn('id', $gameId)->offset($request->page * 12)->take(12)->get();
+                } else {
+                    $games = \VanguardLTE\Game::where('id', 0)->offset($request->page * 12)->take(12)->get();
+                }
+                return json_decode($games);
+            }
         }
     }
 }

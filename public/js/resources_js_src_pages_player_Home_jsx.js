@@ -3860,6 +3860,14 @@ var Home = function Home() {
     });
   };
 
+  var goGame = function goGame(item) {
+    if (user.isAuth) {
+      window.open("".concat(location.origin, "/").concat(item.name, "/?api_exit=/"), "_blank");
+    } else {
+      document.getElementsByClassName('login_btn ')[0].click();
+    }
+  };
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getCasino();
     countStart();
@@ -4817,6 +4825,9 @@ var Home = function Home() {
                           backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                           backgroundRepeat: 'no-repeat',
                           backgroundSize: '100% 100%'
+                        },
+                        onClick: function onClick() {
+                          return goGame(casino[item]);
                         }
                       })
                     })
@@ -4885,6 +4896,9 @@ var Home = function Home() {
                           backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                           backgroundRepeat: 'no-repeat',
                           backgroundSize: '100% 100%'
+                        },
+                        onClick: function onClick() {
+                          return goGame(casino[item]);
                         }
                       })
                     })
@@ -4953,6 +4967,9 @@ var Home = function Home() {
                           backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                           backgroundRepeat: 'no-repeat',
                           backgroundSize: '100% 100%'
+                        },
+                        onClick: function onClick() {
+                          return goGame(casino[item]);
                         }
                       })
                     })
@@ -5022,6 +5039,9 @@ var Home = function Home() {
                           backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                           backgroundRepeat: 'no-repeat',
                           backgroundSize: '100% 100%'
+                        },
+                        onClick: function onClick() {
+                          return goGame(casino[item]);
                         }
                       })
                     })
