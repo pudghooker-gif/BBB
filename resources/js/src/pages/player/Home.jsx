@@ -25,8 +25,6 @@ import { Clock } from '../../assets/img/feature/svgIcon';
 import { Slider } from '../../components/Part';
 import { HStack, VStack } from '../../components/Base';
 
-// import { auth } from '../../state/user/actions';
-
 import popularIcon from '../../assets/img/feature/fire.svg';
 import qatar from '../../assets/img/feature/qatar.svg';
 import timerWing from '../../assets/img/feature/timer-wing.svg';
@@ -44,16 +42,6 @@ const Home = () => {
     const [actLiveItem, setActLiveItem] = useState(0);
     const [actSport, setActSport] = useState(0);
     const [timer, setTimer] = useState({});
-
-    const eg = async () => {
-        axios.post('/api/test', {})
-            .then(
-                response => console.log(JSON.stringify(response.data))
-            )
-            .catch(error => {
-                console.log("ERROR:: ", error.response.data);
-            });
-    }
 
     const register = () => {
         document.getElementsByClassName('register_btn')[0].click();
@@ -85,6 +73,7 @@ const Home = () => {
 
     useEffect(() => {
         countStart();
+        console.log(user, '------------')
     }, []);
 
     return (

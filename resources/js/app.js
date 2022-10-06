@@ -14,5 +14,3 @@ Root.render(
         </MuiThemeProvider>
     </Provider>
 );
-
-  // reportWebVitals();

@@ -15,11 +15,17 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         return csrf_token();
     });
 
-
     Route::post('login', [
         'as' => 'frontend.auth.login.post',
         'uses' => 'Auth\AuthController@postLogin'
     ]);
+    
+    // Route::post('pre', [SportsController::class, 'pre']);
+    Route::post('pre', [
+        'as' => 'frontend.auth.login.post',
+        'uses' => 'SportsController@pre'
+    ]);
+
     Route::get('logout', [
         'as' => 'frontend.auth.logout',
         'uses' => 'Auth\AuthController@getLogout'

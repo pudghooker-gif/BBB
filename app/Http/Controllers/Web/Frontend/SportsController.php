@@ -205,13 +205,19 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             return array($title, $categories, $category1);
         }
 
-        public function test() {
+        public function test()
+        {
             return json_decode('this is test response!');
         }
 
         public function index()
         {
             return redirect()->route('frontend.home');
+        }
+
+        public function pre()
+        {
+            return auth()->check() ? auth()->user() : 'null';
         }
 
         public function home(\Illuminate\Http\Request $request, $category1 = '', $category2 = '')

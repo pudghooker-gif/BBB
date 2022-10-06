@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -35,6 +36,9 @@ import enlang from '../assets/img/feature/en.svg';
 import ptlang from '../assets/img/feature/pt.svg';
 import present from '../assets/img/feature/present-light.png';
 import { Promotion } from '../assets/img/feature/svgIcon';
+
+import { auth } from '../state/user/actions';
+
 
 const New = () => {
   return (
@@ -285,6 +289,7 @@ const Mobile = () => {
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const isMobile = useMediaQuery('(max-width:425px)');
 
@@ -353,6 +358,21 @@ const Header = () => {
     navigate(list[idx].route);
   }
 
+  const loginAction = async () => {
+    axios.post('/login', { username: values.username, password: values.password })
+      .then(
+        response => {
+          let data = JSON.stringify(response.data);
+          if (data) {
+            dispatch(auth(data));
+          }
+        }
+      )
+      .catch(error => {
+        console.log("ERROR:: ", error.response.data);
+      });
+  }
+
   useEffect(() => {
     const path = location.pathname;
     const idx = list.findIndex((e) => e.route === path);
@@ -393,6 +413,7 @@ const Header = () => {
               <OutlinedInput
                 type='text'
                 placeholder='Username / Email'
+                name='username'
                 value={values.username}
                 onChange={handleChange('username')}
                 sx={{
@@ -417,6 +438,7 @@ const Header = () => {
                 type={values.showPassword ? 'text' : 'password'}
                 value={values.password}
                 placeholder='Password'
+                name='password'
                 onChange={handleChange('password')}
                 endAdornment={
                   <InputAdornment position="end">
@@ -450,7 +472,7 @@ const Header = () => {
                 <Typography component='span' sx={{ color: '#6a7690a6', fontSize: 12, cursor: 'pointer' }}>Forgot password?</Typography>
               </HStack>
             </Stack>
-            <Button className='btn active' sx={{ fontSize: '18px', borderRadius: '10px', mb: 2, padding: 3 }}>Login</Button>
+            <Button className='btn active' sx={{ fontSize: '18px', borderRadius: '10px', mb: 2, padding: 3 }} onClick={() => loginAction()}>Login</Button>
             <HStack justifyContent='center' alignItems='center'>
               <Typography sx={{ color: '#6a7690a6', fontSize: '11px', mr: .5 }}>Still no account?</Typography>
               <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#1077de', cursor: 'pointer' }} onClick={() => openRegister()}>Register</Typography>
