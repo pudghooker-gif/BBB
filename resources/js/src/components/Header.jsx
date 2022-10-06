@@ -46,7 +46,7 @@ const New = () => {
   )
 }
 
-const Desktop = ({ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, openLogin, openRegister, go }) => {
+const Desktop = ({ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, openLogin, openRegister, go, logoutAction }) => {
   return (
     <>
       <HStack className='header_top'>
@@ -255,6 +255,9 @@ const Desktop = ({ user, langList, showProfile, list, profile, active, showLang,
                     </MenuItem>
                   ))
                 }
+                <MenuItem onClick={() => logoutAction()}>
+                  <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>Log Out</Typography>
+                </MenuItem>
               </Menu>
             </HStack>
           </Stack>
@@ -300,7 +303,7 @@ const Header = () => {
   const isMobile = useMediaQuery('(max-width:425px)');
 
   const list = [{ name: 'Home', route: '/home' }, { name: 'Live', route: '/sports/live' }, { name: 'Sports', route: '/sports/prematch' }, { name: 'World Cup 22', route: '/sports/prematch' }, { name: 'Casino', route: '/casino/all' }, { name: 'Live-Casino', route: '/live-casino' }, { name: 'Poker', route: '/poker' }];
-  const profile = ['Withdraw', 'Setting', 'Bet History', 'Log Out']
+  const profile = ['Withdraw', 'Setting', 'Bet History']
   const [active, setActive] = useState(0);
   const [login, setLogin] = useState(false);
   const [register, setRegister] = useState(false);
@@ -368,15 +371,21 @@ const Header = () => {
     axios.post('/login', { username: values.username, password: values.password })
       .then(
         response => {
-          let data = JSON.stringify(response.data);
+          let data = response.data;
           if (data) {
-            dispatch(auth(data));
+            dispatch(auth({ ...data, isAuth: true }));
+            closeLogin();
           }
         }
       )
       .catch(error => {
         console.log("ERROR:: ", error.response.data);
       });
+  }
+
+  const logoutAction = () => {
+    axios.get('logout', {});
+    location.reload();
   }
 
   useEffect(() => {
@@ -393,7 +402,7 @@ const Header = () => {
   return (
     <>
       {
-        isMobile ? <Mobile /> : <Desktop {...{ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister }} />
+        isMobile ? <Mobile /> : <Desktop {...{ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }} />
       }
       <Modal
         open={login}
