@@ -1084,10 +1084,17 @@
         }
 
         .game-card-image-container {
-            padding-bottom: 75%;
             background-color: #141b2f;
             position: relative;
             user-select: none;
+
+            div {
+                padding-bottom: 75%;
+                transition: transform 0.5s;
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
 
             .game-card-image {
                 height: 100%;
@@ -1962,10 +1969,18 @@
         }
 
         .game-card-image-container {
-            padding-bottom: 75%;
+            // padding-bottom: 75%;
             background-color: #141b2f;
             position: relative;
             user-select: none;
+
+            div {
+                padding-bottom: 75%;
+                transition: transform 0.5s;
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
 
             .game-card-image {
                 height: 100%;

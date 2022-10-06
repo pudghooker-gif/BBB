@@ -205,13 +205,19 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             return array($title, $categories, $category1);
         }
 
-        public function test() {
+        public function test()
+        {
             return json_decode('this is test response!');
         }
 
         public function index()
         {
             return redirect()->route('frontend.home');
+        }
+
+        public function pre()
+        {
+            return auth()->check() ? auth()->user() : 'null';
         }
 
         public function home(\Illuminate\Http\Request $request, $category1 = '', $category2 = '')
@@ -592,6 +598,38 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                 ->orWhereRaw('LOWER(`away`) LIKE ? ', '%' . $request->key . '%')
                 ->get();
             return json_encode($data);
+        }
+
+        public function home_casino()
+        {
+            $games = \VanguardLTE\Game::offset(0)->take(50)->get();
+            return json_decode($games);
+        }
+
+        public function get_provider()
+        {
+            $categories = \VanguardLTE\GameCategory::Select(\DB::raw('COUNT(*) as count'), 'category_id', 'title', 'href')
+                ->groupBy('category_id')
+                ->leftJoin('categories', 'game_categories.category_id', '=', 'categories.id')
+                ->get();
+            return json_decode($categories);
+        }
+
+        public function get_casino_game(\Illuminate\Http\Request $request)
+        {
+            if ($request->id == 'all') {
+                $games = \VanguardLTE\Game::offset($request->page * 12)->take(12)->get();
+                return json_decode($games);
+            } else {
+                $gameId = \VanguardLTE\GameCategory::where('category_id', $request->id)->get();
+
+                if (count($gameId)) {
+                    $games = \VanguardLTE\Game::whereIn('id', $gameId)->offset($request->page * 12)->take(12)->get();
+                } else {
+                    $games = \VanguardLTE\Game::where('id', 0)->offset($request->page * 12)->take(12)->get();
+                }
+                return json_decode($games);
+            }
         }
     }
 }

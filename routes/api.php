@@ -2,11 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use VanguardLTE\Http\Controllers\Api\V2\AtmController;
+use VanguardLTE\Http\Controllers\Web\Frontend\Auth\AuthController;
+use VanguardLTE\Http\Controllers\Web\Frontend\SportsController;
 
 Route::group(
-    ['middleware' => 'api'], 
+    ['middleware' => 'api'],
     function ($router) {
-        Route::post('test', ['uses' => 'SportsApiController@test']); 
+        Route::post('test', ['uses' => 'SportsApiController@test']);
+        Route::post('login', [AuthController::class, 'postLogin']);
+        // Route::post('pre', [SportsController::class, 'pre']);
     }
 );
 
@@ -16,7 +20,7 @@ Route::group(
         Route::post('/demo', ['uses' => 'BasicController@index']);
         Route::post('/agent/trial', ['uses' => 'BasicController@agent']);
 
-        Route::post('login', 'Auth\AuthController@login');
+        Route::post('login1', 'Auth\AuthController@login');
         Route::post('logout', 'Auth\AuthController@logout');
 
         if (settings('reg_enabled')) {

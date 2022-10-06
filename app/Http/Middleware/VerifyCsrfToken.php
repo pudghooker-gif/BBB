@@ -9,8 +9,7 @@ namespace VanguardLTE\Http\Middleware
             '/payment/coinbase/result', 
             '/payment/btcpayserver/result', 
             '/sms/callback', 
-            '/profile/contact'
+            '/profile/contact',
         ];
     }
-
 }

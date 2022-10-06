@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment';
 import axios from 'axios';
+import classNames from 'classnames';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper';
+
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
@@ -13,44 +19,87 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 
-import { HStack, VStack } from '../../components/Base';
-import { Slider } from '../../components/Part';
-import { Clock } from '../../assets/img/feature/svgIcon';
-
-import classNames from 'classnames';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+
+import { Clock } from '../../assets/img/feature/svgIcon';
+import { Slider } from '../../components/Part';
+import { HStack, VStack } from '../../components/Base';
 
 import popularIcon from '../../assets/img/feature/fire.svg';
 import qatar from '../../assets/img/feature/qatar.svg';
 import timerWing from '../../assets/img/feature/timer-wing.svg';
 import timerSpace from '../../assets/img/feature/timer-space.svg';
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
 const Home = () => {
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
     const sportsList = ['Soccer', 'Basketball', 'Cricket', 'Table Tennis', 'American Football', 'Tennis'];
     const [actLiveItem, setActLiveItem] = useState(0);
     const [actSport, setActSport] = useState(0);
+    const [timer, setTimer] = useState({});
+    const [casino, setCasino] = useState([]);
 
-    const eg = async () => {
-        axios.post('/api/test', {})
+    const goBonus = () => {
+        if (user.isAuth) {
+            console.log('bonus');
+        } else {
+            document.getElementsByClassName('register_btn')[0].click();
+        }
+    }
+
+    const numberFormat = (e) => {
+        e = String(e);
+        return e.length == 1 ? `0${e}` : e;
+    }
+
+    const countDown = () => {
+        const now = new Date(moment(new Date()).utcOffset('GMT-03:00').format()).getTime();
+        const expiration = new Date('2022-11-20 00:00').getTime();
+        const diff = expiration - now + (3600 * 12 * 1000);
+        const day = numberFormat(Math.ceil(diff / (1000 * 3600 * 24)));
+        const mod = diff % (1000 * 3600 * 24);
+        const hour = numberFormat(Math.ceil(mod / (1000 * 3600)));
+        const mod1 = mod % (1000 * 3600);
+        const minute = numberFormat(Math.floor(mod1 / (1000 * 60)));
+        const mod2 = mod1 % (1000 * 60);
+        const second = numberFormat(Math.floor(mod2 / 1000));
+        setTimer({ day, hour, minute, second });
+    }
+
+    const countStart = () => {
+        countDown();
+        setInterval(countDown, 1000)
+    }
+
+    const getCasino = () => {
+        axios.post('/home_casino', {})
             .then(
-                response => console.log(JSON.stringify(response.data))
+                response => {
+                    let data = response.data;
+                    setCasino(data);
+                }
             )
             .catch(error => {
                 console.log("ERROR:: ", error.response.data);
             });
     }
 
+    const goGame = (item) => {
+        if (user.isAuth) {
+            window.open(`${location.origin}/${item.name}/?api_exit=/`, "_blank");
+        } else {
+            document.getElementsByClassName('login_btn ')[0].click();
+        }
+    }
+
     useEffect(() => {
-        eg();
+        getCasino();
+        countStart();
     }, []);
 
     return (
@@ -76,7 +125,7 @@ const Home = () => {
                                     letterSpacing: '0.33px',
                                     fontWeight: 800
                                 }}>Cashback up to 30% on casinos</Typography>
-                                <Link src='casino' sx={{
+                                <Link src='casino' onClick={() => navigate('/casino')} sx={{
                                     fontSize: '20px',
                                     padding: '0 25px',
                                     width: '100%',
@@ -121,29 +170,32 @@ const Home = () => {
                                     letterSpacing: '0.33px',
                                     fontWeight: 800
                                 }}>Bonus + 500%</Typography>
-                                <Link src='casino' sx={{
-                                    fontSize: '20px',
-                                    padding: '0 25px',
-                                    width: '100%',
-                                    backgroundColor: '#fff',
-                                    boxShadow: '0 10px 35px rgb(0 0 0 / 20%)',
-                                    borderRadius: '10px',
-                                    fontStyle: 'normal',
-                                    fontWeight: 600,
-                                    lineHeight: '15px',
-                                    marginTop: 'auto',
-                                    minHeight: '45px',
-                                    color: '#000 !important',
-                                    whiteSpace: 'nowrap',
-                                    mixBlendMode: 'lighten',
-                                    textAlign: 'center',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    textDecoration: "none",
-                                    cursor: 'pointer'
-                                }}>
-                                    Registration
+                                <Link onClick={() => goBonus()}
+                                    sx={{
+                                        fontSize: '20px',
+                                        padding: '0 25px',
+                                        width: '100%',
+                                        backgroundColor: '#fff',
+                                        boxShadow: '0 10px 35px rgb(0 0 0 / 20%)',
+                                        borderRadius: '10px',
+                                        fontStyle: 'normal',
+                                        fontWeight: 600,
+                                        lineHeight: '15px',
+                                        marginTop: 'auto',
+                                        minHeight: '45px',
+                                        color: '#000 !important',
+                                        whiteSpace: 'nowrap',
+                                        mixBlendMode: 'lighten',
+                                        textAlign: 'center',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        textDecoration: "none",
+                                        cursor: 'pointer'
+                                    }}>
+                                    {
+                                        user.isAuth ? 'Get bouns' : 'Registration'
+                                    }
                                 </Link>
                             </VStack>
                         </Box>
@@ -170,22 +222,22 @@ const Home = () => {
                         }}>
                         <Box component='img' src={timerWing} sx={{ height: 40 }} />
                         <Stack alignItems='center' sx={{ mx: 1 }}>
-                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>48</Typography>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>{timer.day}</Typography>
                             <Typography sx={{ fontSize: 16 }}>Days</Typography>
                         </Stack>
                         <Box component='img' src={timerSpace} sx={{ width: 20 }} />
                         <Stack alignItems='center' sx={{ mx: 1 }}>
-                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>07</Typography>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>{timer.hour}</Typography>
                             <Typography sx={{ fontSize: 16 }}>Hours</Typography>
                         </Stack>
                         <Box component='img' src={timerSpace} sx={{ width: 20 }} />
                         <Stack alignItems='center' sx={{ mx: 1 }}>
-                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>08</Typography>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>{timer.minute}</Typography>
                             <Typography sx={{ fontSize: 16 }}>Minutes</Typography>
                         </Stack>
                         <Box component='img' src={timerSpace} sx={{ width: 20 }} />
                         <Stack alignItems='center' sx={{ mx: 1 }}>
-                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>01</Typography>
+                            <Typography varient='h1' sx={{ fontSize: 50, lineHeight: 1.2, fontWeight: 600 }}>{timer.second}</Typography>
                             <Typography sx={{ fontSize: 16 }}>Seconds</Typography>
                         </Stack>
                         <Box component='img' src={timerWing} sx={{ height: 40, transform: 'rotate(180deg)' }} />
@@ -518,11 +570,12 @@ const Home = () => {
                                 className='top-live-casino'
                             >
                                 {
-                                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((item, idx) => (
+                                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, idx) => (
                                         <SwiperSlide key={idx}>
                                             <Box className="game-card">
-                                                <Box className="game-card-image-container" sx={{ pb: '130% !important' }}>
-                                                    <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" />
+                                                <Box className="game-card-image-container" >
+                                                    <Box sx={{ pb: '130% !important', backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} onClick={() => goGame(casino[item])} />
+                                                    {/* <Box component='img' src={`/frontend/Default/ico/${casino[idx].name}.jpg`} alt={casino[idx].title} className="game-card-image" /> */}
                                                 </Box>
                                             </Box>
                                         </SwiperSlide>
@@ -537,7 +590,7 @@ const Home = () => {
                             <HStack className="section-card-header" sx={{ mb: 3 }}>
                                 <HStack alignItems='self-end'>
                                     <Typography variant='h6' sx={{ lineHeight: 1, fontWeight: 700, cursor: 'pointer', letterSpacing: '-.41px' }}>
-                                        Casino
+                                        Top Casino
                                     </Typography>
                                     <Typography sx={{ ml: 1, opacity: 0.5, lineHeight: 1.2, fontSize: '12px', letterSpacing: '-.29px', fontWeight: 400 }}>8314</Typography>
                                 </HStack>
@@ -545,11 +598,12 @@ const Home = () => {
                             </HStack>
                             <Grid container spacing={2}>
                                 {
-                                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3].map((item, idx) => (
+                                    [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22].map((item, idx) => (
                                         <Grid item xs={3} key={idx}>
                                             <Box className="game-card">
                                                 <Box className="game-card-image-container">
-                                                    <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" />
+                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} onClick={() => goGame(casino[item])} />
+                                                    {/* <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" /> */}
                                                 </Box>
                                             </Box>
                                         </Grid>
@@ -564,7 +618,7 @@ const Home = () => {
                             <HStack className="section-card-header" sx={{ mb: 3 }}>
                                 <HStack alignItems='self-end'>
                                     <Typography variant='h6' sx={{ lineHeight: 1, fontWeight: 700, cursor: 'pointer', letterSpacing: '-.41px' }}>
-                                        LiveGames
+                                        Table Games
                                     </Typography>
                                     <Typography sx={{ ml: 1, opacity: 0.5, lineHeight: 1.2, fontSize: '12px', letterSpacing: '-.29px', fontWeight: 400 }}>8314</Typography>
                                 </HStack>
@@ -572,11 +626,13 @@ const Home = () => {
                             </HStack>
                             <Grid container spacing={2}>
                                 {
-                                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3].map((item, idx) => (
+                                    [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34].map((item, idx) => (
                                         <Grid item xs={3} key={idx}>
                                             <Box className="game-card">
-                                                <Box className="game-card-image-container">
-                                                    <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" />
+                                                <Box className="game-card-image-container" >
+                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} onClick={() => goGame(casino[item])} />
+
+                                                    {/* <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" /> */}
                                                 </Box>
                                             </Box>
                                         </Grid>
@@ -605,11 +661,12 @@ const Home = () => {
                                 className='top-live-casino'
                             >
                                 {
-                                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((item, idx) => (
+                                    [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49].map((item, idx) => (
                                         <SwiperSlide key={idx}>
                                             <Box className="game-card">
                                                 <Box className="game-card-image-container">
-                                                    <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" />
+                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} onClick={() => goGame(casino[item])} />
+                                                    {/* <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" /> */}
                                                 </Box>
                                             </Box>
                                         </SwiperSlide>

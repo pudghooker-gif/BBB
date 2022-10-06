@@ -74,6 +74,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
                     'password' => $credentials['password']
                 ];
             }
+
             if( !\Auth::validate($credentials) ) 
             {
                 if( $throttles ) 
@@ -135,7 +136,8 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
                 }
             }
             \Auth::login($user, true);
-            return $this->handleUserWasAuthenticated($request, $throttles, $user);
+            // return $this->handleUserWasAuthenticated($request, $throttles, $user);
+            return $user;
         }
         public function specauth(\Illuminate\Http\Request $request, \VanguardLTE\User $user)
         {

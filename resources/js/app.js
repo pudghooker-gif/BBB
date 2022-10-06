@@ -1,14 +1,16 @@
 import {
     Root,
+    store,
+    Provider,
     MuiThemeProvider
 } from './src/providers';
 
 import App from './src/App';
 
 Root.render(
-    <MuiThemeProvider>
-        <App />
-    </MuiThemeProvider>
+    <Provider store={store}>
+        <MuiThemeProvider>
+            <App />
+        </MuiThemeProvider>
+    </Provider>
 );
-
-  // reportWebVitals();

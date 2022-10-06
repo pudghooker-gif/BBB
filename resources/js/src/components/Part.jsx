@@ -238,7 +238,7 @@ export const Match = () => {
 }
 
 export const Event = () => {
-  const active = true;
+  const [active, setActive] = useState(true);
   return (
     <Stack sx={{ overflow: 'hidden' }}>
       <Box>

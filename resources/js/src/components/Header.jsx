@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Link from '@mui/material/Link';
 import Menu from '@mui/material/Menu';
 import Stack from '@mui/material/Stack';
+import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import SvgIcon from '@mui/material/SvgIcon';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import AddIcon from '@mui/icons-material/Add';
@@ -19,15 +26,19 @@ import PersonIcon from '@mui/icons-material/Person';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { HStack } from './Base';
 
 import logo from '../assets/img/logo/logo.png';
-import { Promotion } from '../assets/img/feature/svgIcon';
-import present from '../assets/img/feature/present-light.png';
 import enlang from '../assets/img/feature/en.svg';
 import ptlang from '../assets/img/feature/pt.svg';
-import { IconButton } from '@mui/material';
+import present from '../assets/img/feature/present-light.png';
+import { Promotion } from '../assets/img/feature/svgIcon';
+
+import { auth } from '../state/user/actions';
+
 
 const New = () => {
   return (
@@ -35,7 +46,7 @@ const New = () => {
   )
 }
 
-const Desktop = ({ langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go }) => {
+const Desktop = ({ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, openLogin, openRegister, go }) => {
   return (
     <>
       <HStack className='header_top'>
@@ -177,16 +188,41 @@ const Desktop = ({ langList, showProfile, list, profile, active, showLang, close
           </HStack>
           <Stack className="level-item">
             <HStack>
-              <Button className='user_btn' onClick={openProfile}>
-                <Box className='icon-wrap'>
-                  <PersonIcon />
-                </Box>
-                <Box className='close-wrap'>
-                  {
-                    showProfile ? <CloseIcon /> : <MoreVertIcon />
-                  }
-                </Box>
-              </Button>
+
+              {
+                user.isAuth ?
+                  <>
+                    <Stack sx={{ mr: 1 }}>
+                      <Typography sx={{ fontSize: 10, color: '#ffffff80', textAlign: 'right' }}>Balance</Typography>
+                      <Typography sx={{ fontSize: 14, fontWeight: 700, textAlign: 'right' }}>{user.balance ? Number(user.balance).toFixed(2) : 0.00}</Typography>
+                    </Stack>
+                    <Button className='user_btn' onClick={openProfile}>
+                      <Box className='icon-wrap'>
+                        <PersonIcon />
+                      </Box>
+                      <Box className='close-wrap'>
+                        {
+                          showProfile ? <CloseIcon /> : <MoreVertIcon />
+                        }
+                      </Box>
+                    </Button>
+                  </> :
+                  <>
+                    <Button className='login_btn' onClick={() => openLogin()}>
+                      <Typography component='span'>
+                        Login
+                      </Typography>
+                    </Button>
+                    <Button className='register_btn' onClick={() => openRegister()}>
+                      <Typography component='span' className='icon-wrap'>
+                        <AddIcon sx={{ fontSize: '15px' }} />
+                      </Typography>
+                      <Typography component='span'>
+                        Registeration
+                      </Typography>
+                    </Button>
+                  </>
+              }
               <Menu
                 sx={{
                   mt: (theme) => theme.spacing(5),
@@ -220,19 +256,6 @@ const Desktop = ({ langList, showProfile, list, profile, active, showLang, close
                   ))
                 }
               </Menu>
-              <Button className='login_btn'>
-                <Typography component='span'>
-                  Login
-                </Typography>
-              </Button>
-              <Button className='register_btn'>
-                <Typography component='span' className='icon-wrap'>
-                  <AddIcon sx={{ fontSize: '15px' }} />
-                </Typography>
-                <Typography component='span'>
-                  Registeration
-                </Typography>
-              </Button>
             </HStack>
           </Stack>
         </HStack>
@@ -272,13 +295,35 @@ const Mobile = () => {
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const isMobile = useMediaQuery('(max-width:425px)');
 
-  const list = [{ name: 'Home', route: '/home' }, { name: 'Live', route: '/sports/live' }, { name: 'Sports', route: '/sports/prematch' }, { name: 'World Cup 22', route: '/sports/prematch' }, { name: 'Casino', route: '/casino' }, { name: 'Live-Casino', route: '/live-casino' }, { name: 'Poker', route: '/poker' }];
+  const list = [{ name: 'Home', route: '/home' }, { name: 'Live', route: '/sports/live' }, { name: 'Sports', route: '/sports/prematch' }, { name: 'World Cup 22', route: '/sports/prematch' }, { name: 'Casino', route: '/casino/all' }, { name: 'Live-Casino', route: '/live-casino' }, { name: 'Poker', route: '/poker' }];
   const profile = ['Withdraw', 'Setting', 'Bet History', 'Log Out']
   const [active, setActive] = useState(0);
+  const [login, setLogin] = useState(false);
+  const [register, setRegister] = useState(false);
   const [langList, setLangList] = useState(null);
   const [showProfile, setShowProfile] = useState(null);
+  const [values, setValues] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirm: '',
+    showPassword: false
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
 
   const showLang = (event) => {
     setLangList(event.currentTarget);
@@ -296,23 +341,307 @@ const Header = () => {
     setShowProfile(null);
   };
 
+  const openLogin = () => {
+    setRegister(false);
+    setLogin(true);
+  }
+
+  const closeLogin = () => {
+    setLogin(false);
+  }
+
+  const openRegister = () => {
+    setLogin(false);
+    setRegister(true);
+  }
+
+  const closeRegister = () => {
+    setRegister(false);
+  }
+
   const go = (idx) => {
     setActive(idx);
     navigate(list[idx].route);
   }
 
+  const loginAction = async () => {
+    axios.post('/login', { username: values.username, password: values.password })
+      .then(
+        response => {
+          let data = JSON.stringify(response.data);
+          if (data) {
+            dispatch(auth(data));
+          }
+        }
+      )
+      .catch(error => {
+        console.log("ERROR:: ", error.response.data);
+      });
+  }
+
   useEffect(() => {
     const path = location.pathname;
-    const idx = list.findIndex((e) => e.route === path);
-    setActive(idx);
-  }, [])
+    let idx = list.findIndex((e) => e.route === path);
+    if (idx > 0) {
+      setActive(idx);
+    } else {
+      idx = list.findIndex((e) => e.route.search(`/${path.split('/')[1]}`) !== -1);
+      setActive(idx);
+    }
+  }, [location.pathname])
 
   return (
     <>
       {
-        isMobile ? <Mobile /> : <Desktop {...{ langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go }} />
+        isMobile ? <Mobile /> : <Desktop {...{ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister }} />
       }
+      <Modal
+        open={login}
+        onClose={closeLogin}
+      >
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'white',
+          boxShadow: 24,
+          padding: 3,
+          borderRadius: 4
+        }}>
+          <Stack>
+            <HStack justifyContent='space-between' alignItems='flex-start'>
+              <Stack>
+                <Typography sx={{ color: '#090f1e', fontSize: '20px', fontWeight: 700 }}>Login</Typography>
+                <Typography sx={{ color: '#070c19', fontSize: '12px' }}>Welcome to Seibet</Typography>
+              </Stack>
+              <IconButton sx={{ borderRadius: 2, bgcolor: '#edf0f7', padding: .5, '&:hover': { bgcolor: '#eeeff3' } }} onClick={() => closeLogin()}>
+                <CloseIcon sx={{ color: '#a9aeb7', fontSize: 24 }} />
+              </IconButton>
+            </HStack>
+            <Stack sx={{ my: 3 }}>
+              <OutlinedInput
+                type='text'
+                placeholder='Username / Email'
+                name='username'
+                value={values.username}
+                onChange={handleChange('username')}
+                sx={{
+                  mb: 2,
+                  '& fieldset': { display: 'none' },
+                  '& input': {
+                    bgcolor: '#edf0f7',
+                    color: '#070c19cc',
+                    padding: 2,
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    '&:-webkit-autofill': {
+                      'WebkitBoxShadow': 'unset',
+                      'WebkitTextFillColor': '#070c19cc',
+                      borderRadius: '12px',
+                    }
+                  }
+                }}
+              />
+
+              <OutlinedInput
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                placeholder='Password'
+                name='password'
+                onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                sx={{
+                  mb: 2,
+                  bgcolor: '#edf0f7',
+                  borderRadius: '12px',
+                  '& fieldset': { display: 'none' },
+                  '& input': {
+                    color: '#070c19cc',
+                    padding: 2,
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    '&:-webkit-autofill': {
+                      'WebkitBoxShadow': 'unset',
+                      'WebkitTextFillColor': '#070c19cc',
+                      borderRadius: '12px',
+                    }
+                  }
+                }}
+              />
+              <HStack justifyContent='flex-end'>
+                <Typography component='span' sx={{ color: '#6a7690a6', fontSize: 12, cursor: 'pointer' }}>Forgot password?</Typography>
+              </HStack>
+            </Stack>
+            <Button className='btn active' sx={{ fontSize: '18px', borderRadius: '10px', mb: 2, padding: 3 }} onClick={() => loginAction()}>Login</Button>
+            <HStack justifyContent='center' alignItems='center'>
+              <Typography sx={{ color: '#6a7690a6', fontSize: '11px', mr: .5 }}>Still no account?</Typography>
+              <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#1077de', cursor: 'pointer' }} onClick={() => openRegister()}>Register</Typography>
+            </HStack>
+          </Stack>
+        </Box>
+      </Modal>
+      <Modal
+        open={register}
+        onClose={closeRegister}
+      >
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'white',
+          boxShadow: 24,
+          padding: 3,
+          borderRadius: 4
+        }}>
+          <Stack>
+            <HStack justifyContent='space-between' alignItems='flex-start'>
+              <Stack>
+                <Typography sx={{ color: '#090f1e', fontSize: '20px', fontWeight: 700 }}>Register</Typography>
+                <Typography sx={{ color: '#070c19', fontSize: '12px' }}>Welcome to Seibet</Typography>
+              </Stack>
+              <IconButton sx={{ borderRadius: 2, bgcolor: '#edf0f7', padding: .5, '&:hover': { bgcolor: '#eeeff3' } }} onClick={() => closeRegister()}>
+                <CloseIcon sx={{ color: '#a9aeb7', fontSize: 24 }} />
+              </IconButton>
+            </HStack>
+            <Stack sx={{ my: 3 }}>
+              <OutlinedInput
+                type='text'
+                placeholder='Username'
+                name='username'
+                value={values.username}
+                onChange={handleChange('username')}
+                sx={{
+                  mb: 2,
+                  '& fieldset': { display: 'none' },
+                  '& input': {
+                    bgcolor: '#edf0f7',
+                    color: '#070c19cc',
+                    padding: 2,
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    '&:-webkit-autofill': {
+                      'WebkitBoxShadow': 'unset',
+                      'WebkitTextFillColor': '#070c19cc',
+                      borderRadius: '12px',
+                    }
+                  }
+                }}
+              />
+              <OutlinedInput
+                type='text'
+                placeholder='Email'
+                name='email'
+                value={values.email}
+                onChange={handleChange('email')}
+                sx={{
+                  mb: 2,
+                  '& fieldset': { display: 'none' },
+                  '& input': {
+                    bgcolor: '#edf0f7',
+                    color: '#070c19cc',
+                    padding: 2,
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    '&:-webkit-autofill': {
+                      'WebkitBoxShadow': 'unset',
+                      'WebkitTextFillColor': '#070c19cc',
+                      borderRadius: '12px',
+                    }
+                  }
+                }}
+              />
+              <OutlinedInput
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                name='password'
+                placeholder='Password'
+                onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                sx={{
+                  mb: 2,
+                  bgcolor: '#edf0f7',
+                  borderRadius: '12px',
+                  '& fieldset': { display: 'none' },
+                  '& input': {
+                    color: '#070c19cc',
+                    padding: 2,
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    '&:-webkit-autofill': {
+                      'WebkitBoxShadow': 'unset',
+                      'WebkitTextFillColor': '#070c19cc',
+                      borderRadius: '12px',
+                    }
+                  }
+                }}
+              />
+              <OutlinedInput
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.confirm}
+                name='confirm'
+                placeholder='Confirm Password'
+                onChange={handleChange('confirm')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                sx={{
+                  mb: 2,
+                  bgcolor: '#edf0f7',
+                  borderRadius: '12px',
+                  '& fieldset': { display: 'none' },
+                  '& input': {
+                    color: '#070c19cc',
+                    padding: 2,
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    '&:-webkit-autofill': {
+                      'WebkitBoxShadow': 'unset',
+                      'WebkitTextFillColor': '#070c19cc',
+                      borderRadius: '12px',
+                    }
+                  }
+                }}
+              />
+            </Stack>
+            <Button className='btn success' sx={{ fontSize: '18px', borderRadius: '10px', mb: 2, padding: 3 }}>Register</Button>
+            <HStack justifyContent='center' alignItems='center'>
+              <Typography sx={{ color: '#6a7690a6', fontSize: '11px', mr: .5 }}>Already have an account?</Typography>
+              <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#1077de', cursor: 'pointer' }} onClick={() => openLogin()}>Login</Typography>
+            </HStack>
+          </Stack>
+        </Box>
+      </Modal>
     </>
   );
 };
+
 export default Header;

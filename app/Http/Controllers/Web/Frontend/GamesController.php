@@ -200,6 +200,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             }
             return view('frontend.' . $frontend . '.games.list', compact('games', 'category1', 'cat1', 'categories', 'currentSliderNum', 'title', 'body', 'keywords', 'description', 'jpgs', 'shop', 'devices', 'tournament', 'is_game_page', 'jpgSum', 'gamestat', 'depositlist'));
         }
+        
         public function getGamePageNation(\Illuminate\Http\Request $request)
         {
             $category1 = $request->category1;

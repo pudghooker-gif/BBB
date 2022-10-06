@@ -6,7 +6,7 @@ import Wrapper from './Wrapper';
 import Container from '@mui/material/Container';
 
 const MainLayout = () => (
-    <Container maxWidth="xl" sx={{ px: '0 !important' }}>
+    <Container sx={{ maxWidth: { xl: '1920px' } }}>
         <Header />
         <Wrapper />
         <Footer />
