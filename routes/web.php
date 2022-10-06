@@ -20,7 +20,6 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'uses' => 'Auth\AuthController@postLogin'
     ]);
     
-    // Route::post('pre', [SportsController::class, 'pre']);
     Route::post('pre', [
         'as' => 'frontend.auth.login.post',
         'uses' => 'SportsController@pre'
@@ -453,6 +452,16 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
     Route::get('sports/get_search', [
         'as' => 'frontend.sports.get_search',
         'uses' => 'SportsController@get_search',
+    ]);
+    
+    Route::post('home_casino', [
+        'as' => 'frontend.sports.home_casino',
+        'uses' => 'SportsController@home_casino',
+    ]);
+    
+    Route::post('get_provider', [
+        'as' => 'frontend.sports.get_provider',
+        'uses' => 'SportsController@get_provider',
     ]);
 });
 

@@ -42,9 +42,14 @@ const Home = () => {
     const [actLiveItem, setActLiveItem] = useState(0);
     const [actSport, setActSport] = useState(0);
     const [timer, setTimer] = useState({});
+    const [casino, setCasino] = useState([]);
 
-    const register = () => {
-        document.getElementsByClassName('register_btn')[0].click();
+    const goBonus = () => {
+        if (user.isAuth) {
+            console.log('bonus');
+        } else {
+            document.getElementsByClassName('register_btn')[0].click();
+        }
     }
 
     const numberFormat = (e) => {
@@ -71,9 +76,22 @@ const Home = () => {
         setInterval(countDown, 1000)
     }
 
+    const getCasino = () => {
+        axios.post('/home_casino', {})
+            .then(
+                response => {
+                    let data = response.data;
+                    setCasino(data);
+                }
+            )
+            .catch(error => {
+                console.log("ERROR:: ", error.response.data);
+            });
+    }
+
     useEffect(() => {
+        getCasino();
         countStart();
-        console.log(user, '------------')
     }, []);
 
     return (
@@ -144,7 +162,7 @@ const Home = () => {
                                     letterSpacing: '0.33px',
                                     fontWeight: 800
                                 }}>Bonus + 500%</Typography>
-                                <Link onClick={() => register()}
+                                <Link onClick={() => goBonus()}
                                     sx={{
                                         fontSize: '20px',
                                         padding: '0 25px',
@@ -167,7 +185,9 @@ const Home = () => {
                                         textDecoration: "none",
                                         cursor: 'pointer'
                                     }}>
-                                    Registration
+                                    {
+                                        user.isAuth ? 'Get bouns' : 'Registration'
+                                    }
                                 </Link>
                             </VStack>
                         </Box>
@@ -542,11 +562,12 @@ const Home = () => {
                                 className='top-live-casino'
                             >
                                 {
-                                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((item, idx) => (
+                                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, idx) => (
                                         <SwiperSlide key={idx}>
                                             <Box className="game-card">
-                                                <Box className="game-card-image-container" sx={{ pb: '130% !important' }}>
-                                                    <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" />
+                                                <Box className="game-card-image-container" >
+                                                    <Box sx={{ pb: '130% !important', backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
+                                                    {/* <Box component='img' src={`/frontend/Default/ico/${casino[idx].name}.jpg`} alt={casino[idx].title} className="game-card-image" /> */}
                                                 </Box>
                                             </Box>
                                         </SwiperSlide>
@@ -561,7 +582,7 @@ const Home = () => {
                             <HStack className="section-card-header" sx={{ mb: 3 }}>
                                 <HStack alignItems='self-end'>
                                     <Typography variant='h6' sx={{ lineHeight: 1, fontWeight: 700, cursor: 'pointer', letterSpacing: '-.41px' }}>
-                                        Casino
+                                        Top Casino
                                     </Typography>
                                     <Typography sx={{ ml: 1, opacity: 0.5, lineHeight: 1.2, fontSize: '12px', letterSpacing: '-.29px', fontWeight: 400 }}>8314</Typography>
                                 </HStack>
@@ -569,11 +590,12 @@ const Home = () => {
                             </HStack>
                             <Grid container spacing={2}>
                                 {
-                                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3].map((item, idx) => (
+                                    [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22].map((item, idx) => (
                                         <Grid item xs={3} key={idx}>
                                             <Box className="game-card">
                                                 <Box className="game-card-image-container">
-                                                    <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" />
+                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
+                                                    {/* <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" /> */}
                                                 </Box>
                                             </Box>
                                         </Grid>
@@ -588,7 +610,7 @@ const Home = () => {
                             <HStack className="section-card-header" sx={{ mb: 3 }}>
                                 <HStack alignItems='self-end'>
                                     <Typography variant='h6' sx={{ lineHeight: 1, fontWeight: 700, cursor: 'pointer', letterSpacing: '-.41px' }}>
-                                        LiveGames
+                                        Table Games
                                     </Typography>
                                     <Typography sx={{ ml: 1, opacity: 0.5, lineHeight: 1.2, fontSize: '12px', letterSpacing: '-.29px', fontWeight: 400 }}>8314</Typography>
                                 </HStack>
@@ -596,11 +618,13 @@ const Home = () => {
                             </HStack>
                             <Grid container spacing={2}>
                                 {
-                                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3].map((item, idx) => (
+                                    [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34].map((item, idx) => (
                                         <Grid item xs={3} key={idx}>
                                             <Box className="game-card">
-                                                <Box className="game-card-image-container">
-                                                    <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" />
+                                                <Box className="game-card-image-container" >
+                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
+
+                                                    {/* <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" /> */}
                                                 </Box>
                                             </Box>
                                         </Grid>
@@ -629,11 +653,12 @@ const Home = () => {
                                 className='top-live-casino'
                             >
                                 {
-                                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((item, idx) => (
+                                    [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49].map((item, idx) => (
                                         <SwiperSlide key={idx}>
                                             <Box className="game-card">
                                                 <Box className="game-card-image-container">
-                                                    <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" />
+                                                    <Box sx={{ backgroundImage: casino[item] ? `url(/frontend/Default/ico/${casino[item].name}.jpg)` : '', backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
+                                                    {/* <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" /> */}
                                                 </Box>
                                             </Box>
                                         </SwiperSlide>

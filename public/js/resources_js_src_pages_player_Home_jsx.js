@@ -3809,8 +3809,17 @@ var Home = function Home() {
       timer = _useState6[0],
       setTimer = _useState6[1];
 
-  var register = function register() {
-    document.getElementsByClassName('register_btn')[0].click();
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState8 = _slicedToArray(_useState7, 2),
+      casino = _useState8[0],
+      setCasino = _useState8[1];
+
+  var goBonus = function goBonus() {
+    if (user.isAuth) {
+      console.log('bonus');
+    } else {
+      document.getElementsByClassName('register_btn')[0].click();
+    }
   };
 
   var numberFormat = function numberFormat(e) {
@@ -3842,9 +3851,18 @@ var Home = function Home() {
     setInterval(countDown, 1000);
   };
 
+  var getCasino = function getCasino() {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post('/home_casino', {}).then(function (response) {
+      var data = response.data;
+      setCasino(data);
+    })["catch"](function (error) {
+      console.log("ERROR:: ", error.response.data);
+    });
+  };
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getCasino();
     countStart();
-    console.log(user, '------------');
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
@@ -3997,7 +4015,7 @@ var Home = function Home() {
                 children: "Bonus + 500%"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
                 onClick: function onClick() {
-                  return register();
+                  return goBonus();
                 },
                 sx: {
                   fontSize: '20px',
@@ -4021,7 +4039,7 @@ var Home = function Home() {
                   textDecoration: "none",
                   cursor: 'pointer'
                 },
-                children: "Registration"
+                children: user.isAuth ? 'Get bouns' : 'Registration'
               })]
             })]
           })
@@ -4787,19 +4805,19 @@ var Home = function Home() {
               slidesPerView: 7,
               spaceBetween: 16,
               className: "top-live-casino",
-              children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(function (item, idx) {
+              children: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (item, idx) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
                     className: "game-card",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
                       className: "game-card-image-container",
-                      sx: {
-                        pb: '130% !important'
-                      },
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                        component: "img",
-                        src: "frontend/Default/img/_src/bonus-banner-deposit.avif",
-                        className: "game-card-image"
+                        sx: {
+                          pb: '130% !important',
+                          backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                          backgroundRepeat: 'no-repeat',
+                          backgroundSize: '100% 100%'
+                        }
                       })
                     })
                   })
@@ -4829,7 +4847,7 @@ var Home = function Home() {
                     cursor: 'pointer',
                     letterSpacing: '-.41px'
                   },
-                  children: "Casino"
+                  children: "Top Casino"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
                   sx: {
                     ml: 1,
@@ -4854,7 +4872,7 @@ var Home = function Home() {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
               container: true,
               spacing: 2,
-              children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3].map(function (item, idx) {
+              children: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22].map(function (item, idx) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
                   item: true,
                   xs: 3,
@@ -4863,9 +4881,11 @@ var Home = function Home() {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
                       className: "game-card-image-container",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                        component: "img",
-                        src: "frontend/Default/img/_src/bonus-banner-deposit.avif",
-                        className: "game-card-image"
+                        sx: {
+                          backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                          backgroundRepeat: 'no-repeat',
+                          backgroundSize: '100% 100%'
+                        }
                       })
                     })
                   })
@@ -4895,7 +4915,7 @@ var Home = function Home() {
                     cursor: 'pointer',
                     letterSpacing: '-.41px'
                   },
-                  children: "LiveGames"
+                  children: "Table Games"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
                   sx: {
                     ml: 1,
@@ -4920,7 +4940,7 @@ var Home = function Home() {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
               container: true,
               spacing: 2,
-              children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3].map(function (item, idx) {
+              children: [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34].map(function (item, idx) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
                   item: true,
                   xs: 3,
@@ -4929,9 +4949,11 @@ var Home = function Home() {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
                       className: "game-card-image-container",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                        component: "img",
-                        src: "frontend/Default/img/_src/bonus-banner-deposit.avif",
-                        className: "game-card-image"
+                        sx: {
+                          backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                          backgroundRepeat: 'no-repeat',
+                          backgroundSize: '100% 100%'
+                        }
                       })
                     })
                   })
@@ -4989,16 +5011,18 @@ var Home = function Home() {
               slidesPerView: 6,
               spaceBetween: 16,
               className: "top-live-casino",
-              children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(function (item, idx) {
+              children: [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49].map(function (item, idx) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
                     className: "game-card",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
                       className: "game-card-image-container",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                        component: "img",
-                        src: "frontend/Default/img/_src/bonus-banner-deposit.avif",
-                        className: "game-card-image"
+                        sx: {
+                          backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                          backgroundRepeat: 'no-repeat',
+                          backgroundSize: '100% 100%'
+                        }
                       })
                     })
                   })

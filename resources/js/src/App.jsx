@@ -15,7 +15,7 @@ function App() {
                 response => {
                     let data = response.data;
                     if (data) {
-                        dispatch(auth(data));
+                        dispatch(auth({ ...data, isAuth: true }));
                     }
                 }
             )

@@ -599,5 +599,21 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                 ->get();
             return json_encode($data);
         }
+
+        public function home_casino()
+        {
+            $games = \VanguardLTE\Game::offset(0)->take(50)->get();
+            return json_decode($games);
+        }
+
+        public function get_provider()
+        {
+            $categories = \VanguardLTE\GameCategory::Select(\DB::raw('COUNT(*) as count'), 'category_id', 'title', 'href')
+                ->groupBy('category_id')
+                ->rightJoin('categories', 'game_categories.category_id', '=', 'categories.id')
+                ->get();
+            // $categories = \VanguardLTE\Category::get();
+            return json_decode($categories);
+        }
     }
 }

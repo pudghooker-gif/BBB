@@ -190,17 +190,23 @@ const Desktop = ({ user, langList, showProfile, list, profile, active, showLang,
             <HStack>
 
               {
-                Object.keys(user).length ?
-                  <Button className='user_btn' onClick={openProfile}>
-                    <Box className='icon-wrap'>
-                      <PersonIcon />
-                    </Box>
-                    <Box className='close-wrap'>
-                      {
-                        showProfile ? <CloseIcon /> : <MoreVertIcon />
-                      }
-                    </Box>
-                  </Button> :
+                user.isAuth ?
+                  <>
+                    <Stack sx={{ mr: 1 }}>
+                      <Typography sx={{ fontSize: 10, color: '#ffffff80', textAlign: 'right' }}>Balance</Typography>
+                      <Typography sx={{ fontSize: 14, fontWeight: 700, textAlign: 'right' }}>{user.balance ? Number(user.balance).toFixed(2) : 0.00}</Typography>
+                    </Stack>
+                    <Button className='user_btn' onClick={openProfile}>
+                      <Box className='icon-wrap'>
+                        <PersonIcon />
+                      </Box>
+                      <Box className='close-wrap'>
+                        {
+                          showProfile ? <CloseIcon /> : <MoreVertIcon />
+                        }
+                      </Box>
+                    </Button>
+                  </> :
                   <>
                     <Button className='login_btn' onClick={() => openLogin()}>
                       <Typography component='span'>

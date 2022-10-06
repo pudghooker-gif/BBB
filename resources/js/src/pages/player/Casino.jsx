@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -14,6 +17,25 @@ import SearchIcon from '@mui/icons-material/Search';
 import classNames from 'classnames';
 
 const Casino = () => {
+    const [providers, setProviders] = useState([]);
+    const [games, setGames] = useState([]);
+
+    const getProvider = () => {
+        axios.post('/get_provider', {})
+            .then(
+                response => {
+                    let data = response.data;
+                    setProviders(data);
+                }
+            )
+            .catch(error => {
+                console.log("ERROR:: ", error.response.data);
+            });
+    }
+
+    useEffect(() => {
+        getProvider();
+    }, [])
     return (
         <Box sx={{ pt: 2 }}>
             <Grid container spacing={2}>
@@ -50,6 +72,28 @@ const Casino = () => {
                                     </Box>
                                 </Box>
                             </Box>
+                            {
+                                providers.map((item, idx) => (
+                                    <Box className='list-item'>
+                                        <Box className='item-btn-wrap'>
+                                            <Box sx={{ mx: 1, borderBottom: '1px solid #262e4880' }}>
+                                                <Button
+                                                    sx={{ pl: 2, '& .MuiButton-endIcon': { mr: 0, ml: 'auto' } }}
+                                                    startIcon={<Box component='img' src={`/1wrri/providers/small/${item.href}.svg`} alt={item.href} sx={{ width: 25, maxHeight: 30 }} />}
+                                                    endIcon={<Typography component='span' sx={{ fontSize: '12px !important' }}>
+                                                        {item.count}
+                                                    </Typography>}
+                                                    className='sports-list-item-btn'
+                                                >
+                                                    <Typography component='span' sx={{ fontSize: '14px' }}>
+                                                        {item.title}
+                                                    </Typography>
+                                                </Button>
+                                            </Box>
+                                        </Box>
+                                    </Box>
+                                ))
+                            }
                         </Box>
                     </Stack>
                 </Grid>
