@@ -299,7 +299,7 @@ const Header = () => {
     username: '',
     email: '',
     password: '',
-    comform: '',
+    confirm: '',
     showPassword: false
   });
 
@@ -498,7 +498,12 @@ const Header = () => {
                     color: '#070c19cc',
                     padding: 2,
                     borderRadius: '12px',
-                    fontSize: '12px'
+                    fontSize: '12px',
+                    '&:-webkit-autofill': {
+                      'WebkitBoxShadow': 'unset',
+                      'WebkitTextFillColor': '#070c19cc',
+                      borderRadius: '12px',
+                    }
                   }
                 }}
               />
@@ -561,10 +566,10 @@ const Header = () => {
               />
               <OutlinedInput
                 type={values.showPassword ? 'text' : 'password'}
-                value={values.conform}
+                value={values.confirm}
                 name='confirm'
                 placeholder='Confirm Password'
-                onChange={handleChange('conform')}
+                onChange={handleChange('confirm')}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton

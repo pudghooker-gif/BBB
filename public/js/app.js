@@ -32375,7 +32375,7 @@ var Header = function Header() {
     username: '',
     email: '',
     password: '',
-    comform: '',
+    confirm: '',
     showPassword: false
   }),
       _useState12 = _slicedToArray(_useState11, 2),
@@ -32686,7 +32686,12 @@ var Header = function Header() {
                   color: '#070c19cc',
                   padding: 2,
                   borderRadius: '12px',
-                  fontSize: '12px'
+                  fontSize: '12px',
+                  '&:-webkit-autofill': {
+                    'WebkitBoxShadow': 'unset',
+                    'WebkitTextFillColor': '#070c19cc',
+                    borderRadius: '12px'
+                  }
                 }
               }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -32748,10 +32753,10 @@ var Header = function Header() {
               }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_30__["default"], {
               type: values.showPassword ? 'text' : 'password',
-              value: values.conform,
+              value: values.confirm,
               name: "confirm",
               placeholder: "Confirm Password",
-              onChange: handleChange('conform'),
+              onChange: handleChange('confirm'),
               endAdornment: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_31__["default"], {
                 position: "end",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_25__["default"], {
@@ -33179,10 +33184,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var MainLayout = function MainLayout() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Container__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    maxWidth: "xl",
     sx: {
-      px: {
-        xl: '0 !important'
+      maxWidth: {
+        xl: '1920px'
       }
     },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Header__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Wrapper__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Footer__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
