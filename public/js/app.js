@@ -33746,7 +33746,8 @@ var Desktop = function Desktop(_ref) {
       closeProfile = _ref.closeProfile,
       openLogin = _ref.openLogin,
       openRegister = _ref.openRegister,
-      go = _ref.go;
+      go = _ref.go,
+      logoutAction = _ref.logoutAction;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
       className: "header_top",
@@ -34010,7 +34011,7 @@ var Desktop = function Desktop(_ref) {
                   children: "Registeration"
                 })]
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Menu__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Menu__WEBPACK_IMPORTED_MODULE_19__["default"], {
               sx: (_ref5 = {
                 mt: function mt(theme) {
                   return theme.spacing(5);
@@ -34036,7 +34037,7 @@ var Desktop = function Desktop(_ref) {
               },
               open: Boolean(showProfile),
               onClose: closeProfile,
-              children: profile.map(function (item, idx) {
+              children: [profile.map(function (item, idx) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_20__["default"], {
                   onClick: closeProfile,
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
@@ -34050,7 +34051,21 @@ var Desktop = function Desktop(_ref) {
                     children: item
                   })
                 }, idx);
-              })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                onClick: function onClick() {
+                  return logoutAction();
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                  textAlign: "center",
+                  sx: {
+                    color: 'black',
+                    fontSize: function fontSize(theme) {
+                      return theme.spacing(1.5);
+                    }
+                  },
+                  children: "Log Out"
+                })
+              })]
             })]
           })
         })]
@@ -34196,7 +34211,7 @@ var Header = function Header() {
     name: 'Poker',
     route: '/poker'
   }];
-  var profile = ['Withdraw', 'Setting', 'Bet History', 'Log Out'];
+  var profile = ['Withdraw', 'Setting', 'Bet History'];
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState2 = _slicedToArray(_useState, 2),
@@ -34295,10 +34310,13 @@ var Header = function Header() {
                 username: values.username,
                 password: values.password
               }).then(function (response) {
-                var data = JSON.stringify(response.data);
+                var data = response.data;
 
                 if (data) {
-                  dispatch((0,_state_user_actions__WEBPACK_IMPORTED_MODULE_9__.auth)(data));
+                  dispatch((0,_state_user_actions__WEBPACK_IMPORTED_MODULE_9__.auth)(_objectSpread(_objectSpread({}, data), {}, {
+                    isAuth: true
+                  })));
+                  closeLogin();
                 }
               })["catch"](function (error) {
                 console.log("ERROR:: ", error.response.data);
@@ -34316,6 +34334,11 @@ var Header = function Header() {
       return _ref6.apply(this, arguments);
     };
   }();
+
+  var logoutAction = function logoutAction() {
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get('logout', {});
+    location.reload();
+  };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var path = location.pathname;
@@ -34346,7 +34369,8 @@ var Header = function Header() {
       closeProfile: closeProfile,
       go: go,
       openLogin: openLogin,
-      openRegister: openRegister
+      openRegister: openRegister,
+      logoutAction: logoutAction
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Modal__WEBPACK_IMPORTED_MODULE_31__["default"], {
       open: login,
       onClose: closeLogin,

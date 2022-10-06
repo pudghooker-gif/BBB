@@ -137,7 +137,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
             }
             \Auth::login($user, true);
             // return $this->handleUserWasAuthenticated($request, $throttles, $user);
-            return $user;
+            return json_encode($user);
         }
         public function specauth(\Illuminate\Http\Request $request, \VanguardLTE\User $user)
         {
@@ -212,7 +212,8 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
             }
             \Auth::logout();
             \Google2FA::logout();
-            return redirect('/');
+            // return redirect('/');
+            return '200';
         }
         public function loginUsername()
         {
