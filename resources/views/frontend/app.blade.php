@@ -95,7 +95,7 @@
 	<div id="app"></div>
 	<section id="loader">
 		<div id="loader-logo-container">
-			<img src='http://localhost:8000/images/logo.png' alt="logo" style="width: 100%;" />
+			<img src='{{ Request::root() }}/images/logo.png' alt="logo" style="width: 100%;" />
 		</div>
 		<div class="loader-spinner"></div>
 	</section>
