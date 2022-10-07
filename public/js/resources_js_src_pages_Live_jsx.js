@@ -9212,7 +9212,9 @@ var LiveMatch = function LiveMatch(_ref) {
   });
 };
 
-var SportCountry = function SportCountry() {
+var SportCountry = function SportCountry(_ref2) {
+  var setSelectedLeague = _ref2.setSelectedLeague;
+
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState6 = _slicedToArray(_useState5, 2),
       collapse = _useState6[0],
@@ -9251,6 +9253,9 @@ var SportCountry = function SportCountry() {
       timeout: "auto",
       unmountOnExit: true,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+        onClick: function onClick() {
+          return setSelectedLeague('Serie B');
+        },
         sx: {
           height: 45,
           cursor: 'pointer',
@@ -9265,6 +9270,9 @@ var SportCountry = function SportCountry() {
           children: " Serie B"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+        onClick: function onClick() {
+          return setSelectedLeague('Serie B');
+        },
         sx: {
           height: 45,
           cursor: 'pointer',
@@ -9279,6 +9287,9 @@ var SportCountry = function SportCountry() {
           children: " Serie B"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+        onClick: function onClick() {
+          return setSelectedLeague('Serie B');
+        },
         sx: {
           height: 45,
           cursor: 'pointer',
@@ -9297,9 +9308,9 @@ var SportCountry = function SportCountry() {
   });
 };
 
-var SportItem = function SportItem(_ref2) {
-  var sport = _ref2.sport,
-      setSelected = _ref2.setSelected;
+var SportItem = function SportItem(_ref3) {
+  var sport = _ref3.sport,
+      setSelected = _ref3.setSelected;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
     sx: {
       '& .MuiButton-endIcon': {
@@ -9334,8 +9345,8 @@ var SportItem = function SportItem(_ref2) {
   });
 };
 
-var EventPart = function EventPart(_ref3) {
-  var sportsList = _ref3.sportsList;
+var EventPart = function EventPart(_ref4) {
+  var sportsList = _ref4.sportsList;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
       className: "sports-live-over",
@@ -9368,73 +9379,203 @@ var EventPart = function EventPart(_ref3) {
   });
 };
 
-var SportPart = function SportPart(_ref4) {
-  var sportsList = _ref4.sportsList;
+var SportPart = function SportPart(_ref5) {
+  var sportsList = _ref5.sportsList;
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
       selected = _useState8[0],
       setSelected = _useState8[1];
 
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState10 = _slicedToArray(_useState9, 2),
+      selectedLeague = _useState10[0],
+      setSelectedLeague = _useState10[1];
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    children: selected ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
-          onClick: function onClick() {
-            return setSelected('');
-          },
-          startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardArrowLeft__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
-          children: "Sports"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
-          sx: {
-            '& .MuiButton-endIcon': {
-              mr: 0,
-              ml: 'auto',
-              '&.MuiTouchRipple-root': {
-                display: 'none'
-              }
-            }
-          },
-          startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
-            className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("sports-icon", "icon-".concat(selected.toLocaleLowerCase().replaceAll(' ', '-'))),
-            style: {
-              fontSize: '20px !important'
-            }
-          }),
-          endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
-            component: "span",
+    children: function () {
+      if (selected && selectedLeague) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
+              sx: {
+                color: '#fff'
+              },
+              onClick: function onClick() {
+                return setSelectedLeague('');
+              },
+              startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardArrowLeft__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("sports-icon", "icon-".concat(selected.toLocaleLowerCase().replaceAll(' ', '-')))
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                sx: {
+                  fontSize: 15,
+                  ml: 1,
+                  textTransform: 'capitalize'
+                },
+                children: selected
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
             sx: {
-              fontSize: '14px !important',
-              color: '#6c7da3',
-              ml: 1
+              mb: 1,
+              py: 1,
+              height: 45,
+              borderBottom: '1px solid #141b2e'
             },
-            children: "32"
-          }),
-          className: "sports-list-item-btn",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
-            component: "span",
-            sx: {
-              fontSize: 24,
-              fontWeight: 700
-            },
-            children: selected
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+              sx: {
+                fontSize: 15
+              },
+              children: selectedLeague
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            className: "popular-wrap",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              className: "live-event-main",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+                className: "match-header",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                  component: "div",
+                  className: "top-live-match-score",
+                  children: "252:559"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                  component: "div",
+                  className: "match-score-period",
+                  children: "(196:219 - 56:340)"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                className: "top-live-match-info",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  className: "match-teams",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                    className: "match-team",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                      component: "span",
+                      className: "helper-line",
+                      children: "Warwickshire"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                    className: "match-team",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                      component: "span",
+                      className: "helper-line",
+                      children: "Warwickshire"
+                    })
+                  })]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                className: "match-details",
+                children: "Cricket \xB7 County Championship Division One"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+                className: "match-odd-list",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  className: "match-odd-item",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
+                    className: "live-top-odd",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+                      className: "odd-values",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                        className: "odd-name",
+                        children: "1"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                        className: "odd-value",
+                        children: "5.15"
+                      })]
+                    })
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  className: "match-odd-item",
+                  sx: {
+                    ml: 1
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
+                    className: "live-top-odd",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+                      className: "odd-values",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                        className: "odd-name",
+                        children: "1"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                        className: "odd-value",
+                        children: "5.15"
+                      })]
+                    })
+                  })
+                })]
+              })]
+            })
+          })]
+        });
+      } else if (selected) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
+              sx: {
+                color: '#fff',
+                textTransform: 'capitalize'
+              },
+              onClick: function onClick() {
+                return setSelected('');
+              },
+              startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardArrowLeft__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
+              children: "Sports"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
+              sx: {
+                '& .MuiButton-endIcon': {
+                  mr: 0,
+                  ml: 'auto',
+                  '&.MuiTouchRipple-root': {
+                    display: 'none'
+                  }
+                }
+              },
+              startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("sports-icon", "icon-".concat(selected.toLocaleLowerCase().replaceAll(' ', '-'))),
+                style: {
+                  fontSize: '20px !important'
+                }
+              }),
+              endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                component: "span",
+                sx: {
+                  fontSize: '14px !important',
+                  color: '#6c7da3',
+                  ml: 1
+                },
+                children: "32"
+              }),
+              className: "sports-list-item-btn",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                component: "span",
+                sx: {
+                  fontSize: 24,
+                  fontWeight: 700
+                },
+                children: selected
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            children: [0, 1, 2, 3, 4, 5].map(function (item) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(SportCountry, {
+                setSelectedLeague: setSelectedLeague
+              }, item);
+            })
+          })]
+        });
+      } else {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          children: sportsList.map(function (item, idx) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(SportItem, {
+              setSelected: setSelected,
+              sport: item
+            }, idx);
           })
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        children: [0, 1, 2, 3, 4, 5].map(function (item) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(SportCountry, {}, item);
-        })
-      })]
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
-      children: sportsList.map(function (item, idx) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(SportItem, {
-          setSelected: setSelected,
-          sport: item
-        }, idx);
-      })
-    })
+        });
+      }
+    }()
   });
 };
 
@@ -9463,15 +9604,15 @@ var Live = function Live() {
   }];
   var sportsList = ['Soccer', 'Basketball', 'Cricket', 'Table Tennis', 'American Football', 'Tennis'];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      _useState10 = _slicedToArray(_useState9, 2),
-      active = _useState10[0],
-      setActive = _useState10[1];
-
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState12 = _slicedToArray(_useState11, 2),
-      esIt = _useState12[0],
-      setEsIt = _useState12[1];
+      active = _useState12[0],
+      setActive = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState14 = _slicedToArray(_useState13, 2),
+      esIt = _useState14[0],
+      setEsIt = _useState14[1];
 
   var go = function go(idx) {
     setActive(idx);
