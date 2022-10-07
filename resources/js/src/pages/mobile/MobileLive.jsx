@@ -116,7 +116,7 @@ const LiveMatch = ({ sport }) => {
     )
 }
 
-const SportCountry = () => {
+const SportCountry = ({ setSelectedLeague }) => {
     const [collapse, setCollapse] = useState(false);
 
     return (
@@ -133,13 +133,13 @@ const SportCountry = () => {
                 </Typography>
             </Button>
             <Collapse in={collapse} timeout="auto" unmountOnExit>
-                <HStack sx={{ height: 45, cursor: 'pointer', alignItems: 'center', borderBottom: '1px solid #141b2e' }}>
+                <HStack onClick={() => setSelectedLeague('Serie B')} sx={{ height: 45, cursor: 'pointer', alignItems: 'center', borderBottom: '1px solid #141b2e' }}>
                     <Typography sx={{ fontSize: 15, ml: '36px' }}> Serie B</Typography>
                 </HStack>
-                <HStack sx={{ height: 45, cursor: 'pointer', alignItems: 'center', borderBottom: '1px solid #141b2e' }}>
+                <HStack onClick={() => setSelectedLeague('Serie B')} sx={{ height: 45, cursor: 'pointer', alignItems: 'center', borderBottom: '1px solid #141b2e' }}>
                     <Typography sx={{ fontSize: 15, ml: '36px' }}> Serie B</Typography>
                 </HStack>
-                <HStack sx={{ height: 45, cursor: 'pointer', alignItems: 'center', borderBottom: '1px solid #141b2e' }}>
+                <HStack onClick={() => setSelectedLeague('Serie B')} sx={{ height: 45, cursor: 'pointer', alignItems: 'center', borderBottom: '1px solid #141b2e' }}>
                     <Typography sx={{ fontSize: 15, ml: '36px' }}> Serie B</Typography>
                 </HStack>
             </Collapse>
@@ -194,48 +194,116 @@ const EventPart = ({ sportsList }) => {
 
 const SportPart = ({ sportsList }) => {
     const [selected, setSelected] = useState('');
+    const [selectedLeague, setSelectedLeague] = useState('');
     return (
         <Box>
             {
-                selected ?
-                    <Stack>
-                        <HStack>
-                            <Button
-                                onClick={() => setSelected('')}
-                                startIcon={<KeyboardArrowLeftIcon />}
-                            >
-                                Sports
-                            </Button>
-                        </HStack>
-                        <HStack>
-                            <Button
-                                sx={{ '& .MuiButton-endIcon': { mr: 0, ml: 'auto', '&.MuiTouchRipple-root': { display: 'none' } } }}
-                                startIcon={<i className={classNames("sports-icon", `icon-${selected.toLocaleLowerCase().replaceAll(' ', '-')}`)} style={{ fontSize: '20px !important' }}></i>}
-                                endIcon={<Typography component='span' sx={{ fontSize: '14px !important', color: '#6c7da3', ml: 1 }}>
-                                    32
-                                </Typography>}
-                                className='sports-list-item-btn'
-                            >
-                                <Typography component='span' sx={{ fontSize: 24, fontWeight: 700 }}>
-                                    {selected}
-                                </Typography>
-                            </Button>
-                        </HStack>
-                        <Stack>
-                            {
-                                [0, 1, 2, 3, 4, 5].map((item) => (
-                                    <SportCountry key={item} />
-                                ))
-                            }
-                        </Stack>
-                    </Stack> :
-                    <Stack>
-                        {
-                            sportsList.map((item, idx) => (
-                                <SportItem key={idx} {...{ setSelected, sport: item }} />
-                            ))
-                        }
-                    </Stack>
+                (() => {
+                    if (selected && selectedLeague) {
+                        return (
+                            <Stack>
+                                <HStack>
+                                    <Button
+                                        sx={{ color: '#fff' }}
+                                        onClick={() => setSelectedLeague('')}
+                                        startIcon={<KeyboardArrowLeftIcon />}
+                                    >
+                                        <i className={classNames("sports-icon", `icon-${selected.toLocaleLowerCase().replaceAll(' ', '-')}`)} />
+                                        <Typography sx={{ fontSize: 15, ml: 1, textTransform: 'capitalize' }}>{selected}</Typography>
+                                    </Button>
+                                </HStack>
+                                <HStack sx={{
+                                    mb: 1,
+                                    py: 1,
+                                    height: 45,
+                                    borderBottom: '1px solid #141b2e'
+                                }}>
+                                    <Typography sx={{ fontSize: 15 }}>{selectedLeague}</Typography>
+                                </HStack>
+                                <Box className='popular-wrap'>
+                                    <Stack className="live-event-main">
+                                        <HStack className="match-header">
+                                            <Typography component='div' className="top-live-match-score">252:559</Typography>
+                                            <Typography component='div' className="match-score-period">(196:219 - 56:340)</Typography>
+                                        </HStack>
+                                        <Box className="top-live-match-info">
+                                            <Box className="match-teams">
+                                                <Stack className="match-team"><Typography component='span' className="helper-line">Warwickshire</Typography></Stack>
+                                                <Stack className="match-team"><Typography component='span' className="helper-line">Warwickshire</Typography></Stack>
+                                            </Box>
+                                        </Box>
+                                        <Box className="match-details">
+                                            Cricket · County Championship Division One
+                                        </Box>
+                                        <HStack className="match-odd-list">
+                                            <Box className="match-odd-item">
+                                                <Button className="live-top-odd">
+                                                    <HStack className="odd-values">
+                                                        <Box className="odd-name">1</Box>
+                                                        <Box className="odd-value">5.15</Box>
+                                                    </HStack>
+                                                </Button>
+                                            </Box>
+                                            <Box className="match-odd-item" sx={{ ml: 1 }}>
+                                                <Button className="live-top-odd">
+                                                    <HStack className="odd-values">
+                                                        <Box className="odd-name">1</Box>
+                                                        <Box className="odd-value">5.15</Box>
+                                                    </HStack>
+                                                </Button>
+                                            </Box>
+                                        </HStack>
+                                    </Stack>
+                                </Box>
+                            </Stack>
+                        )
+                    } else if (selected) {
+                        return (
+                            <Stack>
+                                <HStack>
+                                    <Button
+                                        sx={{ color: '#fff', textTransform: 'capitalize' }}
+                                        onClick={() => setSelected('')}
+                                        startIcon={<KeyboardArrowLeftIcon />}
+                                    >
+                                        Sports
+                                    </Button>
+                                </HStack>
+                                <HStack>
+                                    <Button
+                                        sx={{ '& .MuiButton-endIcon': { mr: 0, ml: 'auto', '&.MuiTouchRipple-root': { display: 'none' } } }}
+                                        startIcon={<i className={classNames("sports-icon", `icon-${selected.toLocaleLowerCase().replaceAll(' ', '-')}`)} style={{ fontSize: '20px !important' }}></i>}
+                                        endIcon={<Typography component='span' sx={{ fontSize: '14px !important', color: '#6c7da3', ml: 1 }}>
+                                            32
+                                        </Typography>}
+                                        className='sports-list-item-btn'
+                                    >
+                                        <Typography component='span' sx={{ fontSize: 24, fontWeight: 700 }}>
+                                            {selected}
+                                        </Typography>
+                                    </Button>
+                                </HStack>
+                                <Stack>
+                                    {
+                                        [0, 1, 2, 3, 4, 5].map((item) => (
+                                            <SportCountry key={item} {...{ setSelectedLeague }} />
+                                        ))
+                                    }
+                                </Stack>
+                            </Stack>
+                        )
+                    } else {
+                        return (
+                            <Stack>
+                                {
+                                    sportsList.map((item, idx) => (
+                                        <SportItem key={idx} {...{ setSelected, sport: item }} />
+                                    ))
+                                }
+                            </Stack>
+                        )
+                    }
+                })()
             }
         </Box>
     )
