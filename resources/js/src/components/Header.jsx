@@ -267,31 +267,40 @@ const Desktop = ({ user, langList, showProfile, list, profile, active, showLang,
   )
 }
 
-const Mobile = () => {
+const Mobile = ({ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }) => {
   return (
     <>
-      <HStack sx={{ px: 2, minHeight: 60, alignItems: 'center', borderBottom: '1px solid #141b2e' }}>
-        <Link href='/' sx={{ display: 'flex' }}>
-          <Box component='img' src={logo} sx={{ maxWidth: (theme) => theme.spacing(8.5) }} />
-        </Link>
-        <HStack sx={{ ml: 'auto', alignItems: 'center' }}>
-          <Stack sx={{ mr: 1 }}>
-            <Typography sx={{ color: '#94a6cdb3', fontSize: 11, lineHeight: '1.2', mb: .2, textAlign: 'right' }}>ID 14680231</Typography>
-            <Typography sx={{ fontSize: 14, lineHeight: 1, textAlign: 'right' }}>User Name</Typography>
-          </Stack>
-          <Button className='animation-btn' sx={{ mr: 1 }}>Deposit</Button>
-          <IconButton sx={{ ml: 1, bgcolor: '#252f4b', borderRadius: 2, p: 0, width: 30, height: 30, boxShadow: '0 2px 14px 0 rgb(37 47 75 / 90%)', '&:hover': { bgcolor: '#141b2e', boxShadow: 'unset' } }}>
-            <PersonIcon />
-          </IconButton>
-          <IconButton sx={{ p: 0, ml: 2, }}>
-            <MenuIcon sx={{ height: 30, width: 30 }} />
-          </IconButton>
+      <Box sx={{ borderBottom: '1px solid #141b2e', mx: -2, px: 2 }}>
+        <HStack sx={{ minHeight: 60, alignItems: 'center' }}>
+          <Link href='/' sx={{ display: 'flex' }}>
+            <Box component='img' src={logo} sx={{ maxWidth: (theme) => theme.spacing(8.5) }} />
+          </Link>
+          <HStack sx={{ ml: 'auto', alignItems: 'center' }}>
+            {
+              user.isAuth &&
+              <>
+                <Stack sx={{ mr: 1 }}>
+                  <Typography sx={{ color: '#94a6cdb3', fontSize: 11, lineHeight: '1.2', mb: .2, textAlign: 'right' }}>ID 14680231</Typography>
+                  <Typography sx={{ fontSize: 14, lineHeight: 1, textAlign: 'right' }}>User Name</Typography>
+                </Stack>
+                <IconButton sx={{ ml: 1, bgcolor: '#252f4b', borderRadius: 2, p: 0, width: 30, height: 30, boxShadow: '0 2px 14px 0 rgb(37 47 75 / 90%)', '&:hover': { bgcolor: '#141b2e', boxShadow: 'unset' } }}>
+                  <PersonIcon />
+                </IconButton>
+              </>
+            }
+            <IconButton sx={{ p: 0, ml: 2, }}>
+              <MenuIcon sx={{ height: 30, width: 30 }} />
+            </IconButton>
+          </HStack>
         </HStack>
-      </HStack>
-      <HStack sx={{ px: 2, py: 1 }}>
-        <Button sx={{ borderRadius: 2, mr: 2, width: 'calc(50% - 16px)' }} className='btn primary'>Sign in</Button>
-        <Button sx={{ borderRadius: 2, width: '50%' }} className='btn success animation'>Sign up</Button>
-      </HStack>
+      </Box>
+      {
+        !user.isAuth &&
+        <HStack sx={{ py: 1 }}>
+          <Button sx={{ borderRadius: 2, mr: 2, width: 'calc(50% - 16px)' }} className='btn primary'>Sign in</Button>
+          <Button sx={{ borderRadius: 2, width: '50%' }} className='btn success animation'>Sign up</Button>
+        </HStack>
+      }
     </>
   )
 }
@@ -402,7 +411,7 @@ const Header = () => {
   return (
     <>
       {
-        isMobile ? <Mobile /> : <Desktop {...{ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }} />
+        isMobile ? <Mobile  {...{ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }} /> : <Desktop {...{ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }} />
       }
       <Modal
         open={login}
