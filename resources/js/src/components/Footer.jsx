@@ -298,7 +298,7 @@ const Desktop = ({ langList, showLang, closeLang }) => {
 
 const Mobile = ({ langList, showLang, closeLang }) => {
     return (
-        <Box className='footer' sx={{ p: 2 }}>
+        <Box className='footer' sx={{ py: 2 }}>
             <HStack sx={{ mb: 6, alignItems: 'center' }}>
                 <Box component='img' src={logo} sx={{ height: 20 }} />
                 <Box sx={{ ml: 3 }} className='footer-line' />

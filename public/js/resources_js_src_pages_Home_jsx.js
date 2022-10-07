@@ -5115,7 +5115,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var swiper_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! swiper/react */ "./node_modules/swiper/react/swiper-react.js");
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
 /* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
 /* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
 /* harmony import */ var _components_Part__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../components/Part */ "./resources/js/src/components/Part.jsx");
 /* harmony import */ var _components_Base__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../components/Base */ "./resources/js/src/components/Base.jsx");
@@ -5138,6 +5141,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -5257,14 +5261,518 @@ var Home = function Home() {
     getCasino();
     countStart();
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
       sx: {
         py: 2,
-        height: 250
+        height: 200
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Part__WEBPACK_IMPORTED_MODULE_8__.Slider, {})
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+        sx: {
+          px: 1,
+          py: 1,
+          borderRadius: 4,
+          alignItems: 'center',
+          bgcolor: 'rgb(36,0,0)',
+          background: 'linear-gradient(90deg, rgba(36,0,16,0.6138830532212884) 0%, rgba(121,9,26,0.7315301120448179) 69%, rgba(255,0,74,1) 100%)'
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          component: "img",
+          src: _assets_img_feature_qatar_svg__WEBPACK_IMPORTED_MODULE_11__["default"],
+          sx: {
+            height: 60
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+          sx: {
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            width: '75%',
+            ml: 'auto'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            alignItems: "center",
+            sx: {
+              mx: 1
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              varient: "h1",
+              sx: {
+                fontSize: 20,
+                lineHeight: 1.2,
+                fontWeight: 600
+              },
+              children: timer.day
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              sx: {
+                fontSize: 10
+              },
+              children: "Days"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            component: "img",
+            src: _assets_img_feature_timer_space_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
+            sx: {
+              width: 10
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            alignItems: "center",
+            sx: {
+              mx: 1
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              varient: "h1",
+              sx: {
+                fontSize: 20,
+                lineHeight: 1.2,
+                fontWeight: 600
+              },
+              children: timer.hour
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              sx: {
+                fontSize: 10
+              },
+              children: "Hours"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            component: "img",
+            src: _assets_img_feature_timer_space_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
+            sx: {
+              width: 10
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            alignItems: "center",
+            sx: {
+              mx: 1
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              varient: "h1",
+              sx: {
+                fontSize: 20,
+                lineHeight: 1.2,
+                fontWeight: 600
+              },
+              children: timer.minute
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              sx: {
+                fontSize: 10
+              },
+              children: "Minutes"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            component: "img",
+            src: _assets_img_feature_timer_space_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
+            sx: {
+              width: 10
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            alignItems: "center",
+            sx: {
+              mx: 1
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              varient: "h1",
+              sx: {
+                fontSize: 20,
+                lineHeight: 1.2,
+                fontWeight: 600
+              },
+              children: timer.second
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              sx: {
+                fontSize: 10
+              },
+              children: "Seconds"
+            })]
+          })]
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+      justifyContent: "space-between",
+      sx: {
+        my: 1
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        sx: {
+          fontSize: 19,
+          fontWeight: 700
+        },
+        children: "Top Live"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          sx: {
+            color: '#0085ff',
+            fontSize: 13,
+            fontWeiht: 500,
+            textAlign: 'right'
+          },
+          children: "All"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          sx: {
+            color: '#94a6cd',
+            fontSize: 11,
+            textAlign: 'right'
+          },
+          children: "21 events"
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+      sx: {
+        mx: -2
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        sx: {
+          pb: '6px'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
+          navigation: true,
+          autoplay: true,
+          loop: true,
+          modules: [swiper__WEBPACK_IMPORTED_MODULE_6__.Navigation, swiper__WEBPACK_IMPORTED_MODULE_6__.Autoplay],
+          slidesPerView: 1.1,
+          spaceBetween: 10,
+          className: "popular-events",
+          children: [1, 2, 3, 4, 5].map(function (item, idx) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                className: "popular-wrap",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                  className: "live-event-main",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                    className: "match-header",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                      component: "div",
+                      className: "top-live-match-score",
+                      children: "252:559"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                      component: "div",
+                      className: "match-score-period",
+                      children: "(196:219 - 56:340)"
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    className: "top-live-match-info",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      className: "match-teams",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                        className: "match-team",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                          component: "span",
+                          className: "helper-line",
+                          children: "Warwickshire"
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                        className: "match-team",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                          component: "span",
+                          className: "helper-line",
+                          children: "Warwickshire"
+                        })
+                      })]
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    className: "match-details",
+                    children: "Cricket \xB7 County Championship Division One"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                    className: "match-odd-list",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      className: "match-odd-item",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                        className: "live-top-odd",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                          className: "odd-values",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                            className: "odd-name",
+                            children: "1"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                            className: "odd-value",
+                            children: "5.15"
+                          })]
+                        })
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      className: "match-odd-item",
+                      sx: {
+                        ml: 1
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                        className: "live-top-odd",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                          className: "odd-values",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                            className: "odd-name",
+                            children: "1"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                            className: "odd-value",
+                            children: "5.15"
+                          })]
+                        })
+                      })
+                    })]
+                  })]
+                })
+              })
+            }, idx);
+          })
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+        justifyContent: "space-between",
+        sx: {
+          my: 1
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          sx: {
+            fontSize: 19,
+            fontWeight: 700
+          },
+          children: "Seibet games"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            sx: {
+              color: '#0085ff',
+              fontSize: 13,
+              fontWeiht: 500,
+              textAlign: 'right'
+            },
+            children: "All"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            sx: {
+              color: '#94a6cd',
+              fontSize: 11,
+              textAlign: 'right'
+            },
+            children: "43"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        sx: {
+          pb: '6px'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
+          navigation: true,
+          autoplay: true,
+          loop: true,
+          modules: [swiper__WEBPACK_IMPORTED_MODULE_6__.Navigation, swiper__WEBPACK_IMPORTED_MODULE_6__.Autoplay],
+          slidesPerView: 2.2,
+          spaceBetween: 10,
+          className: "popular-events",
+          children: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (item, idx) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                className: "game-card",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                  className: "game-card-image-container",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    sx: {
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: '100% 100%'
+                    },
+                    onClick: function onClick() {
+                      return goGame(casino[item]);
+                    }
+                  })
+                })
+              })
+            }, idx);
+          })
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+        justifyContent: "space-between",
+        sx: {
+          my: 1
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          sx: {
+            fontSize: 19,
+            fontWeight: 700
+          },
+          children: "Top Casino"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            sx: {
+              color: '#0085ff',
+              fontSize: 13,
+              fontWeiht: 500,
+              textAlign: 'right'
+            },
+            children: "All"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            sx: {
+              color: '#94a6cd',
+              fontSize: 11,
+              textAlign: 'right'
+            },
+            children: "43"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        sx: {
+          pb: '6px'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
+          navigation: true,
+          autoplay: true,
+          loop: true,
+          modules: [swiper__WEBPACK_IMPORTED_MODULE_6__.Navigation, swiper__WEBPACK_IMPORTED_MODULE_6__.Autoplay],
+          slidesPerView: 2.2,
+          spaceBetween: 10,
+          className: "popular-events",
+          children: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22].map(function (item, idx) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                className: "game-card",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                  className: "game-card-image-container",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    sx: {
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: '100% 100%'
+                    },
+                    onClick: function onClick() {
+                      return goGame(casino[item]);
+                    }
+                  })
+                })
+              })
+            }, idx);
+          })
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+        justifyContent: "space-between",
+        sx: {
+          my: 1
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          sx: {
+            fontSize: 19,
+            fontWeight: 700
+          },
+          children: "Table Games"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            sx: {
+              color: '#0085ff',
+              fontSize: 13,
+              fontWeiht: 500,
+              textAlign: 'right'
+            },
+            children: "All"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            sx: {
+              color: '#94a6cd',
+              fontSize: 11,
+              textAlign: 'right'
+            },
+            children: "43"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        sx: {
+          pb: '6px'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
+          navigation: true,
+          autoplay: true,
+          loop: true,
+          modules: [swiper__WEBPACK_IMPORTED_MODULE_6__.Navigation, swiper__WEBPACK_IMPORTED_MODULE_6__.Autoplay],
+          slidesPerView: 2.2,
+          spaceBetween: 10,
+          className: "popular-events",
+          children: [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34].map(function (item, idx) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                className: "game-card",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                  className: "game-card-image-container",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    sx: {
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: '100% 100%'
+                    },
+                    onClick: function onClick() {
+                      return goGame(casino[item]);
+                    }
+                  })
+                })
+              })
+            }, idx);
+          })
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+        justifyContent: "space-between",
+        sx: {
+          my: 1
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          sx: {
+            fontSize: 19,
+            fontWeight: 700
+          },
+          children: "Top Live Casino"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            sx: {
+              color: '#0085ff',
+              fontSize: 13,
+              fontWeiht: 500,
+              textAlign: 'right'
+            },
+            children: "All"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            sx: {
+              color: '#94a6cd',
+              fontSize: 11,
+              textAlign: 'right'
+            },
+            children: "43"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        sx: {
+          pb: '6px'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
+          navigation: true,
+          autoplay: true,
+          loop: true,
+          modules: [swiper__WEBPACK_IMPORTED_MODULE_6__.Navigation, swiper__WEBPACK_IMPORTED_MODULE_6__.Autoplay],
+          slidesPerView: 2.2,
+          spaceBetween: 10,
+          className: "popular-events",
+          children: [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49].map(function (item, idx) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                className: "game-card",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                  className: "game-card-image-container",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    sx: {
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: '100% 100%'
+                    },
+                    onClick: function onClick() {
+                      return goGame(casino[item]);
+                    }
+                  })
+                })
+              })
+            }, idx);
+          })
+        })
+      })]
+    })]
   });
 };
 
