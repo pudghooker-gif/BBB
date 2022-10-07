@@ -366,8 +366,8 @@ const Mobile = ({ user, langList, showProfile, list, profile, active, showLang, 
               </IconButton>
               <Button sx={{ borderRadius: 2, height: 30, }} className='btn success animation' onClick={() => openRegister()}>Sign up</Button>
             </HStack>
-            <IconButton sx={{ padding: 0 }}>
-              <CloseIcon onClick={() => toggleDrawer(false)} />
+            <IconButton sx={{ padding: 0 }} onClick={() => toggleDrawer(false)}>
+              <CloseIcon />
             </IconButton>
           </HStack>
           <Stack sx={{ mt: 2 }}>

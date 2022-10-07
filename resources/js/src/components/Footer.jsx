@@ -312,8 +312,8 @@ const Mobile = ({ langList, showLang, closeLang }) => {
 
     const goPage = (e) => {
         setActivBtn(e);
-        if (page(e)) {
-            navigate(page(e));
+        if (page[e]) {
+            navigate(page[e]);
         }
     }
     return (
