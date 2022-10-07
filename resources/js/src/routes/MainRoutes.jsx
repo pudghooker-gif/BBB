@@ -3,11 +3,11 @@ import { lazy } from 'react';
 import { MainLayout } from '../layouts';
 import Loadable from '../components/Loadable';
 
-const Home = Loadable(lazy(() => import('../pages/player/Home')));
-const Live = Loadable(lazy(() => import('../pages/player/Live')));
-const Prematch = Loadable(lazy(() => import('../pages/player/Match')));
-const EventMatch = Loadable(lazy(() => import('../pages/player/Event')));
-const Casino = Loadable(lazy(() => import('../pages/player/Casino')));
+const Home = Loadable(lazy(() => import('../pages/Home')));
+const Live = Loadable(lazy(() => import('../pages/Live')));
+const Prematch = Loadable(lazy(() => import('../pages/Match')));
+const EventMatch = Loadable(lazy(() => import('../pages/Event')));
+const Casino = Loadable(lazy(() => import('../pages/Casino')));
 
 export const BaseRoutes = {
     path: '/',

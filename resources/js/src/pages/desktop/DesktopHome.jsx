@@ -34,7 +34,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const Home = () => {
+const DesktopHome = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
@@ -681,4 +681,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default DesktopHome;

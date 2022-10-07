@@ -35343,19 +35343,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Home = (0,_components_Loadable__WEBPACK_IMPORTED_MODULE_2__["default"])( /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return __webpack_require__.e(/*! import() */ "resources_js_src_pages_player_Home_jsx").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/player/Home */ "./resources/js/src/pages/player/Home.jsx"));
+  return __webpack_require__.e(/*! import() */ "resources_js_src_pages_Home_jsx").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/Home */ "./resources/js/src/pages/Home.jsx"));
 }));
 var Live = (0,_components_Loadable__WEBPACK_IMPORTED_MODULE_2__["default"])( /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return __webpack_require__.e(/*! import() */ "resources_js_src_pages_player_Live_jsx").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/player/Live */ "./resources/js/src/pages/player/Live.jsx"));
+  return __webpack_require__.e(/*! import() */ "resources_js_src_pages_Live_jsx").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/Live */ "./resources/js/src/pages/Live.jsx"));
 }));
 var Prematch = (0,_components_Loadable__WEBPACK_IMPORTED_MODULE_2__["default"])( /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return __webpack_require__.e(/*! import() */ "resources_js_src_pages_player_Match_jsx").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/player/Match */ "./resources/js/src/pages/player/Match.jsx"));
+  return __webpack_require__.e(/*! import() */ "resources_js_src_pages_Match_jsx").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/Match */ "./resources/js/src/pages/Match.jsx"));
 }));
 var EventMatch = (0,_components_Loadable__WEBPACK_IMPORTED_MODULE_2__["default"])( /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return __webpack_require__.e(/*! import() */ "resources_js_src_pages_player_Event_jsx").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/player/Event */ "./resources/js/src/pages/player/Event.jsx"));
+  return __webpack_require__.e(/*! import() */ "resources_js_src_pages_Event_jsx").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/Event */ "./resources/js/src/pages/Event.jsx"));
 }));
 var Casino = (0,_components_Loadable__WEBPACK_IMPORTED_MODULE_2__["default"])( /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return __webpack_require__.e(/*! import() */ "resources_js_src_pages_player_Casino_jsx").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/player/Casino */ "./resources/js/src/pages/player/Casino.jsx"));
+  return __webpack_require__.e(/*! import() */ "resources_js_src_pages_Casino_jsx").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/Casino */ "./resources/js/src/pages/Casino.jsx"));
 }));
 var BaseRoutes = {
   path: '/',
@@ -80964,7 +80964,7 @@ function combine (array, callback) {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"node_modules_web-vitals_dist_web-vitals_js":1,"resources_js_src_pages_player_Home_jsx":1,"resources_js_src_pages_player_Live_jsx":1,"resources_js_src_pages_player_Match_jsx":1,"resources_js_src_pages_player_Event_jsx":1,"resources_js_src_pages_player_Casino_jsx":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"node_modules_web-vitals_dist_web-vitals_js":1,"resources_js_src_pages_Home_jsx":1,"resources_js_src_pages_Live_jsx":1,"resources_js_src_pages_Match_jsx":1,"resources_js_src_pages_Event_jsx":1,"resources_js_src_pages_Casino_jsx":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
