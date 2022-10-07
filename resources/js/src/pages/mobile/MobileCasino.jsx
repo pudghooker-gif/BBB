@@ -8,15 +8,22 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
+
 import { HStack } from '../../components/Base';
 import { Slider } from '../../components/Part';
 
 import StarIcon from '@mui/icons-material/Star';
 import SearchIcon from '@mui/icons-material/Search';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+
+import top from '../../assets/img/feature/top.svg'
+import all from '../../assets/img/feature/all-game.svg'
 
 import classNames from 'classnames';
 
@@ -113,159 +120,118 @@ const Casino = () => {
     }, [])
 
     return (
-        <Box sx={{ pt: 2 }}>
-            <Grid container spacing={2}>
-                <Grid item xs={2.2}>
-                    <Stack className='sports-list' sx={{ px: 0 }}>
-                        <Box className='sports-search-wrap' sx={{ px: '8px !important' }}>
-                            <TextField
-                                variant="outlined"
-                                className='casino-search'
-                                placeholder='Search'
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <SearchIcon />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
+        <Box sx={{ mt: 1 }}>
+            <HStack >
+                <Slider />
+            </HStack>
+            <Box sx={{ mt: 1 }}>
+                <HStack className='top-casino'>
+                    <HStack sx={{ height: '100%', alignItems: 'center' }}>
+                        <Box className='left-red' />
+                        <Box sx={{ position: 'relative' }}>
+                            <Box component='img' src={top} sx={{ filter: 'blur(10px) saturate(2)', mr: 1 }} />
+                            <Box component='img' src={top} sx={{ position: 'absolute', left: 0, top: '3px' }} />
                         </Box>
-                        <Box className='sports-list-body'>
-                            <Box className='list-item'>
-                                <Box className='item-btn-wrap'>
-                                    <Box sx={{ mx: 1, borderBottom: '1px solid #262e4880' }}>
-                                        <Button
-                                            sx={{ pl: 2, '& .MuiButton-endIcon': { mr: 0, ml: 'auto' } }}
-                                            startIcon={<Box component='img' src={`${location.origin}/frontend/Default/img/svg/casino.svg`} alt='all' sx={{ width: 25, maxHeight: 30 }} />}
-                                            endIcon={<Typography component='span' sx={{ fontSize: '12px !important' }}>{allcount}</Typography>}
-                                            className={classNames('sports-list-item-btn', 'btn', { 'active': actPro === 'all' })}
-                                            onClick={() => setGameProvider('all')}
-                                        >
-                                            <Typography component='span' sx={{ fontSize: '14px' }}>
-                                                All Games
-                                            </Typography>
-                                        </Button>
-                                    </Box>
-                                </Box>
+                        <Stack>
+                            <Typography sx={{ fontSize: 13, fontWeight: 600 }}>Top games</Typography>
+                            <Typography sx={{ fontSize: 10, color: '#94a6cd', opacity: .7 }}>139 games</Typography>
+                        </Stack>
+                    </HStack>
+                    <ChevronRightIcon />
+                </HStack>
+            </Box>
+            <Box sx={{ my: 1 }}>
+                <Stack className='casino-bg' sx={{ px: 1, pb: 1, pt: 1.25, borderRadius: '10px' }}>
+                    <TextField
+                        variant="outlined"
+                        className='casino-search'
+                        placeholder='Search'
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <Select
+                        // value={age}
+                        // onChange={handleChange}
+                        // displayEmpty
+                        sx={{
+                            'fieldset': { display: 'none ' },
+                            px: 1.25,
+                            mt: 1,
+                            height: 35,
+                            borderRadius: 2,
+                            bgcolor: '#97aee117',
+                            width: '100%'
+                        }}
+                    >
+                        <MenuItem value="">Provider</MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                </Stack>
+            </Box>
+            <Box>
+                <Box sx={{ mt: .5 }}>
+                    <HStack className='all-casino'>
+                        <HStack sx={{ height: '100%', alignItems: 'center' }}>
+                            <Box className='left-red' />
+                            <Box sx={{ position: 'relative' }}>
+                                <Box component='img' src={all} sx={{ filter: 'blur(10px) saturate(2)', mr: 1 }} />
+                                <Box component='img' src={all} sx={{ position: 'absolute', left: 0, top: '3px' }} />
                             </Box>
-
-                            {
-                                providers.map((item, idx) => (
-                                    <Box className='list-item' key={idx}>
-                                        <Box className='item-btn-wrap'>
-                                            <Box sx={{ mx: 1, borderBottom: '1px solid #262e4880' }}>
-                                                <Button
-                                                    sx={{ pl: 2, '& .MuiButton-endIcon': { mr: 0, ml: 'auto' } }}
-                                                    startIcon={<Box component='img' src={`/1wrri/providers/small/${item.href}.svg`} alt={item.href} sx={{ width: 25, maxHeight: 30 }} />}
-                                                    endIcon={<Typography component='span' sx={{ fontSize: '12px !important' }}>
-                                                        {item.count}
-                                                    </Typography>}
-                                                    className={classNames('sports-list-item-btn', 'btn', { 'active': actPro.category_id === item.category_id })}
-                                                    onClick={() => setGameProvider(item)}
-                                                >
-                                                    <Typography component='span' sx={{ fontSize: '14px' }}>
-                                                        {item.title}
-                                                    </Typography>
-                                                </Button>
-                                            </Box>
-                                        </Box>
-                                    </Box>
-                                ))
-                            }
-                        </Box>
-                    </Stack>
-                </Grid>
-                <Grid item xs={9.8}>
-                    <Box className='casino'>
-                        <HStack >
-                            <Box sx={{ width: '100%' }}>
-                                <Stack className='casino-top' sx={{ px: 2, pb: 2 }}>
-                                    <HStack className='casino-top-title'>
-                                        <HStack alignItems='center'>
-                                            <Box className='title-separator' />
-                                            <StarIcon sx={{ fontSize: '16px', color: 'gold', margin: '0 1vw' }} />
-                                        </HStack>
-                                        <Typography varient='h1' className='casino-title-name'>Jackpot</Typography>
-                                        <HStack alignItems='center'>
-                                            <StarIcon sx={{ fontSize: '16px', color: 'gold', margin: '0 1vw' }} />
-                                            <Box className='title-separator' sx={{ transform: 'rotate(180deg);' }} />
-                                        </HStack>
-                                    </HStack>
-                                    <Typography varient='h1' className='casino-get-price'>208599$</Typography>
-                                    <HStack sx={{ mt: 'auto', minHeight: '26%', width: '100%' }}>
-                                        <Box className="game-card" sx={{ width: '25%' }}>
-                                            <Box className="game-card-image-container">
-                                                <Box sx={{ backgroundImage: `url(/frontend/Default/ico/${games[0] && games[0].name}.jpg)`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
-                                                {/* <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" /> */}
-                                            </Box>
-                                        </Box>
-                                        <Box className="game-card" sx={{ width: '25%' }}>
-                                            <Box className="game-card-image-container">
-                                                <Box sx={{ backgroundImage: `url(/frontend/Default/ico/${games[1] && games[1].name}.jpg)`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
-                                            </Box>
-                                        </Box>
-                                        <Box className="game-card" sx={{ width: '25%' }}>
-                                            <Box className="game-card-image-container">
-                                                <Box sx={{ backgroundImage: `url(/frontend/Default/ico/${games[2] && games[2].name}.jpg)`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
-                                            </Box>
-                                        </Box>
-                                        <Box className="game-card" sx={{ width: '25%' }}>
-                                            <Box className="game-card-image-container">
-                                                <Box sx={{ backgroundImage: `url(/frontend/Default/ico/${games[3] && games[3].name}.jpg)`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} />
-                                            </Box>
-                                        </Box>
-                                    </HStack>
-                                </Stack>
-                            </Box>
-                            <Box sx={{ width: '65%', height: '100%', ml: 2 }}>
-                                <Slider />
-                            </Box>
+                            <Stack>
+                                <Typography sx={{ fontSize: 13, fontWeight: 600 }}>All games</Typography>
+                                <Typography sx={{ fontSize: 10, color: '#94a6cd', opacity: .7 }}>139 games</Typography>
+                            </Stack>
                         </HStack>
-                        <Box sx={{ mt: 3 }}>
-                            <HStack sx={{ mb: 2 }}>
-                                <Typography sx={{ fontSize: 18, fontWeight: 600 }}>
-                                    {providerName}
-                                </Typography>
-                            </HStack>
-                            <Grid container spacing={2}>
-                                {
-                                    games.map((item, idx) => (
-                                        <Grid item xs={2} key={idx}>
-                                            <Box className="game-card">
-                                                <Box className="game-card-image-container">
-                                                    <Box sx={{ backgroundImage: `url(/frontend/Default/ico/${item.name}.jpg)`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} onClick={() => goGame(item)} />
-                                                    {/* <Box component='img' src="frontend/Default/img/_src/bonus-banner-deposit.avif" className="game-card-image" /> */}
-                                                </Box>
-                                            </Box>
-                                        </Grid>
-                                    ))
-                                }
-                            </Grid>
-                            <HStack justifyContent='center' sx={{ mt: 2 }}>
-                                {
-                                    actPro && actPro.count && actPro.count < (page + 1) * 12 ? null :
-                                        <LoadingButton
-                                            size="large"
-                                            sx={{ borderRadius: 2, color: 'white', fontWeight: 700, textTransform: 'capitalize' }}
-                                            className='able'
-                                            onClick={loadMore}
-                                            endIcon={<AddCircleOutlineIcon sx={{ color: 'white' }} />}
-                                            loading={loading}
-                                            loadingPosition="end"
-                                            variant="contained"
-                                        >
-                                            {
-                                                loading ? 'Loading' : 'Load More'
-                                            }
-                                        </LoadingButton>
-                                }
-                            </HStack>
-                        </Box>
-                    </Box>
-                </Grid>
-            </Grid>
-        </Box >
+                    </HStack>
+                </Box>
+                <Box className='casino-bg' sx={{ padding: 2 }}>
+                    <Box className='all-effect' />
+                    <Grid container spacing={2}>
+                        {
+                            games.map((item, idx) => (
+                                <Grid item xs={6} key={idx}>
+                                    <Box className="game-card">
+                                        <Box className="game-card-image-container">
+                                            <Box sx={{ backgroundImage: `url(/frontend/Default/ico/${item.name}.jpg)`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }} onClick={() => goGame(item)} />
+                                        </Box>
+                                    </Box>
+                                    <HStack justifyContent='space-between'>
+                                        <Typography sx={{ fontSize: 13, overflow: 'hidden', textOverflow: 'ellipsis', WebkitBoxOrient: 'vertical' }}>{item.name}</Typography>
+                                        <StarIcon sx={{ fontSize: 18 }} />
+                                    </HStack>
+                                </Grid>
+                            ))
+                        }
+                    </Grid>
+                    <HStack justifyContent='center' sx={{ mt: 2 }}>
+                        {
+                            actPro && actPro.count && actPro.count < (page + 1) * 12 ? null :
+                                <LoadingButton
+                                    size="large"
+                                    sx={{ borderRadius: 2, color: 'white', fontWeight: 700, textTransform: 'capitalize' }}
+                                    className='able'
+                                    onClick={loadMore}
+                                    endIcon={<AddCircleOutlineIcon sx={{ color: 'white' }} />}
+                                    loading={loading}
+                                    loadingPosition="end"
+                                    variant="contained"
+                                >
+                                    {
+                                        loading ? 'Loading' : 'Show More'
+                                    }
+                                </LoadingButton>
+                        }
+                    </HStack>
+                </Box>
+            </Box>
+        </Box>
     )
 };
 

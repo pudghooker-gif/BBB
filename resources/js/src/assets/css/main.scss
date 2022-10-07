@@ -2154,9 +2154,159 @@
         content: "";
         padding-left: 80px;
     }
-    
+
     &::-webkit-scrollbar {
         height: 0px;
         width: 0px;
+    }
+}
+
+.drawer {
+    .MuiDrawer-paper {
+        background: -webkit-linear-gradient(277deg, rgba(37, 46, 76, 0.98) 2%, rgba(25, 32, 51, 0.98));
+        background: linear-gradient(173deg, rgba(37, 46, 76, 0.98) 2%, rgba(25, 32, 51, 0.98));
+        border-radius: 20px 0 0 20px;
+    }
+}
+
+.top-casino {
+    background-image: linear-gradient(
+            90deg,
+            rgba(218, 113, 103, 0.35) 0px,
+            rgba(218, 113, 103, 0.306) 4.5px,
+            rgba(218, 113, 103, 0.26) 9px,
+            rgba(218, 113, 103, 0.216) 13.5px,
+            rgba(218, 113, 103, 0.176) 18px,
+            rgba(218, 113, 103, 0.137) 22.5px,
+            rgba(218, 113, 103, 0.1) 27px,
+            rgba(218, 113, 103, 0.07) 31.5px,
+            rgba(218, 113, 103, 0.047) 36px,
+            rgba(218, 113, 103, 0.027) 40.5px,
+            rgba(218, 113, 103, 0.01) 45px,
+            rgba(218, 113, 103, 0.004) 49.5px,
+            rgba(218, 113, 103, 0) 54px
+        ),
+        linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));
+    height: 45px;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    padding-right: 15px;
+    padding-left: 15px;
+    position: relative;
+    border-radius: 12px;
+    will-change: transform;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+
+    .left-red {
+        background-image: linear-gradient(rgb(182, 32, 224) 0%, rgb(247, 181, 0) 100%);
+        opacity: 1;
+        position: absolute;
+        left: 0;
+        width: 3px;
+        height: 21px;
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+        -webkit-transition: opacity 0.3s;
+        transition: opacity 0.3s;
+    }
+}
+
+.all-casino {
+    background-image: linear-gradient(
+            90deg,
+            rgba(109, 92, 217, 0.35) 0px,
+            rgba(109, 92, 217, 0.306) 4.5px,
+            rgba(109, 92, 217, 0.26) 9px,
+            rgba(109, 92, 217, 0.216) 13.5px,
+            rgba(109, 92, 217, 0.176) 18px,
+            rgba(109, 92, 217, 0.137) 22.5px,
+            rgba(109, 92, 217, 0.1) 27px,
+            rgba(109, 92, 217, 0.07) 31.5px,
+            rgba(109, 92, 217, 0.047) 36px,
+            rgba(109, 92, 217, 0.027) 40.5px,
+            rgba(109, 92, 217, 0.01) 45px,
+            rgba(109, 92, 217, 0.004) 49.5px,
+            rgba(109, 92, 217, 0) 54px
+        ),
+        linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));
+    height: 45px;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    padding-right: 15px;
+    padding-left: 15px;
+    position: relative;
+    border-radius: 12px;
+    will-change: transform;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+
+    .left-red {
+        background-image: linear-gradient(rgb(61, 55, 183) 0%, rgb(140, 114, 236) 100%);
+        opacity: 1;
+        position: absolute;
+        left: 0;
+        width: 3px;
+        height: 21px;
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+        -webkit-transition: opacity 0.3s;
+        transition: opacity 0.3s;
+    }
+}
+.all-effect {
+    background-image: linear-gradient(
+        142.34deg,
+        rgba(109, 92, 217, 0.45) -30%,
+        rgba(109, 92, 217, 0.392) -23.33%,
+        rgba(108, 91, 217, 0.333) -16.67%,
+        rgba(109, 92, 217, 0.28) -10%,
+        rgba(109, 92, 217, 0.224) -3.33%,
+        rgba(109, 92, 217, 0.176) 3.33%,
+        rgba(109, 92, 217, 0.133) 10%,
+        rgba(109, 92, 217, 0.094) 16.67%,
+        rgba(109, 92, 217, 0.06) 23.33%,
+        rgba(109, 92, 217, 0.035) 30%,
+        rgba(109, 92, 217, 0.016) 36.67%,
+        rgba(109, 92, 217, 0.004) 43.33%,
+        rgba(109, 92, 217, 0) 50%
+    );
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.casino-bg {
+    margin-top: 4px;
+    border-radius: 6px 6px 12px 12px;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    background-image: linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));
+}
+
+.casino-search {
+    width: 100%;
+    border-radius: 12px;
+    background-color: #121829;
+    input {
+        color: #7388b6;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: -0.19px;
+        width: 201px;
+        padding: 10px 10px 10px 0px;
+    }
+    fieldset {
+        display: none;
     }
 }
