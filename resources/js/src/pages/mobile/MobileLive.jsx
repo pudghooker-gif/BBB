@@ -29,6 +29,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 import { Clock } from '../../assets/img/feature/svgIcon';
 import { HStack, VStack } from '../../components/Base';
@@ -115,14 +116,45 @@ const LiveMatch = ({ sport }) => {
     )
 }
 
-const SportItem = ({ sport }) => {
+const SportCountry = () => {
+    const [collapse, setCollapse] = useState(false);
+
+    return (
+        <Box>
+            <Button
+                sx={{ '& .MuiButton-endIcon': { mr: 0, ml: 'auto' } }}
+                startIcon={<Box component='img' src='https://assets.betsapi.com/v2/images/flags/eu.svg' sx={{ width: 24 }} />}
+                endIcon={collapse ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                className='sports-list-item-btn'
+                onClick={() => setCollapse(!collapse)}
+            >
+                <Typography component='span' sx={{ fontSize: 14, fontWeight: 500 }}>
+                    Europe
+                </Typography>
+            </Button>
+            <Collapse in={collapse} timeout="auto" unmountOnExit>
+                <HStack sx={{ height: 45, cursor: 'pointer', alignItems: 'center', borderBottom: '1px solid #141b2e' }}>
+                    <Typography sx={{ fontSize: 15, ml: '36px' }}> Serie B</Typography>
+                </HStack>
+                <HStack sx={{ height: 45, cursor: 'pointer', alignItems: 'center', borderBottom: '1px solid #141b2e' }}>
+                    <Typography sx={{ fontSize: 15, ml: '36px' }}> Serie B</Typography>
+                </HStack>
+                <HStack sx={{ height: 45, cursor: 'pointer', alignItems: 'center', borderBottom: '1px solid #141b2e' }}>
+                    <Typography sx={{ fontSize: 15, ml: '36px' }}> Serie B</Typography>
+                </HStack>
+            </Collapse>
+        </Box>
+    )
+}
+
+const SportItem = ({ sport, setSelected }) => {
     return (
         <Button
             sx={{ '& .MuiButton-endIcon': { mr: 0, ml: 'auto' } }}
             startIcon={<i className={classNames("sports-icon", `icon-${sport.toLocaleLowerCase().replaceAll(' ', '-')}`)}></i>}
             endIcon={<KeyboardArrowRightIcon />}
             className='sports-list-item-btn'
-            // onClick={() => setCollapse(!collapse)}
+            onClick={() => setSelected(sport)}
         >
             <Typography component='span' sx={{ fontSize: 15, fontWeight: 600 }}>
                 {sport}
@@ -149,7 +181,7 @@ const EventPart = ({ sportsList }) => {
                     ))
                 }
             </HStack>
-            <Stack className='mobile-live-btns'>
+            <Stack>
                 {
                     sportsList.map((item, idx) => (
                         <LiveMatch key={idx} sport={item} />
@@ -161,15 +193,50 @@ const EventPart = ({ sportsList }) => {
 }
 
 const SportPart = ({ sportsList }) => {
+    const [selected, setSelected] = useState('');
     return (
         <Box>
-            <Stack className='mobile-live-btns'>
-                {
-                    sportsList.map((item, idx) => (
-                        <SportItem key={idx} sport={item} />
-                    ))
-                }
-            </Stack>
+            {
+                selected ?
+                    <Stack>
+                        <HStack>
+                            <Button
+                                onClick={() => setSelected('')}
+                                startIcon={<KeyboardArrowLeftIcon />}
+                            >
+                                Sports
+                            </Button>
+                        </HStack>
+                        <HStack>
+                            <Button
+                                sx={{ '& .MuiButton-endIcon': { mr: 0, ml: 'auto', '&.MuiTouchRipple-root': { display: 'none' } } }}
+                                startIcon={<i className={classNames("sports-icon", `icon-${selected.toLocaleLowerCase().replaceAll(' ', '-')}`)} style={{ fontSize: '20px !important' }}></i>}
+                                endIcon={<Typography component='span' sx={{ fontSize: '14px !important', color: '#6c7da3', ml: 1 }}>
+                                    32
+                                </Typography>}
+                                className='sports-list-item-btn'
+                            >
+                                <Typography component='span' sx={{ fontSize: 24, fontWeight: 700 }}>
+                                    {selected}
+                                </Typography>
+                            </Button>
+                        </HStack>
+                        <Stack>
+                            {
+                                [0, 1, 2, 3, 4, 5].map((item) => (
+                                    <SportCountry key={item} />
+                                ))
+                            }
+                        </Stack>
+                    </Stack> :
+                    <Stack>
+                        {
+                            sportsList.map((item, idx) => (
+                                <SportItem key={idx} {...{ setSelected, sport: item }} />
+                            ))
+                        }
+                    </Stack>
+            }
         </Box>
     )
 }

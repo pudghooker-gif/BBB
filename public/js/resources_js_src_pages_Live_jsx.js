@@ -28,6 +28,34 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/KeyboardArrowLeft.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@mui/icons-material/KeyboardArrowLeft.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M15.41 16.59 10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"
+}), 'KeyboardArrowLeft');
+
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/KeyboardArrowRight.js":
 /*!****************************************************************!*\
   !*** ./node_modules/@mui/icons-material/KeyboardArrowRight.js ***!
@@ -8945,11 +8973,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
 /* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
 /* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
-/* harmony import */ var _mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/icons-material/Search */ "./node_modules/@mui/icons-material/Search.js");
-/* harmony import */ var _mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/icons-material/KeyboardDoubleArrowDown */ "./node_modules/@mui/icons-material/KeyboardDoubleArrowDown.js");
+/* harmony import */ var _mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/icons-material/Search */ "./node_modules/@mui/icons-material/Search.js");
+/* harmony import */ var _mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material/KeyboardDoubleArrowDown */ "./node_modules/@mui/icons-material/KeyboardDoubleArrowDown.js");
 /* harmony import */ var _mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowUp */ "./node_modules/@mui/icons-material/KeyboardArrowUp.js");
 /* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
 /* harmony import */ var _mui_icons_material_KeyboardArrowRight__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowRight */ "./node_modules/@mui/icons-material/KeyboardArrowRight.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowLeft__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowLeft */ "./node_modules/@mui/icons-material/KeyboardArrowLeft.js");
 /* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
 /* harmony import */ var _components_Base__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../components/Base */ "./resources/js/src/components/Base.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -8964,6 +8993,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -9182,8 +9212,94 @@ var LiveMatch = function LiveMatch(_ref) {
   });
 };
 
+var SportCountry = function SportCountry() {
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      collapse = _useState6[0],
+      setCollapse = _useState6[1];
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
+      sx: {
+        '& .MuiButton-endIcon': {
+          mr: 0,
+          ml: 'auto'
+        }
+      },
+      startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        component: "img",
+        src: "https://assets.betsapi.com/v2/images/flags/eu.svg",
+        sx: {
+          width: 24
+        }
+      }),
+      endIcon: collapse ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_13__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
+      className: "sports-list-item-btn",
+      onClick: function onClick() {
+        return setCollapse(!collapse);
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        component: "span",
+        sx: {
+          fontSize: 14,
+          fontWeight: 500
+        },
+        children: "Europe"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_15__["default"], {
+      "in": collapse,
+      timeout: "auto",
+      unmountOnExit: true,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+        sx: {
+          height: 45,
+          cursor: 'pointer',
+          alignItems: 'center',
+          borderBottom: '1px solid #141b2e'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          sx: {
+            fontSize: 15,
+            ml: '36px'
+          },
+          children: " Serie B"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+        sx: {
+          height: 45,
+          cursor: 'pointer',
+          alignItems: 'center',
+          borderBottom: '1px solid #141b2e'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          sx: {
+            fontSize: 15,
+            ml: '36px'
+          },
+          children: " Serie B"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+        sx: {
+          height: 45,
+          cursor: 'pointer',
+          alignItems: 'center',
+          borderBottom: '1px solid #141b2e'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          sx: {
+            fontSize: 15,
+            ml: '36px'
+          },
+          children: " Serie B"
+        })
+      })]
+    })]
+  });
+};
+
 var SportItem = function SportItem(_ref2) {
-  var sport = _ref2.sport;
+  var sport = _ref2.sport,
+      setSelected = _ref2.setSelected;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
     sx: {
       '& .MuiButton-endIcon': {
@@ -9195,8 +9311,10 @@ var SportItem = function SportItem(_ref2) {
       className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("sports-icon", "icon-".concat(sport.toLocaleLowerCase().replaceAll(' ', '-')))
     }),
     endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardArrowRight__WEBPACK_IMPORTED_MODULE_17__["default"], {}),
-    className: "sports-list-item-btn" // onClick={() => setCollapse(!collapse)}
-    ,
+    className: "sports-list-item-btn",
+    onClick: function onClick() {
+      return setSelected(sport);
+    },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
       component: "span",
       sx: {
@@ -9241,7 +9359,6 @@ var EventPart = function EventPart(_ref3) {
         }, idx);
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
-      className: "mobile-live-btns",
       children: sportsList.map(function (item, idx) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(LiveMatch, {
           sport: item
@@ -9253,11 +9370,67 @@ var EventPart = function EventPart(_ref3) {
 
 var SportPart = function SportPart(_ref4) {
   var sportsList = _ref4.sportsList;
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState8 = _slicedToArray(_useState7, 2),
+      selected = _useState8[0],
+      setSelected = _useState8[1];
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
-      className: "mobile-live-btns",
+    children: selected ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          onClick: function onClick() {
+            return setSelected('');
+          },
+          startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardArrowLeft__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
+          children: "Sports"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          sx: {
+            '& .MuiButton-endIcon': {
+              mr: 0,
+              ml: 'auto',
+              '&.MuiTouchRipple-root': {
+                display: 'none'
+              }
+            }
+          },
+          startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+            className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("sports-icon", "icon-".concat(selected.toLocaleLowerCase().replaceAll(' ', '-'))),
+            style: {
+              fontSize: '20px !important'
+            }
+          }),
+          endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            component: "span",
+            sx: {
+              fontSize: '14px !important',
+              color: '#6c7da3',
+              ml: 1
+            },
+            children: "32"
+          }),
+          className: "sports-list-item-btn",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            component: "span",
+            sx: {
+              fontSize: 24,
+              fontWeight: 700
+            },
+            children: selected
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: [0, 1, 2, 3, 4, 5].map(function (item) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(SportCountry, {}, item);
+        })
+      })]
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
       children: sportsList.map(function (item, idx) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(SportItem, {
+          setSelected: setSelected,
           sport: item
         }, idx);
       })
@@ -9290,15 +9463,15 @@ var Live = function Live() {
   }];
   var sportsList = ['Soccer', 'Basketball', 'Cricket', 'Table Tennis', 'American Football', 'Tennis'];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      _useState6 = _slicedToArray(_useState5, 2),
-      active = _useState6[0],
-      setActive = _useState6[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState10 = _slicedToArray(_useState9, 2),
+      active = _useState10[0],
+      setActive = _useState10[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      _useState8 = _slicedToArray(_useState7, 2),
-      esIt = _useState8[0],
-      setEsIt = _useState8[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState12 = _slicedToArray(_useState11, 2),
+      esIt = _useState12[0],
+      setEsIt = _useState12[1];
 
   var go = function go(idx) {
     setActive(idx);
@@ -9351,7 +9524,7 @@ var Live = function Live() {
             }, idx);
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_18__["default"], {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_19__["default"], {})
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_20__["default"], {})
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_8__.HStack, {
@@ -9385,7 +9558,7 @@ var Live = function Live() {
           ml: 1,
           padding: .75
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_20__["default"], {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_21__["default"], {})
       })]
     }), esIt ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(SportPart, {
       sportsList: sportsList

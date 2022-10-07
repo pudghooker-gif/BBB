@@ -2395,20 +2395,20 @@
     }
 }
 
-.mobile-live-btns {
-    .sports-list-item-btn {
-        color: white;
-        text-transform: capitalize;
-        width: 100%;
-        border-radius: 0px;
-        justify-content: flex-start;
-        padding: 12px 0px 12px 8px !important;
-        border-bottom: 1px solid #141b2e;
+// .mobile-live-btns {
+.sports-list-item-btn {
+    color: white !important;
+    text-transform: capitalize !important;
+    width: 100% !important;
+    border-radius: 0px !important;
+    justify-content: flex-start;
+    padding: 12px 0px 12px 8px !important;
+    border-bottom: 1px solid #141b2e !important;
 
-        .MuiButton-startIcon {
-            & > *:nth-of-type(1) {
-                font-size: 16px !important;
-            }
+    .MuiButton-startIcon {
+        & > *:nth-of-type(1) {
+            font-size: 16px !important;
         }
     }
 }
+// }
