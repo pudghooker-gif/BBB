@@ -21,7 +21,7 @@ const BetSlip = () => {
   };
 
   return (
-    <Box className='betslip'>
+    <Box className='betslip' sx={{ mb: { xs: '60px' } }}>
       <HStack className='bet-tabbar'>
         <Box className='slip-title'>
           BETSLIP

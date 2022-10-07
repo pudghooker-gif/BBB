@@ -4,17 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Menu from '@mui/material/Menu';
+import Table from '@mui/material/Table';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Drawer from '@mui/material/Drawer';
+import TableRow from '@mui/material/TableRow';
 import MenuItem from '@mui/material/MenuItem';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
 
 import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -52,6 +52,8 @@ import home from '../assets/img/feature/home.svg';
 import live from '../assets/img/feature/live.svg';
 import casino from '../assets/img/feature/casino.svg';
 import games from '../assets/img/feature/games.svg';
+
+import BetSlip from '../components/Betslip';
 
 const Desktop = ({ langList, showLang, closeLang }) => {
     return (
@@ -309,13 +311,21 @@ const Mobile = ({ langList, showLang, closeLang }) => {
     const page = { 0: '/home', 1: '/sports/live', 3: '/casino/all', 4: '/casino/all' }
     const navigate = useNavigate();
     const [activBtn, setActivBtn] = useState(0);
+    const [drawer, setDrawer] = useState(false);
 
     const goPage = (e) => {
         setActivBtn(e);
         if (page[e]) {
             navigate(page[e]);
+        } else {
+            setDrawer(!drawer);
         }
     }
+
+    const toggleDrawer = (e) => {
+        setDrawer(e);
+    }
+
     return (
         <>
             <Box className='footer' sx={{ py: 2, mb: 10 }}>
@@ -575,7 +585,7 @@ const Mobile = ({ langList, showLang, closeLang }) => {
                     bottom: 0,
                     left: 0,
                     width: '100%',
-                    zIndex: 600
+                    zIndex: drawer ? 1201 : 0
                 }}>
                 <HStack className='mobileMenu'>
                     <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 0 })} onClick={() => goPage(0)}>
@@ -601,6 +611,14 @@ const Mobile = ({ langList, showLang, closeLang }) => {
                     </Button>
                 </HStack>
             </Box>
+            <Drawer
+                anchor='bottom'
+                open={drawer}
+                className='mobileSlip'
+                onClose={() => toggleDrawer(false)}
+            >
+                <BetSlip />
+            </Drawer>
         </>
     )
 }
