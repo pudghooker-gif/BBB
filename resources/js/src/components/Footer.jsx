@@ -586,7 +586,7 @@ const Mobile = ({ langList, showLang, closeLang }) => {
                     bottom: 0,
                     left: 0,
                     width: '100%',
-                    zIndex: drawer ? 1201 : 0
+                    zIndex: drawer ? 1201 : 1000
                 }}>
                 <HStack className='mobileMenu'>
                     <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 0 })} onClick={() => goPage(0)}>

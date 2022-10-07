@@ -40978,7 +40978,7 @@ var Mobile = function Mobile(_ref3) {
         bottom: 0,
         left: 0,
         width: '100%',
-        zIndex: drawer ? 1201 : 0
+        zIndex: drawer ? 1201 : 1000
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
         className: "mobileMenu",
