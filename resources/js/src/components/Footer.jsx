@@ -317,6 +317,7 @@ const Mobile = ({ langList, showLang, closeLang }) => {
         setActivBtn(e);
         if (page[e]) {
             navigate(page[e]);
+            setDrawer(false);
         } else {
             setDrawer(!drawer);
         }

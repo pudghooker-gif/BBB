@@ -40287,6 +40287,7 @@ var Mobile = function Mobile(_ref3) {
 
     if (page[e]) {
       navigate(page[e]);
+      setDrawer(false);
     } else {
       setDrawer(!drawer);
     }
