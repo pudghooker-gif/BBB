@@ -5117,8 +5117,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
 /* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
 /* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
-/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
+/* harmony import */ var _mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/icons-material/Search */ "./node_modules/@mui/icons-material/Search.js");
 /* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
 /* harmony import */ var _components_Part__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../components/Part */ "./resources/js/src/components/Part.jsx");
 /* harmony import */ var _components_Base__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../components/Base */ "./resources/js/src/components/Base.jsx");
@@ -5175,12 +5177,36 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var Home = function Home() {
   var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_18__.useNavigate)();
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var user = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.user;
   });
+  var list = [{
+    name: 'Home',
+    route: '/home'
+  }, {
+    name: 'Live',
+    route: '/sports/live'
+  }, {
+    name: 'Sports',
+    route: '/sports/prematch'
+  }, {
+    name: 'World Cup 22',
+    route: '/sports/prematch'
+  }, {
+    name: 'Casino',
+    route: '/casino/all'
+  }, {
+    name: 'Live-Casino',
+    route: '/live-casino'
+  }, {
+    name: 'Poker',
+    route: '/poker'
+  }];
   var sportsList = ['Soccer', 'Basketball', 'Cricket', 'Table Tennis', 'American Football', 'Tennis'];
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
@@ -5202,6 +5228,11 @@ var Home = function Home() {
       _useState8 = _slicedToArray(_useState7, 2),
       casino = _useState8[0],
       setCasino = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState10 = _slicedToArray(_useState9, 2),
+      active = _useState10[0],
+      setActive = _useState10[1];
 
   var goBonus = function goBonus() {
     if (user.isAuth) {
@@ -5257,12 +5288,65 @@ var Home = function Home() {
     }
   };
 
+  var go = function go(idx) {
+    setActive(idx);
+    navigate(list[idx].route);
+  };
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getCasino();
     countStart();
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+      sx: {
+        borderBottom: '1px solid #141b2e',
+        mx: -2,
+        px: 2
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+        sx: {
+          width: 'calc(100% + 16px)',
+          mx: -2
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+          sx: {
+            height: 45,
+            overflow: 'auto',
+            alignItems: 'center',
+            py: 1,
+            pl: 2
+          },
+          className: "bodyTab",
+          children: list.map(function (item, idx) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              className: classnames__WEBPACK_IMPORTED_MODULE_4___default()({
+                'able': idx === active
+              }),
+              sx: {
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 50,
+                color: '#fff',
+                fontSize: 14,
+                fontWeight: 600,
+                height: '24px',
+                lineHeight: 1,
+                py: 0,
+                px: 1.25,
+                whiteSpace: 'nowrap'
+              },
+              onClick: function onClick() {
+                return go(idx);
+              },
+              children: item.name
+            }, idx);
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_22__["default"], {})
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
       sx: {
         py: 2,
         height: 200
@@ -5296,7 +5380,7 @@ var Home = function Home() {
             sx: {
               mx: 1
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               varient: "h1",
               sx: {
                 fontSize: 20,
@@ -5304,7 +5388,7 @@ var Home = function Home() {
                 fontWeight: 600
               },
               children: timer.day
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               sx: {
                 fontSize: 10
               },
@@ -5321,7 +5405,7 @@ var Home = function Home() {
             sx: {
               mx: 1
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               varient: "h1",
               sx: {
                 fontSize: 20,
@@ -5329,7 +5413,7 @@ var Home = function Home() {
                 fontWeight: 600
               },
               children: timer.hour
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               sx: {
                 fontSize: 10
               },
@@ -5346,7 +5430,7 @@ var Home = function Home() {
             sx: {
               mx: 1
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               varient: "h1",
               sx: {
                 fontSize: 20,
@@ -5354,7 +5438,7 @@ var Home = function Home() {
                 fontWeight: 600
               },
               children: timer.minute
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               sx: {
                 fontSize: 10
               },
@@ -5371,7 +5455,7 @@ var Home = function Home() {
             sx: {
               mx: 1
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               varient: "h1",
               sx: {
                 fontSize: 20,
@@ -5379,7 +5463,7 @@ var Home = function Home() {
                 fontWeight: 600
               },
               children: timer.second
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               sx: {
                 fontSize: 10
               },
@@ -5393,14 +5477,14 @@ var Home = function Home() {
       sx: {
         my: 1
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
         sx: {
           fontSize: 19,
           fontWeight: 700
         },
         children: "Top Live"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
           sx: {
             color: '#0085ff',
             fontSize: 13,
@@ -5408,7 +5492,7 @@ var Home = function Home() {
             textAlign: 'right'
           },
           children: "All"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
           sx: {
             color: '#94a6cd',
             fontSize: 11,
@@ -5441,11 +5525,11 @@ var Home = function Home() {
                   className: "live-event-main",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                     className: "match-header",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                       component: "div",
                       className: "top-live-match-score",
                       children: "252:559"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                       component: "div",
                       className: "match-score-period",
                       children: "(196:219 - 56:340)"
@@ -5456,14 +5540,14 @@ var Home = function Home() {
                       className: "match-teams",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
                         className: "match-team",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                           component: "span",
                           className: "helper-line",
                           children: "Warwickshire"
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
                         className: "match-team",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                           component: "span",
                           className: "helper-line",
                           children: "Warwickshire"
@@ -5477,7 +5561,7 @@ var Home = function Home() {
                     className: "match-odd-list",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
                       className: "match-odd-item",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_24__["default"], {
                         className: "live-top-odd",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                           className: "odd-values",
@@ -5495,7 +5579,7 @@ var Home = function Home() {
                       sx: {
                         ml: 1
                       },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_24__["default"], {
                         className: "live-top-odd",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                           className: "odd-values",
@@ -5522,14 +5606,14 @@ var Home = function Home() {
         sx: {
           my: 1
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
           sx: {
             fontSize: 19,
             fontWeight: 700
           },
           children: "Seibet games"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
             sx: {
               color: '#0085ff',
               fontSize: 13,
@@ -5537,7 +5621,7 @@ var Home = function Home() {
               textAlign: 'right'
             },
             children: "All"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
             sx: {
               color: '#94a6cd',
               fontSize: 11,
@@ -5586,14 +5670,14 @@ var Home = function Home() {
         sx: {
           my: 1
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
           sx: {
             fontSize: 19,
             fontWeight: 700
           },
           children: "Top Casino"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
             sx: {
               color: '#0085ff',
               fontSize: 13,
@@ -5601,7 +5685,7 @@ var Home = function Home() {
               textAlign: 'right'
             },
             children: "All"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
             sx: {
               color: '#94a6cd',
               fontSize: 11,
@@ -5650,14 +5734,14 @@ var Home = function Home() {
         sx: {
           my: 1
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
           sx: {
             fontSize: 19,
             fontWeight: 700
           },
           children: "Table Games"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
             sx: {
               color: '#0085ff',
               fontSize: 13,
@@ -5665,7 +5749,7 @@ var Home = function Home() {
               textAlign: 'right'
             },
             children: "All"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
             sx: {
               color: '#94a6cd',
               fontSize: 11,
@@ -5714,14 +5798,14 @@ var Home = function Home() {
         sx: {
           my: 1
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
           sx: {
             fontSize: 19,
             fontWeight: 700
           },
           children: "Top Live Casino"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
             sx: {
               color: '#0085ff',
               fontSize: 13,
@@ -5729,7 +5813,7 @@ var Home = function Home() {
               textAlign: 'right'
             },
             children: "All"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
             sx: {
               color: '#94a6cd',
               fontSize: 11,

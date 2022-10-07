@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Menu from '@mui/material/Menu';
@@ -48,7 +50,6 @@ import br from '../assets/img/feature/br.svg';
 import verifiedSeibet from '../assets/img/feature/verified-seibet.png';
 import home from '../assets/img/feature/home.svg';
 import live from '../assets/img/feature/live.svg';
-import slip from '../assets/img/feature/slip.svg';
 import casino from '../assets/img/feature/casino.svg';
 import games from '../assets/img/feature/games.svg';
 
@@ -305,7 +306,16 @@ const Desktop = ({ langList, showLang, closeLang }) => {
 };
 
 const Mobile = ({ langList, showLang, closeLang }) => {
+    const page = { 0: '/home', 1: '/sports/live', 3: '/casino/all', 4: '/casino/all' }
+    const navigate = useNavigate();
     const [activBtn, setActivBtn] = useState(0);
+
+    const goPage = (e) => {
+        setActivBtn(e);
+        if (page(e)) {
+            navigate(page(e));
+        }
+    }
     return (
         <>
             <Box className='footer' sx={{ py: 2, mb: 10 }}>
@@ -568,24 +578,24 @@ const Mobile = ({ langList, showLang, closeLang }) => {
                     zIndex: 600
                 }}>
                 <HStack className='mobileMenu'>
-                    <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 0 })} onClick={() => setActivBtn(0)}>
+                    <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 0 })} onClick={() => goPage(0)}>
                         <Box component='img' src={home} />
                         <Typography>Main</Typography>
                     </Button>
-                    <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 1 })} onClick={() => setActivBtn(1)}>
+                    <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 1 })} onClick={() => goPage(1)}>
                         <Box component='img' src={live} />
                         <Typography>Live</Typography>
                     </Button>
-                    <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 2 })} onClick={() => setActivBtn(2)}>
+                    <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 2 })} onClick={() => goPage(2)}>
                         <Stack sx={{ bgcolor: activBtn === 2 ? '#fff' : '#0854c3', boxShadow: activBtn === 2 ? '0 1px 10px 0 #84878f' : '0 1px 10px 0 #083f92', width: 43, height: 43, alignItems: 'center', justifyContent: 'center', borderRadius: 50, color: activBtn === 2 ? '#0854c3' : 'white' }}>
                             <Slip />
                         </Stack>
                     </Button>
-                    <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 3 })} onClick={() => setActivBtn(3)}>
+                    <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 3 })} onClick={() => goPage(3)}>
                         <Box component='img' src={casino} />
                         <Typography>Casino</Typography>
                     </Button>
-                    <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 4 })} onClick={() => setActivBtn(4)}>
+                    <Button className={classNames('mobileMenu-btn', { 'active': activBtn === 4 })} onClick={() => goPage(4)}>
                         <Box component='img' src={games} />
                         <Typography>Live-Game</Typography>
                     </Button>

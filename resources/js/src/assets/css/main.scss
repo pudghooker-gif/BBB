@@ -2145,3 +2145,18 @@
         }
     }
 }
+
+.bodyTab {
+    -webkit-mask-image: -webkit-linear-gradient(right, transparent 0, #000 85px);
+    mask-image: linear-gradient(to left, transparent 0, #000 85px);
+
+    &:after {
+        content: "";
+        padding-left: 80px;
+    }
+    
+    &::-webkit-scrollbar {
+        height: 0px;
+        width: 0px;
+    }
+}

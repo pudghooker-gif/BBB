@@ -18,8 +18,10 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import SearchIcon from '@mui/icons-material/Search';
 
 import { Clock } from '../../assets/img/feature/svgIcon';
 import { Slider } from '../../components/Part';
@@ -38,11 +40,15 @@ const Home = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
+
+    const list = [{ name: 'Home', route: '/home' }, { name: 'Live', route: '/sports/live' }, { name: 'Sports', route: '/sports/prematch' }, { name: 'World Cup 22', route: '/sports/prematch' }, { name: 'Casino', route: '/casino/all' }, { name: 'Live-Casino', route: '/live-casino' }, { name: 'Poker', route: '/poker' }];
     const sportsList = ['Soccer', 'Basketball', 'Cricket', 'Table Tennis', 'American Football', 'Tennis'];
     const [actLiveItem, setActLiveItem] = useState(0);
     const [actSport, setActSport] = useState(0);
     const [timer, setTimer] = useState({});
     const [casino, setCasino] = useState([]);
+    const [active, setActive] = useState(0);
+
 
     const goBonus = () => {
         if (user.isAuth) {
@@ -97,6 +103,11 @@ const Home = () => {
         }
     }
 
+    const go = (idx) => {
+        setActive(idx);
+        navigate(list[idx].route);
+    }
+
     useEffect(() => {
         getCasino();
         countStart();
@@ -104,6 +115,39 @@ const Home = () => {
 
     return (
         <Stack>
+            <Box sx={{ borderBottom: '1px solid #141b2e', mx: -2, px: 2 }}>
+                <HStack sx={{ width: 'calc(100% + 16px)', mx: -2 }}>
+                    <HStack sx={{ height: 45, overflow: 'auto', alignItems: 'center', py: 1, pl: 2 }} className='bodyTab'>
+                        {
+                            list.map((item, idx) => (
+                                <Stack
+                                    key={idx}
+                                    className={classNames({ 'able': idx === active })}
+                                    sx={{
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        borderRadius: 50,
+                                        color: '#fff',
+                                        fontSize: 14,
+                                        fontWeight: 600,
+                                        height: '24px',
+                                        lineHeight: 1,
+                                        py: 0,
+                                        px: 1.25,
+                                        whiteSpace: 'nowrap'
+                                    }}
+                                    onClick={() => go(idx)}
+                                >
+                                    {item.name}
+                                </Stack>
+                            ))
+                        }
+                    </HStack>
+                    <IconButton>
+                        <SearchIcon />
+                    </IconButton>
+                </HStack>
+            </Box>
             <HStack sx={{ py: 2, height: 200 }}>
                 <Slider />
             </HStack>
@@ -382,7 +426,7 @@ const Home = () => {
                     </Grid>
                 </Grid>
             </Box> */}
-        </Stack>
+        </Stack >
     );
 };
 
