@@ -10,6 +10,7 @@ import Link from '@mui/material/Link';
 import Menu from '@mui/material/Menu';
 import Stack from '@mui/material/Stack';
 import Modal from '@mui/material/Modal';
+import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import SvgIcon from '@mui/material/SvgIcon';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,6 +18,11 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import AddIcon from '@mui/icons-material/Add';
@@ -28,6 +34,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+import SportsIcon from '@mui/icons-material/Sports';
+import CasinoIcon from '@mui/icons-material/Casino';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 
 import { HStack } from './Base';
 
@@ -268,6 +278,11 @@ const Desktop = ({ user, langList, showProfile, list, profile, active, showLang,
 }
 
 const Mobile = ({ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }) => {
+  const [drawer, setDrawer] = useState(false);
+  const toggleDrawer = (e) => {
+    setDrawer(e);
+  }
+
   return (
     <>
       <Box sx={{ borderBottom: '1px solid #141b2e', mx: -2, px: 2 }}>
@@ -280,15 +295,51 @@ const Mobile = ({ user, langList, showProfile, list, profile, active, showLang, 
               user.isAuth &&
               <>
                 <Stack sx={{ mr: 1 }}>
-                  <Typography sx={{ color: '#94a6cdb3', fontSize: 11, lineHeight: '1.2', mb: .2, textAlign: 'right' }}>ID 14680231</Typography>
-                  <Typography sx={{ fontSize: 14, lineHeight: 1, textAlign: 'right' }}>User Name</Typography>
+                  <Typography sx={{ color: '#94a6cdb3', fontSize: 11, lineHeight: '1.2', mb: .2, textAlign: 'right' }}>{`ID ${user.id}`}</Typography>
+                  <Typography sx={{ fontSize: 14, lineHeight: 1, textAlign: 'right' }}>{user.username}</Typography>
                 </Stack>
-                <IconButton sx={{ ml: 1, bgcolor: '#252f4b', borderRadius: 2, p: 0, width: 30, height: 30, boxShadow: '0 2px 14px 0 rgb(37 47 75 / 90%)', '&:hover': { bgcolor: '#141b2e', boxShadow: 'unset' } }}>
+                <IconButton onClick={openProfile} sx={{ ml: 1, bgcolor: '#252f4b', borderRadius: 2, p: 0, width: 30, height: 30, boxShadow: '0 2px 14px 0 rgb(37 47 75 / 90%)', '&:hover': { bgcolor: '#141b2e', boxShadow: 'unset' } }}>
                   <PersonIcon />
                 </IconButton>
+                <Menu
+                  sx={{
+                    mt: (theme) => theme.spacing(5),
+                    [`& .MuiPopover-paper`]: {
+                      bgcolor: 'white',
+                      borderRadius: 2,
+                    },
+                    [`& .MuiPopover-paper ul`]: {
+                      minWidth: (theme) => theme.spacing(8)
+                    }
+                  }}
+                  id="menu-appbar"
+                  anchorEl={showProfile}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(showProfile)}
+                  onClose={closeProfile}
+                >
+                  {
+                    profile.map((item, idx) => (
+                      <MenuItem key={idx} onClick={closeProfile}>
+                        <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>{item}</Typography>
+                      </MenuItem>
+                    ))
+                  }
+                  <MenuItem onClick={() => logoutAction()}>
+                    <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>Log Out</Typography>
+                  </MenuItem>
+                </Menu>
               </>
             }
-            <IconButton sx={{ p: 0, ml: 2, }}>
+            <IconButton sx={{ p: 0, ml: 2, }} onClick={() => toggleDrawer(true)}>
               <MenuIcon sx={{ height: 30, width: 30 }} />
             </IconButton>
           </HStack>
@@ -297,10 +348,66 @@ const Mobile = ({ user, langList, showProfile, list, profile, active, showLang, 
       {
         !user.isAuth &&
         <HStack sx={{ py: 1 }}>
-          <Button sx={{ borderRadius: 2, mr: 2, width: 'calc(50% - 16px)' }} className='btn primary'>Sign in</Button>
-          <Button sx={{ borderRadius: 2, width: '50%' }} className='btn success animation'>Sign up</Button>
+          <Button sx={{ borderRadius: 2, mr: 2, width: 'calc(50% - 16px)' }} className='btn primary' onClick={() => openLogin()}>Sign in</Button>
+          <Button sx={{ borderRadius: 2, width: '50%' }} className='btn success animation' onClick={() => openRegister()}>Sign up</Button>
         </HStack>
       }
+      <Drawer
+        anchor='right'
+        open={drawer}
+        onClose={() => toggleDrawer(false)}
+        className='drawer'
+      >
+        <Stack sx={{ width: 275 }}>
+          <HStack sx={{ px: 3.75, pt: 3.75, width: '100%', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <HStack sx={{ alignItems: 'center', position: 'relative' }}>
+              <IconButton onClick={openProfile} sx={{ mr: 1, bgcolor: '#4e5d86', borderRadius: 2, p: 0, width: 30, height: 30, boxShadow: '0 2px 14px 0 rgb(37 47 75 / 90%)', '&:hover': { bgcolor: '#141b2e', boxShadow: 'unset' } }}>
+                <PersonIcon />
+              </IconButton>
+              <Button sx={{ borderRadius: 2, height: 30, }} className='btn success animation' onClick={() => openRegister()}>Sign up</Button>
+            </HStack>
+            <IconButton sx={{ padding: 0 }}>
+              <CloseIcon onClick={() => toggleDrawer(false)} />
+            </IconButton>
+          </HStack>
+          <Stack sx={{ mt: 2 }}>
+            <List sx={{ padding: 0 }}>
+              <ListItem disablePadding>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <LiveTvIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Live" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <SportsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Sports" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <CasinoIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Casino" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <SportsEsportsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Game" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Stack>
+        </Stack>
+      </Drawer>
     </>
   )
 }

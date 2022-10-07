@@ -4307,6 +4307,34 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/Casino.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@mui/icons-material/Casino.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7.5 18c-.83 0-1.5-.67-1.5-1.5S6.67 15 7.5 15s1.5.67 1.5 1.5S8.33 18 7.5 18zm0-9C6.67 9 6 8.33 6 7.5S6.67 6 7.5 6 9 6.67 9 7.5 8.33 9 7.5 9zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0-9c-.83 0-1.5-.67-1.5-1.5S15.67 6 16.5 6s1.5.67 1.5 1.5S17.33 9 16.5 9z"
+}), 'Casino');
+
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/ChevronRight.js":
 /*!**********************************************************!*\
   !*** ./node_modules/@mui/icons-material/ChevronRight.js ***!
@@ -4543,6 +4571,34 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/LiveTv.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@mui/icons-material/LiveTv.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M21 6h-7.59l3.29-3.29L16 2l-4 4-4-4-.71.71L10.59 6H3c-1.1 0-2 .89-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.11-.9-2-2-2zm0 14H3V8h18v12zM9 10v8l7-4z"
+}), 'LiveTv');
+
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/MarkChatUnread.js":
 /*!************************************************************!*\
   !*** ./node_modules/@mui/icons-material/MarkChatUnread.js ***!
@@ -4678,6 +4734,66 @@ var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/r
 var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
   d: "M5 4v2h14V4H5zm0 10h4v6h6v-6h4l-7-7-7 7z"
 }), 'Publish');
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@mui/icons-material/Sports.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@mui/icons-material/Sports.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)([/*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M11.23 6c-1.66 0-3.22.66-4.36 1.73C6.54 6.73 5.61 6 4.5 6 3.12 6 2 7.12 2 8.5S3.12 11 4.5 11c.21 0 .41-.03.61-.08-.05.25-.09.51-.1.78-.18 3.68 2.95 6.68 6.68 6.27 2.55-.28 4.68-2.26 5.19-4.77.15-.71.15-1.4.06-2.06-.09-.6.38-1.13.99-1.13H22V6H11.23zM4.5 9c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm6.5 6c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"
+}, "0"), /*#__PURE__*/(0, _jsxRuntime.jsx)("circle", {
+  cx: "11",
+  cy: "12",
+  r: "2"
+}, "1")], 'Sports');
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@mui/icons-material/SportsEsports.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@mui/icons-material/SportsEsports.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "m21.58 16.09-1.09-7.66C20.21 6.46 18.52 5 16.53 5H7.47C5.48 5 3.79 6.46 3.51 8.43l-1.09 7.66C2.2 17.63 3.39 19 4.94 19c.68 0 1.32-.27 1.8-.75L9 16h6l2.25 2.25c.48.48 1.13.75 1.8.75 1.56 0 2.75-1.37 2.53-2.91zM11 11H9v2H8v-2H6v-1h2V8h1v2h2v1zm4-1c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2 3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
+}), 'SportsEsports');
 
 exports["default"] = _default;
 
@@ -7366,6 +7482,400 @@ function getDividerUtilityClass(slot) {
 }
 const dividerClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiDivider', ['root', 'absolute', 'fullWidth', 'inset', 'middle', 'flexItem', 'light', 'vertical', 'withChildren', 'withChildrenVertical', 'textAlignRight', 'textAlignLeft', 'wrapper', 'wrapperVertical']);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dividerClasses);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/Drawer/Drawer.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@mui/material/esm/Drawer/Drawer.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "getAnchor": () => (/* binding */ getAnchor),
+/* harmony export */   "isHorizontal": () => (/* binding */ isHorizontal)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/integerPropType.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/composeClasses/composeClasses.js");
+/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Modal */ "./node_modules/@mui/material/esm/Modal/Modal.js");
+/* harmony import */ var _Slide__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../Slide */ "./node_modules/@mui/material/esm/Slide/Slide.js");
+/* harmony import */ var _Paper__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../Paper */ "./node_modules/@mui/material/esm/Paper/Paper.js");
+/* harmony import */ var _utils_capitalize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/capitalize */ "./node_modules/@mui/material/esm/utils/capitalize.js");
+/* harmony import */ var _styles_useTheme__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../styles/useTheme */ "./node_modules/@mui/material/esm/styles/useTheme.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/esm/styles/useThemeProps.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/esm/styles/styled.js");
+/* harmony import */ var _drawerClasses__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./drawerClasses */ "./node_modules/@mui/material/esm/Drawer/drawerClasses.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["BackdropProps"],
+      _excluded2 = ["anchor", "BackdropProps", "children", "className", "elevation", "hideBackdrop", "ModalProps", "onClose", "open", "PaperProps", "SlideProps", "TransitionComponent", "transitionDuration", "variant"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const overridesResolver = (props, styles) => {
+  const {
+    ownerState
+  } = props;
+  return [styles.root, (ownerState.variant === 'permanent' || ownerState.variant === 'persistent') && styles.docked, styles.modal];
+};
+
+const useUtilityClasses = ownerState => {
+  const {
+    classes,
+    anchor,
+    variant
+  } = ownerState;
+  const slots = {
+    root: ['root'],
+    docked: [(variant === 'permanent' || variant === 'persistent') && 'docked'],
+    modal: ['modal'],
+    paper: ['paper', `paperAnchor${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_5__["default"])(anchor)}`, variant !== 'temporary' && `paperAnchorDocked${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_5__["default"])(anchor)}`]
+  };
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_6__["default"])(slots, _drawerClasses__WEBPACK_IMPORTED_MODULE_7__.getDrawerUtilityClass, classes);
+};
+
+const DrawerRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_8__["default"])(_Modal__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  name: 'MuiDrawer',
+  slot: 'Root',
+  overridesResolver
+})(({
+  theme
+}) => ({
+  zIndex: (theme.vars || theme).zIndex.drawer
+}));
+const DrawerDockedRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_8__["default"])('div', {
+  shouldForwardProp: _styles_styled__WEBPACK_IMPORTED_MODULE_8__.rootShouldForwardProp,
+  name: 'MuiDrawer',
+  slot: 'Docked',
+  skipVariantsResolver: false,
+  overridesResolver
+})({
+  flex: '0 0 auto'
+});
+const DrawerPaper = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_8__["default"])(_Paper__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  name: 'MuiDrawer',
+  slot: 'Paper',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.paper, styles[`paperAnchor${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_5__["default"])(ownerState.anchor)}`], ownerState.variant !== 'temporary' && styles[`paperAnchorDocked${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_5__["default"])(ownerState.anchor)}`]];
+  }
+})(({
+  theme,
+  ownerState
+}) => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+  overflowY: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+  flex: '1 0 auto',
+  zIndex: (theme.vars || theme).zIndex.drawer,
+  // Add iOS momentum scrolling for iOS < 13.0
+  WebkitOverflowScrolling: 'touch',
+  // temporary style
+  position: 'fixed',
+  top: 0,
+  // We disable the focus ring for mouse, touch and keyboard users.
+  // At some point, it would be better to keep it for keyboard users.
+  // :focus-ring CSS pseudo-class will help.
+  outline: 0
+}, ownerState.anchor === 'left' && {
+  left: 0
+}, ownerState.anchor === 'top' && {
+  top: 0,
+  left: 0,
+  right: 0,
+  height: 'auto',
+  maxHeight: '100%'
+}, ownerState.anchor === 'right' && {
+  right: 0
+}, ownerState.anchor === 'bottom' && {
+  top: 'auto',
+  left: 0,
+  bottom: 0,
+  right: 0,
+  height: 'auto',
+  maxHeight: '100%'
+}, ownerState.anchor === 'left' && ownerState.variant !== 'temporary' && {
+  borderRight: `1px solid ${(theme.vars || theme).palette.divider}`
+}, ownerState.anchor === 'top' && ownerState.variant !== 'temporary' && {
+  borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`
+}, ownerState.anchor === 'right' && ownerState.variant !== 'temporary' && {
+  borderLeft: `1px solid ${(theme.vars || theme).palette.divider}`
+}, ownerState.anchor === 'bottom' && ownerState.variant !== 'temporary' && {
+  borderTop: `1px solid ${(theme.vars || theme).palette.divider}`
+}));
+const oppositeDirection = {
+  left: 'right',
+  right: 'left',
+  top: 'down',
+  bottom: 'up'
+};
+function isHorizontal(anchor) {
+  return ['left', 'right'].indexOf(anchor) !== -1;
+}
+function getAnchor(theme, anchor) {
+  return theme.direction === 'rtl' && isHorizontal(anchor) ? oppositeDirection[anchor] : anchor;
+}
+/**
+ * The props of the [Modal](/material-ui/api/modal/) component are available
+ * when `variant="temporary"` is set.
+ */
+
+const Drawer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function Drawer(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_11__["default"])({
+    props: inProps,
+    name: 'MuiDrawer'
+  });
+  const theme = (0,_styles_useTheme__WEBPACK_IMPORTED_MODULE_12__["default"])();
+  const defaultTransitionDuration = {
+    enter: theme.transitions.duration.enteringScreen,
+    exit: theme.transitions.duration.leavingScreen
+  };
+
+  const {
+    anchor: anchorProp = 'left',
+    BackdropProps,
+    children,
+    className,
+    elevation = 16,
+    hideBackdrop = false,
+    ModalProps: {
+      BackdropProps: BackdropPropsProp
+    } = {},
+    onClose,
+    open = false,
+    PaperProps = {},
+    SlideProps,
+    // eslint-disable-next-line react/prop-types
+    TransitionComponent = _Slide__WEBPACK_IMPORTED_MODULE_13__["default"],
+    transitionDuration = defaultTransitionDuration,
+    variant = 'temporary'
+  } = props,
+        ModalProps = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(props.ModalProps, _excluded),
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(props, _excluded2); // Let's assume that the Drawer will always be rendered on user space.
+  // We use this state is order to skip the appear transition during the
+  // initial mount of the component.
+
+
+  const mounted = react__WEBPACK_IMPORTED_MODULE_2__.useRef(false);
+  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
+    mounted.current = true;
+  }, []);
+  const anchorInvariant = getAnchor(theme, anchorProp);
+  const anchor = anchorProp;
+
+  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, {
+    anchor,
+    elevation,
+    open,
+    variant
+  }, other);
+
+  const classes = useUtilityClasses(ownerState);
+
+  const drawer = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DrawerPaper, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    elevation: variant === 'temporary' ? elevation : 0,
+    square: true
+  }, PaperProps, {
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.paper, PaperProps.className),
+    ownerState: ownerState,
+    children: children
+  }));
+
+  if (variant === 'permanent') {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DrawerDockedRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, classes.docked, className),
+      ownerState: ownerState,
+      ref: ref
+    }, other, {
+      children: drawer
+    }));
+  }
+
+  const slidingDrawer = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(TransitionComponent, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    in: open,
+    direction: oppositeDirection[anchorInvariant],
+    timeout: transitionDuration,
+    appear: mounted.current
+  }, SlideProps, {
+    children: drawer
+  }));
+
+  if (variant === 'persistent') {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DrawerDockedRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, classes.docked, className),
+      ownerState: ownerState,
+      ref: ref
+    }, other, {
+      children: slidingDrawer
+    }));
+  } // variant === temporary
+
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DrawerRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    BackdropProps: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, BackdropProps, BackdropPropsProp, {
+      transitionDuration
+    }),
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, classes.modal, className),
+    open: open,
+    ownerState: ownerState,
+    onClose: onClose,
+    hideBackdrop: hideBackdrop,
+    ref: ref
+  }, other, ModalProps, {
+    children: slidingDrawer
+  }));
+});
+ true ? Drawer.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * Side from which the drawer will appear.
+   * @default 'left'
+   */
+  anchor: prop_types__WEBPACK_IMPORTED_MODULE_14___default().oneOf(['bottom', 'left', 'right', 'top']),
+
+  /**
+   * @ignore
+   */
+  BackdropProps: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().object),
+
+  /**
+   * The content of the component.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().node),
+
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().object),
+
+  /**
+   * @ignore
+   */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().string),
+
+  /**
+   * The elevation of the drawer.
+   * @default 16
+   */
+  elevation: _mui_utils__WEBPACK_IMPORTED_MODULE_15__["default"],
+
+  /**
+   * If `true`, the backdrop is not rendered.
+   * @default false
+   */
+  hideBackdrop: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().bool),
+
+  /**
+   * Props applied to the [`Modal`](/material-ui/api/modal/) element.
+   * @default {}
+   */
+  ModalProps: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().object),
+
+  /**
+   * Callback fired when the component requests to be closed.
+   *
+   * @param {object} event The event source of the callback.
+   */
+  onClose: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().func),
+
+  /**
+   * If `true`, the component is shown.
+   * @default false
+   */
+  open: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().bool),
+
+  /**
+   * Props applied to the [`Paper`](/material-ui/api/paper/) element.
+   * @default {}
+   */
+  PaperProps: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().object),
+
+  /**
+   * Props applied to the [`Slide`](/material-ui/api/slide/) element.
+   */
+  SlideProps: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().object),
+
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_14___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_14___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_14___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_14___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_14___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_14___default().bool)])), (prop_types__WEBPACK_IMPORTED_MODULE_14___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_14___default().object)]),
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   * @default {
+   *   enter: theme.transitions.duration.enteringScreen,
+   *   exit: theme.transitions.duration.leavingScreen,
+   * }
+   */
+  transitionDuration: prop_types__WEBPACK_IMPORTED_MODULE_14___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_14___default().number), prop_types__WEBPACK_IMPORTED_MODULE_14___default().shape({
+    appear: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().number),
+    enter: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().number),
+    exit: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().number)
+  })]),
+
+  /**
+   * The variant to use.
+   * @default 'temporary'
+   */
+  variant: prop_types__WEBPACK_IMPORTED_MODULE_14___default().oneOf(['permanent', 'persistent', 'temporary'])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Drawer);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/Drawer/drawerClasses.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/Drawer/drawerClasses.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "getDrawerUtilityClass": () => (/* binding */ getDrawerUtilityClass)
+/* harmony export */ });
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClass/generateUtilityClass.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClasses/generateUtilityClasses.js");
+
+function getDrawerUtilityClass(slot) {
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_0__["default"])('MuiDrawer', slot);
+}
+const drawerClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiDrawer', ['root', 'docked', 'paper', 'paperAnchorLeft', 'paperAnchorRight', 'paperAnchorTop', 'paperAnchorBottom', 'paperAnchorDockedLeft', 'paperAnchorDockedRight', 'paperAnchorDockedTop', 'paperAnchorDockedBottom', 'modal']);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (drawerClasses);
 
 /***/ }),
 
@@ -10199,6 +10709,442 @@ const linkClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiLi
 
 /***/ }),
 
+/***/ "./node_modules/@mui/material/esm/ListItemButton/ListItemButton.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/ListItemButton/ListItemButton.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "overridesResolver": () => (/* binding */ overridesResolver)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/composeClasses/composeClasses.js");
+/* harmony import */ var _mui_system__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/system */ "./node_modules/@mui/system/esm/colorManipulator.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/esm/styles/styled.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/esm/styles/useThemeProps.js");
+/* harmony import */ var _ButtonBase__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../ButtonBase */ "./node_modules/@mui/material/esm/ButtonBase/ButtonBase.js");
+/* harmony import */ var _utils_useEnhancedEffect__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../utils/useEnhancedEffect */ "./node_modules/@mui/material/esm/utils/useEnhancedEffect.js");
+/* harmony import */ var _utils_useForkRef__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../utils/useForkRef */ "./node_modules/@mui/material/esm/utils/useForkRef.js");
+/* harmony import */ var _List_ListContext__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../List/ListContext */ "./node_modules/@mui/material/esm/List/ListContext.js");
+/* harmony import */ var _listItemButtonClasses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./listItemButtonClasses */ "./node_modules/@mui/material/esm/ListItemButton/listItemButtonClasses.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["alignItems", "autoFocus", "component", "children", "dense", "disableGutters", "divider", "focusVisibleClassName", "selected"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+const overridesResolver = (props, styles) => {
+  const {
+    ownerState
+  } = props;
+  return [styles.root, ownerState.dense && styles.dense, ownerState.alignItems === 'flex-start' && styles.alignItemsFlexStart, ownerState.divider && styles.divider, !ownerState.disableGutters && styles.gutters];
+};
+
+const useUtilityClasses = ownerState => {
+  const {
+    alignItems,
+    classes,
+    dense,
+    disabled,
+    disableGutters,
+    divider,
+    selected
+  } = ownerState;
+  const slots = {
+    root: ['root', dense && 'dense', !disableGutters && 'gutters', divider && 'divider', disabled && 'disabled', alignItems === 'flex-start' && 'alignItemsFlexStart', selected && 'selected']
+  };
+  const composedClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_5__["default"])(slots, _listItemButtonClasses__WEBPACK_IMPORTED_MODULE_6__.getListItemButtonUtilityClass, classes);
+  return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, classes, composedClasses);
+};
+
+const ListItemButtonRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])(_ButtonBase__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  shouldForwardProp: prop => (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__.rootShouldForwardProp)(prop) || prop === 'classes',
+  name: 'MuiListItemButton',
+  slot: 'Root',
+  overridesResolver
+})(({
+  theme,
+  ownerState
+}) => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+  display: 'flex',
+  flexGrow: 1,
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  position: 'relative',
+  textDecoration: 'none',
+  minWidth: 0,
+  boxSizing: 'border-box',
+  textAlign: 'left',
+  paddingTop: 8,
+  paddingBottom: 8,
+  transition: theme.transitions.create('background-color', {
+    duration: theme.transitions.duration.shortest
+  }),
+  '&:hover': {
+    textDecoration: 'none',
+    backgroundColor: (theme.vars || theme).palette.action.hover,
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      backgroundColor: 'transparent'
+    }
+  },
+  [`&.${_listItemButtonClasses__WEBPACK_IMPORTED_MODULE_6__["default"].selected}`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : (0,_mui_system__WEBPACK_IMPORTED_MODULE_9__.alpha)(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+    [`&.${_listItemButtonClasses__WEBPACK_IMPORTED_MODULE_6__["default"].focusVisible}`]: {
+      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.focusOpacity}))` : (0,_mui_system__WEBPACK_IMPORTED_MODULE_9__.alpha)(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity)
+    }
+  },
+  [`&.${_listItemButtonClasses__WEBPACK_IMPORTED_MODULE_6__["default"].selected}:hover`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.hoverOpacity}))` : (0,_mui_system__WEBPACK_IMPORTED_MODULE_9__.alpha)(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity),
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : (0,_mui_system__WEBPACK_IMPORTED_MODULE_9__.alpha)(theme.palette.primary.main, theme.palette.action.selectedOpacity)
+    }
+  },
+  [`&.${_listItemButtonClasses__WEBPACK_IMPORTED_MODULE_6__["default"].focusVisible}`]: {
+    backgroundColor: (theme.vars || theme).palette.action.focus
+  },
+  [`&.${_listItemButtonClasses__WEBPACK_IMPORTED_MODULE_6__["default"].disabled}`]: {
+    opacity: (theme.vars || theme).palette.action.disabledOpacity
+  }
+}, ownerState.divider && {
+  borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
+  backgroundClip: 'padding-box'
+}, ownerState.alignItems === 'flex-start' && {
+  alignItems: 'flex-start'
+}, !ownerState.disableGutters && {
+  paddingLeft: 16,
+  paddingRight: 16
+}, ownerState.dense && {
+  paddingTop: 4,
+  paddingBottom: 4
+}));
+const ListItemButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function ListItemButton(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_10__["default"])({
+    props: inProps,
+    name: 'MuiListItemButton'
+  });
+
+  const {
+    alignItems = 'center',
+    autoFocus = false,
+    component = 'div',
+    children,
+    dense = false,
+    disableGutters = false,
+    divider = false,
+    focusVisibleClassName,
+    selected = false
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(props, _excluded);
+
+  const context = react__WEBPACK_IMPORTED_MODULE_2__.useContext(_List_ListContext__WEBPACK_IMPORTED_MODULE_11__["default"]);
+  const childContext = {
+    dense: dense || context.dense || false,
+    alignItems,
+    disableGutters
+  };
+  const listItemRef = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
+  (0,_utils_useEnhancedEffect__WEBPACK_IMPORTED_MODULE_12__["default"])(() => {
+    if (autoFocus) {
+      if (listItemRef.current) {
+        listItemRef.current.focus();
+      } else if (true) {
+        console.error('MUI: Unable to set focus to a ListItemButton whose component has not been rendered.');
+      }
+    }
+  }, [autoFocus]);
+
+  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, {
+    alignItems,
+    dense: childContext.dense,
+    disableGutters,
+    divider,
+    selected
+  });
+
+  const classes = useUtilityClasses(ownerState);
+  const handleRef = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_13__["default"])(listItemRef, ref);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_List_ListContext__WEBPACK_IMPORTED_MODULE_11__["default"].Provider, {
+    value: childContext,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ListItemButtonRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+      ref: handleRef,
+      href: other.href || other.to,
+      component: (other.href || other.to) && component === 'div' ? 'a' : component,
+      focusVisibleClassName: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.focusVisible, focusVisibleClassName),
+      ownerState: ownerState
+    }, other, {
+      classes: classes,
+      children: children
+    }))
+  });
+});
+ true ? ListItemButton.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * Defines the `align-items` style property.
+   * @default 'center'
+   */
+  alignItems: prop_types__WEBPACK_IMPORTED_MODULE_14___default().oneOf(['center', 'flex-start']),
+
+  /**
+   * If `true`, the list item is focused during the first mount.
+   * Focus will also be triggered if the value changes from false to true.
+   * @default false
+   */
+  autoFocus: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().bool),
+
+  /**
+   * The content of the component if a `ListItemSecondaryAction` is used it must
+   * be the last child.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().node),
+
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().object),
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().elementType),
+
+  /**
+   * If `true`, compact vertical padding designed for keyboard and mouse input is used.
+   * The prop defaults to the value inherited from the parent List component.
+   * @default false
+   */
+  dense: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().bool),
+
+  /**
+   * If `true`, the component is disabled.
+   * @default false
+   */
+  disabled: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().bool),
+
+  /**
+   * If `true`, the left and right padding is removed.
+   * @default false
+   */
+  disableGutters: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().bool),
+
+  /**
+   * If `true`, a 1px light border is added to the bottom of the list item.
+   * @default false
+   */
+  divider: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().bool),
+
+  /**
+   * This prop can help identify which element has keyboard focus.
+   * The class name will be applied when the element gains the focus through keyboard interaction.
+   * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
+   * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/HEAD/explainer.md).
+   * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
+   * if needed.
+   */
+  focusVisibleClassName: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().string),
+
+  /**
+   * @ignore
+   */
+  href: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().string),
+
+  /**
+   * Use to apply selected styling.
+   * @default false
+   */
+  selected: (prop_types__WEBPACK_IMPORTED_MODULE_14___default().bool),
+
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_14___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_14___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_14___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_14___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_14___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_14___default().bool)])), (prop_types__WEBPACK_IMPORTED_MODULE_14___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_14___default().object)])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ListItemButton);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/ListItemButton/listItemButtonClasses.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/ListItemButton/listItemButtonClasses.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "getListItemButtonUtilityClass": () => (/* binding */ getListItemButtonUtilityClass)
+/* harmony export */ });
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClass/generateUtilityClass.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClasses/generateUtilityClasses.js");
+
+function getListItemButtonUtilityClass(slot) {
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_0__["default"])('MuiListItemButton', slot);
+}
+const listItemButtonClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiListItemButton', ['root', 'focusVisible', 'dense', 'alignItemsFlexStart', 'disabled', 'divider', 'gutters', 'selected']);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (listItemButtonClasses);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/ListItemIcon/ListItemIcon.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/ListItemIcon/ListItemIcon.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/composeClasses/composeClasses.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/esm/styles/styled.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/esm/styles/useThemeProps.js");
+/* harmony import */ var _listItemIconClasses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./listItemIconClasses */ "./node_modules/@mui/material/esm/ListItemIcon/listItemIconClasses.js");
+/* harmony import */ var _List_ListContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../List/ListContext */ "./node_modules/@mui/material/esm/List/ListContext.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["className"];
+
+
+
+
+
+
+
+
+
+
+const useUtilityClasses = ownerState => {
+  const {
+    alignItems,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ['root', alignItems === 'flex-start' && 'alignItemsFlexStart']
+  };
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_5__["default"])(slots, _listItemIconClasses__WEBPACK_IMPORTED_MODULE_6__.getListItemIconUtilityClass, classes);
+};
+
+const ListItemIconRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])('div', {
+  name: 'MuiListItemIcon',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, ownerState.alignItems === 'flex-start' && styles.alignItemsFlexStart];
+  }
+})(({
+  theme,
+  ownerState
+}) => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+  minWidth: 56,
+  color: (theme.vars || theme).palette.action.active,
+  flexShrink: 0,
+  display: 'inline-flex'
+}, ownerState.alignItems === 'flex-start' && {
+  marginTop: 8
+}));
+/**
+ * A simple wrapper to apply `List` styles to an `Icon` or `SvgIcon`.
+ */
+
+const ListItemIcon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function ListItemIcon(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__["default"])({
+    props: inProps,
+    name: 'MuiListItemIcon'
+  });
+
+  const {
+    className
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(props, _excluded);
+
+  const context = react__WEBPACK_IMPORTED_MODULE_2__.useContext(_List_ListContext__WEBPACK_IMPORTED_MODULE_9__["default"]);
+
+  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, {
+    alignItems: context.alignItems
+  });
+
+  const classes = useUtilityClasses(ownerState);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ListItemIconRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, className),
+    ownerState: ownerState,
+    ref: ref
+  }, other));
+});
+ true ? ListItemIcon.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * The content of the component, normally `Icon`, `SvgIcon`,
+   * or a `@mui/icons-material` SVG icon element.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().node),
+
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object),
+
+  /**
+   * @ignore
+   */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string),
+
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_10___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().bool)])), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object)])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ListItemIcon);
+
+/***/ }),
+
 /***/ "./node_modules/@mui/material/esm/ListItemIcon/listItemIconClasses.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/@mui/material/esm/ListItemIcon/listItemIconClasses.js ***!
@@ -10222,6 +11168,373 @@ const listItemIconClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"]
 
 /***/ }),
 
+/***/ "./node_modules/@mui/material/esm/ListItemSecondaryAction/ListItemSecondaryAction.js":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/ListItemSecondaryAction/ListItemSecondaryAction.js ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/composeClasses/composeClasses.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/esm/styles/styled.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/esm/styles/useThemeProps.js");
+/* harmony import */ var _List_ListContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../List/ListContext */ "./node_modules/@mui/material/esm/List/ListContext.js");
+/* harmony import */ var _listItemSecondaryActionClasses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./listItemSecondaryActionClasses */ "./node_modules/@mui/material/esm/ListItemSecondaryAction/listItemSecondaryActionClasses.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["className"];
+
+
+
+
+
+
+
+
+
+
+const useUtilityClasses = ownerState => {
+  const {
+    disableGutters,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ['root', disableGutters && 'disableGutters']
+  };
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_5__["default"])(slots, _listItemSecondaryActionClasses__WEBPACK_IMPORTED_MODULE_6__.getListItemSecondaryActionClassesUtilityClass, classes);
+};
+
+const ListItemSecondaryActionRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])('div', {
+  name: 'MuiListItemSecondaryAction',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, ownerState.disableGutters && styles.disableGutters];
+  }
+})(({
+  ownerState
+}) => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+  position: 'absolute',
+  right: 16,
+  top: '50%',
+  transform: 'translateY(-50%)'
+}, ownerState.disableGutters && {
+  right: 0
+}));
+/**
+ * Must be used as the last child of ListItem to function properly.
+ */
+
+const ListItemSecondaryAction = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function ListItemSecondaryAction(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__["default"])({
+    props: inProps,
+    name: 'MuiListItemSecondaryAction'
+  });
+
+  const {
+    className
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(props, _excluded);
+
+  const context = react__WEBPACK_IMPORTED_MODULE_2__.useContext(_List_ListContext__WEBPACK_IMPORTED_MODULE_9__["default"]);
+
+  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, {
+    disableGutters: context.disableGutters
+  });
+
+  const classes = useUtilityClasses(ownerState);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ListItemSecondaryActionRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, className),
+    ownerState: ownerState,
+    ref: ref
+  }, other));
+});
+ true ? ListItemSecondaryAction.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * The content of the component, normally an `IconButton` or selection control.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().node),
+
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object),
+
+  /**
+   * @ignore
+   */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string),
+
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_10___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().bool)])), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object)])
+} : 0;
+ListItemSecondaryAction.muiName = 'ListItemSecondaryAction';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ListItemSecondaryAction);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/ListItemSecondaryAction/listItemSecondaryActionClasses.js":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/ListItemSecondaryAction/listItemSecondaryActionClasses.js ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "getListItemSecondaryActionClassesUtilityClass": () => (/* binding */ getListItemSecondaryActionClassesUtilityClass)
+/* harmony export */ });
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClass/generateUtilityClass.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClasses/generateUtilityClasses.js");
+
+function getListItemSecondaryActionClassesUtilityClass(slot) {
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_0__["default"])('MuiListItemSecondaryAction', slot);
+}
+const listItemSecondaryActionClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiListItemSecondaryAction', ['root', 'disableGutters']);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (listItemSecondaryActionClasses);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/ListItemText/ListItemText.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/ListItemText/ListItemText.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/composeClasses/composeClasses.js");
+/* harmony import */ var _Typography__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _List_ListContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../List/ListContext */ "./node_modules/@mui/material/esm/List/ListContext.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/esm/styles/useThemeProps.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/esm/styles/styled.js");
+/* harmony import */ var _listItemTextClasses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./listItemTextClasses */ "./node_modules/@mui/material/esm/ListItemText/listItemTextClasses.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["children", "className", "disableTypography", "inset", "primary", "primaryTypographyProps", "secondary", "secondaryTypographyProps"];
+
+
+
+
+
+
+
+
+
+
+
+
+const useUtilityClasses = ownerState => {
+  const {
+    classes,
+    inset,
+    primary,
+    secondary,
+    dense
+  } = ownerState;
+  const slots = {
+    root: ['root', inset && 'inset', dense && 'dense', primary && secondary && 'multiline'],
+    primary: ['primary'],
+    secondary: ['secondary']
+  };
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_5__["default"])(slots, _listItemTextClasses__WEBPACK_IMPORTED_MODULE_6__.getListItemTextUtilityClass, classes);
+};
+
+const ListItemTextRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])('div', {
+  name: 'MuiListItemText',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [{
+      [`& .${_listItemTextClasses__WEBPACK_IMPORTED_MODULE_6__["default"].primary}`]: styles.primary
+    }, {
+      [`& .${_listItemTextClasses__WEBPACK_IMPORTED_MODULE_6__["default"].secondary}`]: styles.secondary
+    }, styles.root, ownerState.inset && styles.inset, ownerState.primary && ownerState.secondary && styles.multiline, ownerState.dense && styles.dense];
+  }
+})(({
+  ownerState
+}) => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+  flex: '1 1 auto',
+  minWidth: 0,
+  marginTop: 4,
+  marginBottom: 4
+}, ownerState.primary && ownerState.secondary && {
+  marginTop: 6,
+  marginBottom: 6
+}, ownerState.inset && {
+  paddingLeft: 56
+}));
+const ListItemText = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function ListItemText(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__["default"])({
+    props: inProps,
+    name: 'MuiListItemText'
+  });
+
+  const {
+    children,
+    className,
+    disableTypography = false,
+    inset = false,
+    primary: primaryProp,
+    primaryTypographyProps,
+    secondary: secondaryProp,
+    secondaryTypographyProps
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(props, _excluded);
+
+  const {
+    dense
+  } = react__WEBPACK_IMPORTED_MODULE_2__.useContext(_List_ListContext__WEBPACK_IMPORTED_MODULE_9__["default"]);
+  let primary = primaryProp != null ? primaryProp : children;
+  let secondary = secondaryProp;
+
+  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, {
+    disableTypography,
+    inset,
+    primary: !!primary,
+    secondary: !!secondary,
+    dense
+  });
+
+  const classes = useUtilityClasses(ownerState);
+
+  if (primary != null && primary.type !== _Typography__WEBPACK_IMPORTED_MODULE_10__["default"] && !disableTypography) {
+    primary = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+      variant: dense ? 'body2' : 'body1',
+      className: classes.primary,
+      component: primaryTypographyProps != null && primaryTypographyProps.variant ? undefined : 'span',
+      display: "block"
+    }, primaryTypographyProps, {
+      children: primary
+    }));
+  }
+
+  if (secondary != null && secondary.type !== _Typography__WEBPACK_IMPORTED_MODULE_10__["default"] && !disableTypography) {
+    secondary = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+      variant: "body2",
+      className: classes.secondary,
+      color: "text.secondary",
+      display: "block"
+    }, secondaryTypographyProps, {
+      children: secondary
+    }));
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(ListItemTextRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, className),
+    ownerState: ownerState,
+    ref: ref
+  }, other, {
+    children: [primary, secondary]
+  }));
+});
+ true ? ListItemText.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * Alias for the `primary` prop.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().node),
+
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().object),
+
+  /**
+   * @ignore
+   */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().string),
+
+  /**
+   * If `true`, the children won't be wrapped by a Typography component.
+   * This can be useful to render an alternative Typography variant by wrapping
+   * the `children` (or `primary`) text, and optional `secondary` text
+   * with the Typography component.
+   * @default false
+   */
+  disableTypography: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().bool),
+
+  /**
+   * If `true`, the children are indented.
+   * This should be used if there is no left avatar or left icon.
+   * @default false
+   */
+  inset: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().bool),
+
+  /**
+   * The main content element.
+   */
+  primary: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().node),
+
+  /**
+   * These props will be forwarded to the primary typography component
+   * (as long as disableTypography is not `true`).
+   */
+  primaryTypographyProps: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().object),
+
+  /**
+   * The secondary content element.
+   */
+  secondary: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().node),
+
+  /**
+   * These props will be forwarded to the secondary typography component
+   * (as long as disableTypography is not `true`).
+   */
+  secondaryTypographyProps: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().object),
+
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_11___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_11___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_11___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_11___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_11___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_11___default().bool)])), (prop_types__WEBPACK_IMPORTED_MODULE_11___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_11___default().object)])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ListItemText);
+
+/***/ }),
+
 /***/ "./node_modules/@mui/material/esm/ListItemText/listItemTextClasses.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/@mui/material/esm/ListItemText/listItemTextClasses.js ***!
@@ -10242,6 +11555,489 @@ function getListItemTextUtilityClass(slot) {
 }
 const listItemTextClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiListItemText', ['root', 'multiline', 'dense', 'inset', 'primary', 'secondary']);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (listItemTextClasses);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/ListItem/ListItem.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/ListItem/ListItem.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ListItemRoot": () => (/* binding */ ListItemRoot),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "overridesResolver": () => (/* binding */ overridesResolver)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/composeClasses/composeClasses.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/base/utils/isHostComponent.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/chainPropTypes.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/elementTypeAcceptingRef.js");
+/* harmony import */ var _mui_system__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/system */ "./node_modules/@mui/system/esm/colorManipulator.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/esm/styles/styled.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/esm/styles/useThemeProps.js");
+/* harmony import */ var _ButtonBase__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../ButtonBase */ "./node_modules/@mui/material/esm/ButtonBase/ButtonBase.js");
+/* harmony import */ var _utils_isMuiElement__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../utils/isMuiElement */ "./node_modules/@mui/material/esm/utils/isMuiElement.js");
+/* harmony import */ var _utils_useEnhancedEffect__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../utils/useEnhancedEffect */ "./node_modules/@mui/material/esm/utils/useEnhancedEffect.js");
+/* harmony import */ var _utils_useForkRef__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../utils/useForkRef */ "./node_modules/@mui/material/esm/utils/useForkRef.js");
+/* harmony import */ var _List_ListContext__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../List/ListContext */ "./node_modules/@mui/material/esm/List/ListContext.js");
+/* harmony import */ var _listItemClasses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./listItemClasses */ "./node_modules/@mui/material/esm/ListItem/listItemClasses.js");
+/* harmony import */ var _ListItemButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../ListItemButton */ "./node_modules/@mui/material/esm/ListItemButton/listItemButtonClasses.js");
+/* harmony import */ var _ListItemSecondaryAction__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../ListItemSecondaryAction */ "./node_modules/@mui/material/esm/ListItemSecondaryAction/ListItemSecondaryAction.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["className"],
+      _excluded2 = ["alignItems", "autoFocus", "button", "children", "className", "component", "components", "componentsProps", "ContainerComponent", "ContainerProps", "dense", "disabled", "disableGutters", "disablePadding", "divider", "focusVisibleClassName", "secondaryAction", "selected"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const overridesResolver = (props, styles) => {
+  const {
+    ownerState
+  } = props;
+  return [styles.root, ownerState.dense && styles.dense, ownerState.alignItems === 'flex-start' && styles.alignItemsFlexStart, ownerState.divider && styles.divider, !ownerState.disableGutters && styles.gutters, !ownerState.disablePadding && styles.padding, ownerState.button && styles.button, ownerState.hasSecondaryAction && styles.secondaryAction];
+};
+
+const useUtilityClasses = ownerState => {
+  const {
+    alignItems,
+    button,
+    classes,
+    dense,
+    disabled,
+    disableGutters,
+    disablePadding,
+    divider,
+    hasSecondaryAction,
+    selected
+  } = ownerState;
+  const slots = {
+    root: ['root', dense && 'dense', !disableGutters && 'gutters', !disablePadding && 'padding', divider && 'divider', disabled && 'disabled', button && 'button', alignItems === 'flex-start' && 'alignItemsFlexStart', hasSecondaryAction && 'secondaryAction', selected && 'selected'],
+    container: ['container']
+  };
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_5__["default"])(slots, _listItemClasses__WEBPACK_IMPORTED_MODULE_6__.getListItemUtilityClass, classes);
+};
+
+const ListItemRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])('div', {
+  name: 'MuiListItem',
+  slot: 'Root',
+  overridesResolver
+})(({
+  theme,
+  ownerState
+}) => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+  display: 'flex',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  position: 'relative',
+  textDecoration: 'none',
+  width: '100%',
+  boxSizing: 'border-box',
+  textAlign: 'left'
+}, !ownerState.disablePadding && (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+  paddingTop: 8,
+  paddingBottom: 8
+}, ownerState.dense && {
+  paddingTop: 4,
+  paddingBottom: 4
+}, !ownerState.disableGutters && {
+  paddingLeft: 16,
+  paddingRight: 16
+}, !!ownerState.secondaryAction && {
+  // Add some space to avoid collision as `ListItemSecondaryAction`
+  // is absolutely positioned.
+  paddingRight: 48
+}), !!ownerState.secondaryAction && {
+  [`& > .${_ListItemButton__WEBPACK_IMPORTED_MODULE_8__["default"].root}`]: {
+    paddingRight: 48
+  }
+}, {
+  [`&.${_listItemClasses__WEBPACK_IMPORTED_MODULE_6__["default"].focusVisible}`]: {
+    backgroundColor: (theme.vars || theme).palette.action.focus
+  },
+  [`&.${_listItemClasses__WEBPACK_IMPORTED_MODULE_6__["default"].selected}`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : (0,_mui_system__WEBPACK_IMPORTED_MODULE_9__.alpha)(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+    [`&.${_listItemClasses__WEBPACK_IMPORTED_MODULE_6__["default"].focusVisible}`]: {
+      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.focusOpacity}))` : (0,_mui_system__WEBPACK_IMPORTED_MODULE_9__.alpha)(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity)
+    }
+  },
+  [`&.${_listItemClasses__WEBPACK_IMPORTED_MODULE_6__["default"].disabled}`]: {
+    opacity: (theme.vars || theme).palette.action.disabledOpacity
+  }
+}, ownerState.alignItems === 'flex-start' && {
+  alignItems: 'flex-start'
+}, ownerState.divider && {
+  borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
+  backgroundClip: 'padding-box'
+}, ownerState.button && {
+  transition: theme.transitions.create('background-color', {
+    duration: theme.transitions.duration.shortest
+  }),
+  '&:hover': {
+    textDecoration: 'none',
+    backgroundColor: (theme.vars || theme).palette.action.hover,
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      backgroundColor: 'transparent'
+    }
+  },
+  [`&.${_listItemClasses__WEBPACK_IMPORTED_MODULE_6__["default"].selected}:hover`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.hoverOpacity}))` : (0,_mui_system__WEBPACK_IMPORTED_MODULE_9__.alpha)(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity),
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : (0,_mui_system__WEBPACK_IMPORTED_MODULE_9__.alpha)(theme.palette.primary.main, theme.palette.action.selectedOpacity)
+    }
+  }
+}, ownerState.hasSecondaryAction && {
+  // Add some space to avoid collision as `ListItemSecondaryAction`
+  // is absolutely positioned.
+  paddingRight: 48
+}));
+const ListItemContainer = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])('li', {
+  name: 'MuiListItem',
+  slot: 'Container',
+  overridesResolver: (props, styles) => styles.container
+})({
+  position: 'relative'
+});
+/**
+ * Uses an additional container component if `ListItemSecondaryAction` is the last child.
+ */
+
+const ListItem = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function ListItem(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_10__["default"])({
+    props: inProps,
+    name: 'MuiListItem'
+  });
+
+  const {
+    alignItems = 'center',
+    autoFocus = false,
+    button = false,
+    children: childrenProp,
+    className,
+    component: componentProp,
+    components = {},
+    componentsProps = {},
+    ContainerComponent = 'li',
+    ContainerProps: {
+      className: ContainerClassName
+    } = {},
+    dense = false,
+    disabled = false,
+    disableGutters = false,
+    disablePadding = false,
+    divider = false,
+    focusVisibleClassName,
+    secondaryAction,
+    selected = false
+  } = props,
+        ContainerProps = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(props.ContainerProps, _excluded),
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(props, _excluded2);
+
+  const context = react__WEBPACK_IMPORTED_MODULE_2__.useContext(_List_ListContext__WEBPACK_IMPORTED_MODULE_11__["default"]);
+  const childContext = {
+    dense: dense || context.dense || false,
+    alignItems,
+    disableGutters
+  };
+  const listItemRef = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
+  (0,_utils_useEnhancedEffect__WEBPACK_IMPORTED_MODULE_12__["default"])(() => {
+    if (autoFocus) {
+      if (listItemRef.current) {
+        listItemRef.current.focus();
+      } else if (true) {
+        console.error('MUI: Unable to set focus to a ListItem whose component has not been rendered.');
+      }
+    }
+  }, [autoFocus]);
+  const children = react__WEBPACK_IMPORTED_MODULE_2__.Children.toArray(childrenProp); // v4 implementation, deprecated in v5, will be removed in v6
+
+  const hasSecondaryAction = children.length && (0,_utils_isMuiElement__WEBPACK_IMPORTED_MODULE_13__["default"])(children[children.length - 1], ['ListItemSecondaryAction']);
+
+  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, {
+    alignItems,
+    autoFocus,
+    button,
+    dense: childContext.dense,
+    disabled,
+    disableGutters,
+    disablePadding,
+    divider,
+    hasSecondaryAction,
+    selected
+  });
+
+  const classes = useUtilityClasses(ownerState);
+  const handleRef = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_14__["default"])(listItemRef, ref);
+  const Root = components.Root || ListItemRoot;
+  const rootProps = componentsProps.root || {};
+
+  const componentProps = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, rootProps.className, className),
+    disabled
+  }, other);
+
+  let Component = componentProp || 'li';
+
+  if (button) {
+    componentProps.component = componentProp || 'div';
+    componentProps.focusVisibleClassName = (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(_listItemClasses__WEBPACK_IMPORTED_MODULE_6__["default"].focusVisible, focusVisibleClassName);
+    Component = _ButtonBase__WEBPACK_IMPORTED_MODULE_15__["default"];
+  } // v4 implementation, deprecated in v5, will be removed in v6
+
+
+  if (hasSecondaryAction) {
+    // Use div by default.
+    Component = !componentProps.component && !componentProp ? 'div' : Component; // Avoid nesting of li > li.
+
+    if (ContainerComponent === 'li') {
+      if (Component === 'li') {
+        Component = 'div';
+      } else if (componentProps.component === 'li') {
+        componentProps.component = 'div';
+      }
+    }
+
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_List_ListContext__WEBPACK_IMPORTED_MODULE_11__["default"].Provider, {
+      value: childContext,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(ListItemContainer, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+        as: ContainerComponent,
+        className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.container, ContainerClassName),
+        ref: handleRef,
+        ownerState: ownerState
+      }, ContainerProps, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Root, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, rootProps, !(0,_mui_base__WEBPACK_IMPORTED_MODULE_16__["default"])(Root) && {
+          as: Component,
+          ownerState: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, ownerState, rootProps.ownerState)
+        }, componentProps, {
+          children: children
+        })), children.pop()]
+      }))
+    });
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_List_ListContext__WEBPACK_IMPORTED_MODULE_11__["default"].Provider, {
+    value: childContext,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(Root, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, rootProps, {
+      as: Component,
+      ref: handleRef,
+      ownerState: ownerState
+    }, !(0,_mui_base__WEBPACK_IMPORTED_MODULE_16__["default"])(Root) && {
+      ownerState: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, ownerState, rootProps.ownerState)
+    }, componentProps, {
+      children: [children, secondaryAction && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ListItemSecondaryAction__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        children: secondaryAction
+      })]
+    }))
+  });
+});
+ true ? ListItem.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * Defines the `align-items` style property.
+   * @default 'center'
+   */
+  alignItems: prop_types__WEBPACK_IMPORTED_MODULE_18___default().oneOf(['center', 'flex-start']),
+
+  /**
+   * If `true`, the list item is focused during the first mount.
+   * Focus will also be triggered if the value changes from false to true.
+   * @default false
+   * @deprecated checkout [ListItemButton](/material-ui/api/list-item-button/) instead
+   */
+  autoFocus: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool),
+
+  /**
+   * If `true`, the list item is a button (using `ButtonBase`). Props intended
+   * for `ButtonBase` can then be applied to `ListItem`.
+   * @default false
+   * @deprecated checkout [ListItemButton](/material-ui/api/list-item-button/) instead
+   */
+  button: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool),
+
+  /**
+   * The content of the component if a `ListItemSecondaryAction` is used it must
+   * be the last child.
+   */
+  children: (0,_mui_utils__WEBPACK_IMPORTED_MODULE_19__["default"])((prop_types__WEBPACK_IMPORTED_MODULE_18___default().node), props => {
+    const children = react__WEBPACK_IMPORTED_MODULE_2__.Children.toArray(props.children); // React.Children.toArray(props.children).findLastIndex(isListItemSecondaryAction)
+
+    let secondaryActionIndex = -1;
+
+    for (let i = children.length - 1; i >= 0; i -= 1) {
+      const child = children[i];
+
+      if ((0,_utils_isMuiElement__WEBPACK_IMPORTED_MODULE_13__["default"])(child, ['ListItemSecondaryAction'])) {
+        secondaryActionIndex = i;
+        break;
+      }
+    } //  is ListItemSecondaryAction the last child of ListItem
+
+
+    if (secondaryActionIndex !== -1 && secondaryActionIndex !== children.length - 1) {
+      return new Error('MUI: You used an element after ListItemSecondaryAction. ' + 'For ListItem to detect that it has a secondary action ' + 'you must pass it as the last child to ListItem.');
+    }
+
+    return null;
+  }),
+
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().object),
+
+  /**
+   * @ignore
+   */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().string),
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().elementType),
+
+  /**
+   * The components used for each slot inside the InputBase.
+   * Either a string to use a HTML element or a component.
+   * @default {}
+   */
+  components: prop_types__WEBPACK_IMPORTED_MODULE_18___default().shape({
+    Root: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().elementType)
+  }),
+
+  /**
+   * The props used for each slot inside the Input.
+   * @default {}
+   */
+  componentsProps: prop_types__WEBPACK_IMPORTED_MODULE_18___default().shape({
+    root: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().object)
+  }),
+
+  /**
+   * The container component used when a `ListItemSecondaryAction` is the last child.
+   * @default 'li'
+   * @deprecated
+   */
+  ContainerComponent: _mui_utils__WEBPACK_IMPORTED_MODULE_20__["default"],
+
+  /**
+   * Props applied to the container component if used.
+   * @default {}
+   * @deprecated
+   */
+  ContainerProps: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().object),
+
+  /**
+   * If `true`, compact vertical padding designed for keyboard and mouse input is used.
+   * The prop defaults to the value inherited from the parent List component.
+   * @default false
+   */
+  dense: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool),
+
+  /**
+   * If `true`, the component is disabled.
+   * @default false
+   * @deprecated checkout [ListItemButton](/material-ui/api/list-item-button/) instead
+   */
+  disabled: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool),
+
+  /**
+   * If `true`, the left and right padding is removed.
+   * @default false
+   */
+  disableGutters: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool),
+
+  /**
+   * If `true`, all padding is removed.
+   * @default false
+   */
+  disablePadding: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool),
+
+  /**
+   * If `true`, a 1px light border is added to the bottom of the list item.
+   * @default false
+   */
+  divider: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool),
+
+  /**
+   * @ignore
+   */
+  focusVisibleClassName: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().string),
+
+  /**
+   * The element to display at the end of ListItem.
+   */
+  secondaryAction: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().node),
+
+  /**
+   * Use to apply selected styling.
+   * @default false
+   * @deprecated checkout [ListItemButton](/material-ui/api/list-item-button/) instead
+   */
+  selected: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool),
+
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_18___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_18___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_18___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_18___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_18___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool)])), (prop_types__WEBPACK_IMPORTED_MODULE_18___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_18___default().object)])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ListItem);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/ListItem/listItemClasses.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@mui/material/esm/ListItem/listItemClasses.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "getListItemUtilityClass": () => (/* binding */ getListItemUtilityClass)
+/* harmony export */ });
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClass/generateUtilityClass.js");
+/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClasses/generateUtilityClasses.js");
+
+function getListItemUtilityClass(slot) {
+  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_0__["default"])('MuiListItem', slot);
+}
+const listItemClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiListItem', ['root', 'container', 'focusVisible', 'dense', 'alignItemsFlexStart', 'disabled', 'divider', 'gutters', 'padding', 'button', 'secondaryAction', 'selected']);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (listItemClasses);
 
 /***/ }),
 
@@ -13635,6 +15431,408 @@ function getRadioUtilityClass(slot) {
 }
 const radioClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiRadio', ['root', 'checked', 'disabled', 'colorPrimary', 'colorSecondary']);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (radioClasses);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/esm/Slide/Slide.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@mui/material/esm/Slide/Slide.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "setTranslateValue": () => (/* binding */ setTranslateValue)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var react_transition_group__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-transition-group */ "./node_modules/react-transition-group/esm/Transition.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/elementAcceptingRef.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/chainPropTypes.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/HTMLElementType.js");
+/* harmony import */ var _utils_debounce__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../utils/debounce */ "./node_modules/@mui/material/esm/utils/debounce.js");
+/* harmony import */ var _utils_useForkRef__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/useForkRef */ "./node_modules/@mui/material/esm/utils/useForkRef.js");
+/* harmony import */ var _styles_useTheme__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/useTheme */ "./node_modules/@mui/material/esm/styles/useTheme.js");
+/* harmony import */ var _transitions_utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../transitions/utils */ "./node_modules/@mui/material/esm/transitions/utils.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils */ "./node_modules/@mui/material/esm/utils/ownerWindow.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["addEndListener", "appear", "children", "container", "direction", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
+
+
+
+
+
+
+
+
+ // Translate the node so it can't be seen on the screen.
+// Later, we're going to translate the node back to its original location with `none`.
+
+
+
+function getTranslateValue(direction, node, resolvedContainer) {
+  const rect = node.getBoundingClientRect();
+  const containerRect = resolvedContainer && resolvedContainer.getBoundingClientRect();
+  const containerWindow = (0,_utils__WEBPACK_IMPORTED_MODULE_4__["default"])(node);
+  let transform;
+
+  if (node.fakeTransform) {
+    transform = node.fakeTransform;
+  } else {
+    const computedStyle = containerWindow.getComputedStyle(node);
+    transform = computedStyle.getPropertyValue('-webkit-transform') || computedStyle.getPropertyValue('transform');
+  }
+
+  let offsetX = 0;
+  let offsetY = 0;
+
+  if (transform && transform !== 'none' && typeof transform === 'string') {
+    const transformValues = transform.split('(')[1].split(')')[0].split(',');
+    offsetX = parseInt(transformValues[4], 10);
+    offsetY = parseInt(transformValues[5], 10);
+  }
+
+  if (direction === 'left') {
+    if (containerRect) {
+      return `translateX(${containerRect.right + offsetX - rect.left}px)`;
+    }
+
+    return `translateX(${containerWindow.innerWidth + offsetX - rect.left}px)`;
+  }
+
+  if (direction === 'right') {
+    if (containerRect) {
+      return `translateX(-${rect.right - containerRect.left - offsetX}px)`;
+    }
+
+    return `translateX(-${rect.left + rect.width - offsetX}px)`;
+  }
+
+  if (direction === 'up') {
+    if (containerRect) {
+      return `translateY(${containerRect.bottom + offsetY - rect.top}px)`;
+    }
+
+    return `translateY(${containerWindow.innerHeight + offsetY - rect.top}px)`;
+  } // direction === 'down'
+
+
+  if (containerRect) {
+    return `translateY(-${rect.top - containerRect.top + rect.height - offsetY}px)`;
+  }
+
+  return `translateY(-${rect.top + rect.height - offsetY}px)`;
+}
+
+function resolveContainer(containerPropProp) {
+  return typeof containerPropProp === 'function' ? containerPropProp() : containerPropProp;
+}
+
+function setTranslateValue(direction, node, containerProp) {
+  const resolvedContainer = resolveContainer(containerProp);
+  const transform = getTranslateValue(direction, node, resolvedContainer);
+
+  if (transform) {
+    node.style.webkitTransform = transform;
+    node.style.transform = transform;
+  }
+}
+/**
+ * The Slide transition is used by the [Drawer](/material-ui/react-drawer/) component.
+ * It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+ */
+
+const Slide = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function Slide(props, ref) {
+  const theme = (0,_styles_useTheme__WEBPACK_IMPORTED_MODULE_5__["default"])();
+  const defaultEasing = {
+    enter: theme.transitions.easing.easeOut,
+    exit: theme.transitions.easing.sharp
+  };
+  const defaultTimeout = {
+    enter: theme.transitions.duration.enteringScreen,
+    exit: theme.transitions.duration.leavingScreen
+  };
+
+  const {
+    addEndListener,
+    appear = true,
+    children,
+    container: containerProp,
+    direction = 'down',
+    easing: easingProp = defaultEasing,
+    in: inProp,
+    onEnter,
+    onEntered,
+    onEntering,
+    onExit,
+    onExited,
+    onExiting,
+    style,
+    timeout = defaultTimeout,
+    // eslint-disable-next-line react/prop-types
+    TransitionComponent = react_transition_group__WEBPACK_IMPORTED_MODULE_6__["default"]
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(props, _excluded);
+
+  const childrenRef = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
+  const handleRefIntermediary = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_7__["default"])(children.ref, childrenRef);
+  const handleRef = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_7__["default"])(handleRefIntermediary, ref);
+
+  const normalizedTransitionCallback = callback => isAppearing => {
+    if (callback) {
+      // onEnterXxx and onExitXxx callbacks have a different arguments.length value.
+      if (isAppearing === undefined) {
+        callback(childrenRef.current);
+      } else {
+        callback(childrenRef.current, isAppearing);
+      }
+    }
+  };
+
+  const handleEnter = normalizedTransitionCallback((node, isAppearing) => {
+    setTranslateValue(direction, node, containerProp);
+    (0,_transitions_utils__WEBPACK_IMPORTED_MODULE_8__.reflow)(node);
+
+    if (onEnter) {
+      onEnter(node, isAppearing);
+    }
+  });
+  const handleEntering = normalizedTransitionCallback((node, isAppearing) => {
+    const transitionProps = (0,_transitions_utils__WEBPACK_IMPORTED_MODULE_8__.getTransitionProps)({
+      timeout,
+      style,
+      easing: easingProp
+    }, {
+      mode: 'enter'
+    });
+    node.style.webkitTransition = theme.transitions.create('-webkit-transform', (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, transitionProps));
+    node.style.transition = theme.transitions.create('transform', (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, transitionProps));
+    node.style.webkitTransform = 'none';
+    node.style.transform = 'none';
+
+    if (onEntering) {
+      onEntering(node, isAppearing);
+    }
+  });
+  const handleEntered = normalizedTransitionCallback(onEntered);
+  const handleExiting = normalizedTransitionCallback(onExiting);
+  const handleExit = normalizedTransitionCallback(node => {
+    const transitionProps = (0,_transitions_utils__WEBPACK_IMPORTED_MODULE_8__.getTransitionProps)({
+      timeout,
+      style,
+      easing: easingProp
+    }, {
+      mode: 'exit'
+    });
+    node.style.webkitTransition = theme.transitions.create('-webkit-transform', transitionProps);
+    node.style.transition = theme.transitions.create('transform', transitionProps);
+    setTranslateValue(direction, node, containerProp);
+
+    if (onExit) {
+      onExit(node);
+    }
+  });
+  const handleExited = normalizedTransitionCallback(node => {
+    // No need for transitions when the component is hidden
+    node.style.webkitTransition = '';
+    node.style.transition = '';
+
+    if (onExited) {
+      onExited(node);
+    }
+  });
+
+  const handleAddEndListener = next => {
+    if (addEndListener) {
+      // Old call signature before `react-transition-group` implemented `nodeRef`
+      addEndListener(childrenRef.current, next);
+    }
+  };
+
+  const updatePosition = react__WEBPACK_IMPORTED_MODULE_2__.useCallback(() => {
+    if (childrenRef.current) {
+      setTranslateValue(direction, childrenRef.current, containerProp);
+    }
+  }, [direction, containerProp]);
+  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
+    // Skip configuration where the position is screen size invariant.
+    if (inProp || direction === 'down' || direction === 'right') {
+      return undefined;
+    }
+
+    const handleResize = (0,_utils_debounce__WEBPACK_IMPORTED_MODULE_9__["default"])(() => {
+      if (childrenRef.current) {
+        setTranslateValue(direction, childrenRef.current, containerProp);
+      }
+    });
+    const containerWindow = (0,_utils__WEBPACK_IMPORTED_MODULE_4__["default"])(childrenRef.current);
+    containerWindow.addEventListener('resize', handleResize);
+    return () => {
+      handleResize.clear();
+      containerWindow.removeEventListener('resize', handleResize);
+    };
+  }, [direction, inProp, containerProp]);
+  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
+    if (!inProp) {
+      // We need to update the position of the drawer when the direction change and
+      // when it's hidden.
+      updatePosition();
+    }
+  }, [inProp, updatePosition]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(TransitionComponent, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    nodeRef: childrenRef,
+    onEnter: handleEnter,
+    onEntered: handleEntered,
+    onEntering: handleEntering,
+    onExit: handleExit,
+    onExited: handleExited,
+    onExiting: handleExiting,
+    addEndListener: handleAddEndListener,
+    appear: appear,
+    in: inProp,
+    timeout: timeout
+  }, other, {
+    children: (state, childProps) => {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.cloneElement(children, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        ref: handleRef,
+        style: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+          visibility: state === 'exited' && !inProp ? 'hidden' : undefined
+        }, style, children.props.style)
+      }, childProps));
+    }
+  }));
+});
+ true ? Slide.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * Add a custom transition end trigger. Called with the transitioning DOM
+   * node and a done callback. Allows for more fine grained transition end
+   * logic. Note: Timeouts are still used as a fallback if provided.
+   */
+  addEndListener: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func),
+
+  /**
+   * Perform the enter transition when it first mounts if `in` is also `true`.
+   * Set this to `false` to disable this behavior.
+   * @default true
+   */
+  appear: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().bool),
+
+  /**
+   * A single child content element.
+   */
+  children: _mui_utils__WEBPACK_IMPORTED_MODULE_11__["default"].isRequired,
+
+  /**
+   * An HTML element, or a function that returns one.
+   * It's used to set the container the Slide is transitioning from.
+   */
+  container: (0,_mui_utils__WEBPACK_IMPORTED_MODULE_12__["default"])(prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([_mui_utils__WEBPACK_IMPORTED_MODULE_13__["default"], (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func)]), props => {
+    if (props.open) {
+      const resolvedContainer = resolveContainer(props.container);
+
+      if (resolvedContainer && resolvedContainer.nodeType === 1) {
+        const box = resolvedContainer.getBoundingClientRect();
+
+        if ( true && box.top === 0 && box.left === 0 && box.right === 0 && box.bottom === 0) {
+          return new Error(['MUI: The `container` prop provided to the component is invalid.', 'The anchor element should be part of the document layout.', "Make sure the element is present in the document or that it's not display none."].join('\n'));
+        }
+      } else if (!resolvedContainer || typeof resolvedContainer.getBoundingClientRect !== 'function' || resolvedContainer.contextElement != null && resolvedContainer.contextElement.nodeType !== 1) {
+        return new Error(['MUI: The `container` prop provided to the component is invalid.', 'It should be an HTML element instance.'].join('\n'));
+      }
+    }
+
+    return null;
+  }),
+
+  /**
+   * Direction the child node will enter from.
+   * @default 'down'
+   */
+  direction: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOf(['down', 'left', 'right', 'up']),
+
+  /**
+   * The transition timing function.
+   * You may specify a single easing or a object containing enter and exit values.
+   * @default {
+   *   enter: theme.transitions.easing.easeOut,
+   *   exit: theme.transitions.easing.sharp,
+   * }
+   */
+  easing: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_10___default().shape({
+    enter: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string),
+    exit: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string)
+  }), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string)]),
+
+  /**
+   * If `true`, the component will transition in.
+   */
+  in: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().bool),
+
+  /**
+   * @ignore
+   */
+  onEnter: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func),
+
+  /**
+   * @ignore
+   */
+  onEntered: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func),
+
+  /**
+   * @ignore
+   */
+  onEntering: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func),
+
+  /**
+   * @ignore
+   */
+  onExit: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func),
+
+  /**
+   * @ignore
+   */
+  onExited: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func),
+
+  /**
+   * @ignore
+   */
+  onExiting: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func),
+
+  /**
+   * @ignore
+   */
+  style: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object),
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   * @default {
+   *   enter: theme.transitions.duration.enteringScreen,
+   *   exit: theme.transitions.duration.leavingScreen,
+   * }
+   */
+  timeout: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_10___default().number), prop_types__WEBPACK_IMPORTED_MODULE_10___default().shape({
+    appear: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().number),
+    enter: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().number),
+    exit: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().number)
+  })])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Slide);
 
 /***/ }),
 
@@ -33751,7 +35949,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
@@ -33761,15 +35959,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material_Link__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Link */ "./node_modules/@mui/material/esm/Link/Link.js");
 /* harmony import */ var _mui_material_Menu__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/Menu */ "./node_modules/@mui/material/esm/Menu/Menu.js");
 /* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
-/* harmony import */ var _mui_material_Modal__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @mui/material/Modal */ "./node_modules/@mui/material/esm/Modal/Modal.js");
+/* harmony import */ var _mui_material_Modal__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! @mui/material/Modal */ "./node_modules/@mui/material/esm/Modal/Modal.js");
+/* harmony import */ var _mui_material_Drawer__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @mui/material/Drawer */ "./node_modules/@mui/material/esm/Drawer/Drawer.js");
 /* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
 /* harmony import */ var _mui_material_SvgIcon__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material/SvgIcon */ "./node_modules/@mui/material/esm/SvgIcon/SvgIcon.js");
 /* harmony import */ var _mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/MenuItem */ "./node_modules/@mui/material/esm/MenuItem/MenuItem.js");
 /* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
 /* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
-/* harmony import */ var _mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @mui/material/OutlinedInput */ "./node_modules/@mui/material/esm/OutlinedInput/OutlinedInput.js");
-/* harmony import */ var _mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @mui/material/InputAdornment */ "./node_modules/@mui/material/esm/InputAdornment/InputAdornment.js");
-/* harmony import */ var _mui_material_useMediaQuery__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @mui/material/useMediaQuery */ "./node_modules/@mui/material/esm/useMediaQuery/useMediaQuery.js");
+/* harmony import */ var _mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! @mui/material/OutlinedInput */ "./node_modules/@mui/material/esm/OutlinedInput/OutlinedInput.js");
+/* harmony import */ var _mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! @mui/material/InputAdornment */ "./node_modules/@mui/material/esm/InputAdornment/InputAdornment.js");
+/* harmony import */ var _mui_material_List__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @mui/material/List */ "./node_modules/@mui/material/esm/List/List.js");
+/* harmony import */ var _mui_material_ListItem__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @mui/material/ListItem */ "./node_modules/@mui/material/esm/ListItem/ListItem.js");
+/* harmony import */ var _mui_material_ListItemButton__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @mui/material/ListItemButton */ "./node_modules/@mui/material/esm/ListItemButton/ListItemButton.js");
+/* harmony import */ var _mui_material_ListItemIcon__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @mui/material/ListItemIcon */ "./node_modules/@mui/material/esm/ListItemIcon/ListItemIcon.js");
+/* harmony import */ var _mui_material_ListItemText__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @mui/material/ListItemText */ "./node_modules/@mui/material/esm/ListItemText/ListItemText.js");
+/* harmony import */ var _mui_material_useMediaQuery__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @mui/material/useMediaQuery */ "./node_modules/@mui/material/esm/useMediaQuery/useMediaQuery.js");
 /* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
 /* harmony import */ var _mui_icons_material_East__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/icons-material/East */ "./node_modules/@mui/icons-material/East.js");
 /* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
@@ -33777,8 +35981,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_icons_material_MoreVert__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @mui/icons-material/MoreVert */ "./node_modules/@mui/icons-material/MoreVert.js");
 /* harmony import */ var _mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/icons-material/Close */ "./node_modules/@mui/icons-material/Close.js");
 /* harmony import */ var _mui_icons_material_Menu__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @mui/icons-material/Menu */ "./node_modules/@mui/icons-material/Menu.js");
-/* harmony import */ var _mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @mui/icons-material/Visibility */ "./node_modules/@mui/icons-material/Visibility.js");
-/* harmony import */ var _mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @mui/icons-material/VisibilityOff */ "./node_modules/@mui/icons-material/VisibilityOff.js");
+/* harmony import */ var _mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! @mui/icons-material/Visibility */ "./node_modules/@mui/icons-material/Visibility.js");
+/* harmony import */ var _mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! @mui/icons-material/VisibilityOff */ "./node_modules/@mui/icons-material/VisibilityOff.js");
+/* harmony import */ var _mui_icons_material_LiveTv__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @mui/icons-material/LiveTv */ "./node_modules/@mui/icons-material/LiveTv.js");
+/* harmony import */ var _mui_icons_material_Sports__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @mui/icons-material/Sports */ "./node_modules/@mui/icons-material/Sports.js");
+/* harmony import */ var _mui_icons_material_Casino__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @mui/icons-material/Casino */ "./node_modules/@mui/icons-material/Casino.js");
+/* harmony import */ var _mui_icons_material_SportsEsports__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @mui/icons-material/SportsEsports */ "./node_modules/@mui/icons-material/SportsEsports.js");
 /* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
 /* harmony import */ var _assets_img_logo_logo_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/img/logo/logo.png */ "./resources/js/src/assets/img/logo/logo.png");
 /* harmony import */ var _assets_img_feature_en_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../assets/img/feature/en.svg */ "./resources/js/src/assets/img/feature/en.svg");
@@ -33812,6 +36020,16 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34213,6 +36431,8 @@ var Desktop = function Desktop(_ref) {
 };
 
 var Mobile = function Mobile(_ref6) {
+  var _ref7;
+
   var user = _ref6.user,
       langList = _ref6.langList,
       showProfile = _ref6.showProfile,
@@ -34227,6 +36447,16 @@ var Mobile = function Mobile(_ref6) {
       openLogin = _ref6.openLogin,
       openRegister = _ref6.openRegister,
       logoutAction = _ref6.logoutAction;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      drawer = _useState2[0],
+      setDrawer = _useState2[1];
+
+  var toggleDrawer = function toggleDrawer(e) {
+    setDrawer(e);
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
       sx: {
@@ -34271,16 +36501,17 @@ var Mobile = function Mobile(_ref6) {
                   mb: .2,
                   textAlign: 'right'
                 },
-                children: "ID 14680231"
+                children: "ID ".concat(user.id)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
                 sx: {
                   fontSize: 14,
                   lineHeight: 1,
                   textAlign: 'right'
                 },
-                children: "User Name"
+                children: user.username
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_27__["default"], {
+              onClick: openProfile,
               sx: {
                 ml: 1,
                 bgcolor: '#252f4b',
@@ -34295,11 +36526,69 @@ var Mobile = function Mobile(_ref6) {
                 }
               },
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Person__WEBPACK_IMPORTED_MODULE_23__["default"], {})
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Menu__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              sx: (_ref7 = {
+                mt: function mt(theme) {
+                  return theme.spacing(5);
+                }
+              }, _defineProperty(_ref7, "& .MuiPopover-paper", {
+                bgcolor: 'white',
+                borderRadius: 2
+              }), _defineProperty(_ref7, "& .MuiPopover-paper ul", {
+                minWidth: function minWidth(theme) {
+                  return theme.spacing(8);
+                }
+              }), _ref7),
+              id: "menu-appbar",
+              anchorEl: showProfile,
+              anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right'
+              },
+              keepMounted: true,
+              transformOrigin: {
+                vertical: 'top',
+                horizontal: 'right'
+              },
+              open: Boolean(showProfile),
+              onClose: closeProfile,
+              children: [profile.map(function (item, idx) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                  onClick: closeProfile,
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                    textAlign: "center",
+                    sx: {
+                      color: 'black',
+                      fontSize: function fontSize(theme) {
+                        return theme.spacing(1.5);
+                      }
+                    },
+                    children: item
+                  })
+                }, idx);
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                onClick: function onClick() {
+                  return logoutAction();
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                  textAlign: "center",
+                  sx: {
+                    color: 'black',
+                    fontSize: function fontSize(theme) {
+                      return theme.spacing(1.5);
+                    }
+                  },
+                  children: "Log Out"
+                })
+              })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_27__["default"], {
             sx: {
               p: 0,
               ml: 2
+            },
+            onClick: function onClick() {
+              return toggleDrawer(true);
             },
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Menu__WEBPACK_IMPORTED_MODULE_28__["default"], {
               sx: {
@@ -34321,6 +36610,9 @@ var Mobile = function Mobile(_ref6) {
           width: 'calc(50% - 16px)'
         },
         className: "btn primary",
+        onClick: function onClick() {
+          return openLogin();
+        },
         children: "Sign in"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
         sx: {
@@ -34328,19 +36620,143 @@ var Mobile = function Mobile(_ref6) {
           width: '50%'
         },
         className: "btn success animation",
+        onClick: function onClick() {
+          return openRegister();
+        },
         children: "Sign up"
       })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Drawer__WEBPACK_IMPORTED_MODULE_29__["default"], {
+      anchor: "right",
+      open: drawer,
+      onClose: function onClose() {
+        return toggleDrawer(false);
+      },
+      className: "drawer",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        sx: {
+          width: 275
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
+          sx: {
+            px: 3.75,
+            pt: 3.75,
+            width: '100%',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
+            sx: {
+              alignItems: 'center',
+              position: 'relative'
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_27__["default"], {
+              onClick: openProfile,
+              sx: {
+                mr: 1,
+                bgcolor: '#4e5d86',
+                borderRadius: 2,
+                p: 0,
+                width: 30,
+                height: 30,
+                boxShadow: '0 2px 14px 0 rgb(37 47 75 / 90%)',
+                '&:hover': {
+                  bgcolor: '#141b2e',
+                  boxShadow: 'unset'
+                }
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Person__WEBPACK_IMPORTED_MODULE_23__["default"], {})
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              sx: {
+                borderRadius: 2,
+                height: 30
+              },
+              className: "btn success animation",
+              onClick: function onClick() {
+                return openRegister();
+              },
+              children: "Sign up"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_27__["default"], {
+            sx: {
+              padding: 0
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_24__["default"], {
+              onClick: function onClick() {
+                return toggleDrawer(false);
+              }
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          sx: {
+            mt: 2
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_List__WEBPACK_IMPORTED_MODULE_30__["default"], {
+            sx: {
+              padding: 0
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItem__WEBPACK_IMPORTED_MODULE_31__["default"], {
+              disablePadding: true,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_ListItemButton__WEBPACK_IMPORTED_MODULE_32__["default"], {
+                sx: {
+                  pl: 4
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItemIcon__WEBPACK_IMPORTED_MODULE_33__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_LiveTv__WEBPACK_IMPORTED_MODULE_34__["default"], {})
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItemText__WEBPACK_IMPORTED_MODULE_35__["default"], {
+                  primary: "Live"
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItem__WEBPACK_IMPORTED_MODULE_31__["default"], {
+              disablePadding: true,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_ListItemButton__WEBPACK_IMPORTED_MODULE_32__["default"], {
+                sx: {
+                  pl: 4
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItemIcon__WEBPACK_IMPORTED_MODULE_33__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Sports__WEBPACK_IMPORTED_MODULE_36__["default"], {})
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItemText__WEBPACK_IMPORTED_MODULE_35__["default"], {
+                  primary: "Sports"
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItem__WEBPACK_IMPORTED_MODULE_31__["default"], {
+              disablePadding: true,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_ListItemButton__WEBPACK_IMPORTED_MODULE_32__["default"], {
+                sx: {
+                  pl: 4
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItemIcon__WEBPACK_IMPORTED_MODULE_33__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Casino__WEBPACK_IMPORTED_MODULE_37__["default"], {})
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItemText__WEBPACK_IMPORTED_MODULE_35__["default"], {
+                  primary: "Casino"
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItem__WEBPACK_IMPORTED_MODULE_31__["default"], {
+              disablePadding: true,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_ListItemButton__WEBPACK_IMPORTED_MODULE_32__["default"], {
+                sx: {
+                  pl: 4
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItemIcon__WEBPACK_IMPORTED_MODULE_33__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_SportsEsports__WEBPACK_IMPORTED_MODULE_38__["default"], {})
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_ListItemText__WEBPACK_IMPORTED_MODULE_35__["default"], {
+                  primary: "Game"
+                })]
+              })
+            })]
+          })
+        })]
+      })
     })]
   });
 };
 
 var Header = function Header() {
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_29__.useNavigate)();
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_39__.useNavigate)();
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var user = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.user;
   });
-  var isMobile = (0,_mui_material_useMediaQuery__WEBPACK_IMPORTED_MODULE_30__["default"])('(max-width:425px)');
+  var isMobile = (0,_mui_material_useMediaQuery__WEBPACK_IMPORTED_MODULE_40__["default"])('(max-width:425px)');
   var list = [{
     name: 'Home',
     route: '/home'
@@ -34365,41 +36781,41 @@ var Header = function Header() {
   }];
   var profile = ['Withdraw', 'Setting', 'Bet History'];
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      _useState2 = _slicedToArray(_useState, 2),
-      active = _useState2[0],
-      setActive = _useState2[1];
-
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState4 = _slicedToArray(_useState3, 2),
-      login = _useState4[0],
-      setLogin = _useState4[1];
+      active = _useState4[0],
+      setActive = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState6 = _slicedToArray(_useState5, 2),
-      register = _useState6[0],
-      setRegister = _useState6[1];
+      login = _useState6[0],
+      setLogin = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      langList = _useState8[0],
-      setLangList = _useState8[1];
+      register = _useState8[0],
+      setRegister = _useState8[1];
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState10 = _slicedToArray(_useState9, 2),
-      showProfile = _useState10[0],
-      setShowProfile = _useState10[1];
+      langList = _useState10[0],
+      setLangList = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState12 = _slicedToArray(_useState11, 2),
+      showProfile = _useState12[0],
+      setShowProfile = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     username: '',
     email: '',
     password: '',
     confirm: '',
     showPassword: false
   }),
-      _useState12 = _slicedToArray(_useState11, 2),
-      values = _useState12[0],
-      setValues = _useState12[1];
+      _useState14 = _slicedToArray(_useState13, 2),
+      values = _useState14[0],
+      setValues = _useState14[1];
 
   var handleChange = function handleChange(prop) {
     return function (event) {
@@ -34453,7 +36869,7 @@ var Header = function Header() {
   };
 
   var loginAction = /*#__PURE__*/function () {
-    var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -34483,7 +36899,7 @@ var Header = function Header() {
     }));
 
     return function loginAction() {
-      return _ref7.apply(this, arguments);
+      return _ref8.apply(this, arguments);
     };
   }();
 
@@ -34538,7 +36954,7 @@ var Header = function Header() {
       openLogin: openLogin,
       openRegister: openRegister,
       logoutAction: logoutAction
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Modal__WEBPACK_IMPORTED_MODULE_31__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Modal__WEBPACK_IMPORTED_MODULE_41__["default"], {
       open: login,
       onClose: closeLogin,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
@@ -34595,7 +37011,7 @@ var Header = function Header() {
             sx: {
               my: 3
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_32__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_42__["default"], {
               type: "text",
               placeholder: "Username / Email",
               name: "username",
@@ -34619,18 +37035,18 @@ var Header = function Header() {
                   }
                 }
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_32__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_42__["default"], {
               type: values.showPassword ? 'text' : 'password',
               value: values.password,
               placeholder: "Password",
               name: "password",
               onChange: handleChange('password'),
-              endAdornment: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_33__["default"], {
+              endAdornment: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_43__["default"], {
                 position: "end",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_27__["default"], {
                   onClick: handleClickShowPassword,
                   edge: "end",
-                  children: values.showPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_34__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_35__["default"], {})
+                  children: values.showPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_44__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_45__["default"], {})
                 })
               }),
               sx: {
@@ -34701,7 +37117,7 @@ var Header = function Header() {
           })]
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Modal__WEBPACK_IMPORTED_MODULE_31__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Modal__WEBPACK_IMPORTED_MODULE_41__["default"], {
       open: register,
       onClose: closeRegister,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
@@ -34758,7 +37174,7 @@ var Header = function Header() {
             sx: {
               my: 3
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_32__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_42__["default"], {
               type: "text",
               placeholder: "Username",
               name: "username",
@@ -34782,7 +37198,7 @@ var Header = function Header() {
                   }
                 }
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_32__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_42__["default"], {
               type: "text",
               placeholder: "Email",
               name: "email",
@@ -34806,18 +37222,18 @@ var Header = function Header() {
                   }
                 }
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_32__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_42__["default"], {
               type: values.showPassword ? 'text' : 'password',
               value: values.password,
               name: "password",
               placeholder: "Password",
               onChange: handleChange('password'),
-              endAdornment: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_33__["default"], {
+              endAdornment: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_43__["default"], {
                 position: "end",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_27__["default"], {
                   onClick: handleClickShowPassword,
                   edge: "end",
-                  children: values.showPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_34__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_35__["default"], {})
+                  children: values.showPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_44__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_45__["default"], {})
                 })
               }),
               sx: {
@@ -34839,18 +37255,18 @@ var Header = function Header() {
                   }
                 }
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_32__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_42__["default"], {
               type: values.showPassword ? 'text' : 'password',
               value: values.confirm,
               name: "confirm",
               placeholder: "Confirm Password",
               onChange: handleChange('confirm'),
-              endAdornment: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_33__["default"], {
+              endAdornment: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_43__["default"], {
                 position: "end",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_27__["default"], {
                   onClick: handleClickShowPassword,
                   edge: "end",
-                  children: values.showPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_34__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_35__["default"], {})
+                  children: values.showPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_44__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_45__["default"], {})
                 })
               }),
               sx: {
@@ -35839,7 +38255,7 @@ var ___CSS_LOADER_URL_REPLACEMENT_4___ = _node_modules_css_loader_dist_runtime_g
 var ___CSS_LOADER_URL_REPLACEMENT_5___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_img_feature_separator_svg__WEBPACK_IMPORTED_MODULE_7__["default"]);
 var ___CSS_LOADER_URL_REPLACEMENT_6___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_img_feature_volleyball_png__WEBPACK_IMPORTED_MODULE_8__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* @font-face {\n    font-family: 'font name';\n    src: url(\"url\");\n} */\nbody {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, \"Courier New\", monospace;\n}\n\n/* Scroll */\n.bet-swiper {\n  height: 100%;\n}\n\n::-webkit-scrollbar {\n  height: 0.3rem;\n  width: 0.3rem;\n}\n\n::-webkit-scrollbar-thumb {\n  background-color: hsla(0deg, 0%, 85%, 0.3);\n  border-radius: 3px;\n}\n\n.sports-icon {\n  align-items: center;\n  background-repeat: no-repeat;\n  display: flex;\n  font-size: 14px;\n  height: 1em;\n  justify-content: center;\n  -o-object-fit: cover;\n     object-fit: cover;\n  overflow: visible;\n  width: 1em;\n  min-width: 1em;\n  -webkit-mask-repeat: no-repeat;\n  -webkit-mask-position: center;\n  -webkit-mask-size: 100%;\n  background: #fff;\n}\n\n.betslip-icon {\n  background-color: #94a6cd;\n}\n\n.icon-soccer {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n\n.icon-basketball {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n}\n\n.icon-cricket {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n}\n\n.icon-american-football {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n}\n\n.icon-tennis {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n}\n\n.icon-table-tennis {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n}\n\n/* Swiper slider */\n.bet-swiper {\n  height: 100%;\n  border-radius: 20px;\n}\n.bet-swiper .swiper-button-prev {\n  z-index: 11;\n  left: unset;\n  top: unset;\n  bottom: 10px;\n  right: 55px;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-prev::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-prev:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-prev:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-button-next {\n  z-index: 11;\n  bottom: 10px;\n  right: 10px;\n  top: unset;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-next::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-next:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-next:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet-active {\n  background: #ffffff;\n}\n.bet-swiper .swiper-slide {\n  height: unset !important;\n}\n.bet-swiper .swiper-slide img {\n  width: 100%;\n  height: 100%;\n}\n\n/*.popular-events */\n.popular-events {\n  height: 100%;\n  width: 100%;\n  padding-bottom: 16px !important;\n}\n.popular-events:hover .swiper-button-prev,\n.popular-events:hover .swiper-button-next {\n  opacity: 1;\n}\n.popular-events .swiper-button-prev {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-prev::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-button-next {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-next::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-pagination {\n  bottom: -6px !important;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet-active {\n  background: #5b8fdd;\n}\n\n.top-live-casino {\n  height: 100%;\n  width: 100%;\n}\n.top-live-casino:hover .swiper-button-prev,\n.top-live-casino:hover .swiper-button-next {\n  opacity: 1 !important;\n}\n.top-live-casino .swiper-button-prev {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0 !important;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.top-live-casino .swiper-button-prev::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.top-live-casino .swiper-button-next {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0 !important;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.top-live-casino .swiper-button-next::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n\n@-webkit-keyframes flare {\n  0% {\n    left: -45px;\n  }\n  20% {\n    left: calc(100% + 15px);\n  }\n  to {\n    left: calc(100% + 15px);\n  }\n}\n@keyframes flare {\n  0% {\n    left: -45px;\n  }\n  20% {\n    left: calc(100% + 15px);\n  }\n  to {\n    left: calc(100% + 15px);\n  }\n}\n@-webkit-keyframes flare-2 {\n  0% {\n    transform: translateX(-115%) rotate(-45deg);\n  }\n  20% {\n    transform: translateX(140%) rotate(-45deg);\n  }\n  to {\n    transform: translateX(140%) rotate(-45deg);\n  }\n}\n@keyframes flare-2 {\n  0% {\n    transform: translateX(-115%) rotate(-45deg);\n  }\n  20% {\n    transform: translateX(140%) rotate(-45deg);\n  }\n  to {\n    transform: translateX(140%) rotate(-45deg);\n  }\n}\n@-webkit-keyframes pulse-dot {\n  0% {\n    transform: scale(0.33);\n    opacity: 1;\n  }\n  to {\n    transform: scale(1);\n    opacity: 0;\n  }\n}\n@keyframes pulse-dot {\n  0% {\n    transform: scale(0.33);\n    opacity: 1;\n  }\n  to {\n    transform: scale(1);\n    opacity: 0;\n  }\n}\n.header_top {\n  height: 52px;\n  align-items: center;\n  justify-content: space-between !important;\n}\n.header_top .free_link {\n  padding: 5px 28px 6px 50px;\n  border-radius: 15px;\n  background-image: linear-gradient(285.39deg, #ffb800 -4.36%, #fff173 115.87%);\n  font-weight: 600;\n  color: #090f1e;\n  position: relative;\n  text-decoration: none;\n  align-items: center;\n  line-height: 1;\n  cursor: pointer;\n}\n.header_top .free_link .money_img {\n  background-image: url(\"https://cdn-1win.xyz/img/free-money-link-image.ac893118-120.png\");\n  display: \"block\";\n  width: 60px;\n  height: 33px;\n  position: absolute;\n  bottom: 0;\n  left: -6px;\n  background-size: 100%;\n  background-repeat: no-repeat;\n  pointer-events: none;\n}\n.header_top .top_promotion {\n  margin-right: 21px;\n  position: relative;\n}\n.header_top .top_promotion:before {\n  content: \"\";\n  display: block;\n  height: 14px;\n  width: 1px;\n  background: hsla(0deg, 0%, 100%, 0.2);\n  position: absolute;\n  right: -10px;\n  top: calc(50% - 7px);\n}\n.header_top .top_promotion .top_BonusLink {\n  height: 24px;\n  display: flex;\n  align-items: center;\n  border-radius: 13px;\n  background-color: rgba(78, 93, 134, 0.3);\n  border-bottom-left-radius: 30px;\n  border-top-left-radius: 30px;\n  position: relative;\n  cursor: pointer;\n  flex-direction: row;\n}\n.header_top .top_promotion .top_BonusLink .top_circle {\n  height: 28px;\n  width: 28px;\n  background: linear-gradient(86.37deg, #d062ff 2.96%, #7bb0ff 99.68%), linear-gradient(90deg, #ed6ea0, #ec8c69);\n  box-shadow: 0 5px 15px rgba(201, 85, 255, 0.4);\n  border-radius: 50%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-right: 10px;\n}\n.header_top .top_promotion .top_BonusLink .top_circle svg {\n  height: 1em;\n}\n.header_top .top_promotion .top_BonusLink .top_bonus_img {\n  position: absolute;\n  height: 54px;\n  transform: rotate(-13deg);\n  right: -17px;\n  top: -17px;\n  pointer-events: none;\n}\n.header_top .lang_btn {\n  width: 60px;\n  height: 24px;\n  min-height: 24px;\n  padding: 0;\n  background: rgba(78, 93, 134, 0.3);\n  font-size: 12px;\n  color: #fff;\n  border-radius: 8px;\n}\n.header_top .lang_btn .MuiButton-endIcon {\n  margin-left: 0px !important;\n}\n.header_top .lang_icon {\n  width: 15px;\n  height: 15px;\n  border-radius: 50px;\n  margin-left: 4px;\n}\n\n.header_wraper {\n  position: sticky;\n  z-index: 100;\n  top: -1px;\n  height: 47px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.header_wraper .header {\n  max-width: 1900px;\n  max-height: 47px;\n  height: 100%;\n  width: 100%;\n  margin: 0 auto;\n  padding: 0 10px;\n  display: flex;\n  -webkit-box-align: center;\n  justify-content: space-between;\n  align-items: center;\n  background-image: linear-gradient(92deg, #1e283f, rgba(20, 27, 46, 0.6));\n  background-color: #090f1e;\n  box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.6);\n  border-radius: 10px;\n  transition: border-radius 0.2s;\n  will-change: border-radius, transform;\n  position: relative;\n}\n.header_wraper .header .level-item {\n  align-items: center;\n  display: flex;\n}\n.header_wraper .header .level-item:not(:last-child) {\n  margin-right: 1rem;\n}\n.header_wraper .header .level-item .logo-container {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.header_wraper .header .level-item .logo-container a {\n  display: flex;\n}\n.header_wraper .header .level-item .user_btn {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n  background: #1f2841;\n  border-radius: 20px 8px 8px 20px;\n  padding: 3px 8px 3px 3px;\n  min-width: 0;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap {\n  align-items: center;\n  border-radius: 50%;\n  background-color: #2c3756;\n  display: flex;\n  font-size: 10px;\n  justify-content: center;\n  height: 29px;\n  width: 29px;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap svg {\n  font-size: 18px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-left: 5px;\n  width: 10px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap svg {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .login_btn {\n  background-image: linear-gradient(0deg, transparent, transparent);\n  background-color: #1f2841;\n  cursor: pointer;\n  border-radius: 8px;\n  color: #fff;\n  text-transform: capitalize;\n  padding: 6px 15px;\n  margin-right: 8px;\n}\n.header_wraper .header .level-item .login_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn {\n  background-image: linear-gradient(70deg, #31bc69 -8%, #089e4e 96%);\n  border-style: none;\n  text-transform: capitalize;\n  border-radius: 8px;\n  color: #fff;\n  padding: 6px 15px;\n}\n.header_wraper .header .level-item .register_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn .icon-wrap {\n  width: 20px;\n  height: 20px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background-image: linear-gradient(210deg, hsla(0deg, 0%, 100%, 0) 25%, hsla(0deg, 0%, 100%, 0.06) 48%, #fff 133%);\n  margin-right: 12px;\n  margin-left: -5px;\n}\n\n.footer .footer-line {\n  flex: 1;\n  height: 1px;\n  background: linear-gradient(90deg, hsla(0deg, 0%, 100%, 0.2) 9.92%, transparent);\n}\n.footer .footer-line-full {\n  flex: 1;\n  height: 1px;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n}\n.footer .contact-btn {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  border-radius: 6px !important;\n  background-image: linear-gradient(144deg, #0095ff -27%, #0855c4 151%, #0855c4 0);\n  padding: 0;\n}\n.footer .app-download {\n  width: 175px;\n  height: 42px;\n  display: flex;\n  border: 1px solid hsla(0deg, 0%, 100%, 0.15);\n  border-radius: 12px;\n  align-items: center;\n  padding: 0 15px;\n  transition: border 0.25s ease-out;\n  cursor: pointer;\n  justify-content: space-between;\n}\n.footer .social_link {\n  border-radius: 10px;\n  align-items: center;\n  display: flex;\n  height: 35px;\n  justify-content: center;\n  text-align: center;\n  width: 35px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.footer .social_link:hover {\n  transform: scale(1.1);\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition: transform 0.3s ease-out;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition-property: transform;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n}\n.footer .social_link a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.footer .social_link a svg {\n  color: white;\n}\n.footer .social_link:nth-child(1) {\n  background: linear-gradient(240.2deg, #0fb1d6, #08c 61.34%);\n  box-shadow: 0 5px 16px rgba(76, 162, 246, 0.3);\n}\n.footer .social_link:nth-child(2) {\n  background: linear-gradient(214.99deg, #7e2bf4 7.65%, #ed146e 51.93%, #ffc90c 95.29%);\n  box-shadow: 0 5px 16px rgba(186, 77, 101, 0.3);\n}\n.footer .social_link:nth-child(3) {\n  background: linear-gradient(135deg, #82a4e9, #4267b2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .social_link:nth-child(4) {\n  background: linear-gradient(135deg, #79ccff, #1da1f2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .footer-btn {\n  background: linear-gradient(92.58deg, #1e283f, rgba(20, 27, 46, 0.6) 99.71%);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 10px;\n  height: 100%;\n}\n.footer .payments {\n  align-items: center;\n  justify-content: space-around;\n  width: 100%;\n  margin: 0 124px;\n}\n.footer .payments svg {\n  font-size: 25px;\n  width: auto;\n}\n.footer .PaymentSection_icon_17jgt [class$=mono] {\n  opacity: 1;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt {\n  cursor: pointer;\n  width: auto;\n  font-size: 19px;\n}\n@media screen and (max-width: 425px) {\n  .footer .PaymentSection_icon_17jgt {\n    cursor: pointer;\n    margin: 0 18px 15px;\n    font-size: 15px;\n  }\n}\n.footer .PaymentSection_icon_17jgt [class$=color] {\n  opacity: 0;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=color],\n.footer .PaymentSection_icon_17jgt:hover [class$=color] {\n  opacity: 1;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=mono],\n.footer .PaymentSection_icon_17jgt:hover [class$=mono] {\n  opacity: 0;\n}\n.footer .split {\n  height: 25px;\n  width: 1px;\n  background: rgba(151, 174, 225, 0.11);\n  margin: 0 10px;\n}\n\n.middle-item {\n  height: 75px;\n  border-radius: 12px;\n  padding-left: 25px;\n  display: flex;\n  justify-content: center;\n  flex-direction: column !important;\n  position: relative;\n  cursor: pointer;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  color: white;\n}\n.middle-item:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  border-radius: inherit;\n  z-index: 0;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  opacity: 0.7;\n  transition: opacity 0.15s ease-in-out;\n}\n.middle-item:hover:before {\n  opacity: 1;\n}\n.middle-item .middle-item-img-wrap {\n  position: absolute;\n  right: 17px;\n  width: 40%;\n  height: 0;\n  max-width: 61px;\n  display: flex;\n  align-items: center;\n}\n.middle-item .middle-item-img-wrap .middle-item-img {\n  position: absolute;\n  width: 100%;\n}\n.middle-item .middle-item-img-wrap .middle-item-img img {\n  height: auto;\n  max-width: 100%;\n}\n\n.home-tab {\n  border-top-left-radius: 12px;\n  overflow: hidden;\n  z-index: 2;\n  pointer-events: none;\n  filter: drop-shadow(0 1px 0 #edf2ff);\n}\n.home-tab .home-tab-title {\n  position: relative;\n  height: 34px;\n  padding: 16px 30px 0px 25px;\n  margin-right: 15px;\n  display: -webkit-box;\n  justify-content: center;\n  align-items: flex-end;\n  color: #090f1e;\n  font-size: 17px;\n  letter-spacing: -0.4px;\n  font-weight: 700;\n}\n.home-tab .home-tab-title:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: calc(100% + 16px);\n  top: 0;\n  left: -16px;\n  background-color: #edf2ff;\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n.home-tab .home-tab-title:after {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  border-radius: 5px;\n  width: 10px;\n  right: -10px;\n  top: 0;\n  transform: skewX(30deg);\n  box-sizing: unset;\n  box-shadow: 0 0 0 5px #edf2ff;\n  clip: rect(16px, 6px, 50px, -10px);\n}\n.home-tab .home-tab-title .populart-icon {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center {\n  background: #fa203b;\n  border-radius: 50%;\n  display: block;\n  position: relative;\n  min-width: 7px;\n  min-height: 7px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center:before {\n  content: \"\";\n  -webkit-animation: pulse-dot 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n  animation: pulse-dot 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n  position: absolute;\n  width: 300%;\n  height: 300%;\n  border-radius: 50%;\n  background: #fa203b;\n  top: -100%;\n  left: -100%;\n}\n\n.home-tab-all {\n  position: relative;\n  height: 34px;\n  justify-content: center;\n  padding: 0 16px 0 34px;\n  margin-left: -30px;\n  font-weight: 600;\n  z-index: 1;\n  font-size: 11px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n}\n.home-tab-all:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  top: 0;\n  background-image: linear-gradient(-45deg, #0855c4, #0095ff);\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n\n.toggle-switcher-item {\n  height: 30px;\n  max-width: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  display: flex;\n  align-items: center;\n}\n.toggle-switcher-item:not(:first-child) {\n  margin-left: 5px;\n}\n.toggle-switcher-item:after, .toggle-switcher-item:before {\n  transition: opacity 0.25s;\n  will-change: opacity;\n  content: \"\";\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  opacity: 0;\n  border-radius: inherit;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper {\n  z-index: 1;\n  display: inline-flex;\n  align-items: center;\n  position: relative;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon {\n  min-width: 30px;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon .no-margin {\n  margin: 0px !important;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-label {\n  font-size: 13px;\n  color: #fff;\n  font-weight: 700;\n  margin-right: 10px;\n  margin-left: 2px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  opacity: 1;\n  white-space: nowrap;\n}\n\n.toggle-switcher-item.active {\n  height: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  max-width: 158px;\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n}\n\n.home-tab-content {\n  border-radius: 12px;\n  border-top-left-radius: 0;\n  background-color: #edf2ff;\n  display: flex;\n  flex-direction: column;\n  position: relative;\n}\n.home-tab-content .match-table-head-underlay {\n  border-radius: 8px;\n  background-image: linear-gradient(273deg, #0855c4, #0095ff);\n  position: absolute;\n  width: calc(100% - 40px);\n  height: 30px;\n  left: 20px;\n  top: 32px;\n}\n.home-tab-content .sport-grids {\n  margin: 20px 0;\n  width: 100%;\n  position: relative;\n  z-index: 1;\n  color: black;\n}\n.home-tab-content .sport-grids th,\n.home-tab-content .sport-grids td {\n  border-bottom: unset !important;\n}\n.home-tab-content .sport-grids .match-table-match-row {\n  min-height: 50px;\n  height: 50px;\n  cursor: pointer;\n}\n.home-tab-content .sport-grids .match-table-match-row:nth-child(even) {\n  background-color: #dce6f7;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell {\n  padding: 10px 5px;\n  width: 1px;\n  height: 70px;\n  max-height: 70px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:first-child {\n  padding-left: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:last-child {\n  padding-right: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info {\n  display: flex;\n  align-items: center;\n  justify-content: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-date {\n  font-size: 11px;\n  opacity: 0.5;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-time {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info {\n  position: relative;\n  padding-left: 13px;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info:before {\n  content: \"\";\n  position: absolute;\n  width: 3px;\n  height: 100%;\n  border-radius: 1.5px;\n  left: 0;\n  background-image: linear-gradient(356deg, #0095ff, #0855c4);\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-team {\n  font-size: 13px;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info {\n  margin-top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info span {\n  font-size: 11px;\n  font-weight: 500;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-period-score {\n  color: #888;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-separator {\n  color: #888;\n  display: inline-block;\n  margin: 0 7px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time span {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time svg {\n  font-size: 12px;\n  margin-right: 8px;\n  color: #87a2da;\n  position: relative;\n  top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-odds-chip-wrap .match-table-odds-chip {\n  height: 30px;\n  background-color: rgba(8, 84, 195, 0.2);\n  padding: 0 10px;\n  font-size: 11px;\n  font-weight: 500;\n  border-radius: 8px;\n  align-items: center;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell button {\n  border-radius: 12px;\n  color: black;\n}\n\n.popular-wrap {\n  width: 100%;\n}\n.popular-wrap .live-event-main {\n  height: 145px;\n  background-color: #fff;\n  border-radius: 12px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  color: #090f1e;\n  padding: 16px;\n  border: 1px solid #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  cursor: pointer;\n}\n.popular-wrap .live-event-main:hover {\n  border: 1px solid #a1c3e1;\n}\n.popular-wrap .live-event-main .match-header {\n  align-items: flex-start;\n  display: flex;\n  align-items: center;\n  height: 20px;\n  box-sizing: initial;\n}\n.popular-wrap .live-event-main .match-header .top-live-match-score {\n  font-size: 20px;\n  font-weight: 800;\n  letter-spacing: 0.3px;\n  line-height: 0.95;\n  margin-right: 1rem;\n}\n.popular-wrap .live-event-main .match-header .match-score-period {\n  border: 0.5px solid rgba(108, 125, 163, 0.4);\n  border-radius: 7px;\n  font-size: 11px;\n  padding: 3px 6px;\n}\n.popular-wrap .live-event-main .top-live-match-info {\n  align-items: center;\n  display: flex;\n  height: 30px;\n  margin: 8px 0px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams {\n  overflow: hidden;\n  padding: 0 10px;\n  position: relative;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams:before {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n  border-radius: 290486px;\n  bottom: 0;\n  content: \"\";\n  left: 0;\n  position: absolute;\n  top: 0;\n  width: 3px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team {\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team .helper-line {\n  font-size: 12px;\n  font-weight: 600;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .match-details {\n  align-items: center;\n  color: #6c7da3;\n  display: flex;\n  font-size: 11px;\n  line-height: 1;\n  margin-bottom: 8px;\n}\n.popular-wrap .live-event-main .match-odd-list {\n  display: flex;\n  list-style: none;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item {\n  flex: 1;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd {\n  align-items: center;\n  background-color: rgba(108, 125, 163, 0.2);\n  border-radius: 12px;\n  cursor: pointer;\n  font-size: 14px;\n  height: 36px;\n  min-width: 36px;\n  padding: 0 10px;\n  transition: all 0.3s;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values {\n  will-change: contents;\n  transition: all 0.3s;\n  align-items: center;\n  display: flex;\n  pointer-events: none;\n  height: 100%;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-name {\n  margin-right: 5px;\n  text-transform: uppercase;\n  color: black;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-value {\n  margin-left: auto;\n  font-weight: 700;\n  text-align: right;\n  color: black;\n}\n\n.section-card {\n  border-radius: 12px;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  position: relative;\n  padding: 25px;\n}\n.section-card .section-card-top-line {\n  position: absolute;\n  top: 0;\n  left: 25px;\n  right: 25px;\n  height: 4px;\n  border-bottom-left-radius: 100px;\n  border-bottom-right-radius: 100px;\n  background-size: 200% auto;\n  -webkit-animation: notch-bg-slide-01a6027a 4s linear 0s infinite alternate;\n  animation: notch-bg-slide-01a6027a 4s linear 0s infinite alternate;\n  will-change: background-position;\n  background-image: linear-gradient(90deg, rgb(0, 183, 255) 0%, rgb(199, 0, 255) 50%, rgb(255, 187, 0) 100%);\n}\n.section-card .section-card-header {\n  justify-content: space-between;\n  align-items: flex-end;\n  z-index: 10;\n}\n.section-card .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-bottom: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.section-card .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.section-card .game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.section-card .game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.section-card .game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.section-card .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n.section-card .section-card-bg {\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  border-radius: 12px;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg {\n  height: 100%;\n  display: flex;\n  justify-content: flex-end;\n  align-items: flex-end;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow {\n  position: relative;\n  height: 100%;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-glow {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  filter: blur(30px) saturate(1);\n  top: 0px;\n  opacity: 0.5;\n  transform: translateZ(0px);\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-content-wrapper {\n  position: relative;\n  height: 100%;\n  width: 100%;\n}\n.section-card .SectionPokerBanner_contentButton {\n  height: 45px;\n  color: #fff;\n  text-transform: capitalize !important;\n  border-radius: 8px;\n  background-image: linear-gradient(255deg, #00b7ff, #8d53e9);\n  padding: 0 25px;\n  cursor: pointer;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  font-size: 15px;\n  position: relative;\n  overflow: hidden;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  margin-top: 10px;\n}\n.section-card .SectionPokerBanner_contentButton:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 20%;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  left: -25%;\n  transform: skewX(-20deg);\n}\n\n.sports-list {\n  background-color: rgb(20, 27, 46);\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  overflow: hidden;\n  height: 100%;\n  flex-shrink: 0;\n  max-height: 100%;\n  border-radius: 8px;\n  display: flex;\n  padding: 10px;\n  height: calc(100vh - 80px);\n  position: sticky;\n  top: 64px;\n}\n.sports-list .sports-search-wrap {\n  position: relative;\n  margin: 10px 0px;\n  padding: 10px 0px;\n}\n.sports-list .sports-search-wrap:before {\n  bottom: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap:after {\n  top: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap .search-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n}\n.sports-list .sports-search-wrap .search-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-search-wrap .casino-search {\n  width: 100%;\n  border-radius: 8px;\n  background-color: #1f2941;\n}\n.sports-list .sports-search-wrap .casino-search input {\n  color: #7388b6;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: -0.19px;\n  width: 201px;\n  padding: 10px 10px 10px 0px;\n}\n.sports-list .sports-search-wrap .casino-search fieldset {\n  display: none;\n}\n.sports-list .sports-list-body {\n  overflow: hidden auto;\n}\n.sports-list .sports-list-body .list-item {\n  position: relative;\n}\n.sports-list .sports-list-body .list-item .item-btn-wrap {\n  position: sticky;\n  top: 0;\n  z-index: 3;\n}\n.sports-list .sports-list-body .list-item .section-list {\n  padding: 0.5rem 0;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header {\n  align-items: center;\n  color: #616e8c;\n  display: flex;\n  line-height: 25px;\n  min-height: 25px;\n  font-size: 12px;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header:after {\n  background-color: currentColor;\n  content: \"\";\n  display: block;\n  flex-grow: 1;\n  height: 1px;\n  margin-left: 8px;\n}\n.sports-list .sports-list-item-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n}\n.sports-list .sports-list-item-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-list-item-btn:hover {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n\n.betslip {\n  border-radius: 10px;\n  padding: 10px;\n  margin-bottom: 15px;\n  position: sticky;\n  top: 64px;\n  background-image: linear-gradient(135deg, #233358, rgba(20, 27, 46, 0.6));\n}\n.betslip .bet-tabbar {\n  margin-bottom: 15px;\n}\n.betslip .bet-tabbar .slip-title {\n  align-items: center;\n  background-color: hsla(0deg, 0%, 100%, 0.1);\n  border-radius: 8px;\n  display: flex;\n  flex: auto;\n  font-size: 12px;\n  height: 30px;\n  justify-content: center;\n  text-align: center;\n  transition: opacity 0.2s;\n  position: relative;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n.betslip .bet-tabbar .slip-title .slip-count {\n  background-color: white;\n  color: #0059c5;\n  border-radius: 50px;\n  width: 14px;\n  height: 14px;\n  font-size: 10px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  right: 32%;\n  position: absolute;\n  letter-spacing: 1px;\n  line-height: 1;\n}\n.betslip .slip-Odd {\n  align-items: center;\n  display: flex;\n  flex-shrink: 0;\n  justify-content: center;\n  font-weight: 700;\n  font-size: 12px;\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n  align-self: stretch;\n  margin-right: 8px;\n  width: 46px;\n  min-width: none;\n  padding: 0px !important;\n  min-width: 0px !important;\n  z-index: 2;\n}\n.betslip .close-odd {\n  color: #94a6cd;\n  font-size: 11px;\n  z-index: 1;\n  background-color: rgba(148, 166, 205, 0.11);\n  border-radius: 10px;\n  width: 28px;\n  height: 28px;\n  margin-left: auto;\n  padding: 0px;\n}\n.betslip .close-odd:hover {\n  background-color: #60afff;\n}\n.betslip .close-odd:hover svg {\n  color: white;\n}\n.betslip .sliip-teams {\n  grid-area: teams;\n  padding: 2px 0 2px 10px;\n  position: relative;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.betslip .sliip-teams:before {\n  content: \"\";\n  width: 3.5px;\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.3);\n  border-radius: 0 10px 10px 0;\n}\n.betslip .live-mark {\n  align-self: end;\n  border-radius: 10px;\n  color: #f62525;\n  display: flex;\n  font-size: 9px;\n  font-weight: 700;\n  grid-area: service;\n  letter-spacing: 0.17px;\n  text-transform: uppercase;\n  position: relative;\n  padding-right: 10px;\n  align-items: center;\n}\n.betslip .live-mark .live-dot {\n  background-image: radial-gradient(50% 50% at 50% 50%, rgba(246, 37, 37, 0) 0, rgba(246, 37, 37, 0.2) 100%);\n  border-radius: 50px;\n  height: 12px;\n  margin-right: 3px;\n  width: 12px;\n  position: relative;\n}\n.betslip .live-mark .live-dot:before {\n  content: \"\";\n  width: 4px;\n  height: 4px;\n  border-radius: 50px;\n  background-color: #f62525;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  margin: auto;\n}\n.betslip .live-mark span {\n  font-family: Tahoma, \"sans-serif\";\n}\n.betslip .enter-stake {\n  width: 100%;\n}\n.betslip .enter-stake input {\n  font-size: 12px;\n  width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  color: #090f1e;\n  height: 14px;\n  padding: 7px 10px 9px;\n}\n.betslip .enter-stake fieldset {\n  display: none;\n}\n.betslip .express-slip {\n  position: relative;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  overflow: hidden;\n}\n.betslip .express-slip:first-child {\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n}\n.betslip .express-slip:after {\n  content: \"\";\n  bottom: 0px;\n  left: 15px;\n  position: absolute;\n  right: 15px;\n  z-index: 110;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_5___ + ");\n  height: 1px;\n}\n.betslip .total-odd {\n  background-color: #fff;\n  border-bottom-left-radius: 10px;\n  border-bottom-right-radius: 10px;\n  margin-bottom: 10px;\n  padding: 10px;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.betslip .total-odd .btn {\n  background-image: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  border-radius: 8px;\n  color: white;\n  text-transform: capitalize;\n  font-size: 12px;\n  font-weight: 800;\n  padding: 4px 24px;\n}\n\n.tournament-table {\n  border-radius: 8px;\n  color: #000;\n  contain: content;\n  overflow: hidden;\n  text-align: center;\n  width: 100%;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  table-layout: fixed;\n}\n.tournament-table .table-header {\n  color: #fff;\n}\n.tournament-table .table-header .table-row {\n  height: 40px;\n}\n.tournament-table .table-header .table-row .tournament-cell {\n  font-size: 14px;\n  line-height: 1.1;\n  text-align: left;\n  position: relative;\n}\n.tournament-table .table-header .table-row .tournament-cell .tournament-cell-inner {\n  display: flex;\n  align-items: center;\n  padding: 10px 15px;\n}\n.tournament-table .table-header .table-row .odd-cell-h {\n  color: #b1d1ff;\n  font-size: 11px;\n  letter-spacing: -0.1px;\n  min-width: 30px;\n  text-align: center;\n  text-transform: uppercase;\n  width: 6%;\n}\n.tournament-table .table-header .table-row th {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row {\n  background-color: #edf2ff;\n  cursor: pointer;\n}\n.tournament-table .table-body .match-row:hover {\n  background-color: #1b2029;\n}\n.tournament-table .table-body .match-row:hover .match-info .favourite,\n.tournament-table .table-body .match-row:hover .match-info .match-date,\n.tournament-table .table-body .match-row:hover .odd-cell .odd-coefficient,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed,\n.tournament-table .table-body .match-row:hover .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  color: white;\n}\n.tournament-table .table-body .match-row td {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row .match-info {\n  align-items: center;\n  display: flex;\n  padding: 5px;\n}\n.tournament-table .table-body .match-row .match-info .favourite {\n  color: #bfd2f3;\n}\n.tournament-table .table-body .match-row .match-info .match-date {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .match-separator {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  border-radius: 1.5px;\n  flex: none;\n  height: 2rem;\n  margin: 2px 6px;\n  opacity: 0.8;\n  width: 3px;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container {\n  align-items: center;\n  display: flex;\n  flex: 1;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block {\n  align-items: center;\n  display: flex;\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams {\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team {\n  display: flex;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  overflow: hidden;\n  position: relative;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto {\n  display: flex;\n  margin-left: auto;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics {\n  font-weight: 500;\n  letter-spacing: -0.1px;\n  margin-right: 5px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line {\n  display: flex;\n  justify-content: flex-end;\n  text-align: right;\n  margin: 0px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-periods {\n  color: #888;\n  font-size: 10px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed {\n  color: black;\n  font-size: 12px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line svg {\n  color: #87a2da;\n  font-size: 16px;\n}\n.tournament-table .table-body .match-row .odd-cell {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  position: relative;\n}\n.tournament-table .table-body .match-row .odd-cell:before {\n  position: absolute;\n  content: \"\";\n  background-color: rgba(152, 160, 181, 0.1019607843);\n  /* background-color: rgb(20 27 46 / 15%); */\n  width: 100%;\n  height: 100%;\n  top: 0;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient {\n  border-radius: 8px;\n  font-weight: 600;\n  letter-spacing: -0.2px;\n  padding: 2px 12px;\n  text-align: center;\n  min-width: 0;\n  color: black;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient:hover {\n  background-color: #9ea5b4;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient.active {\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n}\n.tournament-table .table-body .match-row .odd-cell.disable {\n  background-color: rgba(20, 27, 46, 0.7);\n  cursor: initial;\n}\n\n.event-content {\n  flex: 1;\n  background-size: 100% auto;\n  background-repeat: no-repeat;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_6___ + ");\n}\n.event-content .btn {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  align-items: center;\n  background-color: #252f4b;\n  border-radius: 8px;\n  color: #fff;\n  display: flex;\n  font-size: 12px;\n  font-weight: 500;\n  height: 30px;\n  min-width: 0px;\n  justify-content: center;\n  letter-spacing: 0.2px;\n  padding: 0 10px;\n  text-align: center;\n  transition: all 0.2s ease-out;\n}\n.event-content .market-head {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  cursor: pointer;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0px 10px;\n}\n.event-content .market-body {\n  display: flex;\n  flex-wrap: wrap;\n  margin-right: -1px;\n  margin-bottom: -1px;\n}\n.event-content .market-body .market-wrap {\n  padding-right: 1px;\n  min-width: 30%;\n  display: flex;\n  flex-grow: 1;\n}\n.event-content .market-body .market-wrap .market-btn {\n  width: 100%;\n  margin-bottom: 1px;\n  background-color: #e4ebff;\n  border-radius: 0px;\n  display: flex;\n  justify-content: space-between;\n  padding: 4px 0px 4px 10px;\n}\n.event-content .market-body .market-wrap .market-btn:hover {\n  background-color: #1b2029;\n}\n.event-content .market-body .market-wrap .market-btn:hover p {\n  color: white !important;\n}\n.event-content .market-body .market-wrap .market-btn .market-name {\n  font-size: 12px;\n  color: #252f4b;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd {\n  font-size: 14px;\n  font-weight: 600;\n  color: #090f1e;\n  padding: 5px 8px;\n  border-radius: 8px;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd.active {\n  background-image: linear-gradient(135deg, #108de7, #0855c4);\n  color: white;\n}\n\n.casino .casino-top {\n  padding: 0 15px 15px 15px;\n  align-items: center;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  color: #fff;\n  opacity: 1;\n  position: relative;\n  z-index: 1;\n  cursor: pointer;\n  flex: 1;\n  height: 100%;\n}\n.casino .casino-top:before {\n  content: \"\";\n  position: absolute;\n  border-radius: 12px;\n  z-index: -2;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: radial-gradient(circle at -65% 157%, #c5991e, #b68100 7%, #fff29d 66%, #b57f00 113%, #c7940f 138%);\n}\n.casino .casino-top:after {\n  content: \"\";\n  position: absolute;\n  border-radius: 10px;\n  z-index: -1;\n  top: 2px;\n  bottom: 2px;\n  left: 2px;\n  right: 2px;\n  background: #090f1f;\n  box-shadow: 0 9px 17px 0 rgba(214, 179, 71, 0), inset 0 1px 29px 0 #000;\n}\n.casino .casino-top .casino-top-title {\n  align-items: center;\n  display: flex;\n  margin-top: auto;\n}\n.casino .casino-top .casino-top-title .title-separator {\n  background: linear-gradient(270deg, #fff, transparent);\n  height: 1px;\n  opacity: 0.3;\n  width: 2vw;\n}\n.casino .casino-top .casino-top-title .casino-title-name {\n  font-size: 2vw;\n  font-weight: 900;\n  letter-spacing: -1.96px;\n  text-shadow: 0 2px 87px #0c1820;\n}\n.casino .casino-top .casino-get-price {\n  font-size: 51px;\n  font-weight: 900;\n  background: -webkit-linear-gradient(#000000, #ffe55d, #080700);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: #ffe55d;\n}\n.casino .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-right: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.casino .game-card:last-child {\n  margin-right: 0px;\n}\n.casino .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.casino .game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.casino .game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.casino .game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.casino .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.mobileMenu {\n  width: 100%;\n  border-top: 1px solid #1f2841;\n  height: 60px;\n  position: relative;\n}\n.mobileMenu .mobileMenu-btn {\n  width: 20%;\n  flex-direction: column;\n  border-radius: 0px !important;\n}\n.mobileMenu .mobileMenu-btn img {\n  margin-bottom: 5px;\n  max-height: 22px;\n  max-width: 22px;\n}\n.mobileMenu .mobileMenu-btn p {\n  color: #536387;\n  font-size: 11px;\n  text-align: center;\n  text-transform: capitalize;\n}\n.mobileMenu .mobileMenu-btn.active:before {\n  background-color: #0854c3;\n  border-radius: 3px;\n  box-shadow: 0 0 1px #090f1e;\n  content: \"\";\n  height: 6px;\n  position: absolute;\n  top: -3px;\n  width: 54px;\n}\n.mobileMenu .mobileMenu-btn.active p {\n  color: white;\n}\n\n.bodyTab {\n  -webkit-mask-image: linear-gradient(to left, transparent 0, #000 85px);\n          mask-image: linear-gradient(to left, transparent 0, #000 85px);\n}\n.bodyTab:after {\n  content: \"\";\n  padding-left: 80px;\n}\n.bodyTab::-webkit-scrollbar {\n  height: 0px;\n  width: 0px;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff !important;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  bottom: 0;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  transform: skewX(-30deg);\n  width: 30px;\n  will-change: left;\n  z-index: 1;\n  -webkit-animation: flare 5s ease infinite;\n  animation: flare 5s ease infinite;\n}\n\n.btn.active {\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.able {\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-bottom: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n\n.mobile-menu {\n  color: white;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* @font-face {\n    font-family: 'font name';\n    src: url(\"url\");\n} */\nbody {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, \"Courier New\", monospace;\n}\n\n/* Scroll */\n.bet-swiper {\n  height: 100%;\n}\n\n::-webkit-scrollbar {\n  height: 0.3rem;\n  width: 0.3rem;\n}\n\n::-webkit-scrollbar-thumb {\n  background-color: hsla(0deg, 0%, 85%, 0.3);\n  border-radius: 3px;\n}\n\n.sports-icon {\n  align-items: center;\n  background-repeat: no-repeat;\n  display: flex;\n  font-size: 14px;\n  height: 1em;\n  justify-content: center;\n  -o-object-fit: cover;\n     object-fit: cover;\n  overflow: visible;\n  width: 1em;\n  min-width: 1em;\n  -webkit-mask-repeat: no-repeat;\n  -webkit-mask-position: center;\n  -webkit-mask-size: 100%;\n  background: #fff;\n}\n\n.betslip-icon {\n  background-color: #94a6cd;\n}\n\n.icon-soccer {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n\n.icon-basketball {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n}\n\n.icon-cricket {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n}\n\n.icon-american-football {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n}\n\n.icon-tennis {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n}\n\n.icon-table-tennis {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n}\n\n/* Swiper slider */\n.bet-swiper {\n  height: 100%;\n  border-radius: 20px;\n}\n.bet-swiper .swiper-button-prev {\n  z-index: 11;\n  left: unset;\n  top: unset;\n  bottom: 10px;\n  right: 55px;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-prev::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-prev:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-prev:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-button-next {\n  z-index: 11;\n  bottom: 10px;\n  right: 10px;\n  top: unset;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-next::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-next:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-next:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet-active {\n  background: #ffffff;\n}\n.bet-swiper .swiper-slide {\n  height: unset !important;\n}\n.bet-swiper .swiper-slide img {\n  width: 100%;\n  height: 100%;\n}\n\n/*.popular-events */\n.popular-events {\n  height: 100%;\n  width: 100%;\n  padding-bottom: 16px !important;\n}\n.popular-events:hover .swiper-button-prev,\n.popular-events:hover .swiper-button-next {\n  opacity: 1;\n}\n.popular-events .swiper-button-prev {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-prev::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-button-next {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-next::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-pagination {\n  bottom: -6px !important;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet-active {\n  background: #5b8fdd;\n}\n\n.top-live-casino {\n  height: 100%;\n  width: 100%;\n}\n.top-live-casino:hover .swiper-button-prev,\n.top-live-casino:hover .swiper-button-next {\n  opacity: 1 !important;\n}\n.top-live-casino .swiper-button-prev {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0 !important;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.top-live-casino .swiper-button-prev::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.top-live-casino .swiper-button-next {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0 !important;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.top-live-casino .swiper-button-next::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n\n@-webkit-keyframes flare {\n  0% {\n    left: -45px;\n  }\n  20% {\n    left: calc(100% + 15px);\n  }\n  to {\n    left: calc(100% + 15px);\n  }\n}\n@keyframes flare {\n  0% {\n    left: -45px;\n  }\n  20% {\n    left: calc(100% + 15px);\n  }\n  to {\n    left: calc(100% + 15px);\n  }\n}\n@-webkit-keyframes flare-2 {\n  0% {\n    transform: translateX(-115%) rotate(-45deg);\n  }\n  20% {\n    transform: translateX(140%) rotate(-45deg);\n  }\n  to {\n    transform: translateX(140%) rotate(-45deg);\n  }\n}\n@keyframes flare-2 {\n  0% {\n    transform: translateX(-115%) rotate(-45deg);\n  }\n  20% {\n    transform: translateX(140%) rotate(-45deg);\n  }\n  to {\n    transform: translateX(140%) rotate(-45deg);\n  }\n}\n@-webkit-keyframes pulse-dot {\n  0% {\n    transform: scale(0.33);\n    opacity: 1;\n  }\n  to {\n    transform: scale(1);\n    opacity: 0;\n  }\n}\n@keyframes pulse-dot {\n  0% {\n    transform: scale(0.33);\n    opacity: 1;\n  }\n  to {\n    transform: scale(1);\n    opacity: 0;\n  }\n}\n.header_top {\n  height: 52px;\n  align-items: center;\n  justify-content: space-between !important;\n}\n.header_top .free_link {\n  padding: 5px 28px 6px 50px;\n  border-radius: 15px;\n  background-image: linear-gradient(285.39deg, #ffb800 -4.36%, #fff173 115.87%);\n  font-weight: 600;\n  color: #090f1e;\n  position: relative;\n  text-decoration: none;\n  align-items: center;\n  line-height: 1;\n  cursor: pointer;\n}\n.header_top .free_link .money_img {\n  background-image: url(\"https://cdn-1win.xyz/img/free-money-link-image.ac893118-120.png\");\n  display: \"block\";\n  width: 60px;\n  height: 33px;\n  position: absolute;\n  bottom: 0;\n  left: -6px;\n  background-size: 100%;\n  background-repeat: no-repeat;\n  pointer-events: none;\n}\n.header_top .top_promotion {\n  margin-right: 21px;\n  position: relative;\n}\n.header_top .top_promotion:before {\n  content: \"\";\n  display: block;\n  height: 14px;\n  width: 1px;\n  background: hsla(0deg, 0%, 100%, 0.2);\n  position: absolute;\n  right: -10px;\n  top: calc(50% - 7px);\n}\n.header_top .top_promotion .top_BonusLink {\n  height: 24px;\n  display: flex;\n  align-items: center;\n  border-radius: 13px;\n  background-color: rgba(78, 93, 134, 0.3);\n  border-bottom-left-radius: 30px;\n  border-top-left-radius: 30px;\n  position: relative;\n  cursor: pointer;\n  flex-direction: row;\n}\n.header_top .top_promotion .top_BonusLink .top_circle {\n  height: 28px;\n  width: 28px;\n  background: linear-gradient(86.37deg, #d062ff 2.96%, #7bb0ff 99.68%), linear-gradient(90deg, #ed6ea0, #ec8c69);\n  box-shadow: 0 5px 15px rgba(201, 85, 255, 0.4);\n  border-radius: 50%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-right: 10px;\n}\n.header_top .top_promotion .top_BonusLink .top_circle svg {\n  height: 1em;\n}\n.header_top .top_promotion .top_BonusLink .top_bonus_img {\n  position: absolute;\n  height: 54px;\n  transform: rotate(-13deg);\n  right: -17px;\n  top: -17px;\n  pointer-events: none;\n}\n.header_top .lang_btn {\n  width: 60px;\n  height: 24px;\n  min-height: 24px;\n  padding: 0;\n  background: rgba(78, 93, 134, 0.3);\n  font-size: 12px;\n  color: #fff;\n  border-radius: 8px;\n}\n.header_top .lang_btn .MuiButton-endIcon {\n  margin-left: 0px !important;\n}\n.header_top .lang_icon {\n  width: 15px;\n  height: 15px;\n  border-radius: 50px;\n  margin-left: 4px;\n}\n\n.header_wraper {\n  position: sticky;\n  z-index: 100;\n  top: -1px;\n  height: 47px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.header_wraper .header {\n  max-width: 1900px;\n  max-height: 47px;\n  height: 100%;\n  width: 100%;\n  margin: 0 auto;\n  padding: 0 10px;\n  display: flex;\n  -webkit-box-align: center;\n  justify-content: space-between;\n  align-items: center;\n  background-image: linear-gradient(92deg, #1e283f, rgba(20, 27, 46, 0.6));\n  background-color: #090f1e;\n  box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.6);\n  border-radius: 10px;\n  transition: border-radius 0.2s;\n  will-change: border-radius, transform;\n  position: relative;\n}\n.header_wraper .header .level-item {\n  align-items: center;\n  display: flex;\n}\n.header_wraper .header .level-item:not(:last-child) {\n  margin-right: 1rem;\n}\n.header_wraper .header .level-item .logo-container {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.header_wraper .header .level-item .logo-container a {\n  display: flex;\n}\n.header_wraper .header .level-item .user_btn {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n  background: #1f2841;\n  border-radius: 20px 8px 8px 20px;\n  padding: 3px 8px 3px 3px;\n  min-width: 0;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap {\n  align-items: center;\n  border-radius: 50%;\n  background-color: #2c3756;\n  display: flex;\n  font-size: 10px;\n  justify-content: center;\n  height: 29px;\n  width: 29px;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap svg {\n  font-size: 18px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-left: 5px;\n  width: 10px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap svg {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .login_btn {\n  background-image: linear-gradient(0deg, transparent, transparent);\n  background-color: #1f2841;\n  cursor: pointer;\n  border-radius: 8px;\n  color: #fff;\n  text-transform: capitalize;\n  padding: 6px 15px;\n  margin-right: 8px;\n}\n.header_wraper .header .level-item .login_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn {\n  background-image: linear-gradient(70deg, #31bc69 -8%, #089e4e 96%);\n  border-style: none;\n  text-transform: capitalize;\n  border-radius: 8px;\n  color: #fff;\n  padding: 6px 15px;\n}\n.header_wraper .header .level-item .register_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn .icon-wrap {\n  width: 20px;\n  height: 20px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background-image: linear-gradient(210deg, hsla(0deg, 0%, 100%, 0) 25%, hsla(0deg, 0%, 100%, 0.06) 48%, #fff 133%);\n  margin-right: 12px;\n  margin-left: -5px;\n}\n\n.footer .footer-line {\n  flex: 1;\n  height: 1px;\n  background: linear-gradient(90deg, hsla(0deg, 0%, 100%, 0.2) 9.92%, transparent);\n}\n.footer .footer-line-full {\n  flex: 1;\n  height: 1px;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n}\n.footer .contact-btn {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  border-radius: 6px !important;\n  background-image: linear-gradient(144deg, #0095ff -27%, #0855c4 151%, #0855c4 0);\n  padding: 0;\n}\n.footer .app-download {\n  width: 175px;\n  height: 42px;\n  display: flex;\n  border: 1px solid hsla(0deg, 0%, 100%, 0.15);\n  border-radius: 12px;\n  align-items: center;\n  padding: 0 15px;\n  transition: border 0.25s ease-out;\n  cursor: pointer;\n  justify-content: space-between;\n}\n.footer .social_link {\n  border-radius: 10px;\n  align-items: center;\n  display: flex;\n  height: 35px;\n  justify-content: center;\n  text-align: center;\n  width: 35px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.footer .social_link:hover {\n  transform: scale(1.1);\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition: transform 0.3s ease-out;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition-property: transform;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n}\n.footer .social_link a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.footer .social_link a svg {\n  color: white;\n}\n.footer .social_link:nth-child(1) {\n  background: linear-gradient(240.2deg, #0fb1d6, #08c 61.34%);\n  box-shadow: 0 5px 16px rgba(76, 162, 246, 0.3);\n}\n.footer .social_link:nth-child(2) {\n  background: linear-gradient(214.99deg, #7e2bf4 7.65%, #ed146e 51.93%, #ffc90c 95.29%);\n  box-shadow: 0 5px 16px rgba(186, 77, 101, 0.3);\n}\n.footer .social_link:nth-child(3) {\n  background: linear-gradient(135deg, #82a4e9, #4267b2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .social_link:nth-child(4) {\n  background: linear-gradient(135deg, #79ccff, #1da1f2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .footer-btn {\n  background: linear-gradient(92.58deg, #1e283f, rgba(20, 27, 46, 0.6) 99.71%);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 10px;\n  height: 100%;\n}\n.footer .payments {\n  align-items: center;\n  justify-content: space-around;\n  width: 100%;\n  margin: 0 124px;\n}\n.footer .payments svg {\n  font-size: 25px;\n  width: auto;\n}\n.footer .PaymentSection_icon_17jgt [class$=mono] {\n  opacity: 1;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt {\n  cursor: pointer;\n  width: auto;\n  font-size: 19px;\n}\n@media screen and (max-width: 425px) {\n  .footer .PaymentSection_icon_17jgt {\n    cursor: pointer;\n    margin: 0 18px 15px;\n    font-size: 15px;\n  }\n}\n.footer .PaymentSection_icon_17jgt [class$=color] {\n  opacity: 0;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=color],\n.footer .PaymentSection_icon_17jgt:hover [class$=color] {\n  opacity: 1;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=mono],\n.footer .PaymentSection_icon_17jgt:hover [class$=mono] {\n  opacity: 0;\n}\n.footer .split {\n  height: 25px;\n  width: 1px;\n  background: rgba(151, 174, 225, 0.11);\n  margin: 0 10px;\n}\n\n.middle-item {\n  height: 75px;\n  border-radius: 12px;\n  padding-left: 25px;\n  display: flex;\n  justify-content: center;\n  flex-direction: column !important;\n  position: relative;\n  cursor: pointer;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  color: white;\n}\n.middle-item:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  border-radius: inherit;\n  z-index: 0;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  opacity: 0.7;\n  transition: opacity 0.15s ease-in-out;\n}\n.middle-item:hover:before {\n  opacity: 1;\n}\n.middle-item .middle-item-img-wrap {\n  position: absolute;\n  right: 17px;\n  width: 40%;\n  height: 0;\n  max-width: 61px;\n  display: flex;\n  align-items: center;\n}\n.middle-item .middle-item-img-wrap .middle-item-img {\n  position: absolute;\n  width: 100%;\n}\n.middle-item .middle-item-img-wrap .middle-item-img img {\n  height: auto;\n  max-width: 100%;\n}\n\n.home-tab {\n  border-top-left-radius: 12px;\n  overflow: hidden;\n  z-index: 2;\n  pointer-events: none;\n  filter: drop-shadow(0 1px 0 #edf2ff);\n}\n.home-tab .home-tab-title {\n  position: relative;\n  height: 34px;\n  padding: 16px 30px 0px 25px;\n  margin-right: 15px;\n  display: -webkit-box;\n  justify-content: center;\n  align-items: flex-end;\n  color: #090f1e;\n  font-size: 17px;\n  letter-spacing: -0.4px;\n  font-weight: 700;\n}\n.home-tab .home-tab-title:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: calc(100% + 16px);\n  top: 0;\n  left: -16px;\n  background-color: #edf2ff;\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n.home-tab .home-tab-title:after {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  border-radius: 5px;\n  width: 10px;\n  right: -10px;\n  top: 0;\n  transform: skewX(30deg);\n  box-sizing: unset;\n  box-shadow: 0 0 0 5px #edf2ff;\n  clip: rect(16px, 6px, 50px, -10px);\n}\n.home-tab .home-tab-title .populart-icon {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center {\n  background: #fa203b;\n  border-radius: 50%;\n  display: block;\n  position: relative;\n  min-width: 7px;\n  min-height: 7px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center:before {\n  content: \"\";\n  -webkit-animation: pulse-dot 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n  animation: pulse-dot 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n  position: absolute;\n  width: 300%;\n  height: 300%;\n  border-radius: 50%;\n  background: #fa203b;\n  top: -100%;\n  left: -100%;\n}\n\n.home-tab-all {\n  position: relative;\n  height: 34px;\n  justify-content: center;\n  padding: 0 16px 0 34px;\n  margin-left: -30px;\n  font-weight: 600;\n  z-index: 1;\n  font-size: 11px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n}\n.home-tab-all:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  top: 0;\n  background-image: linear-gradient(-45deg, #0855c4, #0095ff);\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n\n.toggle-switcher-item {\n  height: 30px;\n  max-width: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  display: flex;\n  align-items: center;\n}\n.toggle-switcher-item:not(:first-child) {\n  margin-left: 5px;\n}\n.toggle-switcher-item:after, .toggle-switcher-item:before {\n  transition: opacity 0.25s;\n  will-change: opacity;\n  content: \"\";\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  opacity: 0;\n  border-radius: inherit;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper {\n  z-index: 1;\n  display: inline-flex;\n  align-items: center;\n  position: relative;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon {\n  min-width: 30px;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon .no-margin {\n  margin: 0px !important;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-label {\n  font-size: 13px;\n  color: #fff;\n  font-weight: 700;\n  margin-right: 10px;\n  margin-left: 2px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  opacity: 1;\n  white-space: nowrap;\n}\n\n.toggle-switcher-item.active {\n  height: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  max-width: 158px;\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n}\n\n.home-tab-content {\n  border-radius: 12px;\n  border-top-left-radius: 0;\n  background-color: #edf2ff;\n  display: flex;\n  flex-direction: column;\n  position: relative;\n}\n.home-tab-content .match-table-head-underlay {\n  border-radius: 8px;\n  background-image: linear-gradient(273deg, #0855c4, #0095ff);\n  position: absolute;\n  width: calc(100% - 40px);\n  height: 30px;\n  left: 20px;\n  top: 32px;\n}\n.home-tab-content .sport-grids {\n  margin: 20px 0;\n  width: 100%;\n  position: relative;\n  z-index: 1;\n  color: black;\n}\n.home-tab-content .sport-grids th,\n.home-tab-content .sport-grids td {\n  border-bottom: unset !important;\n}\n.home-tab-content .sport-grids .match-table-match-row {\n  min-height: 50px;\n  height: 50px;\n  cursor: pointer;\n}\n.home-tab-content .sport-grids .match-table-match-row:nth-child(even) {\n  background-color: #dce6f7;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell {\n  padding: 10px 5px;\n  width: 1px;\n  height: 70px;\n  max-height: 70px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:first-child {\n  padding-left: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:last-child {\n  padding-right: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info {\n  display: flex;\n  align-items: center;\n  justify-content: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-date {\n  font-size: 11px;\n  opacity: 0.5;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-time {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info {\n  position: relative;\n  padding-left: 13px;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info:before {\n  content: \"\";\n  position: absolute;\n  width: 3px;\n  height: 100%;\n  border-radius: 1.5px;\n  left: 0;\n  background-image: linear-gradient(356deg, #0095ff, #0855c4);\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-team {\n  font-size: 13px;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info {\n  margin-top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info span {\n  font-size: 11px;\n  font-weight: 500;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-period-score {\n  color: #888;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-separator {\n  color: #888;\n  display: inline-block;\n  margin: 0 7px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time span {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time svg {\n  font-size: 12px;\n  margin-right: 8px;\n  color: #87a2da;\n  position: relative;\n  top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-odds-chip-wrap .match-table-odds-chip {\n  height: 30px;\n  background-color: rgba(8, 84, 195, 0.2);\n  padding: 0 10px;\n  font-size: 11px;\n  font-weight: 500;\n  border-radius: 8px;\n  align-items: center;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell button {\n  border-radius: 12px;\n  color: black;\n}\n\n.popular-wrap {\n  width: 100%;\n}\n.popular-wrap .live-event-main {\n  height: 145px;\n  background-color: #fff;\n  border-radius: 12px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  color: #090f1e;\n  padding: 16px;\n  border: 1px solid #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  cursor: pointer;\n}\n.popular-wrap .live-event-main:hover {\n  border: 1px solid #a1c3e1;\n}\n.popular-wrap .live-event-main .match-header {\n  align-items: flex-start;\n  display: flex;\n  align-items: center;\n  height: 20px;\n  box-sizing: initial;\n}\n.popular-wrap .live-event-main .match-header .top-live-match-score {\n  font-size: 20px;\n  font-weight: 800;\n  letter-spacing: 0.3px;\n  line-height: 0.95;\n  margin-right: 1rem;\n}\n.popular-wrap .live-event-main .match-header .match-score-period {\n  border: 0.5px solid rgba(108, 125, 163, 0.4);\n  border-radius: 7px;\n  font-size: 11px;\n  padding: 3px 6px;\n}\n.popular-wrap .live-event-main .top-live-match-info {\n  align-items: center;\n  display: flex;\n  height: 30px;\n  margin: 8px 0px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams {\n  overflow: hidden;\n  padding: 0 10px;\n  position: relative;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams:before {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n  border-radius: 290486px;\n  bottom: 0;\n  content: \"\";\n  left: 0;\n  position: absolute;\n  top: 0;\n  width: 3px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team {\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team .helper-line {\n  font-size: 12px;\n  font-weight: 600;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .match-details {\n  align-items: center;\n  color: #6c7da3;\n  display: flex;\n  font-size: 11px;\n  line-height: 1;\n  margin-bottom: 8px;\n}\n.popular-wrap .live-event-main .match-odd-list {\n  display: flex;\n  list-style: none;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item {\n  flex: 1;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd {\n  align-items: center;\n  background-color: rgba(108, 125, 163, 0.2);\n  border-radius: 12px;\n  cursor: pointer;\n  font-size: 14px;\n  height: 36px;\n  min-width: 36px;\n  padding: 0 10px;\n  transition: all 0.3s;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values {\n  will-change: contents;\n  transition: all 0.3s;\n  align-items: center;\n  display: flex;\n  pointer-events: none;\n  height: 100%;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-name {\n  margin-right: 5px;\n  text-transform: uppercase;\n  color: black;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-value {\n  margin-left: auto;\n  font-weight: 700;\n  text-align: right;\n  color: black;\n}\n\n.section-card {\n  border-radius: 12px;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  position: relative;\n  padding: 25px;\n}\n.section-card .section-card-top-line {\n  position: absolute;\n  top: 0;\n  left: 25px;\n  right: 25px;\n  height: 4px;\n  border-bottom-left-radius: 100px;\n  border-bottom-right-radius: 100px;\n  background-size: 200% auto;\n  -webkit-animation: notch-bg-slide-01a6027a 4s linear 0s infinite alternate;\n  animation: notch-bg-slide-01a6027a 4s linear 0s infinite alternate;\n  will-change: background-position;\n  background-image: linear-gradient(90deg, rgb(0, 183, 255) 0%, rgb(199, 0, 255) 50%, rgb(255, 187, 0) 100%);\n}\n.section-card .section-card-header {\n  justify-content: space-between;\n  align-items: flex-end;\n  z-index: 10;\n}\n.section-card .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-bottom: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.section-card .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.section-card .game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.section-card .game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.section-card .game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.section-card .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n.section-card .section-card-bg {\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  border-radius: 12px;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg {\n  height: 100%;\n  display: flex;\n  justify-content: flex-end;\n  align-items: flex-end;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow {\n  position: relative;\n  height: 100%;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-glow {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  filter: blur(30px) saturate(1);\n  top: 0px;\n  opacity: 0.5;\n  transform: translateZ(0px);\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-content-wrapper {\n  position: relative;\n  height: 100%;\n  width: 100%;\n}\n.section-card .SectionPokerBanner_contentButton {\n  height: 45px;\n  color: #fff;\n  text-transform: capitalize !important;\n  border-radius: 8px;\n  background-image: linear-gradient(255deg, #00b7ff, #8d53e9);\n  padding: 0 25px;\n  cursor: pointer;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  font-size: 15px;\n  position: relative;\n  overflow: hidden;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  margin-top: 10px;\n}\n.section-card .SectionPokerBanner_contentButton:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 20%;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  left: -25%;\n  transform: skewX(-20deg);\n}\n\n.sports-list {\n  background-color: rgb(20, 27, 46);\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  overflow: hidden;\n  height: 100%;\n  flex-shrink: 0;\n  max-height: 100%;\n  border-radius: 8px;\n  display: flex;\n  padding: 10px;\n  height: calc(100vh - 80px);\n  position: sticky;\n  top: 64px;\n}\n.sports-list .sports-search-wrap {\n  position: relative;\n  margin: 10px 0px;\n  padding: 10px 0px;\n}\n.sports-list .sports-search-wrap:before {\n  bottom: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap:after {\n  top: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap .search-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n}\n.sports-list .sports-search-wrap .search-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-search-wrap .casino-search {\n  width: 100%;\n  border-radius: 8px;\n  background-color: #1f2941;\n}\n.sports-list .sports-search-wrap .casino-search input {\n  color: #7388b6;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: -0.19px;\n  width: 201px;\n  padding: 10px 10px 10px 0px;\n}\n.sports-list .sports-search-wrap .casino-search fieldset {\n  display: none;\n}\n.sports-list .sports-list-body {\n  overflow: hidden auto;\n}\n.sports-list .sports-list-body .list-item {\n  position: relative;\n}\n.sports-list .sports-list-body .list-item .item-btn-wrap {\n  position: sticky;\n  top: 0;\n  z-index: 3;\n}\n.sports-list .sports-list-body .list-item .section-list {\n  padding: 0.5rem 0;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header {\n  align-items: center;\n  color: #616e8c;\n  display: flex;\n  line-height: 25px;\n  min-height: 25px;\n  font-size: 12px;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header:after {\n  background-color: currentColor;\n  content: \"\";\n  display: block;\n  flex-grow: 1;\n  height: 1px;\n  margin-left: 8px;\n}\n.sports-list .sports-list-item-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n}\n.sports-list .sports-list-item-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-list-item-btn:hover {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n\n.betslip {\n  border-radius: 10px;\n  padding: 10px;\n  margin-bottom: 15px;\n  position: sticky;\n  top: 64px;\n  background-image: linear-gradient(135deg, #233358, rgba(20, 27, 46, 0.6));\n}\n.betslip .bet-tabbar {\n  margin-bottom: 15px;\n}\n.betslip .bet-tabbar .slip-title {\n  align-items: center;\n  background-color: hsla(0deg, 0%, 100%, 0.1);\n  border-radius: 8px;\n  display: flex;\n  flex: auto;\n  font-size: 12px;\n  height: 30px;\n  justify-content: center;\n  text-align: center;\n  transition: opacity 0.2s;\n  position: relative;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n.betslip .bet-tabbar .slip-title .slip-count {\n  background-color: white;\n  color: #0059c5;\n  border-radius: 50px;\n  width: 14px;\n  height: 14px;\n  font-size: 10px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  right: 32%;\n  position: absolute;\n  letter-spacing: 1px;\n  line-height: 1;\n}\n.betslip .slip-Odd {\n  align-items: center;\n  display: flex;\n  flex-shrink: 0;\n  justify-content: center;\n  font-weight: 700;\n  font-size: 12px;\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n  align-self: stretch;\n  margin-right: 8px;\n  width: 46px;\n  min-width: none;\n  padding: 0px !important;\n  min-width: 0px !important;\n  z-index: 2;\n}\n.betslip .close-odd {\n  color: #94a6cd;\n  font-size: 11px;\n  z-index: 1;\n  background-color: rgba(148, 166, 205, 0.11);\n  border-radius: 10px;\n  width: 28px;\n  height: 28px;\n  margin-left: auto;\n  padding: 0px;\n}\n.betslip .close-odd:hover {\n  background-color: #60afff;\n}\n.betslip .close-odd:hover svg {\n  color: white;\n}\n.betslip .sliip-teams {\n  grid-area: teams;\n  padding: 2px 0 2px 10px;\n  position: relative;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.betslip .sliip-teams:before {\n  content: \"\";\n  width: 3.5px;\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.3);\n  border-radius: 0 10px 10px 0;\n}\n.betslip .live-mark {\n  align-self: end;\n  border-radius: 10px;\n  color: #f62525;\n  display: flex;\n  font-size: 9px;\n  font-weight: 700;\n  grid-area: service;\n  letter-spacing: 0.17px;\n  text-transform: uppercase;\n  position: relative;\n  padding-right: 10px;\n  align-items: center;\n}\n.betslip .live-mark .live-dot {\n  background-image: radial-gradient(50% 50% at 50% 50%, rgba(246, 37, 37, 0) 0, rgba(246, 37, 37, 0.2) 100%);\n  border-radius: 50px;\n  height: 12px;\n  margin-right: 3px;\n  width: 12px;\n  position: relative;\n}\n.betslip .live-mark .live-dot:before {\n  content: \"\";\n  width: 4px;\n  height: 4px;\n  border-radius: 50px;\n  background-color: #f62525;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  margin: auto;\n}\n.betslip .live-mark span {\n  font-family: Tahoma, \"sans-serif\";\n}\n.betslip .enter-stake {\n  width: 100%;\n}\n.betslip .enter-stake input {\n  font-size: 12px;\n  width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  color: #090f1e;\n  height: 14px;\n  padding: 7px 10px 9px;\n}\n.betslip .enter-stake fieldset {\n  display: none;\n}\n.betslip .express-slip {\n  position: relative;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  overflow: hidden;\n}\n.betslip .express-slip:first-child {\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n}\n.betslip .express-slip:after {\n  content: \"\";\n  bottom: 0px;\n  left: 15px;\n  position: absolute;\n  right: 15px;\n  z-index: 110;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_5___ + ");\n  height: 1px;\n}\n.betslip .total-odd {\n  background-color: #fff;\n  border-bottom-left-radius: 10px;\n  border-bottom-right-radius: 10px;\n  margin-bottom: 10px;\n  padding: 10px;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.betslip .total-odd .btn {\n  background-image: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  border-radius: 8px;\n  color: white;\n  text-transform: capitalize;\n  font-size: 12px;\n  font-weight: 800;\n  padding: 4px 24px;\n}\n\n.tournament-table {\n  border-radius: 8px;\n  color: #000;\n  contain: content;\n  overflow: hidden;\n  text-align: center;\n  width: 100%;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  table-layout: fixed;\n}\n.tournament-table .table-header {\n  color: #fff;\n}\n.tournament-table .table-header .table-row {\n  height: 40px;\n}\n.tournament-table .table-header .table-row .tournament-cell {\n  font-size: 14px;\n  line-height: 1.1;\n  text-align: left;\n  position: relative;\n}\n.tournament-table .table-header .table-row .tournament-cell .tournament-cell-inner {\n  display: flex;\n  align-items: center;\n  padding: 10px 15px;\n}\n.tournament-table .table-header .table-row .odd-cell-h {\n  color: #b1d1ff;\n  font-size: 11px;\n  letter-spacing: -0.1px;\n  min-width: 30px;\n  text-align: center;\n  text-transform: uppercase;\n  width: 6%;\n}\n.tournament-table .table-header .table-row th {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row {\n  background-color: #edf2ff;\n  cursor: pointer;\n}\n.tournament-table .table-body .match-row:hover {\n  background-color: #1b2029;\n}\n.tournament-table .table-body .match-row:hover .match-info .favourite,\n.tournament-table .table-body .match-row:hover .match-info .match-date,\n.tournament-table .table-body .match-row:hover .odd-cell .odd-coefficient,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed,\n.tournament-table .table-body .match-row:hover .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  color: white;\n}\n.tournament-table .table-body .match-row td {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row .match-info {\n  align-items: center;\n  display: flex;\n  padding: 5px;\n}\n.tournament-table .table-body .match-row .match-info .favourite {\n  color: #bfd2f3;\n}\n.tournament-table .table-body .match-row .match-info .match-date {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .match-separator {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  border-radius: 1.5px;\n  flex: none;\n  height: 2rem;\n  margin: 2px 6px;\n  opacity: 0.8;\n  width: 3px;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container {\n  align-items: center;\n  display: flex;\n  flex: 1;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block {\n  align-items: center;\n  display: flex;\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams {\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team {\n  display: flex;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  overflow: hidden;\n  position: relative;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto {\n  display: flex;\n  margin-left: auto;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics {\n  font-weight: 500;\n  letter-spacing: -0.1px;\n  margin-right: 5px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line {\n  display: flex;\n  justify-content: flex-end;\n  text-align: right;\n  margin: 0px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-periods {\n  color: #888;\n  font-size: 10px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed {\n  color: black;\n  font-size: 12px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line svg {\n  color: #87a2da;\n  font-size: 16px;\n}\n.tournament-table .table-body .match-row .odd-cell {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  position: relative;\n}\n.tournament-table .table-body .match-row .odd-cell:before {\n  position: absolute;\n  content: \"\";\n  background-color: rgba(152, 160, 181, 0.1019607843);\n  /* background-color: rgb(20 27 46 / 15%); */\n  width: 100%;\n  height: 100%;\n  top: 0;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient {\n  border-radius: 8px;\n  font-weight: 600;\n  letter-spacing: -0.2px;\n  padding: 2px 12px;\n  text-align: center;\n  min-width: 0;\n  color: black;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient:hover {\n  background-color: #9ea5b4;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient.active {\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n}\n.tournament-table .table-body .match-row .odd-cell.disable {\n  background-color: rgba(20, 27, 46, 0.7);\n  cursor: initial;\n}\n\n.event-content {\n  flex: 1;\n  background-size: 100% auto;\n  background-repeat: no-repeat;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_6___ + ");\n}\n.event-content .btn {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  align-items: center;\n  background-color: #252f4b;\n  border-radius: 8px;\n  color: #fff;\n  display: flex;\n  font-size: 12px;\n  font-weight: 500;\n  height: 30px;\n  min-width: 0px;\n  justify-content: center;\n  letter-spacing: 0.2px;\n  padding: 0 10px;\n  text-align: center;\n  transition: all 0.2s ease-out;\n}\n.event-content .market-head {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  cursor: pointer;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0px 10px;\n}\n.event-content .market-body {\n  display: flex;\n  flex-wrap: wrap;\n  margin-right: -1px;\n  margin-bottom: -1px;\n}\n.event-content .market-body .market-wrap {\n  padding-right: 1px;\n  min-width: 30%;\n  display: flex;\n  flex-grow: 1;\n}\n.event-content .market-body .market-wrap .market-btn {\n  width: 100%;\n  margin-bottom: 1px;\n  background-color: #e4ebff;\n  border-radius: 0px;\n  display: flex;\n  justify-content: space-between;\n  padding: 4px 0px 4px 10px;\n}\n.event-content .market-body .market-wrap .market-btn:hover {\n  background-color: #1b2029;\n}\n.event-content .market-body .market-wrap .market-btn:hover p {\n  color: white !important;\n}\n.event-content .market-body .market-wrap .market-btn .market-name {\n  font-size: 12px;\n  color: #252f4b;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd {\n  font-size: 14px;\n  font-weight: 600;\n  color: #090f1e;\n  padding: 5px 8px;\n  border-radius: 8px;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd.active {\n  background-image: linear-gradient(135deg, #108de7, #0855c4);\n  color: white;\n}\n\n.casino .casino-top {\n  padding: 0 15px 15px 15px;\n  align-items: center;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  color: #fff;\n  opacity: 1;\n  position: relative;\n  z-index: 1;\n  cursor: pointer;\n  flex: 1;\n  height: 100%;\n}\n.casino .casino-top:before {\n  content: \"\";\n  position: absolute;\n  border-radius: 12px;\n  z-index: -2;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: radial-gradient(circle at -65% 157%, #c5991e, #b68100 7%, #fff29d 66%, #b57f00 113%, #c7940f 138%);\n}\n.casino .casino-top:after {\n  content: \"\";\n  position: absolute;\n  border-radius: 10px;\n  z-index: -1;\n  top: 2px;\n  bottom: 2px;\n  left: 2px;\n  right: 2px;\n  background: #090f1f;\n  box-shadow: 0 9px 17px 0 rgba(214, 179, 71, 0), inset 0 1px 29px 0 #000;\n}\n.casino .casino-top .casino-top-title {\n  align-items: center;\n  display: flex;\n  margin-top: auto;\n}\n.casino .casino-top .casino-top-title .title-separator {\n  background: linear-gradient(270deg, #fff, transparent);\n  height: 1px;\n  opacity: 0.3;\n  width: 2vw;\n}\n.casino .casino-top .casino-top-title .casino-title-name {\n  font-size: 2vw;\n  font-weight: 900;\n  letter-spacing: -1.96px;\n  text-shadow: 0 2px 87px #0c1820;\n}\n.casino .casino-top .casino-get-price {\n  font-size: 51px;\n  font-weight: 900;\n  background: -webkit-linear-gradient(#000000, #ffe55d, #080700);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: #ffe55d;\n}\n.casino .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-right: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.casino .game-card:last-child {\n  margin-right: 0px;\n}\n.casino .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.casino .game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.casino .game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.casino .game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.casino .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.mobileMenu {\n  width: 100%;\n  border-top: 1px solid #1f2841;\n  height: 60px;\n  position: relative;\n}\n.mobileMenu .mobileMenu-btn {\n  width: 20%;\n  flex-direction: column;\n  border-radius: 0px !important;\n}\n.mobileMenu .mobileMenu-btn img {\n  margin-bottom: 5px;\n  max-height: 22px;\n  max-width: 22px;\n}\n.mobileMenu .mobileMenu-btn p {\n  color: #536387;\n  font-size: 11px;\n  text-align: center;\n  text-transform: capitalize;\n}\n.mobileMenu .mobileMenu-btn.active:before {\n  background-color: #0854c3;\n  border-radius: 3px;\n  box-shadow: 0 0 1px #090f1e;\n  content: \"\";\n  height: 6px;\n  position: absolute;\n  top: -3px;\n  width: 54px;\n}\n.mobileMenu .mobileMenu-btn.active p {\n  color: white;\n}\n\n.bodyTab {\n  -webkit-mask-image: linear-gradient(to left, transparent 0, #000 85px);\n          mask-image: linear-gradient(to left, transparent 0, #000 85px);\n}\n.bodyTab:after {\n  content: \"\";\n  padding-left: 80px;\n}\n.bodyTab::-webkit-scrollbar {\n  height: 0px;\n  width: 0px;\n}\n\n.drawer .MuiDrawer-paper {\n  background: linear-gradient(173deg, rgba(37, 46, 76, 0.98) 2%, rgba(25, 32, 51, 0.98));\n  border-radius: 20px 0 0 20px;\n}\n\n.top-casino {\n  background-image: linear-gradient(90deg, rgba(218, 113, 103, 0.35) 0px, rgba(218, 113, 103, 0.306) 4.5px, rgba(218, 113, 103, 0.26) 9px, rgba(218, 113, 103, 0.216) 13.5px, rgba(218, 113, 103, 0.176) 18px, rgba(218, 113, 103, 0.137) 22.5px, rgba(218, 113, 103, 0.1) 27px, rgba(218, 113, 103, 0.07) 31.5px, rgba(218, 113, 103, 0.047) 36px, rgba(218, 113, 103, 0.027) 40.5px, rgba(218, 113, 103, 0.01) 45px, rgba(218, 113, 103, 0.004) 49.5px, rgba(218, 113, 103, 0) 54px), linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));\n  height: 45px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-right: 15px;\n  padding-left: 15px;\n  position: relative;\n  border-radius: 12px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.top-casino .left-red {\n  background-image: linear-gradient(rgb(182, 32, 224) 0%, rgb(247, 181, 0) 100%);\n  opacity: 1;\n  position: absolute;\n  left: 0;\n  width: 3px;\n  height: 21px;\n  border-top-right-radius: 100px;\n  border-bottom-right-radius: 100px;\n  transition: opacity 0.3s;\n}\n\n.all-casino {\n  background-image: linear-gradient(90deg, rgba(109, 92, 217, 0.35) 0px, rgba(109, 92, 217, 0.306) 4.5px, rgba(109, 92, 217, 0.26) 9px, rgba(109, 92, 217, 0.216) 13.5px, rgba(109, 92, 217, 0.176) 18px, rgba(109, 92, 217, 0.137) 22.5px, rgba(109, 92, 217, 0.1) 27px, rgba(109, 92, 217, 0.07) 31.5px, rgba(109, 92, 217, 0.047) 36px, rgba(109, 92, 217, 0.027) 40.5px, rgba(109, 92, 217, 0.01) 45px, rgba(109, 92, 217, 0.004) 49.5px, rgba(109, 92, 217, 0) 54px), linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));\n  height: 45px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-right: 15px;\n  padding-left: 15px;\n  position: relative;\n  border-radius: 12px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.all-casino .left-red {\n  background-image: linear-gradient(rgb(61, 55, 183) 0%, rgb(140, 114, 236) 100%);\n  opacity: 1;\n  position: absolute;\n  left: 0;\n  width: 3px;\n  height: 21px;\n  border-top-right-radius: 100px;\n  border-bottom-right-radius: 100px;\n  transition: opacity 0.3s;\n}\n\n.all-effect {\n  background-image: linear-gradient(142.34deg, rgba(109, 92, 217, 0.45) -30%, rgba(109, 92, 217, 0.392) -23.33%, rgba(108, 91, 217, 0.333) -16.67%, rgba(109, 92, 217, 0.28) -10%, rgba(109, 92, 217, 0.224) -3.33%, rgba(109, 92, 217, 0.176) 3.33%, rgba(109, 92, 217, 0.133) 10%, rgba(109, 92, 217, 0.094) 16.67%, rgba(109, 92, 217, 0.06) 23.33%, rgba(109, 92, 217, 0.035) 30%, rgba(109, 92, 217, 0.016) 36.67%, rgba(109, 92, 217, 0.004) 43.33%, rgba(109, 92, 217, 0) 50%);\n  width: 68px;\n  height: 68px;\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n\n.casino-bg {\n  margin-top: 4px;\n  border-radius: 6px 6px 12px 12px;\n  background-repeat: no-repeat;\n  position: relative;\n  overflow: hidden;\n  background-image: linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));\n}\n\n.casino-search {\n  width: 100%;\n  border-radius: 12px;\n  background-color: #121829;\n}\n.casino-search input {\n  color: #7388b6;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: -0.19px;\n  width: 201px;\n  padding: 10px 10px 10px 0px;\n}\n.casino-search fieldset {\n  display: none;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  -webkit-animation: flare-2 5s ease-in-out infinite;\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff !important;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  bottom: 0;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  transform: skewX(-30deg);\n  width: 30px;\n  will-change: left;\n  z-index: 1;\n  -webkit-animation: flare 5s ease infinite;\n  animation: flare 5s ease infinite;\n}\n\n.btn.active {\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.able {\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-bottom: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n\n.mobile-menu {\n  color: white;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
