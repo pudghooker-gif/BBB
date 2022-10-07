@@ -2102,3 +2102,46 @@
         animation: flare-2 5s ease-in-out infinite;
     }
 }
+
+.mobileMenu {
+    width: 100%;
+    border-top: 1px solid #1f2841;
+    height: 60px;
+    position: relative;
+
+    .mobileMenu-btn {
+        width: 20%;
+        flex-direction: column;
+        border-radius: 0px !important;
+
+        img {
+            margin-bottom: 5px;
+            max-height: 22px;
+            max-width: 22px;
+        }
+
+        p {
+            color: #536387;
+            font-size: 11px;
+            text-align: center;
+            text-transform: capitalize;
+        }
+    }
+
+    .mobileMenu-btn.active {
+        &:before {
+            background-color: #0854c3;
+            border-radius: 3px;
+            box-shadow: 0 0 1px #090f1e;
+            content: "";
+            height: 6px;
+            position: absolute;
+            top: -3px;
+            width: 54px;
+        }
+
+        p {
+            color: white;
+        }
+    }
+}
