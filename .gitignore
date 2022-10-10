@@ -9,9 +9,10 @@
 /coverage
 
 # production
-/build
 /storage
+/resources
 # /vendor
+
 
 # misc
 .DS_Store
