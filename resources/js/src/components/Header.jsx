@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
+import Axios from '../providers/request';
+import { useToasts } from 'react-toast-notifications';
 
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
+import List from '@mui/material/List';
 import Link from '@mui/material/Link';
 import Menu from '@mui/material/Menu';
 import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
 import Modal from '@mui/material/Modal';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import SvgIcon from '@mui/material/SvgIcon';
+import ListItem from '@mui/material/ListItem';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import LoadingButton from '@mui/lab/LoadingButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import ListItemButton from '@mui/material/ListItemButton';
 
 import AddIcon from '@mui/icons-material/Add';
 import EastIcon from '@mui/icons-material/East';
@@ -417,6 +420,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const isMobile = useMediaQuery('(max-width:425px)');
+  const { addToast } = useToasts();
 
   const list = [{ name: 'Home', route: '/home' }, { name: 'Live', route: '/sports/live' }, { name: 'Sports', route: '/sports/prematch' }, { name: 'World Cup 22', route: '/sports/prematch' }, { name: 'Casino', route: '/casino/all' }, { name: 'Live-Casino', route: '/live-casino' }, { name: 'Poker', route: '/poker' }];
   const profile = ['Withdraw', 'Setting', 'Bet History']
@@ -425,6 +429,11 @@ const Header = () => {
   const [register, setRegister] = useState(false);
   const [langList, setLangList] = useState(null);
   const [showProfile, setShowProfile] = useState(null);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [message, setMessage] = useState();
+  const [error, setError] = useState({});
+  const [errorReg, setErrorReg] = useState({});
+  const [serverError, setServerError] = useState({});
   const [values, setValues] = useState({
     username: '',
     email: '',
@@ -461,6 +470,8 @@ const Header = () => {
   };
 
   const openLogin = () => {
+    setMessage();
+    setError({});
     setRegister(false);
     setLogin(true);
   }
@@ -484,24 +495,101 @@ const Header = () => {
   }
 
   const loginAction = async () => {
-    axios.post('/login', { username: values.username, password: values.password })
-      .then(
-        response => {
-          let data = response.data;
-          if (data) {
-            dispatch(auth({ ...data, isAuth: true }));
-            closeLogin();
-          }
-        }
-      )
-      .catch(error => {
-        console.log("ERROR:: ", error.response.data);
-      });
+    setLoginLoading(true);
+    setMessage();
+
+    let tempError = error;
+    if (!values.username) {
+      tempError = { ...tempError, username: true };
+    } else {
+      tempError = { ...tempError, username: false };
+    }
+    if (!values.password) {
+      tempError = { ...tempError, password: true };
+    } else {
+      tempError = { ...tempError, password: false };
+    }
+
+    setError(tempError);
+
+    if (values.username && values.password) {
+      let data = await Axios('post', '/login', { username: values.username, password: values.password });
+      if (data.status) {
+        dispatch(auth({ ...data.data, isAuth: true }));
+        closeLogin();
+        addToast('Success!', {
+          appearance: 'success',
+          autoDismiss: true,
+        })
+      } else {
+        setMessage({ status: 'error', content: data.message })
+      }
+    }
+    setLoginLoading(false);
   }
 
   const logoutAction = () => {
-    axios.get('logout', {});
+    Axios('get', '/logout', {});
     location.reload();
+  }
+
+  const registerAction = async () => {
+    setLoginLoading(true);
+    setMessage();
+
+    let tempError = errorReg;
+    if (!values.username) {
+      tempError = { ...tempError, username: true };
+    } else {
+      tempError = { ...tempError, username: false };
+    }
+    if (!values.email) {
+      tempError = { ...tempError, email: true };
+    } else {
+      tempError = { ...tempError, email: false };
+    }
+    if (!values.password) {
+      tempError = { ...tempError, password: true };
+    } else {
+      tempError = { ...tempError, password: false };
+    }
+    if (!values.confirm) {
+      tempError = { ...tempError, confirm: true, confirmError: '' };
+    } else if (values.confirm !== values.password) {
+      tempError = { ...tempError, confirm: true, confirmError: 'Please enter a matching password.' };
+    } else {
+      tempError = { ...tempError, confirm: false, confirmError: '' };
+    }
+
+    setErrorReg(tempError);
+
+    if (values.username && values.email && values.password && values.password === values.confirm) {
+      let data = await Axios(
+        'post',
+        '/register',
+        {
+          username: values.username,
+          email: values.email,
+          password: values.password,
+          password_confirmation: values.confirm
+        });
+
+      if (data.status) {
+        dispatch(auth({ ...data.data, isAuth: true }));
+        closeRegister();
+        addToast(`Welcom ${data.data.username}!`, {
+          appearance: 'success',
+          autoDismiss: true,
+        })
+      } else {
+        setServerError(data.data);
+        for (let key in data.data) {
+          tempError = { ...tempError, [key]: true };
+        }
+        setErrorReg(tempError);
+      }
+    }
+    setLoginLoading(false);
   }
 
   useEffect(() => {
@@ -546,69 +634,104 @@ const Header = () => {
               </IconButton>
             </HStack>
             <Stack sx={{ my: 3 }}>
-              <OutlinedInput
-                type='text'
-                placeholder='Username / Email'
-                name='username'
-                value={values.username}
-                onChange={handleChange('username')}
-                sx={{
-                  mb: 2,
-                  '& fieldset': { display: 'none' },
-                  '& input': {
-                    bgcolor: '#edf0f7',
-                    color: '#070c19cc',
-                    padding: 2,
-                    borderRadius: '12px',
-                    fontSize: '12px',
-                    '&:-webkit-autofill': {
-                      'WebkitBoxShadow': 'unset',
-                      'WebkitTextFillColor': '#070c19cc',
+              <Box sx={{ mb: 2 }}>
+                <OutlinedInput
+                  type='text'
+                  placeholder='Username / Email'
+                  name='username'
+                  value={values.username}
+                  onChange={handleChange('username')}
+                  sx={{
+                    width: '100%',
+                    '& fieldset': { display: 'none' },
+                    '& input': {
+                      bgcolor: '#edf0f7',
+                      color: '#070c19cc',
+                      padding: 2,
                       borderRadius: '12px',
+                      fontSize: '12px',
+                      '&:-webkit-autofill': {
+                        'WebkitBoxShadow': 'unset',
+                        'WebkitTextFillColor': '#070c19cc',
+                        borderRadius: '12px',
+                      }
                     }
-                  }
-                }}
-              />
-
-              <OutlinedInput
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                placeholder='Password'
-                name='password'
-                onChange={handleChange('password')}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
+                  }}
+                />
+                {
+                  error.username ?
+                    <Alert variant="outlined" severity="warning" sx={{ mt: 1, borderRadius: 2, py: 0, color: theme => theme.palette.warning.main }}>
+                      Username/Email is required.
+                    </Alert> : null
                 }
-                sx={{
-                  mb: 2,
-                  bgcolor: '#edf0f7',
-                  borderRadius: '12px',
-                  '& fieldset': { display: 'none' },
-                  '& input': {
-                    color: '#070c19cc',
-                    padding: 2,
-                    borderRadius: '12px',
-                    fontSize: '12px',
-                    '&:-webkit-autofill': {
-                      'WebkitBoxShadow': 'unset',
-                      'WebkitTextFillColor': '#070c19cc',
-                      borderRadius: '12px',
-                    }
+              </Box>
+              <Box sx={{ mb: 2 }}>
+                <OutlinedInput
+                  type={values.showPassword ? 'text' : 'password'}
+                  value={values.password}
+                  placeholder='Password'
+                  name='password'
+                  onChange={handleChange('password')}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
                   }
-                }}
-              />
+                  sx={{
+                    width: '100%',
+                    bgcolor: '#edf0f7',
+                    borderRadius: '12px',
+                    '& fieldset': { display: 'none' },
+                    '& input': {
+                      color: '#070c19cc',
+                      padding: 2,
+                      borderRadius: '12px',
+                      fontSize: '12px',
+                      '&:-webkit-autofill': {
+                        'WebkitBoxShadow': 'unset',
+                        'WebkitTextFillColor': '#070c19cc',
+                        borderRadius: '12px',
+                      }
+                    }
+                  }}
+                />
+                {
+                  error.password ?
+                    <Alert variant="outlined" severity="warning" sx={{ mt: 1, borderRadius: 2, py: 0, color: theme => theme.palette.warning.main }}>
+                      Password is required.
+                    </Alert> : null
+                }
+              </Box>
               <HStack justifyContent='flex-end'>
                 <Typography component='span' sx={{ color: '#6a7690a6', fontSize: 12, cursor: 'pointer' }}>Forgot password?</Typography>
               </HStack>
             </Stack>
-            <Button className='btn active' sx={{ fontSize: '18px', borderRadius: '10px', mb: 2, padding: 3 }} onClick={() => loginAction()}>Login</Button>
+            {
+              message ?
+                <HStack sx={{ mb: 2 }}>
+                  <Alert variant="filled" severity={message?.status} sx={{ width: '100%', borderRadius: 2 }}>
+                    {message?.content}
+                  </Alert>
+                </HStack> : null
+            }
+            <LoadingButton
+              sx={{
+                mb: 2,
+                padding: 3,
+                fontSize: '18px',
+                borderRadius: '10px',
+              }}
+              loading={loginLoading}
+              className='btn active'
+              onClick={() => loginAction()}
+            >
+              {loginLoading ? '' : 'Login'}
+            </LoadingButton>
             <HStack justifyContent='center' alignItems='center'>
               <Typography sx={{ color: '#6a7690a6', fontSize: '11px', mr: .5 }}>Still no account?</Typography>
               <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#1077de', cursor: 'pointer' }} onClick={() => openRegister()}>Register</Typography>
@@ -642,122 +765,193 @@ const Header = () => {
               </IconButton>
             </HStack>
             <Stack sx={{ my: 3 }}>
-              <OutlinedInput
-                type='text'
-                placeholder='Username'
-                name='username'
-                value={values.username}
-                onChange={handleChange('username')}
-                sx={{
-                  mb: 2,
-                  '& fieldset': { display: 'none' },
-                  '& input': {
-                    bgcolor: '#edf0f7',
-                    color: '#070c19cc',
-                    padding: 2,
-                    borderRadius: '12px',
-                    fontSize: '12px',
-                    '&:-webkit-autofill': {
-                      'WebkitBoxShadow': 'unset',
-                      'WebkitTextFillColor': '#070c19cc',
+              <Box sx={{ mb: 2 }}>
+                <OutlinedInput
+                  type='text'
+                  placeholder='Username'
+                  name='username'
+                  value={values.username}
+                  onChange={handleChange('username')}
+                  sx={{
+                    width: '100%',
+                    '& fieldset': { display: 'none' },
+                    '& input': {
+                      bgcolor: '#edf0f7',
+                      color: '#070c19cc',
+                      padding: 2,
                       borderRadius: '12px',
+                      fontSize: '12px',
+                      '&:-webkit-autofill': {
+                        'WebkitBoxShadow': 'unset',
+                        'WebkitTextFillColor': '#070c19cc',
+                        borderRadius: '12px',
+                      }
                     }
-                  }
-                }}
-              />
-              <OutlinedInput
-                type='text'
-                placeholder='Email'
-                name='email'
-                value={values.email}
-                onChange={handleChange('email')}
-                sx={{
-                  mb: 2,
-                  '& fieldset': { display: 'none' },
-                  '& input': {
-                    bgcolor: '#edf0f7',
-                    color: '#070c19cc',
-                    padding: 2,
-                    borderRadius: '12px',
-                    fontSize: '12px',
-                    '&:-webkit-autofill': {
-                      'WebkitBoxShadow': 'unset',
-                      'WebkitTextFillColor': '#070c19cc',
-                      borderRadius: '12px',
-                    }
-                  }
-                }}
-              />
-              <OutlinedInput
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                name='password'
-                placeholder='Password'
-                onChange={handleChange('password')}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
+                  }}
+                />
+                {
+                  errorReg.username ?
+                    <Alert variant="outlined" severity="warning" sx={{ mt: 1, borderRadius: 2, py: 0, color: theme => theme.palette.warning.main }}>
+                      {
+                        serverError.username ?
+                          <>
+                            {
+                              serverError.username.map((item, idx) => (
+                                <Typography key={idx} sx={{ fontSize: '0.875rem', lineHeight: 1.43, color: '#ffa726' }}>{item}</Typography>
+                              ))
+                            }
+                          </>
+                          : 'Username is required.'}
+                    </Alert> : null
                 }
-                sx={{
-                  mb: 2,
-                  bgcolor: '#edf0f7',
-                  borderRadius: '12px',
-                  '& fieldset': { display: 'none' },
-                  '& input': {
-                    color: '#070c19cc',
-                    padding: 2,
-                    borderRadius: '12px',
-                    fontSize: '12px',
-                    '&:-webkit-autofill': {
-                      'WebkitBoxShadow': 'unset',
-                      'WebkitTextFillColor': '#070c19cc',
+              </Box>
+              <Box sx={{ mb: 2 }}>
+                <OutlinedInput
+                  type='text'
+                  placeholder='Email'
+                  name='email'
+                  value={values.email}
+                  onChange={handleChange('email')}
+                  sx={{
+                    width: '100%',
+                    '& fieldset': { display: 'none' },
+                    '& input': {
+                      bgcolor: '#edf0f7',
+                      color: '#070c19cc',
+                      padding: 2,
                       borderRadius: '12px',
+                      fontSize: '12px',
+                      '&:-webkit-autofill': {
+                        'WebkitBoxShadow': 'unset',
+                        'WebkitTextFillColor': '#070c19cc',
+                        borderRadius: '12px',
+                      }
                     }
-                  }
-                }}
-              />
-              <OutlinedInput
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.confirm}
-                name='confirm'
-                placeholder='Confirm Password'
-                onChange={handleChange('confirm')}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
+                  }}
+                />
+                {
+                  errorReg.email ?
+                    <Alert variant="outlined" severity="warning" sx={{ mt: 1, borderRadius: 2, py: 0, color: theme => theme.palette.warning.main }}>
+                      {
+                        serverError.email ?
+                          <>
+                            {
+                              serverError.email.map((item, idx) => (
+                                <Typography key={idx} sx={{ fontSize: '0.875rem', lineHeight: 1.43, color: '#ffa726' }}>{item}</Typography>
+                              ))
+                            }
+                          </>
+                          : 'Email is required.'}
+                    </Alert> : null
                 }
-                sx={{
-                  mb: 2,
-                  bgcolor: '#edf0f7',
-                  borderRadius: '12px',
-                  '& fieldset': { display: 'none' },
-                  '& input': {
-                    color: '#070c19cc',
-                    padding: 2,
-                    borderRadius: '12px',
-                    fontSize: '12px',
-                    '&:-webkit-autofill': {
-                      'WebkitBoxShadow': 'unset',
-                      'WebkitTextFillColor': '#070c19cc',
-                      borderRadius: '12px',
-                    }
+              </Box>
+              <Box sx={{ mb: 2 }}>
+                <OutlinedInput
+                  type={values.showPassword ? 'text' : 'password'}
+                  value={values.password}
+                  name='password'
+                  placeholder='Password'
+                  onChange={handleChange('password')}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
                   }
-                }}
-              />
+                  sx={{
+                    width: '100%',
+                    bgcolor: '#edf0f7',
+                    borderRadius: '12px',
+                    '& fieldset': { display: 'none' },
+                    '& input': {
+                      color: '#070c19cc',
+                      padding: 2,
+                      borderRadius: '12px',
+                      fontSize: '12px',
+                      '&:-webkit-autofill': {
+                        'WebkitBoxShadow': 'unset',
+                        'WebkitTextFillColor': '#070c19cc',
+                        borderRadius: '12px',
+                      }
+                    }
+                  }}
+                />
+                {
+                  errorReg.password ?
+                    <Alert variant="outlined" severity="warning" sx={{ mt: 1, borderRadius: 2, py: 0, color: theme => theme.palette.warning.main }}>
+                      {
+                        serverError.password ?
+                          <>
+                            {
+                              serverError.password.map((item, idx) => (
+                                <Typography key={idx} sx={{ fontSize: '0.875rem', lineHeight: 1.43, color: '#ffa726' }}>{item}</Typography>
+                              ))
+                            }
+                          </>
+                          : 'Password is required.'}
+                    </Alert> : null
+                }
+              </Box>
+              <Box sx={{ mb: 2 }}>
+                <OutlinedInput
+                  type={values.showPassword ? 'text' : 'password'}
+                  value={values.confirm}
+                  name='confirm'
+                  placeholder='Confirm Password'
+                  onChange={handleChange('confirm')}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  sx={{
+                    width: '100%',
+                    bgcolor: '#edf0f7',
+                    borderRadius: '12px',
+                    '& fieldset': { display: 'none' },
+                    '& input': {
+                      color: '#070c19cc',
+                      padding: 2,
+                      borderRadius: '12px',
+                      fontSize: '12px',
+                      '&:-webkit-autofill': {
+                        'WebkitBoxShadow': 'unset',
+                        'WebkitTextFillColor': '#070c19cc',
+                        borderRadius: '12px',
+                      }
+                    }
+                  }}
+                />
+                {
+                  errorReg.confirm ?
+                    <Alert variant="outlined" severity="warning" sx={{ mt: 1, borderRadius: 2, py: 0, color: theme => theme.palette.warning.main }}>
+                      {errorReg.confirmError ? errorReg.confirmError : 'Confirm password is required.'}
+                    </Alert> : null
+                }
+              </Box>
             </Stack>
-            <Button className='btn success' sx={{ fontSize: '18px', borderRadius: '10px', mb: 2, padding: 3 }}>Register</Button>
+            <LoadingButton
+              loading={loginLoading}
+              className='btn success'
+              sx={{
+                mb: 2,
+                padding: 3,
+                fontSize: 18,
+                borderRadius: '10px',
+              }}
+              onClick={() => registerAction()}
+            >
+              {loginLoading ? '' : 'Register'}
+            </LoadingButton>
             <HStack justifyContent='center' alignItems='center'>
               <Typography sx={{ color: '#6a7690a6', fontSize: '11px', mr: .5 }}>Already have an account?</Typography>
               <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#1077de', cursor: 'pointer' }} onClick={() => openLogin()}>Login</Typography>

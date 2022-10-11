@@ -10,7 +10,7 @@
 
 # production
 /storage
-/resources
+/resources/js
 # /vendor
 
 

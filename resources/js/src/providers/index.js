@@ -1,15 +1,13 @@
 import reportWebVitals from './reportWebVitals';
-import { createRoot } from 'react-dom/client';
 import MuiThemeProvider from './theme';
 import { Provider } from 'react-redux';
 import store from '../state';
-
-const Root = createRoot(document.getElementById('app'));
+import { ToastProvider } from 'react-toast-notifications';
 
 export {
-    Root,
     store,
     Provider,
+    ToastProvider,
     reportWebVitals,
     MuiThemeProvider,
 };

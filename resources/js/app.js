@@ -1,16 +1,25 @@
 import {
-    Root,
     store,
     Provider,
+    ToastProvider,
     MuiThemeProvider
 } from './src/providers';
 
+import ReactDOM from 'react-dom'
 import App from './src/App';
 
-Root.render(
+ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
-            <App />
+            <ToastProvider
+                autoDismiss
+                autoDismissTimeout={6000}
+                //  components={{ Toast: Snack }}
+                placement="top-right"
+            >
+                <App />
+            </ToastProvider>
         </MuiThemeProvider>
-    </Provider>
-);
+    </Provider>,
+    document.getElementById('app')
+)

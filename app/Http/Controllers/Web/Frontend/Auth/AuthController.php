@@ -81,6 +81,73 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
                 {
                     $this->incrementLoginAttempts($request);
                 }
+                return array('status' => false, 'message' => 'No match username or password');
+            }
+            $user = \Auth::getProvider()->retrieveByCredentials($credentials);
+            $data = \VanguardLTE\Lib\GeoData::get_data();
+            if( $data['country'] != '' && !$user->country ) 
+            {
+                $user->update(['country' => $data['country']]);
+            }
+            if( $data['city'] != '' && !$user->town ) 
+            {
+                $user->update(['town' => $data['city']]);
+            }
+            if( $user->isBlocked() ) 
+            {
+                return array('status' => false, 'message' => 'Your account is blocked!');
+            }
+            if( $user->inviter_id != '' && $user->phone != '' && !$user->phone_verified ) 
+            {
+                $user->update([
+                    'status' => \VanguardLTE\Support\Enum\UserStatus::ACTIVE, 
+                    'phone_verified' => 1
+                ]);
+            }
+            if( $request->lang ) 
+            {
+                $user->update(['language' => $request->lang]);
+            }
+            if( settings('reset_authentication') && $user->hasRole('user') && count($sessionRepository->getUserSessions(\Auth::id())) ) 
+            {
+                foreach( $sessionRepository->getUserSessions($user->id) as $session ) 
+                {
+                    $sessionRepository->invalidateSession($session->id);
+                }
+            }
+            \Auth::login($user, true);
+            return array('status'=> true, 'data'=> $user);
+        }
+        public function postLogin_(\VanguardLTE\Http\Requests\Auth\LoginRequest $request, \VanguardLTE\Repositories\Session\SessionRepository $sessionRepository)
+        {
+            $throttles = settings('throttle_enabled');
+            $to = ($request->has('to') ? '?to=' . $request->get('to') : '');
+            if( $throttles && $this->hasTooManyLoginAttempts($request) ) 
+            {
+                return $this->sendLockoutResponse($request);
+            }
+            $credentials = $request->getCredentials();
+            if( filter_var($credentials['username'], FILTER_VALIDATE_EMAIL) ) 
+            {
+                $credentials = [
+                    'email' => $credentials['username'], 
+                    'password' => $credentials['password']
+                ];
+            }
+            else
+            {
+                $credentials = [
+                    'username' => $credentials['username'], 
+                    'password' => $credentials['password']
+                ];
+            }
+
+            if( !\Auth::validate($credentials) ) 
+            {
+                if( $throttles ) 
+                {
+                    $this->incrementLoginAttempts($request);
+                }
                 return redirect()->to('login' . $to)->withErrors(trans('auth.failed'));
             }
             $user = \Auth::getProvider()->retrieveByCredentials($credentials);
@@ -264,6 +331,23 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
             return view('frontend.' . $frontend . '.auth.register');
         }
         public function postRegister(\VanguardLTE\Http\Requests\Auth\RegisterRequest $request)
+        {
+            $data = $request->only('email', 'username', 'password');
+            $user = $this->users->create(array_merge($data, [
+                'role_id' => 1, 
+                'status' => (settings('use_email') ? \VanguardLTE\Support\Enum\UserStatus::UNCONFIRMED : \VanguardLTE\Support\Enum\UserStatus::ACTIVE)
+            ]));
+            $role = \jeremykenedy\LaravelRoles\Models\Role::where('name', '=', 'User')->first();
+            $user->attachRole($role);
+            event(new \VanguardLTE\Events\User\Registered($user));
+            $message = (settings('use_email') ? trans('app.account_create_confirm_email') : trans('app.account_created_login'));
+            if( !settings('use_email') ) 
+            {
+                \Auth::login($user, true);
+            }
+            return array('status' => true, 'data' => $user);
+        }
+        public function postRegister_(\VanguardLTE\Http\Requests\Auth\RegisterRequest $request)
         {
             $data = $request->only('email', 'username', 'password');
             if( isset($data['email']) && ($return = \VanguardLTE\Lib\Filter::domain_filtered($data['email'])) ) 
