@@ -28,8 +28,32 @@ export const SportsRoutes = {
     element: <MainLayout />,
     children: [
         {
+            path: 'live/:sportId/:country/:match',
+            element: <Live />
+        },
+        {
+            path: 'live/:sportId/:country',
+            element: <Live />
+        },
+        {
+            path: 'live/:sportId',
+            element: <Live />
+        },
+        {
             path: 'live',
             element: <Live />
+        },
+        {
+            path: 'prematch/:sportId/:country/:match',
+            element: <Prematch />
+        },
+        {
+            path: 'prematch/:sportId/:country',
+            element: <Prematch />
+        },
+        {
+            path: 'prematch/:sportId',
+            element: <Prematch />
         },
         {
             path: 'prematch',

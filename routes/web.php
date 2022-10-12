@@ -391,43 +391,63 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'uses' => 'SportsController@home'
     ]);
 
+    Route::get('sports/live/{sportId}/{country}/{match}', [
+        'as' => 'frontend.sports.live',
+        'uses' => 'SportsController@home'
+    ]);
+    Route::get('sports/live/{sportId}/{country}', [
+        'as' => 'frontend.sports.live',
+        'uses' => 'SportsController@home'
+    ]);
+    Route::get('sports/live/{sportId}', [
+        'as' => 'frontend.sports.live',
+        'uses' => 'SportsController@home'
+    ]);
     Route::get('sports/live', [
         'as' => 'frontend.sports.live',
-        // 'uses' => 'SportsController@live'
         'uses' => 'SportsController@home'
     ]);
 
+    Route::get('sports/prematch/{sportId}/{country}/{match}', [
+        'as' => 'frontend.sports.prematch',
+        'uses' => 'SportsController@home'
+    ]);
+    Route::get('sports/prematch/{sportId}/{country}', [
+        'as' => 'frontend.sports.prematch',
+        'uses' => 'SportsController@home'
+    ]);
+    Route::get('sports/prematch/{sportId}', [
+        'as' => 'frontend.sports.prematch',
+        'uses' => 'SportsController@home'
+    ]);
     Route::get('sports/prematch', [
         'as' => 'frontend.sports.prematch',
-        // 'uses' => 'SportsController@prematch'
-        'uses' => 'SportsController@home'
-
-    ]);
-
-    Route::get('sports/event', [
-        'as' => 'frontend.sports.event',
-        // 'uses' => 'SportsController@event'
         'uses' => 'SportsController@home'
     ]);
 
     Route::get('sports/event/{id}', [
         'as' => 'frontend.sports.event',
-        'uses' => 'SportsController@event'
+        'uses' => 'SportsController@home'
+    ]);
+    Route::get('sports/event', [
+        'as' => 'frontend.sports.event',
+        'uses' => 'SportsController@home'
     ]);
 
-    Route::get('sports/get_sports', [
+
+    Route::post('sports/get_sports', [
         'as' => 'frontend.sports.get_sports',
         'uses' => 'SportsController@get_sports',
     ]);
 
-    Route::get('sports/get_league', [
+    Route::post('sports/get_league', [
         'as' => 'frontend.sports.get_league',
         'uses' => 'SportsController@get_league',
     ]);
 
-    Route::get('sports/get_init_league', [
-        'as' => 'frontend.sports.get_init_league',
-        'uses' => 'SportsController@get_init_league',
+    Route::post('sports/get_sports_data', [
+        'as' => 'frontend.sports.get_sports_data',
+        'uses' => 'SportsController@get_sports_data',
     ]);
 
     Route::get('sports/get_init_live', [
@@ -463,7 +483,7 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'as' => 'frontend.sports.get_provider',
         'uses' => 'SportsController@get_provider',
     ]);
-   
+
     Route::post('get_casino_game', [
         'as' => 'frontend.sports.get_casino_game',
         'uses' => 'SportsController@get_casino_game',

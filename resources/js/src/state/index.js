@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import user from './user/user';
+import sports from './sports/sports';
 
 const reducer = combineReducers({
-    user
+    user,
+    sports
 });
 
 // eslint-disable-next-line import/no-mutable-exports

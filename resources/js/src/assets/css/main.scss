@@ -1190,7 +1190,8 @@
     max-height: 100%;
     border-radius: 8px;
     display: flex;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     height: calc(100vh - 80px);
     position: sticky;
     top: 64px;
@@ -1267,10 +1268,13 @@
                 position: sticky;
                 top: 0;
                 z-index: 3;
+                margin-right: 10px;
+                margin-left: 10px;
             }
 
             .section-list {
                 padding: 0.5rem 0;
+                background-color: #192137;
 
                 .section-header {
                     align-items: center;
@@ -1303,6 +1307,7 @@
         justify-content: flex-start;
         font-size: 12px;
         padding: 8px 10px !important;
+        border-bottom: unset !important;
 
         .MuiButton-startIcon {
             & > *:nth-of-type(1) {
@@ -1313,6 +1318,9 @@
         &:hover {
             background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);
         }
+    }
+    .sports-list-item-btn.active {
+        background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);
     }
 }
 
@@ -1555,6 +1563,9 @@
     background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);
     table-layout: fixed;
 
+    &:not(:last-child) {
+        margin-bottom: 8px;
+    }
     .table-header {
         color: #fff;
 

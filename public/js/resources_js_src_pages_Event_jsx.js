@@ -57,116 +57,6 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ "./node_modules/@mui/icons-material/ListAlt.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/@mui/icons-material/ListAlt.js ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M19 5v14H5V5h14m1.1-2H3.9c-.5 0-.9.4-.9.9v16.2c0 .4.4.9.9.9h16.2c.4 0 .9-.5.9-.9V3.9c0-.5-.5-.9-.9-.9zM11 7h6v2h-6V7zm0 4h6v2h-6v-2zm0 4h6v2h-6zM7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7z"
-}), 'ListAlt');
-
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@mui/icons-material/PeopleOutline.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/@mui/icons-material/PeopleOutline.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"
-}), 'PeopleOutline');
-
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@mui/icons-material/PersonAddAlt.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/@mui/icons-material/PersonAddAlt.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M13 8c0-2.21-1.79-4-4-4S5 5.79 5 8s1.79 4 4 4 4-1.79 4-4zm-2 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM1 18v2h16v-2c0-2.66-5.33-4-8-4s-8 1.34-8 4zm2 0c.2-.71 3.3-2 6-2 2.69 0 5.78 1.28 6 2H3zm17-3v-3h3v-2h-3V7h-2v3h-3v2h3v3h2z"
-}), 'PersonAddAlt');
-
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@mui/icons-material/ReceiptLong.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/@mui/icons-material/ReceiptLong.js ***!
-  \*********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-var _default = (0, _createSvgIcon.default)([/*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M19.5 3.5 18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"
-}, "0"), /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M9 7h6v2H9zm7 0h2v2h-2zm-7 3h6v2H9zm7 0h2v2h-2z"
-}, "1")], 'ReceiptLong');
-
-exports["default"] = _default;
-
-/***/ }),
-
 /***/ "./node_modules/@mui/icons-material/Search.js":
 /*!****************************************************!*\
   !*** ./node_modules/@mui/icons-material/Search.js ***!
@@ -194,168 +84,6 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ "./node_modules/@mui/icons-material/SettingsOutlined.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/@mui/icons-material/SettingsOutlined.js ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.09-.16-.26-.25-.44-.25-.06 0-.12.01-.17.03l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.06-.02-.12-.03-.18-.03-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.09.16.26.25.44.25.06 0 .12-.01.17-.03l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-1.98-1.71c.04.31.05.52.05.73 0 .21-.02.43-.05.73l-.14 1.13.89.7 1.08.84-.7 1.21-1.27-.51-1.04-.42-.9.68c-.43.32-.84.56-1.25.73l-1.06.43-.16 1.13-.2 1.35h-1.4l-.19-1.35-.16-1.13-1.06-.43c-.43-.18-.83-.41-1.23-.71l-.91-.7-1.06.43-1.27.51-.7-1.21 1.08-.84.89-.7-.14-1.13c-.03-.31-.05-.54-.05-.74s.02-.43.05-.73l.14-1.13-.89-.7-1.08-.84.7-1.21 1.27.51 1.04.42.9-.68c.43-.32.84-.56 1.25-.73l1.06-.43.16-1.13.2-1.35h1.39l.19 1.35.16 1.13 1.06.43c.43.18.83.41 1.23.71l.91.7 1.06-.43 1.27-.51.7 1.21-1.07.85-.89.7.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
-}), 'SettingsOutlined');
-
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@mui/icons-material/SportsBasketball.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/@mui/icons-material/SportsBasketball.js ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M17.09 11h4.86c-.16-1.61-.71-3.11-1.54-4.4-1.73.83-2.99 2.45-3.32 4.4zM6.91 11c-.33-1.95-1.59-3.57-3.32-4.4-.83 1.29-1.38 2.79-1.54 4.4h4.86zm8.16 0c.32-2.59 1.88-4.79 4.06-6-1.6-1.63-3.74-2.71-6.13-2.95V11h2.07zm-6.14 0H11V2.05C8.61 2.29 6.46 3.37 4.87 5c2.18 1.21 3.74 3.41 4.06 6zm6.14 2H13v8.95c2.39-.24 4.54-1.32 6.13-2.95-2.18-1.21-3.74-3.41-4.06-6zM3.59 17.4c1.72-.83 2.99-2.46 3.32-4.4H2.05c.16 1.61.71 3.11 1.54 4.4zm13.5-4.4c.33 1.95 1.59 3.57 3.32 4.4.83-1.29 1.38-2.79 1.54-4.4h-4.86zm-8.16 0c-.32 2.59-1.88 4.79-4.06 6 1.6 1.63 3.74 2.71 6.13 2.95V13H8.93z"
-}), 'SportsBasketball');
-
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@mui/icons-material/SportsHockey.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/@mui/icons-material/SportsHockey.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M2 17v3h2v-4H3c-.55 0-1 .45-1 1zm7-1H5v4l4.69-.01c.38 0 .72-.21.89-.55l.87-1.9-1.59-3.48L9 16zm12.71.29c-.18-.18-.43-.29-.71-.29h-1v4h2v-3c0-.28-.11-.53-.29-.71zm-8.11-3.45L17.65 4H14.3l-1.76 3.97-.49 1.1-.05.14L9.7 4H6.35l4.05 8.84 1.52 3.32.08.18 1.42 3.1c.17.34.51.55.89.55L19 20v-4h-4l-1.4-3.16z"
-}), 'SportsHockey');
-
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@mui/icons-material/SportsSoccer.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/@mui/icons-material/SportsSoccer.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 3.3 1.35-.95c1.82.56 3.37 1.76 4.38 3.34l-.39 1.34-1.35.46L13 6.7V5.3zm-3.35-.95L11 5.3v1.4L7.01 9.49l-1.35-.46-.39-1.34c1.01-1.57 2.56-2.77 4.38-3.34zM7.08 17.11l-1.14.1C4.73 15.81 4 13.99 4 12c0-.12.01-.23.02-.35l1-.73 1.38.48 1.46 4.34-.78 1.37zm7.42 2.48c-.79.26-1.63.41-2.5.41s-1.71-.15-2.5-.41l-.69-1.49.64-1.1h5.11l.64 1.11-.7 1.48zM14.27 15H9.73l-1.35-4.02L12 8.44l3.63 2.54L14.27 15zm3.79 2.21-1.14-.1-.79-1.37 1.46-4.34 1.39-.47 1 .73c.01.11.02.22.02.34 0 1.99-.73 3.81-1.94 5.21z"
-}), 'SportsSoccer');
-
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@mui/icons-material/SportsTennis.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/@mui/icons-material/SportsTennis.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M19.52 2.49C17.18.15 12.9.62 9.97 3.55c-1.6 1.6-2.52 3.87-2.54 5.46-.02 1.58.26 3.89-1.35 5.5l-4.24 4.24 1.42 1.42 4.24-4.24c1.61-1.61 3.92-1.33 5.5-1.35s3.86-.94 5.46-2.54c2.92-2.93 3.4-7.21 1.06-9.55zm-9.2 9.19c-1.53-1.53-1.05-4.61 1.06-6.72s5.18-2.59 6.72-1.06c1.53 1.53 1.05 4.61-1.06 6.72s-5.18 2.59-6.72 1.06zM18 17c.53 0 1.04.21 1.41.59.78.78.78 2.05 0 2.83-.37.37-.88.58-1.41.58s-1.04-.21-1.41-.59c-.78-.78-.78-2.05 0-2.83.37-.37.88-.58 1.41-.58m0-2c-1.02 0-2.05.39-2.83 1.17-1.56 1.56-1.56 4.09 0 5.66.78.78 1.81 1.17 2.83 1.17s2.05-.39 2.83-1.17c1.56-1.56 1.56-4.09 0-5.66C20.05 15.39 19.02 15 18 15z"
-}), 'SportsTennis');
-
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@mui/icons-material/SportsVolleyball.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/@mui/icons-material/SportsVolleyball.js ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M6 4.01C3.58 5.84 2 8.73 2 12c0 1.46.32 2.85.89 4.11L6 14.31V4.01zm5 7.41V2.05c-1.06.11-2.07.38-3 .79v10.32l3-1.74zm1 1.73-8.11 4.68c.61.84 1.34 1.59 2.18 2.2L15 14.89l-3-1.74zm1-5.19v3.46l8.11 4.68c.42-.93.7-1.93.82-2.98L13 7.96zM8.07 21.2c1.21.51 2.53.8 3.93.8 3.34 0 6.29-1.65 8.11-4.16L17 16.04 8.07 21.2zm13.85-10.39c-.55-4.63-4.26-8.3-8.92-8.76v3.6l8.92 5.16z"
-}), 'SportsVolleyball');
-
-exports["default"] = _default;
-
-/***/ }),
-
 /***/ "./node_modules/@mui/icons-material/Star.js":
 /*!**************************************************!*\
   !*** ./node_modules/@mui/icons-material/Star.js ***!
@@ -378,33 +106,6 @@ var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/r
 var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
   d: "M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
 }), 'Star');
-
-exports["default"] = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@mui/icons-material/StarBorder.js":
-/*!********************************************************!*\
-  !*** ./node_modules/@mui/icons-material/StarBorder.js ***!
-  \********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"
-}), 'StarBorder');
 
 exports["default"] = _default;
 
@@ -1606,150 +1307,6 @@ const gridClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiGr
 
 /***/ }),
 
-/***/ "./node_modules/@mui/material/esm/TableHead/TableHead.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/@mui/material/esm/TableHead/TableHead.js ***!
-  \***************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
-/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/composeClasses/composeClasses.js");
-/* harmony import */ var _Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Table/Tablelvl2Context */ "./node_modules/@mui/material/esm/Table/Tablelvl2Context.js");
-/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/esm/styles/useThemeProps.js");
-/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/esm/styles/styled.js");
-/* harmony import */ var _tableHeadClasses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tableHeadClasses */ "./node_modules/@mui/material/esm/TableHead/tableHeadClasses.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-const _excluded = ["className", "component"];
-
-
-
-
-
-
-
-
-
-
-const useUtilityClasses = ownerState => {
-  const {
-    classes
-  } = ownerState;
-  const slots = {
-    root: ['root']
-  };
-  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_5__["default"])(slots, _tableHeadClasses__WEBPACK_IMPORTED_MODULE_6__.getTableHeadUtilityClass, classes);
-};
-
-const TableHeadRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])('thead', {
-  name: 'MuiTableHead',
-  slot: 'Root',
-  overridesResolver: (props, styles) => styles.root
-})({
-  display: 'table-header-group'
-});
-const tablelvl2 = {
-  variant: 'head'
-};
-const defaultComponent = 'thead';
-const TableHead = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function TableHead(inProps, ref) {
-  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_8__["default"])({
-    props: inProps,
-    name: 'MuiTableHead'
-  });
-
-  const {
-    className,
-    component = defaultComponent
-  } = props,
-        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(props, _excluded);
-
-  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
-    component
-  });
-
-  const classes = useUtilityClasses(ownerState);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_9__["default"].Provider, {
-    value: tablelvl2,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(TableHeadRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
-      as: component,
-      className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, className),
-      ref: ref,
-      role: component === defaultComponent ? null : 'rowgroup',
-      ownerState: ownerState
-    }, other))
-  });
-});
- true ? TableHead.propTypes
-/* remove-proptypes */
-= {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-
-  /**
-   * The content of the component, normally `TableRow`.
-   */
-  children: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().node),
-
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object),
-
-  /**
-   * @ignore
-   */
-  className: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string),
-
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().elementType),
-
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_10___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().bool)])), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object)])
-} : 0;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TableHead);
-
-/***/ }),
-
-/***/ "./node_modules/@mui/material/esm/TableHead/tableHeadClasses.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@mui/material/esm/TableHead/tableHeadClasses.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "getTableHeadUtilityClass": () => (/* binding */ getTableHeadUtilityClass)
-/* harmony export */ });
-/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClass/generateUtilityClass.js");
-/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/generateUtilityClasses/generateUtilityClasses.js");
-
-function getTableHeadUtilityClass(slot) {
-  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_0__["default"])('MuiTableHead', slot);
-}
-const tableHeadClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiTableHead', ['root']);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (tableHeadClasses);
-
-/***/ }),
-
 /***/ "./resources/js/src/components/Part.jsx":
 /*!**********************************************!*\
   !*** ./resources/js/src/components/Part.jsx ***!
@@ -1758,56 +1315,34 @@ const tableHeadClasses = (0,_mui_base__WEBPACK_IMPORTED_MODULE_1__["default"])('
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AdminManageList": () => (/* binding */ AdminManageList),
 /* harmony export */   "Event": () => (/* binding */ Event),
-/* harmony export */   "LiveList": () => (/* binding */ LiveList),
-/* harmony export */   "ManageHead": () => (/* binding */ ManageHead),
-/* harmony export */   "Match": () => (/* binding */ Match),
-/* harmony export */   "Slider": () => (/* binding */ Slider),
-/* harmony export */   "SportBody": () => (/* binding */ SportBody),
-/* harmony export */   "SportEvent": () => (/* binding */ SportEvent),
-/* harmony export */   "SportEventMarket": () => (/* binding */ SportEventMarket),
-/* harmony export */   "SportHead": () => (/* binding */ SportHead),
-/* harmony export */   "SportLeague": () => (/* binding */ SportLeague),
-/* harmony export */   "SportList": () => (/* binding */ SportList),
-/* harmony export */   "SportMatch": () => (/* binding */ SportMatch),
-/* harmony export */   "Tournament": () => (/* binding */ Tournament)
+/* harmony export */   "Loading": () => (/* binding */ Loading),
+/* harmony export */   "Slider": () => (/* binding */ Slider)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
-/* harmony import */ var _mui_material_Grow__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @mui/material/Grow */ "./node_modules/@mui/material/esm/Grow/Grow.js");
-/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
-/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
-/* harmony import */ var _mui_material_Table__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/Table */ "./node_modules/@mui/material/esm/Table/Table.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
-/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
-/* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
-/* harmony import */ var _mui_material_TableRow__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/TableRow */ "./node_modules/@mui/material/esm/TableRow/TableRow.js");
-/* harmony import */ var _mui_material_TableHead__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/material/TableHead */ "./node_modules/@mui/material/esm/TableHead/TableHead.js");
-/* harmony import */ var _mui_material_TableBody__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/material/TableBody */ "./node_modules/@mui/material/esm/TableBody/TableBody.js");
-/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
-/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
-/* harmony import */ var _mui_icons_material_SportsSoccer__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @mui/icons-material/SportsSoccer */ "./node_modules/@mui/icons-material/SportsSoccer.js");
-/* harmony import */ var _mui_icons_material_StarBorder__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @mui/icons-material/StarBorder */ "./node_modules/@mui/icons-material/StarBorder.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowUp */ "./node_modules/@mui/icons-material/KeyboardArrowUp.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
-/* harmony import */ var _mui_icons_material_ListAlt__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @mui/icons-material/ListAlt */ "./node_modules/@mui/icons-material/ListAlt.js");
-/* harmony import */ var _mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/icons-material/Search */ "./node_modules/@mui/icons-material/Search.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _providers_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../providers/request */ "./resources/js/src/providers/request.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
+/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
+/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
+/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
+/* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowUp */ "./node_modules/@mui/icons-material/KeyboardArrowUp.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
 /* harmony import */ var _mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/Star */ "./node_modules/@mui/icons-material/Star.js");
-/* harmony import */ var _mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/icons-material/KeyboardDoubleArrowDown */ "./node_modules/@mui/icons-material/KeyboardDoubleArrowDown.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
-/* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
-/* harmony import */ var _config_sports__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../config/sports */ "./resources/js/src/config/sports.jsx");
-/* harmony import */ var swiper_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! swiper/react */ "./node_modules/swiper/react/swiper-react.js");
-/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
-/* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! swiper/css */ "./node_modules/swiper/swiper.min.css");
-/* harmony import */ var swiper_css_navigation__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! swiper/css/navigation */ "./node_modules/swiper/modules/navigation/navigation.min.css");
-/* harmony import */ var swiper_css_pagination__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! swiper/css/pagination */ "./node_modules/swiper/modules/pagination/pagination.min.css");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony import */ var _mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/icons-material/KeyboardDoubleArrowDown */ "./node_modules/@mui/icons-material/KeyboardDoubleArrowDown.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
+/* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
+/* harmony import */ var swiper_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! swiper/react */ "./node_modules/swiper/react/swiper-react.js");
+/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
+/* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! swiper/css */ "./node_modules/swiper/swiper.min.css");
+/* harmony import */ var swiper_css_navigation__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! swiper/css/navigation */ "./node_modules/swiper/modules/navigation/navigation.min.css");
+/* harmony import */ var swiper_css_pagination__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! swiper/css/pagination */ "./node_modules/swiper/modules/pagination/pagination.min.css");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -1849,8 +1384,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+var Loading = function Loading() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+    justifyContent: "center",
+    sx: {
+      p: 1
+    },
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__.Loader, {})
+  });
+};
 var Slider = function Slider() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.Swiper, {
     navigation: true,
     pagination: {
       clickable: true
@@ -1859,377 +1403,31 @@ var Slider = function Slider() {
       delay: 5000
     },
     loop: true,
-    modules: [swiper__WEBPACK_IMPORTED_MODULE_6__.Navigation, swiper__WEBPACK_IMPORTED_MODULE_6__.Pagination, swiper__WEBPACK_IMPORTED_MODULE_6__.Autoplay],
+    modules: [swiper__WEBPACK_IMPORTED_MODULE_7__.Navigation, swiper__WEBPACK_IMPORTED_MODULE_7__.Pagination, swiper__WEBPACK_IMPORTED_MODULE_7__.Autoplay],
     className: "bet-swiper",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
         component: "img",
         alt: "slider",
         src: "https://1win.pro/img/PWA_USD_en.43fbf7fc-1600.webp"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
         component: "img",
         alt: "slider",
         src: "https://1win.pro/img/bonus_hover_1.f76a358c-1600.webp"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
         component: "img",
         alt: "slider",
         src: "https://cdn-1win.xyz/banner-files/46gFMSTQIPqJxLalK5SGf1Qu3vBY1sRPesH8oR3qqpg9WVTmHGsLr4EVG50m6vA-Yhk3QAH7z8q80aD30ApLYjvPhvJBl8FvX1ER.png"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
         component: "img",
         alt: "slider",
         src: "https://1win.pro/img/1winpoker_en-min.fc17484b-1600.webp"
-      })
-    })]
-  });
-};
-var SportList = function SportList() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    className: "sports-list",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-      className: "sports-search-wrap",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
-        className: "search-btn",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-          component: "span",
-          sx: {
-            fontSize: '12px'
-          },
-          children: "Search"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        sx: {
-          '& .MuiButton-endIcon': {
-            mr: 0,
-            ml: 'auto'
-          }
-        },
-        startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_16__["default"], {
-          sx: {
-            color: '#ffcf47'
-          }
-        }),
-        endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-          component: "span",
-          sx: {
-            fontSize: '12px !important'
-          },
-          children: "10"
-        }),
-        className: "sports-list-item-btn",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-          component: "span",
-          sx: {
-            fontSize: '12px'
-          },
-          children: "Favourite"
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-      className: "sports-list-body",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        className: "list-item",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          className: "item-btn-wrap",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-            sx: {
-              '& .MuiButton-endIcon': {
-                mr: 0,
-                ml: 'auto'
-              }
-            },
-            startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
-              className: classnames__WEBPACK_IMPORTED_MODULE_1___default()("sports-icon", "icon-soccer", "no-margin")
-            }),
-            endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-              component: "span",
-              sx: {
-                fontSize: '12px !important'
-              },
-              children: "10"
-            }),
-            className: "sports-list-item-btn",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-              component: "span",
-              sx: {
-                fontSize: '12px'
-              },
-              children: "Soccer"
-            })
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          className: "section-list",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            className: "section-header",
-            children: "Country"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            className: "list-item",
-            sx: {
-              position: 'relative'
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-              sx: {
-                '& .MuiButton-endIcon': {
-                  mr: 0,
-                  ml: 'auto'
-                }
-              },
-              startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-                component: "img",
-                src: "https://assets.betsapi.com/v2/images/flags/eu.svg",
-                sx: {
-                  width: '18px',
-                  height: '18px'
-                }
-              }),
-              endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                component: "span",
-                sx: {
-                  fontSize: '12px !important'
-                },
-                children: "10"
-              }),
-              className: "sports-list-item-btn",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                component: "span",
-                sx: {
-                  fontSize: '12px'
-                },
-                children: "Chian"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-              className: "section-list",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-                className: "section-header",
-                children: "Tournament"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-                className: "list-item",
-                sx: {
-                  position: 'relative'
-                },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-                  sx: {
-                    '& .MuiButton-endIcon': {
-                      mr: 0,
-                      ml: 'auto'
-                    }
-                  },
-                  startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_16__["default"], {
-                    size: "sm",
-                    sx: {
-                      color: '#ffcf47'
-                    }
-                  }),
-                  endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                    component: "span",
-                    sx: {
-                      fontSize: '12px !important'
-                    },
-                    children: "10"
-                  }),
-                  className: "sports-list-item-btn",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                    component: "span",
-                    sx: {
-                      fontSize: '12px'
-                    },
-                    children: "Match name"
-                  })
-                })
-              })]
-            })]
-          })]
-        })]
-      })
-    })]
-  });
-};
-var Tournament = function Tournament() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_17__["default"], {
-    className: "tournament-table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableHead__WEBPACK_IMPORTED_MODULE_18__["default"], {
-      className: "table-header",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_19__["default"], {
-        className: "table-row",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-          className: "tournament-cell",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            className: "tournament-cell-inner",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
-              className: "sports-icon icon-basketball"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-              sx: {
-                fontSize: '12px',
-                fontWeight: 500,
-                ml: 1
-              },
-              children: "UEFA Youth League"
-            })]
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-          className: "odd-cell-h",
-          children: "1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-          className: "odd-cell-h",
-          children: "X"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-          className: "odd-cell-h",
-          children: "2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-          className: "odd-cell-h",
-          children: "HDP"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-          className: "odd-cell-h",
-          children: "1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-          className: "odd-cell-h",
-          children: "2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-          className: "odd-cell-h",
-          children: "HDP"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-          className: "odd-cell-h",
-          children: "Over"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-          className: "odd-cell-h",
-          children: "Under"
-        })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_21__["default"], {
-      className: "table-body",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Match, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Match, {})]
-    })]
-  });
-};
-var Match = function Match() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_19__["default"], {
-    className: "match-row",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-        className: "match-info",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_22__["default"], {
-          sx: {
-            mr: .5
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_16__["default"], {
-            className: "favourite"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            className: "match-date",
-            children: "03 sep"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            className: "match-date",
-            children: "03:30"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          className: "match-separator"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-          className: "match-teams-container",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            className: "match-teams-block",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-              className: "match-teams",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-                className: "team",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                  className: "team-name",
-                  children: "Borussia Dortmund"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-                className: "team",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                  className: "team-name",
-                  children: "TSG 1899 Hoffenheim"
-                })
-              })]
-            })
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-          className: "ml-auto",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            className: "match-statistics",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-              className: "match-statistics-line",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                component: "span",
-                className: "match-score-total",
-                children: "1:0"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                component: "span",
-                className: "match-score-periods",
-                children: "(1:0)"
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-              className: "match-statistics-line",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Clock, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                component: "span",
-                className: "match-time-passed",
-                children: "45'"
-              })]
-            })]
-          })
-        })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      className: "odd-cell",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        className: "odd-coefficient",
-        children: "40.87"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      className: "odd-cell",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        className: "odd-coefficient",
-        children: "40.87"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      className: "odd-cell",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        className: "odd-coefficient",
-        children: "40.87"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      className: "odd-cell",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        className: "odd-coefficient",
-        children: "40.87"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      className: "odd-cell",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        className: "odd-coefficient",
-        children: "40.87"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      className: "odd-cell",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        className: "odd-coefficient",
-        children: "40.87"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      className: "odd-cell",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        className: "odd-coefficient",
-        children: "40.87"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      className: "odd-cell",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        className: "odd-coefficient",
-        children: "40.87"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      className: "odd-cell",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        className: "odd-coefficient",
-        children: "40.87"
       })
     })]
   });
@@ -2239,29 +1437,29 @@ var Event = function Event() {
     _useState2 = _slicedToArray(_useState, 2),
     active = _useState2[0],
     setActive = _useState2[1];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
     sx: {
       overflow: 'hidden'
     },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
         className: "event-content",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
           justifyContent: "space-between",
           sx: {
             mb: 2
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
             sx: {
               pt: 2.5,
               pl: 2.5
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
               sx: {
                 mb: 1
               },
               alignItems: "center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                 varient: "h2",
                 sx: {
                   mr: 2,
@@ -2269,7 +1467,7 @@ var Event = function Event() {
                   fontWeight: 900
                 },
                 children: "0 : 0"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                 sx: {
                   margin: 'auto',
                   mr: 2,
@@ -2279,44 +1477,44 @@ var Event = function Event() {
                   bgcolor: '#97aee11c'
                 },
                 children: "2 half 47 '"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_22__["default"], {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_16__["default"], {})
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_16__["default"], {})
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
               sx: {
                 fontSize: 12,
                 color: '#ffffff80'
               },
               children: "07 Sep, Wed"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
               sx: {
                 my: 2
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                 sx: {
                   fontSize: 15
                 },
                 children: "Home Team"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                 sx: {
                   fontSize: 15
                 },
                 children: "Away Team"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                   sx: {
                     fontSize: 12,
                     color: '#ffffff80',
                     mr: 1
                   },
                   children: "Soccer"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
-                  className: classnames__WEBPACK_IMPORTED_MODULE_1___default()("sports-icon", "icon-soccer")
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("i", {
+                  className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("sports-icon", "icon-soccer")
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                   sx: {
                     fontSize: 12,
                     color: '#ffffff80'
@@ -2326,115 +1524,115 @@ var Event = function Event() {
               })]
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
           sx: {
             bgcolor: '#141b2e',
             borderRadius: 2
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
             justifyContent: "space-between",
             alignItems: "center",
             sx: {
               padding: 2
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
               className: "btn",
               children: "All"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_22__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_15__["default"], {
               className: "btn",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_23__["default"], {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_18__["default"], {})
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
             sx: {
               padding: 2
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_19__["default"], {
               container: true,
               spacing: 2,
               children: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (ite, idx) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_19__["default"], {
                   item: true,
                   xs: 6,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
                     sx: {
                       borderRadius: 2,
                       overflow: 'hidden'
                     },
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
                       className: "market-head",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                         sx: {
                           fontSize: '12px'
                         },
                         children: "1X2"
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_15__["default"], {
                         onClick: function onClick() {
                           return setActive(!active);
                         },
-                        children: active ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_25__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_26__["default"], {})
+                        children: active ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_20__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_21__["default"], {})
                       })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_27__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_22__["default"], {
                       "in": active,
                       timeout: "auto",
                       unmountOnExit: true,
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
                         className: "market-body",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
                           className: "market-wrap",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
                             className: "market-btn",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                               className: "market-name",
                               children: "1X2"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                               className: "market-odd",
                               children: "2.57"
                             })]
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
                           className: "market-wrap",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
                             className: "market-btn",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                               className: "market-name",
                               children: "1X2"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                               className: "market-odd",
                               children: "2.57"
                             })]
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
                           className: "market-wrap",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
                             className: "market-btn",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                               className: "market-name",
                               children: "1X2"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                               className: "market-odd",
                               children: "2.57"
                             })]
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
                           className: "market-wrap",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
                             className: "market-btn",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                               className: "market-name",
                               children: "1X2"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                               className: "market-odd",
                               children: "2.57"
                             })]
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
                           className: "market-wrap",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
                             className: "market-btn",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                               className: "market-name",
                               children: "1X2"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                               className: "market-odd",
                               children: "2.57"
                             })]
@@ -2452,979 +1650,50 @@ var Event = function Event() {
     })
   });
 };
-var SportHead = function SportHead(props) {
-  var sportId = props.sportId,
-    dateList = props.dateList,
-    today = props.today,
-    qutright = props.qutright,
-    favourite = props.favourite,
-    live = props.live,
-    league = props.league;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    sx: {
-      bgcolor: function bgcolor(theme) {
-        return theme.palette.background.paper;
-      }
-    },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
-      direction: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      p: 2,
-      children: [function () {
-        if (!sportId || !_config_sports__WEBPACK_IMPORTED_MODULE_4__.SportsList[sportId]) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_SportsSoccer__WEBPACK_IMPORTED_MODULE_28__["default"], {
-              sx: {
-                fontSize: function fontSize(theme) {
-                  return theme.spacing(6);
-                }
-              },
-              color: "error"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-              variant: "h5",
-              noWrap: true,
-              component: "h5",
-              ml: 1,
-              children: "Sports"
-            })]
-          });
-        } else {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            children: [_config_sports__WEBPACK_IMPORTED_MODULE_4__.SportsList[sportId].icon(6), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-              variant: "h5",
-              noWrap: true,
-              component: "h5",
-              ml: 1,
-              children: _config_sports__WEBPACK_IMPORTED_MODULE_4__.SportsList[sportId].name
-            })]
-          });
-        }
-      }(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
-        direction: "row",
-        alignItems: "center",
-        children: [favourite && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-          noWrap: true,
-          sx: _defineProperty({
-            pl: 1,
-            cursor: 'pointer',
-            color: function color(theme) {
-              return theme.palette.error.dark;
-            }
-          }, "&:hover", {
-            color: function color(theme) {
-              return theme.palette.error.light;
-            }
-          }),
-          children: "Favourite Events"
-        }), live && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-          noWrap: true,
-          sx: _defineProperty({
-            pl: 1,
-            cursor: 'pointer',
-            color: function color(theme) {
-              return theme.palette.error.dark;
-            }
-          }, "&:hover", {
-            color: function color(theme) {
-              return theme.palette.error.light;
-            }
-          }),
-          children: "Back to Live"
-        }), league && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-          noWrap: true,
-          sx: _defineProperty({
-            pl: 1,
-            cursor: 'pointer',
-            color: function color(theme) {
-              return theme.palette.error.dark;
-            }
-          }, "&:hover", {
-            color: function color(theme) {
-              return theme.palette.error.light;
-            }
-          }),
-          children: "Back to League"
-        }), dateList && ['01', '02', '03'].map(function (item, idx) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            noWrap: true,
-            sx: _defineProperty({
-              pl: 1,
-              cursor: 'pointer',
-              color: function color(theme) {
-                return theme.palette.success.main;
-              }
-            }, "&:hover", {
-              color: function color(theme) {
-                return theme.palette.success.light;
-              }
-            }),
-            children: "".concat(item, "/08")
-          }, idx);
-        }), today && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-          noWrap: true,
-          sx: _defineProperty({
-            pl: 1,
-            cursor: 'pointer',
-            color: function color(theme) {
-              return theme.palette.success.light;
-            }
-          }, "&:hover", {
-            color: function color(theme) {
-              return theme.palette.success.light;
-            }
-          }),
-          children: "Today"
-        })]
-      })]
-    }), qutright && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-      noWrap: true,
-      sx: {
-        p: 0.5,
-        cursor: 'pointer',
-        textAlign: 'center',
-        bgcolor: function bgcolor(theme) {
-          return theme.palette.error.main;
-        }
-      },
-      children: "Outright(40)"
-    })]
-  });
-};
-var SportBody = function SportBody() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
-    container: true,
-    sx: {
-      bgcolor: '#21242ac9',
-      padding: 1
-    },
-    children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29].map(function (idx) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Grow__WEBPACK_IMPORTED_MODULE_29__["default"], {
-        "in": true,
-        style: {
-          transformOrigin: '0 0 0'
-        },
-        timeout: idx * 50,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
-          item: true,
-          md: 4,
-          sx: _defineProperty({
-            display: 'flex',
-            alignItems: 'center',
-            cursor: 'pointer',
-            borderBottom: '1px solid #4a4d56'
-          }, "&:hover", {
-            bgcolor: function bgcolor(theme) {
-              return theme.palette.background.paper;
-            },
-            color: function color(theme) {
-              return theme.palette.error.light;
-            }
-          }),
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            component: "img",
-            alt: "slider",
-            src: "https://images.50bet.net/images/flags/England.png",
-            sx: {
-              mx: 1
-            }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            noWrap: true,
-            sx: {
-              fontSize: function fontSize(theme) {
-                return theme.spacing(1.6);
-              }
-            },
-            children: "England Premier"
-          })]
-        })
-      }, idx);
-    })
-  });
-};
-var Result = function Result() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    sx: {
-      color: '#ffffff',
-      borderRight: '1px solid #3d454c',
-      borderRadius: 0,
-      width: 'calc(100% / 3)',
-      justifyContent: 'center',
-      height: '100%',
-      px: function px(theme) {
-        return theme.spacing(0.5);
-      }
-    },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-      component: "span",
-      sx: {
-        fontSize: function fontSize(theme) {
-          return theme.spacing(1.5);
-        },
-        display: 'flex',
-        alignItems: 'center'
-      },
-      children: "2.54"
-    })
-  });
-};
-var Handicup = function Handicup() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    sx: {
-      color: '#ffffff',
-      borderRight: '1px solid #3d454c',
-      borderRadius: 0,
-      width: 'calc(100% / 3)',
-      justifyContent: 'space-between',
-      height: '100%',
-      px: function px(theme) {
-        return theme.spacing(0.5);
-      }
-    },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-      component: "span",
-      sx: {
-        fontSize: function fontSize(theme) {
-          return theme.spacing(1.5);
-        },
-        display: 'flex',
-        alignItems: 'center'
-      },
-      children: "+2"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-      component: "span",
-      sx: {
-        fontSize: function fontSize(theme) {
-          return theme.spacing(1.5);
-        }
-      },
-      children: "2.54"
-    })]
-  });
-};
-var OverUpder = function OverUpder() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    sx: {
-      color: '#ffffff',
-      borderRadius: 0,
-      width: 'calc(100% / 3)',
-      justifyContent: 'space-between',
-      height: '100%',
-      px: function px(theme) {
-        return theme.spacing(0.5);
-      }
-    },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-      component: "span",
-      sx: {
-        fontSize: function fontSize(theme) {
-          return theme.spacing(1.5);
-        },
-        display: 'flex',
-        alignItems: 'center'
-      },
-      children: "O 1.5"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-      component: "span",
-      sx: {
-        fontSize: function fontSize(theme) {
-          return theme.spacing(1.5);
-        }
-      },
-      children: "2.54"
-    })]
-  });
-};
-var SportLeague = function SportLeague() {
-  var matchs = [0, 1, 2];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-      sx: {
-        justifyContent: 'flex-start',
-        bgcolor: function bgcolor(theme) {
-          return theme.palette.secondary.dark;
-        },
-        px: 2,
-        py: 1,
-        borderTop: '1px solid #3d454c'
-      },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        component: "img",
-        alt: "slider",
-        src: "https://images.50bet.net/images/flags/England.png"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-        sx: {
-          pl: 1
-        },
-        children: "GERMANY BUNDESLIGA"
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-      sx: {
-        bgcolor: function bgcolor(theme) {
-          return theme.palette.secondary.dark;
-        },
-        color: function color(theme) {
-          return theme.palette.error.light;
-        },
-        fontSize: function fontSize(theme) {
-          return theme.spacing(1.5);
-        },
-        borderTop: '1px solid #3d454c',
-        width: '100%',
-        height: function height(theme) {
-          return theme.spacing(7.6);
-        }
-      },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-        sx: {
-          height: '100%',
-          width: function width(theme) {
-            return theme.spacing(10);
-          },
-          borderRight: '1px solid #3d454c'
-        },
-        children: "Time"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-        sx: {
-          height: '100%',
-          width: 'calc((100% - 110px) / 3 )',
-          borderRight: '1px solid #3d454c'
-        },
-        children: "Event"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-        sx: {
-          height: '100%',
-          width: 'calc((100% - 110px) / 3 * 2)'
-        },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-          sx: {
-            height: '100%',
-            width: '50%',
-            borderRight: '1px solid #3d454c'
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-            sx: {
-              height: '50%',
-              width: '100%'
-            },
-            children: "Full Time"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            sx: {
-              height: '50%',
-              width: '100%',
-              borderTop: '1px solid #3d454c'
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-              sx: {
-                height: '100%',
-                width: 'calc(100% / 3)',
-                borderRight: '1px solid #3d454c'
-              },
-              children: "1X2"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-              sx: {
-                height: '100%',
-                width: 'calc(100% / 3)',
-                borderRight: '1px solid #3d454c'
-              },
-              children: "HDP"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-              sx: {
-                height: '100%',
-                width: 'calc(100% / 3)'
-              },
-              children: "OU"
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-          sx: {
-            height: '100%',
-            width: '50%',
-            borderRight: '1px solid #3d454c'
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-            sx: {
-              height: '50%',
-              width: '100%'
-            },
-            children: "Full Time"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            sx: {
-              height: '50%',
-              width: '100%',
-              borderTop: '1px solid #3d454c'
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-              sx: {
-                height: '100%',
-                width: 'calc(100% / 3)',
-                borderRight: '1px solid #3d454c'
-              },
-              children: "1X2"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-              sx: {
-                height: '100%',
-                width: 'calc(100% / 3)',
-                borderRight: '1px solid #3d454c'
-              },
-              children: "HDP"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-              sx: {
-                height: '100%',
-                width: 'calc(100% / 3)'
-              },
-              children: "OU"
-            })]
-          })]
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-        sx: {
-          width: 30
-        },
-        children: "M"
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
-      sx: {
-        bgcolor: function bgcolor(theme) {
-          return theme.palette.background["default"];
-        }
-      },
-      children: matchs.map(function (idx) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(SportMatch, {
-          idx: idx
-        }, idx);
-      })
-    })]
-  });
-};
-var SportMatch = function SportMatch(props) {
-  var idx = props.idx;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Grow__WEBPACK_IMPORTED_MODULE_29__["default"], {
-    "in": true,
-    style: {
-      transformOrigin: '0 0 0'
-    },
-    timeout: idx * 200,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-        sx: {
-          fontSize: function fontSize(theme) {
-            return theme.spacing(1.5);
-          },
-          borderTop: '1px solid #3d454c',
-          width: '100%',
-          justifyContent: 'flex-start',
-          height: function height(theme) {
-            return theme.spacing(5);
-          }
-        },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-          sx: {
-            height: '100%',
-            width: function width(theme) {
-              return theme.spacing(10);
-            },
-            borderRight: '1px solid #3d454c'
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_22__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_StarBorder__WEBPACK_IMPORTED_MODULE_30__["default"], {})
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-          sx: {
-            height: '100%',
-            width: 'calc((100% - 110px) / 3)',
-            borderRight: '1px solid #3d454c',
-            justifyContent: 'flex-start'
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            sx: {
-              px: 1,
-              fontSize: function fontSize(theme) {
-                return theme.spacing(1.5);
-              }
-            },
-            children: "1"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            sx: {
-              px: 1,
-              fontSize: function fontSize(theme) {
-                return theme.spacing(1.5);
-              }
-            },
-            children: "Real Espana"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-          sx: {
-            height: '100%',
-            width: 'calc((100% - 110px) / 3 * 2)'
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            sx: {
-              height: '100%',
-              width: '50%',
-              borderRight: '1px solid #3d454c'
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Result, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Handicup, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(OverUpder, {})]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            sx: {
-              height: '100%',
-              width: '50%',
-              borderRight: '1px solid #3d454c'
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Result, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Handicup, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(OverUpder, {})]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {})]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-        sx: {
-          fontSize: function fontSize(theme) {
-            return theme.spacing(1.5);
-          },
-          width: '100%',
-          justifyContent: 'flex-start',
-          height: function height(theme) {
-            return theme.spacing(5);
-          }
-        },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-          sx: {
-            height: '100%',
-            width: function width(theme) {
-              return theme.spacing(10);
-            },
-            borderRight: '1px solid #3d454c'
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            sx: {
-              px: 1,
-              fontSize: function fontSize(theme) {
-                return theme.spacing(1.5);
-              }
-            },
-            children: "58'"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-          sx: {
-            height: '100%',
-            width: 'calc((100% - 110px) / 3)',
-            borderRight: '1px solid #3d454c',
-            justifyContent: 'flex-start'
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            sx: {
-              px: 1,
-              fontSize: function fontSize(theme) {
-                return theme.spacing(1.5);
-              }
-            },
-            children: "0"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            sx: {
-              px: 1,
-              fontSize: function fontSize(theme) {
-                return theme.spacing(1.5);
-              }
-            },
-            children: "Atletico Vega Real"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-          sx: {
-            height: '100%',
-            width: 'calc((100% - 110px) / 3 * 2)'
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            sx: {
-              height: '100%',
-              width: '50%',
-              borderRight: '1px solid #3d454c'
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Result, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Handicup, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(OverUpder, {})]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            sx: {
-              height: '100%',
-              width: '50%',
-              borderRight: '1px solid #3d454c'
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Result, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Handicup, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(OverUpder, {})]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_22__["default"], {
-            sx: {
-              fontSize: function fontSize(theme) {
-                return theme.spacing(1.5);
-              },
-              width: 30
-            },
-            children: "+10"
-          })
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-        sx: {
-          fontSize: function fontSize(theme) {
-            return theme.spacing(1.5);
-          },
-          width: '100%',
-          justifyContent: 'flex-start',
-          height: function height(theme) {
-            return theme.spacing(5);
-          }
-        },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {
-          sx: {
-            height: '100%',
-            width: function width(theme) {
-              return theme.spacing(10);
-            },
-            borderRight: '1px solid #3d454c'
-          }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-          sx: {
-            height: '100%',
-            width: 'calc((100% - 110px) / 3)',
-            borderRight: '1px solid #3d454c',
-            justifyContent: 'flex-start'
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            sx: {
-              px: 1,
-              fontSize: function fontSize(theme) {
-                return theme.spacing(1.5);
-              }
-            },
-            children: "\xA0\xA0"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            sx: {
-              px: 1,
-              fontSize: function fontSize(theme) {
-                return theme.spacing(1.5);
-              }
-            },
-            children: "Draw"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-          sx: {
-            height: '100%',
-            width: 'calc((100% - 110px) / 3 * 2)'
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            sx: {
-              height: '100%',
-              width: '50%',
-              borderRight: '1px solid #3d454c'
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Result, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Handicup, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(OverUpder, {})]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-            sx: {
-              height: '100%',
-              width: '50%',
-              borderRight: '1px solid #3d454c'
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Result, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Handicup, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(OverUpder, {})]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.VStack, {})]
-      })]
-    })
-  });
-};
-var SportEvent = function SportEvent() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
-    children: [1, 2, 3, 4, 5].map(function (idx) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(SportEventMarket, {
-        idx: idx
-      }, idx);
-    })
-  });
-};
-var SportEventMarket = function SportEventMarket(props) {
-  var idx = props.idx;
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
-    _useState4 = _slicedToArray(_useState3, 2),
-    active = _useState4[0],
-    setActive = _useState4[1];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Grow__WEBPACK_IMPORTED_MODULE_29__["default"], {
-    "in": true,
-    style: {
-      transformOrigin: '0 0 0'
-    },
-    timeout: idx * 200,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-        sx: {
-          justifyContent: 'space-between',
-          bgcolor: function bgcolor(theme) {
-            return theme.palette.secondary.dark;
-          },
-          borderColor: function borderColor(theme) {
-            return theme.palette.secondary.main;
-          },
-          borderWidth: '1px',
-          borderStyle: 'solid none none none',
-          px: 2.5
-        },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-          sx: {
-            fontSize: function fontSize(theme) {
-              return theme.spacing(1.75);
-            }
-          },
-          children: "1X2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_22__["default"], {
-          onClick: function onClick() {
-            return setActive(!active);
-          },
-          children: active ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_25__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_26__["default"], {})
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_27__["default"], {
-        "in": active,
-        timeout: "auto",
-        unmountOnExit: true,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          sx: {
-            bgcolor: '#21242ac9',
-            py: 1,
-            display: 'flex',
-            flexWrap: 'wrap'
-          },
-          children: [1, 2, 3, 4, 5].map(function (idx) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Grow__WEBPACK_IMPORTED_MODULE_29__["default"], {
-              "in": true,
-              style: {
-                transformOrigin: '0 0 0'
-              },
-              timeout: idx * 200,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.BoxBorder, {
-                sx: {
-                  margin: 1,
-                  flexGrow: 1,
-                  width: 'calc(100% / 4)'
-                },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-                  sx: {
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    padding: function padding(theme) {
-                      return theme.spacing(0.5);
-                    }
-                  },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                    sx: {
-                      fontSize: function fontSize(theme) {
-                        return theme.spacing(1.5);
-                      },
-                      color: '#ffffff'
-                    },
-                    children: "Eintracht Frankfurt / Draw"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                    sx: {
-                      color: function color(theme) {
-                        return theme.palette.success.main;
-                      },
-                      fontSize: function fontSize(theme) {
-                        return theme.spacing(1.5);
-                      }
-                    },
-                    children: "2.57"
-                  })]
-                })
-              })
-            }, idx);
-          })
-        })
-      })]
-    })
-  });
-};
-var LiveList = function LiveList() {
-  var list = ['soccer', 'volleyball', 'bascketball', 'tennis', 'table tennis', 'ice hockey'];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-    _useState6 = _slicedToArray(_useState5, 2),
-    active = _useState6[0],
-    setActive = _useState6[1];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-    sx: {
-      justifyContent: 'flex-start'
-    },
-    children: list.map(function (item, idx) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.BoxBorder, {
-        sx: {
-          bgcolor: function bgcolor(theme) {
-            return theme.palette.background.paper;
-          },
-          borderBottom: active === idx ? '0px' : 'none',
-          top: active === idx ? '3px' : 0,
-          transition: 'top 0.3s',
-          position: 'relative',
-          mr: 1
-        },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-          onClick: function onClick() {
-            return setActive(idx);
-          },
-          sx: _defineProperty({
-            px: 2,
-            width: '100%',
-            borderRadius: 0,
-            color: active === idx ? function (theme) {
-              return theme.palette.success.main;
-            } : '#ffffff',
-            borderColor: active === idx ? function (theme) {
-              return theme.palette.background.paper;
-            } : function (theme) {
-              return theme.palette.secondary.light;
-            }
-          }, "&:hover", {
-            color: function color(theme) {
-              return theme.palette.success.main;
-            }
-          }),
-          children: item
-        })
-      }, idx);
-    })
-  });
-};
-var ManageHead = function ManageHead(props) {
-  var title = props.title,
-    idx = props.idx;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    sx: {
-      bgcolor: function bgcolor(theme) {
-        return theme.palette.background.paper;
-      }
-    },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_12__["default"], {
-      direction: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      p: 2,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-        children: [function () {
-          if (idx !== undefined) {
-            return _config_sports__WEBPACK_IMPORTED_MODULE_4__.ManageList[idx].icon;
-          } else {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_icons_material_ListAlt__WEBPACK_IMPORTED_MODULE_31__["default"], {
-              sx: {
-                fontSize: function fontSize(theme) {
-                  return theme.spacing(6);
-                }
-              },
-              color: "error"
-            });
-          }
-        }(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
-          variant: "h5",
-          noWrap: true,
-          component: "h5",
-          ml: 1,
-          children: title ? title : 'Manage Title'
-        })]
-      })
-    })
-  });
-};
-var AdminManageList = function AdminManageList(props) {
-  var setTitle = props.setTitle;
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_32__.useNavigate)();
-  var location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_32__.useLocation)();
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-    _useState8 = _slicedToArray(_useState7, 2),
-    active = _useState8[0],
-    setActive = _useState8[1];
-  var clickHandl = function clickHandl(item, idx) {
-    navigate(item.url);
-    setActive(idx);
-    setTitle({
-      name: item.name,
-      idx: idx
-    });
-  };
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var path = location.pathname.split('/');
-    var idx = _config_sports__WEBPACK_IMPORTED_MODULE_4__.ManageList.findIndex(function (a) {
-      return a.url === path[path.length - 1];
-    });
-    if (idx > -1) {
-      setActive(idx);
-      setTitle({
-        name: _config_sports__WEBPACK_IMPORTED_MODULE_4__.ManageList[idx].name,
-        idx: idx
-      });
-    } else {
-      setActive(0);
-      setTitle({
-        name: 'Users',
-        idx: 0
-      });
-    }
-  }, [setTitle, location]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
-    sx: {
-      justifyContent: 'flex-start'
-    },
-    children: _config_sports__WEBPACK_IMPORTED_MODULE_4__.ManageList.map(function (item, idx) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.BoxBorder, {
-        sx: {
-          mr: 1,
-          position: 'relative',
-          transition: 'top 0.3s',
-          top: active === idx ? '3px' : 0,
-          borderBottom: active === idx ? '0px' : 'none',
-          bgcolor: function bgcolor(theme) {
-            return theme.palette.background.paper;
-          }
-        },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_13__["default"], {
-          onClick: function onClick() {
-            return clickHandl(item, idx);
-          },
-          sx: _defineProperty({
-            px: 2,
-            width: '100%',
-            borderRadius: 0,
-            color: active === idx ? function (theme) {
-              return theme.palette.success.main;
-            } : '#ffffff',
-            borderColor: active === idx ? function (theme) {
-              return theme.palette.background.paper;
-            } : function (theme) {
-              return theme.palette.secondary.light;
-            }
-          }, "&:hover", {
-            color: function color(theme) {
-              return theme.palette.success.main;
-            }
-          }),
-          children: item.name
-        })
-      }, idx);
-    })
-  });
-};
 
 /***/ }),
 
-/***/ "./resources/js/src/config/sports.jsx":
-/*!********************************************!*\
-  !*** ./resources/js/src/config/sports.jsx ***!
-  \********************************************/
+/***/ "./resources/js/src/components/SportsListNav.jsx":
+/*!*******************************************************!*\
+  !*** ./resources/js/src/components/SportsListNav.jsx ***!
+  \*******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ManageList": () => (/* binding */ ManageList),
-/* harmony export */   "SportsList": () => (/* binding */ SportsList)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _mui_icons_material_SportsSoccer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/icons-material/SportsSoccer */ "./node_modules/@mui/icons-material/SportsSoccer.js");
-/* harmony import */ var _mui_icons_material_SportsTennis__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/icons-material/SportsTennis */ "./node_modules/@mui/icons-material/SportsTennis.js");
-/* harmony import */ var _mui_icons_material_SportsHockey__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/icons-material/SportsHockey */ "./node_modules/@mui/icons-material/SportsHockey.js");
-/* harmony import */ var _mui_icons_material_SportsBasketball__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/SportsBasketball */ "./node_modules/@mui/icons-material/SportsBasketball.js");
-/* harmony import */ var _mui_icons_material_SportsVolleyball__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/icons-material/SportsVolleyball */ "./node_modules/@mui/icons-material/SportsVolleyball.js");
-/* harmony import */ var _mui_icons_material_ListAlt__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/icons-material/ListAlt */ "./node_modules/@mui/icons-material/ListAlt.js");
-/* harmony import */ var _mui_icons_material_PeopleOutline__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/PeopleOutline */ "./node_modules/@mui/icons-material/PeopleOutline.js");
-/* harmony import */ var _mui_icons_material_ReceiptLong__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/icons-material/ReceiptLong */ "./node_modules/@mui/icons-material/ReceiptLong.js");
-/* harmony import */ var _mui_icons_material_PersonAddAlt__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/icons-material/PersonAddAlt */ "./node_modules/@mui/icons-material/PersonAddAlt.js");
-/* harmony import */ var _mui_icons_material_SettingsOutlined__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/SettingsOutlined */ "./node_modules/@mui/icons-material/SettingsOutlined.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _providers_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../providers/request */ "./resources/js/src/providers/request.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
+/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
+/* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/Star */ "./node_modules/@mui/icons-material/Star.js");
+/* harmony import */ var _mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/icons-material/Search */ "./node_modules/@mui/icons-material/Search.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _config_sports__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../config/sports */ "./resources/js/src/config/sports.js");
+/* harmony import */ var _Part__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Part */ "./resources/js/src/components/Part.jsx");
+/* harmony import */ var _state_sports_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../state/sports/actions */ "./resources/js/src/state/sports/actions.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -3436,184 +1705,679 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var SportsList = {
-  //    main  
-  1: {
-    name: 'Soccer',
-    icon: function icon() {
-      var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 6;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_SportsSoccer__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        sx: {
-          fontSize: function fontSize(theme) {
-            return theme.spacing(size);
-          }
-        },
-        color: "error"
-      });
-    }
-  },
-  13: {
-    name: 'Tennis',
-    icon: function icon() {
-      var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 6;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_SportsTennis__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        sx: {
-          fontSize: function fontSize(theme) {
-            return theme.spacing(size);
-          }
-        },
-        color: "error"
-      });
-    }
-  },
-  17: {
-    name: 'Ice Hockey',
-    icon: function icon() {
-      var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 6;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_SportsHockey__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        sx: {
-          fontSize: function fontSize(theme) {
-            return theme.spacing(size);
-          }
-        },
-        color: "error"
-      });
-    }
-  },
-  18: {
-    name: 'Basketball',
-    icon: function icon() {
-      var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 6;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_SportsBasketball__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        sx: {
-          fontSize: function fontSize(theme) {
-            return theme.spacing(size);
-          }
-        },
-        color: "error"
-      });
-    }
-  },
-  92: {
-    name: 'Table Tennis',
-    icon: function icon() {
-      var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 6;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_SportsTennis__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        sx: {
-          fontSize: function fontSize(theme) {
-            return theme.spacing(size);
-          }
-        },
-        color: "error"
-      });
-    }
-  },
-  91: {
-    name: 'Volleyball',
-    icon: function icon() {
-      var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 6;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_SportsVolleyball__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        sx: {
-          fontSize: function fontSize(theme) {
-            return theme.spacing(size);
-          }
-        },
-        color: "error"
-      });
-    }
-  },
-  //  others
-  2: {
-    name: 'Horse Racing',
-    icon: function icon() {
-      var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 6;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_SportsVolleyball__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        sx: {
-          fontSize: function fontSize(theme) {
-            return theme.spacing(size);
-          }
-        },
-        color: "error"
-      });
-    }
-  },
-  3: 'Cricket',
-  4: 'Greyhounds',
-  8: 'Rugby Union',
-  9: 'Boxing/UFC',
-  12: 'American Football',
-  14: 'Snooker',
-  15: 'Darts',
-  16: 'Baseball',
-  19: 'Rugby League',
-  36: 'Australian Rules',
-  66: 'Bowls',
-  75: 'Gaelic Sports',
-  78: 'Handball',
-  83: 'Futsal',
-  90: 'Floorball',
-  94: 'Badminton',
-  95: 'Beach Volleyball',
-  107: 'Squash',
-  110: 'Water Polo',
-  151: 'E-sports'
+
+
+
+
+
+
+var groupBy = function groupBy(array, key) {
+  return array.reduce(function (result, currentValue) {
+    (result[currentValue[key]] = result[currentValue[key]] || []).push(currentValue);
+    return result;
+  }, {});
 };
-var ManageList = [{
-  name: 'Users',
-  url: 'users',
-  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_PeopleOutline__WEBPACK_IMPORTED_MODULE_6__["default"], {
+var SportLeague = function SportLeague(_ref) {
+  var leagueIt = _ref.leagueIt,
+    leagueId = _ref.leagueId,
+    selectLeague = _ref.selectLeague;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    className: "list-item",
     sx: {
-      fontSize: function fontSize(theme) {
-        return theme.spacing(6);
-      }
+      position: 'relative'
     },
-    color: "error"
-  })
-}, {
-  name: 'Bet List',
-  url: 'bet-list',
-  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_ListAlt__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      sx: {
+        '& .MuiButton-endIcon': {
+          mr: 0,
+          ml: 'auto'
+        }
+      },
+      startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        size: "sm",
+        sx: {
+          color: '#ffcf47'
+        }
+      }),
+      className: classnames__WEBPACK_IMPORTED_MODULE_3___default()('sports-list-item-btn', {
+        'active': leagueIt.id === leagueId
+      }),
+      onClick: function onClick() {
+        return selectLeague(leagueIt);
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        component: "span",
+        sx: {
+          fontSize: '12px'
+        },
+        children: leagueIt.name
+      })
+    })
+  });
+};
+var SportCountry = function SportCountry(_ref2) {
+  var sportId = _ref2.sportId,
+    countryId = _ref2.countryId,
+    country = _ref2.country,
+    leagueId = _ref2.leagueId,
+    league = _ref2.league,
+    selectCountry = _ref2.selectCountry,
+    selectLeague = _ref2.selectLeague;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    className: "list-item",
     sx: {
-      fontSize: function fontSize(theme) {
-        return theme.spacing(6);
-      }
+      position: 'relative'
     },
-    color: "error"
-  })
-}, {
-  name: 'Transaction',
-  url: 'transaction',
-  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_ReceiptLong__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    sx: {
-      fontSize: function fontSize(theme) {
-        return theme.spacing(6);
-      }
-    },
-    color: "error"
-  })
-}, {
-  name: 'Create Account',
-  url: 'create-account',
-  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_PersonAddAlt__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    sx: {
-      fontSize: function fontSize(theme) {
-        return theme.spacing(6);
-      }
-    },
-    color: "error"
-  })
-}, {
-  name: 'Setting',
-  url: 'setting',
-  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_mui_icons_material_SettingsOutlined__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    sx: {
-      fontSize: function fontSize(theme) {
-        return theme.spacing(6);
-      }
-    },
-    color: "error"
-  })
-}];
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      sx: {
+        '& .MuiButton-endIcon': {
+          mr: 0,
+          ml: 'auto'
+        }
+      },
+      startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        component: "img",
+        src: "https://assets.betsapi.com/v2/images/flags/".concat(countryId === 'null' ? 'eu' : countryId, ".svg"),
+        sx: {
+          width: '18px',
+          height: '18px'
+        }
+      }),
+      className: classnames__WEBPACK_IMPORTED_MODULE_3___default()('sports-list-item-btn', {
+        'active': country === countryId
+      }),
+      onClick: function onClick() {
+        return selectCountry(countryId);
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        component: "span",
+        sx: {
+          fontSize: '12px'
+        },
+        children: countryId === 'null' ? 'World' : _config_sports__WEBPACK_IMPORTED_MODULE_4__.countries[countryId]
+      })
+    }), country === countryId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      className: "section-list",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        className: "section-header",
+        children: "Tournament"
+      }), league[sportId] && league[sportId][countryId].length ? league[sportId][countryId].map(function (leagueIt, idx) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(SportLeague, {
+          leagueIt: leagueIt,
+          leagueId: leagueId,
+          selectLeague: selectLeague
+        }, idx);
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_5__.Loading, {})]
+    }) : null]
+  });
+};
+var SportItems = function SportItems(_ref3) {
+  var item = _ref3.item,
+    sportId = _ref3.sportId,
+    country = _ref3.country,
+    leagueId = _ref3.leagueId,
+    league = _ref3.league,
+    selectSport = _ref3.selectSport,
+    selectCountry = _ref3.selectCountry,
+    selectLeague = _ref3.selectLeague;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    className: "list-item",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      className: "item-btn-wrap",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        sx: {
+          '& .MuiButton-endIcon': {
+            mr: 0,
+            ml: 'auto'
+          }
+        },
+        startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+          className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("sports-icon", "icon-".concat(item.sport_name.toLocaleLowerCase().replaceAll(' ', '-')), "no-margin")
+        }),
+        endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          component: "span",
+          sx: {
+            fontSize: '12px !important'
+          },
+          children: item.count
+        }),
+        className: classnames__WEBPACK_IMPORTED_MODULE_3___default()('sports-list-item-btn', {
+          'active': sportId === item.sport_id
+        }),
+        onClick: function onClick() {
+          return selectSport(item);
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          component: "span",
+          sx: {
+            fontSize: '12px'
+          },
+          children: item.sport_name
+        })
+      })
+    }), sportId === item.sport_id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      className: "section-list",
+      sx: {
+        px: '10px !important'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        className: "section-header",
+        children: "Country"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        "in": sportId === item.sport_id,
+        timeout: "auto",
+        unmountOnExit: true,
+        children: league[sportId] && Object.keys(league[sportId]).length ? Object.keys(league[sportId]).map(function (countryId, idx) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(SportCountry, {
+            sportId: sportId,
+            countryId: countryId,
+            country: country,
+            leagueId: leagueId,
+            league: league,
+            selectCountry: selectCountry,
+            selectLeague: selectLeague
+          }, idx);
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_5__.Loading, {})
+      })]
+    }) : null]
+  });
+};
+var SportsListNav = function SportsListNav(_ref4) {
+  var isLive = _ref4.isLive;
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_13__.useNavigate)();
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+      return state.sports;
+    }),
+    sportsList = _useSelector.sportsList;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState2 = _slicedToArray(_useState, 2),
+    sportId = _useState2[0],
+    setSportId = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState4 = _slicedToArray(_useState3, 2),
+    country = _useState4[0],
+    setCountry = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState6 = _slicedToArray(_useState5, 2),
+    leagueId = _useState6[0],
+    setLeagueId = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState8 = _slicedToArray(_useState7, 2),
+    league = _useState8[0],
+    setLeague = _useState8[1];
+  var getSports = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var rdata;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_2__["default"])('post', '/sports/get_sports', {
+                isLive: isLive
+              });
+            case 2:
+              rdata = _context.sent;
+              dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsList)(rdata));
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return function getSports() {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+  var getLeague = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(id) {
+      var rdata, data, _iterator, _step, item;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_2__["default"])('post', '/sports/get_league', {
+                isLive: isLive,
+                id: id
+              });
+            case 2:
+              rdata = _context2.sent;
+              data = [];
+              _iterator = _createForOfIteratorHelper(rdata);
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  item = _step.value;
+                  data.push(JSON.parse(item.league));
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
+              }
+              data = groupBy(data, 'cc');
+              setLeague(_objectSpread(_objectSpread({}, league), {}, _defineProperty({}, id, data)));
+            case 8:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+    return function getLeague(_x) {
+      return _ref6.apply(this, arguments);
+    };
+  }();
+  var selectSport = function selectSport(item) {
+    setCountry('');
+    setLeagueId('');
+    if (sportId === item.sport_id) {
+      setSportId('');
+      navigate("/sports/".concat(isLive ? 'live' : 'prematch'));
+      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({}));
+    } else {
+      setSportId(item.sport_id);
+      navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(item.sport_id));
+      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({
+        sportId: item.sport_id
+      }));
+      getLeague(item.sport_id);
+    }
+  };
+  var selectCountry = function selectCountry(item) {
+    setLeagueId('');
+    if (country === item) {
+      setCountry('');
+      navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(sportId));
+      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({
+        sportId: sportId
+      }));
+    } else {
+      setCountry(item);
+      navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(sportId, "/").concat(item === 'null' ? 'world' : item));
+      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({
+        sportId: sportId,
+        country: item
+      }));
+    }
+  };
+  var selectLeague = function selectLeague(item) {
+    if (item === leagueId) {
+      setLeagueId('');
+      navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(sportId, "/").concat(country === 'null' ? 'world' : country));
+      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({
+        sportId: sportId,
+        country: country
+      }));
+    } else {
+      setLeagueId(item.id);
+      navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(sportId, "/").concat(country === 'null' ? 'world' : country, "/").concat(item.id));
+      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({
+        sportId: sportId,
+        country: country,
+        leagueId: item.id
+      }));
+    }
+  };
+  var init = function init() {
+    var scale = {},
+      path = location.pathname.split('/');
+    if (path[3]) {
+      setSportId(Number(path[3]));
+      scale = {
+        sportId: Number(path[3])
+      };
+      getLeague(path[3]);
+    }
+    if (path[4]) {
+      scale = _objectSpread(_objectSpread({}, scale), {}, {
+        country: path[4]
+      });
+      setCountry(path[4] === 'world' ? 'null' : path[4]);
+    }
+    if (path[5]) {
+      scale = _objectSpread(_objectSpread({}, scale), {}, {
+        leagueId: path[5]
+      });
+      setLeagueId(path[5]);
+    }
+    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsType)(isLive));
+    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)(scale));
+    getSports();
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    init();
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    className: "sports-list",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      className: "sports-search-wrap",
+      sx: {
+        px: '10px !important'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_15__["default"], {}),
+        className: "search-btn",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          component: "span",
+          sx: {
+            fontSize: '12px'
+          },
+          children: "Search"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        sx: {
+          '& .MuiButton-endIcon': {
+            mr: 0,
+            ml: 'auto'
+          }
+        },
+        startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          sx: {
+            color: '#ffcf47'
+          }
+        }),
+        endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          component: "span",
+          sx: {
+            fontSize: '12px !important'
+          },
+          children: "10"
+        }),
+        className: "sports-list-item-btn",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          component: "span",
+          sx: {
+            fontSize: '12px'
+          },
+          children: "Favourite"
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      className: "sports-list-body",
+      children: sportsList.length ? sportsList.map(function (item, idx) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(SportItems, {
+          item: item,
+          sportId: sportId,
+          country: country,
+          leagueId: leagueId,
+          league: league,
+          selectSport: selectSport,
+          selectCountry: selectCountry,
+          selectLeague: selectLeague
+        }, idx);
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_5__.Loading, {})
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SportsListNav);
+
+/***/ }),
+
+/***/ "./resources/js/src/config/sports.js":
+/*!*******************************************!*\
+  !*** ./resources/js/src/config/sports.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "countries": () => (/* binding */ countries)
+/* harmony export */ });
+var countries = {
+  "ad": "Andorra",
+  "ae": "United Arab Emirates",
+  "af": "Afghanistan",
+  "ag": "Antigua and Barbuda",
+  "ai": "Anguilla",
+  "al": "Albania",
+  "am": "Armenia",
+  "ao": "Angola",
+  "aq": "Antarctica",
+  "ar": "Argentina",
+  "as": "American Samoa",
+  "at": "Austria",
+  "au": "Australia",
+  "aw": "Aruba",
+  "ax": "\xC5land Islands",
+  "az": "Azerbaijan",
+  "ba": "Bosnia & Herzegovina",
+  "bb": "Barbados",
+  "bd": "Bangladesh",
+  "be": "Belgium",
+  "bf": "Burkina Faso",
+  "bg": "Bulgaria",
+  "bh": "Bahrain",
+  "bi": "Burundi",
+  "bj": "Benin",
+  "bl": "Saint Barth\xE9lemy",
+  "bm": "Bermuda",
+  "bn": "Brunei",
+  "bo": "Bolivia",
+  "bq": "Caribbean Netherlands",
+  "br": "Brazil",
+  "bs": "Bahamas",
+  "bt": "Bhutan",
+  "bv": "Bouvet Island",
+  "bw": "Botswana",
+  "by": "Belarus",
+  "bz": "Belize",
+  "ca": "Canada",
+  "cc": "Cocos (Keeling) Islands",
+  "cd": "Congo - Kinshasa",
+  "cf": "Central African Republic",
+  "cg": "Congo - Brazzaville",
+  "ch": "Switzerland",
+  "ci": "C\xF4te d\u2019Ivoire",
+  "ck": "Cook Islands",
+  "cl": "Chile",
+  "cm": "Cameroon",
+  "cn": "China",
+  "co": "Colombia",
+  "cr": "Costa Rica",
+  "cu": "Cuba",
+  "cv": "Cape Verde",
+  "cw": "Cura\xE7ao",
+  "cx": "Christmas Island",
+  "cy": "Cyprus",
+  "cz": "Czech Republic",
+  "de": "Germany",
+  "dj": "Djibouti",
+  "dk": "Denmark",
+  "dm": "Dominica",
+  "do": "Dominican Republic",
+  "dz": "Algeria",
+  "ec": "Ecuador",
+  "ee": "Estonia",
+  "eg": "Egypt",
+  "eh": "Western Sahara",
+  "er": "Eritrea",
+  "es": "Spain",
+  "et": "Ethiopia",
+  "fi": "Finland",
+  "fj": "Fiji",
+  "fk": "Falkland Islands",
+  "fm": "Micronesia",
+  "fo": "Faroe Islands",
+  "fr": "France",
+  "ga": "Gabon",
+  "gb": "Great Britain",
+  "gd": "Grenada",
+  "ge": "Georgia",
+  "gf": "French Guiana",
+  "gg": "Guernsey",
+  "gh": "Ghana",
+  "gi": "Gibraltar",
+  "gl": "Greenland",
+  "gm": "Gambia",
+  "gn": "Guinea",
+  "gp": "Guadeloupe",
+  "gq": "Equatorial Guinea",
+  "gr": "Greece",
+  "gs": "South Georgia & South Sandwich Islands",
+  "gt": "Guatemala",
+  "gu": "Guam",
+  "gw": "Guinea-Bissau",
+  "gy": "Guyana",
+  "hk": "Hong Kong SAR China",
+  "hm": "Heard & McDonald Islands",
+  "hn": "Honduras",
+  "hr": "Croatia",
+  "ht": "Haiti",
+  "hu": "Hungary",
+  "id": "Indonesia",
+  "ie": "Ireland",
+  "il": "Israel",
+  "im": "Isle of Man",
+  "in": "India",
+  "io": "British Indian Ocean Territory",
+  "iq": "Iraq",
+  "ir": "Iran",
+  "is": "Iceland",
+  "it": "Italy",
+  "je": "Jersey",
+  "jm": "Jamaica",
+  "jo": "Jordan",
+  "jp": "Japan",
+  "ke": "Kenya",
+  "kg": "Kyrgyzstan",
+  "kh": "Cambodia",
+  "ki": "Kiribati",
+  "km": "Comoros",
+  "kn": "Saint Kitts and Nevis",
+  "kp": "North Korea",
+  "kr": "South Korea",
+  "kw": "Kuwait",
+  "ky": "Cayman Islands",
+  "kz": "Kazakhstan",
+  "la": "Laos",
+  "lb": "Lebanon",
+  "lc": "Saint Lucia",
+  "li": "Liechtenstein",
+  "lk": "Sri Lanka",
+  "lr": "Liberia",
+  "ls": "Lesotho",
+  "lt": "Lithuania",
+  "lu": "Luxembourg",
+  "lv": "Latvia",
+  "ly": "Libya",
+  "ma": "Morocco",
+  "mc": "Monaco",
+  "md": "Moldova",
+  "me": "Montenegro",
+  "mf": "Saint Martin",
+  "mg": "Madagascar",
+  "mh": "Marshall Islands",
+  "mk": "Macedonia",
+  "ml": "Mali",
+  "mm": "Myanmar (Burma)",
+  "mn": "Mongolia",
+  "mo": "Macau SAR China",
+  "mp": "Northern Mariana Islands",
+  "mq": "Martinique",
+  "mr": "Mauritania",
+  "ms": "Montserrat",
+  "mt": "Malta",
+  "mu": "Mauritius",
+  "mv": "Maldives",
+  "mw": "Malawi",
+  "mx": "Mexico",
+  "my": "Malaysia",
+  "mz": "Mozambique",
+  "na": "Namibia",
+  "nc": "New Caledonia",
+  "ne": "Niger",
+  "nf": "Norfolk Island",
+  "ng": "Nigeria",
+  "ni": "Nicaragua",
+  "nl": "Netherlands",
+  "no": "Norway",
+  "np": "Nepal",
+  "nr": "Nauru",
+  "nu": "Niue",
+  "nz": "New Zealand",
+  "om": "Oman",
+  "pa": "Panama",
+  "pe": "Peru",
+  "pf": "French Polynesia",
+  "pg": "Papua New Guinea",
+  "ph": "Philippines",
+  "pk": "Pakistan",
+  "pl": "Poland",
+  "pm": "Saint Pierre and Miquelon",
+  "pn": "Pitcairn Islands",
+  "pr": "Puerto Rico",
+  "ps": "Palestinian Territories",
+  "pt": "Portugal",
+  "pw": "Palau",
+  "py": "Paraguay",
+  "qa": "Qatar",
+  "re": "R\xE9union",
+  "ro": "Romania",
+  "rs": "Serbia",
+  "ru": "Russia",
+  "rw": "Rwanda",
+  "sa": "Saudi Arabia",
+  "sb": "Solomon Islands",
+  "sc": "Seychelles",
+  "sd": "Sudan",
+  "se": "Sweden",
+  "sg": "Singapore",
+  "sh": "Saint Helena",
+  "si": "Slovenia",
+  "sj": "Svalbard and Jan Mayen",
+  "sk": "Slovakia",
+  "sl": "Sierra Leone",
+  "sm": "San Marino",
+  "sn": "Senegal",
+  "so": "Somalia",
+  "sr": "Suriname",
+  "ss": "South Sudan",
+  "st": "S\xE3o Tom\xE9 and Pr\xEDncipe",
+  "sv": "El Salvador",
+  "sx": "Sint Maarten",
+  "sy": "Syria",
+  "sz": "Swaziland",
+  "tc": "Turks and Caicos Islands",
+  "td": "Chad",
+  "tf": "French Southern Territories",
+  "tg": "Togo",
+  "th": "Thailand",
+  "tj": "Tajikistan",
+  "tk": "Tokelau",
+  "tl": "Timor-Leste",
+  "tm": "Turkmenistan",
+  "tn": "Tunisia",
+  "to": "Tonga",
+  "tr": "Turkey",
+  "tt": "Trinidad and Tobago",
+  "tv": "Tuvalu",
+  "tw": "Taiwan",
+  "tz": "Tanzania",
+  "ua": "Ukraine",
+  "ug": "Uganda",
+  "um": "U.S. Outlying Islands",
+  "us": "USA",
+  "uy": "Uruguay",
+  "uz": "Uzbekistan",
+  "va": "Vatican City",
+  "vc": "St. Vincent & Grenadines",
+  "ve": "Venezuela",
+  "vg": "British Virgin Islands",
+  "vi": "U.S. Virgin Islands",
+  "vn": "Vietnam",
+  "vu": "Vanuatu",
+  "wf": "Wallis and Futuna",
+  "ws": "Samoa",
+  "xk": "Kosovo",
+  "ye": "Yemen",
+  "yt": "Mayotte",
+  "za": "South Africa",
+  "zm": "Zambia",
+  "zw": "Zimbabwe"
+};
 
 /***/ }),
 
@@ -3656,11 +2420,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
-/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
+/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
 /* harmony import */ var _components_Betslip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Betslip */ "./resources/js/src/components/Betslip.jsx");
 /* harmony import */ var _components_Part__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/Part */ "./resources/js/src/components/Part.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_SportsListNav__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/SportsListNav */ "./resources/js/src/components/SportsListNav.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -3668,27 +2434,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var EventMatch = function EventMatch() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
     sx: {
       pt: 2
     },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_5__["default"], {
       container: true,
       spacing: 2,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_5__["default"], {
         item: true,
         xs: 2.2,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Part__WEBPACK_IMPORTED_MODULE_1__.SportList, {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_SportsListNav__WEBPACK_IMPORTED_MODULE_2__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_5__["default"], {
         item: true,
         xs: 7.6,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Part__WEBPACK_IMPORTED_MODULE_1__.Event, {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Part__WEBPACK_IMPORTED_MODULE_1__.Event, {})
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_5__["default"], {
         item: true,
         xs: 2.2,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Betslip__WEBPACK_IMPORTED_MODULE_0__["default"], {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Betslip__WEBPACK_IMPORTED_MODULE_0__["default"], {})
       })]
     })
   });
@@ -3728,8 +2494,7 @@ var EventMatch = function EventMatch() {
       spacing: 2,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
         item: true,
-        xs: 2.2,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Part__WEBPACK_IMPORTED_MODULE_1__.SportList, {})
+        xs: 2.2
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
         item: true,
         xs: 7.6,
