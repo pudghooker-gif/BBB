@@ -42624,25 +42624,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
 /* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
 /* harmony import */ var _mui_material_TextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/TextField */ "./node_modules/@mui/material/esm/TextField/TextField.js");
-/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
 /* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
-/* harmony import */ var _mui_material_RadioGroup__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material/RadioGroup */ "./node_modules/@mui/material/esm/RadioGroup/RadioGroup.js");
-/* harmony import */ var _mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material/FormControlLabel */ "./node_modules/@mui/material/esm/FormControlLabel/FormControlLabel.js");
+/* harmony import */ var _mui_material_RadioGroup__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/RadioGroup */ "./node_modules/@mui/material/esm/RadioGroup/RadioGroup.js");
+/* harmony import */ var _mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/FormControlLabel */ "./node_modules/@mui/material/esm/FormControlLabel/FormControlLabel.js");
 /* harmony import */ var _mui_icons_material_Delete__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/Delete */ "./node_modules/@mui/icons-material/Delete.js");
-/* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+/* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _state_sports_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../state/sports/actions */ "./resources/js/src/state/sports/actions.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -42657,35 +42659,447 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
+var getMkName = function getMkName(sId, mk) {
+  var mkName = '';
+  if (sId === 1) {
+    switch (mk) {
+      case '1_1':
+        mkName = '1X2';
+      case '1_2':
+        mkName = 'Asian Handicap';
+      case '1_3':
+        mkName = 'O/U';
+      case '1_4':
+        mkName = 'Asian Corners';
+      case '1_5':
+        mkName = '1st Half Asian Handicap';
+      case '1_6':
+        mkName = '1st Half Goal Line';
+      case '1_7':
+        mkName = '1st Half Asian Corners';
+      case '1_8':
+        mkName = 'Half Time Result';
+    }
+  } else if (sId === 18) {
+    switch (mk) {
+      case '18_1':
+        mkName = 'Money Line';
+      case '18_2':
+        mkName = 'Spread';
+      case '18_3':
+        mkName = 'Total Points';
+      case '18_4':
+        mkName = 'Money Line (Half)';
+      case '18_5':
+        mkName = 'Spread (Half)';
+      case '18_6':
+        mkName = 'Total Points (Half)';
+      case '18_7':
+        mkName = 'Quarter - Winner (2-Way)';
+      case '18_8':
+        mkName = 'Quarter - Handicap';
+      case '18_9':
+        mkName = 'Quarter - Total (2-Way)';
+    }
+  } else {
+    switch (mk) {
+      case "".concat(sId, "_1"):
+        mkName = 'Match Winner 2-Way';
+      case "".concat(sId, "_2"):
+        mkName = 'Asian Handicap';
+      case "".concat(sId, "_3"):
+        mkName = 'Over/Under';
+      case "".concat(sId, "_4"):
+        mkName = 'Draw No Bet (Cricket)';
+    }
+  }
+  return mkName;
+};
+var Single = function Single(_ref) {
+  var data = _ref.data,
+    clear = _ref.clear,
+    setStake = _ref.setStake;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: Object.keys(data).map(function (key, idx) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        sx: {
+          mb: 1
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          sx: {
+            py: 1.25,
+            mb: 1,
+            bgcolor: '#fff',
+            borderRadius: 2
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+            sx: {
+              mb: 1,
+              px: 1.25,
+              alignItems: 'center'
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              className: "slip-Odd",
+              children: data[key].odd
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              sx: {
+                color: '#096dff',
+                fontSize: '11px',
+                fontWeight: '700'
+              },
+              children: "".concat(getMkName(data[key].sportId, data[key].mk), ", W1")
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_9__["default"], {
+              className: "close-odd",
+              onClick: function onClick() {
+                return clear(key);
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_icons_material_Delete__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                sx: {
+                  fontSize: '16px'
+                }
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+            className: "sliip-teams",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                sx: {
+                  color: '#000',
+                  fontWeight: 600,
+                  fontSize: '13px'
+                },
+                children: data[key].home.name
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                sx: {
+                  color: '#000',
+                  fontWeight: 600,
+                  fontSize: '13px'
+                },
+                children: data[key].away.name
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+            sx: {
+              px: 1.25
+            },
+            justifyContent: "space-between",
+            alignItems: "center",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("sports-icon", "icon-".concat(data[key].sportName.toLowerCase().replaceAll(' ', '-')), "betslip-icon")
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                component: "span",
+                sx: {
+                  color: '#94a6cd',
+                  fontWeight: 500,
+                  fontSize: '11px',
+                  lineHeight: 1.2,
+                  pl: 1
+                },
+                children: data[key].league.name
+              })]
+            }), data[key].isLive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              className: "live-mark",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                className: "live-dot"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                component: "span",
+                sx: {
+                  fontSize: '12px'
+                },
+                children: "LIVE"
+              })]
+            }) : null]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+          justifyContent: "flex-end",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              sx: {
+                color: '#0dc35d',
+                pb: .25,
+                fontWeight: 600,
+                textAlign: 'right',
+                fontSize: '12px'
+              },
+              children: "Possible profit"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              sx: {
+                color: '#0dc35d',
+                pb: .5,
+                fontWeight: 600,
+                textAlign: 'right',
+                fontSize: '12px'
+              },
+              children: "".concat(data[key].profit.toFixed(2), " USD")
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            variant: "outlined",
+            className: "enter-stake",
+            placeholder: "Bet amount",
+            type: "number",
+            onChange: function onChange(e) {
+              return setStake(key, e.target.value, data[key].odd);
+            }
+          })
+        })]
+      }, idx);
+    })
+  });
+};
+var Multi = function Multi(_ref2) {
+  var data = _ref2.data,
+    clear = _ref2.clear,
+    setStake = _ref2.setStake,
+    multiCalc = _ref2.multiCalc;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    sx: {
+      mb: 1
+    },
+    children: [Object.keys(data).map(function (key, idx) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        className: "express-slip",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+          sx: {
+            pb: 1,
+            mx: 1.25,
+            alignItems: 'center',
+            pt: 1.25,
+            bgcolor: 'white'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            className: "slip-Odd",
+            children: data[key].odd
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            sx: {
+              color: '#096dff',
+              fontSize: '11px',
+              fontWeight: '700'
+            },
+            children: "".concat(getMkName(data[key].sportId, data[key].mk), ", W1")
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            className: "close-odd",
+            onClick: function onClick() {
+              return clear(key);
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_icons_material_Delete__WEBPACK_IMPORTED_MODULE_10__["default"], {
+              sx: {
+                fontSize: '16px'
+              }
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+          className: "sliip-teams",
+          sx: {
+            bgcolor: 'white'
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              sx: {
+                color: '#000',
+                fontWeight: 600,
+                fontSize: '13px'
+              },
+              children: data[key].home.name
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              sx: {
+                color: '#000',
+                fontWeight: 600,
+                fontSize: '13px'
+              },
+              children: data[key].away.name
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+          sx: {
+            mx: 1.25,
+            pb: 1.25,
+            bgcolor: 'white'
+          },
+          justifyContent: "space-between",
+          alignItems: "center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+              className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("sports-icon", "icon-soccer", "betslip-icon")
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              component: "span",
+              sx: {
+                color: '#94a6cd',
+                fontWeight: 500,
+                fontSize: '11px',
+                lineHeight: 1.2,
+                pl: 1
+              },
+              children: data[key].league.name
+            })]
+          }), data[key].isLive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+            className: "live-mark",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              className: "live-dot"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              component: "span",
+              sx: {
+                fontSize: '12px'
+              },
+              children: "LIVE"
+            })]
+          }) : null]
+        })]
+      }, idx);
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      className: "total-odd",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        className: "btn",
+        children: "".concat(Number(multiCalc.odd).toFixed(2), " Total Coefficient")
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+      justifyContent: "flex-end",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          sx: {
+            color: '#0dc35d',
+            pb: .25,
+            fontWeight: 600,
+            textAlign: 'right',
+            fontSize: '12px'
+          },
+          children: "Possible profit"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          sx: {
+            color: '#0dc35d',
+            pb: .5,
+            fontWeight: 600,
+            textAlign: 'right',
+            fontSize: '12px'
+          },
+          children: "".concat(Number(multiCalc.profit).toFixed(2), " USD")
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        variant: "outlined",
+        className: "enter-stake",
+        placeholder: "Bet amount",
+        type: "number",
+        onChange: function onChange(e) {
+          return setStake('key', e.target.value);
+        }
+      })
+    })]
+  });
+};
 var BetSlip = function BetSlip() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('Single'),
-    _useState2 = _slicedToArray(_useState, 2),
-    type = _useState2[0],
-    setType = _useState2[1];
-  var handleChange = function handleChange(event) {
-    setType(event.target.value);
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+      return state.sports;
+    }),
+    betType = _useSelector.betType,
+    betSlip = _useSelector.betSlip,
+    multiCalc = _useSelector.multiCalc;
+  var filterMulti = function filterMulti(data) {
+    var newSlip = {};
+    var _iterator = _createForOfIteratorHelper(data),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var item = _step.value;
+        var key = item.slice(-1)[0];
+        newSlip[key] = betSlip[key];
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_4__.saveBetSlip)(newSlip));
+    var odd = 1;
+    for (var k in newSlip) {
+      odd *= Number(Number(newSlip[k].odd).toFixed(2));
+    }
+    var profit = odd * multiCalc.stake;
+    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_4__.saveMultiCalc)(_objectSpread(_objectSpread({}, multiCalc), {}, {
+      odd: odd,
+      profit: profit
+    })));
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  var multiSlipCheck = function multiSlipCheck() {
+    var isDup = [],
+      eventKey = Object.keys(betSlip);
+    for (var i = 0; i < eventKey.length; i++) {
+      var dup = [eventKey[i]];
+      var f = eventKey[i].split('-')[0];
+      for (var j = i + 1; j < eventKey.length; j++) {
+        var s = eventKey[j].split('-')[0];
+        if (f == s) {
+          dup.push(eventKey[j]);
+          eventKey.splice(j, 1);
+          --j;
+        }
+      }
+      isDup.push(dup);
+    }
+    filterMulti(isDup);
+  };
+  var switchType = function switchType(event) {
+    multiSlipCheck();
+    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_4__.saveBetType)(event.target.value));
+  };
+  var clearAll = function clearAll() {
+    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_4__.saveBetSlip)({}));
+  };
+  var clear = function clear(key) {
+    var oldSlip = betSlip,
+      newSlip = {};
+    for (var i in oldSlip) {
+      if (i === key) continue;
+      newSlip[i] = oldSlip[i];
+    }
+    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_4__.saveBetSlip)(newSlip));
+  };
+  var setStake = function setStake(key, val, odd) {
+    if (betType === 'single') {
+      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_4__.saveBetSlip)(_objectSpread(_objectSpread({}, betSlip), {}, _defineProperty({}, key, _objectSpread(_objectSpread({}, betSlip[key]), {}, {
+        stake: val,
+        profit: Number(odd) * Number(val)
+      })))));
+    } else {
+      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_4__.saveMultiCalc)(_objectSpread(_objectSpread({}, multiCalc), {}, {
+        stake: val,
+        profit: (Number(multiCalc.odd) * Number(val)).toFixed(2)
+      })));
+    }
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (Object.keys(betSlip).length < 2) {
+      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_4__.saveBetType)('single'));
+    }
+  }, [betSlip]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
     className: "betslip",
     sx: {
       mb: {
         xs: '60px'
       }
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
       className: "bet-tabbar",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
         className: "slip-title",
-        children: ["BETSLIP", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        children: ["BETSLIP", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
           component: "span",
           className: "slip-count",
           children: "1"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_RadioGroup__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        value: type,
-        onChange: handleChange,
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_RadioGroup__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        value: betType,
+        onChange: switchType,
         sx: {
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -42693,9 +43107,9 @@ var BetSlip = function BetSlip() {
           px: 1,
           mb: 1
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
-          value: "Single",
-          control: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.BpRadio, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          value: "single",
+          control: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_2__.BpRadio, {
             sx: {
               padding: 0,
               mr: 1
@@ -42709,9 +43123,9 @@ var BetSlip = function BetSlip() {
               fontSize: "12px"
             }
           }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
-          value: "Multi",
-          control: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.BpRadio, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          value: "multi",
+          control: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_2__.BpRadio, {
             sx: {
               padding: 0,
               mr: 1
@@ -42726,440 +43140,38 @@ var BetSlip = function BetSlip() {
             }
           }
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          sx: {
-            mb: 1
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            sx: {
-              py: 1.25,
-              mb: 1,
-              bgcolor: '#fff',
-              borderRadius: 2
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              sx: {
-                mb: 1,
-                px: 1.25,
-                alignItems: 'center'
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                className: "slip-Odd",
-                children: "1.25"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                sx: {
-                  color: '#096dff',
-                  fontSize: '11px',
-                  fontWeight: '700'
-                },
-                children: "1X2, W1"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_9__["default"], {
-                className: "close-odd",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_Delete__WEBPACK_IMPORTED_MODULE_10__["default"], {
-                  sx: {
-                    fontSize: '16px'
-                  }
-                })
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              className: "sliip-teams",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  sx: {
-                    color: '#000',
-                    fontWeight: 600,
-                    fontSize: '13px'
-                  },
-                  children: "Home team"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  sx: {
-                    color: '#000',
-                    fontWeight: 600,
-                    fontSize: '13px'
-                  },
-                  children: "Away team"
-                })]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              sx: {
-                px: 1.25
-              },
-              justifyContent: "space-between",
-              alignItems: "center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-                  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()("sports-icon", "icon-soccer", "betslip-icon")
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  component: "span",
-                  sx: {
-                    color: '#94a6cd',
-                    fontWeight: 500,
-                    fontSize: '11px',
-                    lineHeight: 1.2,
-                    pl: 1
-                  },
-                  children: "Tournament"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-                className: "live-mark",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-                  className: "live-dot"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  component: "span",
-                  sx: {
-                    fontSize: '12px'
-                  },
-                  children: "LIVE"
-                })]
-              })]
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-            justifyContent: "flex-end",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                sx: {
-                  color: '#0dc35d',
-                  pb: .25,
-                  fontWeight: 600,
-                  textAlign: 'right',
-                  fontSize: '12px'
-                },
-                children: "Possible profit"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                sx: {
-                  color: '#0dc35d',
-                  pb: .5,
-                  fontWeight: 600,
-                  textAlign: 'right',
-                  fontSize: '12px'
-                },
-                children: "0.00 USD"
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_12__["default"], {
-              variant: "outlined",
-              className: "enter-stake",
-              placeholder: "Bet amount",
-              type: "number"
-            })
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          sx: {
-            mb: 1
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            className: "express-slip",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              sx: {
-                pb: 1,
-                mx: 1.25,
-                alignItems: 'center',
-                pt: 1.25,
-                bgcolor: 'white'
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                className: "slip-Odd",
-                children: "1.25"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                sx: {
-                  color: '#096dff',
-                  fontSize: '11px',
-                  fontWeight: '700'
-                },
-                children: "1X2, W1"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_9__["default"], {
-                className: "close-odd",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_Delete__WEBPACK_IMPORTED_MODULE_10__["default"], {
-                  sx: {
-                    fontSize: '16px'
-                  }
-                })
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              className: "sliip-teams",
-              sx: {
-                bgcolor: 'white'
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  sx: {
-                    color: '#000',
-                    fontWeight: 600,
-                    fontSize: '13px'
-                  },
-                  children: "Home team"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  sx: {
-                    color: '#000',
-                    fontWeight: 600,
-                    fontSize: '13px'
-                  },
-                  children: "Away team"
-                })]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              sx: {
-                mx: 1.25,
-                pb: 1.25,
-                bgcolor: 'white'
-              },
-              justifyContent: "space-between",
-              alignItems: "center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-                  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()("sports-icon", "icon-soccer", "betslip-icon")
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  component: "span",
-                  sx: {
-                    color: '#94a6cd',
-                    fontWeight: 500,
-                    fontSize: '11px',
-                    lineHeight: 1.2,
-                    pl: 1
-                  },
-                  children: "Tournament"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-                className: "live-mark",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-                  className: "live-dot"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  component: "span",
-                  sx: {
-                    fontSize: '12px'
-                  },
-                  children: "LIVE"
-                })]
-              })]
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            className: "express-slip",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              sx: {
-                pb: 1,
-                mx: 1.25,
-                alignItems: 'center',
-                pt: 1.25,
-                bgcolor: 'white'
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                className: "slip-Odd",
-                children: "1.25"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                sx: {
-                  color: '#096dff',
-                  fontSize: '11px',
-                  fontWeight: '700'
-                },
-                children: "1X2, W1"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_9__["default"], {
-                className: "close-odd",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_Delete__WEBPACK_IMPORTED_MODULE_10__["default"], {
-                  sx: {
-                    fontSize: '16px'
-                  }
-                })
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              className: "sliip-teams",
-              sx: {
-                bgcolor: 'white'
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  sx: {
-                    color: '#000',
-                    fontWeight: 600,
-                    fontSize: '13px'
-                  },
-                  children: "Home team"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  sx: {
-                    color: '#000',
-                    fontWeight: 600,
-                    fontSize: '13px'
-                  },
-                  children: "Away team"
-                })]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              sx: {
-                mx: 1.25,
-                pb: 1.25,
-                bgcolor: 'white'
-              },
-              justifyContent: "space-between",
-              alignItems: "center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-                  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()("sports-icon", "icon-soccer", "betslip-icon")
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  component: "span",
-                  sx: {
-                    color: '#94a6cd',
-                    fontWeight: 500,
-                    fontSize: '11px',
-                    lineHeight: 1.2,
-                    pl: 1
-                  },
-                  children: "Tournament"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-                className: "live-mark",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-                  className: "live-dot"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  component: "span",
-                  sx: {
-                    fontSize: '12px'
-                  },
-                  children: "LIVE"
-                })]
-              })]
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            className: "express-slip",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              sx: {
-                pb: 1,
-                mx: 1.25,
-                alignItems: 'center',
-                pt: 1.25,
-                bgcolor: 'white'
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                className: "slip-Odd",
-                children: "1.25"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                sx: {
-                  color: '#096dff',
-                  fontSize: '11px',
-                  fontWeight: '700'
-                },
-                children: "1X2, W1"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_9__["default"], {
-                className: "close-odd",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_Delete__WEBPACK_IMPORTED_MODULE_10__["default"], {
-                  sx: {
-                    fontSize: '16px'
-                  }
-                })
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              className: "sliip-teams",
-              sx: {
-                bgcolor: 'white'
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  sx: {
-                    color: '#000',
-                    fontWeight: 600,
-                    fontSize: '13px'
-                  },
-                  children: "Home team"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  sx: {
-                    color: '#000',
-                    fontWeight: 600,
-                    fontSize: '13px'
-                  },
-                  children: "Away team"
-                })]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-              sx: {
-                mx: 1.25,
-                pb: 1.25,
-                bgcolor: 'white'
-              },
-              justifyContent: "space-between",
-              alignItems: "center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-                  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()("sports-icon", "icon-soccer", "betslip-icon")
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  component: "span",
-                  sx: {
-                    color: '#94a6cd',
-                    fontWeight: 500,
-                    fontSize: '11px',
-                    lineHeight: 1.2,
-                    pl: 1
-                  },
-                  children: "Tournament"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-                className: "live-mark",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-                  className: "live-dot"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                  component: "span",
-                  sx: {
-                    fontSize: '12px'
-                  },
-                  children: "LIVE"
-                })]
-              })]
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            className: "total-odd",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
-              className: "btn",
-              children: "123 Total Coefficient"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
-            justifyContent: "flex-end",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                sx: {
-                  color: '#0dc35d',
-                  pb: .25,
-                  fontWeight: 600,
-                  textAlign: 'right',
-                  fontSize: '12px'
-                },
-                children: "Possible profit"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                sx: {
-                  color: '#0dc35d',
-                  pb: .5,
-                  fontWeight: 600,
-                  textAlign: 'right',
-                  fontSize: '12px'
-                },
-                children: "0.00 USD"
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_12__["default"], {
-              variant: "outlined",
-              className: "enter-stake",
-              placeholder: "Bet amount",
-              type: "number"
-            })
-          })]
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_1__.HStack, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        children: betType === 'single' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Single, {
+          data: betSlip,
+          clear: clear,
+          setStake: setStake
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Multi, {
+          data: betSlip,
+          clear: clear,
+          multiCalc: multiCalc,
+          setStake: setStake
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
           sx: {
             mb: 1,
             alignItems: 'center'
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          children: Object.keys(betSlip).length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
             sx: {
               height: '28px',
               borderRadius: 2,
               ml: 'auto',
               bgcolor: '#79ccf929'
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_Delete__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            onClick: function onClick() {
+              return clearAll();
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_icons_material_Delete__WEBPACK_IMPORTED_MODULE_10__["default"], {
               sx: {
                 fontSize: '20px'
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
               sx: {
                 fontSize: '14px',
                 ml: 1,
@@ -43167,8 +43179,30 @@ var BetSlip = function BetSlip() {
               },
               children: "Clear All"
             })]
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            sx: {
+              width: '100%',
+              borderRadius: 2,
+              bgcolor: 'white',
+              p: 1
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_2__.HStack, {
+              sx: {
+                bgcolor: '#d0daf3',
+                py: .75,
+                px: 1.25,
+                borderRadius: 2
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                sx: {
+                  color: '#405484',
+                  fontSize: 12
+                },
+                children: "0.00 Total coefficient"
+              })
+            })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
           sx: {
             borderRadius: 2,
             width: '100%',
@@ -47226,20 +47260,21 @@ store = initializeStore();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "saveBetSlip": () => (/* binding */ saveBetSlip),
+/* harmony export */   "saveBetType": () => (/* binding */ saveBetType),
+/* harmony export */   "saveMultiCalc": () => (/* binding */ saveMultiCalc),
 /* harmony export */   "saveSportsList": () => (/* binding */ saveSportsList),
 /* harmony export */   "saveSportsScale": () => (/* binding */ saveSportsScale),
 /* harmony export */   "saveSportsType": () => (/* binding */ saveSportsType)
 /* harmony export */ });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 
-
-// export const own_pools_store = createAction<any>('factory/own_pools_store');
-// export const pools_store = createAction<any>('factory/pools_store');
-// export const pools_list = createAction<any>('factory/pools_list');
-
 var saveSportsList = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAction)('sports/list');
 var saveSportsType = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAction)('sports/type');
 var saveSportsScale = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAction)('sports/scale');
+var saveBetSlip = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAction)('sports/betSlip');
+var saveBetType = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAction)('sports/betType');
+var saveMultiCalc = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAction)('sports/multiCalc');
 
 /***/ }),
 
@@ -47265,7 +47300,14 @@ var initialState = {
   sportsList: [],
   sportsLive: [],
   sportsPre: [],
+  betSlip: {},
   scale: {},
+  multiCalc: {
+    odd: 0,
+    profit: 0,
+    stake: 0
+  },
+  betType: 'single',
   isLive: ''
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createReducer)(initialState, function (builder) {
@@ -47283,6 +47325,21 @@ var initialState = {
     var payload = _ref3.payload;
     return _objectSpread(_objectSpread({}, state), {}, {
       scale: payload
+    });
+  }).addCase(_actions__WEBPACK_IMPORTED_MODULE_0__.saveBetSlip, function (state, _ref4) {
+    var payload = _ref4.payload;
+    return _objectSpread(_objectSpread({}, state), {}, {
+      betSlip: payload
+    });
+  }).addCase(_actions__WEBPACK_IMPORTED_MODULE_0__.saveBetType, function (state, _ref5) {
+    var payload = _ref5.payload;
+    return _objectSpread(_objectSpread({}, state), {}, {
+      betType: payload
+    });
+  }).addCase(_actions__WEBPACK_IMPORTED_MODULE_0__.saveMultiCalc, function (state, _ref6) {
+    var payload = _ref6.payload;
+    return _objectSpread(_objectSpread({}, state), {}, {
+      multiCalc: payload
     });
   });
 }));
@@ -47467,7 +47524,7 @@ var ___CSS_LOADER_URL_REPLACEMENT_4___ = _node_modules_css_loader_dist_runtime_g
 var ___CSS_LOADER_URL_REPLACEMENT_5___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_img_feature_separator_svg__WEBPACK_IMPORTED_MODULE_7__["default"]);
 var ___CSS_LOADER_URL_REPLACEMENT_6___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_img_feature_volleyball_png__WEBPACK_IMPORTED_MODULE_8__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* @font-face {\n    font-family: 'font name';\n    src: url(\"url\");\n} */\nbody {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, \"Courier New\", monospace;\n}\n\n/* Scroll */\n.bet-swiper {\n  height: 100%;\n}\n\n::-webkit-scrollbar {\n  height: 0.3rem;\n  width: 0.3rem;\n}\n\n::-webkit-scrollbar-thumb {\n  background-color: hsla(0deg, 0%, 85%, 0.3);\n  border-radius: 3px;\n}\n\n.sports-icon {\n  align-items: center;\n  background-repeat: no-repeat;\n  display: flex;\n  font-size: 14px;\n  height: 1em;\n  justify-content: center;\n  -o-object-fit: cover;\n     object-fit: cover;\n  overflow: visible;\n  width: 1em;\n  min-width: 1em;\n  -webkit-mask-repeat: no-repeat;\n  -webkit-mask-position: center;\n  -webkit-mask-size: 100%;\n  background: #fff;\n}\n\n.betslip-icon {\n  background-color: #94a6cd;\n}\n\n.icon-soccer {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n\n.icon-basketball {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n}\n\n.icon-cricket {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n}\n\n.icon-american-football {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n}\n\n.icon-tennis {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n}\n\n.icon-table-tennis {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n}\n\n/* Swiper slider */\n.bet-swiper {\n  height: 100%;\n  border-radius: 20px;\n}\n.bet-swiper .swiper-button-prev {\n  z-index: 11;\n  left: unset;\n  top: unset;\n  bottom: 10px;\n  right: 55px;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-prev::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-prev:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-prev:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-button-next {\n  z-index: 11;\n  bottom: 10px;\n  right: 10px;\n  top: unset;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-next::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-next:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-next:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet-active {\n  background: #ffffff;\n}\n.bet-swiper .swiper-slide {\n  height: unset !important;\n}\n.bet-swiper .swiper-slide img {\n  width: 100%;\n  height: 100%;\n}\n\n/*.popular-events */\n.popular-events {\n  height: 100%;\n  width: 100%;\n  padding-bottom: 16px !important;\n}\n.popular-events:hover .swiper-button-prev,\n.popular-events:hover .swiper-button-next {\n  opacity: 1;\n}\n.popular-events .swiper-button-prev {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-prev::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-button-next {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-next::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-pagination {\n  bottom: -6px !important;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet-active {\n  background: #5b8fdd;\n}\n\n.top-live-casino {\n  height: 100%;\n  width: 100%;\n}\n.top-live-casino:hover .swiper-button-prev,\n.top-live-casino:hover .swiper-button-next {\n  opacity: 1 !important;\n}\n.top-live-casino .swiper-button-prev {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0 !important;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.top-live-casino .swiper-button-prev::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.top-live-casino .swiper-button-next {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0 !important;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.top-live-casino .swiper-button-next::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n@keyframes flare {\n  0% {\n    left: -45px;\n  }\n  20% {\n    left: calc(100% + 15px);\n  }\n  to {\n    left: calc(100% + 15px);\n  }\n}\n@keyframes flare-2 {\n  0% {\n    transform: translateX(-115%) rotate(-45deg);\n  }\n  20% {\n    transform: translateX(140%) rotate(-45deg);\n  }\n  to {\n    transform: translateX(140%) rotate(-45deg);\n  }\n}\n@keyframes pulse-dot {\n  0% {\n    transform: scale(0.33);\n    opacity: 1;\n  }\n  to {\n    transform: scale(1);\n    opacity: 0;\n  }\n}\n.header_top {\n  height: 52px;\n  align-items: center;\n  justify-content: space-between !important;\n}\n.header_top .free_link {\n  padding: 5px 28px 6px 50px;\n  border-radius: 15px;\n  background-image: linear-gradient(285.39deg, #ffb800 -4.36%, #fff173 115.87%);\n  font-weight: 600;\n  color: #090f1e;\n  position: relative;\n  text-decoration: none;\n  align-items: center;\n  line-height: 1;\n  cursor: pointer;\n}\n.header_top .free_link .money_img {\n  background-image: url(\"https://cdn-1win.xyz/img/free-money-link-image.ac893118-120.png\");\n  display: \"block\";\n  width: 60px;\n  height: 33px;\n  position: absolute;\n  bottom: 0;\n  left: -6px;\n  background-size: 100%;\n  background-repeat: no-repeat;\n  pointer-events: none;\n}\n.header_top .top_promotion {\n  margin-right: 21px;\n  position: relative;\n}\n.header_top .top_promotion:before {\n  content: \"\";\n  display: block;\n  height: 14px;\n  width: 1px;\n  background: hsla(0deg, 0%, 100%, 0.2);\n  position: absolute;\n  right: -10px;\n  top: calc(50% - 7px);\n}\n.header_top .top_promotion .top_BonusLink {\n  height: 24px;\n  display: flex;\n  align-items: center;\n  border-radius: 13px;\n  background-color: rgba(78, 93, 134, 0.3);\n  border-bottom-left-radius: 30px;\n  border-top-left-radius: 30px;\n  position: relative;\n  cursor: pointer;\n  flex-direction: row;\n}\n.header_top .top_promotion .top_BonusLink .top_circle {\n  height: 28px;\n  width: 28px;\n  background: linear-gradient(86.37deg, #d062ff 2.96%, #7bb0ff 99.68%), linear-gradient(90deg, #ed6ea0, #ec8c69);\n  box-shadow: 0 5px 15px rgba(201, 85, 255, 0.4);\n  border-radius: 50%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-right: 10px;\n}\n.header_top .top_promotion .top_BonusLink .top_circle svg {\n  height: 1em;\n}\n.header_top .top_promotion .top_BonusLink .top_bonus_img {\n  position: absolute;\n  height: 54px;\n  transform: rotate(-13deg);\n  right: -17px;\n  top: -17px;\n  pointer-events: none;\n}\n.header_top .lang_btn {\n  width: 60px;\n  height: 24px;\n  min-height: 24px;\n  padding: 0;\n  background: rgba(78, 93, 134, 0.3);\n  font-size: 12px;\n  color: #fff;\n  border-radius: 8px;\n}\n.header_top .lang_btn .MuiButton-endIcon {\n  margin-left: 0px !important;\n}\n.header_top .lang_icon {\n  width: 15px;\n  height: 15px;\n  border-radius: 50px;\n  margin-left: 4px;\n}\n\n.header_wraper {\n  position: sticky;\n  z-index: 100;\n  top: -1px;\n  height: 47px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.header_wraper .header {\n  max-width: 1900px;\n  max-height: 47px;\n  height: 100%;\n  width: 100%;\n  margin: 0 auto;\n  padding: 0 10px;\n  display: flex;\n  -webkit-box-align: center;\n  justify-content: space-between;\n  align-items: center;\n  background-image: linear-gradient(92deg, #1e283f, rgba(20, 27, 46, 0.6));\n  background-color: #090f1e;\n  box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.6);\n  border-radius: 10px;\n  transition: border-radius 0.2s;\n  will-change: border-radius, transform;\n  position: relative;\n}\n.header_wraper .header .level-item {\n  align-items: center;\n  display: flex;\n}\n.header_wraper .header .level-item:not(:last-child) {\n  margin-right: 1rem;\n}\n.header_wraper .header .level-item .logo-container {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.header_wraper .header .level-item .logo-container a {\n  display: flex;\n}\n.header_wraper .header .level-item .user_btn {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n  background: #1f2841;\n  border-radius: 20px 8px 8px 20px;\n  padding: 3px 8px 3px 3px;\n  min-width: 0;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap {\n  align-items: center;\n  border-radius: 50%;\n  background-color: #2c3756;\n  display: flex;\n  font-size: 10px;\n  justify-content: center;\n  height: 29px;\n  width: 29px;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap svg {\n  font-size: 18px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-left: 5px;\n  width: 10px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap svg {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .login_btn {\n  background-image: linear-gradient(0deg, transparent, transparent);\n  background-color: #1f2841;\n  cursor: pointer;\n  border-radius: 8px;\n  color: #fff;\n  text-transform: capitalize;\n  padding: 6px 15px;\n  margin-right: 8px;\n}\n.header_wraper .header .level-item .login_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn {\n  background-image: linear-gradient(70deg, #31bc69 -8%, #089e4e 96%);\n  border-style: none;\n  text-transform: capitalize;\n  border-radius: 8px;\n  color: #fff;\n  padding: 6px 15px;\n}\n.header_wraper .header .level-item .register_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn .icon-wrap {\n  width: 20px;\n  height: 20px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background-image: linear-gradient(210deg, hsla(0deg, 0%, 100%, 0) 25%, hsla(0deg, 0%, 100%, 0.06) 48%, #fff 133%);\n  margin-right: 12px;\n  margin-left: -5px;\n}\n\n.footer .footer-line {\n  flex: 1;\n  height: 1px;\n  background: linear-gradient(90deg, hsla(0deg, 0%, 100%, 0.2) 9.92%, transparent);\n}\n.footer .footer-line-full {\n  flex: 1;\n  height: 1px;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n}\n.footer .contact-btn {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  border-radius: 6px !important;\n  background-image: linear-gradient(144deg, #0095ff -27%, #0855c4 151%, #0855c4 0);\n  padding: 0;\n}\n.footer .app-download {\n  width: 175px;\n  height: 42px;\n  display: flex;\n  border: 1px solid hsla(0deg, 0%, 100%, 0.15);\n  border-radius: 12px;\n  align-items: center;\n  padding: 0 15px;\n  transition: border 0.25s ease-out;\n  cursor: pointer;\n  justify-content: space-between;\n}\n.footer .social_link {\n  border-radius: 10px;\n  align-items: center;\n  display: flex;\n  height: 35px;\n  justify-content: center;\n  text-align: center;\n  width: 35px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.footer .social_link:hover {\n  transform: scale(1.1);\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition: transform 0.3s ease-out;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition-property: transform;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n}\n.footer .social_link a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.footer .social_link a svg {\n  color: white;\n}\n.footer .social_link:nth-child(1) {\n  background: linear-gradient(240.2deg, #0fb1d6, #08c 61.34%);\n  box-shadow: 0 5px 16px rgba(76, 162, 246, 0.3);\n}\n.footer .social_link:nth-child(2) {\n  background: linear-gradient(214.99deg, #7e2bf4 7.65%, #ed146e 51.93%, #ffc90c 95.29%);\n  box-shadow: 0 5px 16px rgba(186, 77, 101, 0.3);\n}\n.footer .social_link:nth-child(3) {\n  background: linear-gradient(135deg, #82a4e9, #4267b2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .social_link:nth-child(4) {\n  background: linear-gradient(135deg, #79ccff, #1da1f2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .footer-btn {\n  background: linear-gradient(92.58deg, #1e283f, rgba(20, 27, 46, 0.6) 99.71%);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 10px;\n  height: 100%;\n}\n.footer .payments {\n  align-items: center;\n  justify-content: space-around;\n  width: 100%;\n  margin: 0 124px;\n}\n.footer .payments svg {\n  font-size: 25px;\n  width: auto;\n}\n.footer .PaymentSection_icon_17jgt [class$=mono] {\n  opacity: 1;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt {\n  cursor: pointer;\n  width: auto;\n  font-size: 19px;\n}\n@media screen and (max-width: 425px) {\n  .footer .PaymentSection_icon_17jgt {\n    cursor: pointer;\n    margin: 0 18px 15px;\n    font-size: 15px;\n  }\n}\n.footer .PaymentSection_icon_17jgt [class$=color] {\n  opacity: 0;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=color],\n.footer .PaymentSection_icon_17jgt:hover [class$=color] {\n  opacity: 1;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=mono],\n.footer .PaymentSection_icon_17jgt:hover [class$=mono] {\n  opacity: 0;\n}\n.footer .split {\n  height: 25px;\n  width: 1px;\n  background: rgba(151, 174, 225, 0.11);\n  margin: 0 10px;\n}\n\n.middle-item {\n  height: 75px;\n  border-radius: 12px;\n  padding-left: 25px;\n  display: flex;\n  justify-content: center;\n  flex-direction: column !important;\n  position: relative;\n  cursor: pointer;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  color: white;\n}\n.middle-item:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  border-radius: inherit;\n  z-index: 0;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  opacity: 0.7;\n  transition: opacity 0.15s ease-in-out;\n}\n.middle-item:hover:before {\n  opacity: 1;\n}\n.middle-item .middle-item-img-wrap {\n  position: absolute;\n  right: 17px;\n  width: 40%;\n  height: 0;\n  max-width: 61px;\n  display: flex;\n  align-items: center;\n}\n.middle-item .middle-item-img-wrap .middle-item-img {\n  position: absolute;\n  width: 100%;\n}\n.middle-item .middle-item-img-wrap .middle-item-img img {\n  height: auto;\n  max-width: 100%;\n}\n\n.home-tab {\n  border-top-left-radius: 12px;\n  overflow: hidden;\n  z-index: 2;\n  pointer-events: none;\n  filter: drop-shadow(0 1px 0 #edf2ff);\n}\n.home-tab .home-tab-title {\n  position: relative;\n  height: 34px;\n  padding: 16px 30px 0px 25px;\n  margin-right: 15px;\n  display: -webkit-box;\n  justify-content: center;\n  align-items: flex-end;\n  color: #090f1e;\n  font-size: 17px;\n  letter-spacing: -0.4px;\n  font-weight: 700;\n}\n.home-tab .home-tab-title:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: calc(100% + 16px);\n  top: 0;\n  left: -16px;\n  background-color: #edf2ff;\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n.home-tab .home-tab-title:after {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  border-radius: 5px;\n  width: 10px;\n  right: -10px;\n  top: 0;\n  transform: skewX(30deg);\n  box-sizing: unset;\n  box-shadow: 0 0 0 5px #edf2ff;\n  clip: rect(16px, 6px, 50px, -10px);\n}\n.home-tab .home-tab-title .populart-icon {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center {\n  background: #fa203b;\n  border-radius: 50%;\n  display: block;\n  position: relative;\n  min-width: 7px;\n  min-height: 7px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center:before {\n  content: \"\";\n  animation: pulse-dot 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n  position: absolute;\n  width: 300%;\n  height: 300%;\n  border-radius: 50%;\n  background: #fa203b;\n  top: -100%;\n  left: -100%;\n}\n\n.home-tab-all {\n  position: relative;\n  height: 34px;\n  justify-content: center;\n  padding: 0 16px 0 34px;\n  margin-left: -30px;\n  font-weight: 600;\n  z-index: 1;\n  font-size: 11px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n}\n.home-tab-all:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  top: 0;\n  background-image: linear-gradient(-45deg, #0855c4, #0095ff);\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n\n.toggle-switcher-item {\n  height: 30px;\n  max-width: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  display: flex;\n  align-items: center;\n}\n.toggle-switcher-item:not(:first-child) {\n  margin-left: 5px;\n}\n.toggle-switcher-item:after, .toggle-switcher-item:before {\n  transition: opacity 0.25s;\n  will-change: opacity;\n  content: \"\";\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  opacity: 0;\n  border-radius: inherit;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper {\n  z-index: 1;\n  display: inline-flex;\n  align-items: center;\n  position: relative;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon {\n  min-width: 30px;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon .no-margin {\n  margin: 0px !important;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-label {\n  font-size: 13px;\n  color: #fff;\n  font-weight: 700;\n  margin-right: 10px;\n  margin-left: 2px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  opacity: 1;\n  white-space: nowrap;\n}\n\n.toggle-switcher-item.active {\n  height: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  max-width: 158px;\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n}\n\n.home-tab-content {\n  border-radius: 12px;\n  border-top-left-radius: 0;\n  background-color: #edf2ff;\n  display: flex;\n  flex-direction: column;\n  position: relative;\n}\n.home-tab-content .match-table-head-underlay {\n  border-radius: 8px;\n  background-image: linear-gradient(273deg, #0855c4, #0095ff);\n  position: absolute;\n  width: calc(100% - 40px);\n  height: 30px;\n  left: 20px;\n  top: 32px;\n}\n.home-tab-content .sport-grids {\n  margin: 20px 0;\n  width: 100%;\n  position: relative;\n  z-index: 1;\n  color: black;\n}\n.home-tab-content .sport-grids th,\n.home-tab-content .sport-grids td {\n  border-bottom: unset !important;\n}\n.home-tab-content .sport-grids .match-table-match-row {\n  min-height: 50px;\n  height: 50px;\n  cursor: pointer;\n}\n.home-tab-content .sport-grids .match-table-match-row:nth-child(even) {\n  background-color: #dce6f7;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell {\n  padding: 10px 5px;\n  width: 1px;\n  height: 70px;\n  max-height: 70px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:first-child {\n  padding-left: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:last-child {\n  padding-right: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info {\n  display: flex;\n  align-items: center;\n  justify-content: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-date {\n  font-size: 11px;\n  opacity: 0.5;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-time {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info {\n  position: relative;\n  padding-left: 13px;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info:before {\n  content: \"\";\n  position: absolute;\n  width: 3px;\n  height: 100%;\n  border-radius: 1.5px;\n  left: 0;\n  background-image: linear-gradient(356deg, #0095ff, #0855c4);\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-team {\n  font-size: 13px;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info {\n  margin-top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info span {\n  font-size: 11px;\n  font-weight: 500;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-period-score {\n  color: #888;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-separator {\n  color: #888;\n  display: inline-block;\n  margin: 0 7px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time span {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time svg {\n  font-size: 12px;\n  margin-right: 8px;\n  color: #87a2da;\n  position: relative;\n  top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-odds-chip-wrap .match-table-odds-chip {\n  height: 30px;\n  background-color: rgba(8, 84, 195, 0.2);\n  padding: 0 10px;\n  font-size: 11px;\n  font-weight: 500;\n  border-radius: 8px;\n  align-items: center;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell button {\n  border-radius: 12px;\n  color: black;\n}\n\n.popular-wrap {\n  width: 100%;\n}\n.popular-wrap .live-event-main {\n  height: 145px;\n  background-color: #fff;\n  border-radius: 12px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  color: #090f1e;\n  padding: 16px;\n  border: 1px solid #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  cursor: pointer;\n}\n.popular-wrap .live-event-main .match-header {\n  align-items: flex-start;\n  display: flex;\n  align-items: center;\n  height: 20px;\n  box-sizing: initial;\n}\n.popular-wrap .live-event-main .match-header .top-live-match-score {\n  font-size: 20px;\n  font-weight: 800;\n  letter-spacing: 0.3px;\n  line-height: 0.95;\n  margin-right: 1rem;\n}\n.popular-wrap .live-event-main .match-header .match-score-period {\n  border: 0.5px solid rgba(108, 125, 163, 0.4);\n  border-radius: 7px;\n  font-size: 11px;\n  padding: 3px 6px;\n}\n.popular-wrap .live-event-main .top-live-match-info {\n  align-items: center;\n  display: flex;\n  height: 30px;\n  margin: 8px 0px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams {\n  overflow: hidden;\n  padding: 0 10px;\n  position: relative;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams:before {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n  border-radius: 290486px;\n  bottom: 0;\n  content: \"\";\n  left: 0;\n  position: absolute;\n  top: 0;\n  width: 3px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team {\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team .helper-line {\n  font-size: 12px;\n  font-weight: 600;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .match-details {\n  align-items: center;\n  color: #6c7da3;\n  display: flex;\n  font-size: 11px;\n  line-height: 1;\n  margin-bottom: 8px;\n}\n.popular-wrap .live-event-main .match-odd-list {\n  display: flex;\n  list-style: none;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item {\n  flex: 1;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd {\n  align-items: center;\n  background-color: rgba(108, 125, 163, 0.2);\n  border-radius: 12px;\n  cursor: pointer;\n  font-size: 14px;\n  height: 36px;\n  min-width: 36px;\n  padding: 0 10px;\n  transition: all 0.3s;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values {\n  will-change: contents;\n  transition: all 0.3s;\n  align-items: center;\n  display: flex;\n  pointer-events: none;\n  height: 100%;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-name {\n  margin-right: 5px;\n  text-transform: uppercase;\n  color: black;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-value {\n  margin-left: auto;\n  font-weight: 700;\n  text-align: right;\n  color: black;\n}\n\n.section-card {\n  border-radius: 12px;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  position: relative;\n  padding: 25px;\n}\n.section-card .section-card-top-line {\n  position: absolute;\n  top: 0;\n  left: 25px;\n  right: 25px;\n  height: 4px;\n  border-bottom-left-radius: 100px;\n  border-bottom-right-radius: 100px;\n  background-size: 200% auto;\n  animation: notch-bg-slide-01a6027a 4s linear 0s infinite alternate;\n  will-change: background-position;\n  background-image: linear-gradient(90deg, rgb(0, 183, 255) 0%, rgb(199, 0, 255) 50%, rgb(255, 187, 0) 100%);\n}\n.section-card .section-card-header {\n  justify-content: space-between;\n  align-items: flex-end;\n  z-index: 10;\n}\n.section-card .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-bottom: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.section-card .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.section-card .game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.section-card .game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.section-card .game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.section-card .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n.section-card .section-card-bg {\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  border-radius: 12px;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg {\n  height: 100%;\n  display: flex;\n  justify-content: flex-end;\n  align-items: flex-end;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow {\n  position: relative;\n  height: 100%;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-glow {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  filter: blur(30px) saturate(1);\n  top: 0px;\n  opacity: 0.5;\n  transform: translateZ(0px);\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-content-wrapper {\n  position: relative;\n  height: 100%;\n  width: 100%;\n}\n.section-card .SectionPokerBanner_contentButton {\n  height: 45px;\n  color: #fff;\n  text-transform: capitalize !important;\n  border-radius: 8px;\n  background-image: linear-gradient(255deg, #00b7ff, #8d53e9);\n  padding: 0 25px;\n  cursor: pointer;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  font-size: 15px;\n  position: relative;\n  overflow: hidden;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  margin-top: 10px;\n}\n.section-card .SectionPokerBanner_contentButton:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 20%;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  left: -25%;\n  transform: skewX(-20deg);\n}\n\n.sports-list {\n  background-color: rgb(20, 27, 46);\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  overflow: hidden;\n  height: 100%;\n  flex-shrink: 0;\n  max-height: 100%;\n  border-radius: 8px;\n  display: flex;\n  padding-top: 10px;\n  padding-bottom: 10px;\n  height: calc(100vh - 80px);\n  position: sticky;\n  top: 64px;\n}\n.sports-list .sports-search-wrap {\n  position: relative;\n  margin: 10px 0px;\n  padding: 10px 0px;\n}\n.sports-list .sports-search-wrap:before {\n  bottom: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap:after {\n  top: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap .search-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n}\n.sports-list .sports-search-wrap .search-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-search-wrap .casino-search {\n  width: 100%;\n  border-radius: 8px;\n  background-color: #1f2941;\n}\n.sports-list .sports-search-wrap .casino-search input {\n  color: #7388b6;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: -0.19px;\n  width: 201px;\n  padding: 10px 10px 10px 0px;\n}\n.sports-list .sports-search-wrap .casino-search fieldset {\n  display: none;\n}\n.sports-list .sports-list-body {\n  overflow: hidden auto;\n}\n.sports-list .sports-list-body .list-item {\n  position: relative;\n}\n.sports-list .sports-list-body .list-item .item-btn-wrap {\n  position: sticky;\n  top: 0;\n  z-index: 3;\n  margin-right: 10px;\n  margin-left: 10px;\n}\n.sports-list .sports-list-body .list-item .section-list {\n  padding: 0.5rem 0;\n  background-color: #192137;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header {\n  align-items: center;\n  color: #616e8c;\n  display: flex;\n  line-height: 25px;\n  min-height: 25px;\n  font-size: 12px;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header:after {\n  background-color: currentColor;\n  content: \"\";\n  display: block;\n  flex-grow: 1;\n  height: 1px;\n  margin-left: 8px;\n}\n.sports-list .sports-list-item-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px !important;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n  border-bottom: unset !important;\n}\n.sports-list .sports-list-item-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-list-item-btn:hover {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n.sports-list .sports-list-item-btn.active {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n\n.betslip {\n  border-radius: 10px;\n  padding: 10px;\n  margin-bottom: 15px;\n  position: sticky;\n  top: 64px;\n  background-image: linear-gradient(135deg, #233358, rgba(20, 27, 46, 0.6));\n}\n.betslip .bet-tabbar {\n  margin-bottom: 15px;\n}\n.betslip .bet-tabbar .slip-title {\n  align-items: center;\n  background-color: hsla(0deg, 0%, 100%, 0.1);\n  border-radius: 8px;\n  display: flex;\n  flex: auto;\n  font-size: 12px;\n  height: 30px;\n  justify-content: center;\n  text-align: center;\n  transition: opacity 0.2s;\n  position: relative;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n.betslip .bet-tabbar .slip-title .slip-count {\n  background-color: white;\n  color: #0059c5;\n  border-radius: 50px;\n  width: 14px;\n  height: 14px;\n  font-size: 10px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  right: 32%;\n  position: absolute;\n  letter-spacing: 1px;\n  line-height: 1;\n}\n.betslip .slip-Odd {\n  align-items: center;\n  display: flex;\n  flex-shrink: 0;\n  justify-content: center;\n  font-weight: 700;\n  font-size: 12px;\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n  align-self: stretch;\n  margin-right: 8px;\n  width: 46px;\n  min-width: none;\n  padding: 0px !important;\n  min-width: 0px !important;\n  z-index: 2;\n}\n.betslip .close-odd {\n  color: #94a6cd;\n  font-size: 11px;\n  z-index: 1;\n  background-color: rgba(148, 166, 205, 0.11);\n  border-radius: 10px;\n  width: 28px;\n  height: 28px;\n  margin-left: auto;\n  padding: 0px;\n}\n.betslip .close-odd:hover {\n  background-color: #60afff;\n}\n.betslip .close-odd:hover svg {\n  color: white;\n}\n.betslip .sliip-teams {\n  grid-area: teams;\n  padding: 2px 0 2px 10px;\n  position: relative;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.betslip .sliip-teams:before {\n  content: \"\";\n  width: 3.5px;\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.3);\n  border-radius: 0 10px 10px 0;\n}\n.betslip .live-mark {\n  align-self: end;\n  border-radius: 10px;\n  color: #f62525;\n  display: flex;\n  font-size: 9px;\n  font-weight: 700;\n  grid-area: service;\n  letter-spacing: 0.17px;\n  text-transform: uppercase;\n  position: relative;\n  padding-right: 10px;\n  align-items: center;\n}\n.betslip .live-mark .live-dot {\n  background-image: radial-gradient(50% 50% at 50% 50%, rgba(246, 37, 37, 0) 0, rgba(246, 37, 37, 0.2) 100%);\n  border-radius: 50px;\n  height: 12px;\n  margin-right: 3px;\n  width: 12px;\n  position: relative;\n}\n.betslip .live-mark .live-dot:before {\n  content: \"\";\n  width: 4px;\n  height: 4px;\n  border-radius: 50px;\n  background-color: #f62525;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  margin: auto;\n}\n.betslip .live-mark span {\n  font-family: Tahoma, \"sans-serif\";\n}\n.betslip .enter-stake {\n  width: 100%;\n}\n.betslip .enter-stake input {\n  font-size: 12px;\n  width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  color: #090f1e;\n  height: 14px;\n  padding: 7px 10px 9px;\n}\n.betslip .enter-stake fieldset {\n  display: none;\n}\n.betslip .express-slip {\n  position: relative;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  overflow: hidden;\n}\n.betslip .express-slip:first-child {\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n}\n.betslip .express-slip:after {\n  content: \"\";\n  bottom: 0px;\n  left: 15px;\n  position: absolute;\n  right: 15px;\n  z-index: 110;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_5___ + ");\n  height: 1px;\n}\n.betslip .total-odd {\n  background-color: #fff;\n  border-bottom-left-radius: 10px;\n  border-bottom-right-radius: 10px;\n  margin-bottom: 10px;\n  padding: 10px;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.betslip .total-odd .btn {\n  background-image: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  border-radius: 8px;\n  color: white;\n  text-transform: capitalize;\n  font-size: 12px;\n  font-weight: 800;\n  padding: 4px 24px;\n}\n\n.tournament-table {\n  border-radius: 8px;\n  color: #000;\n  contain: content;\n  overflow: hidden;\n  text-align: center;\n  width: 100%;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  table-layout: fixed;\n}\n.tournament-table:not(:last-child) {\n  margin-bottom: 8px;\n}\n.tournament-table .table-header {\n  color: #fff;\n}\n.tournament-table .table-header .table-row {\n  height: 40px;\n}\n.tournament-table .table-header .table-row .tournament-cell {\n  font-size: 14px;\n  line-height: 1.1;\n  text-align: left;\n  position: relative;\n}\n.tournament-table .table-header .table-row .tournament-cell .tournament-cell-inner {\n  display: flex;\n  align-items: center;\n  padding: 10px 15px;\n}\n.tournament-table .table-header .table-row .odd-cell-h {\n  color: #b1d1ff;\n  font-size: 11px;\n  letter-spacing: -0.1px;\n  min-width: 30px;\n  text-align: center;\n  text-transform: uppercase;\n  width: 6%;\n}\n.tournament-table .table-header .table-row th {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row {\n  background-color: #edf2ff;\n  cursor: pointer;\n}\n.tournament-table .table-body .match-row:hover {\n  background-color: #1b2029;\n}\n.tournament-table .table-body .match-row:hover .match-info .favourite,\n.tournament-table .table-body .match-row:hover .match-info .match-date,\n.tournament-table .table-body .match-row:hover .odd-cell .odd-coefficient,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed,\n.tournament-table .table-body .match-row:hover .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  color: white;\n}\n.tournament-table .table-body .match-row td {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row .match-info {\n  align-items: center;\n  display: flex;\n  padding: 5px;\n}\n.tournament-table .table-body .match-row .match-info .favourite {\n  color: #bfd2f3;\n}\n.tournament-table .table-body .match-row .match-info .match-date {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .match-separator {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  border-radius: 1.5px;\n  flex: none;\n  height: 2rem;\n  margin: 2px 6px;\n  opacity: 0.8;\n  width: 3px;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container {\n  align-items: center;\n  display: flex;\n  flex: 1;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block {\n  align-items: center;\n  display: flex;\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams {\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team {\n  display: flex;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  overflow: hidden;\n  position: relative;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto {\n  display: flex;\n  margin-left: auto;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics {\n  font-weight: 500;\n  letter-spacing: -0.1px;\n  margin-right: 5px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line {\n  display: flex;\n  justify-content: flex-end;\n  text-align: right;\n  margin: 0px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-periods {\n  color: #888;\n  font-size: 10px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed {\n  color: black;\n  font-size: 12px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line svg {\n  color: #87a2da;\n  font-size: 16px;\n}\n.tournament-table .table-body .match-row .odd-cell {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  position: relative;\n}\n.tournament-table .table-body .match-row .odd-cell:before {\n  position: absolute;\n  content: \"\";\n  background-color: rgba(152, 160, 181, 0.1019607843);\n  /* background-color: rgb(20 27 46 / 15%); */\n  width: 100%;\n  height: 100%;\n  top: 0;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient {\n  border-radius: 8px;\n  font-weight: 600;\n  letter-spacing: -0.2px;\n  padding: 2px 12px;\n  text-align: center;\n  min-width: 0;\n  color: black;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient:hover {\n  background-color: #9ea5b4;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient.active {\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n}\n.tournament-table .table-body .match-row .odd-cell.disable {\n  background-color: rgba(20, 27, 46, 0.7);\n  cursor: initial;\n}\n\n.event-content {\n  flex: 1;\n  background-size: 100% auto;\n  background-repeat: no-repeat;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_6___ + ");\n}\n.event-content .btn {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  align-items: center;\n  background-color: #252f4b;\n  border-radius: 8px;\n  color: #fff;\n  display: flex;\n  font-size: 12px;\n  font-weight: 500;\n  height: 30px;\n  min-width: 0px;\n  justify-content: center;\n  letter-spacing: 0.2px;\n  padding: 0 10px;\n  text-align: center;\n  transition: all 0.2s ease-out;\n}\n.event-content .market-head {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  cursor: pointer;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0px 10px;\n}\n.event-content .market-body {\n  display: flex;\n  flex-wrap: wrap;\n  margin-right: -1px;\n  margin-bottom: -1px;\n}\n.event-content .market-body .market-wrap {\n  padding-right: 1px;\n  min-width: 30%;\n  display: flex;\n  flex-grow: 1;\n}\n.event-content .market-body .market-wrap .market-btn {\n  width: 100%;\n  margin-bottom: 1px;\n  background-color: #e4ebff;\n  border-radius: 0px;\n  display: flex;\n  justify-content: space-between;\n  padding: 4px 0px 4px 10px;\n}\n.event-content .market-body .market-wrap .market-btn:hover {\n  background-color: #1b2029;\n}\n.event-content .market-body .market-wrap .market-btn:hover p {\n  color: white !important;\n}\n.event-content .market-body .market-wrap .market-btn .market-name {\n  font-size: 12px;\n  color: #252f4b;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd {\n  font-size: 14px;\n  font-weight: 600;\n  color: #090f1e;\n  padding: 5px 8px;\n  border-radius: 8px;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd.active {\n  background-image: linear-gradient(135deg, #108de7, #0855c4);\n  color: white;\n}\n\n.casino .casino-top {\n  padding: 0 15px 15px 15px;\n  align-items: center;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  color: #fff;\n  opacity: 1;\n  position: relative;\n  z-index: 1;\n  cursor: pointer;\n  flex: 1;\n  height: 100%;\n}\n.casino .casino-top:before {\n  content: \"\";\n  position: absolute;\n  border-radius: 12px;\n  z-index: -2;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: radial-gradient(circle at -65% 157%, #c5991e, #b68100 7%, #fff29d 66%, #b57f00 113%, #c7940f 138%);\n}\n.casino .casino-top:after {\n  content: \"\";\n  position: absolute;\n  border-radius: 10px;\n  z-index: -1;\n  top: 2px;\n  bottom: 2px;\n  left: 2px;\n  right: 2px;\n  background: #090f1f;\n  box-shadow: 0 9px 17px 0 rgba(214, 179, 71, 0), inset 0 1px 29px 0 #000;\n}\n.casino .casino-top .casino-top-title {\n  align-items: center;\n  display: flex;\n  margin-top: auto;\n}\n.casino .casino-top .casino-top-title .title-separator {\n  background: linear-gradient(270deg, #fff, transparent);\n  height: 1px;\n  opacity: 0.3;\n  width: 2vw;\n}\n.casino .casino-top .casino-top-title .casino-title-name {\n  font-size: 2vw;\n  font-weight: 900;\n  letter-spacing: -1.96px;\n  text-shadow: 0 2px 87px #0c1820;\n}\n.casino .casino-top .casino-get-price {\n  font-size: 51px;\n  font-weight: 900;\n  background: -webkit-linear-gradient(#000000, #ffe55d, #080700);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: #ffe55d;\n}\n.casino .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-right: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.casino .game-card:last-child {\n  margin-right: 0px;\n}\n.casino .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.casino .game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.casino .game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.casino .game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.casino .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.mobileMenu {\n  width: 100%;\n  border-top: 1px solid #1f2841;\n  height: 60px;\n  position: relative;\n}\n.mobileMenu .mobileMenu-btn {\n  width: 20%;\n  flex-direction: column;\n  border-radius: 0px !important;\n}\n.mobileMenu .mobileMenu-btn img {\n  margin-bottom: 5px;\n  max-height: 22px;\n  max-width: 22px;\n}\n.mobileMenu .mobileMenu-btn p {\n  color: #536387;\n  font-size: 11px;\n  text-align: center;\n  text-transform: capitalize;\n}\n.mobileMenu .mobileMenu-btn.active:before {\n  background-color: #0854c3;\n  border-radius: 3px;\n  box-shadow: 0 0 1px #090f1e;\n  content: \"\";\n  height: 6px;\n  position: absolute;\n  top: -3px;\n  width: 54px;\n}\n.mobileMenu .mobileMenu-btn.active p {\n  color: white;\n}\n\n.bodyTab {\n  -webkit-mask-image: linear-gradient(to left, transparent 0, #000 85px);\n          mask-image: linear-gradient(to left, transparent 0, #000 85px);\n}\n.bodyTab:after {\n  content: \"\";\n  padding-left: 80px;\n}\n.bodyTab::-webkit-scrollbar {\n  height: 0px;\n  width: 0px;\n}\n\n.drawer .MuiDrawer-paper {\n  background: linear-gradient(173deg, rgba(37, 46, 76, 0.98) 2%, rgba(25, 32, 51, 0.98));\n  border-radius: 20px 0 0 20px;\n}\n\n.top-casino {\n  background-image: linear-gradient(90deg, rgba(218, 113, 103, 0.35) 0px, rgba(218, 113, 103, 0.306) 4.5px, rgba(218, 113, 103, 0.26) 9px, rgba(218, 113, 103, 0.216) 13.5px, rgba(218, 113, 103, 0.176) 18px, rgba(218, 113, 103, 0.137) 22.5px, rgba(218, 113, 103, 0.1) 27px, rgba(218, 113, 103, 0.07) 31.5px, rgba(218, 113, 103, 0.047) 36px, rgba(218, 113, 103, 0.027) 40.5px, rgba(218, 113, 103, 0.01) 45px, rgba(218, 113, 103, 0.004) 49.5px, rgba(218, 113, 103, 0) 54px), linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));\n  height: 45px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-right: 15px;\n  padding-left: 15px;\n  position: relative;\n  border-radius: 12px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.top-casino .left-red {\n  background-image: linear-gradient(rgb(182, 32, 224) 0%, rgb(247, 181, 0) 100%);\n  opacity: 1;\n  position: absolute;\n  left: 0;\n  width: 3px;\n  height: 21px;\n  border-top-right-radius: 100px;\n  border-bottom-right-radius: 100px;\n  transition: opacity 0.3s;\n}\n\n.all-casino {\n  background-image: linear-gradient(90deg, rgba(109, 92, 217, 0.35) 0px, rgba(109, 92, 217, 0.306) 4.5px, rgba(109, 92, 217, 0.26) 9px, rgba(109, 92, 217, 0.216) 13.5px, rgba(109, 92, 217, 0.176) 18px, rgba(109, 92, 217, 0.137) 22.5px, rgba(109, 92, 217, 0.1) 27px, rgba(109, 92, 217, 0.07) 31.5px, rgba(109, 92, 217, 0.047) 36px, rgba(109, 92, 217, 0.027) 40.5px, rgba(109, 92, 217, 0.01) 45px, rgba(109, 92, 217, 0.004) 49.5px, rgba(109, 92, 217, 0) 54px), linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));\n  height: 45px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-right: 15px;\n  padding-left: 15px;\n  position: relative;\n  border-radius: 12px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.all-casino .left-red {\n  background-image: linear-gradient(rgb(61, 55, 183) 0%, rgb(140, 114, 236) 100%);\n  opacity: 1;\n  position: absolute;\n  left: 0;\n  width: 3px;\n  height: 21px;\n  border-top-right-radius: 100px;\n  border-bottom-right-radius: 100px;\n  transition: opacity 0.3s;\n}\n\n.all-effect {\n  background-image: linear-gradient(142.34deg, rgba(109, 92, 217, 0.45) -30%, rgba(109, 92, 217, 0.392) -23.33%, rgba(108, 91, 217, 0.333) -16.67%, rgba(109, 92, 217, 0.28) -10%, rgba(109, 92, 217, 0.224) -3.33%, rgba(109, 92, 217, 0.176) 3.33%, rgba(109, 92, 217, 0.133) 10%, rgba(109, 92, 217, 0.094) 16.67%, rgba(109, 92, 217, 0.06) 23.33%, rgba(109, 92, 217, 0.035) 30%, rgba(109, 92, 217, 0.016) 36.67%, rgba(109, 92, 217, 0.004) 43.33%, rgba(109, 92, 217, 0) 50%);\n  width: 68px;\n  height: 68px;\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n\n.casino-bg {\n  margin-top: 4px;\n  border-radius: 6px 6px 12px 12px;\n  background-repeat: no-repeat;\n  position: relative;\n  overflow: hidden;\n  background-image: linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));\n}\n\n.casino-search {\n  width: 100%;\n  border-radius: 12px;\n  background-color: #121829;\n}\n.casino-search input {\n  color: #7388b6;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: -0.19px;\n  width: 201px;\n  padding: 10px 10px 10px 0px;\n}\n.casino-search fieldset {\n  display: none;\n}\n\n.switch-btn {\n  background-color: #192137;\n  border-radius: 12px;\n  width: 100%;\n}\n.switch-btn .btn {\n  align-items: center;\n  color: #fff;\n  cursor: pointer;\n  display: flex;\n  flex: 1;\n  font-size: 14px;\n  font-weight: 500;\n  height: 37px;\n  justify-content: center;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 5px;\n  text-align: center;\n  text-decoration: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  letter-spacing: 0.3px;\n}\n.switch-btn .active {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  transition: background-color 0.2s;\n  border-radius: 12px;\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.sports-live-over {\n  overflow: auto;\n  margin-bottom: 16px;\n}\n.sports-live-over::-webkit-scrollbar {\n  height: 0px;\n  width: 0px;\n}\n.sports-live-over .live-sports-item-m {\n  justify-items: center;\n  align-items: center;\n  margin-right: 10px;\n}\n.sports-live-over .live-sports-item-m button {\n  align-items: center;\n  border: 1px solid #1f2841;\n  border-radius: 15px;\n  display: flex;\n  font-size: 28px;\n  height: 55px;\n  justify-content: center;\n  transition: background-color 0.3s ease, border-color 0.3s ease;\n  width: 55px;\n}\n.sports-live-over .live-sports-item-m button i {\n  font-size: 28px;\n}\n.sports-live-over .live-sports-item-m p {\n  font-size: 11px;\n  line-height: 1.1;\n  margin-top: 5px;\n  text-align: center;\n  width: 55px;\n  color: #7388b6;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.sports-list-item-btn {\n  color: white !important;\n  text-transform: capitalize !important;\n  width: 100% !important;\n  border-radius: 0px !important;\n  justify-content: flex-start;\n  padding: 12px 0px 12px 8px !important;\n  border-bottom: 1px solid #141b2e !important;\n}\n.sports-list-item-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff !important;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  bottom: 0;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  transform: skewX(-30deg);\n  width: 30px;\n  will-change: left;\n  z-index: 1;\n  animation: flare 5s ease infinite;\n}\n\n.btn.active {\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.able {\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-bottom: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n\n.mobile-menu {\n  color: white;\n}\n\n.spinner {\n  animation: spinner 0.75s infinite linear;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* @font-face {\n    font-family: 'font name';\n    src: url(\"url\");\n} */\nbody {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, \"Courier New\", monospace;\n}\n\n/* Scroll */\n.bet-swiper {\n  height: 100%;\n}\n\n::-webkit-scrollbar {\n  height: 0.3rem;\n  width: 0.3rem;\n}\n\n::-webkit-scrollbar-thumb {\n  background-color: hsla(0deg, 0%, 85%, 0.3);\n  border-radius: 3px;\n}\n\n.sports-icon {\n  align-items: center;\n  background-repeat: no-repeat;\n  display: flex;\n  font-size: 14px;\n  height: 1em;\n  justify-content: center;\n  -o-object-fit: cover;\n     object-fit: cover;\n  overflow: visible;\n  width: 1em;\n  min-width: 1em;\n  -webkit-mask-repeat: no-repeat;\n  -webkit-mask-position: center;\n  -webkit-mask-size: 100%;\n  background: #fff;\n}\n\n.betslip-icon {\n  background-color: #94a6cd;\n}\n\n.icon-soccer {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n\n.icon-basketball {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n}\n\n.icon-cricket {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n}\n\n.icon-american-football {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n}\n\n.icon-tennis {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n}\n\n.icon-table-tennis {\n  -webkit-mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  mask-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n}\n\n/* Swiper slider */\n.bet-swiper {\n  height: 100%;\n  border-radius: 20px;\n}\n.bet-swiper .swiper-button-prev {\n  z-index: 11;\n  left: unset;\n  top: unset;\n  bottom: 10px;\n  right: 55px;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-prev::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-prev:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-prev:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-button-next {\n  z-index: 11;\n  bottom: 10px;\n  right: 10px;\n  top: unset;\n  width: 40px;\n  height: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.bet-swiper .swiper-button-next::after {\n  color: rgba(218, 218, 218, 0.3);\n  font-size: 20px;\n  font-weight: bolder;\n}\n.bet-swiper .swiper-button-next:hover {\n  background-color: rgba(255, 255, 255, 0.473);\n}\n.bet-swiper .swiper-button-next:hover::after {\n  color: white;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.bet-swiper .swiper-pagination .swiper-pagination-bullet-active {\n  background: #ffffff;\n}\n.bet-swiper .swiper-slide {\n  height: unset !important;\n}\n.bet-swiper .swiper-slide img {\n  width: 100%;\n  height: 100%;\n}\n\n/*.popular-events */\n.popular-events {\n  height: 100%;\n  width: 100%;\n  padding-bottom: 16px !important;\n}\n.popular-events:hover .swiper-button-prev,\n.popular-events:hover .swiper-button-next {\n  opacity: 1;\n}\n.popular-events .swiper-button-prev {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-prev::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-button-next {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.popular-events .swiper-button-next::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.popular-events .swiper-pagination {\n  bottom: -6px !important;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet {\n  background: #5c636e;\n  opacity: 1;\n}\n.popular-events .swiper-pagination .swiper-pagination-bullet-active {\n  background: #5b8fdd;\n}\n\n.top-live-casino {\n  height: 100%;\n  width: 100%;\n}\n.top-live-casino:hover .swiper-button-prev,\n.top-live-casino:hover .swiper-button-next {\n  opacity: 1 !important;\n}\n.top-live-casino .swiper-button-prev {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0 !important;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.top-live-casino .swiper-button-prev::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n.top-live-casino .swiper-button-next {\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50px;\n  opacity: 0 !important;\n  background-color: #edf2ff;\n  box-shadow: 0 0 5px 0px #132034;\n}\n.top-live-casino .swiper-button-next::after {\n  color: #132034;\n  font-size: 12px;\n  font-weight: 900;\n}\n@keyframes flare {\n  0% {\n    left: -45px;\n  }\n  20% {\n    left: calc(100% + 15px);\n  }\n  to {\n    left: calc(100% + 15px);\n  }\n}\n@keyframes flare-2 {\n  0% {\n    transform: translateX(-115%) rotate(-45deg);\n  }\n  20% {\n    transform: translateX(140%) rotate(-45deg);\n  }\n  to {\n    transform: translateX(140%) rotate(-45deg);\n  }\n}\n@keyframes pulse-dot {\n  0% {\n    transform: scale(0.33);\n    opacity: 1;\n  }\n  to {\n    transform: scale(1);\n    opacity: 0;\n  }\n}\n.header_top {\n  height: 52px;\n  align-items: center;\n  justify-content: space-between !important;\n}\n.header_top .free_link {\n  padding: 5px 28px 6px 50px;\n  border-radius: 15px;\n  background-image: linear-gradient(285.39deg, #ffb800 -4.36%, #fff173 115.87%);\n  font-weight: 600;\n  color: #090f1e;\n  position: relative;\n  text-decoration: none;\n  align-items: center;\n  line-height: 1;\n  cursor: pointer;\n}\n.header_top .free_link .money_img {\n  background-image: url(\"https://cdn-1win.xyz/img/free-money-link-image.ac893118-120.png\");\n  display: \"block\";\n  width: 60px;\n  height: 33px;\n  position: absolute;\n  bottom: 0;\n  left: -6px;\n  background-size: 100%;\n  background-repeat: no-repeat;\n  pointer-events: none;\n}\n.header_top .top_promotion {\n  margin-right: 21px;\n  position: relative;\n}\n.header_top .top_promotion:before {\n  content: \"\";\n  display: block;\n  height: 14px;\n  width: 1px;\n  background: hsla(0deg, 0%, 100%, 0.2);\n  position: absolute;\n  right: -10px;\n  top: calc(50% - 7px);\n}\n.header_top .top_promotion .top_BonusLink {\n  height: 24px;\n  display: flex;\n  align-items: center;\n  border-radius: 13px;\n  background-color: rgba(78, 93, 134, 0.3);\n  border-bottom-left-radius: 30px;\n  border-top-left-radius: 30px;\n  position: relative;\n  cursor: pointer;\n  flex-direction: row;\n}\n.header_top .top_promotion .top_BonusLink .top_circle {\n  height: 28px;\n  width: 28px;\n  background: linear-gradient(86.37deg, #d062ff 2.96%, #7bb0ff 99.68%), linear-gradient(90deg, #ed6ea0, #ec8c69);\n  box-shadow: 0 5px 15px rgba(201, 85, 255, 0.4);\n  border-radius: 50%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-right: 10px;\n}\n.header_top .top_promotion .top_BonusLink .top_circle svg {\n  height: 1em;\n}\n.header_top .top_promotion .top_BonusLink .top_bonus_img {\n  position: absolute;\n  height: 54px;\n  transform: rotate(-13deg);\n  right: -17px;\n  top: -17px;\n  pointer-events: none;\n}\n.header_top .lang_btn {\n  width: 60px;\n  height: 24px;\n  min-height: 24px;\n  padding: 0;\n  background: rgba(78, 93, 134, 0.3);\n  font-size: 12px;\n  color: #fff;\n  border-radius: 8px;\n}\n.header_top .lang_btn .MuiButton-endIcon {\n  margin-left: 0px !important;\n}\n.header_top .lang_icon {\n  width: 15px;\n  height: 15px;\n  border-radius: 50px;\n  margin-left: 4px;\n}\n\n.header_wraper {\n  position: sticky;\n  z-index: 100;\n  top: -1px;\n  height: 47px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.header_wraper .header {\n  max-width: 1900px;\n  max-height: 47px;\n  height: 100%;\n  width: 100%;\n  margin: 0 auto;\n  padding: 0 10px;\n  display: flex;\n  -webkit-box-align: center;\n  justify-content: space-between;\n  align-items: center;\n  background-image: linear-gradient(92deg, #1e283f, rgba(20, 27, 46, 0.6));\n  background-color: #090f1e;\n  box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.6);\n  border-radius: 10px;\n  transition: border-radius 0.2s;\n  will-change: border-radius, transform;\n  position: relative;\n}\n.header_wraper .header .level-item {\n  align-items: center;\n  display: flex;\n}\n.header_wraper .header .level-item:not(:last-child) {\n  margin-right: 1rem;\n}\n.header_wraper .header .level-item .logo-container {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.header_wraper .header .level-item .logo-container a {\n  display: flex;\n}\n.header_wraper .header .level-item .user_btn {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n  background: #1f2841;\n  border-radius: 20px 8px 8px 20px;\n  padding: 3px 8px 3px 3px;\n  min-width: 0;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap {\n  align-items: center;\n  border-radius: 50%;\n  background-color: #2c3756;\n  display: flex;\n  font-size: 10px;\n  justify-content: center;\n  height: 29px;\n  width: 29px;\n}\n.header_wraper .header .level-item .user_btn .icon-wrap svg {\n  font-size: 18px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-left: 5px;\n  width: 10px;\n}\n.header_wraper .header .level-item .user_btn .close-wrap svg {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .login_btn {\n  background-image: linear-gradient(0deg, transparent, transparent);\n  background-color: #1f2841;\n  cursor: pointer;\n  border-radius: 8px;\n  color: #fff;\n  text-transform: capitalize;\n  padding: 6px 15px;\n  margin-right: 8px;\n}\n.header_wraper .header .level-item .login_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn {\n  background-image: linear-gradient(70deg, #31bc69 -8%, #089e4e 96%);\n  border-style: none;\n  text-transform: capitalize;\n  border-radius: 8px;\n  color: #fff;\n  padding: 6px 15px;\n}\n.header_wraper .header .level-item .register_btn span {\n  font-size: 14px;\n}\n.header_wraper .header .level-item .register_btn .icon-wrap {\n  width: 20px;\n  height: 20px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background-image: linear-gradient(210deg, hsla(0deg, 0%, 100%, 0) 25%, hsla(0deg, 0%, 100%, 0.06) 48%, #fff 133%);\n  margin-right: 12px;\n  margin-left: -5px;\n}\n\n.footer .footer-line {\n  flex: 1;\n  height: 1px;\n  background: linear-gradient(90deg, hsla(0deg, 0%, 100%, 0.2) 9.92%, transparent);\n}\n.footer .footer-line-full {\n  flex: 1;\n  height: 1px;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n}\n.footer .contact-btn {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  border-radius: 6px !important;\n  background-image: linear-gradient(144deg, #0095ff -27%, #0855c4 151%, #0855c4 0);\n  padding: 0;\n}\n.footer .app-download {\n  width: 175px;\n  height: 42px;\n  display: flex;\n  border: 1px solid hsla(0deg, 0%, 100%, 0.15);\n  border-radius: 12px;\n  align-items: center;\n  padding: 0 15px;\n  transition: border 0.25s ease-out;\n  cursor: pointer;\n  justify-content: space-between;\n}\n.footer .social_link {\n  border-radius: 10px;\n  align-items: center;\n  display: flex;\n  height: 35px;\n  justify-content: center;\n  text-align: center;\n  width: 35px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.footer .social_link:hover {\n  transform: scale(1.1);\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition: transform 0.3s ease-out;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n  transition-property: transform;\n  transition-duration: 0.3s, 0.3s;\n  transition-timing-function: ease-out, ease-out;\n  transition-delay: 0s, 0s;\n}\n.footer .social_link a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.footer .social_link a svg {\n  color: white;\n}\n.footer .social_link:nth-child(1) {\n  background: linear-gradient(240.2deg, #0fb1d6, #08c 61.34%);\n  box-shadow: 0 5px 16px rgba(76, 162, 246, 0.3);\n}\n.footer .social_link:nth-child(2) {\n  background: linear-gradient(214.99deg, #7e2bf4 7.65%, #ed146e 51.93%, #ffc90c 95.29%);\n  box-shadow: 0 5px 16px rgba(186, 77, 101, 0.3);\n}\n.footer .social_link:nth-child(3) {\n  background: linear-gradient(135deg, #82a4e9, #4267b2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .social_link:nth-child(4) {\n  background: linear-gradient(135deg, #79ccff, #1da1f2);\n  box-shadow: 0 5px 16px rgba(115, 150, 220, 0.3);\n}\n.footer .footer-btn {\n  background: linear-gradient(92.58deg, #1e283f, rgba(20, 27, 46, 0.6) 99.71%);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 10px;\n  height: 100%;\n}\n.footer .payments {\n  align-items: center;\n  justify-content: space-around;\n  width: 100%;\n  margin: 0 124px;\n}\n.footer .payments svg {\n  font-size: 25px;\n  width: auto;\n}\n.footer .PaymentSection_icon_17jgt [class$=mono] {\n  opacity: 1;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt {\n  cursor: pointer;\n  width: auto;\n  font-size: 19px;\n}\n@media screen and (max-width: 425px) {\n  .footer .PaymentSection_icon_17jgt {\n    cursor: pointer;\n    margin: 0 18px 15px;\n    font-size: 15px;\n  }\n}\n.footer .PaymentSection_icon_17jgt [class$=color] {\n  opacity: 0;\n  transition: opacity 0.2s ease;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=color],\n.footer .PaymentSection_icon_17jgt:hover [class$=color] {\n  opacity: 1;\n}\n.footer .PaymentSection_icon_17jgt:active [class$=mono],\n.footer .PaymentSection_icon_17jgt:hover [class$=mono] {\n  opacity: 0;\n}\n.footer .split {\n  height: 25px;\n  width: 1px;\n  background: rgba(151, 174, 225, 0.11);\n  margin: 0 10px;\n}\n\n.middle-item {\n  height: 75px;\n  border-radius: 12px;\n  padding-left: 25px;\n  display: flex;\n  justify-content: center;\n  flex-direction: column !important;\n  position: relative;\n  cursor: pointer;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  color: white;\n}\n.middle-item:before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  border-radius: inherit;\n  z-index: 0;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  opacity: 0.7;\n  transition: opacity 0.15s ease-in-out;\n}\n.middle-item:hover:before {\n  opacity: 1;\n}\n.middle-item .middle-item-img-wrap {\n  position: absolute;\n  right: 17px;\n  width: 40%;\n  height: 0;\n  max-width: 61px;\n  display: flex;\n  align-items: center;\n}\n.middle-item .middle-item-img-wrap .middle-item-img {\n  position: absolute;\n  width: 100%;\n}\n.middle-item .middle-item-img-wrap .middle-item-img img {\n  height: auto;\n  max-width: 100%;\n}\n\n.home-tab {\n  border-top-left-radius: 12px;\n  overflow: hidden;\n  z-index: 2;\n  pointer-events: none;\n  filter: drop-shadow(0 1px 0 #edf2ff);\n}\n.home-tab .home-tab-title {\n  position: relative;\n  height: 34px;\n  padding: 16px 30px 0px 25px;\n  margin-right: 15px;\n  display: -webkit-box;\n  justify-content: center;\n  align-items: flex-end;\n  color: #090f1e;\n  font-size: 17px;\n  letter-spacing: -0.4px;\n  font-weight: 700;\n}\n.home-tab .home-tab-title:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: calc(100% + 16px);\n  top: 0;\n  left: -16px;\n  background-color: #edf2ff;\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n.home-tab .home-tab-title:after {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  border-radius: 5px;\n  width: 10px;\n  right: -10px;\n  top: 0;\n  transform: skewX(30deg);\n  box-sizing: unset;\n  box-shadow: 0 0 0 5px #edf2ff;\n  clip: rect(16px, 6px, 50px, -10px);\n}\n.home-tab .home-tab-title .populart-icon {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage {\n  position: relative;\n  width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-right: 16px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center {\n  background: #fa203b;\n  border-radius: 50%;\n  display: block;\n  position: relative;\n  min-width: 7px;\n  min-height: 7px;\n}\n.home-tab .home-tab-title .tab-live-bage .tab-live-bage-center:before {\n  content: \"\";\n  animation: pulse-dot 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;\n  position: absolute;\n  width: 300%;\n  height: 300%;\n  border-radius: 50%;\n  background: #fa203b;\n  top: -100%;\n  left: -100%;\n}\n\n.home-tab-all {\n  position: relative;\n  height: 34px;\n  justify-content: center;\n  padding: 0 16px 0 34px;\n  margin-left: -30px;\n  font-weight: 600;\n  z-index: 1;\n  font-size: 11px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n}\n.home-tab-all:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  top: 0;\n  background-image: linear-gradient(-45deg, #0855c4, #0095ff);\n  transform: skew(30deg, 0deg);\n  border-top-right-radius: 7px;\n  z-index: -1;\n}\n\n.toggle-switcher-item {\n  height: 30px;\n  max-width: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  display: flex;\n  align-items: center;\n}\n.toggle-switcher-item:not(:first-child) {\n  margin-left: 5px;\n}\n.toggle-switcher-item:after, .toggle-switcher-item:before {\n  transition: opacity 0.25s;\n  will-change: opacity;\n  content: \"\";\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  opacity: 0;\n  border-radius: inherit;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper {\n  z-index: 1;\n  display: inline-flex;\n  align-items: center;\n  position: relative;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon {\n  min-width: 30px;\n  height: 30px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-icon .no-margin {\n  margin: 0px !important;\n}\n.toggle-switcher-item .toggle-switcher-icon-wrapper .toggle-switcher-label {\n  font-size: 13px;\n  color: #fff;\n  font-weight: 700;\n  margin-right: 10px;\n  margin-left: 2px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  opacity: 1;\n  white-space: nowrap;\n}\n\n.toggle-switcher-item.active {\n  height: 30px;\n  cursor: pointer;\n  position: relative;\n  background-color: #1f2841;\n  border-radius: 10px;\n  transition: max-width 0.25s;\n  overflow: hidden;\n  flex-shrink: 0;\n  max-width: 158px;\n  background-image: linear-gradient(118deg, #108de7, #0855c4);\n}\n\n.home-tab-content {\n  border-radius: 12px;\n  border-top-left-radius: 0;\n  background-color: #edf2ff;\n  display: flex;\n  flex-direction: column;\n  position: relative;\n}\n.home-tab-content .match-table-head-underlay {\n  border-radius: 8px;\n  background-image: linear-gradient(273deg, #0855c4, #0095ff);\n  position: absolute;\n  width: calc(100% - 40px);\n  height: 30px;\n  left: 20px;\n  top: 32px;\n}\n.home-tab-content .sport-grids {\n  margin: 20px 0;\n  width: 100%;\n  position: relative;\n  z-index: 1;\n  color: black;\n}\n.home-tab-content .sport-grids th,\n.home-tab-content .sport-grids td {\n  border-bottom: unset !important;\n}\n.home-tab-content .sport-grids .match-table-match-row {\n  min-height: 50px;\n  height: 50px;\n  cursor: pointer;\n}\n.home-tab-content .sport-grids .match-table-match-row:nth-child(even) {\n  background-color: #dce6f7;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell {\n  padding: 10px 5px;\n  width: 1px;\n  height: 70px;\n  max-height: 70px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:first-child {\n  padding-left: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell:last-child {\n  padding-right: 20px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info {\n  display: flex;\n  align-items: center;\n  justify-content: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-date {\n  font-size: 11px;\n  opacity: 0.5;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-date-info .match-table-date-time .match-table-time {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info {\n  position: relative;\n  padding-left: 13px;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info:before {\n  content: \"\";\n  position: absolute;\n  width: 3px;\n  height: 100%;\n  border-radius: 1.5px;\n  left: 0;\n  background-image: linear-gradient(356deg, #0095ff, #0855c4);\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-team {\n  font-size: 13px;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info {\n  margin-top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info span {\n  font-size: 11px;\n  font-weight: 500;\n  line-height: 1.2;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-period-score {\n  color: #888;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-separator {\n  color: #888;\n  display: inline-block;\n  margin: 0 7px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time span {\n  font-size: 12px;\n  margin-top: 4px;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-primary-info .match-table-score-info .match-table-match-time svg {\n  font-size: 12px;\n  margin-right: 8px;\n  color: #87a2da;\n  position: relative;\n  top: 2px;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell .match-table-odds-chip-wrap .match-table-odds-chip {\n  height: 30px;\n  background-color: rgba(8, 84, 195, 0.2);\n  padding: 0 10px;\n  font-size: 11px;\n  font-weight: 500;\n  border-radius: 8px;\n  align-items: center;\n  white-space: nowrap;\n  color: black;\n}\n.home-tab-content .sport-grids .match-table-match-row .match-table-match-cell button {\n  border-radius: 12px;\n  color: black;\n}\n\n.popular-wrap {\n  width: 100%;\n}\n.popular-wrap .live-event-main {\n  height: 145px;\n  background-color: #fff;\n  border-radius: 12px;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  color: #090f1e;\n  padding: 16px;\n  border: 1px solid #fff;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  cursor: pointer;\n}\n.popular-wrap .live-event-main .match-header {\n  align-items: flex-start;\n  display: flex;\n  align-items: center;\n  height: 20px;\n  box-sizing: initial;\n}\n.popular-wrap .live-event-main .match-header .top-live-match-score {\n  font-size: 20px;\n  font-weight: 800;\n  letter-spacing: 0.3px;\n  line-height: 0.95;\n  margin-right: 1rem;\n}\n.popular-wrap .live-event-main .match-header .match-score-period {\n  border: 0.5px solid rgba(108, 125, 163, 0.4);\n  border-radius: 7px;\n  font-size: 11px;\n  padding: 3px 6px;\n}\n.popular-wrap .live-event-main .top-live-match-info {\n  align-items: center;\n  display: flex;\n  height: 30px;\n  margin: 8px 0px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams {\n  overflow: hidden;\n  padding: 0 10px;\n  position: relative;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams:before {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n  border-radius: 290486px;\n  bottom: 0;\n  content: \"\";\n  left: 0;\n  position: absolute;\n  top: 0;\n  width: 3px;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team {\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .top-live-match-info .match-teams .match-team .helper-line {\n  font-size: 12px;\n  font-weight: 600;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.popular-wrap .live-event-main .match-details {\n  align-items: center;\n  color: #6c7da3;\n  display: flex;\n  font-size: 11px;\n  line-height: 1;\n  margin-bottom: 8px;\n}\n.popular-wrap .live-event-main .match-odd-list {\n  display: flex;\n  list-style: none;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item {\n  flex: 1;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd {\n  align-items: center;\n  background-color: rgba(108, 125, 163, 0.2);\n  border-radius: 12px;\n  cursor: pointer;\n  font-size: 14px;\n  height: 36px;\n  min-width: 36px;\n  padding: 0 10px;\n  transition: all 0.3s;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values {\n  will-change: contents;\n  transition: all 0.3s;\n  align-items: center;\n  display: flex;\n  pointer-events: none;\n  height: 100%;\n  width: 100%;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-name {\n  margin-right: 5px;\n  text-transform: uppercase;\n  color: black;\n}\n.popular-wrap .live-event-main .match-odd-list .match-odd-item .live-top-odd .odd-values .odd-value {\n  margin-left: auto;\n  font-weight: 700;\n  text-align: right;\n  color: black;\n}\n\n.section-card {\n  border-radius: 12px;\n  background-image: linear-gradient(110deg, #1e283f, rgba(20, 27, 46, 0.6) 100%);\n  position: relative;\n  padding: 25px;\n}\n.section-card .section-card-top-line {\n  position: absolute;\n  top: 0;\n  left: 25px;\n  right: 25px;\n  height: 4px;\n  border-bottom-left-radius: 100px;\n  border-bottom-right-radius: 100px;\n  background-size: 200% auto;\n  animation: notch-bg-slide-01a6027a 4s linear 0s infinite alternate;\n  will-change: background-position;\n  background-image: linear-gradient(90deg, rgb(0, 183, 255) 0%, rgb(199, 0, 255) 50%, rgb(255, 187, 0) 100%);\n}\n.section-card .section-card-header {\n  justify-content: space-between;\n  align-items: flex-end;\n  z-index: 10;\n}\n.section-card .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-bottom: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.section-card .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.section-card .game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.section-card .game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.section-card .game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.section-card .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n.section-card .section-card-bg {\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  border-radius: 12px;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg {\n  height: 100%;\n  display: flex;\n  justify-content: flex-end;\n  align-items: flex-end;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow {\n  position: relative;\n  height: 100%;\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-glow {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  filter: blur(30px) saturate(1);\n  top: 0px;\n  opacity: 0.5;\n  transform: translateZ(0px);\n}\n.section-card .section-card-bg .SectionPokerBanner-bg .WithSelfBlurGlow .WithSelfBlurGlow-content-wrapper {\n  position: relative;\n  height: 100%;\n  width: 100%;\n}\n.section-card .SectionPokerBanner_contentButton {\n  height: 45px;\n  color: #fff;\n  text-transform: capitalize !important;\n  border-radius: 8px;\n  background-image: linear-gradient(255deg, #00b7ff, #8d53e9);\n  padding: 0 25px;\n  cursor: pointer;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  font-size: 15px;\n  position: relative;\n  overflow: hidden;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  margin-top: 10px;\n}\n.section-card .SectionPokerBanner_contentButton:before {\n  content: \"\";\n  position: absolute;\n  height: 100%;\n  width: 20%;\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  left: -25%;\n  transform: skewX(-20deg);\n}\n\n.sports-list {\n  background-color: rgb(20, 27, 46);\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  overflow: hidden;\n  height: 100%;\n  flex-shrink: 0;\n  max-height: 100%;\n  border-radius: 8px;\n  display: flex;\n  padding-top: 10px;\n  padding-bottom: 10px;\n  height: calc(100vh - 80px);\n  position: sticky;\n  top: 64px;\n}\n.sports-list .sports-search-wrap {\n  position: relative;\n  margin: 10px 0px;\n  padding: 10px 0px;\n}\n.sports-list .sports-search-wrap:before {\n  bottom: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap:after {\n  top: 0px;\n  z-index: 4;\n  content: \"\";\n  height: 1px;\n  position: absolute;\n  opacity: 0.7;\n  background-color: rgb(37, 47, 75);\n  left: 10px;\n  right: 10px;\n}\n.sports-list .sports-search-wrap .search-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n}\n.sports-list .sports-search-wrap .search-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-search-wrap .casino-search {\n  width: 100%;\n  border-radius: 8px;\n  background-color: #1f2941;\n}\n.sports-list .sports-search-wrap .casino-search input {\n  color: #7388b6;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: -0.19px;\n  width: 201px;\n  padding: 10px 10px 10px 0px;\n}\n.sports-list .sports-search-wrap .casino-search fieldset {\n  display: none;\n}\n.sports-list .sports-list-body {\n  overflow: hidden auto;\n}\n.sports-list .sports-list-body .list-item {\n  position: relative;\n}\n.sports-list .sports-list-body .list-item .item-btn-wrap {\n  position: sticky;\n  top: 0;\n  z-index: 3;\n  margin-right: 10px;\n  margin-left: 10px;\n}\n.sports-list .sports-list-body .list-item .section-list {\n  padding: 0.5rem 0;\n  background-color: #192137;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header {\n  align-items: center;\n  color: #616e8c;\n  display: flex;\n  line-height: 25px;\n  min-height: 25px;\n  font-size: 12px;\n}\n.sports-list .sports-list-body .list-item .section-list .section-header:after {\n  background-color: currentColor;\n  content: \"\";\n  display: block;\n  flex-grow: 1;\n  height: 1px;\n  margin-left: 8px;\n}\n.sports-list .sports-list-item-btn {\n  color: white;\n  text-transform: capitalize;\n  width: 100%;\n  border-radius: 8px !important;\n  justify-content: flex-start;\n  font-size: 12px;\n  padding: 8px 10px !important;\n  border-bottom: unset !important;\n}\n.sports-list .sports-list-item-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n.sports-list .sports-list-item-btn:hover {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n.sports-list .sports-list-item-btn.active {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n\n.betslip {\n  border-radius: 10px;\n  padding: 10px;\n  margin-bottom: 15px;\n  position: sticky;\n  top: 64px;\n  background-image: linear-gradient(135deg, #233358, rgba(20, 27, 46, 0.6));\n}\n.betslip .bet-tabbar {\n  margin-bottom: 15px;\n}\n.betslip .bet-tabbar .slip-title {\n  align-items: center;\n  background-color: hsla(0deg, 0%, 100%, 0.1);\n  border-radius: 8px;\n  display: flex;\n  flex: auto;\n  font-size: 12px;\n  height: 30px;\n  justify-content: center;\n  text-align: center;\n  transition: opacity 0.2s;\n  position: relative;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n}\n.betslip .bet-tabbar .slip-title .slip-count {\n  background-color: white;\n  color: #0059c5;\n  border-radius: 50px;\n  width: 14px;\n  height: 14px;\n  font-size: 10px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  right: 32%;\n  position: absolute;\n  letter-spacing: 1px;\n  line-height: 1;\n}\n.betslip .slip-Odd {\n  align-items: center;\n  display: flex;\n  flex-shrink: 0;\n  justify-content: center;\n  font-weight: 700;\n  font-size: 12px;\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n  align-self: stretch;\n  margin-right: 8px;\n  width: 46px;\n  min-width: none;\n  padding: 0px !important;\n  min-width: 0px !important;\n  z-index: 2;\n}\n.betslip .close-odd {\n  color: #94a6cd;\n  font-size: 11px;\n  z-index: 1;\n  background-color: rgba(148, 166, 205, 0.11);\n  border-radius: 10px;\n  width: 28px;\n  height: 28px;\n  margin-left: auto;\n  padding: 0px;\n}\n.betslip .close-odd:hover {\n  background-color: #60afff;\n}\n.betslip .close-odd:hover svg {\n  color: white;\n}\n.betslip .sliip-teams {\n  grid-area: teams;\n  padding: 2px 0 2px 10px;\n  position: relative;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.betslip .sliip-teams:before {\n  content: \"\";\n  width: 3.5px;\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.3);\n  border-radius: 0 10px 10px 0;\n}\n.betslip .live-mark {\n  align-self: end;\n  border-radius: 10px;\n  color: #f62525;\n  display: flex;\n  font-size: 9px;\n  font-weight: 700;\n  grid-area: service;\n  letter-spacing: 0.17px;\n  text-transform: uppercase;\n  position: relative;\n  padding-right: 10px;\n  align-items: center;\n}\n.betslip .live-mark .live-dot {\n  background-image: radial-gradient(50% 50% at 50% 50%, rgba(246, 37, 37, 0) 0, rgba(246, 37, 37, 0.2) 100%);\n  border-radius: 50px;\n  height: 12px;\n  margin-right: 3px;\n  width: 12px;\n  position: relative;\n}\n.betslip .live-mark .live-dot:before {\n  content: \"\";\n  width: 4px;\n  height: 4px;\n  border-radius: 50px;\n  background-color: #f62525;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  margin: auto;\n}\n.betslip .live-mark span {\n  font-family: Tahoma, \"sans-serif\";\n}\n.betslip .enter-stake {\n  width: 100%;\n}\n.betslip .enter-stake input {\n  font-size: 12px;\n  width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  color: #090f1e;\n  height: 14px;\n  padding: 7px 10px 9px;\n}\n.betslip .enter-stake fieldset {\n  display: none;\n}\n.betslip .express-slip {\n  position: relative;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  overflow: hidden;\n}\n.betslip .express-slip:first-child {\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n}\n.betslip .express-slip:after {\n  content: \"\";\n  bottom: 0px;\n  left: 15px;\n  position: absolute;\n  right: 15px;\n  z-index: 110;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_5___ + ");\n  height: 1px;\n}\n.betslip .total-odd {\n  background-color: #fff;\n  border-bottom-left-radius: 10px;\n  border-bottom-right-radius: 10px;\n  margin-bottom: 10px;\n  padding: 10px;\n  background: -webkit-radial-gradient(0 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 100%, circle, transparent 4px, #fff 0), -webkit-radial-gradient(100% 0, circle, transparent 4px, #fff 0), -webkit-radial-gradient(0 0, circle, transparent 4px, #fff 0);\n  background-position: 0 100%, 100% 100%, 100% 0, 0 0;\n  background-size: 50% 50%;\n  background-repeat: no-repeat;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.betslip .total-odd .btn {\n  background-image: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  border-radius: 8px;\n  color: white;\n  text-transform: capitalize;\n  font-size: 12px;\n  font-weight: 800;\n  padding: 4px 24px;\n}\n\n.tournament-table {\n  border-radius: 8px;\n  color: #000;\n  contain: content;\n  overflow: hidden;\n  text-align: center;\n  width: 100%;\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  table-layout: fixed;\n}\n.tournament-table:not(:last-child) {\n  margin-bottom: 8px;\n}\n.tournament-table .table-header {\n  color: #fff;\n}\n.tournament-table .table-header .table-row {\n  height: 40px;\n}\n.tournament-table .table-header .table-row .tournament-cell {\n  font-size: 14px;\n  line-height: 1.1;\n  text-align: left;\n  position: relative;\n}\n.tournament-table .table-header .table-row .tournament-cell .tournament-cell-inner {\n  display: flex;\n  align-items: center;\n  padding: 10px 15px;\n}\n.tournament-table .table-header .table-row .odd-cell-h {\n  color: #b1d1ff;\n  font-size: 11px;\n  letter-spacing: -0.1px;\n  min-width: 30px;\n  text-align: center;\n  text-transform: uppercase;\n  width: 6%;\n}\n.tournament-table .table-header .table-row th {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row {\n  background-color: #edf2ff;\n  cursor: pointer;\n}\n.tournament-table .table-body .match-row:hover {\n  background-color: #1b2029;\n}\n.tournament-table .table-body .match-row:hover .match-info .favourite,\n.tournament-table .table-body .match-row:hover .match-info .match-date,\n.tournament-table .table-body .match-row:hover .odd-cell .odd-coefficient,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total,\n.tournament-table .table-body .match-row:hover .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed,\n.tournament-table .table-body .match-row:hover .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  color: white;\n}\n.tournament-table .table-body .match-row td {\n  padding: 0px !important;\n}\n.tournament-table .table-body .match-row .match-info {\n  align-items: center;\n  display: flex;\n  padding: 5px;\n}\n.tournament-table .table-body .match-row .match-info .favourite {\n  color: #bfd2f3;\n}\n.tournament-table .table-body .match-row .match-info .match-date {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .match-separator {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  border-radius: 1.5px;\n  flex: none;\n  height: 2rem;\n  margin: 2px 6px;\n  opacity: 0.8;\n  width: 3px;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container {\n  align-items: center;\n  display: flex;\n  flex: 1;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block {\n  align-items: center;\n  display: flex;\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams {\n  overflow: hidden;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team {\n  display: flex;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .match-teams-container .match-teams-block .match-teams .team .team-name {\n  overflow: hidden;\n  position: relative;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto {\n  display: flex;\n  margin-left: auto;\n  align-items: center;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics {\n  font-weight: 500;\n  letter-spacing: -0.1px;\n  margin-right: 5px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line {\n  display: flex;\n  justify-content: flex-end;\n  text-align: right;\n  margin: 0px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-total {\n  font-size: 12px;\n  color: black;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-score-periods {\n  color: #888;\n  font-size: 10px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line .match-time-passed {\n  color: black;\n  font-size: 12px;\n  margin-left: 8px;\n}\n.tournament-table .table-body .match-row .match-info .ml-auto .match-statistics .match-statistics-line svg {\n  color: #87a2da;\n  font-size: 16px;\n}\n.tournament-table .table-body .match-row .odd-cell {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  position: relative;\n}\n.tournament-table .table-body .match-row .odd-cell:before {\n  position: absolute;\n  content: \"\";\n  background-color: rgba(152, 160, 181, 0.1019607843);\n  /* background-color: rgb(20 27 46 / 15%); */\n  width: 100%;\n  height: 100%;\n  top: 0;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient {\n  border-radius: 8px;\n  font-weight: 600;\n  letter-spacing: -0.2px;\n  padding: 2px 12px;\n  text-align: center;\n  min-width: 0;\n  color: black;\n  width: 100%;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient:hover {\n  background-color: #9ea5b4;\n}\n.tournament-table .table-body .match-row .odd-cell .odd-coefficient.active {\n  background: linear-gradient(143.56deg, #0095ff -58.98%, #0855c4 95.86%);\n  border-radius: 8px;\n  box-shadow: 0 6px 22px rgba(5, 109, 218, 0.2);\n  color: #fff;\n}\n.tournament-table .table-body .match-row .odd-cell.handicap {\n  background-color: rgba(66, 89, 133, 0.3882352941);\n}\n.tournament-table .table-body .match-row .odd-cell.handicap .odd-coefficient .MuiTouchRipple-root {\n  display: none;\n}\n.tournament-table .table-body .match-row .odd-cell.handicap .odd-coefficient:hover {\n  background-color: transparent;\n}\n.tournament-table .table-body .match-row .odd-cell.disable {\n  background-color: rgba(20, 27, 46, 0.7);\n  cursor: initial;\n}\n\n.event-content {\n  flex: 1;\n  background-size: 100% auto;\n  background-repeat: no-repeat;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_6___ + ");\n}\n.event-content .btn {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  align-items: center;\n  background-color: #252f4b;\n  border-radius: 8px;\n  color: #fff;\n  display: flex;\n  font-size: 12px;\n  font-weight: 500;\n  height: 30px;\n  min-width: 0px;\n  justify-content: center;\n  letter-spacing: 0.2px;\n  padding: 0 10px;\n  text-align: center;\n  transition: all 0.2s ease-out;\n}\n.event-content .market-head {\n  background-image: linear-gradient(103deg, #108de7 -30%, #0855c4);\n  cursor: pointer;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0px 10px;\n}\n.event-content .market-body {\n  display: flex;\n  flex-wrap: wrap;\n  margin-right: -1px;\n  margin-bottom: -1px;\n}\n.event-content .market-body .market-wrap {\n  padding-right: 1px;\n  min-width: 30%;\n  display: flex;\n  flex-grow: 1;\n}\n.event-content .market-body .market-wrap .market-btn {\n  width: 100%;\n  margin-bottom: 1px;\n  background-color: #e4ebff;\n  border-radius: 0px;\n  display: flex;\n  justify-content: space-between;\n  padding: 4px 0px 4px 10px;\n}\n.event-content .market-body .market-wrap .market-btn:hover {\n  background-color: #1b2029;\n}\n.event-content .market-body .market-wrap .market-btn:hover p {\n  color: white !important;\n}\n.event-content .market-body .market-wrap .market-btn .market-name {\n  font-size: 12px;\n  color: #252f4b;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd {\n  font-size: 14px;\n  font-weight: 600;\n  color: #090f1e;\n  padding: 5px 8px;\n  border-radius: 8px;\n}\n.event-content .market-body .market-wrap .market-btn .market-odd.active {\n  background-image: linear-gradient(135deg, #108de7, #0855c4);\n  color: white;\n}\n\n.casino .casino-top {\n  padding: 0 15px 15px 15px;\n  align-items: center;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  color: #fff;\n  opacity: 1;\n  position: relative;\n  z-index: 1;\n  cursor: pointer;\n  flex: 1;\n  height: 100%;\n}\n.casino .casino-top:before {\n  content: \"\";\n  position: absolute;\n  border-radius: 12px;\n  z-index: -2;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: radial-gradient(circle at -65% 157%, #c5991e, #b68100 7%, #fff29d 66%, #b57f00 113%, #c7940f 138%);\n}\n.casino .casino-top:after {\n  content: \"\";\n  position: absolute;\n  border-radius: 10px;\n  z-index: -1;\n  top: 2px;\n  bottom: 2px;\n  left: 2px;\n  right: 2px;\n  background: #090f1f;\n  box-shadow: 0 9px 17px 0 rgba(214, 179, 71, 0), inset 0 1px 29px 0 #000;\n}\n.casino .casino-top .casino-top-title {\n  align-items: center;\n  display: flex;\n  margin-top: auto;\n}\n.casino .casino-top .casino-top-title .title-separator {\n  background: linear-gradient(270deg, #fff, transparent);\n  height: 1px;\n  opacity: 0.3;\n  width: 2vw;\n}\n.casino .casino-top .casino-top-title .casino-title-name {\n  font-size: 2vw;\n  font-weight: 900;\n  letter-spacing: -1.96px;\n  text-shadow: 0 2px 87px #0c1820;\n}\n.casino .casino-top .casino-get-price {\n  font-size: 51px;\n  font-weight: 900;\n  background: -webkit-linear-gradient(#000000, #ffe55d, #080700);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: #ffe55d;\n}\n.casino .game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-right: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.casino .game-card:last-child {\n  margin-right: 0px;\n}\n.casino .game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.casino .game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.casino .game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.casino .game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.casino .game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.mobileMenu {\n  width: 100%;\n  border-top: 1px solid #1f2841;\n  height: 60px;\n  position: relative;\n}\n.mobileMenu .mobileMenu-btn {\n  width: 20%;\n  flex-direction: column;\n  border-radius: 0px !important;\n}\n.mobileMenu .mobileMenu-btn img {\n  margin-bottom: 5px;\n  max-height: 22px;\n  max-width: 22px;\n}\n.mobileMenu .mobileMenu-btn p {\n  color: #536387;\n  font-size: 11px;\n  text-align: center;\n  text-transform: capitalize;\n}\n.mobileMenu .mobileMenu-btn.active:before {\n  background-color: #0854c3;\n  border-radius: 3px;\n  box-shadow: 0 0 1px #090f1e;\n  content: \"\";\n  height: 6px;\n  position: absolute;\n  top: -3px;\n  width: 54px;\n}\n.mobileMenu .mobileMenu-btn.active p {\n  color: white;\n}\n\n.bodyTab {\n  -webkit-mask-image: linear-gradient(to left, transparent 0, #000 85px);\n          mask-image: linear-gradient(to left, transparent 0, #000 85px);\n}\n.bodyTab:after {\n  content: \"\";\n  padding-left: 80px;\n}\n.bodyTab::-webkit-scrollbar {\n  height: 0px;\n  width: 0px;\n}\n\n.drawer .MuiDrawer-paper {\n  background: linear-gradient(173deg, rgba(37, 46, 76, 0.98) 2%, rgba(25, 32, 51, 0.98));\n  border-radius: 20px 0 0 20px;\n}\n\n.top-casino {\n  background-image: linear-gradient(90deg, rgba(218, 113, 103, 0.35) 0px, rgba(218, 113, 103, 0.306) 4.5px, rgba(218, 113, 103, 0.26) 9px, rgba(218, 113, 103, 0.216) 13.5px, rgba(218, 113, 103, 0.176) 18px, rgba(218, 113, 103, 0.137) 22.5px, rgba(218, 113, 103, 0.1) 27px, rgba(218, 113, 103, 0.07) 31.5px, rgba(218, 113, 103, 0.047) 36px, rgba(218, 113, 103, 0.027) 40.5px, rgba(218, 113, 103, 0.01) 45px, rgba(218, 113, 103, 0.004) 49.5px, rgba(218, 113, 103, 0) 54px), linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));\n  height: 45px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-right: 15px;\n  padding-left: 15px;\n  position: relative;\n  border-radius: 12px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.top-casino .left-red {\n  background-image: linear-gradient(rgb(182, 32, 224) 0%, rgb(247, 181, 0) 100%);\n  opacity: 1;\n  position: absolute;\n  left: 0;\n  width: 3px;\n  height: 21px;\n  border-top-right-radius: 100px;\n  border-bottom-right-radius: 100px;\n  transition: opacity 0.3s;\n}\n\n.all-casino {\n  background-image: linear-gradient(90deg, rgba(109, 92, 217, 0.35) 0px, rgba(109, 92, 217, 0.306) 4.5px, rgba(109, 92, 217, 0.26) 9px, rgba(109, 92, 217, 0.216) 13.5px, rgba(109, 92, 217, 0.176) 18px, rgba(109, 92, 217, 0.137) 22.5px, rgba(109, 92, 217, 0.1) 27px, rgba(109, 92, 217, 0.07) 31.5px, rgba(109, 92, 217, 0.047) 36px, rgba(109, 92, 217, 0.027) 40.5px, rgba(109, 92, 217, 0.01) 45px, rgba(109, 92, 217, 0.004) 49.5px, rgba(109, 92, 217, 0) 54px), linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));\n  height: 45px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-right: 15px;\n  padding-left: 15px;\n  position: relative;\n  border-radius: 12px;\n  will-change: transform;\n  transform: translateZ(0);\n}\n.all-casino .left-red {\n  background-image: linear-gradient(rgb(61, 55, 183) 0%, rgb(140, 114, 236) 100%);\n  opacity: 1;\n  position: absolute;\n  left: 0;\n  width: 3px;\n  height: 21px;\n  border-top-right-radius: 100px;\n  border-bottom-right-radius: 100px;\n  transition: opacity 0.3s;\n}\n\n.all-effect {\n  background-image: linear-gradient(142.34deg, rgba(109, 92, 217, 0.45) -30%, rgba(109, 92, 217, 0.392) -23.33%, rgba(108, 91, 217, 0.333) -16.67%, rgba(109, 92, 217, 0.28) -10%, rgba(109, 92, 217, 0.224) -3.33%, rgba(109, 92, 217, 0.176) 3.33%, rgba(109, 92, 217, 0.133) 10%, rgba(109, 92, 217, 0.094) 16.67%, rgba(109, 92, 217, 0.06) 23.33%, rgba(109, 92, 217, 0.035) 30%, rgba(109, 92, 217, 0.016) 36.67%, rgba(109, 92, 217, 0.004) 43.33%, rgba(109, 92, 217, 0) 50%);\n  width: 68px;\n  height: 68px;\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n\n.casino-bg {\n  margin-top: 4px;\n  border-radius: 6px 6px 12px 12px;\n  background-repeat: no-repeat;\n  position: relative;\n  overflow: hidden;\n  background-image: linear-gradient(97deg, rgb(30, 40, 63), rgba(20, 27, 46, 0.6));\n}\n\n.casino-search {\n  width: 100%;\n  border-radius: 12px;\n  background-color: #121829;\n}\n.casino-search input {\n  color: #7388b6;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: -0.19px;\n  width: 201px;\n  padding: 10px 10px 10px 0px;\n}\n.casino-search fieldset {\n  display: none;\n}\n\n.switch-btn {\n  background-color: #192137;\n  border-radius: 12px;\n  width: 100%;\n}\n.switch-btn .btn {\n  align-items: center;\n  color: #fff;\n  cursor: pointer;\n  display: flex;\n  flex: 1;\n  font-size: 14px;\n  font-weight: 500;\n  height: 37px;\n  justify-content: center;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 5px;\n  text-align: center;\n  text-decoration: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  letter-spacing: 0.3px;\n}\n.switch-btn .active {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  transition: background-color 0.2s;\n  border-radius: 12px;\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.sports-live-over {\n  overflow: auto;\n  margin-bottom: 16px;\n}\n.sports-live-over::-webkit-scrollbar {\n  height: 0px;\n  width: 0px;\n}\n.sports-live-over .live-sports-item-m {\n  justify-items: center;\n  align-items: center;\n  margin-right: 10px;\n}\n.sports-live-over .live-sports-item-m button {\n  align-items: center;\n  border: 1px solid #1f2841;\n  border-radius: 15px;\n  display: flex;\n  font-size: 28px;\n  height: 55px;\n  justify-content: center;\n  transition: background-color 0.3s ease, border-color 0.3s ease;\n  width: 55px;\n}\n.sports-live-over .live-sports-item-m button i {\n  font-size: 28px;\n}\n.sports-live-over .live-sports-item-m p {\n  font-size: 11px;\n  line-height: 1.1;\n  margin-top: 5px;\n  text-align: center;\n  width: 55px;\n  color: #7388b6;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.sports-list-item-btn {\n  color: white !important;\n  text-transform: capitalize !important;\n  width: 100% !important;\n  border-radius: 0px !important;\n  justify-content: flex-start;\n  padding: 12px 0px 12px 8px !important;\n  border-bottom: 1px solid #141b2e !important;\n}\n.sports-list-item-btn .MuiButton-startIcon > *:nth-of-type(1) {\n  font-size: 16px !important;\n}\n\n.animation-btn {\n  height: 30px;\n  border-radius: 8px !important;\n  text-transform: capitalize !important;\n  color: white !important;\n  margin-left: 10px;\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n  background-image: linear-gradient(248deg, #009746 100%, #38c172 0);\n  font-weight: 600 !important;\n  font-size: 13px !important;\n  line-height: 18px;\n  letter-spacing: -0.15px;\n  padding: 0 14px !important;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  position: relative;\n  overflow: hidden;\n}\n.animation-btn:before {\n  content: \"\";\n  position: absolute;\n  top: calc(50% - 62px);\n  width: 92px;\n  height: 92px;\n  background-image: radial-gradient(19.58% 37.96% at 16.68% 41.55%, hsla(0deg, 0%, 100%, 0.6) 0, hsla(0deg, 0%, 100%, 0) 100%);\n  animation: flare-2 5s ease-in-out infinite;\n}\n\n.btn {\n  color: #fff !important;\n  border-radius: 8px;\n  cursor: pointer;\n  display: block;\n  font-size: 13px;\n  font-weight: 600;\n  height: 35px;\n  min-width: 36px;\n  overflow: hidden;\n  padding: 0 15px;\n  position: relative;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n  text-transform: capitalize !important;\n}\n\n.btn.success {\n  background-image: linear-gradient(80deg, #31bc69 -8%, #089e4e 93%);\n  box-shadow: 0 6px 18px 0 rgba(14, 161, 81, 0.3);\n}\n\n.btn.primary {\n  background-image: linear-gradient(to bottom right, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.btn.animation:before {\n  background-color: hsla(0deg, 0%, 100%, 0.2);\n  bottom: 0;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  transform: skewX(-30deg);\n  width: 30px;\n  will-change: left;\n  z-index: 1;\n  animation: flare 5s ease infinite;\n}\n\n.btn.active {\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.able {\n  background-image: linear-gradient(107.15deg, #0095ff, #0855c4);\n  box-shadow: 0 6px 22px 0 rgba(5, 109, 218, 0.3);\n}\n\n.game-card {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  cursor: pointer;\n  margin-bottom: 8px;\n  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);\n}\n.game-card:hover .game-card-image {\n  transform: scale(1.03);\n}\n.game-card .game-card-image-container {\n  background-color: #141b2f;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n}\n.game-card .game-card-image-container div {\n  padding-bottom: 75%;\n  transition: transform 0.5s;\n}\n.game-card .game-card-image-container div:hover {\n  transform: scale(1.1);\n}\n.game-card .game-card-image-container .game-card-image {\n  height: 100%;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  transition: transform 0.3s ease-in-out;\n  z-index: 2;\n}\n\n.mobile-menu {\n  color: white;\n}\n\n.spinner {\n  animation: spinner 0.75s infinite linear;\n}\n\n.up {\n  color: #0dc35d !important;\n}\n\n.down {\n  color: #f62525 !important;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

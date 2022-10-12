@@ -1755,6 +1755,7 @@
                     text-align: center;
                     min-width: 0;
                     color: black;
+                    width: 100%;
 
                     &:hover {
                         background-color: #9ea5b4;
@@ -1767,6 +1768,18 @@
                     border-radius: 8px;
                     box-shadow: 0 6px 22px rgb(5 109 218 / 20%);
                     color: #fff;
+                }
+            }
+
+            .odd-cell.handicap {
+                background-color: #42598563;
+                .odd-coefficient {
+                    .MuiTouchRipple-root {
+                        display: none;
+                    }
+                    &:hover {
+                        background-color: transparent;
+                    }
                 }
             }
 

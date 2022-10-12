@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -14,11 +16,242 @@ import { HStack, BpRadio } from './Base';
 
 import classNames from 'classnames';
 
+import { saveBetSlip, saveBetType, saveMultiCalc } from '../state/sports/actions';
+
+const getMkName = (sId, mk) => {
+  let mkName = '';
+  if (sId === 1) {
+    switch (mk) {
+      case '1_1':
+        mkName = '1X2';
+      case '1_2':
+        mkName = 'Asian Handicap';
+      case '1_3':
+        mkName = 'O/U';
+      case '1_4':
+        mkName = 'Asian Corners';
+      case '1_5':
+        mkName = '1st Half Asian Handicap';
+      case '1_6':
+        mkName = '1st Half Goal Line';
+      case '1_7':
+        mkName = '1st Half Asian Corners';
+      case '1_8':
+        mkName = 'Half Time Result';
+    }
+  } else if (sId === 18) {
+    switch (mk) {
+      case '18_1':
+        mkName = 'Money Line';
+      case '18_2':
+        mkName = 'Spread';
+      case '18_3':
+        mkName = 'Total Points';
+      case '18_4':
+        mkName = 'Money Line (Half)';
+      case '18_5':
+        mkName = 'Spread (Half)';
+      case '18_6':
+        mkName = 'Total Points (Half)';
+      case '18_7':
+        mkName = 'Quarter - Winner (2-Way)';
+      case '18_8':
+        mkName = 'Quarter - Handicap';
+      case '18_9':
+        mkName = 'Quarter - Total (2-Way)';
+    }
+  } else {
+    switch (mk) {
+      case `${sId}_1`:
+        mkName = 'Match Winner 2-Way';
+      case `${sId}_2`:
+        mkName = 'Asian Handicap';
+      case `${sId}_3`:
+        mkName = 'Over/Under';
+      case `${sId}_4`:
+        mkName = 'Draw No Bet (Cricket)';
+    }
+  }
+  return mkName;
+}
+
+const Single = ({ data, clear, setStake }) => {
+  return (
+    <>
+      {
+        Object.keys(data).map((key, idx) => (
+          <Box sx={{ mb: 1 }} key={idx}>
+            <Box sx={{ py: 1.25, mb: 1, bgcolor: '#fff', borderRadius: 2 }}>
+              <HStack sx={{ mb: 1, px: 1.25, alignItems: 'center' }}>
+                <Button className='slip-Odd'>{data[key].odd}</Button>
+                <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>{`${getMkName(data[key].sportId, data[key].mk)}, W1`}</Typography>
+                <IconButton className='close-odd' onClick={() => clear(key)}>
+                  <DeleteIcon sx={{ fontSize: '16px' }} />
+                </IconButton>
+              </HStack>
+              <HStack className='sliip-teams'>
+                <Box>
+                  <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>{data[key].home.name}</Typography>
+                  <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>{data[key].away.name}</Typography>
+                </Box>
+              </HStack>
+              <HStack sx={{ px: 1.25 }} justifyContent='space-between' alignItems='center'>
+                <HStack>
+                  <i className={classNames("sports-icon", `icon-${data[key].sportName.toLowerCase().replaceAll(' ', '-')}`, "betslip-icon")}></i>
+                  <Typography component='span' sx={{ color: '#94a6cd', fontWeight: 500, fontSize: '11px', lineHeight: 1.2, pl: 1 }}>
+                    {data[key].league.name}
+                  </Typography>
+                </HStack>
+                {
+                  data[key].isLive ?
+                    <HStack className='live-mark'>
+                      <Box className='live-dot' />
+                      <Typography component='span' sx={{ fontSize: '12px' }}>LIVE</Typography>
+                    </HStack> : null
+                }
+              </HStack>
+            </Box>
+            <HStack justifyContent='flex-end'>
+              <Stack>
+                <Typography sx={{ color: '#0dc35d', pb: .25, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>Possible profit</Typography>
+                <Typography sx={{ color: '#0dc35d', pb: .5, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>{`${data[key].profit.toFixed(2)} USD`}</Typography>
+              </Stack>
+            </HStack>
+            <Box>
+              <TextField variant="outlined" className='enter-stake' placeholder='Bet amount' type='number' onChange={(e) => setStake(key, e.target.value, data[key].odd)} />
+            </Box>
+          </Box>
+        ))
+      }
+    </>
+  )
+}
+
+const Multi = ({ data, clear, setStake, multiCalc }) => {
+  return (
+    <Box sx={{ mb: 1 }}>
+      {
+        Object.keys(data).map((key, idx) => (
+          <Box className='express-slip' key={idx}>
+            <HStack sx={{ pb: 1, mx: 1.25, alignItems: 'center', pt: 1.25, bgcolor: 'white' }}>
+              <Button className='slip-Odd'>{data[key].odd}</Button>
+              <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>{`${getMkName(data[key].sportId, data[key].mk)}, W1`}</Typography>
+              <IconButton className='close-odd' onClick={() => clear(key)}>
+                <DeleteIcon sx={{ fontSize: '16px' }} />
+              </IconButton>
+            </HStack>
+            <HStack className='sliip-teams' sx={{ bgcolor: 'white' }}>
+              <Box>
+                <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>{data[key].home.name}</Typography>
+                <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>{data[key].away.name}</Typography>
+              </Box>
+            </HStack>
+            <HStack sx={{ mx: 1.25, pb: 1.25, bgcolor: 'white' }} justifyContent='space-between' alignItems='center'>
+              <HStack>
+                <i className={classNames("sports-icon", `icon-soccer`, "betslip-icon")}></i>
+                <Typography component='span' sx={{ color: '#94a6cd', fontWeight: 500, fontSize: '11px', lineHeight: 1.2, pl: 1 }}>
+                  {data[key].league.name}
+                </Typography>
+              </HStack>
+              {
+                data[key].isLive ?
+                  <HStack className='live-mark'>
+                    <Box className='live-dot' />
+                    <Typography component='span' sx={{ fontSize: '12px' }}>LIVE</Typography>
+                  </HStack> : null
+              }
+            </HStack>
+          </Box>
+        ))
+      }
+      <Box className='total-odd'>
+        <Button className='btn'>
+          {`${Number(multiCalc.odd).toFixed(2)} Total Coefficient`}
+        </Button>
+      </Box>
+      <HStack justifyContent='flex-end'>
+        <Stack>
+          <Typography sx={{ color: '#0dc35d', pb: .25, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>Possible profit</Typography>
+          <Typography sx={{ color: '#0dc35d', pb: .5, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>{`${Number(multiCalc.profit).toFixed(2)} USD`}</Typography>
+        </Stack>
+      </HStack>
+      <Box>
+        <TextField variant="outlined" className='enter-stake' placeholder='Bet amount' type='number' onChange={(e) => setStake('key', e.target.value)} />
+      </Box>
+    </Box>
+  )
+}
+
 const BetSlip = () => {
-  const [type, setType] = useState('Single');
-  const handleChange = (event) => {
-    setType(event.target.value);
+  const dispatch = useDispatch();
+  const { betType, betSlip, multiCalc } = useSelector(state => state.sports);
+
+  const filterMulti = (data) => {
+    let newSlip = {};
+    for (let item of data) {
+      let key = item.slice(-1)[0];
+      newSlip[key] = betSlip[key];
+    }
+    dispatch(saveBetSlip(newSlip));
+
+    let odd = 1;
+    for (let k in newSlip) {
+      odd *= Number(Number(newSlip[k].odd).toFixed(2));
+    }
+    let profit = odd * multiCalc.stake;
+    dispatch(saveMultiCalc({ ...multiCalc, odd, profit }));
+  }
+
+  const multiSlipCheck = () => {
+    let isDup = [],
+      eventKey = Object.keys(betSlip);
+    for (let i = 0; i < eventKey.length; i++) {
+      let dup = [eventKey[i]];
+      let f = eventKey[i].split('-')[0];
+      for (let j = i + 1; j < eventKey.length; j++) {
+        let s = eventKey[j].split('-')[0];
+        if (f == s) {
+          dup.push(eventKey[j]);
+          eventKey.splice(j, 1);
+          --j;
+        }
+      }
+      isDup.push(dup);
+    }
+    filterMulti(isDup);
+  }
+
+  const switchType = (event) => {
+    multiSlipCheck();
+    dispatch(saveBetType(event.target.value));
   };
+
+  const clearAll = () => {
+    dispatch(saveBetSlip({}))
+  }
+
+  const clear = (key) => {
+    let oldSlip = betSlip, newSlip = {};
+    for (let i in oldSlip) {
+      if (i === key) continue;
+      newSlip[i] = oldSlip[i];
+    }
+    dispatch(saveBetSlip(newSlip));
+  }
+
+  const setStake = (key, val, odd) => {
+    if (betType === 'single') {
+      dispatch(saveBetSlip({ ...betSlip, [key]: { ...betSlip[key], stake: val, profit: Number(odd) * Number(val) } }));
+    } else {
+      dispatch(saveMultiCalc({ ...multiCalc, stake: val, profit: (Number(multiCalc.odd) * Number(val)).toFixed(2) }));
+    }
+  }
+
+  useEffect(() => {
+    if (Object.keys(betSlip).length < 2) {
+      dispatch(saveBetType('single'));
+    }
+  }, [betSlip]);
 
   return (
     <Box className='betslip' sx={{ mb: { xs: '60px' } }}>
@@ -29,154 +262,31 @@ const BetSlip = () => {
         </Box>
       </HStack>
       <Box>
-        <RadioGroup value={type} onChange={handleChange} sx={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', px: 1, mb: 1 }}>
-          <FormControlLabel value="Single" control={<BpRadio sx={{ padding: 0, mr: 1 }} />} label="Ordinary" sx={{ '& .MuiFormControlLabel-label': { margin: 0, fontWeight: 700, fontSize: "12px" } }} />
-          <FormControlLabel value="Multi" control={<BpRadio sx={{ padding: 0, mr: 1 }} />} label="Express" sx={{ '& .MuiFormControlLabel-label': { margin: 0, fontWeight: 700, fontSize: "12px" } }} />
+        <RadioGroup value={betType} onChange={switchType} sx={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', px: 1, mb: 1 }}>
+          <FormControlLabel value="single" control={<BpRadio sx={{ padding: 0, mr: 1 }} />} label="Ordinary" sx={{ '& .MuiFormControlLabel-label': { margin: 0, fontWeight: 700, fontSize: "12px" } }} />
+          <FormControlLabel value="multi" control={<BpRadio sx={{ padding: 0, mr: 1 }} />} label="Express" sx={{ '& .MuiFormControlLabel-label': { margin: 0, fontWeight: 700, fontSize: "12px" } }} />
         </RadioGroup>
         <Box>
-          <Box sx={{ mb: 1 }}>
-            <Box sx={{ py: 1.25, mb: 1, bgcolor: '#fff', borderRadius: 2 }}>
-              <HStack sx={{ mb: 1, px: 1.25, alignItems: 'center' }}>
-                <Button className='slip-Odd'>1.25</Button>
-                <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>1X2, W1</Typography>
-                <IconButton className='close-odd'>
-                  <DeleteIcon sx={{ fontSize: '16px' }} />
-                </IconButton>
-              </HStack>
-              <HStack className='sliip-teams'>
-                <Box>
-                  <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>Home team</Typography>
-                  <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>Away team</Typography>
-                </Box>
-              </HStack>
-              <HStack sx={{ px: 1.25 }} justifyContent='space-between' alignItems='center'>
-                <HStack>
-                  <i className={classNames("sports-icon", `icon-soccer`, "betslip-icon")}></i>
-                  <Typography component='span' sx={{ color: '#94a6cd', fontWeight: 500, fontSize: '11px', lineHeight: 1.2, pl: 1 }}>
-                    Tournament
-                  </Typography>
-                </HStack>
-                <HStack className='live-mark'>
-                  <Box className='live-dot' />
-                  <Typography component='span' sx={{ fontSize: '12px' }}>LIVE</Typography>
-                </HStack>
-              </HStack>
-            </Box>
-            <HStack justifyContent='flex-end'>
-              <Stack>
-                <Typography sx={{ color: '#0dc35d', pb: .25, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>Possible profit</Typography>
-                <Typography sx={{ color: '#0dc35d', pb: .5, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>0.00 USD</Typography>
-              </Stack>
-            </HStack>
-            <Box>
-              <TextField variant="outlined" className='enter-stake' placeholder='Bet amount' type='number' />
-            </Box>
-          </Box>
-
-          <Box sx={{ mb: 1 }}>
-            <Box className='express-slip'>
-              <HStack sx={{ pb: 1, mx: 1.25, alignItems: 'center', pt: 1.25, bgcolor: 'white' }}>
-                <Button className='slip-Odd'>1.25</Button>
-                <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>1X2, W1</Typography>
-                <IconButton className='close-odd'>
-                  <DeleteIcon sx={{ fontSize: '16px' }} />
-                </IconButton>
-              </HStack>
-              <HStack className='sliip-teams' sx={{ bgcolor: 'white' }}>
-                <Box>
-                  <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>Home team</Typography>
-                  <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>Away team</Typography>
-                </Box>
-              </HStack>
-              <HStack sx={{ mx: 1.25, pb: 1.25, bgcolor: 'white' }} justifyContent='space-between' alignItems='center'>
-                <HStack>
-                  <i className={classNames("sports-icon", `icon-soccer`, "betslip-icon")}></i>
-                  <Typography component='span' sx={{ color: '#94a6cd', fontWeight: 500, fontSize: '11px', lineHeight: 1.2, pl: 1 }}>
-                    Tournament
-                  </Typography>
-                </HStack>
-                <HStack className='live-mark'>
-                  <Box className='live-dot' />
-                  <Typography component='span' sx={{ fontSize: '12px' }}>LIVE</Typography>
-                </HStack>
-              </HStack>
-            </Box>
-            <Box className='express-slip'>
-              <HStack sx={{ pb: 1, mx: 1.25, alignItems: 'center', pt: 1.25, bgcolor: 'white' }}>
-                <Button className='slip-Odd'>1.25</Button>
-                <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>1X2, W1</Typography>
-                <IconButton className='close-odd'>
-                  <DeleteIcon sx={{ fontSize: '16px' }} />
-                </IconButton>
-              </HStack>
-              <HStack className='sliip-teams' sx={{ bgcolor: 'white' }}>
-                <Box>
-                  <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>Home team</Typography>
-                  <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>Away team</Typography>
-                </Box>
-              </HStack>
-              <HStack sx={{ mx: 1.25, pb: 1.25, bgcolor: 'white' }} justifyContent='space-between' alignItems='center'>
-                <HStack>
-                  <i className={classNames("sports-icon", `icon-soccer`, "betslip-icon")}></i>
-                  <Typography component='span' sx={{ color: '#94a6cd', fontWeight: 500, fontSize: '11px', lineHeight: 1.2, pl: 1 }}>
-                    Tournament
-                  </Typography>
-                </HStack>
-                <HStack className='live-mark'>
-                  <Box className='live-dot' />
-                  <Typography component='span' sx={{ fontSize: '12px' }}>LIVE</Typography>
-                </HStack>
-              </HStack>
-            </Box>
-            <Box className='express-slip'>
-              <HStack sx={{ pb: 1, mx: 1.25, alignItems: 'center', pt: 1.25, bgcolor: 'white' }}>
-                <Button className='slip-Odd'>1.25</Button>
-                <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>1X2, W1</Typography>
-                <IconButton className='close-odd'>
-                  <DeleteIcon sx={{ fontSize: '16px' }} />
-                </IconButton>
-              </HStack>
-              <HStack className='sliip-teams' sx={{ bgcolor: 'white' }}>
-                <Box>
-                  <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>Home team</Typography>
-                  <Typography sx={{ color: '#000', fontWeight: 600, fontSize: '13px' }}>Away team</Typography>
-                </Box>
-              </HStack>
-              <HStack sx={{ mx: 1.25, pb: 1.25, bgcolor: 'white' }} justifyContent='space-between' alignItems='center'>
-                <HStack>
-                  <i className={classNames("sports-icon", `icon-soccer`, "betslip-icon")}></i>
-                  <Typography component='span' sx={{ color: '#94a6cd', fontWeight: 500, fontSize: '11px', lineHeight: 1.2, pl: 1 }}>
-                    Tournament
-                  </Typography>
-                </HStack>
-                <HStack className='live-mark'>
-                  <Box className='live-dot' />
-                  <Typography component='span' sx={{ fontSize: '12px' }}>LIVE</Typography>
-                </HStack>
-              </HStack>
-            </Box>
-            <Box className='total-odd'>
-              <Button className='btn'>
-                123 Total Coefficient
-              </Button>
-            </Box>
-            <HStack justifyContent='flex-end'>
-              <Stack>
-                <Typography sx={{ color: '#0dc35d', pb: .25, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>Possible profit</Typography>
-                <Typography sx={{ color: '#0dc35d', pb: .5, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>0.00 USD</Typography>
-              </Stack>
-            </HStack>
-            <Box>
-              <TextField variant="outlined" className='enter-stake' placeholder='Bet amount' type='number' />
-            </Box>
-          </Box>
+          {
+            betType === 'single' ?
+              <Single {...{ data: betSlip, clear, setStake }} /> : <Multi {...{ data: betSlip, clear, multiCalc, setStake }} />
+          }
         </Box>
         <Box>
           <HStack sx={{ mb: 1, alignItems: 'center' }}>
-            <Button sx={{ height: '28px', borderRadius: 2, ml: 'auto', bgcolor: '#79ccf929' }}>
-              <DeleteIcon sx={{ fontSize: '20px' }} />
-              <Typography sx={{ fontSize: '14px', ml: 1, textTransform: 'capitalize' }}>Clear All</Typography>
-            </Button    >
+            {
+              Object.keys(betSlip).length ?
+                <Button sx={{ height: '28px', borderRadius: 2, ml: 'auto', bgcolor: '#79ccf929' }} onClick={() => clearAll()}>
+                  <DeleteIcon sx={{ fontSize: '20px' }} />
+                  <Typography sx={{ fontSize: '14px', ml: 1, textTransform: 'capitalize' }}>Clear All</Typography>
+                </Button    > :
+                <Box sx={{ width: '100%', borderRadius: 2, bgcolor: 'white', p: 1 }}>
+                  <HStack sx={{ bgcolor: '#d0daf3', py: .75, px: 1.25, borderRadius: 2 }}>
+                    <Typography sx={{ color: '#405484', fontSize: 12 }}>0.00
+                      Total coefficient</Typography>
+                  </HStack>
+                </Box>
+            }
           </HStack>
           <Button sx={{ borderRadius: 2, width: '100%', color: '#090f1e', bgcolor: '#ffe036', boxShadow: '0 2px 24px 0 #ffca094d', fontWeight: 700, '&:hover': { bgcolor: '#ffe036' } }}>
             Make Bet
