@@ -14,69 +14,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { HStack, BpRadio } from './Base';
+import { HStack, BpRadio, getMkName } from './Base';
 
 import classNames from 'classnames';
 
 import { auth } from '../state/user/actions';
 import { saveBetSlip, saveBetType, saveMultiCalc } from '../state/sports/actions';
-
-const getMkName = (sId, mk) => {
-  let mkName = '';
-  if (sId === 1) {
-    switch (mk) {
-      case '1_1':
-        mkName = '1X2';
-      case '1_2':
-        mkName = 'Asian Handicap';
-      case '1_3':
-        mkName = 'O/U';
-      case '1_4':
-        mkName = 'Asian Corners';
-      case '1_5':
-        mkName = '1st Half Asian Handicap';
-      case '1_6':
-        mkName = '1st Half Goal Line';
-      case '1_7':
-        mkName = '1st Half Asian Corners';
-      case '1_8':
-        mkName = 'Half Time Result';
-    }
-  } else if (sId === 18) {
-    switch (mk) {
-      case '18_1':
-        mkName = 'Money Line';
-      case '18_2':
-        mkName = 'Spread';
-      case '18_3':
-        mkName = 'Total Points';
-      case '18_4':
-        mkName = 'Money Line (Half)';
-      case '18_5':
-        mkName = 'Spread (Half)';
-      case '18_6':
-        mkName = 'Total Points (Half)';
-      case '18_7':
-        mkName = 'Quarter - Winner (2-Way)';
-      case '18_8':
-        mkName = 'Quarter - Handicap';
-      case '18_9':
-        mkName = 'Quarter - Total (2-Way)';
-    }
-  } else {
-    switch (mk) {
-      case `${sId}_1`:
-        mkName = 'Match Winner 2-Way';
-      case `${sId}_2`:
-        mkName = 'Asian Handicap';
-      case `${sId}_3`:
-        mkName = 'Over/Under';
-      case `${sId}_4`:
-        mkName = 'Draw No Bet (Cricket)';
-    }
-  }
-  return mkName;
-}
 
 const betAction = async (user_id, betType, betSlip, multiCalc) => {
   let data = [];
@@ -162,7 +105,7 @@ const Multi = ({ data, clear, setStake, multiCalc }) => {
           <Box className='express-slip' key={idx}>
             <HStack sx={{ pb: 1, mx: 1.25, alignItems: 'center', pt: 1.25, bgcolor: 'white' }}>
               <Button className='slip-Odd'>{data[key].odd}</Button>
-              <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>{`${getMkName(data[key].sportId, data[key].mk)}, W1`}</Typography>
+              <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>{`${getMkName(data[key].sId, data[key].mk)}`}</Typography>
               <IconButton className='close-odd' onClick={() => clear(key)}>
                 <DeleteIcon sx={{ fontSize: '16px' }} />
               </IconButton>
@@ -212,7 +155,7 @@ const Multi = ({ data, clear, setStake, multiCalc }) => {
 const BetSlip = () => {
   const dispatch = useDispatch();
   const { addToast } = useToasts();
-  const { betType, betSlip, multiCalc } = useSelector(state => state.sports);
+  const { betType, betSlip, multiCalc, isEvent } = useSelector(state => state.sports);
   const user = useSelector((state) => state.user);
 
   const filterMulti = (data) => {
@@ -346,7 +289,7 @@ const BetSlip = () => {
         </Box>
       </Box>
     </Box>
-  )
+  );
 }
 
 export default BetSlip;

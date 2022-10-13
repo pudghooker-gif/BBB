@@ -42436,6 +42436,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "TblCell": () => (/* binding */ TblCell),
 /* harmony export */   "VStack": () => (/* binding */ VStack),
 /* harmony export */   "getDate": () => (/* binding */ getDate),
+/* harmony export */   "getMkName": () => (/* binding */ getMkName),
 /* harmony export */   "getScore": () => (/* binding */ getScore),
 /* harmony export */   "groupBy": () => (/* binding */ groupBy)
 /* harmony export */ });
@@ -42644,7 +42645,7 @@ var getScore = function getScore(ss, scores, time, id) {
     }
   }
   if (scores) {
-    scores = JSON.parse(scores);
+    if (typeof scores === 'string') scores = JSON.parse(scores);
     score = '(';
     for (var i in scores) {
       score += scores[i].home + ':';
@@ -42654,7 +42655,7 @@ var getScore = function getScore(ss, scores, time, id) {
     score += ')';
   }
   if (time) {
-    timer = JSON.parse(time);
+    if (typeof timer === 'string') timer = JSON.parse(time);
     timer = "".concat(timer.tm, "'");
   }
   return {
@@ -42662,6 +42663,92 @@ var getScore = function getScore(ss, scores, time, id) {
     scores: score,
     timer: timer
   };
+};
+var getMkName = function getMkName(sId, mk) {
+  var mkName = '',
+    odName = {};
+  if (mk === '3_4') {
+    return 'Draw No Bet (Cricket)';
+  }
+  if (sId === 1) {
+    switch (mk) {
+      case '1_1':
+        mkName = '1X2';
+        odName = {
+          home_od: 'W1',
+          draw_od: 'Draw',
+          away_od: 'W2'
+        };
+        break;
+      case '1_2':
+        mkName = 'Asian Handicap';
+        break;
+      case '1_3':
+        mkName = 'O/U';
+        break;
+      case '1_4':
+        mkName = 'Asian Corners';
+        break;
+      case '1_5':
+        mkName = '1st Half Asian Handicap';
+        break;
+      case '1_6':
+        mkName = '1st Half Goal Line';
+        break;
+      case '1_7':
+        mkName = '1st Half Asian Corners';
+        break;
+      case '1_8':
+        mkName = 'Half Time Result';
+        break;
+    }
+  } else if (sId === 18) {
+    switch (mk) {
+      case '18_1':
+        mkName = 'Money Line';
+        break;
+      case '18_2':
+        mkName = 'Spread';
+        break;
+      case '18_3':
+        mkName = 'Total Points';
+        break;
+      case '18_4':
+        mkName = 'Money Line (Half)';
+        break;
+      case '18_5':
+        mkName = 'Spread (Half)';
+        break;
+      case '18_6':
+        mkName = 'Total Points (Half)';
+        break;
+      case '18_7':
+        mkName = 'Quarter - Winner (2-Way)';
+        break;
+      case '18_8':
+        mkName = 'Quarter - Handicap';
+        break;
+      case '18_9':
+        mkName = 'Quarter - Total (2-Way)';
+        break;
+    }
+  } else {
+    switch (mk) {
+      case "".concat(sId, "_1"):
+        mkName = 'Match Winner 2-Way';
+        break;
+      case "".concat(sId, "_2"):
+        mkName = 'Asian Handicap';
+        break;
+      case "".concat(sId, "_3"):
+        mkName = 'Over/Under';
+        break;
+      case "".concat(sId, "_4"):
+        mkName = 'Who will win';
+        break;
+    }
+  }
+  return mkName;
 };
 
 /***/ }),
@@ -42726,62 +42813,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-var getMkName = function getMkName(sId, mk) {
-  var mkName = '';
-  if (sId === 1) {
-    switch (mk) {
-      case '1_1':
-        mkName = '1X2';
-      case '1_2':
-        mkName = 'Asian Handicap';
-      case '1_3':
-        mkName = 'O/U';
-      case '1_4':
-        mkName = 'Asian Corners';
-      case '1_5':
-        mkName = '1st Half Asian Handicap';
-      case '1_6':
-        mkName = '1st Half Goal Line';
-      case '1_7':
-        mkName = '1st Half Asian Corners';
-      case '1_8':
-        mkName = 'Half Time Result';
-    }
-  } else if (sId === 18) {
-    switch (mk) {
-      case '18_1':
-        mkName = 'Money Line';
-      case '18_2':
-        mkName = 'Spread';
-      case '18_3':
-        mkName = 'Total Points';
-      case '18_4':
-        mkName = 'Money Line (Half)';
-      case '18_5':
-        mkName = 'Spread (Half)';
-      case '18_6':
-        mkName = 'Total Points (Half)';
-      case '18_7':
-        mkName = 'Quarter - Winner (2-Way)';
-      case '18_8':
-        mkName = 'Quarter - Handicap';
-      case '18_9':
-        mkName = 'Quarter - Total (2-Way)';
-    }
-  } else {
-    switch (mk) {
-      case "".concat(sId, "_1"):
-        mkName = 'Match Winner 2-Way';
-      case "".concat(sId, "_2"):
-        mkName = 'Asian Handicap';
-      case "".concat(sId, "_3"):
-        mkName = 'Over/Under';
-      case "".concat(sId, "_4"):
-        mkName = 'Draw No Bet (Cricket)';
-    }
-  }
-  return mkName;
-};
 var betAction = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(user_id, betType, betSlip, multiCalc) {
     var data, i, item, obj, rdata;
@@ -42860,7 +42891,7 @@ var Single = function Single(_ref2) {
                 fontSize: '11px',
                 fontWeight: '700'
               },
-              children: "".concat(getMkName(data[key].sId, data[key].mk))
+              children: "".concat((0,_Base__WEBPACK_IMPORTED_MODULE_4__.getMkName)(data[key].sId, data[key].mk))
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_12__["default"], {
               className: "close-odd",
               onClick: function onClick() {
@@ -42991,7 +43022,7 @@ var Multi = function Multi(_ref3) {
               fontSize: '11px',
               fontWeight: '700'
             },
-            children: "".concat(getMkName(data[key].sportId, data[key].mk), ", W1")
+            children: "".concat((0,_Base__WEBPACK_IMPORTED_MODULE_4__.getMkName)(data[key].sId, data[key].mk))
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_12__["default"], {
             className: "close-odd",
             onClick: function onClick() {
@@ -43112,7 +43143,8 @@ var BetSlip = function BetSlip() {
     }),
     betType = _useSelector.betType,
     betSlip = _useSelector.betSlip,
-    multiCalc = _useSelector.multiCalc;
+    multiCalc = _useSelector.multiCalc,
+    isEvent = _useSelector.isEvent;
   var user = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.user;
   });
@@ -47272,8 +47304,13 @@ var SportsRoutes = {
     element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Prematch, {})
   }, {
     path: 'live/:sportId/:country/:league/:event',
-    element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(EventMatch, {})
-  }, {
+    element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Live, {})
+  },
+  // {
+  //     path: 'live/:sportId/:country/:league/:event',
+  //     element: <EventMatch />
+  // },
+  {
     path: 'prematch/:sportId/:country/:league/:event',
     element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(EventMatch, {})
   }]
@@ -47401,6 +47438,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "saveBetSlip": () => (/* binding */ saveBetSlip),
 /* harmony export */   "saveBetType": () => (/* binding */ saveBetType),
+/* harmony export */   "saveIsEvent": () => (/* binding */ saveIsEvent),
 /* harmony export */   "saveMultiCalc": () => (/* binding */ saveMultiCalc),
 /* harmony export */   "saveSportsList": () => (/* binding */ saveSportsList),
 /* harmony export */   "saveSportsScale": () => (/* binding */ saveSportsScale),
@@ -47414,6 +47452,7 @@ var saveSportsScale = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAct
 var saveBetSlip = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAction)('sports/betSlip');
 var saveBetType = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAction)('sports/betType');
 var saveMultiCalc = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAction)('sports/multiCalc');
+var saveIsEvent = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAction)('sports/isEvent');
 
 /***/ }),
 
@@ -47447,7 +47486,8 @@ var initialState = {
     stake: 0
   },
   betType: 'single',
-  isLive: ''
+  isLive: '',
+  isEvent: false
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createReducer)(initialState, function (builder) {
   return builder.addCase(_actions__WEBPACK_IMPORTED_MODULE_0__.saveSportsList, function (state, _ref) {
@@ -47479,6 +47519,11 @@ var initialState = {
     var payload = _ref6.payload;
     return _objectSpread(_objectSpread({}, state), {}, {
       multiCalc: payload
+    });
+  }).addCase(_actions__WEBPACK_IMPORTED_MODULE_0__.saveIsEvent, function (state, _ref7) {
+    var payload = _ref7.payload;
+    return _objectSpread(_objectSpread({}, state), {}, {
+      isEvent: payload
     });
   });
 }));

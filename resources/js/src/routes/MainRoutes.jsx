@@ -61,8 +61,12 @@ export const SportsRoutes = {
         },
         {
             path: 'live/:sportId/:country/:league/:event',
-            element: <EventMatch />
+            element: <Live />
         },
+        // {
+        //     path: 'live/:sportId/:country/:league/:event',
+        //     element: <EventMatch />
+        // },
         {
             path: 'prematch/:sportId/:country/:league/:event',
             element: <EventMatch />

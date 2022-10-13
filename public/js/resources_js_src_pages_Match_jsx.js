@@ -2077,7 +2077,7 @@ var Match = function Match(_ref2) {
     }
   };
   var goEvent = function goEvent() {
-    navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(data.sport_id, "/").concat(league.cc, "/").concat(league.id, "/").concat(data.id));
+    navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(data.sport_id, "/").concat(league.cc === 'null' ? 'world' : league.cc, "/").concat(league.id, "/").concat(data.id));
   };
   var OddField = function OddField(eId, sId, odds) {
     var _odds, _odds2, _odds3, _odds4, _odds5, _odds6, _odds7, _odds8, _odds9, _odds10, _odds11, _odds12, _odds13;
@@ -2191,10 +2191,10 @@ var Match = function Match(_ref2) {
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_12__["default"], {
     className: "match-row",
-    onClick: function onClick() {
-      return goEvent();
-    },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      onClick: function onClick() {
+        return goEvent();
+      },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
         className: "match-info",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_13__["default"], {
