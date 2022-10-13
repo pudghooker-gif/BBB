@@ -42629,7 +42629,8 @@ var getDate = function getDate(d) {
   var time = "".concat(h, ":").concat(m);
   return {
     date: date,
-    time: time
+    time: time,
+    week: dt[0]
   };
 };
 var getScore = function getScore(ss, scores, time, id) {
@@ -42769,13 +42770,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _providers_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../providers/request */ "./resources/js/src/providers/request.js");
 /* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-toast-notifications */ "./node_modules/react-toast-notifications/dist/index.js");
 /* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
-/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
 /* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
-/* harmony import */ var _mui_material_TextField__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/TextField */ "./node_modules/@mui/material/esm/TextField/TextField.js");
+/* harmony import */ var _mui_material_TextField__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/TextField */ "./node_modules/@mui/material/esm/TextField/TextField.js");
 /* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
 /* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
-/* harmony import */ var _mui_material_RadioGroup__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material/RadioGroup */ "./node_modules/@mui/material/esm/RadioGroup/RadioGroup.js");
-/* harmony import */ var _mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/FormControlLabel */ "./node_modules/@mui/material/esm/FormControlLabel/FormControlLabel.js");
+/* harmony import */ var _mui_material_RadioGroup__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/RadioGroup */ "./node_modules/@mui/material/esm/RadioGroup/RadioGroup.js");
+/* harmony import */ var _mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material/FormControlLabel */ "./node_modules/@mui/material/esm/FormControlLabel/FormControlLabel.js");
 /* harmony import */ var _mui_icons_material_Delete__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/icons-material/Delete */ "./node_modules/@mui/icons-material/Delete.js");
 /* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
@@ -42814,48 +42814,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var betAction = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(user_id, betType, betSlip, multiCalc) {
-    var data, i, item, obj, rdata;
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(user_id, betType, data, multiCalc, matchs) {
+    var rdata;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            data = [];
-            for (i in betSlip) {
-              item = betSlip[i];
-              obj = {};
-              obj.sportId = item.sId;
-              obj.eventId = item.eId;
-              obj.odds = Number(item.odd);
-              obj.stake = Number(item.stake);
-              obj.potential = Number(item.profit);
-              obj.marketId = item.mk;
-              obj.handicap = item.handicap.split(',')[0];
-              obj.oddType = item.ot.split('_')[0];
-              obj.home = item.home.name;
-              obj.away = item.away.name;
-              obj.league = item.league.name;
-              obj.sportName = item.sportName;
-              data.push(obj);
-            }
-            _context.next = 4;
+            _context.next = 2;
             return (0,_providers_request__WEBPACK_IMPORTED_MODULE_2__["default"])('post', '/sports/bet', {
               user_id: user_id,
               bet: data,
               betType: betType,
-              multi: multiCalc
+              multi: multiCalc,
+              matchs: matchs
             });
-          case 4:
+          case 2:
             rdata = _context.sent;
             return _context.abrupt("return", rdata);
-          case 6:
+          case 4:
           case "end":
             return _context.stop();
         }
       }
     }, _callee);
   }));
-  return function betAction(_x, _x2, _x3, _x4) {
+  return function betAction(_x, _x2, _x3, _x4, _x5) {
     return _ref.apply(this, arguments);
   };
 }();
@@ -42891,7 +42874,7 @@ var Single = function Single(_ref2) {
                 fontSize: '11px',
                 fontWeight: '700'
               },
-              children: "".concat((0,_Base__WEBPACK_IMPORTED_MODULE_4__.getMkName)(data[key].sId, data[key].mk))
+              children: "".concat((0,_Base__WEBPACK_IMPORTED_MODULE_4__.getMkName)(data[key].sId, data[key].mk), ", ").concat(data[key].odt)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_12__["default"], {
               className: "close-odd",
               onClick: function onClick() {
@@ -42955,31 +42938,29 @@ var Single = function Single(_ref2) {
               })]
             }) : null]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_4__.HStack, {
-          justifyContent: "flex-end",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_14__["default"], {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
-              sx: {
-                color: '#0dc35d',
-                pb: .25,
-                fontWeight: 600,
-                textAlign: 'right',
-                fontSize: '12px'
-              },
-              children: "Possible profit"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
-              sx: {
-                color: '#0dc35d',
-                pb: .5,
-                fontWeight: 600,
-                textAlign: 'right',
-                fontSize: '12px'
-              },
-              children: "".concat(data[key].profit.toFixed(2), " USD")
-            })]
-          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_4__.HStack, {
+          justifyContent: "space-between",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            sx: {
+              color: '#0dc35d',
+              pb: .25,
+              fontWeight: 600,
+              textAlign: 'left',
+              fontSize: '12px'
+            },
+            children: "Possible profit"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            sx: {
+              color: '#0dc35d',
+              pb: .5,
+              fontWeight: 600,
+              textAlign: 'right',
+              fontSize: '12px'
+            },
+            children: "".concat(data[key].profit.toFixed(2), " USD")
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_14__["default"], {
             variant: "outlined",
             className: "enter-stake",
             placeholder: "Bet amount",
@@ -43022,7 +43003,7 @@ var Multi = function Multi(_ref3) {
               fontSize: '11px',
               fontWeight: '700'
             },
-            children: "".concat((0,_Base__WEBPACK_IMPORTED_MODULE_4__.getMkName)(data[key].sId, data[key].mk))
+            children: "".concat((0,_Base__WEBPACK_IMPORTED_MODULE_4__.getMkName)(data[key].sId, data[key].mk), ", ").concat(data[key].odt)
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_12__["default"], {
             className: "close-odd",
             onClick: function onClick() {
@@ -43098,31 +43079,29 @@ var Multi = function Multi(_ref3) {
         className: "btn",
         children: "".concat(Number(multiCalc.odd).toFixed(2), " Total Coefficient")
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_4__.HStack, {
-      justifyContent: "flex-end",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_14__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          sx: {
-            color: '#0dc35d',
-            pb: .25,
-            fontWeight: 600,
-            textAlign: 'right',
-            fontSize: '12px'
-          },
-          children: "Possible profit"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          sx: {
-            color: '#0dc35d',
-            pb: .5,
-            fontWeight: 600,
-            textAlign: 'right',
-            fontSize: '12px'
-          },
-          children: "".concat(Number(multiCalc.profit).toFixed(2), " USD")
-        })]
-      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_4__.HStack, {
+      justifyContent: "space-between",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        sx: {
+          color: '#0dc35d',
+          pb: .25,
+          fontWeight: 600,
+          textAlign: 'right',
+          fontSize: '12px'
+        },
+        children: "Possible profit"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        sx: {
+          color: '#0dc35d',
+          pb: .5,
+          fontWeight: 600,
+          textAlign: 'right',
+          fontSize: '12px'
+        },
+        children: "".concat(Number(multiCalc.profit).toFixed(2), " USD")
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_15__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_14__["default"], {
         variant: "outlined",
         className: "enter-stake",
         placeholder: "Bet amount",
@@ -43190,11 +43169,12 @@ var BetSlip = function BetSlip() {
       }
       isDup.push(dup);
     }
+    if (isDup.length === 1) return;
     filterMulti(isDup);
+    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_7__.saveBetType)(event.target.value));
   };
   var switchType = function switchType(event) {
     multiSlipCheck();
-    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_7__.saveBetType)(event.target.value));
   };
   var clearAll = function clearAll() {
     dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_7__.saveBetSlip)({}));
@@ -43221,24 +43201,92 @@ var BetSlip = function BetSlip() {
       })));
     }
   };
-  var bet = function bet() {
-    if (user.isAuth) {
-      var data = betAction(user.id, betType, betSlip, multiCalc);
-      if (data.status) {
-        dispatch((0,_state_user_actions__WEBPACK_IMPORTED_MODULE_6__.auth)(data.data));
-        addToast('Success!', {
-          appearance: 'success',
-          autoDismiss: true
-        });
-        clearAll();
-      } else {
-        addToast('Failed!', {
-          appearance: 'error',
-          autoDismiss: true
-        });
-      }
-    }
-  };
+  var bet = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var data, matchs, i, item, obj, rdata;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!user.isAuth) {
+                _context2.next = 33;
+                break;
+              }
+              data = [];
+              matchs = [];
+              _context2.t0 = _regeneratorRuntime().keys(betSlip);
+            case 4:
+              if ((_context2.t1 = _context2.t0()).done) {
+                _context2.next = 27;
+                break;
+              }
+              i = _context2.t1.value;
+              item = betSlip[i];
+              obj = {};
+              obj.sportId = item.sId;
+              obj.eventId = item.eId;
+              if (matchs.indexOf(item.eId) === -1) {
+                matchs.push(item.eId);
+              }
+              obj.odds = Number(item.odd);
+              if (!(Number(item.stake) < 10)) {
+                _context2.next = 15;
+                break;
+              }
+              addToast('Please check stake amount. Minimum is 10.', {
+                appearance: 'warning',
+                autoDismiss: true
+              });
+              return _context2.abrupt("return");
+            case 15:
+              obj.stake = Number(item.stake);
+              obj.potential = Number(item.profit);
+              obj.marketId = item.mk;
+              obj.handicap = item.handicap.split(',')[0];
+              obj.oddType = item.ot.split('_')[0];
+              obj.home = item.home.name;
+              obj.away = item.away.name;
+              obj.league = item.league.name;
+              obj.sportName = item.sportName;
+              data.push(obj);
+              _context2.next = 4;
+              break;
+            case 27:
+              _context2.next = 29;
+              return betAction(user.id, betType, data, multiCalc, matchs);
+            case 29:
+              rdata = _context2.sent;
+              if (rdata.status) {
+                dispatch((0,_state_user_actions__WEBPACK_IMPORTED_MODULE_6__.auth)(rdata.data[0]));
+                addToast('Success!', {
+                  appearance: 'success',
+                  autoDismiss: true
+                });
+                clearAll();
+              } else {
+                addToast(rdata.msg, {
+                  appearance: 'error',
+                  autoDismiss: true
+                });
+              }
+              _context2.next = 34;
+              break;
+            case 33:
+              addToast('Please login.', {
+                appearance: 'info',
+                autoDismiss: true
+              });
+            case 34:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+    return function bet() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (Object.keys(betSlip).length < 2) {
       dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_7__.saveBetType)('single'));
@@ -43262,7 +43310,7 @@ var BetSlip = function BetSlip() {
         }) : null]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_RadioGroup__WEBPACK_IMPORTED_MODULE_16__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_RadioGroup__WEBPACK_IMPORTED_MODULE_15__["default"], {
         value: betType,
         onChange: switchType,
         sx: {
@@ -43272,7 +43320,7 @@ var BetSlip = function BetSlip() {
           px: 1,
           mb: 1
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_16__["default"], {
           value: "single",
           control: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_4__.BpRadio, {
             sx: {
@@ -43288,7 +43336,7 @@ var BetSlip = function BetSlip() {
               fontSize: "12px"
             }
           }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_FormControlLabel__WEBPACK_IMPORTED_MODULE_16__["default"], {
           value: "multi",
           control: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_4__.BpRadio, {
             sx: {

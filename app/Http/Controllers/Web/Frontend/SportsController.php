@@ -357,7 +357,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                     $balance += $request['bet'][$i]['stake'];
                 }
                 if ($user->balance < $balance) {
-                    return array(['status' => false], ['msg' => $balance_error]);
+                    return array('status' => false, 'msg' => $balance_error);
                 }
                 for ($i = 0; $i < count($request['bet']); $i++) {
                     $sportBet = new SportBet;
@@ -384,7 +384,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             } else {
                 $balance = $request['multi']['stake'];
                 if ($user->balance < $balance) {
-                    return array(['status' => false], ['msg' => $balance_error]);
+                    return array('status' => false, 'msg' => $balance_error);
                 }
                 $betsId = mt_rand();
                 for ($i = 0; $i < count($request['bet']); $i++) {
@@ -411,7 +411,11 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                 }
             }
             $ok = \VanguardLTE\User::where('id', $user->id)->decrement('balance', $balance);
-            $user = \VanguardLTE\User::where('id', $user->id);
+            $user = \VanguardLTE\User::where('id', $user->id)->get();
+
+            foreach ($request['matchs'] as $value) {
+                \VanguardLTE\SportData::where('id', $value)->increment('popular', 1);
+            }
             return array('status' => $ok, 'data' => $user, 'msg' =>  $ok ? 'Success!' : 'Failed!');
         }
 

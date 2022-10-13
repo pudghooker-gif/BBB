@@ -175,7 +175,8 @@ export const getDate = (d) => {
   let time = `${h}:${m}`;
   return {
     date,
-    time
+    time,
+    week: dt[0]
   }
 };
 

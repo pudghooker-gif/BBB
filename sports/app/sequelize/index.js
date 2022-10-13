@@ -76,6 +76,9 @@ const sports = sequelize.define('w_sports', {
     },
     bet365_id: {
         type: DataTypes.STRING(100),
+    },
+    popular: {
+        type: DataTypes.INTEGER,
     }
 });
 sports.sync();

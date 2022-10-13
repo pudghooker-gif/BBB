@@ -21,27 +21,8 @@ import classNames from 'classnames';
 import { auth } from '../state/user/actions';
 import { saveBetSlip, saveBetType, saveMultiCalc } from '../state/sports/actions';
 
-const betAction = async (user_id, betType, betSlip, multiCalc) => {
-  let data = [];
-  for (let i in betSlip) {
-    let item = betSlip[i];
-    let obj = {};
-    obj.sportId = item.sId;
-    obj.eventId = item.eId;
-    obj.odds = Number(item.odd);
-    obj.stake = Number(item.stake);
-    obj.potential = Number(item.profit);
-    obj.marketId = item.mk;
-    obj.handicap = item.handicap.split(',')[0];
-    obj.oddType = item.ot.split('_')[0];
-    obj.home = item.home.name;
-    obj.away = item.away.name;
-    obj.league = item.league.name;
-    obj.sportName = item.sportName;
-    data.push(obj);
-  }
-
-  let rdata = await Axios('post', '/sports/bet', { user_id, bet: data, betType, multi: multiCalc });
+const betAction = async (user_id, betType, data, multiCalc, matchs) => {
+  let rdata = await Axios('post', '/sports/bet', { user_id, bet: data, betType, multi: multiCalc, matchs });
   return rdata;
 }
 
@@ -54,7 +35,7 @@ const Single = ({ data, clear, setStake }) => {
             <Box sx={{ py: 1.25, mb: 1, bgcolor: '#fff', borderRadius: 2 }}>
               <HStack sx={{ mb: 1, px: 1.25, alignItems: 'center' }}>
                 <Button className='slip-Odd'>{data[key].odd}</Button>
-                <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>{`${getMkName(data[key].sId, data[key].mk)}`}</Typography>
+                <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>{`${getMkName(data[key].sId, data[key].mk)}, ${data[key].odt}`}</Typography>
                 <IconButton className='close-odd' onClick={() => clear(key)}>
                   <DeleteIcon sx={{ fontSize: '16px' }} />
                 </IconButton>
@@ -81,11 +62,9 @@ const Single = ({ data, clear, setStake }) => {
                 }
               </HStack>
             </Box>
-            <HStack justifyContent='flex-end'>
-              <Stack>
-                <Typography sx={{ color: '#0dc35d', pb: .25, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>Possible profit</Typography>
-                <Typography sx={{ color: '#0dc35d', pb: .5, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>{`${data[key].profit.toFixed(2)} USD`}</Typography>
-              </Stack>
+            <HStack justifyContent='space-between'>
+              <Typography sx={{ color: '#0dc35d', pb: .25, fontWeight: 600, textAlign: 'left', fontSize: '12px' }}>Possible profit</Typography>
+              <Typography sx={{ color: '#0dc35d', pb: .5, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>{`${data[key].profit.toFixed(2)} USD`}</Typography>
             </HStack>
             <Box>
               <TextField variant="outlined" className='enter-stake' placeholder='Bet amount' type='number' onChange={(e) => setStake(key, e.target.value, data[key].odd)} />
@@ -105,7 +84,7 @@ const Multi = ({ data, clear, setStake, multiCalc }) => {
           <Box className='express-slip' key={idx}>
             <HStack sx={{ pb: 1, mx: 1.25, alignItems: 'center', pt: 1.25, bgcolor: 'white' }}>
               <Button className='slip-Odd'>{data[key].odd}</Button>
-              <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>{`${getMkName(data[key].sId, data[key].mk)}`}</Typography>
+              <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>{`${getMkName(data[key].sId, data[key].mk)}, ${data[key].odt}`}</Typography>
               <IconButton className='close-odd' onClick={() => clear(key)}>
                 <DeleteIcon sx={{ fontSize: '16px' }} />
               </IconButton>
@@ -139,11 +118,9 @@ const Multi = ({ data, clear, setStake, multiCalc }) => {
           {`${Number(multiCalc.odd).toFixed(2)} Total Coefficient`}
         </Button>
       </Box>
-      <HStack justifyContent='flex-end'>
-        <Stack>
-          <Typography sx={{ color: '#0dc35d', pb: .25, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>Possible profit</Typography>
-          <Typography sx={{ color: '#0dc35d', pb: .5, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>{`${Number(multiCalc.profit).toFixed(2)} USD`}</Typography>
-        </Stack>
+      <HStack justifyContent='space-between'>
+        <Typography sx={{ color: '#0dc35d', pb: .25, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>Possible profit</Typography>
+        <Typography sx={{ color: '#0dc35d', pb: .5, fontWeight: 600, textAlign: 'right', fontSize: '12px' }}>{`${Number(multiCalc.profit).toFixed(2)} USD`}</Typography>
       </HStack>
       <Box>
         <TextField variant="outlined" className='enter-stake' placeholder='Bet amount' type='number' onChange={(e) => setStake('key', e.target.value)} />
@@ -190,12 +167,13 @@ const BetSlip = () => {
       }
       isDup.push(dup);
     }
+    if (isDup.length === 1) return;
     filterMulti(isDup);
+    dispatch(saveBetType(event.target.value));
   }
 
   const switchType = (event) => {
     multiSlipCheck();
-    dispatch(saveBetType(event.target.value));
   };
 
   const clearAll = () => {
@@ -219,22 +197,57 @@ const BetSlip = () => {
     }
   }
 
-  const bet = () => {
+  const bet = async () => {
     if (user.isAuth) {
-      let data = betAction(user.id, betType, betSlip, multiCalc);
-      if (data.status) {
-        dispatch(auth(data.data))
+      let data = [];
+      let matchs = [];
+      for (let i in betSlip) {
+        let item = betSlip[i];
+        let obj = {};
+        obj.sportId = item.sId;
+        obj.eventId = item.eId;
+        if (matchs.indexOf(item.eId) === -1) {
+          matchs.push(item.eId);
+        }
+        obj.odds = Number(item.odd);
+        if (Number(item.stake) < 10) {
+          addToast('Please check stake amount. Minimum is 10.', {
+            appearance: 'warning',
+            autoDismiss: true,
+          })
+          return;
+        }
+        obj.stake = Number(item.stake);
+        obj.potential = Number(item.profit);
+        obj.marketId = item.mk;
+        obj.handicap = item.handicap.split(',')[0];
+        obj.oddType = item.ot.split('_')[0];
+        obj.home = item.home.name;
+        obj.away = item.away.name;
+        obj.league = item.league.name;
+        obj.sportName = item.sportName;
+        data.push(obj);
+      }
+
+      let rdata = await betAction(user.id, betType, data, multiCalc, matchs);
+      if (rdata.status) {
+        dispatch(auth(rdata.data[0]));
         addToast('Success!', {
           appearance: 'success',
           autoDismiss: true,
         })
         clearAll();
       } else {
-        addToast('Failed!', {
+        addToast(rdata.msg, {
           appearance: 'error',
           autoDismiss: true,
         })
       }
+    } else {
+      addToast('Please login.', {
+        appearance: 'info',
+        autoDismiss: true,
+      })
     }
   }
 

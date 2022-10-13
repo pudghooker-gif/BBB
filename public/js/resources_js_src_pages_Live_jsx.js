@@ -1879,16 +1879,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _providers_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../providers/request */ "./resources/js/src/providers/request.js");
 /* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
-/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
-/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
-/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
-/* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
+/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
+/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
+/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
+/* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
 /* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowUp */ "./node_modules/@mui/icons-material/KeyboardArrowUp.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
-/* harmony import */ var _mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/icons-material/Star */ "./node_modules/@mui/icons-material/Star.js");
-/* harmony import */ var _mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/icons-material/KeyboardDoubleArrowDown */ "./node_modules/@mui/icons-material/KeyboardDoubleArrowDown.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowUp */ "./node_modules/@mui/icons-material/KeyboardArrowUp.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
+/* harmony import */ var _mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/icons-material/KeyboardDoubleArrowDown */ "./node_modules/@mui/icons-material/KeyboardDoubleArrowDown.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
@@ -1945,6 +1944,7 @@ var EventHeader = function EventHeader(_ref) {
     sId = _ref.sId,
     sName = _ref.sName;
   var etime = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getDate)(time);
+  var today = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getDate)(new Date().getTime() / 1000);
   var score = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getScore)(ss, scores, timer, sId);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
     justifyContent: "space-between",
@@ -1969,7 +1969,7 @@ var EventHeader = function EventHeader(_ref) {
             fontWeight: 900
           },
           children: score.ss
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), score.timer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
           sx: {
             margin: 'auto',
             mr: 2,
@@ -1978,17 +1978,21 @@ var EventHeader = function EventHeader(_ref) {
             borderRadius: 4,
             bgcolor: '#97aee11c'
           },
-          children: "2 half 47 '"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_12__["default"], {})
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          children: [score.timer, "'"]
+        }) : null]
+      }), time === today ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
         sx: {
           fontSize: 12,
           color: '#ffffff80'
         },
-        children: etime.date
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: "Today, ".concat(etime.time)
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        sx: {
+          fontSize: 12,
+          color: '#ffffff80'
+        },
+        children: "".concat(etime.date, ", ").concat(etime.week)
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
         sx: {
           my: 2
         },
@@ -2003,7 +2007,7 @@ var EventHeader = function EventHeader(_ref) {
           },
           children: away.name
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
             sx: {
@@ -2029,8 +2033,7 @@ var EventHeader = function EventHeader(_ref) {
   });
 };
 var Odd = function Odd(_ref2) {
-  var od = _ref2.od,
-    setBetSlip = _ref2.setBetSlip,
+  var setBetSlip = _ref2.setBetSlip,
     active = _ref2.active,
     odd = _ref2.odd,
     id = _ref2.id,
@@ -2049,9 +2052,7 @@ var Odd = function Odd(_ref2) {
     oddId = _useState6[0],
     setOddId = _useState6[1];
   var addSlip = function addSlip() {
-    if (!handicap.isHan) {
-      setBetSlip(oddId, cOdd, handicap.value ? handicap.value : '0');
-    }
+    setBetSlip(oddId, cOdd, handicap.value ? "".concat(odt, " (").concat(handicap.value, ")") : odt, handicap.value ? handicap.value : '0');
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (odd) {
@@ -2065,7 +2066,6 @@ var Odd = function Odd(_ref2) {
           setState('');
         }
       }
-      console.log(odd);
       setOdd(Number(odd).toFixed(2));
     } else {
       setOdd('');
@@ -2077,11 +2077,11 @@ var Odd = function Odd(_ref2) {
     onClick: function onClick() {
       return addSlip();
     },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_12__["default"], {
       className: "market-btn",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
         className: "market-name",
-        children: odt
+        children: handicap.isHan ? "".concat(odt, " (").concat(handicap.value, ")") : odt
       }), cOdd ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
         className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("market-odd", state, {
           "active": active
@@ -2106,7 +2106,7 @@ var Market = function Market(_ref3) {
     active = _useState8[0],
     setActive = _useState8[1];
   var mkname = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getMkName)(sId, mk);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_13__["default"], {
     item: true,
     xs: 6,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
@@ -2121,20 +2121,21 @@ var Market = function Market(_ref3) {
             fontSize: '12px'
           },
           children: mkname
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_14__["default"], {
           onClick: function onClick() {
             return setActive(!active);
           },
-          children: active ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_16__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_17__["default"], {})
+          children: active ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_15__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_16__["default"], {})
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_18__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_17__["default"], {
         "in": active,
         timeout: "auto",
         unmountOnExit: true,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
           className: "market-body",
           children: function () {
-            var market = mk.slice(-1);
+            var market = mk.slice(-1),
+              handicap = '';
             if (sId == 1) {
               switch (market) {
                 case '1':
@@ -2165,7 +2166,7 @@ var Market = function Market(_ref3) {
                   });
                 case '2':
                 case '5':
-                  var _handicap = data[mk]['handicap'];
+                  var _handicap = data['handicap'];
                   if (_handicap && _handicap != '-') {
                     _handicap = Number(_handicap);
                   }
@@ -2198,7 +2199,7 @@ var Market = function Market(_ref3) {
                 case '4':
                 case '6':
                 case '7':
-                  _handicap = data[mk]['handicap'];
+                  _handicap = data['handicap'];
                   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
                       od: 'over_od',
@@ -2234,31 +2235,29 @@ var Market = function Market(_ref3) {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
                       od: 'over_od',
                       setBetSlip: setBetSlip,
-                      active: betSlip["".concat(eId, "-").concat(mk, "-over_od")],
-                      odd: data['over_od'],
-                      id: "".concat(eId, "-").concat(mk, "-over_od"),
-                      odt: 'Over',
+                      active: betSlip["".concat(eId, "-").concat(mk, "-home_od")],
+                      odd: data['home_od'],
+                      id: "".concat(eId, "-").concat(mk, "-home_od"),
+                      odt: 'W1',
                       handicap: {
-                        isHan: true,
-                        value: handicap
+                        isHan: false
                       }
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
                       od: 'under_od',
                       setBetSlip: setBetSlip,
-                      active: betSlip["".concat(eId, "-").concat(mk, "-under_od")],
-                      odd: data['under_od'],
-                      id: "".concat(eId, "-").concat(mk, "-under_od"),
-                      odt: 'Under',
+                      active: betSlip["".concat(eId, "-").concat(mk, "-away_od")],
+                      odd: data['away_od'],
+                      id: "".concat(eId, "-").concat(mk, "-away_od"),
+                      odt: 'W2',
                       handicap: {
-                        isHan: true,
-                        value: handicap
+                        isHan: false
                       }
                     })]
                   });
                 case '2':
                 case '5':
                 case '8':
-                  handicap = data[mk]['handicap'];
+                  handicap = data['handicap'];
                   if (handicap && handicap != '-') {
                     handicap = Number(handicap);
                   }
@@ -2290,7 +2289,7 @@ var Market = function Market(_ref3) {
                 case '3':
                 case '6':
                 case '9':
-                  handicap = data[mk]['handicap'];
+                  handicap = data['handicap'];
                   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
                       od: 'over_od',
@@ -2344,7 +2343,7 @@ var Market = function Market(_ref3) {
                     })]
                   });
                 case '2':
-                  handicap = data[mk]['handicap'];
+                  handicap = data['handicap'];
                   if (handicap && handicap != '-') {
                     handicap = Number(handicap);
                   }
@@ -2374,7 +2373,7 @@ var Market = function Market(_ref3) {
                     })]
                   });
                 case '3':
-                  handicap = data[mk]['handicap'];
+                  handicap = data['handicap'];
                   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
                       od: 'over_od',
@@ -2553,7 +2552,7 @@ var SportsEvent = function SportsEvent() {
     }
     filterMulti(isDup, one);
   };
-  var setBetSlip = function setBetSlip(id, odd, handicap) {
+  var setBetSlip = function setBetSlip(id, odd, odt, handicap) {
     var oldSlip = betSlip,
       newSlip = {};
     if (oldSlip[id]) {
@@ -2569,6 +2568,7 @@ var SportsEvent = function SportsEvent() {
         league: JSON.parse(event.league),
         isLive: isLive,
         odd: odd,
+        odt: odt,
         stake: 0,
         profit: 0,
         handicap: handicap,
@@ -2591,12 +2591,12 @@ var SportsEvent = function SportsEvent() {
     setEventId(path.slice(-1)[0]);
     getEvent(path.slice(-1)[0]);
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
     sx: {
       overflow: 'hidden'
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
         className: "event-content",
         children: [event.home ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(EventHeader, {
           home: JSON.parse(event.home),
@@ -2608,7 +2608,7 @@ var SportsEvent = function SportsEvent() {
           timer: event.timer,
           sId: event.sport_id,
           sName: event.sport_name
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_6__.Loading, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_6__.Loading, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
           sx: {
             bgcolor: '#141b2e',
             borderRadius: 2
@@ -2619,18 +2619,18 @@ var SportsEvent = function SportsEvent() {
             sx: {
               padding: 2
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_12__["default"], {
               className: "btn",
               children: "All"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_14__["default"], {
               className: "btn",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_19__["default"], {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_18__["default"], {})
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
             sx: {
               padding: 2
             },
-            children: Object.keys(markets).length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            children: Object.keys(markets).length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_13__["default"], {
               container: true,
               spacing: 2,
               children: Object.keys(markets).map(function (key, idx) {
@@ -2666,7 +2666,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _providers_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../providers/request */ "./resources/js/src/providers/request.js");
 /* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
@@ -2675,7 +2675,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material_TableRow__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/TableRow */ "./node_modules/@mui/material/esm/TableRow/TableRow.js");
 /* harmony import */ var _mui_material_TableHead__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material/TableHead */ "./node_modules/@mui/material/esm/TableHead/TableHead.js");
 /* harmony import */ var _mui_material_TableBody__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/TableBody */ "./node_modules/@mui/material/esm/TableBody/TableBody.js");
-/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
+/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
 /* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
@@ -2723,6 +2723,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var Odd = function Odd(_ref) {
   var id = _ref.id,
     odd = _ref.odd,
+    odt = _ref.odt,
     handicap = _ref.handicap,
     active = _ref.active,
     setBetSlip = _ref.setBetSlip;
@@ -2740,7 +2741,7 @@ var Odd = function Odd(_ref) {
     setOddId = _useState6[1];
   var addSlip = function addSlip() {
     if (!handicap.isHan) {
-      setBetSlip(oddId, cOdd, handicap.value ? handicap.value : '0');
+      setBetSlip(oddId, cOdd, handicap.value ? "".concat(odt, " (").concat(handicap.value, ")") : odt, handicap.value ? handicap.value : '0');
     }
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -2773,15 +2774,139 @@ var Odd = function Odd(_ref) {
     }) : null
   });
 };
-var Match = function Match(_ref2) {
-  var data = _ref2.data,
+var OddField = function OddField(_ref2) {
+  var _odds, _odds2, _odds3, _odds4, _odds5, _odds6, _odds7, _odds8, _odds9, _odds10, _odds11, _odds12, _odds13;
+  var eId = _ref2.eId,
+    sId = _ref2.sId,
+    odds = _ref2.odds,
     betSlip = _ref2.betSlip,
-    betType = _ref2.betType,
-    multiCalc = _ref2.multiCalc,
-    isLive = _ref2.isLive,
-    scale = _ref2.scale;
+    setBetSlip = _ref2.setBetSlip;
+  odds = JSON.parse(odds);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      className: "odd-cell",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+        setBetSlip: setBetSlip,
+        handicap: {
+          isHan: false
+        },
+        id: "".concat(eId, "-").concat(sId, "_1-home_od"),
+        odd: (_odds = odds["".concat(sId, "_1")]) === null || _odds === void 0 ? void 0 : _odds.home_od,
+        odt: 'W1',
+        active: betSlip["".concat(eId, "-").concat(sId, "_1-home_od")]
+      })
+    }), sId === 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      className: "odd-cell",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+        setBetSlip: setBetSlip,
+        handicap: {
+          isHan: false
+        },
+        id: "".concat(eId, "-").concat(sId, "_1-draw_od"),
+        odd: (_odds2 = odds["".concat(sId, "_1")]) === null || _odds2 === void 0 ? void 0 : _odds2.draw_od,
+        odt: 'Draw',
+        active: betSlip["".concat(eId, "-").concat(sId, "_1-draw_od")]
+      })
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      className: "odd-cell",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+        setBetSlip: setBetSlip,
+        handicap: {
+          isHan: false
+        },
+        id: "".concat(eId, "-").concat(sId, "_1-away_od"),
+        odd: (_odds3 = odds["".concat(sId, "_1")]) === null || _odds3 === void 0 ? void 0 : _odds3.away_od,
+        odt: 'W2',
+        active: betSlip["".concat(eId, "-").concat(sId, "_1-away_od")]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      className: "odd-cell handicap",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+        setBetSlip: setBetSlip,
+        handicap: {
+          isHan: true
+        },
+        id: "".concat(eId, "-").concat(sId, "_2-handicap"),
+        odd: (_odds4 = odds["".concat(sId, "_2")]) === null || _odds4 === void 0 ? void 0 : _odds4.handicap,
+        active: betSlip["".concat(eId, "-").concat(sId, "_2-handicap")],
+        odt: ''
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      className: "odd-cell",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+        setBetSlip: setBetSlip,
+        handicap: {
+          isHan: false,
+          value: (_odds5 = odds["".concat(sId, "_2")]) === null || _odds5 === void 0 ? void 0 : _odds5.handicap
+        },
+        id: "".concat(eId, "-").concat(sId, "_2-home_od"),
+        odd: (_odds6 = odds["".concat(sId, "_2")]) === null || _odds6 === void 0 ? void 0 : _odds6.home_od,
+        active: betSlip["".concat(eId, "-").concat(sId, "_2-home_od")],
+        odt: 'W1'
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      className: "odd-cell",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+        setBetSlip: setBetSlip,
+        handicap: {
+          isHan: false,
+          value: Number((_odds7 = odds["".concat(sId, "_2")]) === null || _odds7 === void 0 ? void 0 : _odds7.handicap) * -1
+        },
+        id: "".concat(eId, "-").concat(sId, "_2-away_od"),
+        odd: (_odds8 = odds["".concat(sId, "_2")]) === null || _odds8 === void 0 ? void 0 : _odds8.away_od,
+        active: betSlip["".concat(eId, "-").concat(sId, "_2-away_od")],
+        odt: 'W2'
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      className: "odd-cell handicap",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+        setBetSlip: setBetSlip,
+        handicap: {
+          isHan: true
+        },
+        id: "".concat(eId, "-").concat(sId, "_3-handicap"),
+        odd: (_odds9 = odds["".concat(sId, "_3")]) === null || _odds9 === void 0 ? void 0 : _odds9.handicap,
+        active: betSlip["".concat(eId, "-").concat(sId, "_3-handicap")],
+        odt: ''
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      className: "odd-cell",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+        setBetSlip: setBetSlip,
+        handicap: {
+          isHan: false,
+          value: (_odds10 = odds["".concat(sId, "_3")]) === null || _odds10 === void 0 ? void 0 : _odds10.handicap
+        },
+        id: "".concat(eId, "-").concat(sId, "_3-over_od"),
+        odd: (_odds11 = odds["".concat(sId, "_3")]) === null || _odds11 === void 0 ? void 0 : _odds11.over_od,
+        active: betSlip["".concat(eId, "-").concat(sId, "_3-over_od")],
+        odt: 'Over'
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      className: "odd-cell",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+        setBetSlip: setBetSlip,
+        handicap: {
+          isHan: false,
+          value: (_odds12 = odds["".concat(sId, "_3")]) === null || _odds12 === void 0 ? void 0 : _odds12.handicap
+        },
+        id: "".concat(eId, "-").concat(sId, "_3-under_od"),
+        odd: (_odds13 = odds["".concat(sId, "_3")]) === null || _odds13 === void 0 ? void 0 : _odds13.under_od,
+        active: betSlip["".concat(eId, "-").concat(sId, "_3-under_od")],
+        odt: 'Under'
+      })
+    })]
+  });
+};
+var Match = function Match(_ref3) {
+  var data = _ref3.data,
+    betSlip = _ref3.betSlip,
+    betType = _ref3.betType,
+    multiCalc = _ref3.multiCalc,
+    isLive = _ref3.isLive,
+    scale = _ref3.scale;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useNavigate)();
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useNavigate)();
   var away = JSON.parse(data.away);
   var home = JSON.parse(data.home);
   var league = JSON.parse(data.league);
@@ -2833,7 +2958,7 @@ var Match = function Match(_ref2) {
     }
     filterMulti(isDup, one);
   };
-  var setBetSlip = function setBetSlip(id, odd, handicap) {
+  var setBetSlip = function setBetSlip(id, odd, odt, handicap) {
     var oldSlip = betSlip,
       newSlip = {};
     if (oldSlip[id]) {
@@ -2849,6 +2974,7 @@ var Match = function Match(_ref2) {
         league: league,
         isLive: isLive,
         odd: odd,
+        odt: odt,
         stake: 0,
         profit: 0,
         handicap: handicap,
@@ -2869,119 +2995,9 @@ var Match = function Match(_ref2) {
   var goEvent = function goEvent() {
     navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(data.sport_id, "/").concat(league.cc === 'null' ? 'world' : league.cc, "/").concat(league.id, "/").concat(data.id));
   };
-  var OddField = function OddField(eId, sId, odds) {
-    var _odds, _odds2, _odds3, _odds4, _odds5, _odds6, _odds7, _odds8, _odds9, _odds10, _odds11, _odds12, _odds13;
-    odds = JSON.parse(odds);
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        className: "odd-cell",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
-          setBetSlip: setBetSlip,
-          handicap: {
-            isHan: false
-          },
-          id: "".concat(eId, "-").concat(sId, "_1-home_od"),
-          odd: (_odds = odds["".concat(sId, "_1")]) === null || _odds === void 0 ? void 0 : _odds.home_od,
-          active: betSlip["".concat(eId, "-").concat(sId, "_1-home_od")]
-        })
-      }), sId === 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        className: "odd-cell",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
-          setBetSlip: setBetSlip,
-          handicap: {
-            isHan: false
-          },
-          id: "".concat(eId, "-").concat(sId, "_1-draw_od"),
-          odd: (_odds2 = odds["".concat(sId, "_1")]) === null || _odds2 === void 0 ? void 0 : _odds2.draw_od,
-          active: betSlip["".concat(eId, "-").concat(sId, "_1-draw_od")]
-        })
-      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        className: "odd-cell",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
-          setBetSlip: setBetSlip,
-          handicap: {
-            isHan: false
-          },
-          id: "".concat(eId, "-").concat(sId, "_1-away_od"),
-          odd: (_odds3 = odds["".concat(sId, "_1")]) === null || _odds3 === void 0 ? void 0 : _odds3.away_od,
-          active: betSlip["".concat(eId, "-").concat(sId, "_1-away_od")]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        className: "odd-cell handicap",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
-          setBetSlip: setBetSlip,
-          handicap: {
-            isHan: true
-          },
-          id: "".concat(eId, "-").concat(sId, "_2-handicap"),
-          odd: (_odds4 = odds["".concat(sId, "_2")]) === null || _odds4 === void 0 ? void 0 : _odds4.handicap,
-          active: betSlip["".concat(eId, "-").concat(sId, "_2-handicap")]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        className: "odd-cell",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
-          setBetSlip: setBetSlip,
-          handicap: {
-            isHan: false,
-            value: (_odds5 = odds["".concat(sId, "_2")]) === null || _odds5 === void 0 ? void 0 : _odds5.handicap
-          },
-          id: "".concat(eId, "-").concat(sId, "_2-home_od"),
-          odd: (_odds6 = odds["".concat(sId, "_2")]) === null || _odds6 === void 0 ? void 0 : _odds6.home_od,
-          active: betSlip["".concat(eId, "-").concat(sId, "_2-home_od")]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        className: "odd-cell",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
-          setBetSlip: setBetSlip,
-          handicap: {
-            isHan: false,
-            value: (_odds7 = odds["".concat(sId, "_2")]) === null || _odds7 === void 0 ? void 0 : _odds7.handicap
-          },
-          id: "".concat(eId, "-").concat(sId, "_2-away_od"),
-          odd: (_odds8 = odds["".concat(sId, "_2")]) === null || _odds8 === void 0 ? void 0 : _odds8.away_od,
-          active: betSlip["".concat(eId, "-").concat(sId, "_2-away_od")]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        className: "odd-cell handicap",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
-          setBetSlip: setBetSlip,
-          handicap: {
-            isHan: true
-          },
-          id: "".concat(eId, "-").concat(sId, "_3-handicap"),
-          odd: (_odds9 = odds["".concat(sId, "_3")]) === null || _odds9 === void 0 ? void 0 : _odds9.handicap,
-          active: betSlip["".concat(eId, "-").concat(sId, "_3-handicap")]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        className: "odd-cell",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
-          setBetSlip: setBetSlip,
-          handicap: {
-            isHan: false,
-            value: (_odds10 = odds["".concat(sId, "_3")]) === null || _odds10 === void 0 ? void 0 : _odds10.handicap
-          },
-          id: "".concat(eId, "-").concat(sId, "_3-home_od"),
-          odd: (_odds11 = odds["".concat(sId, "_3")]) === null || _odds11 === void 0 ? void 0 : _odds11.home_od,
-          active: betSlip["".concat(eId, "-").concat(sId, "_3-home_od")]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        className: "odd-cell",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
-          setBetSlip: setBetSlip,
-          handicap: {
-            isHan: false,
-            value: (_odds12 = odds["".concat(sId, "_3")]) === null || _odds12 === void 0 ? void 0 : _odds12.handicap
-          },
-          id: "".concat(eId, "-").concat(sId, "_3-away_od"),
-          odd: (_odds13 = odds["".concat(sId, "_3")]) === null || _odds13 === void 0 ? void 0 : _odds13.away_od,
-          active: betSlip["".concat(eId, "-").concat(sId, "_3-away_od")]
-        })
-      })]
-    });
-  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_12__["default"], {
     className: "match-row",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
       onClick: function onClick() {
         return goEvent();
       },
@@ -3048,16 +3064,22 @@ var Match = function Match(_ref2) {
           })
         })]
       })
-    }), OddField(data.id, data.sport_id, data.odds)]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(OddField, {
+      eId: data.id,
+      sId: data.sport_id,
+      odds: data.odds,
+      setBetSlip: setBetSlip,
+      betSlip: betSlip
+    })]
   });
 };
-var League = function League(_ref3) {
-  var league = _ref3.league,
-    betSlip = _ref3.betSlip,
-    betType = _ref3.betType,
-    multiCalc = _ref3.multiCalc,
-    isLive = _ref3.isLive,
-    scale = _ref3.scale;
+var League = function League(_ref4) {
+  var league = _ref4.league,
+    betSlip = _ref4.betSlip,
+    betType = _ref4.betType,
+    multiCalc = _ref4.multiCalc,
+    isLive = _ref4.isLive,
+    scale = _ref4.scale;
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
     _useState8 = _slicedToArray(_useState7, 2),
     aLeague = _useState8[0],
@@ -3065,59 +3087,59 @@ var League = function League(_ref3) {
   var OddTitle = function OddTitle(id) {
     if (id === 1) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "X"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "HDP"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "O/U"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "Over"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "Under"
         })]
       });
     } else {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "HDP"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "O/U"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "Over"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "odd-cell-h",
           children: "Under"
         })]
@@ -3133,7 +3155,7 @@ var League = function League(_ref3) {
       className: "table-header",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_12__["default"], {
         className: "table-row",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
           className: "tournament-cell",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
             className: "tournament-cell-inner",
@@ -3187,7 +3209,7 @@ var SportsLeagueContent = function SportsLeagueContent() {
     filter = _useState14[0],
     setFilter = _useState14[1];
   var getSportsData = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(isLive, scale) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(isLive, scale) {
       var rdata, data;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
@@ -3215,7 +3237,7 @@ var SportsLeagueContent = function SportsLeagueContent() {
       }, _callee);
     }));
     return function getSportsData(_x, _x2) {
-      return _ref4.apply(this, arguments);
+      return _ref5.apply(this, arguments);
     };
   }();
   var filterCountry = function filterCountry(data, c) {
@@ -3241,6 +3263,9 @@ var SportsLeagueContent = function SportsLeagueContent() {
       }
     }
   }, [isLive, scale]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    init();
+  }, [init]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
     children: Object.keys(leagues).length ? Object.keys(leagues).map(function (key, idx) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(League, {
