@@ -155,3 +155,56 @@ export const BpRadio = (props) => {
     />
   );
 }
+
+export const groupBy = (array, key) => {
+  return array.reduce((result, currentValue) => {
+      (result[currentValue[key]] = result[currentValue[key]] || []).push(
+          currentValue
+      );
+      return result;
+  }, {});
+};
+
+export const getDate = (d) => {
+  let dt = new Date(Number(d) * 1000).toDateString().split(' ');
+  let date = `${dt[2]} ${dt[1]}`;
+  let h = new Date(Number(d) * 1000).getHours();
+  let m = new Date(Number(d) * 1000).getMinutes();
+  h = String(h).length == 1 ? `0${h}` : h;
+  m = String(m).length == 1 ? `0${m}` : m;
+  let time = `${h}:${m}`;
+  return {
+      date,
+      time
+  }
+};
+
+export const getScore = (ss, scores, time, id) => {
+  let score = '', timer = '';
+  if (ss) {
+      ss = ss.split(',');
+      ss = ss[ss.length - 1];
+      if (id === 3) {
+          ss = ss.replace('/', ':');
+      } else {
+          ss = ss.replace('-', ':');
+      }
+  }
+
+  if (scores) {
+      scores = JSON.parse(scores);
+      score = '(';
+      for (let i in scores) {
+          score += scores[i].home + ':';
+          score += scores[i].away + ' - ';
+      }
+      score = score.slice(0, -3);
+      score += ')';
+  }
+
+  if (time) {
+      timer = JSON.parse(time);
+      timer = `${timer.tm}'`;
+  }
+  return { ss, scores: score, timer }
+}

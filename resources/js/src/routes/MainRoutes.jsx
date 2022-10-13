@@ -28,7 +28,7 @@ export const SportsRoutes = {
     element: <MainLayout />,
     children: [
         {
-            path: 'live/:sportId/:country/:match',
+            path: 'live/:sportId/:country/:league',
             element: <Live />
         },
         {
@@ -44,7 +44,7 @@ export const SportsRoutes = {
             element: <Live />
         },
         {
-            path: 'prematch/:sportId/:country/:match',
+            path: 'prematch/:sportId/:country/:league',
             element: <Prematch />
         },
         {
@@ -60,7 +60,11 @@ export const SportsRoutes = {
             element: <Prematch />
         },
         {
-            path: 'event',
+            path: 'live/:sportId/:country/:league/:event',
+            element: <EventMatch />
+        },
+        {
+            path: 'prematch/:sportId/:country/:league/:event',
             element: <EventMatch />
         }
     ]

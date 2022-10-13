@@ -2,8 +2,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 import BetSlip from '../../components/Betslip';
-import { Event } from '../../components/Part';
+import SportsEvent from '../../components/SportsEvent';
 import SportsListNav from '../../components/SportsListNav';
+
 const EventMatch = () => {
     return (
         <Box sx={{ pt: 2 }}>
@@ -13,7 +14,7 @@ const EventMatch = () => {
                 </Grid>
                 <Grid item xs={7.6}>
                     <Box>
-                        <Event />
+                        <SportsEvent />
                     </Box>
                 </Grid>
                 <Grid item xs={2.2}>

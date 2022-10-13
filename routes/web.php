@@ -391,7 +391,11 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'uses' => 'SportsController@home'
     ]);
 
-    Route::get('sports/live/{sportId}/{country}/{match}', [
+    Route::get('sports/live/{sportId}/{country}/{league}/{match}', [
+        'as' => 'frontend.sports.live',
+        'uses' => 'SportsController@home'
+    ]);
+    Route::get('sports/live/{sportId}/{country}/{league}', [
         'as' => 'frontend.sports.live',
         'uses' => 'SportsController@home'
     ]);
@@ -408,7 +412,11 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'uses' => 'SportsController@home'
     ]);
 
-    Route::get('sports/prematch/{sportId}/{country}/{match}', [
+    Route::get('sports/prematch/{sportId}/{country}/{league}/{match}', [
+        'as' => 'frontend.sports.prematch',
+        'uses' => 'SportsController@home'
+    ]);
+    Route::get('sports/prematch/{sportId}/{country}/{league}', [
         'as' => 'frontend.sports.prematch',
         'uses' => 'SportsController@home'
     ]);
@@ -450,14 +458,19 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'uses' => 'SportsController@get_sports_data',
     ]);
 
+    Route::post('sports/bet', [
+        'as' => 'frontend.sports.bet',
+        'uses' => 'SportsController@bet',
+    ]);
+
+    Route::post('sports/getEvent', [
+        'as' => 'frontend.sports.getEvent',
+        'uses' => 'SportsController@getEvent',
+    ]);
+
     Route::get('sports/get_init_live', [
         'as' => 'frontend.sports.get_init_live',
         'uses' => 'SportsController@get_init_live',
-    ]);
-
-    Route::get('sports/get_event', [
-        'as' => 'frontend.sports.get_event',
-        'uses' => 'SportsController@get_event',
     ]);
 
     Route::get('sports/get_history', [
@@ -465,10 +478,6 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'uses' => 'SportsController@get_history',
     ]);
 
-    Route::post('sports/bet', [
-        'as' => 'frontend.sports.bet',
-        'uses' => 'SportsController@bet',
-    ]);
     Route::get('sports/get_search', [
         'as' => 'frontend.sports.get_search',
         'uses' => 'SportsController@get_search',

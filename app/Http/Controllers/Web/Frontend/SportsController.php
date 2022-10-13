@@ -341,11 +341,10 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             return json_encode($data);
         }
 
-        public function get_event(\Illuminate\Http\Request $request)
+        public function getEvent(\Illuminate\Http\Request $request)
         {
             $data = SportData::where('id', $request->id)->get();
-            $country = SportCountries::get();
-            return json_encode(array($data, $country));
+            return $data;
         }
 
         public function bet(\Illuminate\Http\Request $request)
@@ -411,8 +410,9 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                     $sportBet->save();
                 }
             }
-            $user = \VanguardLTE\User::where('id', $user->id)->decrement('balance', $balance);
-            return array(['status' => $user], ['msg' =>  $user ? 'Success!' : 'Failed!']);
+            $ok = \VanguardLTE\User::where('id', $user->id)->decrement('balance', $balance);
+            $user = \VanguardLTE\User::where('id', $user->id);
+            return array('status' => $ok, 'data' => $user, 'msg' =>  $ok ? 'Success!' : 'Failed!');
         }
 
         public function get_history(\Illuminate\Http\Request $request)

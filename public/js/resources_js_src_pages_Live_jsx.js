@@ -1876,16 +1876,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _providers_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../providers/request */ "./resources/js/src/providers/request.js");
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
-/* harmony import */ var _mui_material_Table__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Table */ "./node_modules/@mui/material/esm/Table/Table.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
+/* harmony import */ var _mui_material_Table__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/Table */ "./node_modules/@mui/material/esm/Table/Table.js");
 /* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
-/* harmony import */ var _mui_material_TableRow__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/TableRow */ "./node_modules/@mui/material/esm/TableRow/TableRow.js");
-/* harmony import */ var _mui_material_TableHead__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/TableHead */ "./node_modules/@mui/material/esm/TableHead/TableHead.js");
-/* harmony import */ var _mui_material_TableBody__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material/TableBody */ "./node_modules/@mui/material/esm/TableBody/TableBody.js");
-/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
-/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_material_TableRow__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/TableRow */ "./node_modules/@mui/material/esm/TableRow/TableRow.js");
+/* harmony import */ var _mui_material_TableHead__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material/TableHead */ "./node_modules/@mui/material/esm/TableHead/TableHead.js");
+/* harmony import */ var _mui_material_TableBody__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/TableBody */ "./node_modules/@mui/material/esm/TableBody/TableBody.js");
+/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
@@ -1929,61 +1930,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var groupBy = function groupBy(array, key) {
-  return array.reduce(function (result, currentValue) {
-    (result[currentValue[key]] = result[currentValue[key]] || []).push(currentValue);
-    return result;
-  }, {});
-};
-var getDate = function getDate(d) {
-  var dt = new Date(Number(d) * 1000).toDateString().split(' ');
-  var date = "".concat(dt[2], " ").concat(dt[1]);
-  var h = new Date(Number(d) * 1000).getHours();
-  var m = new Date(Number(d) * 1000).getMinutes();
-  h = String(h).length == 1 ? "0".concat(h) : h;
-  m = String(m).length == 1 ? "0".concat(m) : m;
-  var time = "".concat(h, ":").concat(m);
-  return {
-    date: date,
-    time: time
-  };
-};
-var getScore = function getScore(ss, scores, time, id) {
-  var score = '',
-    timer = '';
-  if (ss) {
-    ss = ss.split(',');
-    ss = ss[ss.length - 1];
-    if (id === 3) {
-      ss = ss.replace('/', ':');
-    } else {
-      ss = ss.replace('-', ':');
-    }
-  }
-  if (scores) {
-    scores = JSON.parse(scores);
-    score = '(';
-    for (var i in scores) {
-      score += scores[i].home + ':';
-      score += scores[i].away + ' - ';
-    }
-    score = score.slice(0, -3);
-    score += ')';
-  }
-  if (time) {
-    timer = JSON.parse(time);
-    timer = "".concat(timer.tm, "'");
-  }
-  return {
-    ss: ss,
-    scores: score,
-    timer: timer
-  };
-};
 var Odd = function Odd(_ref) {
   var id = _ref.id,
     odd = _ref.odd,
-    isHan = _ref.isHan,
+    handicap = _ref.handicap,
     active = _ref.active,
     setBetSlip = _ref.setBetSlip;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
@@ -1999,8 +1949,8 @@ var Odd = function Odd(_ref) {
     oddId = _useState6[0],
     setOddId = _useState6[1];
   var addSlip = function addSlip() {
-    if (!isHan) {
-      setBetSlip(oddId, cOdd);
+    if (!handicap.isHan) {
+      setBetSlip(oddId, cOdd, handicap.value ? handicap.value : '0');
     }
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -2038,13 +1988,15 @@ var Match = function Match(_ref2) {
     betSlip = _ref2.betSlip,
     betType = _ref2.betType,
     multiCalc = _ref2.multiCalc,
-    isLive = _ref2.isLive;
+    isLive = _ref2.isLive,
+    scale = _ref2.scale;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useNavigate)();
   var away = JSON.parse(data.away);
   var home = JSON.parse(data.home);
   var league = JSON.parse(data.league);
-  var time = getDate(data.time);
-  var ss = getScore(data.ss, data.scores, data.timer, data.sport_id);
+  var time = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getDate)(data.time);
+  var ss = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getScore)(data.ss, data.scores, data.timer, data.sport_id);
   var filterMulti = function filterMulti(data, one) {
     var newSlip = {};
     var _iterator = _createForOfIteratorHelper(data),
@@ -2091,7 +2043,7 @@ var Match = function Match(_ref2) {
     }
     filterMulti(isDup, one);
   };
-  var setBetSlip = function setBetSlip(id, odd) {
+  var setBetSlip = function setBetSlip(id, odd, handicap) {
     var oldSlip = betSlip,
       newSlip = {};
     if (oldSlip[id]) {
@@ -2109,10 +2061,11 @@ var Match = function Match(_ref2) {
         odd: odd,
         stake: 0,
         profit: 0,
+        handicap: handicap,
         eId: id.split('-')[0],
         mk: id.split('-')[1],
-        ot: id.split('-')[1],
-        sportId: data.sport_id,
+        ot: id.split('-')[2],
+        sId: data.sport_id,
         sportName: data.sport_name
       });
       if (betType === 'multi') {
@@ -2123,124 +2076,152 @@ var Match = function Match(_ref2) {
       }
     }
   };
+  var goEvent = function goEvent() {
+    navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(data.sport_id, "/").concat(league.cc, "/").concat(league.id, "/").concat(data.id));
+  };
   var OddField = function OddField(eId, sId, odds) {
-    var _odds, _odds2, _odds3, _odds4, _odds5, _odds6, _odds7, _odds8, _odds9;
+    var _odds, _odds2, _odds3, _odds4, _odds5, _odds6, _odds7, _odds8, _odds9, _odds10, _odds11, _odds12, _odds13;
     odds = JSON.parse(odds);
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
         className: "odd-cell",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
           setBetSlip: setBetSlip,
-          isHan: false,
+          handicap: {
+            isHan: false
+          },
           id: "".concat(eId, "-").concat(sId, "_1-home_od"),
           odd: (_odds = odds["".concat(sId, "_1")]) === null || _odds === void 0 ? void 0 : _odds.home_od,
           active: betSlip["".concat(eId, "-").concat(sId, "_1-home_od")]
         })
-      }), sId === 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), sId === 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
         className: "odd-cell",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
           setBetSlip: setBetSlip,
-          isHan: false,
+          handicap: {
+            isHan: false
+          },
           id: "".concat(eId, "-").concat(sId, "_1-draw_od"),
           odd: (_odds2 = odds["".concat(sId, "_1")]) === null || _odds2 === void 0 ? void 0 : _odds2.draw_od,
           active: betSlip["".concat(eId, "-").concat(sId, "_1-draw_od")]
         })
-      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
         className: "odd-cell",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
           setBetSlip: setBetSlip,
-          isHan: false,
+          handicap: {
+            isHan: false
+          },
           id: "".concat(eId, "-").concat(sId, "_1-away_od"),
           odd: (_odds3 = odds["".concat(sId, "_1")]) === null || _odds3 === void 0 ? void 0 : _odds3.away_od,
           active: betSlip["".concat(eId, "-").concat(sId, "_1-away_od")]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
         className: "odd-cell handicap",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
           setBetSlip: setBetSlip,
-          isHan: true,
+          handicap: {
+            isHan: true
+          },
           id: "".concat(eId, "-").concat(sId, "_2-handicap"),
           odd: (_odds4 = odds["".concat(sId, "_2")]) === null || _odds4 === void 0 ? void 0 : _odds4.handicap,
           active: betSlip["".concat(eId, "-").concat(sId, "_2-handicap")]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
         className: "odd-cell",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
           setBetSlip: setBetSlip,
-          isHan: false,
+          handicap: {
+            isHan: false,
+            value: (_odds5 = odds["".concat(sId, "_2")]) === null || _odds5 === void 0 ? void 0 : _odds5.handicap
+          },
           id: "".concat(eId, "-").concat(sId, "_2-home_od"),
-          odd: (_odds5 = odds["".concat(sId, "_2")]) === null || _odds5 === void 0 ? void 0 : _odds5.home_od,
+          odd: (_odds6 = odds["".concat(sId, "_2")]) === null || _odds6 === void 0 ? void 0 : _odds6.home_od,
           active: betSlip["".concat(eId, "-").concat(sId, "_2-home_od")]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
         className: "odd-cell",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
           setBetSlip: setBetSlip,
-          isHan: false,
+          handicap: {
+            isHan: false,
+            value: (_odds7 = odds["".concat(sId, "_2")]) === null || _odds7 === void 0 ? void 0 : _odds7.handicap
+          },
           id: "".concat(eId, "-").concat(sId, "_2-away_od"),
-          odd: (_odds6 = odds["".concat(sId, "_2")]) === null || _odds6 === void 0 ? void 0 : _odds6.away_od,
+          odd: (_odds8 = odds["".concat(sId, "_2")]) === null || _odds8 === void 0 ? void 0 : _odds8.away_od,
           active: betSlip["".concat(eId, "-").concat(sId, "_2-away_od")]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
         className: "odd-cell handicap",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
           setBetSlip: setBetSlip,
-          isHan: true,
+          handicap: {
+            isHan: true
+          },
           id: "".concat(eId, "-").concat(sId, "_3-handicap"),
-          odd: (_odds7 = odds["".concat(sId, "_3")]) === null || _odds7 === void 0 ? void 0 : _odds7.handicap,
+          odd: (_odds9 = odds["".concat(sId, "_3")]) === null || _odds9 === void 0 ? void 0 : _odds9.handicap,
           active: betSlip["".concat(eId, "-").concat(sId, "_3-handicap")]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
         className: "odd-cell",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
           setBetSlip: setBetSlip,
-          isHan: false,
+          handicap: {
+            isHan: false,
+            value: (_odds10 = odds["".concat(sId, "_3")]) === null || _odds10 === void 0 ? void 0 : _odds10.handicap
+          },
           id: "".concat(eId, "-").concat(sId, "_3-home_od"),
-          odd: (_odds8 = odds["".concat(sId, "_3")]) === null || _odds8 === void 0 ? void 0 : _odds8.home_od,
+          odd: (_odds11 = odds["".concat(sId, "_3")]) === null || _odds11 === void 0 ? void 0 : _odds11.home_od,
           active: betSlip["".concat(eId, "-").concat(sId, "_3-home_od")]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
         className: "odd-cell",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
           setBetSlip: setBetSlip,
-          isHan: false,
+          handicap: {
+            isHan: false,
+            value: (_odds12 = odds["".concat(sId, "_3")]) === null || _odds12 === void 0 ? void 0 : _odds12.handicap
+          },
           id: "".concat(eId, "-").concat(sId, "_3-away_od"),
-          odd: (_odds9 = odds["".concat(sId, "_3")]) === null || _odds9 === void 0 ? void 0 : _odds9.away_od,
+          odd: (_odds13 = odds["".concat(sId, "_3")]) === null || _odds13 === void 0 ? void 0 : _odds13.away_od,
           active: betSlip["".concat(eId, "-").concat(sId, "_3-away_od")]
         })
       })]
     });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_12__["default"], {
     className: "match-row",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    onClick: function onClick() {
+      return goEvent();
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
         className: "match-info",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
             className: "match-date",
             children: time.date
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
             className: "match-date",
             children: time.time
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_13__["default"], {
           className: "match-separator"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
           className: "match-teams-container",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
             className: "match-teams-block",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_13__["default"], {
               className: "match-teams",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
                 className: "team",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                   className: "team-name",
                   children: home.name
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
                 className: "team",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                   className: "team-name",
                   children: away.name
                 })
@@ -2249,27 +2230,27 @@ var Match = function Match(_ref2) {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
           className: "ml-auto",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_13__["default"], {
             className: "match-statistics",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
               className: "match-statistics-line",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                 component: "span",
                 className: "match-score-total",
                 children: ss.ss
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                 component: "span",
                 className: "match-score-periods",
                 children: ss.scores
               })]
-            }), ss.timer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            }), ss.timer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
               className: "match-statistics-line",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__.Clock, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__.Clock, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
                 component: "span",
                 className: "match-time-passed",
                 children: ss.timer
               })]
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_13__["default"], {
               sx: {
                 height: 16
               }
@@ -2285,7 +2266,8 @@ var League = function League(_ref3) {
     betSlip = _ref3.betSlip,
     betType = _ref3.betType,
     multiCalc = _ref3.multiCalc,
-    isLive = _ref3.isLive;
+    isLive = _ref3.isLive,
+    scale = _ref3.scale;
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
     _useState8 = _slicedToArray(_useState7, 2),
     aLeague = _useState8[0],
@@ -2293,59 +2275,59 @@ var League = function League(_ref3) {
   var OddTitle = function OddTitle(id) {
     if (id === 1) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "X"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "HDP"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "O/U"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "Over"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "Under"
         })]
       });
     } else {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "HDP"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "O/U"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "Over"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "odd-cell-h",
           children: "Under"
         })]
@@ -2355,19 +2337,19 @@ var League = function League(_ref3) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setAleague(JSON.parse(league[0].league));
   }, [league]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_15__["default"], {
     className: "tournament-table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableHead__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableHead__WEBPACK_IMPORTED_MODULE_16__["default"], {
       className: "table-header",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_12__["default"], {
         className: "table-row",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "tournament-cell",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
             className: "tournament-cell-inner",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("i", {
               className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("sports-icon", "icon-".concat(league[0].sport_name.toLowerCase().replaceAll(' ', '-')))
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
               sx: {
                 fontSize: '12px',
                 fontWeight: 500,
@@ -2378,7 +2360,7 @@ var League = function League(_ref3) {
           })
         }), OddTitle(league[0].sport_id)]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_16__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_17__["default"], {
       className: "table-body",
       children: league.map(function (data, idx) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Match, {
@@ -2386,7 +2368,8 @@ var League = function League(_ref3) {
           betSlip: betSlip,
           betType: betType,
           multiCalc: multiCalc,
-          isLive: isLive
+          isLive: isLive,
+          scale: scale
         }, idx);
       })
     })]
@@ -2431,7 +2414,7 @@ var SportsLeagueContent = function SportsLeagueContent() {
                 console.log(scale);
                 filterCountry(rdata, scale.country);
               } else {
-                data = groupBy(rdata, 'league_id');
+                data = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.groupBy)(rdata, 'league_id');
                 setLeagues(data);
               }
             case 5:
@@ -2455,7 +2438,7 @@ var SportsLeagueContent = function SportsLeagueContent() {
     } else {
       filtered = data;
     }
-    var leagues = groupBy(filtered, 'league_id');
+    var leagues = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.groupBy)(filtered, 'league_id');
     setLeagues(leagues);
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -2475,7 +2458,8 @@ var SportsLeagueContent = function SportsLeagueContent() {
         betSlip: betSlip,
         betType: betType,
         multiCalc: multiCalc,
-        isLive: isLive
+        isLive: isLive,
+        scale: scale
       }, idx);
     }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_6__.Loading, {})
   });
@@ -2714,32 +2698,35 @@ var SportItems = function SportItems(_ref3) {
     }) : null]
   });
 };
-var SportsListNav = function SportsListNav(_ref4) {
-  var isLive = _ref4.isLive;
+var SportsListNav = function SportsListNav() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_13__.useNavigate)();
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
       return state.sports;
     }),
     sportsList = _useSelector.sportsList;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     _useState2 = _slicedToArray(_useState, 2),
-    sportId = _useState2[0],
-    setSportId = _useState2[1];
+    isLive = _useState2[0],
+    setIsLive = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState4 = _slicedToArray(_useState3, 2),
-    country = _useState4[0],
-    setCountry = _useState4[1];
+    sportId = _useState4[0],
+    setSportId = _useState4[1];
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState6 = _slicedToArray(_useState5, 2),
-    leagueId = _useState6[0],
-    setLeagueId = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    country = _useState6[0],
+    setCountry = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState8 = _slicedToArray(_useState7, 2),
-    league = _useState8[0],
-    setLeague = _useState8[1];
+    leagueId = _useState8[0],
+    setLeagueId = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState10 = _slicedToArray(_useState9, 2),
+    league = _useState10[0],
+    setLeague = _useState10[1];
   var getSports = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(flag) {
       var rdata;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
@@ -2747,7 +2734,7 @@ var SportsListNav = function SportsListNav(_ref4) {
             case 0:
               _context.next = 2;
               return (0,_providers_request__WEBPACK_IMPORTED_MODULE_2__["default"])('post', '/sports/get_sports', {
-                isLive: isLive
+                isLive: flag
               });
             case 2:
               rdata = _context.sent;
@@ -2759,12 +2746,12 @@ var SportsListNav = function SportsListNav(_ref4) {
         }
       }, _callee);
     }));
-    return function getSports() {
-      return _ref5.apply(this, arguments);
+    return function getSports(_x) {
+      return _ref4.apply(this, arguments);
     };
   }();
   var getLeague = /*#__PURE__*/function () {
-    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(id) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(id, flag) {
       var rdata, data, _iterator, _step, item;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
@@ -2772,7 +2759,7 @@ var SportsListNav = function SportsListNav(_ref4) {
             case 0:
               _context2.next = 2;
               return (0,_providers_request__WEBPACK_IMPORTED_MODULE_2__["default"])('post', '/sports/get_league', {
-                isLive: isLive,
+                isLive: flag,
                 id: id
               });
             case 2:
@@ -2798,8 +2785,8 @@ var SportsListNav = function SportsListNav(_ref4) {
         }
       }, _callee2);
     }));
-    return function getLeague(_x) {
-      return _ref6.apply(this, arguments);
+    return function getLeague(_x2, _x3) {
+      return _ref5.apply(this, arguments);
     };
   }();
   var selectSport = function selectSport(item) {
@@ -2815,7 +2802,7 @@ var SportsListNav = function SportsListNav(_ref4) {
       dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({
         sportId: item.sport_id
       }));
-      getLeague(item.sport_id);
+      getLeague(item.sport_id, isLive);
     }
   };
   var selectCountry = function selectCountry(item) {
@@ -2856,12 +2843,14 @@ var SportsListNav = function SportsListNav(_ref4) {
   var init = function init() {
     var scale = {},
       path = location.pathname.split('/');
+    var checkLive = path[2] === 'live';
+    setIsLive(checkLive);
     if (path[3]) {
       setSportId(Number(path[3]));
       scale = {
         sportId: Number(path[3])
       };
-      getLeague(path[3]);
+      getLeague(path[3], checkLive);
     }
     if (path[4]) {
       scale = _objectSpread(_objectSpread({}, scale), {}, {
@@ -2875,9 +2864,9 @@ var SportsListNav = function SportsListNav(_ref4) {
       });
       setLeagueId(path[5]);
     }
-    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsType)(isLive));
+    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsType)(checkLive));
     dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)(scale));
-    getSports();
+    getSports(checkLive);
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     init();

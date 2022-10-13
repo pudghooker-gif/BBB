@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Axios from '../providers/request';
+import { useToasts } from 'react-toast-notifications';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -16,6 +18,7 @@ import { HStack, BpRadio } from './Base';
 
 import classNames from 'classnames';
 
+import { auth } from '../state/user/actions';
 import { saveBetSlip, saveBetType, saveMultiCalc } from '../state/sports/actions';
 
 const getMkName = (sId, mk) => {
@@ -75,6 +78,30 @@ const getMkName = (sId, mk) => {
   return mkName;
 }
 
+const betAction = async (user_id, betType, betSlip, multiCalc) => {
+  let data = [];
+  for (let i in betSlip) {
+    let item = betSlip[i];
+    let obj = {};
+    obj.sportId = item.sId;
+    obj.eventId = item.eId;
+    obj.odds = Number(item.odd);
+    obj.stake = Number(item.stake);
+    obj.potential = Number(item.profit);
+    obj.marketId = item.mk;
+    obj.handicap = item.handicap.split(',')[0];
+    obj.oddType = item.ot.split('_')[0];
+    obj.home = item.home.name;
+    obj.away = item.away.name;
+    obj.league = item.league.name;
+    obj.sportName = item.sportName;
+    data.push(obj);
+  }
+
+  let rdata = await Axios('post', '/sports/bet', { user_id, bet: data, betType, multi: multiCalc });
+  return rdata;
+}
+
 const Single = ({ data, clear, setStake }) => {
   return (
     <>
@@ -84,7 +111,7 @@ const Single = ({ data, clear, setStake }) => {
             <Box sx={{ py: 1.25, mb: 1, bgcolor: '#fff', borderRadius: 2 }}>
               <HStack sx={{ mb: 1, px: 1.25, alignItems: 'center' }}>
                 <Button className='slip-Odd'>{data[key].odd}</Button>
-                <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>{`${getMkName(data[key].sportId, data[key].mk)}, W1`}</Typography>
+                <Typography sx={{ color: '#096dff', fontSize: '11px', fontWeight: '700' }}>{`${getMkName(data[key].sId, data[key].mk)}`}</Typography>
                 <IconButton className='close-odd' onClick={() => clear(key)}>
                   <DeleteIcon sx={{ fontSize: '16px' }} />
                 </IconButton>
@@ -184,7 +211,9 @@ const Multi = ({ data, clear, setStake, multiCalc }) => {
 
 const BetSlip = () => {
   const dispatch = useDispatch();
+  const { addToast } = useToasts();
   const { betType, betSlip, multiCalc } = useSelector(state => state.sports);
+  const user = useSelector((state) => state.user);
 
   const filterMulti = (data) => {
     let newSlip = {};
@@ -247,6 +276,25 @@ const BetSlip = () => {
     }
   }
 
+  const bet = () => {
+    if (user.isAuth) {
+      let data = betAction(user.id, betType, betSlip, multiCalc);
+      if (data.status) {
+        dispatch(auth(data.data))
+        addToast('Success!', {
+          appearance: 'success',
+          autoDismiss: true,
+        })
+        clearAll();
+      } else {
+        addToast('Failed!', {
+          appearance: 'error',
+          autoDismiss: true,
+        })
+      }
+    }
+  }
+
   useEffect(() => {
     if (Object.keys(betSlip).length < 2) {
       dispatch(saveBetType('single'));
@@ -258,7 +306,11 @@ const BetSlip = () => {
       <HStack className='bet-tabbar'>
         <Box className='slip-title'>
           BETSLIP
-          <Typography component='span' className='slip-count'>1</Typography>
+          {
+            Object.keys(betSlip).length ?
+              <Typography component='span' className='slip-count'>{Object.keys(betSlip).length}</Typography>
+              : null
+          }
         </Box>
       </HStack>
       <Box>
@@ -288,7 +340,7 @@ const BetSlip = () => {
                 </Box>
             }
           </HStack>
-          <Button sx={{ borderRadius: 2, width: '100%', color: '#090f1e', bgcolor: '#ffe036', boxShadow: '0 2px 24px 0 #ffca094d', fontWeight: 700, '&:hover': { bgcolor: '#ffe036' } }}>
+          <Button onClick={() => bet()} sx={{ borderRadius: 2, width: '100%', color: '#090f1e', bgcolor: '#ffe036', boxShadow: '0 2px 24px 0 #ffca094d', fontWeight: 700, '&:hover': { bgcolor: '#ffe036' } }}>
             Make Bet
           </Button>
         </Box>
