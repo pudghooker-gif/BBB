@@ -15,7 +15,7 @@ function App() {
 
     useEffect(() => {
         dispatch(pre());
-        const RSSI = setInterval(realSport, 5000);
+        const RSSI = setInterval(realSport, 10000);
         return () => clearInterval(RSSI);
     }, [isLive, scale]);
 

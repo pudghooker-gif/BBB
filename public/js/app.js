@@ -40824,7 +40824,7 @@ function App() {
   };
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     dispatch((0,_state_requests__WEBPACK_IMPORTED_MODULE_3__.pre)());
-    var RSSI = setInterval(realSport, 5000);
+    var RSSI = setInterval(realSport, 10000);
     return function () {
       return clearInterval(RSSI);
     };

@@ -1998,7 +1998,6 @@ var OddField = function OddField(_ref2) {
     betSlip = _ref2.betSlip,
     setBetSlip = _ref2.setBetSlip;
   odds = JSON.parse(odds);
-  console.log(odds, "".concat(eId, "-").concat(sId, "_1-home_od"));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_11__["default"], {
       className: "odd-cell",
