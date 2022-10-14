@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import Axios from '../../providers/request';
 
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -32,51 +32,38 @@ const Casino = () => {
     const [providerName, setProviderName] = useState();
     const [allcount, setAllcount] = useState();
 
-    const getProvider = (init) => {
-        axios.post('/get_provider', {})
-            .then(
-                response => {
-                    let data = response.data;
-                    setProviders(data);
-                    if (init === 'all') {
-                        setActPro('all');
-                        setProviderName('All')
-                        getGames('all', page);
-                    }
-                    let c = 0;
-                    for (let item of data) {
-                        if (item.href === init) {
-                            setActPro(item);
-                            setProviderName(item.title);
-                            getGames(item.category_id, page);
-                        }
-                        c += item.count;
-                    }
-                    setAllcount(c);
+    const getProvider = async (init) => {
+        let rdata = await Axios('POST', '/get_provider', {});
+        if (rdata) {
+            let data = rdata;
+            if (init === 'all') {
+                setActPro('all');
+                setProviderName('All');
+                getGames('all', page);
+            }
+            let c = 0;
+            for (let item of data) {
+                if (item.href === init) {
+                    setActPro(item);
+                    setProviderName(item.title);
+                    getGames(item.category_id, page);
                 }
-            )
-            .catch(error => {
-                console.log("ERROR:: ", error.response.data);
-            });
+                c += item.count;
+            }
+            setProviders(data);
+            setAllcount(c);
+        }
     }
 
-    const getGames = (id, page) => {
+    const getGames = async (id, page) => {
         setLoading(true);
-        axios.post('/get_casino_game', { id, page })
-            .then(
-                response => {
-                    if (page === 0) {
-                        setGames(response.data);
-                    } else {
-                        setGames([...games, ...response.data]);
-                    }
-                    setLoading(false);
-                }
-            )
-            .catch(error => {
-                console.log("ERROR:: ", error.response.data);
-                setLoading(false);
-            });
+        let rdata = await Axios('POST', '/get_casino_game', { id, page });
+        if (page === 0) {
+            setGames(rdata);
+        } else {
+            setGames([...games, ...rdata]);
+        }
+        setLoading(false);
     }
 
     const setGameProvider = (item) => {
@@ -111,7 +98,7 @@ const Casino = () => {
         let param = location.pathname.split('/')[2];
         getProvider(param);
     }, [])
-
+    console.log(actPro)
     return (
         <Box sx={{ pt: 2 }}>
             <Grid container spacing={2}>

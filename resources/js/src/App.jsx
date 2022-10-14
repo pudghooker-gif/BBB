@@ -1,28 +1,24 @@
 
-import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-
-import { auth } from './state/user/actions';
 import Routes from './routes';
+import { pre, getSports, } from './state/requests';
 
 function App() {
     const dispatch = useDispatch();
+    const { isLive, scale } = useSelector(state => state.sports);
+
+    const realSport = () => {
+        dispatch(getSports({ isLive, ...scale }));
+    }
+
     useEffect(() => {
-        axios.post('/pre', {})
-            .then(
-                response => {
-                    let data = response.data;
-                    if (data) {
-                        dispatch(auth({ ...data, isAuth: true }));
-                    }
-                }
-            )
-            .catch(error => {
-                console.log("ERROR:: ", error.response.data);
-            })
-    }, []);
+        dispatch(pre());
+        const RSSI = setInterval(realSport, 5000);
+        return () => clearInterval(RSSI);
+    }, [isLive, scale]);
+
     return (
         <BrowserRouter basename="">
             <Routes />

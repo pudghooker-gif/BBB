@@ -2253,37 +2253,40 @@ var SportsEvent = function SportsEvent() {
     scale = _useSelector.scale,
     betSlip = _useSelector.betSlip,
     betType = _useSelector.betType,
-    multiCalc = _useSelector.multiCalc;
+    multiCalc = _useSelector.multiCalc,
+    sportsData = _useSelector.sportsData;
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState10 = _slicedToArray(_useState9, 2),
     eventId = _useState10[0],
     setEventId = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState12 = _slicedToArray(_useState11, 2),
-    event = _useState12[0],
-    setEvent = _useState12[1];
+    noData = _useState12[0],
+    setNoData = _useState12[1];
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
     _useState14 = _slicedToArray(_useState13, 2),
-    markets = _useState14[0],
-    setMarkets = _useState14[1];
+    event = _useState14[0],
+    setEvent = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState16 = _slicedToArray(_useState15, 2),
+    markets = _useState16[0],
+    setMarkets = _useState16[1];
   var getEvent = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(id) {
-      var rdata;
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(data) {
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_2__["default"])('post', '/sports/getEvent', {
-                id: id
-              });
-            case 2:
-              rdata = _context.sent;
-              if (rdata[0]) {
-                setEvent(rdata[0]);
-                setMarkets(JSON.parse(rdata[0].odds));
+              if (data) {
+                setEvent(data);
+                if (data.odd) {
+                  setMarkets(JSON.parse(data.odds));
+                  setNoData(false);
+                } else {
+                  setNoData(true);
+                }
               }
-            case 4:
+            case 1:
             case "end":
               return _context.stop();
           }
@@ -2377,8 +2380,11 @@ var SportsEvent = function SportsEvent() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var path = location.pathname.split('/');
     setEventId(path.slice(-1)[0]);
-    getEvent(path.slice(-1)[0]);
-  }, []);
+    var item = sportsData.filter(function (e) {
+      return String(e.id) === path.slice(-1)[0];
+    });
+    getEvent(item[0]);
+  }, [sportsData]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
     sx: {
       overflow: 'hidden'
@@ -2431,7 +2437,9 @@ var SportsEvent = function SportsEvent() {
                   betSlip: betSlip
                 }, idx);
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_6__.Loading, {})
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+              children: !Object.keys(markets).length && noData ? 'There are not any odds.' : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_6__.Loading, {})
+            })
           })]
         })]
       })
@@ -2453,22 +2461,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _providers_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../providers/request */ "./resources/js/src/providers/request.js");
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
-/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
-/* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
-/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
-/* harmony import */ var _mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/Star */ "./node_modules/@mui/icons-material/Star.js");
-/* harmony import */ var _mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/icons-material/Search */ "./node_modules/@mui/icons-material/Search.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
+/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
+/* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/icons-material/Star */ "./node_modules/@mui/icons-material/Star.js");
+/* harmony import */ var _mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/Search */ "./node_modules/@mui/icons-material/Search.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _config_sports__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../config/sports */ "./resources/js/src/config/sports.js");
 /* harmony import */ var _Part__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Part */ "./resources/js/src/components/Part.jsx");
 /* harmony import */ var _state_sports_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../state/sports/actions */ "./resources/js/src/state/sports/actions.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _state_requests__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../state/requests */ "./resources/js/src/state/requests.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -2500,6 +2509,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var groupBy = function groupBy(array, key) {
   return array.reduce(function (result, currentValue) {
     (result[currentValue[key]] = result[currentValue[key]] || []).push(currentValue);
@@ -2510,19 +2520,19 @@ var SportLeague = function SportLeague(_ref) {
   var leagueIt = _ref.leagueIt,
     leagueId = _ref.leagueId,
     selectLeague = _ref.selectLeague;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
     className: "list-item",
     sx: {
       position: 'relative'
     },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_10__["default"], {
       sx: {
         '& .MuiButton-endIcon': {
           mr: 0,
           ml: 'auto'
         }
       },
-      startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_11__["default"], {
         size: "sm",
         sx: {
           color: '#ffcf47'
@@ -2534,7 +2544,7 @@ var SportLeague = function SportLeague(_ref) {
       onClick: function onClick() {
         return selectLeague(leagueIt);
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
         component: "span",
         sx: {
           fontSize: '12px'
@@ -2552,19 +2562,19 @@ var SportCountry = function SportCountry(_ref2) {
     league = _ref2.league,
     selectCountry = _ref2.selectCountry,
     selectLeague = _ref2.selectLeague;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
     className: "list-item",
     sx: {
       position: 'relative'
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_10__["default"], {
       sx: {
         '& .MuiButton-endIcon': {
           mr: 0,
           ml: 'auto'
         }
       },
-      startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
         component: "img",
         src: "https://assets.betsapi.com/v2/images/flags/".concat(countryId === 'null' ? 'eu' : countryId, ".svg"),
         sx: {
@@ -2578,25 +2588,25 @@ var SportCountry = function SportCountry(_ref2) {
       onClick: function onClick() {
         return selectCountry(countryId);
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
         component: "span",
         sx: {
           fontSize: '12px'
         },
         children: countryId === 'null' ? 'World' : _config_sports__WEBPACK_IMPORTED_MODULE_4__.countries[countryId]
       })
-    }), country === countryId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    }), country === countryId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
       className: "section-list",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
         className: "section-header",
         children: "Tournament"
       }), league[sportId] && league[sportId][countryId].length ? league[sportId][countryId].map(function (leagueIt, idx) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(SportLeague, {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(SportLeague, {
           leagueIt: leagueIt,
           leagueId: leagueId,
           selectLeague: selectLeague
         }, idx);
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_5__.Loading, {})]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_5__.Loading, {})]
     }) : null]
   });
 };
@@ -2609,21 +2619,21 @@ var SportItems = function SportItems(_ref3) {
     selectSport = _ref3.selectSport,
     selectCountry = _ref3.selectCountry,
     selectLeague = _ref3.selectLeague;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
     className: "list-item",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
       className: "item-btn-wrap",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_10__["default"], {
         sx: {
           '& .MuiButton-endIcon': {
             mr: 0,
             ml: 'auto'
           }
         },
-        startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+        startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("i", {
           className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("sports-icon", "icon-".concat(item.sport_name.toLocaleLowerCase().replaceAll(' ', '-')), "no-margin")
         }),
-        endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
           component: "span",
           sx: {
             fontSize: '12px !important'
@@ -2636,7 +2646,7 @@ var SportItems = function SportItems(_ref3) {
         onClick: function onClick() {
           return selectSport(item);
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
           component: "span",
           sx: {
             fontSize: '12px'
@@ -2644,20 +2654,20 @@ var SportItems = function SportItems(_ref3) {
           children: item.sport_name
         })
       })
-    }), sportId === item.sport_id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    }), sportId === item.sport_id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
       className: "section-list",
       sx: {
         px: '10px !important'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
         className: "section-header",
         children: "Country"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_13__["default"], {
         "in": sportId === item.sport_id,
         timeout: "auto",
         unmountOnExit: true,
         children: league[sportId] && Object.keys(league[sportId]).length ? Object.keys(league[sportId]).map(function (countryId, idx) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(SportCountry, {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(SportCountry, {
             sportId: sportId,
             countryId: countryId,
             country: country,
@@ -2666,18 +2676,19 @@ var SportItems = function SportItems(_ref3) {
             selectCountry: selectCountry,
             selectLeague: selectLeague
           }, idx);
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_5__.Loading, {})
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_5__.Loading, {})
       })]
     }) : null]
   });
 };
 var SportsListNav = function SportsListNav() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_13__.useNavigate)();
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useNavigate)();
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
       return state.sports;
     }),
-    sportsList = _useSelector.sportsList;
+    sportsList = _useSelector.sportsList,
+    scale = _useSelector.scale;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     _useState2 = _slicedToArray(_useState, 2),
     isLive = _useState2[0],
@@ -2698,7 +2709,7 @@ var SportsListNav = function SportsListNav() {
     _useState10 = _slicedToArray(_useState9, 2),
     league = _useState10[0],
     setLeague = _useState10[1];
-  var getSports = /*#__PURE__*/function () {
+  var getSportsItems = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(flag) {
       var rdata;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -2719,10 +2730,13 @@ var SportsListNav = function SportsListNav() {
         }
       }, _callee);
     }));
-    return function getSports(_x) {
+    return function getSportsItems(_x) {
       return _ref4.apply(this, arguments);
     };
   }();
+  var getSportData = function getSportData(param) {
+    dispatch((0,_state_requests__WEBPACK_IMPORTED_MODULE_7__.getSports)(param));
+  };
   var getLeague = /*#__PURE__*/function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(id, flag) {
       var rdata, data, _iterator, _step, item;
@@ -2762,19 +2776,25 @@ var SportsListNav = function SportsListNav() {
       return _ref5.apply(this, arguments);
     };
   }();
+  var saveScale = function saveScale(param) {
+    dispatch((0,_state_requests__WEBPACK_IMPORTED_MODULE_7__.getSports)(_objectSpread(_objectSpread({}, param), {}, {
+      isLive: isLive
+    })));
+    dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)(param));
+  };
   var selectSport = function selectSport(item) {
     setCountry('');
     setLeagueId('');
     if (sportId === item.sport_id) {
       setSportId('');
       navigate("/sports/".concat(isLive ? 'live' : 'prematch'));
-      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({}));
+      saveScale({});
     } else {
       setSportId(item.sport_id);
       navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(item.sport_id));
-      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({
+      saveScale({
         sportId: item.sport_id
-      }));
+      });
       getLeague(item.sport_id, isLive);
     }
   };
@@ -2783,40 +2803,44 @@ var SportsListNav = function SportsListNav() {
     if (country === item) {
       setCountry('');
       navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(sportId));
-      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({
+      saveScale({
         sportId: sportId
-      }));
+      });
     } else {
       setCountry(item);
       navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(sportId, "/").concat(item === 'null' ? 'world' : item));
-      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({
+      saveScale({
         sportId: sportId,
         country: item
-      }));
+      });
     }
   };
   var selectLeague = function selectLeague(item) {
     if (item === leagueId) {
       setLeagueId('');
       navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(sportId, "/").concat(country === 'null' ? 'world' : country));
-      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({
+      saveScale({
         sportId: sportId,
         country: country
-      }));
+      });
     } else {
       setLeagueId(item.id);
       navigate("/sports/".concat(isLive ? 'live' : 'prematch', "/").concat(sportId, "/").concat(country === 'null' ? 'world' : country, "/").concat(item.id));
-      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)({
+      saveScale({
         sportId: sportId,
         country: country,
         leagueId: item.id
-      }));
+      });
     }
   };
   var init = function init() {
     var scale = {},
       path = location.pathname.split('/');
     var checkLive = path[2] === 'live';
+    if (checkLive !== isLive) {
+      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsList)([]));
+      dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsData)([]));
+    }
     setIsLive(checkLive);
     if (path[3]) {
       setSportId(Number(path[3]));
@@ -2824,56 +2848,78 @@ var SportsListNav = function SportsListNav() {
         sportId: Number(path[3])
       };
       getLeague(path[3], checkLive);
+    } else {
+      setSportId('');
     }
     if (path[4]) {
       scale = _objectSpread(_objectSpread({}, scale), {}, {
         country: path[4]
       });
       setCountry(path[4] === 'world' ? 'null' : path[4]);
+    } else {
+      setCountry('');
     }
     if (path[5]) {
       scale = _objectSpread(_objectSpread({}, scale), {}, {
         leagueId: path[5]
       });
       setLeagueId(path[5]);
+    } else {
+      setLeagueId('');
     }
     dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsType)(checkLive));
     dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_6__.saveSportsScale)(scale));
-    getSports(checkLive);
+    getSportsItems(checkLive);
+    getSportData(_objectSpread(_objectSpread({}, scale), {}, {
+      isLive: checkLive
+    }));
   };
+
+  // useEffect(() => {
+  //     if (scale.sportId) {
+  //         setSportId(scale.sportId);
+  //     }
+  //     if (scale.country) {
+  //         setCountry(scale.country);
+  //     }
+  //     if (scale.leagueId) {
+  //         setLeagueId(scale.leagueId);
+  //     }
+  // }, [scale])
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     init();
-  }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  }, [location.pathname]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_15__["default"], {
     className: "sports-list",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
       className: "sports-search-wrap",
       sx: {
         px: '10px !important'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
-        startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_15__["default"], {}),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_16__["default"], {}),
         className: "search-btn",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
           component: "span",
           sx: {
             fontSize: '12px'
           },
           children: "Search"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_10__["default"], {
         sx: {
           '& .MuiButton-endIcon': {
             mr: 0,
             ml: 'auto'
           }
         },
-        startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        startIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_11__["default"], {
           sx: {
             color: '#ffcf47'
           }
         }),
-        endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
           component: "span",
           sx: {
             fontSize: '12px !important'
@@ -2881,7 +2927,7 @@ var SportsListNav = function SportsListNav() {
           children: "10"
         }),
         className: "sports-list-item-btn",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
           component: "span",
           sx: {
             fontSize: '12px'
@@ -2889,10 +2935,10 @@ var SportsListNav = function SportsListNav() {
           children: "Favourite"
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
       className: "sports-list-body",
       children: sportsList.length ? sportsList.map(function (item, idx) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(SportItems, {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(SportItems, {
           item: item,
           sportId: sportId,
           country: country,
@@ -2902,7 +2948,7 @@ var SportsListNav = function SportsListNav() {
           selectCountry: selectCountry,
           selectLeague: selectLeague
         }, idx);
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_5__.Loading, {})
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_5__.Loading, {})
     })]
   });
 };

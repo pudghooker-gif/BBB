@@ -11,14 +11,14 @@ const Prematch = () => {
         <Box sx={{ pt: 2 }}>
             <Grid container spacing={2}>
                 <Grid item xs={2.2}>
-                    <SportsListNav isLive={false} />
+                    <SportsListNav />
                 </Grid>
                 <Grid item xs={7.6}>
                     <Box>
                         <Slider />
                     </Box>
                     <Box sx={{ mt: 2 }}>
-                        <SportsLeagueContent isPre={true} />
+                        <SportsLeagueContent />
                     </Box>
                 </Grid>
                 <Grid item xs={2.2}>
