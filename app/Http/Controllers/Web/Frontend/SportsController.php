@@ -217,7 +217,11 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
 
         public function pre()
         {
-            return auth()->check() ? auth()->user() : 'null';
+            if (auth()->check()) {
+                return array('status' => true, 'user' => auth()->user());
+            } else {
+                return array('status' => true, 'user' => 'null');
+            }
         }
 
         public function home()
