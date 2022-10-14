@@ -193,8 +193,6 @@ export const getScore = (ss, scores, time, id) => {
   }
 
   if (scores) {
-    if (typeof scores === 'string')
-      scores = JSON.parse(scores);
     score = '(';
     for (let i in scores) {
       score += scores[i].home + ':';
@@ -205,9 +203,7 @@ export const getScore = (ss, scores, time, id) => {
   }
 
   if (time) {
-    if (typeof timer === 'string')
-      timer = JSON.parse(time);
-    timer = `${timer.tm}'`;
+    timer = `${time.tm}'`;
   }
   return { ss, scores: score, timer }
 }

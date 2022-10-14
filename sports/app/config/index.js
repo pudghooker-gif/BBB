@@ -1,6 +1,7 @@
 export default {
-  TOKEN_: '131893-un5NSiqwfoPzjW',
-  TOKEN: '102925-ap8lmbNuSCIwqQ',
+  // TOKEN_: '131893-un5NSiqwfoPzjW',
+  // TOKEN: '102925-ap8lmbNuSCIwqQ',
+  TOKEN: '131893-un5NSiqwfoPzjW',
   SPORTS: [
     {
       SportId: '1',

@@ -160,8 +160,29 @@
 
 .up {
     color: #0dc35d !important;
+    animation: mymove 2s;
 }
 
 .down {
     color: #f62525 !important;
+    animation: mymove 2s;
+
+}
+
+@keyframes mymove {
+    0%   {
+        background: #ea5455 !important;
+    }
+    25%  {
+        background: #0293cc !important;
+    }
+    50%  {
+        background: #ea5455 !important;
+    }
+    75%  {
+        background: #0293cc !important;
+    }
+    100% {
+        background: #ea5455 !important;
+    }
 }

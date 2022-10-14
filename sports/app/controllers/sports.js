@@ -9,10 +9,10 @@ import countries from "../config/countries.js";
 const token = config.TOKEN;
 const DB = sequelize.models
 export const start = async () => {
-  getLiveStart();
+  // getLiveStart();
   // getUpcomingStart();
   // getPreStart();
-  // getLiveOddStart();
+  getLiveOddStart();
   // getPreOddStart();
   // gameEnds();
   // Leagues();

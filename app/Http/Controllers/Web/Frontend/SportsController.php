@@ -289,6 +289,18 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                         ->where('sport_id', $request->sportId)
                         ->where('league_id', $request->leagueId)
                         ->get();
+                } else if ($request->sportId && $request->country) {
+                    if ($request->country == 'null') {
+                        $data = SportData::where('time_status', $request->isLive)
+                            ->where('sport_id', $request->sportId)
+                            ->whereRaw('LOWER(`league`) LIKE ? ', '%:' . 'null' . '}%')
+                            ->get();
+                    } else {
+                        $data = SportData::where('time_status', $request->isLive)
+                            ->where('sport_id', $request->sportId)
+                            ->whereRaw('LOWER(`league`) LIKE ? ', '%:"' . $request->country . '"}%')
+                            ->get();
+                    }
                 } else if ($request->sportId) {
                     $data = SportData::where('time_status', $request->isLive)
                         ->where('sport_id', $request->sportId)
@@ -310,7 +322,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                         ->get();
                 } else {
                     $data = SportData::where('time_status', $request->isLive)
-                        ->where('popular', '>', 0)
+                        // ->where('popular', '>', 0)
                         ->get();
                 }
             }
