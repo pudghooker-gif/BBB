@@ -220,7 +220,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             if (auth()->check()) {
                 return array('status' => true, 'user' => auth()->user());
             } else {
-                return array('status' => true, 'user' => 'null');
+                return array('status' => false, 'user' => 'null');
             }
         }
 
