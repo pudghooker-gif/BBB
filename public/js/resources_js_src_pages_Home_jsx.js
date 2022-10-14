@@ -2017,7 +2017,7 @@ var DesktopHome = function DesktopHome() {
   };
   var goGame = function goGame(item) {
     if (user.isAuth) {
-      window.open("".concat(location.origin, "/").concat(item.name, "/?api_exit=/"), "_blank");
+      window.open("".concat(location.origin, "/game/").concat(item.name, "/?api_exit=/"), "_blank");
     } else {
       document.getElementsByClassName('login_btn ')[0].click();
     }

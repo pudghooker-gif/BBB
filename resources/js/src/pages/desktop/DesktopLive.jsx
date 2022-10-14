@@ -18,13 +18,17 @@ const DesktopLive = () => {
     const dispatch = useDispatch();
     const { isEvent } = useSelector(state => state.sports);
 
-    useEffect(() => {
+    const switchPage = () => {
         let path = location.pathname.split('/');
         if (path[6]) {
             dispatch(saveIsEvent(true));
         } else {
             dispatch(saveIsEvent(false));
         }
+    }
+
+    useEffect(() => {
+        switchPage();
     }, [location.pathname]);
 
     return (

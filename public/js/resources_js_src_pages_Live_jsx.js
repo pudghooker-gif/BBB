@@ -4137,13 +4137,16 @@ var DesktopLive = function DesktopLive() {
       return state.sports;
     }),
     isEvent = _useSelector.isEvent;
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+  var switchPage = function switchPage() {
     var path = location.pathname.split('/');
     if (path[6]) {
       dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_7__.saveIsEvent)(true));
     } else {
       dispatch((0,_state_sports_actions__WEBPACK_IMPORTED_MODULE_7__.saveIsEvent)(false));
     }
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    switchPage();
   }, [location.pathname]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
     sx: {

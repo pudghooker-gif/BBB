@@ -91,7 +91,7 @@ const DesktopHome = () => {
 
     const goGame = (item) => {
         if (user.isAuth) {
-            window.open(`${location.origin}/${item.name}/?api_exit=/`, "_blank");
+            window.open(`${location.origin}/game/${item.name}/?api_exit=/`, "_blank");
         } else {
             document.getElementsByClassName('login_btn ')[0].click();
         }
