@@ -50,7 +50,7 @@ import ptlang from '../assets/img/feature/pt.svg';
 import present from '../assets/img/feature/present-light.png';
 import { Promotion } from '../assets/img/feature/svgIcon';
 
-import { auth } from '../state/user/actions';
+import { SET_USER_DATA } from "../redux/type";
 
 
 const New = () => {
@@ -419,6 +419,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  console.log(user)
   const isMobile = useMediaQuery('(max-width:425px)');
   const { addToast } = useToasts();
 
@@ -515,7 +516,7 @@ const Header = () => {
     if (values.username && values.password) {
       let data = await Axios('post', '/login', { username: values.username, password: values.password });
       if (data.status) {
-        dispatch(auth({ ...data.data, isAuth: true }));
+        dispatch({ type: SET_USER_DATA, data: { ...data.data, isAuth: true } });
         closeLogin();
         addToast('Success!', {
           appearance: 'success',
@@ -575,7 +576,7 @@ const Header = () => {
         });
 
       if (data.status) {
-        dispatch(auth({ ...data.data, isAuth: true }));
+        dispatch({ type: SET_USER_DATA, data: { ...data.data, isAuth: true } });
         closeRegister();
         addToast(`Welcom ${data.data.username}!`, {
           appearance: 'success',

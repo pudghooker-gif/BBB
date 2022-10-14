@@ -135,7 +135,7 @@ const DesktopLive = () => {
 
     useEffect(() => {
         init();
-    }, []);
+    }, [location.pathname]);
 
 
     // useEffect(() => {
@@ -168,23 +168,22 @@ const DesktopLive = () => {
                 <Grid item xs={2.2}>
                     <SportsListNav {...{ data: sportsList, scale, setScale, init }} />
                 </Grid>
-                {/* {
+                {
                     scale.isEvent ?
                         <Grid item xs={7.6}>
                             <Box>
-                                <SportsEvent />
+                                <SportsEvent {...{ data: sportsMatchs, scale }} />
                             </Box>
                         </Grid> :
-                   
-                   } */}
-                <Grid item xs={7.6}>
-                    <Box>
-                        <Slider />
-                    </Box>
-                    <Box sx={{ mt: 2 }}>
-                        <SportsLeagueContent {...{ data: sportsMatchs, scale }} />
-                    </Box>
-                </Grid>
+                        <Grid item xs={7.6}>
+                            <Box>
+                                <Slider />
+                            </Box>
+                            <Box sx={{ mt: 2 }}>
+                                <SportsLeagueContent {...{ data: sportsMatchs, init }} />
+                            </Box>
+                        </Grid>
+                }
                 <Grid item xs={2.2}>
                     <BetSlip />
                 </Grid>

@@ -18,8 +18,7 @@ import { HStack, BpRadio, getMkName } from './Base';
 
 import classNames from 'classnames';
 
-import { auth } from '../state/user/actions';
-import { saveBetSlip, saveBetType, saveMultiCalc } from '../state/sports/actions';
+import { SET_BETSLIP, SET_MULTI_CALC, SET_BET_TYPE, SET_USER_DATA } from '../redux/type';
 
 const betAction = async (user_id, betType, data, multiCalc, matchs) => {
   let rdata = await Axios('post', '/sports/bet', { user_id, bet: data, betType, multi: multiCalc, matchs });
@@ -132,7 +131,7 @@ const Multi = ({ data, clear, setStake, multiCalc }) => {
 const BetSlip = () => {
   const dispatch = useDispatch();
   const { addToast } = useToasts();
-  const { betType, betSlip, multiCalc, isEvent } = useSelector(state => state.sports);
+  const { betType, betSlip, multiCalc } = useSelector(state => state.sports);
   const user = useSelector((state) => state.user);
 
   const filterMulti = (data) => {
@@ -141,14 +140,14 @@ const BetSlip = () => {
       let key = item.slice(-1)[0];
       newSlip[key] = betSlip[key];
     }
-    dispatch(saveBetSlip(newSlip));
+    dispatch({ type: SET_BETSLIP, data: newSlip });
 
     let odd = 1;
     for (let k in newSlip) {
       odd *= Number(Number(newSlip[k].odd).toFixed(2));
     }
     let profit = odd * multiCalc.stake;
-    dispatch(saveMultiCalc({ ...multiCalc, odd, profit }));
+    dispatch({ type: SET_MULTI_CALC, data: { ...multiCalc, odd, profit } });
   }
 
   const multiSlipCheck = () => {
@@ -169,7 +168,7 @@ const BetSlip = () => {
     }
     if (isDup.length === 1) return;
     filterMulti(isDup);
-    dispatch(saveBetType(event.target.value));
+    dispatch({ type: SET_BET_TYPE, data: event.target.value });
   }
 
   const switchType = (event) => {
@@ -177,7 +176,7 @@ const BetSlip = () => {
   };
 
   const clearAll = () => {
-    dispatch(saveBetSlip({}))
+    dispatch({ type: SET_BETSLIP, data: {} });
   }
 
   const clear = (key) => {
@@ -186,14 +185,14 @@ const BetSlip = () => {
       if (i === key) continue;
       newSlip[i] = oldSlip[i];
     }
-    dispatch(saveBetSlip(newSlip));
+    dispatch({ type: SET_BETSLIP, data: newSlip });
   }
 
   const setStake = (key, val, odd) => {
     if (betType === 'single') {
-      dispatch(saveBetSlip({ ...betSlip, [key]: { ...betSlip[key], stake: val, profit: Number(odd) * Number(val) } }));
+      dispatch({ type: SET_BETSLIP, data: { ...betSlip, [key]: { ...betSlip[key], stake: val, profit: Number(odd) * Number(val) } } });
     } else {
-      dispatch(saveMultiCalc({ ...multiCalc, stake: val, profit: (Number(multiCalc.odd) * Number(val)).toFixed(2) }));
+      dispatch({ type: SET_MULTI_CALC, data: { ...multiCalc, stake: val, profit: (Number(multiCalc.odd) * Number(val)).toFixed(2) } });
     }
   }
 
@@ -231,7 +230,7 @@ const BetSlip = () => {
 
       let rdata = await betAction(user.id, betType, data, multiCalc, matchs);
       if (rdata.status) {
-        dispatch(auth(rdata.data[0]));
+        dispatch({ type: SET_USER_DATA, data: { ...user, ...rdata.data[0] } });
         addToast('Success!', {
           appearance: 'success',
           autoDismiss: true,
@@ -253,7 +252,7 @@ const BetSlip = () => {
 
   useEffect(() => {
     if (Object.keys(betSlip).length < 2) {
-      dispatch(saveBetType('single'));
+      dispatch({ type: SET_BET_TYPE, data: 'single' });
     }
   }, [betSlip]);
 
