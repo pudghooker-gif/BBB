@@ -98,7 +98,7 @@ const Casino = () => {
         let param = location.pathname.split('/')[2];
         getProvider(param);
     }, [])
-    console.log(actPro)
+
     return (
         <Box sx={{ pt: 2 }}>
             <Grid container spacing={2}>
