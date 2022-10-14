@@ -47514,13 +47514,12 @@ var pre = function pre() {
               return (0,_providers_request__WEBPACK_IMPORTED_MODULE_0__["default"])("POST", "/pre", {});
             case 2:
               rdata = _context.sent;
-              console.log(rdata, '------');
               if (rdata.status) {
                 dispatch((0,_user_actions__WEBPACK_IMPORTED_MODULE_2__.auth)(_objectSpread(_objectSpread({}, rdata.user), {}, {
                   isAuth: true
                 })));
               }
-            case 5:
+            case 4:
             case "end":
               return _context.stop();
           }
