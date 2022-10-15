@@ -11,7 +11,7 @@ const DB = sequelize.models
 export const start = async () => {
   getLiveStart();
   getUpcomingStart();
-  // getPreStart();
+  getPreStart();
   getLiveOddStart();
   getPreOddStart();
   // gameEnds();
