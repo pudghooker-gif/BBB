@@ -59,7 +59,7 @@ const New = () => {
   )
 }
 
-const Desktop = ({ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, openLogin, openRegister, go, logoutAction }) => {
+const Desktop = ({ user, navigate, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, openLogin, openRegister, go, logoutAction }) => {
   return (
     <>
       <HStack className='header_top'>
@@ -268,6 +268,9 @@ const Desktop = ({ user, langList, showProfile, list, profile, active, showLang,
                     </MenuItem>
                   ))
                 }
+                <MenuItem onClick={() => navigate('/history')}>
+                  <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>Bet History</Typography>
+                </MenuItem>
                 <MenuItem onClick={() => logoutAction()}>
                   <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>Log Out</Typography>
                 </MenuItem>
@@ -280,7 +283,7 @@ const Desktop = ({ user, langList, showProfile, list, profile, active, showLang,
   )
 }
 
-const Mobile = ({ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }) => {
+const Mobile = ({ user, navigate, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }) => {
   const [drawer, setDrawer] = useState(false);
   const toggleDrawer = (e) => {
     setDrawer(e);
@@ -338,6 +341,9 @@ const Mobile = ({ user, langList, showProfile, list, profile, active, showLang, 
                   }
                   <MenuItem onClick={() => logoutAction()}>
                     <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>Log Out</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => navigate('/history')}>
+                    <Typography textAlign="center" sx={{ color: 'black', fontSize: (theme) => theme.spacing(1.5) }}>Bet History</Typography>
                   </MenuItem>
                 </Menu>
               </>
@@ -419,12 +425,11 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log(user)
   const isMobile = useMediaQuery('(max-width:425px)');
   const { addToast } = useToasts();
 
   const list = [{ name: 'Home', route: '/home' }, { name: 'Live', route: '/sports/live' }, { name: 'Sports', route: '/sports/prematch' }, { name: 'World Cup 22', route: '/sports/prematch' }, { name: 'Casino', route: '/casino/all' }, { name: 'Live-Casino', route: '/live-casino' }, { name: 'Poker', route: '/poker' }];
-  const profile = ['Withdraw', 'Setting', 'Bet History']
+  const profile = ['Withdraw', 'Setting']
   const [active, setActive] = useState(0);
   const [login, setLogin] = useState(false);
   const [register, setRegister] = useState(false);
@@ -607,7 +612,7 @@ const Header = () => {
   return (
     <>
       {
-        isMobile ? <Mobile  {...{ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }} /> : <Desktop {...{ user, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }} />
+        isMobile ? <Mobile  {...{ user, navigate, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }} /> : <Desktop {...{ user, navigate, langList, showProfile, list, profile, active, showLang, closeLang, openProfile, closeProfile, go, openLogin, openRegister, logoutAction }} />
       }
       <Modal
         open={login}

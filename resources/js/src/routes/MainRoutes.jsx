@@ -8,6 +8,7 @@ const Live = Loadable(lazy(() => import('../pages/Live')));
 const Prematch = Loadable(lazy(() => import('../pages/Match')));
 const EventMatch = Loadable(lazy(() => import('../pages/Event')));
 const Casino = Loadable(lazy(() => import('../pages/Casino')));
+const History = Loadable(lazy(() => import('../pages/History')));
 
 export const BaseRoutes = {
     path: '/',
@@ -16,6 +17,10 @@ export const BaseRoutes = {
         {
             path: 'home',
             element: <Home />
+        },
+        {
+            path: 'history',
+            element: <History />
         },
         {
             path: 'casino/:id',

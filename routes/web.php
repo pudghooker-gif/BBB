@@ -391,6 +391,11 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'uses' => 'SportsController@home'
     ]);
 
+    Route::get('/history', [
+        'as' => 'frontend.history',
+        'uses' => 'SportsController@home'
+    ]);
+
     Route::get('sports/live/{sportId}/{country}/{league}/{match}', [
         'as' => 'frontend.sports.live',
         'uses' => 'SportsController@home'
@@ -474,6 +479,11 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
     ]);
 
     Route::get('sports/get_history', [
+        'as' => 'frontend.sports.get_history',
+        'uses' => 'SportsController@get_history',
+    ]);
+
+    Route::post('sports/get_history', [
         'as' => 'frontend.sports.get_history',
         'uses' => 'SportsController@get_history',
     ]);
