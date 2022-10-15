@@ -306,7 +306,7 @@ const getUpcomingEvents = (sport_id, page, day) => {
         const results = body.results;
         for (const i in results) {
           const result = results[i];
-          if (result.odds == null) return;
+          // if (result.odds == null) return;
           if (
             result.away &&
             result.home &&
