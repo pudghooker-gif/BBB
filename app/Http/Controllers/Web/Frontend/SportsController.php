@@ -293,12 +293,12 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                     if ($request->country == 'null') {
                         $data = SportData::where('time_status', 1)
                             ->where('sport_id', $request->sportId)
-                            ->whereRaw('LOWER(`league`) LIKE ? ', '%:' . 'null' . '}%')
+                            ->where('league', 'LIKE', '%"cc":' . $request->country . '%')
                             ->get();
                     } else {
                         $data = SportData::where('time_status', 1)
                             ->where('sport_id', $request->sportId)
-                            ->whereRaw('LOWER(`league`) LIKE ? ', '%:"' . $request->country . '"}%')
+                            ->where('league', 'LIKE', '%"cc":"' . $request->country . '"%')
                             ->get();
                     }
                 } else if ($request->sportId) {
@@ -316,10 +316,17 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                         ->where('league_id', $request->leagueId)
                         ->get();
                 } else if ($request->sportId && $request->country) {
-                    $data = SportData::where('time_status', 0)
-                        ->where('sport_id', $request->sportId)
-                        ->whereRaw('LOWER(`league`) LIKE ? ', '%:"' . $request->country . '"}%')
-                        ->get();
+                    if ($request->country == 'null') {
+                        $data = SportData::where('time_status', 0)
+                            ->where('sport_id', $request->sportId)
+                            ->where('league', 'LIKE', '%"cc":' . $request->country . '%')
+                            ->get();
+                    } else {
+                        $data = SportData::where('time_status', 0)
+                            ->where('sport_id', $request->sportId)
+                            ->where('league', 'LIKE', '%"cc":"' . $request->country . '"%')
+                            ->get();
+                    }
                 } else {
                     $data = SportData::where('time_status', 0)
                         ->limit(100)
