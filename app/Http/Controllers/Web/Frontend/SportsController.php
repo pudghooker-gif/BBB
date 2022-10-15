@@ -285,44 +285,44 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             $data = array();
             if ($request->isLive) {
                 if ($request->sportId && $request->leagueId) {
-                    $data = SportData::where('time_status', $request->isLive)
+                    $data = SportData::where('time_status', 1)
                         ->where('sport_id', $request->sportId)
                         ->where('league_id', $request->leagueId)
                         ->get();
                 } else if ($request->sportId && $request->country) {
                     if ($request->country == 'null') {
-                        $data = SportData::where('time_status', $request->isLive)
+                        $data = SportData::where('time_status', 1)
                             ->where('sport_id', $request->sportId)
                             ->whereRaw('LOWER(`league`) LIKE ? ', '%:' . 'null' . '}%')
                             ->get();
                     } else {
-                        $data = SportData::where('time_status', $request->isLive)
+                        $data = SportData::where('time_status', 1)
                             ->where('sport_id', $request->sportId)
                             ->whereRaw('LOWER(`league`) LIKE ? ', '%:"' . $request->country . '"}%')
                             ->get();
                     }
                 } else if ($request->sportId) {
-                    $data = SportData::where('time_status', $request->isLive)
+                    $data = SportData::where('time_status', 1)
                         ->where('sport_id', $request->sportId)
                         ->get();
                 } else {
-                    $data = SportData::where('time_status', $request->isLive)
+                    $data = SportData::where('time_status', 1)
                         ->get();
                 }
             } else {
                 if ($request->sportId && $request->leagueId) {
-                    $data = SportData::where('time_status', $request->isLive)
+                    $data = SportData::where('time_status', 0)
                         ->where('sport_id', $request->sportId)
                         ->where('league_id', $request->leagueId)
                         ->get();
                 } else if ($request->sportId && $request->country) {
-                    $data = SportData::where('time_status', $request->isLive)
+                    $data = SportData::where('time_status', 0)
                         ->where('sport_id', $request->sportId)
                         ->whereRaw('LOWER(`league`) LIKE ? ', '%:"' . $request->country . '"}%')
                         ->get();
                 } else {
-                    $data = SportData::where('time_status', $request->isLive)
-                        // ->where('popular', '>', 0)
+                    $data = SportData::where('time_status', 0)
+                        ->limit(100)
                         ->get();
                 }
             }
