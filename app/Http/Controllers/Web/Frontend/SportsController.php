@@ -293,14 +293,12 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                     if ($request->country == 'null') {
                         $data = SportData::where('time_status', 1)
                             ->where('sport_id', $request->sportId)
-                            ->where('league', 'LIKE', '%"cc":' . $request->country . '%')
-                            ->where('league', 'LIKE', '%"cc": ' . $request->country . '%')
+                            ->where('cc', null)
                             ->get();
                     } else {
                         $data = SportData::where('time_status', 1)
                             ->where('sport_id', $request->sportId)
-                            ->where('league', 'LIKE', '%"cc":"' . $request->country . '"%')
-                            ->where('league', 'LIKE', '%"cc": "' . $request->country . '"%')
+                            ->where('cc', $request->country)
                             ->get();
                     }
                 } else if ($request->sportId) {
@@ -321,14 +319,12 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                     if ($request->country == 'null') {
                         $data = SportData::where('time_status', 0)
                             ->where('sport_id', $request->sportId)
-                            ->where('league', 'LIKE', '%"cc":' . $request->country . '%')
-                            ->where('league', 'LIKE', '%"cc": ' . $request->country . '%')
+                            ->where('cc', null)
                             ->get();
                     } else {
                         $data = SportData::where('time_status', 0)
                             ->where('sport_id', $request->sportId)
-                            ->where('league', 'LIKE', '%"cc":"' . $request->country . '"%')
-                            ->where('league', 'LIKE', '%"cc": "' . $request->country . '"%')
+                            ->where('cc', $request->country)
                             ->get();
                     }
                 } else {

@@ -79,6 +79,9 @@ const sports = sequelize.define('w_sports', {
     },
     popular: {
         type: DataTypes.INTEGER,
+    },
+    cc: {
+        type: DataTypes.STRING(10),
     }
 });
 sports.sync();

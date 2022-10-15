@@ -175,9 +175,9 @@ const getInplayEvents = (sport_id, page) => {
               if (time < date) {
                 const exist = await DB.w_sports.findAll({ where: { id: result.id } });
                 if (exist.length) {
-                  await DB.w_sports.update({ ...result, league_id: result.league.id, sport_name: config.SPORTS_NAME[result.sport_id] }, { where: { id: result.id } });
+                  await DB.w_sports.update({ ...result, cc: result.league.cc, league_id: result.league.id, sport_name: config.SPORTS_NAME[result.sport_id] }, { where: { id: result.id } });
                 } else {
-                  await DB.w_sports.create({ ...result, league_id: result.league.id, sport_name: config.SPORTS_NAME[result.sport_id] });
+                  await DB.w_sports.create({ ...result, cc: result.league.cc, league_id: result.league.id, sport_name: config.SPORTS_NAME[result.sport_id] });
                 }
               }
             } catch (error) {
@@ -322,9 +322,9 @@ const getUpcomingEvents = (sport_id, page, day) => {
               if (time < date) {
                 const exist = await DB.w_sports.findAll({ where: { id: result.id } });
                 if (exist.length) {
-                  await DB.w_sports.update({ ...result, league_id: result.league.id, sport_name: config.SPORTS_NAME[result.sport_id] }, { where: { id: result.id } });
+                  await DB.w_sports.update({ ...result, cc: result.league.cc, league_id: result.league.id, sport_name: config.SPORTS_NAME[result.sport_id] }, { where: { id: result.id } });
                 } else {
-                  await DB.w_sports.create({ ...result, league_id: result.league.id, sport_name: config.SPORTS_NAME[result.sport_id] });
+                  await DB.w_sports.create({ ...result, cc: result.league.cc, league_id: result.league.id, sport_name: config.SPORTS_NAME[result.sport_id] });
                 }
               }
             } catch (error) {
@@ -526,7 +526,7 @@ const updateEndedEvents = (result) => {
         return console.log(`result.id => null ${result.id}`);
       } else if (time_status === 0 || time_status === 1) {
         const id = result.id;
-        await DB.w_sports.update({ ...result, league_id: result.league.id, isLive: time_status, time: result.time, sport_name: config.SPORTS_NAME[result.sport_id] }, { where: { id } });
+        await DB.w_sports.update({ ...result, cc: result.league.cc, league_id: result.league.id, isLive: time_status, time: result.time, sport_name: config.SPORTS_NAME[result.sport_id] }, { where: { id } });
       } else {
         const id = Number(result.id);
         if (time_status == 3) {
