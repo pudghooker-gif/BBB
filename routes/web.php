@@ -482,6 +482,11 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'as' => 'frontend.sports.get_history',
         'uses' => 'SportsController@get_history',
     ]);
+    
+    Route::post('sports/get_casino_history', [
+        'as' => 'frontend.sports.get_casino_history',
+        'uses' => 'SportsController@get_casino_history',
+    ]);
 
     Route::post('sports/get_history', [
         'as' => 'frontend.sports.get_history',

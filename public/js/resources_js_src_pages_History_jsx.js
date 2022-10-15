@@ -4506,9 +4506,7 @@ var History = function History() {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '/sports/get_history', {
-                user_id: user.id
-              });
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '/sports/get_history', {});
             case 2:
               rdata = _context.sent;
               setSports(rdata);
@@ -4523,9 +4521,32 @@ var History = function History() {
       return _ref3.apply(this, arguments);
     };
   }();
+  var getCasinoHisotry = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var rdata;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '/sports/get_casino_history', {});
+            case 2:
+              rdata = _context2.sent;
+              setCasino(rdata);
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+    return function getCasinoHisotry() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    getSportHisotry();
-  }, [user, value]);
+    value ? getCasinoHisotry() : getSportHisotry();
+  }, [value]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
     sx: {
       borderRadius: 4,

@@ -1841,6 +1841,7 @@ var Odd = function Odd(_ref2) {
     oddId = _useState6[0],
     setOddId = _useState6[1];
   var addSlip = function addSlip() {
+    if (!Number(cOdd)) return;
     setBetSlip(oddId, cOdd, handicap && handicap.value ? "".concat(odt, " (").concat(handicap.value, ")") : odt, handicap && handicap.value ? handicap.value : '0');
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
