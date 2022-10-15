@@ -128,7 +128,6 @@ const DesktopLive = () => {
         }
 
         setScale(scale);
-        console.log(scale)
         getSportsLists(scale.isLive);
         getSportMatchs({ ...scale });
     };

@@ -3047,6 +3047,7 @@ var Match = function Match(_ref4) {
   var ss = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getScore)(data.ss, data.scores, data.timer, data.sport_id);
   var goEvent = function goEvent() {
     init();
+    console.log(data.time_status);
     navigate("/sports/".concat(data.time_status === 1 ? 'live' : 'prematch', "/").concat(data.sport_id, "/").concat(data.league.cc === null ? 'world' : data.league.cc, "/").concat(data.league.id, "/").concat(data.id));
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -4148,7 +4149,6 @@ var DesktopLive = function DesktopLive() {
       });
     }
     setScale(scale);
-    console.log(scale);
     getSportsLists(scale.isLive);
     getSportMatchs(_objectSpread({}, scale));
   };

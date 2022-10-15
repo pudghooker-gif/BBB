@@ -3311,6 +3311,7 @@ var Match = function Match(_ref4) {
   var ss = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getScore)(data.ss, data.scores, data.timer, data.sport_id);
   var goEvent = function goEvent() {
     init();
+    console.log(data.time_status);
     navigate("/sports/".concat(data.time_status === 1 ? 'live' : 'prematch', "/").concat(data.sport_id, "/").concat(data.league.cc === null ? 'world' : data.league.cc, "/").concat(data.league.id, "/").concat(data.id));
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -4506,7 +4507,9 @@ var History = function History() {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '/sports/get_history', {});
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '/sports/get_history', {
+                id: user.id
+              });
             case 2:
               rdata = _context.sent;
               setSports(rdata);
@@ -4529,7 +4532,9 @@ var History = function History() {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '/sports/get_casino_history', {});
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '/sports/get_casino_history', {
+                id: user.id
+              });
             case 2:
               rdata = _context2.sent;
               setCasino(rdata);
@@ -4546,7 +4551,7 @@ var History = function History() {
   }();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     value ? getCasinoHisotry() : getSportHisotry();
-  }, [value]);
+  }, [value, user]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
     sx: {
       borderRadius: 4,
