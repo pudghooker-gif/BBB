@@ -2061,7 +2061,7 @@ var Odd = function Odd(_ref2) {
       var mk = sp[1],
         odk = sp[2];
       odk.replace('od', 'change');
-      if (data[mk] && data[mk][odk]) {
+      if (data && data[mk] && data[mk][odk]) {
         setState(data[mk][odk]);
       }
       if (Number(odd)) {
