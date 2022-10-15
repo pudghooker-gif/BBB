@@ -462,13 +462,19 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
 
         public function get_history(\Illuminate\Http\Request $request)
         {
-            $data = \VanguardLTE\SportBet::where('user_id', $request->id)->orderByDesc('created_at')->get();
+            $data = [];
+            if (isset(auth()->user()->id)) {
+                $data = \VanguardLTE\SportBet::where('user_id', auth()->user()->id)->orderByDesc('created_at')->get();
+            }
             return $data;
         }
 
-        public function get_casino_history(\Illuminate\Http\Request $request)
+        public function get_casino_history()
         {
-            $data = \VanguardLTE\StatGame::where('user_id', $request->id)->orderByDesc('date_time')->get();
+            $data = [];
+            if (isset(auth()->user()->id)) {
+                $data = \VanguardLTE\StatGame::where('user_id', auth()->user()->id)->orderByDesc('date_time')->get();
+            }
             return $data;
         }
 
