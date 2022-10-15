@@ -196,6 +196,12 @@ const Desktop = ({ user, navigate, langList, showProfile, list, profile, active,
                       }} />
                   ))
                 }
+                <Tab
+                  value={100}
+                  label='hidden'
+                  sx={{
+                    // display: 'none'
+                  }} />
               </Tabs>
             </Stack>
           </HStack>
@@ -605,7 +611,11 @@ const Header = () => {
       setActive(idx);
     } else {
       idx = list.findIndex((e) => e.route.search(`/${path.split('/')[1]}`) !== -1);
-      setActive(idx);
+      if (idx < 0) {
+        setActive(100);
+      } else {
+        setActive(idx);
+      }
     }
   }, [location.pathname])
 

@@ -43478,7 +43478,7 @@ var Desktop = function Desktop(_ref) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
             className: "level-item",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Tabs__WEBPACK_IMPORTED_MODULE_22__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Tabs__WEBPACK_IMPORTED_MODULE_22__["default"], {
               value: active,
               onChange: function onChange(e, newValue) {
                 return go(newValue);
@@ -43488,7 +43488,7 @@ var Desktop = function Desktop(_ref) {
                 borderRadius: '4px 4px 0 0',
                 height: '4px'
               }),
-              children: list.map(function (item, idx) {
+              children: [list.map(function (item, idx) {
                 var _jsx2;
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Tab__WEBPACK_IMPORTED_MODULE_23__["default"], (_jsx2 = {
                   icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(New, {}),
@@ -43506,7 +43506,13 @@ var Desktop = function Desktop(_ref) {
                 }, '& .MuiTouchRipple-root', {
                   display: 'none'
                 })), _jsx2), idx);
-              })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Tab__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                value: 100,
+                label: "hidden",
+                sx: {
+                  // display: 'none'
+                }
+              })]
             })
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -44285,7 +44291,11 @@ var Header = function Header() {
       idx = list.findIndex(function (e) {
         return e.route.search("/".concat(path.split('/')[1])) !== -1;
       });
-      setActive(idx);
+      if (idx < 0) {
+        setActive(100);
+      } else {
+        setActive(idx);
+      }
     }
   }, [location.pathname]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.Fragment, {
