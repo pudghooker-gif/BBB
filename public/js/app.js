@@ -43510,7 +43510,7 @@ var Desktop = function Desktop(_ref) {
                 value: 100,
                 label: "hidden",
                 sx: {
-                  // display: 'none'
+                  display: 'none'
                 }
               })]
             })

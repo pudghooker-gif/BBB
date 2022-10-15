@@ -200,7 +200,7 @@ const Desktop = ({ user, navigate, langList, showProfile, list, profile, active,
                   value={100}
                   label='hidden'
                   sx={{
-                    // display: 'none'
+                    display: 'none'
                   }} />
               </Tabs>
             </Stack>
