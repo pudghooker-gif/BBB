@@ -172,7 +172,7 @@ const BetSlip = () => {
   }
 
   const switchType = (event) => {
-    multiSlipCheck();
+    multiSlipCheck(event);
   };
 
   const clearAll = () => {

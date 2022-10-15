@@ -41325,7 +41325,7 @@ var BetSlip = function BetSlip() {
     });
   };
   var switchType = function switchType(event) {
-    multiSlipCheck();
+    multiSlipCheck(event);
   };
   var clearAll = function clearAll() {
     dispatch({
@@ -45683,6 +45683,12 @@ var sportListReducer = function sportListReducer() {
       {
         return _objectSpread(_objectSpread({}, state), {}, {
           multiCalc: action.data
+        });
+      }
+    case _type__WEBPACK_IMPORTED_MODULE_0__.SET_BET_TYPE:
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          betType: action.data
         });
       }
     default:
