@@ -532,7 +532,7 @@ const updateEndedEvents = (result) => {
       } else {
         const id = Number(result.id);
         if (time_status == 3) {
-          // await DB.w_sports.destroy({ where: { id } });
+          await DB.w_sports.destroy({ where: { id } });
           const bets = await DB.w_sports_bet.findAll({ where: { 'eventId': id } });
           if (bets.length) {
             for (let item of bets) {
