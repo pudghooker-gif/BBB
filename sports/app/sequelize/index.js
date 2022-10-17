@@ -125,191 +125,197 @@ const country = sequelize.define('w_sports_country', {
 });
 country.sync();
 
-const users = sequelize.define('w_users', {
-    email: {
-        type: DataTypes.STRING
+const users = sequelize.define('w_users',
+    {
+        email: {
+            type: DataTypes.STRING
+        },
+        username: {
+            type: DataTypes.STRING
+        },
+        password: {
+            type: DataTypes.STRING
+        },
+        parent_id: {
+            type: DataTypes.INTEGER
+        },
+        inviter_id: {
+            type: DataTypes.INTEGER
+        },
+        first_name: {
+            type: DataTypes.STRING
+        },
+        last_name: {
+            type: DataTypes.STRING
+        },
+        phone: {
+            type: DataTypes.STRING
+        },
+        phone_verified: {
+            type: DataTypes.INTEGER
+        },
+        rating: {
+            type: DataTypes.INTEGER
+        },
+        avatar: {
+            type: DataTypes.STRING
+        },
+        address: {
+            type: DataTypes.DECIMAL
+        },
+        role_id: {
+            type: DataTypes.INTEGER
+        },
+        shop_id: {
+            type: DataTypes.INTEGER
+        },
+        birthday: {
+            type: DataTypes.DATE
+        },
+        currency: {
+            type: DataTypes.STRING
+        },
+        balance: {
+            type: DataTypes.DECIMAL
+        },
+        tournaments: {
+            type: DataTypes.DECIMAL
+        },
+        happyhours: {
+            type: DataTypes.DECIMAL
+        },
+        refunds: {
+            type: DataTypes.DECIMAL
+        },
+        progress: {
+            type: DataTypes.DECIMAL
+        },
+        daily_entries: {
+            type: DataTypes.DECIMAL
+        },
+        invite: {
+            type: DataTypes.DECIMAL
+        },
+        welcomebonus: {
+            type: DataTypes.DECIMAL
+        },
+        smsbonus: {
+            type: DataTypes.DECIMAL
+        },
+        wheelfortune: {
+            type: DataTypes.DECIMAL
+        },
+        count_balance: {
+            type: DataTypes.DECIMAL
+        },
+        count_tournaments: {
+            type: DataTypes.DECIMAL
+        },
+        count_happyhours: {
+            type: DataTypes.DECIMAL
+        },
+        count_refunds: {
+            type: DataTypes.DECIMAL
+        },
+        count_progress: {
+            type: DataTypes.DECIMAL
+        },
+        count_daily_entries: {
+            type: DataTypes.DECIMAL
+        },
+        count_invite: {
+            type: DataTypes.DECIMAL
+        },
+        count_welcomebonus: {
+            type: DataTypes.DECIMAL
+        },
+        count_smsbonus: {
+            type: DataTypes.DECIMAL
+        },
+        count_wheelfortune: {
+            type: DataTypes.DECIMAL
+        },
+        total_in: {
+            type: DataTypes.FLOAT
+        },
+        total_out: {
+            type: DataTypes.FLOAT
+        },
+        last_login: {
+            type: DataTypes.DATE
+        },
+        confirmation_token: {
+            type: DataTypes.STRING
+        },
+        sms_token: {
+            type: DataTypes.STRING
+        },
+        sms_token_date: {
+            type: DataTypes.DATE
+        },
+        status: {
+            type: DataTypes.STRING
+        },
+        is_blocked: {
+            type: DataTypes.INTEGER
+        },
+        is_demo_agent: {
+            type: DataTypes.INTEGER
+        },
+        agreed: {
+            type: DataTypes.INTEGER
+        },
+        free_demo: {
+            type: DataTypes.INTEGER
+        },
+        remember_token: {
+            type: DataTypes.STRING
+        },
+        api_token: {
+            type: DataTypes.TEXT
+        },
+        auth_token: {
+            type: DataTypes.STRING
+        },
+        google2fa_enable: {
+            type: DataTypes.INTEGER
+        },
+        google2fa_secret: {
+            type: DataTypes.STRING
+        },
+        language: {
+            type: DataTypes.STRING
+        },
+        session: {
+            type: DataTypes.TEXT
+        },
+        last_online: {
+            type: DataTypes.DATE
+        },
+        last_bid: {
+            type: DataTypes.DATE
+        },
+        last_progress: {
+            type: DataTypes.DATE
+        },
+        last_daily_entry: {
+            type: DataTypes.DATE
+        },
+        last_wheelfortune: {
+            type: DataTypes.DATE
+        },
+        created_at: {
+            type: DataTypes.DATE
+        },
+        updated_at: {
+            type: DataTypes.DATE
+        }
     },
-    username: {
-        type: DataTypes.STRING
-    },
-    password: {
-        type: DataTypes.STRING
-    },
-    parent_id: {
-        type: DataTypes.INTEGER
-    },
-    inviter_id: {
-        type: DataTypes.INTEGER
-    },
-    first_name: {
-        type: DataTypes.STRING
-    },
-    last_name: {
-        type: DataTypes.STRING
-    },
-    phone: {
-        type: DataTypes.STRING
-    },
-    phone_verified: {
-        type: DataTypes.INTEGER
-    },
-    rating: {
-        type: DataTypes.INTEGER
-    },
-    avatar: {
-        type: DataTypes.STRING
-    },
-    address: {
-        type: DataTypes.DECIMAL
-    },
-    role_id: {
-        type: DataTypes.INTEGER
-    },
-    shop_id: {
-        type: DataTypes.INTEGER
-    },
-    birthday: {
-        type: DataTypes.DATE
-    },
-    currency: {
-        type: DataTypes.STRING
-    },
-    balance: {
-        type: DataTypes.DECIMAL
-    },
-    tournaments: {
-        type: DataTypes.DECIMAL
-    },
-    happyhours: {
-        type: DataTypes.DECIMAL
-    },
-    refunds: {
-        type: DataTypes.DECIMAL
-    },
-    progress: {
-        type: DataTypes.DECIMAL
-    },
-    daily_entries: {
-        type: DataTypes.DECIMAL
-    },
-    invite: {
-        type: DataTypes.DECIMAL
-    },
-    welcomebonus: {
-        type: DataTypes.DECIMAL
-    },
-    smsbonus: {
-        type: DataTypes.DECIMAL
-    },
-    wheelfortune: {
-        type: DataTypes.DECIMAL
-    },
-    count_balance: {
-        type: DataTypes.DECIMAL
-    },
-    count_tournaments: {
-        type: DataTypes.DECIMAL
-    },
-    count_happyhours: {
-        type: DataTypes.DECIMAL
-    },
-    count_refunds: {
-        type: DataTypes.DECIMAL
-    },
-    count_progress: {
-        type: DataTypes.DECIMAL
-    },
-    count_daily_entries: {
-        type: DataTypes.DECIMAL
-    },
-    count_invite: {
-        type: DataTypes.DECIMAL
-    },
-    count_welcomebonus: {
-        type: DataTypes.DECIMAL
-    },
-    count_smsbonus: {
-        type: DataTypes.DECIMAL
-    },
-    count_wheelfortune: {
-        type: DataTypes.DECIMAL
-    },
-    total_in: {
-        type: DataTypes.FLOAT
-    },
-    total_out: {
-        type: DataTypes.FLOAT
-    },
-    last_login: {
-        type: DataTypes.DATE
-    },
-    confirmation_token: {
-        type: DataTypes.STRING
-    },
-    sms_token: {
-        type: DataTypes.STRING
-    },
-    sms_token_date: {
-        type: DataTypes.DATE
-    },
-    status: {
-        type: DataTypes.STRING
-    },
-    is_blocked: {
-        type: DataTypes.INTEGER
-    },
-    is_demo_agent: {
-        type: DataTypes.INTEGER
-    },
-    agreed: {
-        type: DataTypes.INTEGER
-    },
-    free_demo: {
-        type: DataTypes.INTEGER
-    },
-    remember_token: {
-        type: DataTypes.STRING
-    },
-    api_token: {
-        type: DataTypes.TEXT
-    },
-    auth_token: {
-        type: DataTypes.STRING
-    },
-    google2fa_enable: {
-        type: DataTypes.INTEGER
-    },
-    google2fa_secret: {
-        type: DataTypes.STRING
-    },
-    language: {
-        type: DataTypes.STRING
-    },
-    session: {
-        type: DataTypes.TEXT
-    },
-    last_online: {
-        type: DataTypes.DATE
-    },
-    last_bid: {
-        type: DataTypes.DATE
-    },
-    last_progress: {
-        type: DataTypes.DATE
-    },
-    last_daily_entry: {
-        type: DataTypes.DATE
-    },
-    last_wheelfortune: {
-        type: DataTypes.DATE
-    },
-    created_at: {
-        type: DataTypes.DATE
-    },
-    updated_at: {
-        type: DataTypes.DATE
-    }
-});
+    {
+        timestamps: false,
+        createdAt: false,
+        updatedAt: false,
+    });
 // users.sync();
 
 const bet = sequelize.define('w_sports_bet', {
