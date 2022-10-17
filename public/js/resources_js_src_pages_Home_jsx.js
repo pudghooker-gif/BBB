@@ -1957,7 +1957,7 @@ var DesktopHome = function DesktopHome() {
   var user = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.user;
   });
-  var sportsList = ['Soccer', 'Basketball', 'Cricket', 'Table Tennis', 'American Football', 'Tennis'];
+  var sportsList = ['Soccer', 'Basketball', 'Cricket', 'American Football', 'Tennis'];
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState2 = _slicedToArray(_useState, 2),
     actLiveItem = _useState2[0],
@@ -2478,7 +2478,7 @@ var DesktopHome = function DesktopHome() {
         children: [sportsList.map(function (item, idx) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
             item: true,
-            xs: 12 / 7,
+            xs: 12 / 6,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
               onClick: function onClick() {
                 return setActSport(idx);
@@ -2518,7 +2518,7 @@ var DesktopHome = function DesktopHome() {
           }, idx);
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
           item: true,
-          xs: 12 / 7,
+          xs: 12 / 6,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
             onClick: function onClick() {
               return navigate('/sports/prematch');
@@ -2581,31 +2581,7 @@ var DesktopHome = function DesktopHome() {
               sx: {
                 overflowX: 'auto'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
-                children: sportsList.map(function (item, idx) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                    className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("toggle-switcher-item", {
-                      'active': actLiveItem === idx
-                    }),
-                    onClick: function onClick() {
-                      return setActLiveItem(idx);
-                    },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                      className: "toggle-switcher-icon-wrapper",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
-                        className: "toggle-switcher-icon",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("i", {
-                          className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("sports-icon", "icon-".concat(item.toLocaleLowerCase().replaceAll(' ', '-')), "no-margin")
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                        component: "div",
-                        className: "toggle-switcher-label",
-                        children: item
-                      })]
-                    })
-                  }, idx);
-                })
-              })
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {})
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
             className: "home-tab-content",
@@ -2764,31 +2740,7 @@ var DesktopHome = function DesktopHome() {
               sx: {
                 overflowX: 'auto'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
-                children: sportsList.map(function (item, idx) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                    className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("toggle-switcher-item", {
-                      'active': actLiveItem === idx
-                    }),
-                    onClick: function onClick() {
-                      return setActLiveItem(idx);
-                    },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                      className: "toggle-switcher-icon-wrapper",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
-                        className: "toggle-switcher-icon",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("i", {
-                          className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("sports-icon", "icon-".concat(item.toLocaleLowerCase().replaceAll(' ', '-')), "no-margin")
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                        component: "div",
-                        className: "toggle-switcher-label",
-                        children: item
-                      })]
-                    })
-                  }, idx);
-                })
-              })
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {})
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
             className: "home-tab-content",

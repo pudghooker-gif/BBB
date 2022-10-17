@@ -183,6 +183,8 @@ const getInplayEvents = (sport_id, page) => {
             } catch (error) {
               console.log(error.message);
             }
+          } else {
+            await DB.w_sports.update({ ...result, cc: result.league.cc, league_id: result.league.id, sport_name: config.SPORTS_NAME[result.sport_id] }, { where: { id: result.id } });
           }
         }
       }
