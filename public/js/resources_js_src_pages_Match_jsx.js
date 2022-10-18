@@ -1945,6 +1945,7 @@ var Odd = function Odd(_ref) {
     multiCalc = _useSelector.multiCalc,
     isLive = _useSelector.isLive;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  console.log(betSlip);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState2 = _slicedToArray(_useState, 2),
     cOdd = _useState2[0],

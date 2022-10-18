@@ -487,6 +487,22 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             return json_encode($data);
         }
 
+        public function getPrePopular(\Illuminate\Http\Request $request)
+        {
+            $popular = SportData::where('popular',  '>', 1)
+                ->where('time_status', 0)
+                ->get();
+            $top = SportLeagues::select('id')->where('has_toplist', 1)->get();
+            $inFilter = [];
+            foreach ($top as $val) {
+                array_push($inFilter, $val->id);
+            }
+            $league = SportData::where('time_status', 0)
+                ->whereIn('league_id', $inFilter)->get();
+
+            return ['popular' => $popular, 'league' => $league];
+        }
+
         public function home_casino()
         {
             $games = \VanguardLTE\Game::offset(0)->take(50)->get();

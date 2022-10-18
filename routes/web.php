@@ -482,7 +482,7 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'as' => 'frontend.sports.get_history',
         'uses' => 'SportsController@get_history',
     ]);
-    
+
     Route::post('sports/get_casino_history', [
         'as' => 'frontend.sports.get_casino_history',
         'uses' => 'SportsController@get_casino_history',
@@ -511,6 +511,11 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
     Route::post('get_casino_game', [
         'as' => 'frontend.sports.get_casino_game',
         'uses' => 'SportsController@get_casino_game',
+    ]);
+
+    Route::post('sports/get_prePopular', [
+        'as' => 'frontend.sports.getPrePopular',
+        'uses' => 'SportsController@getPrePopular',
     ]);
 });
 

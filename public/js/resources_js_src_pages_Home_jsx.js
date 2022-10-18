@@ -1880,28 +1880,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _providers_request__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../providers/request */ "./resources/js/src/providers/request.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var swiper_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! swiper/react */ "./node_modules/swiper/react/swiper-react.js");
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
-/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
-/* harmony import */ var _mui_material_Link__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/material/Link */ "./node_modules/@mui/material/esm/Link/Link.js");
-/* harmony import */ var _mui_material_Table__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @mui/material/Table */ "./node_modules/@mui/material/esm/Table/Table.js");
-/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
-/* harmony import */ var _mui_material_TableRow__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @mui/material/TableRow */ "./node_modules/@mui/material/esm/TableRow/TableRow.js");
-/* harmony import */ var _mui_material_TableHead__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/material/TableHead */ "./node_modules/@mui/material/esm/TableHead/TableHead.js");
-/* harmony import */ var _mui_material_TableBody__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @mui/material/TableBody */ "./node_modules/@mui/material/esm/TableBody/TableBody.js");
-/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
-/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
-/* harmony import */ var _mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @mui/icons-material/AccessTime */ "./node_modules/@mui/icons-material/AccessTime.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
+/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
+/* harmony import */ var _mui_material_Link__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/material/Link */ "./node_modules/@mui/material/esm/Link/Link.js");
+/* harmony import */ var _mui_material_Table__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/material/Table */ "./node_modules/@mui/material/esm/Table/Table.js");
+/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
+/* harmony import */ var _mui_material_TableRow__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @mui/material/TableRow */ "./node_modules/@mui/material/esm/TableRow/TableRow.js");
+/* harmony import */ var _mui_material_TableHead__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @mui/material/TableHead */ "./node_modules/@mui/material/esm/TableHead/TableHead.js");
+/* harmony import */ var _mui_material_TableBody__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @mui/material/TableBody */ "./node_modules/@mui/material/esm/TableBody/TableBody.js");
+/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @mui/icons-material/AccessTime */ "./node_modules/@mui/icons-material/AccessTime.js");
 /* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
 /* harmony import */ var _components_Part__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../components/Part */ "./resources/js/src/components/Part.jsx");
 /* harmony import */ var _components_Base__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../components/Base */ "./resources/js/src/components/Base.jsx");
@@ -1912,7 +1911,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! swiper/css */ "./node_modules/swiper/swiper.min.css");
 /* harmony import */ var swiper_css_navigation__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! swiper/css/navigation */ "./node_modules/swiper/modules/navigation/navigation.min.css");
 /* harmony import */ var swiper_css_pagination__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! swiper/css/pagination */ "./node_modules/swiper/modules/pagination/pagination.min.css");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _redux_type__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../redux/type */ "./resources/js/src/redux/type.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -1951,12 +1959,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var DesktopHome = function DesktopHome() {
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_18__.useNavigate)();
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_19__.useNavigate)();
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var user = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.user;
   });
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+      return state.sports;
+    }),
+    betSlip = _useSelector.betSlip,
+    betType = _useSelector.betType;
   var sportsList = ['Soccer', 'Basketball', 'Cricket', 'American Football', 'Tennis'];
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState2 = _slicedToArray(_useState, 2),
@@ -1974,6 +1989,169 @@ var DesktopHome = function DesktopHome() {
     _useState8 = _slicedToArray(_useState7, 2),
     casino = _useState8[0],
     setCasino = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState10 = _slicedToArray(_useState9, 2),
+    prePopular = _useState10[0],
+    setPrePopular = _useState10[1];
+  var filterMulti = function filterMulti(data, one) {
+    var newSlip = {};
+    var _iterator = _createForOfIteratorHelper(data),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var item = _step.value;
+        var key = item.slice(-1)[0];
+        newSlip[key] = betSlip[key];
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+    newSlip = _objectSpread(_objectSpread({}, newSlip), one);
+    dispatch({
+      type: _redux_type__WEBPACK_IMPORTED_MODULE_17__.SET_BETSLIP,
+      data: newSlip
+    });
+    var odd = 1;
+    for (var k in newSlip) {
+      odd *= Number(Number(newSlip[k].odd).toFixed(2));
+    }
+    var profit = odd * multiCalc.stake;
+    dispatch({
+      type: _redux_type__WEBPACK_IMPORTED_MODULE_17__.SET_MULTI_CALC,
+      data: _objectSpread(_objectSpread({}, multiCalc), {}, {
+        odd: odd,
+        profit: profit
+      })
+    });
+  };
+  var multiSlipCheck = function multiSlipCheck(old, one, key) {
+    var isDup = [],
+      eventKey = Object.keys(old);
+    eventKey.push(key);
+    for (var i = 0; i < eventKey.length; i++) {
+      var dup = [eventKey[i]];
+      var f = eventKey[i].split('-')[0];
+      for (var j = i + 1; j < eventKey.length; j++) {
+        var s = eventKey[j].split('-')[0];
+        if (f == s) {
+          dup.push(eventKey[j]);
+          eventKey.splice(j, 1);
+          --j;
+        }
+      }
+      isDup.push(dup);
+    }
+    filterMulti(isDup, one);
+  };
+  var setBetSlip = function setBetSlip(id, odd, odt, home, away, league, isLive, handicap, sId, sName) {
+    var oldSlip = betSlip,
+      newSlip = {};
+    if (oldSlip[id]) {
+      for (var i in oldSlip) {
+        if (i === id) continue;
+        newSlip[i] = oldSlip[i];
+      }
+      dispatch({
+        type: _redux_type__WEBPACK_IMPORTED_MODULE_17__.SET_BETSLIP,
+        data: newSlip
+      });
+    } else {
+      var one = _defineProperty({}, id, {
+        odd: odd,
+        odt: odt,
+        home: home,
+        away: away,
+        league: league,
+        isLive: isLive,
+        stake: 0,
+        profit: 0,
+        handicap: handicap,
+        eId: id.split('-')[0],
+        mk: id.split('-')[1],
+        ot: id.split('-')[2],
+        sId: sId,
+        sportName: sName
+      });
+      if (betType === 'multi') {
+        multiSlipCheck(oldSlip, one, id);
+      } else {
+        newSlip = _objectSpread(_objectSpread({}, oldSlip), one);
+        dispatch({
+          type: _redux_type__WEBPACK_IMPORTED_MODULE_17__.SET_BETSLIP,
+          data: newSlip
+        });
+      }
+    }
+  };
+  var getPrePopular = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var data, popular, newdata, count, _iterator2, _step2, item;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_3__["default"])('POST', '/sports/get_prePopular');
+            case 2:
+              data = _context.sent;
+              popular = data.popular.concat(data.league);
+              newdata = [], count = 0;
+              _iterator2 = _createForOfIteratorHelper(popular);
+              _context.prev = 6;
+              _iterator2.s();
+            case 8:
+              if ((_step2 = _iterator2.n()).done) {
+                _context.next = 22;
+                break;
+              }
+              item = _step2.value;
+              if (!(count > 30)) {
+                _context.next = 12;
+                break;
+              }
+              return _context.abrupt("break", 22);
+            case 12:
+              item.home = JSON.parse(item.home);
+              item.away = JSON.parse(item.away);
+              item.league = JSON.parse(item.league);
+              item.odds = JSON.parse(item.odds);
+              if (item.odds["".concat(item.sport_id, "_1")]) {
+                _context.next = 18;
+                break;
+              }
+              return _context.abrupt("continue", 20);
+            case 18:
+              newdata.push(item);
+              count++;
+            case 20:
+              _context.next = 8;
+              break;
+            case 22:
+              _context.next = 27;
+              break;
+            case 24:
+              _context.prev = 24;
+              _context.t0 = _context["catch"](6);
+              _iterator2.e(_context.t0);
+            case 27:
+              _context.prev = 27;
+              _iterator2.f();
+              return _context.finish(27);
+            case 30:
+              setPrePopular(newdata);
+            case 31:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[6, 24, 27, 30]]);
+    }));
+    return function getPrePopular() {
+      return _ref.apply(this, arguments);
+    };
+  }();
   var goBonus = function goBonus() {
     if (user.isAuth) {
       console.log('bonus');
@@ -2007,12 +2185,86 @@ var DesktopHome = function DesktopHome() {
     countDown();
     setInterval(countDown, 1000);
   };
-  var getCasino = function getCasino() {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().post('/home_casino', {}).then(function (response) {
-      var data = response.data;
-      setCasino(data);
-    })["catch"](function (error) {
-      console.log("ERROR:: ", error.response.data);
+  var getCasino = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var data;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_3__["default"])('/home_casino', 'POST');
+            case 2:
+              data = _context2.sent;
+              setCasino(data);
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+    return function getCasino() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+  var popularEvent = function popularEvent(id, odd, odt, home, away, league, sId, sName) {
+    var oldSlip = betSlip,
+      newSlip = {};
+    if (oldSlip[id]) {
+      for (var i in oldSlip) {
+        if (i === id) continue;
+        newSlip[i] = oldSlip[i];
+      }
+      dispatch({
+        type: _redux_type__WEBPACK_IMPORTED_MODULE_17__.SET_BETSLIP,
+        data: newSlip
+      });
+      return;
+    }
+    setBetSlip(id, odd, odt, home, away, league, false, '0', sId, sName);
+    navigate("/sports/prematch/".concat(sId, "/").concat(league.cc ? league.cc : 'world', "/").concat(league.id, "/").concat(id.split('-')[0]));
+  };
+  var popularOdd = function popularOdd(id, odd, odt, home, away, league, sId, sName, team) {
+    var active = betSlip[id];
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_20__["default"], {
+      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("live-top-odd", {
+        'able': active
+      }),
+      onClick: function onClick() {
+        return popularEvent(id, Number(odd).toFixed(2), odt, home, away, league, sId, sName);
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+        className: "odd-values",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          className: "odd-name",
+          children: team
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          className: "odd-value",
+          children: Number(odd).toFixed(2)
+        })]
+      })
+    });
+  };
+  var makePreOdd = function makePreOdd(eId, sId, sName, data, home, away, league) {
+    var odd = data["".concat(sId, "_1")];
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        className: "match-odd-item",
+        children: popularOdd("".concat(eId, "-").concat(sId, "_1-home_od"), odd.home_od, 'W1', home, away, league, sId, sName, '1')
+      }), sId === 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        className: "match-odd-item",
+        sx: {
+          ml: 1
+        },
+        children: popularOdd("".concat(eId, "-").concat(sId, "_1-draw_od"), odd.draw_od, 'Draw', home, away, league, sId, sName, 'X')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        className: "match-odd-item",
+        sx: {
+          ml: 1
+        },
+        children: popularOdd("".concat(eId, "-").concat(sId, "_1-away_od"), odd.away_od, 'W2', home, away, league, sId, sName, '2')
+      })]
     });
   };
   var goGame = function goGame(item) {
@@ -2023,22 +2275,23 @@ var DesktopHome = function DesktopHome() {
     }
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getPrePopular();
     getCasino();
     countStart();
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
       sx: {
         py: 2,
         height: 350
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
         sx: {
           width: '60%',
           mr: 2
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Part__WEBPACK_IMPORTED_MODULE_8__.Slider, {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Part__WEBPACK_IMPORTED_MODULE_8__.Slider, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
         sx: {
           width: '20%',
           borderRadius: '20px',
@@ -2046,17 +2299,17 @@ var DesktopHome = function DesktopHome() {
           mr: 2,
           overflow: 'hidden'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
           sx: {
             position: 'relative',
             height: '100%',
             width: '100%'
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
             sx: {
               height: '100%'
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
               sx: {
                 height: '100%',
                 width: '100%',
@@ -2064,7 +2317,7 @@ var DesktopHome = function DesktopHome() {
                 left: 0,
                 position: 'absolute'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                 component: "img",
                 src: "frontend/Default/img/_src/bonus-banner-cashback-casino.png",
                 sx: {
@@ -2073,13 +2326,13 @@ var DesktopHome = function DesktopHome() {
                   objectFit: 'cover'
                 }
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.VStack, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.VStack, {
               sx: {
                 padding: 3,
                 height: '100%',
                 position: 'relative'
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                 sx: {
                   width: '100%',
                   fontSize: '30px',
@@ -2091,7 +2344,7 @@ var DesktopHome = function DesktopHome() {
                   fontWeight: 800
                 },
                 children: "Cashback up to 30% on casinos"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_24__["default"], {
                 src: "casino",
                 onClick: function onClick() {
                   return navigate('/casino');
@@ -2123,24 +2376,24 @@ var DesktopHome = function DesktopHome() {
             })]
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
         sx: {
           width: '20%',
           borderRadius: '20px',
           bgcolor: '#a115fb',
           overflow: 'hidden'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
           sx: {
             position: 'relative',
             height: '100%',
             width: '100%'
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
             sx: {
               height: '100%'
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
               sx: {
                 height: '100%',
                 width: '100%',
@@ -2148,7 +2401,7 @@ var DesktopHome = function DesktopHome() {
                 left: 0,
                 position: 'absolute'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                 component: "img",
                 src: "frontend/Default/img/_src/bonus-banner-deposit.avif",
                 sx: {
@@ -2157,13 +2410,13 @@ var DesktopHome = function DesktopHome() {
                   objectFit: 'cover'
                 }
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.VStack, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.VStack, {
               sx: {
                 padding: 3,
                 height: '100%',
                 position: 'relative'
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                 sx: {
                   width: '100%',
                   fontSize: '30px',
@@ -2175,7 +2428,7 @@ var DesktopHome = function DesktopHome() {
                   fontWeight: 800
                 },
                 children: "Bonus + 500%"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_22__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_24__["default"], {
                 onClick: function onClick() {
                   return goBonus();
                 },
@@ -2207,8 +2460,8 @@ var DesktopHome = function DesktopHome() {
           })
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
         sx: {
           px: 4,
           py: 2,
@@ -2217,31 +2470,31 @@ var DesktopHome = function DesktopHome() {
           bgcolor: 'rgb(36,0,0)',
           background: 'linear-gradient(90deg, rgba(36,0,16,0.6138830532212884) 0%, rgba(121,9,26,0.7315301120448179) 69%, rgba(255,0,74,1) 100%)'
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
           component: "img",
           src: _assets_img_feature_qatar_svg__WEBPACK_IMPORTED_MODULE_11__["default"],
           sx: {
             height: 100
           }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
           sx: {
             alignItems: 'center',
             justifyContent: 'space-around',
             width: '75%',
             ml: 'auto'
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
             component: "img",
             src: _assets_img_feature_timer_wing_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
             sx: {
               height: 40
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
             alignItems: "center",
             sx: {
               mx: 1
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               varient: "h1",
               sx: {
                 fontSize: 50,
@@ -2249,24 +2502,24 @@ var DesktopHome = function DesktopHome() {
                 fontWeight: 600
               },
               children: timer.day
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               sx: {
                 fontSize: 16
               },
               children: "Days"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
             component: "img",
             src: _assets_img_feature_timer_space_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
             sx: {
               width: 20
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
             alignItems: "center",
             sx: {
               mx: 1
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               varient: "h1",
               sx: {
                 fontSize: 50,
@@ -2274,24 +2527,24 @@ var DesktopHome = function DesktopHome() {
                 fontWeight: 600
               },
               children: timer.hour
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               sx: {
                 fontSize: 16
               },
               children: "Hours"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
             component: "img",
             src: _assets_img_feature_timer_space_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
             sx: {
               width: 20
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
             alignItems: "center",
             sx: {
               mx: 1
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               varient: "h1",
               sx: {
                 fontSize: 50,
@@ -2299,24 +2552,24 @@ var DesktopHome = function DesktopHome() {
                 fontWeight: 600
               },
               children: timer.minute
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               sx: {
                 fontSize: 16
               },
               children: "Minutes"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
             component: "img",
             src: _assets_img_feature_timer_space_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
             sx: {
               width: 20
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
             alignItems: "center",
             sx: {
               mx: 1
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               varient: "h1",
               sx: {
                 fontSize: 50,
@@ -2324,13 +2577,13 @@ var DesktopHome = function DesktopHome() {
                 fontWeight: 600
               },
               children: timer.second
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
               sx: {
                 fontSize: 16
               },
               children: "Seconds"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
             component: "img",
             src: _assets_img_feature_timer_wing_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
             sx: {
@@ -2340,22 +2593,22 @@ var DesktopHome = function DesktopHome() {
           })]
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+    }), prePopular.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
       sx: {
-        my: 2
+        mt: 2
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
         justifyContent: "space-between",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
             className: "home-tab",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
               className: "home-tab-title",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                 alignItems: "center",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                   className: "populart-icon",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                     component: "img",
                     src: _assets_img_feature_fire_svg__WEBPACK_IMPORTED_MODULE_10__["default"],
                     sx: {
@@ -2368,13 +2621,13 @@ var DesktopHome = function DesktopHome() {
             })
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
         className: "home-tab-content",
         sx: {
           padding: 2,
           pb: '6px'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
           navigation: true,
           autoplay: true,
           loop: true,
@@ -2385,82 +2638,58 @@ var DesktopHome = function DesktopHome() {
             clickable: true
           },
           className: "popular-events",
-          children: [1, 2, 3, 4, 5].map(function (item, idx) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          children: prePopular.map(function (item, idx) {
+            var url = "/sports/prematch/".concat(item.sport_id, "/").concat(item.cc ? item.cc : 'world', "/").concat(item.league_id, "/").concat(item.id);
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                 className: "popular-wrap",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
                   className: "live-event-main",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
-                    className: "match-header",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                      component: "div",
-                      className: "top-live-match-score",
-                      children: "252:559"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                      component: "div",
-                      className: "match-score-period",
-                      children: "(196:219 - 56:340)"
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                  onClick: function onClick() {
+                    return navigate(url);
+                  },
+                  sx: {
+                    height: 'unset !important'
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                     className: "top-live-match-info",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                       className: "match-teams",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
                         className: "match-team",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                        sx: {
+                          alignItems: 'flex-start !important'
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                           component: "span",
                           className: "helper-line",
-                          children: "Warwickshire"
+                          children: item.home.name
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
                         className: "match-team",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                        sx: {
+                          alignItems: 'flex-start !important'
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                           component: "span",
                           className: "helper-line",
-                          children: "Warwickshire"
+                          children: item.away.name
                         })
                       })]
                     })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                     className: "match-details",
-                    children: "Cricket \xB7 County Championship Division One"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("i", {
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("sports-icon", "icon-".concat(item.sport_name.toLocaleLowerCase().replaceAll(' ', '-'))),
+                      style: {
+                        fontSize: 14,
+                        marginRight: 4,
+                        backgroundColor: '#888fa9'
+                      }
+                    }), " ".concat(item.league.name)]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                     className: "match-odd-list",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                      className: "match-odd-item",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
-                        className: "live-top-odd",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
-                          className: "odd-values",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                            className: "odd-name",
-                            children: "1"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                            className: "odd-value",
-                            children: "5.15"
-                          })]
-                        })
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                      className: "match-odd-item",
-                      sx: {
-                        ml: 1
-                      },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
-                        className: "live-top-odd",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
-                          className: "odd-values",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                            className: "odd-name",
-                            children: "1"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-                            className: "odd-value",
-                            children: "5.15"
-                          })]
-                        })
-                      })
-                    })]
+                    children: makePreOdd(item.id, item.sport_id, item.sport_name, item.odds, item.home, item.away, item.league)
                   })]
                 })
               })
@@ -2468,18 +2697,18 @@ var DesktopHome = function DesktopHome() {
           })
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
       sx: {
-        mb: 2
+        my: 2
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
         container: true,
         spacing: 2,
         children: [sportsList.map(function (item, idx) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
             item: true,
             xs: 12 / 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_20__["default"], {
               onClick: function onClick() {
                 return setActSport(idx);
               },
@@ -2489,11 +2718,11 @@ var DesktopHome = function DesktopHome() {
                 height: '100%',
                 boxShadow: actSport === idx ? '0 0 20px #000000' : 'unset'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                 sx: {
                   mb: 2
                 },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("i", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("i", {
                   className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("sports-icon", "icon-".concat(item.toLocaleLowerCase().replaceAll(' ', '-'))),
                   style: {
                     fontSize: 40,
@@ -2504,7 +2733,7 @@ var DesktopHome = function DesktopHome() {
                     backgroundColor: actSport !== idx ? '#888fa9' : '',
                     backgroundImage: actSport === idx ? 'linear-gradient(300deg, rgb(118, 200, 245), #005add)' : ''
                   }
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                   sx: {
                     zIndex: 1,
                     position: 'relative',
@@ -2516,10 +2745,10 @@ var DesktopHome = function DesktopHome() {
               })
             })
           }, idx);
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
           item: true,
           xs: 12 / 6,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_20__["default"], {
             onClick: function onClick() {
               return navigate('/sports/prematch');
             },
@@ -2528,16 +2757,16 @@ var DesktopHome = function DesktopHome() {
               width: '100%',
               height: '100%'
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
               sx: {
                 mb: 2
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_25__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_26__["default"], {
                 style: {
                   fontSize: 60,
                   margin: '14px'
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                 sx: {
                   textTransform: 'capitalize',
                   zIndex: 1,
@@ -2549,74 +2778,74 @@ var DesktopHome = function DesktopHome() {
           })
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
         container: true,
         spacing: 2,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
           item: true,
           xs: 6,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
             justifyContent: "space-between",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                 className: "home-tab",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                   className: "home-tab-title",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                     alignItems: "center",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                       className: "tab-live-bage",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         className: "tab-live-bage-center"
                       })
                     }), "Live"]
                   })
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                 className: "home-tab-all",
                 children: "All"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
               sx: {
                 overflowX: 'auto'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {})
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
             className: "home-tab-content",
             sx: {
               minHeight: 350
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
               className: "match-table-head-underlay"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_26__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_27__["default"], {
               className: "sport-grids",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableHead__WEBPACK_IMPORTED_MODULE_27__["default"], {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_28__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableHead__WEBPACK_IMPORTED_MODULE_28__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_29__["default"], {
                   sx: {
                     height: '30px'
                   },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                     sx: {
                       pl: '36px',
                       pr: 0
                     },
                     align: "right",
                     children: "Time"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                     sx: {
                       pl: '16px'
                     },
                     colSpan: "2",
                     children: "Teams"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                     align: "center",
                     children: "1"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                     align: "center",
                     children: "X"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                     align: "center",
                     sx: {
                       pr: '30px'
@@ -2624,84 +2853,84 @@ var DesktopHome = function DesktopHome() {
                     children: "2"
                   })]
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_30__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_31__["default"], {
                 children: [1, 2, 3, 4].map(function (item, idx) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_28__["default"], {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_29__["default"], {
                     className: "match-table-match-row",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         className: "match-table-date-info",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                           className: "match-table-date-time",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                             className: "match-table-date",
                             children: "18 sep"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                             className: "match-table-time",
                             children: "21:00"
                           })]
                         })
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
                       colSpan: "2",
                       align: "left",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         className: "match-table-primary-info",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                           className: "match-table-team",
                           children: "Entebbe Archers"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                           className: "match-table-team",
                           children: "Miracle Eagles"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                           className: "match-table-score-info",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                             component: "span",
                             className: "match-table-score",
                             children: "35:44"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                             component: "span",
                             className: "match-table-period-score",
                             children: " (12:20 - 7:14 - 16:10)"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                             component: "span",
                             className: "match-table-separator",
                             children: "|"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                             component: "span",
                             className: "match-table-match-time",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_7__.Clock, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_7__.Clock, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                               component: "span",
                               children: "6'"
                             })]
                           })]
                         })]
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                         justifyContent: "center",
                         className: "match-table-odds-chip-wrap",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                           className: "match-table-odds-chip",
                           children: "+1.6"
                         })
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_20__["default"], {
                         children: "1.1"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_20__["default"], {
                         children: "1.1"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_20__["default"], {
                         children: "1.1"
                       })
                     })]
@@ -2710,21 +2939,21 @@ var DesktopHome = function DesktopHome() {
               })]
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
           item: true,
           xs: 6,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
             justifyContent: "space-between",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                 className: "home-tab",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                   className: "home-tab-title",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                     alignItems: "center",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                       className: "populart-icon",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         component: "img",
                         src: _assets_img_feature_fire_svg__WEBPACK_IMPORTED_MODULE_10__["default"],
                         sx: {
@@ -2736,46 +2965,46 @@ var DesktopHome = function DesktopHome() {
                   })
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
               sx: {
                 overflowX: 'auto'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {})
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
             className: "home-tab-content",
             sx: {
               minHeight: 350
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
               className: "match-table-head-underlay"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_26__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_27__["default"], {
               className: "sport-grids",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableHead__WEBPACK_IMPORTED_MODULE_27__["default"], {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_28__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableHead__WEBPACK_IMPORTED_MODULE_28__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_29__["default"], {
                   sx: {
                     height: '30px'
                   },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                     sx: {
                       pl: '36px',
                       pr: 0
                     },
                     align: "right",
                     children: "Time"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                     sx: {
                       pl: '16px'
                     },
                     colSpan: "2",
                     children: "Teams"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                     align: "center",
                     children: "1"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                     align: "center",
                     children: "X"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                     align: "center",
                     sx: {
                       pr: '30px'
@@ -2783,84 +3012,84 @@ var DesktopHome = function DesktopHome() {
                     children: "2"
                   })]
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_30__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_31__["default"], {
                 children: [1, 2, 3, 4].map(function (item, idx) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_28__["default"], {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_29__["default"], {
                     className: "match-table-match-row",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         className: "match-table-date-info",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                           className: "match-table-date-time",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                             className: "match-table-date",
                             children: "18 sep"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                             className: "match-table-time",
                             children: "21:00"
                           })]
                         })
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
                       colSpan: "2",
                       align: "left",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         className: "match-table-primary-info",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                           className: "match-table-team",
                           children: "Entebbe Archers"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                           className: "match-table-team",
                           children: "Miracle Eagles"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                           className: "match-table-score-info",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                             component: "span",
                             className: "match-table-score",
                             children: "35:44"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                             component: "span",
                             className: "match-table-period-score",
                             children: " (12:20 - 7:14 - 16:10)"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                             component: "span",
                             className: "match-table-separator",
                             children: "|"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                             component: "span",
                             className: "match-table-match-time",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_7__.Clock, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_7__.Clock, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                               component: "span",
                               children: "6'"
                             })]
                           })]
                         })]
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                         justifyContent: "center",
                         className: "match-table-odds-chip-wrap",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                           className: "match-table-odds-chip",
                           children: "+1.6"
                         })
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_20__["default"], {
                         children: "1.1"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_20__["default"], {
                         children: "1.1"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_29__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_30__["default"], {
                       className: "match-table-match-cell",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_20__["default"], {
                         children: "1.1"
                       })
                     })]
@@ -2869,21 +3098,21 @@ var DesktopHome = function DesktopHome() {
               })]
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
           item: true,
           xs: 12,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
             className: "section-card",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
               className: "section-card-top-line"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
               className: "section-card-header",
               sx: {
                 mb: 3
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                 alignItems: "self-end",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                   variant: "h6",
                   sx: {
                     lineHeight: 1,
@@ -2892,7 +3121,7 @@ var DesktopHome = function DesktopHome() {
                     letterSpacing: '-.41px'
                   },
                   children: "Seibet Games"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                   sx: {
                     ml: 1,
                     opacity: 0.5,
@@ -2903,7 +3132,7 @@ var DesktopHome = function DesktopHome() {
                   },
                   children: "8314"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                 sx: {
                   fontSize: '11px',
                   letterSpacing: '.07px',
@@ -2913,19 +3142,19 @@ var DesktopHome = function DesktopHome() {
                 },
                 children: "All"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
               navigation: true,
               modules: [swiper__WEBPACK_IMPORTED_MODULE_6__.Navigation],
               slidesPerView: 7,
               spaceBetween: 16,
               className: "top-live-casino",
               children: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (item, idx) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                     className: "game-card",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                       className: "game-card-image-container",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         sx: {
                           pb: '130% !important',
                           backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
@@ -2942,21 +3171,21 @@ var DesktopHome = function DesktopHome() {
               })
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
           item: true,
           xs: 6,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
             className: "section-card",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
               className: "section-card-top-line"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
               className: "section-card-header",
               sx: {
                 mb: 3
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                 alignItems: "self-end",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                   variant: "h6",
                   sx: {
                     lineHeight: 1,
@@ -2965,7 +3194,7 @@ var DesktopHome = function DesktopHome() {
                     letterSpacing: '-.41px'
                   },
                   children: "Top Casino"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                   sx: {
                     ml: 1,
                     opacity: 0.5,
@@ -2976,7 +3205,7 @@ var DesktopHome = function DesktopHome() {
                   },
                   children: "8314"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                 sx: {
                   fontSize: '11px',
                   letterSpacing: '.07px',
@@ -2986,18 +3215,18 @@ var DesktopHome = function DesktopHome() {
                 },
                 children: "All"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
               container: true,
               spacing: 2,
               children: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22].map(function (item, idx) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
                   item: true,
                   xs: 3,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                     className: "game-card",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                       className: "game-card-image-container",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         sx: {
                           backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                           backgroundRepeat: 'no-repeat',
@@ -3013,21 +3242,21 @@ var DesktopHome = function DesktopHome() {
               })
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
           item: true,
           xs: 6,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
             className: "section-card",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
               className: "section-card-top-line"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
               className: "section-card-header",
               sx: {
                 mb: 3
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                 alignItems: "self-end",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                   variant: "h6",
                   sx: {
                     lineHeight: 1,
@@ -3036,7 +3265,7 @@ var DesktopHome = function DesktopHome() {
                     letterSpacing: '-.41px'
                   },
                   children: "Table Games"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                   sx: {
                     ml: 1,
                     opacity: 0.5,
@@ -3047,7 +3276,7 @@ var DesktopHome = function DesktopHome() {
                   },
                   children: "8314"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                 sx: {
                   fontSize: '11px',
                   letterSpacing: '.07px',
@@ -3057,18 +3286,18 @@ var DesktopHome = function DesktopHome() {
                 },
                 children: "All"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
               container: true,
               spacing: 2,
               children: [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34].map(function (item, idx) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
                   item: true,
                   xs: 3,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                     className: "game-card",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                       className: "game-card-image-container",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         sx: {
                           backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                           backgroundRepeat: 'no-repeat',
@@ -3084,21 +3313,21 @@ var DesktopHome = function DesktopHome() {
               })
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_24__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_25__["default"], {
           item: true,
           xs: 12,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_22__["default"], {
             className: "section-card",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
               className: "section-card-top-line"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
               className: "section-card-header",
               sx: {
                 mb: 3
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Base__WEBPACK_IMPORTED_MODULE_9__.HStack, {
                 alignItems: "self-end",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                   variant: "h6",
                   sx: {
                     lineHeight: 1,
@@ -3107,7 +3336,7 @@ var DesktopHome = function DesktopHome() {
                     letterSpacing: '-.41px'
                   },
                   children: "Top Live Casino"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                   sx: {
                     ml: 1,
                     opacity: 0.5,
@@ -3118,7 +3347,7 @@ var DesktopHome = function DesktopHome() {
                   },
                   children: "8314"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
                 sx: {
                   fontSize: '11px',
                   letterSpacing: '.07px',
@@ -3128,19 +3357,19 @@ var DesktopHome = function DesktopHome() {
                 },
                 children: "All"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.Swiper, {
               navigation: true,
               modules: [swiper__WEBPACK_IMPORTED_MODULE_6__.Navigation],
               slidesPerView: 6,
               spaceBetween: 16,
               className: "top-live-casino",
               children: [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49].map(function (item, idx) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_5__.SwiperSlide, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                     className: "game-card",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                       className: "game-card-image-container",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_21__["default"], {
                         sx: {
                           backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                           backgroundRepeat: 'no-repeat',
