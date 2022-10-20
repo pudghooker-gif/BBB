@@ -1575,14 +1575,29 @@ var CasinoHistory = function CasinoHistory(_ref2) {
       children: [(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(function (row, idx) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_14__["default"], {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            sx: {
+              py: 1
+            },
             children: row.id
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            sx: {
+              py: 1
+            },
             children: row.createdAt
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            sx: {
+              py: 1
+            },
             children: row.game
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            sx: {
+              py: 1
+            },
             children: row.bet
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            sx: {
+              py: 1
+            },
             children: row.win
           })]
         }, idx);
