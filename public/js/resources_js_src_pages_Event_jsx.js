@@ -1317,32 +1317,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Event": () => (/* binding */ Event),
 /* harmony export */   "Loading": () => (/* binding */ Loading),
-/* harmony export */   "Slider": () => (/* binding */ Slider)
+/* harmony export */   "Slider": () => (/* binding */ Slider),
+/* harmony export */   "TableLoading": () => (/* binding */ TableLoading)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _providers_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../providers/request */ "./resources/js/src/providers/request.js");
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
-/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
-/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
-/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
-/* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
-/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowUp */ "./node_modules/@mui/icons-material/KeyboardArrowUp.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
-/* harmony import */ var _mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/Star */ "./node_modules/@mui/icons-material/Star.js");
-/* harmony import */ var _mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/icons-material/KeyboardDoubleArrowDown */ "./node_modules/@mui/icons-material/KeyboardDoubleArrowDown.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
-/* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
-/* harmony import */ var swiper_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! swiper/react */ "./node_modules/swiper/react/swiper-react.js");
-/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
-/* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! swiper/css */ "./node_modules/swiper/swiper.min.css");
-/* harmony import */ var swiper_css_navigation__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! swiper/css/navigation */ "./node_modules/swiper/modules/navigation/navigation.min.css");
-/* harmony import */ var swiper_css_pagination__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! swiper/css/pagination */ "./node_modules/swiper/modules/pagination/pagination.min.css");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
+/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
+/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
+/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
+/* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowUp */ "./node_modules/@mui/icons-material/KeyboardArrowUp.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
+/* harmony import */ var _mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/icons-material/Star */ "./node_modules/@mui/icons-material/Star.js");
+/* harmony import */ var _mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/KeyboardDoubleArrowDown */ "./node_modules/@mui/icons-material/KeyboardDoubleArrowDown.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
+/* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
+/* harmony import */ var swiper_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! swiper/react */ "./node_modules/swiper/react/swiper-react.js");
+/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
+/* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! swiper/css */ "./node_modules/swiper/swiper.min.css");
+/* harmony import */ var swiper_css_navigation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! swiper/css/navigation */ "./node_modules/swiper/modules/navigation/navigation.min.css");
+/* harmony import */ var swiper_css_pagination__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! swiper/css/pagination */ "./node_modules/swiper/modules/pagination/pagination.min.css");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -1371,30 +1370,28 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 var Loading = function Loading() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
     justifyContent: "center",
     sx: {
       p: 1
     },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__.Loader, {})
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.Loader, {})
+  });
+};
+var TableLoading = function TableLoading() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
+    justifyContent: "center",
+    sx: {
+      p: 1,
+      width: '100%',
+      position: 'absolute'
+    },
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_2__.TableLoader, {})
   });
 };
 var Slider = function Slider() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.Swiper, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(swiper_react__WEBPACK_IMPORTED_MODULE_4__.Swiper, {
     navigation: true,
     pagination: {
       clickable: true
@@ -1403,28 +1400,28 @@ var Slider = function Slider() {
       delay: 5000
     },
     loop: true,
-    modules: [swiper__WEBPACK_IMPORTED_MODULE_7__.Navigation, swiper__WEBPACK_IMPORTED_MODULE_7__.Pagination, swiper__WEBPACK_IMPORTED_MODULE_7__.Autoplay],
+    modules: [swiper__WEBPACK_IMPORTED_MODULE_5__.Navigation, swiper__WEBPACK_IMPORTED_MODULE_5__.Pagination, swiper__WEBPACK_IMPORTED_MODULE_5__.Autoplay],
     className: "bet-swiper",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_4__.SwiperSlide, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
         component: "img",
         alt: "slider",
         src: "https://1win.pro/img/PWA_USD_en.43fbf7fc-1600.webp"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_4__.SwiperSlide, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
         component: "img",
         alt: "slider",
         src: "https://1win.pro/img/bonus_hover_1.f76a358c-1600.webp"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_4__.SwiperSlide, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
         component: "img",
         alt: "slider",
         src: "https://cdn-1win.xyz/banner-files/46gFMSTQIPqJxLalK5SGf1Qu3vBY1sRPesH8oR3qqpg9WVTmHGsLr4EVG50m6vA-Yhk3QAH7z8q80aD30ApLYjvPhvJBl8FvX1ER.png"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_6__.SwiperSlide, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(swiper_react__WEBPACK_IMPORTED_MODULE_4__.SwiperSlide, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
         component: "img",
         alt: "slider",
         src: "https://1win.pro/img/1winpoker_en-min.fc17484b-1600.webp"
@@ -1437,29 +1434,29 @@ var Event = function Event() {
     _useState2 = _slicedToArray(_useState, 2),
     active = _useState2[0],
     setActive = _useState2[1];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
     sx: {
       overflow: 'hidden'
     },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
         className: "event-content",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
           justifyContent: "space-between",
           sx: {
             mb: 2
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
             sx: {
               pt: 2.5,
               pl: 2.5
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
               sx: {
                 mb: 1
               },
               alignItems: "center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                 varient: "h2",
                 sx: {
                   mr: 2,
@@ -1467,7 +1464,7 @@ var Event = function Event() {
                   fontWeight: 900
                 },
                 children: "0 : 0"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                 sx: {
                   margin: 'auto',
                   mr: 2,
@@ -1477,44 +1474,44 @@ var Event = function Event() {
                   bgcolor: '#97aee11c'
                 },
                 children: "2 half 47 '"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_16__["default"], {})
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_14__["default"], {})
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
               sx: {
                 fontSize: 12,
                 color: '#ffffff80'
               },
               children: "07 Sep, Wed"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
               sx: {
                 my: 2
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                 sx: {
                   fontSize: 15
                 },
                 children: "Home Team"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                 sx: {
                   fontSize: 15
                 },
                 children: "Away Team"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                   sx: {
                     fontSize: 12,
                     color: '#ffffff80',
                     mr: 1
                   },
                   children: "Soccer"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("i", {
-                  className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("sports-icon", "icon-soccer")
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                  className: classnames__WEBPACK_IMPORTED_MODULE_1___default()("sports-icon", "icon-soccer")
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                   sx: {
                     fontSize: 12,
                     color: '#ffffff80'
@@ -1524,115 +1521,115 @@ var Event = function Event() {
               })]
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
           sx: {
             bgcolor: '#141b2e',
             borderRadius: 2
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
             justifyContent: "space-between",
             alignItems: "center",
             sx: {
               padding: 2
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_15__["default"], {
               className: "btn",
               children: "All"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_13__["default"], {
               className: "btn",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_18__["default"], {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_16__["default"], {})
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
             sx: {
               padding: 2
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
               container: true,
               spacing: 2,
               children: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (ite, idx) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_17__["default"], {
                   item: true,
                   xs: 6,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
                     sx: {
                       borderRadius: 2,
                       overflow: 'hidden'
                     },
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
                       className: "market-head",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                         sx: {
                           fontSize: '12px'
                         },
                         children: "1X2"
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_13__["default"], {
                         onClick: function onClick() {
                           return setActive(!active);
                         },
-                        children: active ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_20__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_21__["default"], {})
+                        children: active ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_18__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_19__["default"], {})
                       })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_20__["default"], {
                       "in": active,
                       timeout: "auto",
                       unmountOnExit: true,
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
                         className: "market-body",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
                           className: "market-wrap",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_15__["default"], {
                             className: "market-btn",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                               className: "market-name",
                               children: "1X2"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                               className: "market-odd",
                               children: "2.57"
                             })]
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
                           className: "market-wrap",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_15__["default"], {
                             className: "market-btn",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                               className: "market-name",
                               children: "1X2"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                               className: "market-odd",
                               children: "2.57"
                             })]
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
                           className: "market-wrap",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_15__["default"], {
                             className: "market-btn",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                               className: "market-name",
                               children: "1X2"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                               className: "market-odd",
                               children: "2.57"
                             })]
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
                           className: "market-wrap",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_15__["default"], {
                             className: "market-btn",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                               className: "market-name",
                               children: "1X2"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                               className: "market-odd",
                               children: "2.57"
                             })]
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
                           className: "market-wrap",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_15__["default"], {
                             className: "market-btn",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                               className: "market-name",
                               children: "1X2"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
                               className: "market-odd",
                               children: "2.57"
                             })]
@@ -1665,24 +1662,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _providers_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../providers/request */ "./resources/js/src/providers/request.js");
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
-/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
-/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
-/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
-/* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
-/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowUp */ "./node_modules/@mui/icons-material/KeyboardArrowUp.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
-/* harmony import */ var _mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/icons-material/KeyboardDoubleArrowDown */ "./node_modules/@mui/icons-material/KeyboardDoubleArrowDown.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _assets_img_feature_svgIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/img/feature/svgIcon */ "./resources/js/src/assets/img/feature/svgIcon.jsx");
-/* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
-/* harmony import */ var _Part__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Part */ "./resources/js/src/components/Part.jsx");
-/* harmony import */ var _redux_type__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/type */ "./resources/js/src/redux/type.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
+/* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
+/* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
+/* harmony import */ var _mui_material_Collapse__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/Collapse */ "./node_modules/@mui/material/esm/Collapse/Collapse.js");
+/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowUp */ "./node_modules/@mui/icons-material/KeyboardArrowUp.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
+/* harmony import */ var _mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/KeyboardDoubleArrowDown */ "./node_modules/@mui/icons-material/KeyboardDoubleArrowDown.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
+/* harmony import */ var _Part__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Part */ "./resources/js/src/components/Part.jsx");
+/* harmony import */ var _redux_type__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../redux/type */ "./resources/js/src/redux/type.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -1716,11 +1711,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-
-
-
-
 var EventHeader = function EventHeader(_ref) {
   var home = _ref.home,
     away = _ref.away,
@@ -1731,33 +1721,33 @@ var EventHeader = function EventHeader(_ref) {
     timer = _ref.timer,
     sId = _ref.sId,
     sName = _ref.sName;
-  var etime = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getDate)(time);
-  var today = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getDate)(new Date().getTime() / 1000);
-  var score = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getScore)(ss, scores, timer, sId);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+  var etime = (0,_Base__WEBPACK_IMPORTED_MODULE_3__.getDate)(time);
+  var today = (0,_Base__WEBPACK_IMPORTED_MODULE_3__.getDate)(new Date().getTime() / 1000);
+  var score = (0,_Base__WEBPACK_IMPORTED_MODULE_3__.getScore)(ss, scores, timer, sId);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
     justifyContent: "space-between",
     sx: {
       mb: 2
     },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_7__["default"], {
       sx: {
         pt: 2.5,
         pl: 2.5
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
         sx: {
           mb: 1
         },
         alignItems: "center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
           varient: "h2",
           sx: {
             mr: 2,
             fontSize: 30,
             fontWeight: 900
           },
-          children: score.ss
-        }), score.timer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          children: score.ss ? score.ss : '0:0'
+        }), score.timer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
           sx: {
             margin: 'auto',
             mr: 2,
@@ -1768,47 +1758,47 @@ var EventHeader = function EventHeader(_ref) {
           },
           children: [score.timer, "'"]
         }) : null]
-      }), time === today ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), time === today ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
         sx: {
           fontSize: 12,
           color: '#ffffff80'
         },
         children: "Today, ".concat(etime.time)
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
         sx: {
           fontSize: 12,
           color: '#ffffff80'
         },
         children: "".concat(etime.date, ", ").concat(etime.week)
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_9__["default"], {
         sx: {
           my: 2
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
           sx: {
             fontSize: 15
           },
           children: home.name
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
           sx: {
             fontSize: 15
           },
           children: away.name
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
             sx: {
               fontSize: 12,
               color: '#ffffff80',
               mr: 1
             },
             children: sName
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("i", {
-            className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("sports-icon", "icon-".concat(sName.toLowerCase().replaceAll(' ', '-')))
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+            className: classnames__WEBPACK_IMPORTED_MODULE_2___default()("sports-icon", "icon-".concat(sName.toLowerCase().replaceAll(' ', '-')))
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
             sx: {
               fontSize: 12,
               color: '#ffffff80'
@@ -1824,35 +1814,24 @@ var Odd = function Odd(_ref2) {
   var setBetSlip = _ref2.setBetSlip,
     active = _ref2.active,
     odd = _ref2.odd,
+    change = _ref2.change,
     id = _ref2.id,
     odt = _ref2.odt,
-    handicap = _ref2.handicap,
-    data = _ref2.data;
+    handicap = _ref2.handicap;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState2 = _slicedToArray(_useState, 2),
     cOdd = _useState2[0],
     setOdd = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState4 = _slicedToArray(_useState3, 2),
-    state = _useState4[0],
-    setState = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState6 = _slicedToArray(_useState5, 2),
-    oddId = _useState6[0],
-    setOddId = _useState6[1];
+    oddId = _useState4[0],
+    setOddId = _useState4[1];
   var addSlip = function addSlip() {
     if (!Number(cOdd)) return;
     setBetSlip(oddId, cOdd, handicap && handicap.value ? "".concat(odt, " (").concat(handicap.value, ")") : odt, handicap && handicap.value ? handicap.value : '0');
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (odd) {
-      var sp = id.split('-');
-      var mk = sp[1],
-        odk = sp[2];
-      odk.replace('od', 'change');
-      if (data && data[mk] && data[mk][odk]) {
-        setState(data[mk][odk]);
-      }
       if (Number(odd)) {
         setOdd(Number(odd).toFixed(2));
       } else {
@@ -1861,18 +1840,18 @@ var Odd = function Odd(_ref2) {
       setOddId(id);
     }
   }, [odd, id]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_7__["default"], {
     className: "market-wrap",
     onClick: function onClick() {
       return addSlip();
     },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_10__["default"], {
       className: "market-btn",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
         className: "market-name",
         children: handicap && handicap.isHan ? "".concat(odt, " (").concat(handicap.value, ")") : odt
-      }), cOdd ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
-        className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("market-odd", state, {
+      }), cOdd ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()("market-odd", change ? change : '', {
           "active": active
         }),
         sx: {
@@ -1890,37 +1869,37 @@ var Market = function Market(_ref3) {
     mk = _ref3.mk,
     setBetSlip = _ref3.setBetSlip,
     betSlip = _ref3.betSlip;
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
-    _useState8 = _slicedToArray(_useState7, 2),
-    active = _useState8[0],
-    setActive = _useState8[1];
-  var mkname = (0,_Base__WEBPACK_IMPORTED_MODULE_5__.getMkName)(sId, mk);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState6 = _slicedToArray(_useState5, 2),
+    active = _useState6[0],
+    setActive = _useState6[1];
+  var mkname = (0,_Base__WEBPACK_IMPORTED_MODULE_3__.getMkName)(sId, mk);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_11__["default"], {
     item: true,
     xs: 6,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_7__["default"], {
       sx: {
         borderRadius: 2,
         overflow: 'hidden'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
         className: "market-head",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
           sx: {
             fontSize: '12px'
           },
           children: mkname
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_12__["default"], {
           onClick: function onClick() {
             return setActive(!active);
           },
-          children: active ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_15__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_16__["default"], {})
+          children: active ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_13__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_14__["default"], {})
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Collapse__WEBPACK_IMPORTED_MODULE_15__["default"], {
         "in": active,
         timeout: "auto",
         unmountOnExit: true,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_7__["default"], {
           className: "market-body",
           children: function () {
             var market = mk.slice(-1),
@@ -1929,29 +1908,29 @@ var Market = function Market(_ref3) {
               switch (market) {
                 case '1':
                 case '8':
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'home_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-home_od")],
-                      data: data,
                       odd: data['home_od'],
+                      change: data['home_change'],
                       id: "".concat(eId, "-").concat(mk, "-home_od"),
                       odt: 'W1'
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'draw_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-draw_od")],
-                      data: data,
                       odd: data['draw_od'],
+                      change: data['draw_change'],
                       id: "".concat(eId, "-").concat(mk, "-draw_od"),
                       odt: 'Draw'
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'away_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-away_od")],
-                      data: data,
                       odd: data['away_od'],
+                      change: data['away_change'],
                       id: "".concat(eId, "-").concat(mk, "-away_od"),
                       odt: 'W2'
                     })]
@@ -1962,25 +1941,25 @@ var Market = function Market(_ref3) {
                   if (_handicap && _handicap != '-') {
                     _handicap = Number(_handicap);
                   }
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'home_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-home_od")],
-                      data: data,
                       odd: data['home_od'],
+                      change: data['home_change'],
                       id: "".concat(eId, "-").concat(mk, "-home_od"),
                       odt: 'W1',
                       handicap: {
                         isHan: true,
                         value: _handicap * 1
                       }
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'away_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-away_od")],
-                      data: data,
                       odd: data['away_od'],
+                      change: data['away_change'],
                       id: "".concat(eId, "-").concat(mk, "-away_od"),
                       odt: 'W2',
                       handicap: {
@@ -1994,25 +1973,25 @@ var Market = function Market(_ref3) {
                 case '6':
                 case '7':
                   _handicap = data['handicap'];
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'over_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-over_od")],
-                      data: data,
                       odd: data['over_od'],
+                      change: data['over_change'],
                       id: "".concat(eId, "-").concat(mk, "-over_od"),
                       odt: 'Over',
                       handicap: {
                         isHan: true,
                         value: _handicap
                       }
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'under_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-under_od")],
-                      data: data,
                       odd: data['under_od'],
+                      change: data['under_change'],
                       id: "".concat(eId, "-").concat(mk, "-under_od"),
                       odt: 'Under',
                       handicap: {
@@ -2027,24 +2006,24 @@ var Market = function Market(_ref3) {
                 case '1':
                 case '4':
                 case '7':
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'over_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-home_od")],
-                      data: data,
                       odd: data['home_od'],
+                      change: data['home_change'],
                       id: "".concat(eId, "-").concat(mk, "-home_od"),
                       odt: 'W1',
                       handicap: {
                         isHan: false
                       }
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'under_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-away_od")],
-                      data: data,
                       odd: data['away_od'],
+                      change: data['away_change'],
                       id: "".concat(eId, "-").concat(mk, "-away_od"),
                       odt: 'W2',
                       handicap: {
@@ -2059,23 +2038,25 @@ var Market = function Market(_ref3) {
                   if (handicap && handicap != '-') {
                     handicap = Number(handicap);
                   }
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'home_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-home_od")],
                       odd: data['home_od'],
+                      change: data['home_change'],
                       id: "".concat(eId, "-").concat(mk, "-home_od"),
                       odt: 'W1',
                       handicap: {
                         isHan: true,
                         value: handicap * 1
                       }
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'away_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-away_od")],
                       odd: data['away_od'],
+                      change: data['away_change'],
                       id: "".concat(eId, "-").concat(mk, "-away_od"),
                       odt: 'W2',
                       handicap: {
@@ -2088,23 +2069,25 @@ var Market = function Market(_ref3) {
                 case '6':
                 case '9':
                   handicap = data['handicap'];
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'over_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-over_od")],
                       odd: data['over_od'],
+                      change: data['over_change'],
                       id: "".concat(eId, "-").concat(mk, "-over_od"),
                       odt: 'Over',
                       handicap: {
                         isHan: true,
                         value: handicap
                       }
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'under_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-under_od")],
                       odd: data['under_od'],
+                      change: data['under_change'],
                       id: "".concat(eId, "-").concat(mk, "-under_od"),
                       odt: 'Under',
                       handicap: {
@@ -2117,22 +2100,24 @@ var Market = function Market(_ref3) {
             } else {
               switch (market) {
                 case '1':
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'home_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-home_od")],
                       odd: data['home_od'],
+                      change: data['home_change'],
                       id: "".concat(eId, "-").concat(mk, "-home_od"),
                       odt: 'W1',
                       handicap: {
                         isHan: false
                       }
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'away_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-away_od")],
                       odd: data['away_od'],
+                      change: data['away_change'],
                       id: "".concat(eId, "-").concat(mk, "-away_od"),
                       odt: 'W2',
                       handicap: {
@@ -2145,23 +2130,25 @@ var Market = function Market(_ref3) {
                   if (handicap && handicap != '-') {
                     handicap = Number(handicap);
                   }
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'home_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-home_od")],
                       odd: data['home_od'],
+                      change: data['home_change'],
                       id: "".concat(eId, "-").concat(mk, "-home_od"),
                       odt: 'W1',
                       handicap: {
                         isHan: true,
                         value: handicap * 1
                       }
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'away_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-away_od")],
                       odd: data['away_od'],
+                      change: data['away_change'],
                       id: "".concat(eId, "-").concat(mk, "-away_od"),
                       odt: 'W2',
                       handicap: {
@@ -2172,23 +2159,25 @@ var Market = function Market(_ref3) {
                   });
                 case '3':
                   handicap = data['handicap'];
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'over_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-over_od")],
                       odd: data['over_od'],
+                      change: data['over_change'],
                       id: "".concat(eId, "-").concat(mk, "-over_od"),
                       odt: 'Over',
                       handicap: {
                         isHan: true,
                         value: handicap
                       }
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'under_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-under_od")],
                       odd: data['under_od'],
+                      change: data['under_change'],
                       id: "".concat(eId, "-").concat(mk, "-under_od"),
                       odt: 'Under',
                       handicap: {
@@ -2198,22 +2187,24 @@ var Market = function Market(_ref3) {
                     })]
                   });
                 case '4':
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'home_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-home_od")],
                       odd: data['home_od'],
+                      change: data['home_change'],
                       id: "".concat(eId, "-").concat(mk, "-home_od"),
                       odt: 'W1',
                       handicap: {
                         isHan: false
                       }
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                       od: 'away_od',
                       setBetSlip: setBetSlip,
                       active: betSlip["".concat(eId, "-").concat(mk, "-away_od")],
                       odd: data['away_od'],
+                      change: data['away_change'],
                       id: "".concat(eId, "-").concat(mk, "-away_od"),
                       odt: 'W2',
                       handicap: {
@@ -2224,22 +2215,24 @@ var Market = function Market(_ref3) {
               }
             }
             if (mk == '3_4') {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                   od: 'home_od',
                   setBetSlip: setBetSlip,
                   active: betSlip["".concat(eId, "-").concat(mk, "-home_od")],
                   odd: data['home_od'],
+                  change: data['home_change'],
                   id: "".concat(eId, "-").concat(mk, "-home_od"),
                   odt: 'W1',
                   handicap: {
                     isHan: false
                   }
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Odd, {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Odd, {
                   od: 'away_od',
                   setBetSlip: setBetSlip,
                   active: betSlip["".concat(eId, "-").concat(mk, "-away_od")],
                   odd: data['away_od'],
+                  change: data['away_change'],
                   id: "".concat(eId, "-").concat(mk, "-away_od"),
                   odt: 'W2',
                   handicap: {
@@ -2255,8 +2248,7 @@ var Market = function Market(_ref3) {
   });
 };
 var SportsEvent = function SportsEvent(_ref4) {
-  var data = _ref4.data,
-    scale = _ref4.scale;
+  var data = _ref4.data;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
       return state.sports;
@@ -2264,22 +2256,22 @@ var SportsEvent = function SportsEvent(_ref4) {
     betSlip = _useSelector.betSlip,
     betType = _useSelector.betType,
     multiCalc = _useSelector.multiCalc;
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState8 = _slicedToArray(_useState7, 2),
+    eventId = _useState8[0],
+    setEventId = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState10 = _slicedToArray(_useState9, 2),
-    eventId = _useState10[0],
-    setEventId = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    noData = _useState10[0],
+    setNoData = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
     _useState12 = _slicedToArray(_useState11, 2),
-    noData = _useState12[0],
-    setNoData = _useState12[1];
+    event = _useState12[0],
+    setEvent = _useState12[1];
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
     _useState14 = _slicedToArray(_useState13, 2),
-    event = _useState14[0],
-    setEvent = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
-    _useState16 = _slicedToArray(_useState15, 2),
-    markets = _useState16[0],
-    setMarkets = _useState16[1];
+    markets = _useState14[0],
+    setMarkets = _useState14[1];
   var getEvent = /*#__PURE__*/function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(data) {
       return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -2323,7 +2315,7 @@ var SportsEvent = function SportsEvent(_ref4) {
     }
     newSlip = _objectSpread(_objectSpread({}, newSlip), one);
     dispatch({
-      type: _redux_type__WEBPACK_IMPORTED_MODULE_7__.SET_BETSLIP,
+      type: _redux_type__WEBPACK_IMPORTED_MODULE_5__.SET_BETSLIP,
       data: newSlip
     });
     var odd = 1;
@@ -2332,7 +2324,7 @@ var SportsEvent = function SportsEvent(_ref4) {
     }
     var profit = odd * multiCalc.stake;
     dispatch({
-      type: _redux_type__WEBPACK_IMPORTED_MODULE_7__.SET_MULTI_CALC,
+      type: _redux_type__WEBPACK_IMPORTED_MODULE_5__.SET_MULTI_CALC,
       data: _objectSpread(_objectSpread({}, multiCalc), {}, {
         odd: odd,
         profit: profit
@@ -2367,7 +2359,7 @@ var SportsEvent = function SportsEvent(_ref4) {
         newSlip[i] = oldSlip[i];
       }
       dispatch({
-        type: _redux_type__WEBPACK_IMPORTED_MODULE_7__.SET_BETSLIP,
+        type: _redux_type__WEBPACK_IMPORTED_MODULE_5__.SET_BETSLIP,
         data: newSlip
       });
     } else {
@@ -2392,7 +2384,7 @@ var SportsEvent = function SportsEvent(_ref4) {
       } else {
         newSlip = _objectSpread(_objectSpread({}, oldSlip), one);
         dispatch({
-          type: _redux_type__WEBPACK_IMPORTED_MODULE_7__.SET_BETSLIP,
+          type: _redux_type__WEBPACK_IMPORTED_MODULE_5__.SET_BETSLIP,
           data: newSlip
         });
       }
@@ -2406,14 +2398,14 @@ var SportsEvent = function SportsEvent(_ref4) {
     });
     getEvent(item[0]);
   }, [data]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_9__["default"], {
     sx: {
       overflow: 'hidden'
     },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_9__["default"], {
         className: "event-content",
-        children: [event.home ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(EventHeader, {
+        children: [event.home ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(EventHeader, {
           home: event.home,
           away: event.away,
           league: event.league,
@@ -2423,33 +2415,33 @@ var SportsEvent = function SportsEvent(_ref4) {
           timer: event.timer,
           sId: event.sport_id,
           sName: event.sport_name
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_6__.Loading, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_4__.Loading, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_9__["default"], {
           sx: {
             bgcolor: '#141b2e',
             borderRadius: 2
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_5__.HStack, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_3__.HStack, {
             justifyContent: "space-between",
             alignItems: "center",
             sx: {
               padding: 2
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_10__["default"], {
               className: "btn",
               children: "All"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_12__["default"], {
               className: "btn",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_18__["default"], {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_icons_material_KeyboardDoubleArrowDown__WEBPACK_IMPORTED_MODULE_16__["default"], {})
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_7__["default"], {
             sx: {
               padding: 2
             },
-            children: Object.keys(markets).length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            children: Object.keys(markets).length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_11__["default"], {
               container: true,
               spacing: 2,
               children: Object.keys(markets).map(function (key, idx) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Market, {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Market, {
                   data: markets[key],
                   sId: event === null || event === void 0 ? void 0 : event.sport_id,
                   eId: eventId,
@@ -2458,8 +2450,8 @@ var SportsEvent = function SportsEvent(_ref4) {
                   betSlip: betSlip
                 }, idx);
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-              children: !Object.keys(markets).length && noData ? 'There are not any odds.' : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_6__.Loading, {})
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+              children: !Object.keys(markets).length && noData ? 'There are not any odds.' : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Part__WEBPACK_IMPORTED_MODULE_4__.Loading, {})
             })
           })]
         })]
@@ -2845,7 +2837,8 @@ var SportsListNav = function SportsListNav(_ref4) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "countries": () => (/* binding */ countries)
+/* harmony export */   "countries": () => (/* binding */ countries),
+/* harmony export */   "sports": () => (/* binding */ sports)
 /* harmony export */ });
 var countries = {
   "ad": "Andorra",
@@ -3098,6 +3091,13 @@ var countries = {
   "za": "South Africa",
   "zm": "Zambia",
   "zw": "Zimbabwe"
+};
+var sports = {
+  1: 'Soccer',
+  13: 'Tennis',
+  12: 'American Football',
+  18: 'Basketball',
+  3: 'Cricket'
 };
 
 /***/ }),

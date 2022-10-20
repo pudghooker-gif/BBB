@@ -517,6 +517,11 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'as' => 'frontend.sports.getPrePopular',
         'uses' => 'SportsController@getPrePopular',
     ]);
+   
+    Route::post('sports/get_livePopular', [
+        'as' => 'frontend.sports.livePopular',
+        'uses' => 'SportsController@livePopular',
+    ]);
 });
 
 /**

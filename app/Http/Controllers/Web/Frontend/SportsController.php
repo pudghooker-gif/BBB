@@ -503,6 +503,24 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             return ['popular' => $popular, 'league' => $league];
         }
 
+        public function livePopular(\Illuminate\Http\Request $request)
+        {
+            $top = SportLeagues::select('id')->where('has_toplist', 1)->get();
+            $inFilter = [];
+            foreach ($top as $val) {
+                array_push($inFilter, $val->id);
+            }
+            $popular = SportData::where('time_status', 1)
+                ->where('sport_id', $request->sport_id)
+                ->whereIn('league_id', $inFilter)->get();
+
+            $live = SportData::where('time_status', 1)
+                ->where('sport_id', $request->sport_id)
+                ->whereNotIn('league_id', $inFilter)->get();
+
+            return ['popular' => $popular, 'live' => $live];
+        }
+
         public function home_casino()
         {
             $games = \VanguardLTE\Game::offset(0)->take(50)->get();
