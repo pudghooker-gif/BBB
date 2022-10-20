@@ -478,6 +478,15 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             return $data;
         }
 
+        public function get_deposit_history()
+        {
+            $data = [];
+            if (isset(auth()->user()->id)) {
+                $data = \VanguardLTE\Payment::where('user_id', auth()->user()->id)->orderByDesc('id')->get();
+            }
+            return $data;
+        }
+
         public function get_search(\Illuminate\Http\Request $request)
         {
             $data = SportData::where('time_status',  $request->isLive)

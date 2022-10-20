@@ -1283,28 +1283,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _providers_request__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../providers/request */ "./resources/js/src/providers/request.js");
-/* harmony import */ var _mui_material_useMediaQuery__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/useMediaQuery */ "./node_modules/@mui/material/esm/useMediaQuery/useMediaQuery.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/esm/Box/Box.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/esm/TableHead/TableHead.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/esm/Typography/Typography.js");
-/* harmony import */ var _mui_material_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/styles */ "./node_modules/@mui/material/esm/styles/useTheme.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _mui_material_Tabs__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/material/Tabs */ "./node_modules/@mui/material/esm/Tabs/Tabs.js");
-/* harmony import */ var _mui_material_Tab__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/material/Tab */ "./node_modules/@mui/material/esm/Tab/Tab.js");
-/* harmony import */ var _mui_material_Table__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Table */ "./node_modules/@mui/material/esm/Table/Table.js");
-/* harmony import */ var _mui_material_TableBody__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material/TableBody */ "./node_modules/@mui/material/esm/TableBody/TableBody.js");
-/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
-/* harmony import */ var _mui_material_TableFooter__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/material/TableFooter */ "./node_modules/@mui/material/esm/TableFooter/TableFooter.js");
-/* harmony import */ var _mui_material_TablePagination__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/TablePagination */ "./node_modules/@mui/material/esm/TablePagination/TablePagination.js");
-/* harmony import */ var _mui_material_TableRow__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/TableRow */ "./node_modules/@mui/material/esm/TableRow/TableRow.js");
-/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
-/* harmony import */ var _mui_icons_material_FirstPage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/icons-material/FirstPage */ "./node_modules/@mui/icons-material/FirstPage.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowLeft__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowLeft */ "./node_modules/@mui/icons-material/KeyboardArrowLeft.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowRight__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowRight */ "./node_modules/@mui/icons-material/KeyboardArrowRight.js");
-/* harmony import */ var _mui_icons_material_LastPage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/icons-material/LastPage */ "./node_modules/@mui/icons-material/LastPage.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/esm/Box/Box.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/esm/TableHead/TableHead.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/esm/Typography/Typography.js");
+/* harmony import */ var _mui_material_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material/styles */ "./node_modules/@mui/material/esm/styles/useTheme.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _mui_material_Tabs__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/Tabs */ "./node_modules/@mui/material/esm/Tabs/Tabs.js");
+/* harmony import */ var _mui_material_Tab__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/Tab */ "./node_modules/@mui/material/esm/Tab/Tab.js");
+/* harmony import */ var _mui_material_Table__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Table */ "./node_modules/@mui/material/esm/Table/Table.js");
+/* harmony import */ var _mui_material_TableBody__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/TableBody */ "./node_modules/@mui/material/esm/TableBody/TableBody.js");
+/* harmony import */ var _mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/TableCell */ "./node_modules/@mui/material/esm/TableCell/TableCell.js");
+/* harmony import */ var _mui_material_TableFooter__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/TableFooter */ "./node_modules/@mui/material/esm/TableFooter/TableFooter.js");
+/* harmony import */ var _mui_material_TablePagination__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/material/TablePagination */ "./node_modules/@mui/material/esm/TablePagination/TablePagination.js");
+/* harmony import */ var _mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/TableRow */ "./node_modules/@mui/material/esm/TableRow/TableRow.js");
+/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
+/* harmony import */ var _mui_icons_material_FirstPage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/icons-material/FirstPage */ "./node_modules/@mui/icons-material/FirstPage.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowLeft__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowLeft */ "./node_modules/@mui/icons-material/KeyboardArrowLeft.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowRight__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowRight */ "./node_modules/@mui/icons-material/KeyboardArrowRight.js");
+/* harmony import */ var _mui_icons_material_LastPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/LastPage */ "./node_modules/@mui/icons-material/LastPage.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -1332,10 +1330,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-
 function TablePaginationActions(props) {
-  var theme = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_4__["default"])();
+  var theme = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_3__["default"])();
   var count = props.count,
     page = props.page,
     rowsPerPage = props.rowsPerPage,
@@ -1352,42 +1348,41 @@ function TablePaginationActions(props) {
   var handleLastPageButtonClick = function handleLastPageButtonClick(event) {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
     sx: {
       flexShrink: 0,
       ml: 2.5
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__["default"], {
       onClick: handleFirstPageButtonClick,
       disabled: page === 0,
       "aria-label": "first page",
-      children: theme.direction === 'rtl' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_LastPage__WEBPACK_IMPORTED_MODULE_7__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_FirstPage__WEBPACK_IMPORTED_MODULE_8__["default"], {})
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      children: theme.direction === 'rtl' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_icons_material_LastPage__WEBPACK_IMPORTED_MODULE_6__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_icons_material_FirstPage__WEBPACK_IMPORTED_MODULE_7__["default"], {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__["default"], {
       onClick: handleBackButtonClick,
       disabled: page === 0,
       "aria-label": "previous page",
-      children: theme.direction === 'rtl' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_KeyboardArrowRight__WEBPACK_IMPORTED_MODULE_9__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_KeyboardArrowLeft__WEBPACK_IMPORTED_MODULE_10__["default"], {})
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      children: theme.direction === 'rtl' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_icons_material_KeyboardArrowRight__WEBPACK_IMPORTED_MODULE_8__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_icons_material_KeyboardArrowLeft__WEBPACK_IMPORTED_MODULE_9__["default"], {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__["default"], {
       onClick: handleNextButtonClick,
       disabled: page >= Math.ceil(count / rowsPerPage) - 1,
       "aria-label": "next page",
-      children: theme.direction === 'rtl' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_KeyboardArrowLeft__WEBPACK_IMPORTED_MODULE_10__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_KeyboardArrowRight__WEBPACK_IMPORTED_MODULE_9__["default"], {})
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      children: theme.direction === 'rtl' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_icons_material_KeyboardArrowLeft__WEBPACK_IMPORTED_MODULE_9__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_icons_material_KeyboardArrowRight__WEBPACK_IMPORTED_MODULE_8__["default"], {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__["default"], {
       onClick: handleLastPageButtonClick,
       disabled: page >= Math.ceil(count / rowsPerPage) - 1,
       "aria-label": "last page",
-      children: theme.direction === 'rtl' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_FirstPage__WEBPACK_IMPORTED_MODULE_8__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_LastPage__WEBPACK_IMPORTED_MODULE_7__["default"], {})
+      children: theme.direction === 'rtl' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_icons_material_FirstPage__WEBPACK_IMPORTED_MODULE_7__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_icons_material_LastPage__WEBPACK_IMPORTED_MODULE_6__["default"], {})
     })]
   });
 }
 TablePaginationActions.propTypes = {
-  count: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().number.isRequired),
-  onPageChange: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().func.isRequired),
-  page: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().number.isRequired),
-  rowsPerPage: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().number.isRequired)
+  count: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().number.isRequired),
+  onPageChange: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func.isRequired),
+  page: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().number.isRequired),
+  rowsPerPage: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().number.isRequired)
 };
-var SportsHistory = function SportsHistory(_ref) {
-  var id = _ref.id;
+var SportsHistory = function SportsHistory() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState2 = _slicedToArray(_useState, 2),
     page = _useState2[0],
@@ -1409,93 +1404,101 @@ var SportsHistory = function SportsHistory(_ref) {
     setPage(0);
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '/sports/get_history', {
-      id: id
-    }).then(function (rdata) {
+    (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '/sports/get_history', {}).then(function (rdata) {
       setData(rdata);
     });
-  }, [id]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_11__["default"], {
     sx: {
       minWidth: 500
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_14__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "#Id"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Date"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Sport"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Description"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Odd"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Stake"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Profit"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Type"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Status"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_16__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_15__["default"], {
       className: "history",
-      children: [(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(function (row, idx) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_14__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+      children: [data.length ? (rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(function (row, idx) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             children: row.betsId
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             children: row.createdAt
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             children: row.SportName
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_16__["default"], {
               sx: {
                 fontWeight: 600,
                 fontSize: 12
               },
               children: "".concat(row.home, " - ").concat(row.away)
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_16__["default"], {
               sx: {
                 fontSize: 11
               },
               children: row.league
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             children: row.odds
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             children: row.stake
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             children: row.profit ? row.profit : 0
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             children: row.betType
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             children: row.status
           })]
         }, idx);
-      }), emptyRows > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          sx: {
+            padding: '16px 0px !important',
+            fontSize: 18
+          },
+          align: "center",
+          colSpan: 6,
+          children: "There is no data."
+        })
+      }), emptyRows > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
         style: {
           height: 53 * emptyRows
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           colSpan: 6
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableFooter__WEBPACK_IMPORTED_MODULE_18__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_14__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TablePagination__WEBPACK_IMPORTED_MODULE_19__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableFooter__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TablePagination__WEBPACK_IMPORTED_MODULE_18__["default"], {
           rowsPerPageOptions: [5, 10, 25, {
             label: 'All',
             value: -1
@@ -1518,8 +1521,7 @@ var SportsHistory = function SportsHistory(_ref) {
     })]
   });
 };
-var CasinoHistory = function CasinoHistory(_ref2) {
-  var id = _ref2.id;
+var CasinoHistory = function CasinoHistory() {
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState8 = _slicedToArray(_useState7, 2),
     page = _useState8[0],
@@ -1541,77 +1543,85 @@ var CasinoHistory = function CasinoHistory(_ref2) {
     setPage(0);
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '//sports/get_casino_history', {
-      id: id
-    }).then(function (rdata) {
+    (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '/sports/get_casino_history', {}).then(function (rdata) {
       setData(rdata);
     });
-  }, [id]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_11__["default"], {
     sx: {
       minWidth: 500
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_14__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "#Id"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Date"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Game"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Bet"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           component: "th",
           children: "Win"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_16__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_15__["default"], {
       className: "history",
-      children: [(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(function (row, idx) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_14__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+      children: [data.length ? (rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(function (row, idx) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             sx: {
               py: 1
             },
             children: row.id
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             sx: {
               py: 1
             },
             children: row.createdAt
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             sx: {
               py: 1
             },
             children: row.game
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             sx: {
               py: 1
             },
             children: row.bet
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
             sx: {
               py: 1
             },
             children: row.win
           })]
         }, idx);
-      }), emptyRows > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          sx: {
+            padding: '16px 0px !important',
+            fontSize: 18
+          },
+          align: "center",
+          colSpan: 6,
+          children: "There is no data."
+        })
+      }), emptyRows > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
         style: {
           height: 53 * emptyRows
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
           colSpan: 6
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableFooter__WEBPACK_IMPORTED_MODULE_18__["default"], {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_14__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_TablePagination__WEBPACK_IMPORTED_MODULE_19__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableFooter__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TablePagination__WEBPACK_IMPORTED_MODULE_18__["default"], {
           rowsPerPageOptions: [5, 10, 25, {
             label: 'All',
             value: -1
@@ -1634,246 +1644,327 @@ var CasinoHistory = function CasinoHistory(_ref2) {
     })]
   });
 };
-
-// const DepositHistory = ({ id }) => {
-//     const [page, setPage] = useState(0);
-//     const [rowsPerPage, setRowsPerPage] = useState(5);
-
-//     const emptyRows =
-//         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - sports.length) : 0;
-
-//     const handleChangePage = (event, newPage) => {
-//         setPage(newPage);
-//     };
-
-//     const handleChangeRowsPerPage = (event) => {
-//         setRowsPerPage(parseInt(event.target.value, 10));
-//         setPage(0);
-//     };
-
-//     return (
-//         <Table sx={{ minWidth: 500 }}>
-//             <TableHead>
-//                 <TableRow>
-//                     <TableCell component="th" >#Id</TableCell>
-//                     <TableCell component="th" >Date</TableCell>
-//                     <TableCell component="th" >Transaction</TableCell>
-//                     <TableCell component="th" >Deposit</TableCell>
-//                     <TableCell component="th" >Status</TableCell>
-//                 </TableRow>
-//             </TableHead>
-//             <TableBody className='history'>
-//                 {(rowsPerPage > 0
-//                     ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-//                     : data
-//                 ).map((row, idx) => (
-//                     <TableRow key={idx}>
-//                         <TableCell >
-//                             {row.id}
-//                         </TableCell>
-//                         <TableCell>
-//                             {row.createdAt}
-//                         </TableCell>
-//                         <TableCell>
-//                             {row.transaction}
-//                         </TableCell>
-//                         <TableCell>
-//                             {row.amount}
-//                         </TableCell>
-//                         <TableCell>
-//                             {row.status}
-//                         </TableCell>
-//                     </TableRow>
-//                 ))}
-
-//                 {emptyRows > 0 && (
-//                     <TableRow style={{ height: 53 * emptyRows }}>
-//                         <TableCell colSpan={6} />
-//                     </TableRow>
-//                 )}
-//             </TableBody>
-//             <TableFooter>
-//                 <TableRow>
-//                     <TablePagination
-//                         rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-//                         colSpan={3}
-//                         count={data.length}
-//                         rowsPerPage={rowsPerPage}
-//                         page={page}
-//                         SelectProps={{
-//                             inputProps: {
-//                                 'aria-label': 'rows per page',
-//                             },
-//                             native: true,
-//                         }}
-//                         onPageChange={handleChangePage}
-//                         onRowsPerPageChange={handleChangeRowsPerPage}
-//                         ActionsComponent={TablePaginationActions}
-//                     />
-//                 </TableRow>
-//             </TableFooter>
-//         </Table>
-//     )
-// }
-
-// const WithdrawHistory = ({ id }) => {
-//     const [page, setPage] = useState(0);
-//     const [rowsPerPage, setRowsPerPage] = useState(5);
-
-//     const emptyRows =
-//         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - sports.length) : 0;
-
-//     const handleChangePage = (event, newPage) => {
-//         setPage(newPage);
-//     };
-
-//     const handleChangeRowsPerPage = (event) => {
-//         setRowsPerPage(parseInt(event.target.value, 10));
-//         setPage(0);
-//     };
-
-//     return (
-//         <Table sx={{ minWidth: 500 }}>
-//             <TableHead>
-//                 <TableRow>
-//                     <TableCell component="th" >#Id</TableCell>
-//                     <TableCell component="th" >Date</TableCell>
-//                     <TableCell component="th" >Transaction</TableCell>
-//                     <TableCell component="th" >Withdrawals</TableCell>
-//                     <TableCell component="th" >wallet</TableCell>
-//                     <TableCell component="th" >Status</TableCell>
-//                 </TableRow>
-//             </TableHead>
-//             <TableBody className='history'>
-//                 {(rowsPerPage > 0
-//                     ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-//                     : data
-//                 ).map((row, idx) => (
-//                     <TableRow key={idx}>
-//                         <TableCell >
-//                             {row.id}
-//                         </TableCell>
-//                         <TableCell>
-//                             {row.createdAt}
-//                         </TableCell>
-//                         <TableCell>
-//                             {row.transaction}
-//                         </TableCell>
-//                         <TableCell>
-//                             {row.amount}
-//                         </TableCell>
-//                         <TableCell>
-//                             {row.wallet}
-//                         </TableCell>
-//                         <TableCell>
-//                             {row.status}
-//                         </TableCell>
-//                     </TableRow>
-//                 ))}
-
-//                 {emptyRows > 0 && (
-//                     <TableRow style={{ height: 53 * emptyRows }}>
-//                         <TableCell colSpan={6} />
-//                     </TableRow>
-//                 )}
-//             </TableBody>
-//             <TableFooter>
-//                 <TableRow>
-//                     <TablePagination
-//                         rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-//                         colSpan={3}
-//                         count={data.length}
-//                         rowsPerPage={rowsPerPage}
-//                         page={page}
-//                         SelectProps={{
-//                             inputProps: {
-//                                 'aria-label': 'rows per page',
-//                             },
-//                             native: true,
-//                         }}
-//                         onPageChange={handleChangePage}
-//                         onRowsPerPageChange={handleChangeRowsPerPage}
-//                         ActionsComponent={TablePaginationActions}
-//                     />
-//                 </TableRow>
-//             </TableFooter>
-//         </Table>
-//     )
-// }
-
-var History = function History() {
-  var user = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
-    return state.user;
-  });
-  var isMobile = (0,_mui_material_useMediaQuery__WEBPACK_IMPORTED_MODULE_20__["default"])('(max-width:425px)');
+var DepositHistory = function DepositHistory() {
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState14 = _slicedToArray(_useState13, 2),
-    value = _useState14[0],
-    setValue = _useState14[1];
+    page = _useState14[0],
+    setPage = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState16 = _slicedToArray(_useState15, 2),
+    data = _useState16[0],
+    setData = _useState16[1];
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(5),
+    _useState18 = _slicedToArray(_useState17, 2),
+    rowsPerPage = _useState18[0],
+    setRowsPerPage = _useState18[1];
+  var emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - sports.length) : 0;
+  var handleChangePage = function handleChangePage(event, newPage) {
+    setPage(newPage);
+  };
+  var handleChangeRowsPerPage = function handleChangeRowsPerPage(event) {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    (0,_providers_request__WEBPACK_IMPORTED_MODULE_1__["default"])('POST', '/sports/get_deposit_history', {}).then(function (rdata) {
+      setData(rdata);
+    });
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    sx: {
+      minWidth: 500
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          component: "th",
+          children: "#"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          component: "th",
+          children: "Date"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          component: "th",
+          children: "Transaction"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          component: "th",
+          children: "Deposit"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          component: "th",
+          children: "Status"
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_15__["default"], {
+      className: "history",
+      children: [data.length ? (rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(function (row, idx) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            sx: {
+              py: 1
+            },
+            children: idx + 1
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            sx: {
+              py: 1
+            },
+            children: row.created_at
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            sx: {
+              py: 1
+            },
+            children: row.id
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            sx: {
+              py: 1
+            },
+            children: "".concat(row.sum, " ").concat(row.currency)
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            sx: {
+              py: 1
+            },
+            children: row.status
+          })]
+        }, idx);
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          sx: {
+            padding: '16px 0px !important',
+            fontSize: 18
+          },
+          align: "center",
+          colSpan: 6,
+          children: "There is no data."
+        })
+      }), emptyRows > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        style: {
+          height: 53 * emptyRows
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          colSpan: 6
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableFooter__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TablePagination__WEBPACK_IMPORTED_MODULE_18__["default"], {
+          rowsPerPageOptions: [5, 10, 25, {
+            label: 'All',
+            value: -1
+          }],
+          colSpan: 3,
+          count: data.length,
+          rowsPerPage: rowsPerPage,
+          page: page,
+          SelectProps: {
+            inputProps: {
+              'aria-label': 'rows per page'
+            },
+            "native": true
+          },
+          onPageChange: handleChangePage,
+          onRowsPerPageChange: handleChangeRowsPerPage,
+          ActionsComponent: TablePaginationActions
+        })
+      })
+    })]
+  });
+};
+var WithdrawHistory = function WithdrawHistory() {
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState20 = _slicedToArray(_useState19, 2),
+    page = _useState20[0],
+    setPage = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState22 = _slicedToArray(_useState21, 2),
+    data = _useState22[0],
+    setData = _useState22[1];
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(5),
+    _useState24 = _slicedToArray(_useState23, 2),
+    rowsPerPage = _useState24[0],
+    setRowsPerPage = _useState24[1];
+  var emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - sports.length) : 0;
+  var handleChangePage = function handleChangePage(event, newPage) {
+    setPage(newPage);
+  };
+  var handleChangeRowsPerPage = function handleChangeRowsPerPage(event) {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  // useEffect(() => {
+  //     Axios('POST', '/sports/get_deposit_history', {}).then((rdata) => {
+  //         setData(rdata);
+  //     })
+  // }, [])
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    sx: {
+      minWidth: 500
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          component: "th",
+          children: "#"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          component: "th",
+          children: "Date"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          component: "th",
+          children: "Transaction"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          component: "th",
+          children: "Withdrawals"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          component: "th",
+          children: "wallet"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          component: "th",
+          children: "Status"
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableBody__WEBPACK_IMPORTED_MODULE_15__["default"], {
+      className: "history",
+      children: [data.length ? (rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(function (row, idx) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            sx: {
+              py: 1
+            },
+            children: idx + 1
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            sx: {
+              py: 1
+            },
+            children: row.created_at
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            sx: {
+              py: 1
+            },
+            children: row.id
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            sx: {
+              py: 1
+            },
+            children: "".concat(row.amount, " ").concat(row.currency)
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            sx: {
+              py: 1
+            },
+            children: row.wallet
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            sx: {
+              py: 1
+            },
+            children: row.status ? "Pending" : row.status == 1 ? "Approved" : "Rejected"
+          })]
+        }, idx);
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          sx: {
+            padding: '16px 0px !important',
+            fontSize: 18
+          },
+          align: "center",
+          colSpan: 6,
+          children: "There is no data."
+        })
+      }), emptyRows > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        style: {
+          height: 53 * emptyRows
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          colSpan: 6
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableFooter__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TablePagination__WEBPACK_IMPORTED_MODULE_18__["default"], {
+          rowsPerPageOptions: [5, 10, 25, {
+            label: 'All',
+            value: -1
+          }],
+          colSpan: 3,
+          count: data.length,
+          rowsPerPage: rowsPerPage,
+          page: page,
+          SelectProps: {
+            inputProps: {
+              'aria-label': 'rows per page'
+            },
+            "native": true
+          },
+          onPageChange: handleChangePage,
+          onRowsPerPageChange: handleChangeRowsPerPage,
+          ActionsComponent: TablePaginationActions
+        })
+      })
+    })]
+  });
+};
+var History = function History() {
+  // const user = useSelector(state => state.user);
+  // const isMobile = useMediaQuery('(max-width:425px)');
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState26 = _slicedToArray(_useState25, 2),
+    value = _useState26[0],
+    setValue = _useState26[1];
   var handleChange = function handleChange(event, newValue) {
     setValue(newValue);
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
     sx: {
       borderRadius: 4,
       mt: 2,
       bgcolor: '#141b2e',
       p: 2
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_16__["default"], {
       variant: "h5",
       sx: {
         ml: 2
       },
       children: "History"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
       sx: {
         mt: 1
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
         sx: {
           borderBottom: 1,
           borderColor: 'divider'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Tabs__WEBPACK_IMPORTED_MODULE_21__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material_Tabs__WEBPACK_IMPORTED_MODULE_19__["default"], {
           value: value,
           onChange: handleChange,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Tab__WEBPACK_IMPORTED_MODULE_22__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_Tab__WEBPACK_IMPORTED_MODULE_20__["default"], {
             label: "Sport",
             value: 0
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Tab__WEBPACK_IMPORTED_MODULE_22__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_Tab__WEBPACK_IMPORTED_MODULE_20__["default"], {
             label: "Casino",
             value: 1
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Tab__WEBPACK_IMPORTED_MODULE_22__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_Tab__WEBPACK_IMPORTED_MODULE_20__["default"], {
             label: "Deposit",
             value: 2
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Tab__WEBPACK_IMPORTED_MODULE_22__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_Tab__WEBPACK_IMPORTED_MODULE_20__["default"], {
             label: "Withdrawals",
             value: 3
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
         children: function () {
           if (value === 0) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(SportsHistory, {
-              id: user.id
-            });
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(SportsHistory, {});
           } else if (value === 1) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(CasinoHistory, {
-              id: user.id
-            });
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(CasinoHistory, {});
+          } else if (value === 2) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(DepositHistory, {});
+          } else if (value === 3) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(WithdrawHistory, {});
           }
-          // else if (value === 2) {
-          //     return (<DepositHistory id={user.id} />)
-          // } else if (value === 2) {
-          //     return (<WithdrawHistory id={user.id} />)
-          // }
         }()
       })]
     })]
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (History);
 
 /***/ })
