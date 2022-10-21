@@ -1854,7 +1854,7 @@ var WithdrawHistory = function WithdrawHistory() {
             sx: {
               py: 1
             },
-            children: row.status ? "Pending" : row.status == 1 ? "Approved" : "Rejected"
+            children: !row.status ? "Pending" : row.status == 1 ? "Approved" : "Rejected"
           })]
         }, idx);
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_TableRow__WEBPACK_IMPORTED_MODULE_13__["default"], {

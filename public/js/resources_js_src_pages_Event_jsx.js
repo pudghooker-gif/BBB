@@ -1876,7 +1876,8 @@ var Market = function Market(_ref3) {
   var mkname = (0,_Base__WEBPACK_IMPORTED_MODULE_3__.getMkName)(sId, mk);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_11__["default"], {
     item: true,
-    xs: 6,
+    sm: 6,
+    xs: 12,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_7__["default"], {
       sx: {
         borderRadius: 2,
@@ -2391,12 +2392,14 @@ var SportsEvent = function SportsEvent(_ref4) {
     }
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var path = location.pathname.split('/');
-    setEventId(path.slice(-1)[0]);
-    var item = data.filter(function (e) {
-      return String(e.id) === path.slice(-1)[0];
-    });
-    getEvent(item[0]);
+    if (data) {
+      var path = location.pathname.split('/');
+      setEventId(path.slice(-1)[0]);
+      var item = data.filter(function (e) {
+        return String(e.id) === path.slice(-1)[0];
+      });
+      getEvent(item[0]);
+    }
   }, [data]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_9__["default"], {
     sx: {

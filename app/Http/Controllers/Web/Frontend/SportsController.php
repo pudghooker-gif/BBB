@@ -315,6 +315,10 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                         ->where('sport_id', $request->sportId)
                         ->where('league_id', $request->leagueId)
                         ->get();
+                } else if ($request->sportId && $request->isMobile) {
+                    $data = SportData::where('time_status', 0)
+                        ->where('sport_id', $request->sportId)
+                        ->get();
                 } else if ($request->sportId && $request->country) {
                     if ($request->country == 'null') {
                         $data = SportData::where('time_status', 0)
