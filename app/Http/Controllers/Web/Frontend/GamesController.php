@@ -572,7 +572,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                 if (!settings('payment_coinbase')) {
                     return ['status' => false, 'message' => 'Coinbase system is not available for you.'];
                 }
-                
+
                 if (!\VanguardLTE\Lib\Setting::is_available('coinbase', auth()->user()->shop_id)) {
                     return ['status' => false, 'message' => 'Something went wrong.'];
                 }
@@ -583,7 +583,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                     'system' => 'coinbase',
                     'shop_id' => auth()->user()->shop_id
                 ]);
-                
+
                 $response = \Illuminate\Support\Facades\Http::withHeaders([
                     'X-CC-Api-Key' => \VanguardLTE\Lib\Setting::get_value('coinbase', 'api_key', auth()->user()->shop_id),
                     'X-CC-Version' => '2018-03-22'
@@ -605,16 +605,10 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             }
             if ($request->system == 'btcpayserver') {
                 if (!settings('payment_btcpayserver')) {
-                    $error = trans('app.system_is_not_available');
-                    if ($redirect = $this->check_redirect($request, '', $error)) {
-                        return $redirect;
-                    }
+                    return ['status' => false, 'message' => 'Btcpayserver system is not available for you.'];
                 }
                 if (!\VanguardLTE\Lib\Setting::is_available('btcpayserver', auth()->user()->shop_id)) {
-                    $error = trans('app.something_went_wrong');
-                    if ($redirect = $this->check_redirect($request, '', $error)) {
-                        return $redirect;
-                    }
+                    return ['status' => false, 'message' => 'Something went wrong.'];
                 }
                 $payment = \VanguardLTE\Payment::create([
                     'user_id' => auth()->user()->id,
@@ -637,12 +631,10 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                         'browserRedirect' => route('payment.btcpayserver.redirect')
                     ]
                 ];
-                return view('frontend.' . $frontend . '.payment_form', compact('currentSliderNum', 'data', 'category1', 'categories', 'jpgs'));
+                return ['status' => true, 'data' => $data];
             }
-            $error = trans('app.something_went_wrong');
-            if ($redirect = $this->check_redirect($request, '', $error)) {
-                return $redirect;
-            }
+
+            return ['status' => false, 'message' => 'Something went wrong.'];
         }
         public function check_redirect(\Illuminate\Http\Request $request, $category1, $error = '')
         {

@@ -44998,6 +44998,7 @@ var Header = function Header() {
               break;
             case 4:
               setError(_objectSpread(_objectSpread({}, error), {}, _defineProperty({}, item, false)));
+              setServerError(_objectSpread(_objectSpread({}, serverError), {}, _defineProperty({}, item, false)));
               sdata = {
                 summ: values[item]
               };
@@ -45008,13 +45009,20 @@ var Header = function Header() {
                 setBtcLoading(true);
                 sdata.system = 'btcpayserver';
               }
-              _context3.next = 9;
+              _context3.next = 10;
               return (0,_providers_request__WEBPACK_IMPORTED_MODULE_3__["default"])('post', '/deposit', sdata);
-            case 9:
+            case 10:
               rdata = _context3.sent;
-              console.log(rdata);
               if (rdata.status) {
-                console.log(rdata.data);
+                if (item === 'crypto') {
+                  window.open(rdata.data, '_blank');
+                  setDepositOption(0);
+                } else {
+                  (0,_providers_request__WEBPACK_IMPORTED_MODULE_3__["default"])('POST', rdata.data.action, rdata.data.fields);
+                }
+              } else {
+                setError(_objectSpread(_objectSpread({}, error), {}, _defineProperty({}, item, true)));
+                setServerError(_objectSpread(_objectSpread({}, serverError), {}, _defineProperty({}, item, rdata.message)));
               }
               setCryptoLoading(false);
               setBtcLoading(false);
@@ -45670,7 +45678,7 @@ var Header = function Header() {
                   width: '100%',
                   justifyContent: 'space-between'
                 },
-                endIcon: depositOption.crypto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                endIcon: depositOption === 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_24__["default"], {
                   sx: {
                     color: '#a9aeb7'
                   }
@@ -45749,7 +45757,7 @@ var Header = function Header() {
                         return theme.palette.warning.main;
                       }
                     },
-                    children: "Please enter correct amount."
+                    children: "".concat(serverError.crypto ? serverError.crypto : 'Please enter correct amount.')
                   }) : null]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_lab_LoadingButton__WEBPACK_IMPORTED_MODULE_50__["default"], {
                   loading: cryptoLoading,
@@ -45777,7 +45785,7 @@ var Header = function Header() {
                   width: '100%',
                   justifyContent: 'space-between'
                 },
-                endIcon: depositOption.crypto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                endIcon: depositOption === 2 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_24__["default"], {
                   sx: {
                     color: '#a9aeb7'
                   }
@@ -45856,10 +45864,10 @@ var Header = function Header() {
                         return theme.palette.warning.main;
                       }
                     },
-                    children: "Please enter correct amount."
+                    children: "".concat(serverError.btc ? serverError.btc : 'Please enter correct amount.')
                   }) : null]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_lab_LoadingButton__WEBPACK_IMPORTED_MODULE_50__["default"], {
-                  loading: loginLoading,
+                  loading: btcLoading,
                   className: "btn success",
                   sx: {
                     mb: 2,
@@ -45868,7 +45876,10 @@ var Header = function Header() {
                     width: '100%',
                     borderRadius: '10px'
                   },
-                  children: loginLoading ? '' : 'Pay Balance'
+                  onClick: function onClick() {
+                    return depositAction('btc');
+                  },
+                  children: btcLoading ? '' : 'Pay Balance'
                 })]
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_15__["default"], {
@@ -45881,7 +45892,7 @@ var Header = function Header() {
                   width: '100%',
                   justifyContent: 'space-between'
                 },
-                endIcon: depositOption.crypto ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                endIcon: depositOption === 3 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_24__["default"], {
                   sx: {
                     color: '#a9aeb7'
                   }
