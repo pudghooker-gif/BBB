@@ -46567,7 +46567,7 @@ var Axios = /*#__PURE__*/function () {
                                 status: false,
                                 data: edata.data
                               });
-                            }
+                            } else if (edata.status === 401) resolve(edata.data);
                           }
                         });
                       case 2:
