@@ -887,5 +887,42 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                 )                //		trans('app.user_withdrawal_request_submitted')
             );
         }
+
+        public function withdrawMoney(\VanguardLTE\Http\Requests\User\WithdrawRequest $request)
+        {
+            if (!auth()->user()->email) {
+                return ['status' => false, 'message' => 'You have to provide email'];
+            }
+            $txtamount = $request->txtamount;
+            $txtcurrency = $request->txtcurrency;
+
+            $user = \VanguardLTE\User::find(auth()->user()->id);
+            if ((int)$user->balance < (int)$txtamount) {
+                return ['status' => false, 'message' => 'Not enough money in your balance'];
+            }
+            $result = $user->addBalance('out', $txtamount);
+            $result = json_decode($result, true);
+            if ($result['status'] == 'error') {
+                return ['status' => false, 'message' => $result['message']];
+            }
+
+            $details = [
+                'username' => auth()->user()->username,
+                'email' => auth()->user()->email,
+                'amount' => $txtamount,
+                'currency' => $txtcurrency,
+            ];
+            Mail::to(env('APP_EMAIL'))->send(new UserWithdrawRequest($details));
+            $withdraw = new \VanguardLTE\Withdraw;
+            $withdraw->user_id = auth()->user()->id;
+            $withdraw->amount = $txtamount;
+            $withdraw->currency = $txtcurrency;
+            $withdraw->shop_id = auth()->user()->shop_id;
+            $withdraw->wallet = $request->wallet;
+            $withdraw->save();
+
+            event(new \VanguardLTE\Events\User\UpdatedProfileDetails());
+            return ['status' => true, 'message' => 'Thank you for your request the funds will be added to your wallet within 24 hours'];
+        }
     }
 }

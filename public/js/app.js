@@ -6839,6 +6839,34 @@ function useSlotProps(parameters) {
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/AccountBalanceWallet.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@mui/icons-material/AccountBalanceWallet.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"
+}), 'AccountBalanceWallet');
+
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/Add.js":
 /*!*************************************************!*\
   !*** ./node_modules/@mui/icons-material/Add.js ***!
@@ -43697,6 +43725,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
 /* harmony import */ var _mui_material_Alert__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! @mui/material/Alert */ "./node_modules/@mui/material/esm/Alert/Alert.js");
 /* harmony import */ var _mui_material_Modal__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! @mui/material/Modal */ "./node_modules/@mui/material/esm/Modal/Modal.js");
+/* harmony import */ var _mui_material_Select__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! @mui/material/Select */ "./node_modules/@mui/material/esm/Select/Select.js");
 /* harmony import */ var _mui_material_Drawer__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @mui/material/Drawer */ "./node_modules/@mui/material/esm/Drawer/Drawer.js");
 /* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/esm/Button/Button.js");
 /* harmony import */ var _mui_material_Popover__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @mui/material/Popover */ "./node_modules/@mui/material/esm/Popover/Popover.js");
@@ -43714,19 +43743,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! @mui/material/InputAdornment */ "./node_modules/@mui/material/esm/InputAdornment/InputAdornment.js");
 /* harmony import */ var _mui_material_ListItemButton__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @mui/material/ListItemButton */ "./node_modules/@mui/material/esm/ListItemButton/ListItemButton.js");
 /* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
-/* harmony import */ var _mui_icons_material_East__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/East */ "./node_modules/@mui/icons-material/East.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
-/* harmony import */ var _mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowUp */ "./node_modules/@mui/icons-material/KeyboardArrowUp.js");
-/* harmony import */ var _mui_icons_material_Person__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @mui/icons-material/Person */ "./node_modules/@mui/icons-material/Person.js");
-/* harmony import */ var _mui_icons_material_MoreVert__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @mui/icons-material/MoreVert */ "./node_modules/@mui/icons-material/MoreVert.js");
-/* harmony import */ var _mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/icons-material/Close */ "./node_modules/@mui/icons-material/Close.js");
 /* harmony import */ var _mui_icons_material_Menu__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @mui/icons-material/Menu */ "./node_modules/@mui/icons-material/Menu.js");
-/* harmony import */ var _mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! @mui/icons-material/Visibility */ "./node_modules/@mui/icons-material/Visibility.js");
-/* harmony import */ var _mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! @mui/icons-material/VisibilityOff */ "./node_modules/@mui/icons-material/VisibilityOff.js");
-/* harmony import */ var _mui_icons_material_LiveTv__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @mui/icons-material/LiveTv */ "./node_modules/@mui/icons-material/LiveTv.js");
+/* harmony import */ var _mui_icons_material_East__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/East */ "./node_modules/@mui/icons-material/East.js");
+/* harmony import */ var _mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/icons-material/Close */ "./node_modules/@mui/icons-material/Close.js");
 /* harmony import */ var _mui_icons_material_Sports__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @mui/icons-material/Sports */ "./node_modules/@mui/icons-material/Sports.js");
 /* harmony import */ var _mui_icons_material_Casino__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @mui/icons-material/Casino */ "./node_modules/@mui/icons-material/Casino.js");
+/* harmony import */ var _mui_icons_material_Person__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @mui/icons-material/Person */ "./node_modules/@mui/icons-material/Person.js");
+/* harmony import */ var _mui_icons_material_LiveTv__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @mui/icons-material/LiveTv */ "./node_modules/@mui/icons-material/LiveTv.js");
+/* harmony import */ var _mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! @mui/icons-material/Visibility */ "./node_modules/@mui/icons-material/Visibility.js");
+/* harmony import */ var _mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! @mui/icons-material/VisibilityOff */ "./node_modules/@mui/icons-material/VisibilityOff.js");
+/* harmony import */ var _mui_icons_material_MoreVert__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @mui/icons-material/MoreVert */ "./node_modules/@mui/icons-material/MoreVert.js");
 /* harmony import */ var _mui_icons_material_SportsEsports__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! @mui/icons-material/SportsEsports */ "./node_modules/@mui/icons-material/SportsEsports.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowUp__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowUp */ "./node_modules/@mui/icons-material/KeyboardArrowUp.js");
+/* harmony import */ var _mui_icons_material_KeyboardArrowDown__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/icons-material/KeyboardArrowDown */ "./node_modules/@mui/icons-material/KeyboardArrowDown.js");
+/* harmony import */ var _mui_icons_material_AccountBalanceWallet__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! @mui/icons-material/AccountBalanceWallet */ "./node_modules/@mui/icons-material/AccountBalanceWallet.js");
 /* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Base */ "./resources/js/src/components/Base.jsx");
 /* harmony import */ var _assets_img_logo_logo_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../assets/img/logo/logo.png */ "./resources/js/src/assets/img/logo/logo.png");
 /* harmony import */ var _assets_img_feature_en_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../assets/img/feature/en.svg */ "./resources/js/src/assets/img/feature/en.svg");
@@ -43748,6 +43778,8 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -43824,6 +43856,7 @@ var Desktop = function Desktop(_ref) {
     navigate = _ref.navigate,
     langList = _ref.langList,
     showProfile = _ref.showProfile,
+    openWithdraw = _ref.openWithdraw,
     list = _ref.list,
     openDeposit = _ref.openDeposit,
     active = _ref.active,
@@ -44284,6 +44317,9 @@ var Desktop = function Desktop(_ref) {
               onClose: closeProfile,
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_21__["default"], {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                  onClick: function onClick() {
+                    return openWithdraw();
+                  },
                   textAlign: "center",
                   sx: {
                     color: '#2a2929',
@@ -44291,7 +44327,7 @@ var Desktop = function Desktop(_ref) {
                       return theme.spacing(1.5);
                     }
                   },
-                  children: "Payment"
+                  children: "Withdraw"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_21__["default"], {
                 onClick: function onClick() {
@@ -44700,53 +44736,61 @@ var Header = function Header() {
     setLogin = _useState8[1];
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState10 = _slicedToArray(_useState9, 2),
-    depositState = _useState10[0],
-    setDepositState = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    withdraw = _useState10[0],
+    setWithdraw = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState12 = _slicedToArray(_useState11, 2),
-    depositOption = _useState12[0],
-    setDepositOption = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    depositState = _useState12[0],
+    setDepositState = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState14 = _slicedToArray(_useState13, 2),
-    register = _useState14[0],
-    setRegister = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    depositOption = _useState14[0],
+    setDepositOption = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState16 = _slicedToArray(_useState15, 2),
-    langList = _useState16[0],
-    setLangList = _useState16[1];
+    register = _useState16[0],
+    setRegister = _useState16[1];
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState18 = _slicedToArray(_useState17, 2),
-    showProfile = _useState18[0],
-    setShowProfile = _useState18[1];
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    langList = _useState18[0],
+    setLangList = _useState18[1];
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState20 = _slicedToArray(_useState19, 2),
-    loginLoading = _useState20[0],
-    setLoginLoading = _useState20[1];
+    showProfile = _useState20[0],
+    setShowProfile = _useState20[1];
   var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState22 = _slicedToArray(_useState21, 2),
-    cryptoLoading = _useState22[0],
-    setCryptoLoading = _useState22[1];
+    loginLoading = _useState22[0],
+    setLoginLoading = _useState22[1];
   var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState24 = _slicedToArray(_useState23, 2),
-    btcLoading = _useState24[0],
-    setBtcLoading = _useState24[1];
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    cryptoLoading = _useState24[0],
+    setCryptoLoading = _useState24[1];
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState26 = _slicedToArray(_useState25, 2),
-    message = _useState26[0],
-    setMessage = _useState26[1];
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    btcLoading = _useState26[0],
+    setBtcLoading = _useState26[1];
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState28 = _slicedToArray(_useState27, 2),
-    error = _useState28[0],
-    setError = _useState28[1];
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    withdrawLoading = _useState28[0],
+    setWithdrawLoading = _useState28[1];
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     _useState30 = _slicedToArray(_useState29, 2),
-    errorReg = _useState30[0],
-    setErrorReg = _useState30[1];
+    message = _useState30[0],
+    setMessage = _useState30[1];
   var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
     _useState32 = _slicedToArray(_useState31, 2),
-    serverError = _useState32[0],
-    setServerError = _useState32[1];
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    error = _useState32[0],
+    setError = _useState32[1];
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState34 = _slicedToArray(_useState33, 2),
+    errorReg = _useState34[0],
+    setErrorReg = _useState34[1];
+  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState36 = _slicedToArray(_useState35, 2),
+    serverError = _useState36[0],
+    setServerError = _useState36[1];
+  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       username: '',
       email: '',
       password: '',
@@ -44754,11 +44798,14 @@ var Header = function Header() {
       showPassword: false,
       crypto: '',
       btc: '',
-      pin: ''
+      pin: '',
+      address: '',
+      withdraw: '',
+      currencyType: 'USD'
     }),
-    _useState34 = _slicedToArray(_useState33, 2),
-    values = _useState34[0],
-    setValues = _useState34[1];
+    _useState38 = _slicedToArray(_useState37, 2),
+    values = _useState38[0],
+    setValues = _useState38[1];
   var handleChange = function handleChange(prop) {
     return function (event) {
       setValues(_objectSpread(_objectSpread({}, values), {}, _defineProperty({}, prop, event.target.value)));
@@ -44804,6 +44851,12 @@ var Header = function Header() {
   };
   var closeDeposit = function closeDeposit() {
     setDepositState(false);
+  };
+  var openWithdraw = function openWithdraw() {
+    setWithdraw(true);
+  };
+  var closeWithdraw = function closeWithdraw() {
+    setWithdraw(false);
   };
   //open & close modal || menu functions end
 
@@ -45031,6 +45084,7 @@ var Header = function Header() {
             case 19:
               btcdata = _context3.sent;
               if (btcdata.code === 'success') {
+                setDepositOption(0);
                 addToast('Success!', {
                   appearance: 'success',
                   autoDismiss: true
@@ -45059,6 +45113,78 @@ var Header = function Header() {
     }));
     return function depositAction(_x) {
       return _ref9.apply(this, arguments);
+    };
+  }();
+  var withdrawAction = /*#__PURE__*/function () {
+    var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      var preError, rdata;
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              setWithdrawLoading(true);
+              preError = error;
+              if (!values.withdraw || Number(values.withdraw) < 100) {
+                preError = _objectSpread(_objectSpread({}, preError), {}, {
+                  withdraw: true
+                });
+              } else {
+                preError = _objectSpread(_objectSpread({}, preError), {}, {
+                  withdraw: false
+                });
+              }
+              if (!values.address) {
+                preError = _objectSpread(_objectSpread({}, preError), {}, {
+                  address: true
+                });
+              } else {
+                preError = _objectSpread(_objectSpread({}, preError), {}, {
+                  address: false
+                });
+              }
+              setError(preError);
+              if (!(preError.withdraw || preError.address)) {
+                _context4.next = 8;
+                break;
+              }
+              setWithdrawLoading(false);
+              return _context4.abrupt("return");
+            case 8:
+              _context4.next = 10;
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_3__["default"])('POST', '/withdraw', {
+                txtamount: values.withdraw,
+                txtcurrency: values.currencyType,
+                wallet: values.address
+              });
+            case 10:
+              rdata = _context4.sent;
+              if (rdata.status) {
+                closeWithdraw();
+                setError(_objectSpread(_objectSpread({}, error), {}, {
+                  withdrawServer: false
+                }));
+                addToast("Success! ".concat(rdata.message), {
+                  appearance: 'success',
+                  autoDismiss: true
+                });
+              } else {
+                setError(_objectSpread(_objectSpread({}, error), {}, {
+                  withdrawServer: true
+                }));
+                setServerError(_objectSpread(_objectSpread({}, serverError), {}, {
+                  withdraw: rdata.message
+                }));
+              }
+              setWithdrawLoading(false);
+            case 13:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+    return function withdrawAction() {
+      return _ref10.apply(this, arguments);
     };
   }();
   // request actions end
@@ -45114,6 +45240,7 @@ var Header = function Header() {
       closeLang: closeLang,
       openDeposit: openDeposit,
       openProfile: openProfile,
+      openWithdraw: openWithdraw,
       closeProfile: closeProfile,
       go: go,
       openLogin: openLogin,
@@ -45232,7 +45359,11 @@ var Header = function Header() {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_30__["default"], {
                     onClick: handleClickShowPassword,
                     edge: "end",
-                    children: values.showPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_48__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_49__["default"], {})
+                    children: values.showPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_48__["default"], {
+                      color: "primary"
+                    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_49__["default"], {
+                      color: "primary"
+                    })
                   })
                 }),
                 sx: {
@@ -46022,6 +46153,210 @@ var Header = function Header() {
                 })]
               })]
             })]
+          })]
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Modal__WEBPACK_IMPORTED_MODULE_44__["default"], {
+      open: withdraw,
+      onClose: closeWithdraw,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        sx: {
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'white',
+          boxShadow: 24,
+          padding: 3,
+          borderRadius: 4
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_4__.HStack, {
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                sx: {
+                  color: '#090f1e',
+                  fontSize: '20px',
+                  fontWeight: 700
+                },
+                children: "Withdraw"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                sx: {
+                  color: '#070c19',
+                  fontSize: '12px'
+                },
+                children: "Please note there is a minimum 100 EUR withdraw amount your balalance must be MIN 100 USD or EURO!"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_30__["default"], {
+              sx: {
+                borderRadius: 2,
+                bgcolor: '#edf0f7',
+                padding: .5,
+                '&:hover': {
+                  bgcolor: '#eeeff3'
+                }
+              },
+              onClick: function onClick() {
+                return closeWithdraw();
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_27__["default"], {
+                sx: {
+                  color: '#a9aeb7',
+                  fontSize: 24
+                }
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Stack__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            sx: {
+              mt: 3
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              sx: {
+                mb: 2
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Base__WEBPACK_IMPORTED_MODULE_4__.HStack, {
+                alignItems: "center",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Select__WEBPACK_IMPORTED_MODULE_52__["default"], {
+                  value: values.currencyType,
+                  onChange: handleChange('currencyType'),
+                  sx: {
+                    bgcolor: '#ecf0f7',
+                    borderRadius: '12px',
+                    height: '100%',
+                    mr: 2,
+                    '& .MuiSelect-select': {
+                      py: '13px',
+                      color: '#070c19cc'
+                    },
+                    '& fieldset': {
+                      display: 'none'
+                    }
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                    value: "USD",
+                    children: "USD"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                    value: "EUR",
+                    children: "EUR"
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_45__["default"], {
+                  type: "number",
+                  placeholder: "Enter amount",
+                  name: "amount",
+                  value: values.withdraw,
+                  onChange: handleChange('withdraw'),
+                  sx: {
+                    width: '100%',
+                    '& fieldset': {
+                      display: 'none'
+                    },
+                    '& input': {
+                      bgcolor: '#edf0f7',
+                      color: '#070c19cc',
+                      padding: 2,
+                      borderRadius: '12px',
+                      fontSize: '12px',
+                      '&:-webkit-autofill': {
+                        'WebkitBoxShadow': 'unset',
+                        'WebkitTextFillColor': '#070c19cc',
+                        borderRadius: '12px'
+                      }
+                    }
+                  }
+                })]
+              }), error.withdraw ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Alert__WEBPACK_IMPORTED_MODULE_46__["default"], {
+                variant: "outlined",
+                severity: "warning",
+                sx: {
+                  mt: 1,
+                  borderRadius: 2,
+                  py: 0,
+                  color: function color(theme) {
+                    return theme.palette.warning.main;
+                  }
+                },
+                children: "Please enter correct amount."
+              }) : null]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              sx: {
+                mb: 2
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_45__["default"], {
+                type: "text",
+                value: values.address,
+                placeholder: "Wallet address",
+                name: "address",
+                onChange: handleChange('address'),
+                endAdornment: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_47__["default"], {
+                  position: "end",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_30__["default"], {
+                    edge: "end",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_icons_material_AccountBalanceWallet__WEBPACK_IMPORTED_MODULE_53__["default"], {
+                      color: "primary"
+                    })
+                  })
+                }),
+                sx: {
+                  width: '100%',
+                  bgcolor: '#edf0f7',
+                  borderRadius: '12px',
+                  '& fieldset': {
+                    display: 'none'
+                  },
+                  '& input': {
+                    color: '#070c19cc',
+                    padding: 2,
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    '&:-webkit-autofill': {
+                      'WebkitBoxShadow': 'unset',
+                      'WebkitTextFillColor': '#070c19cc',
+                      borderRadius: '12px'
+                    }
+                  }
+                }
+              }), error.address ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Alert__WEBPACK_IMPORTED_MODULE_46__["default"], {
+                variant: "outlined",
+                severity: "warning",
+                sx: {
+                  mt: 1,
+                  borderRadius: 2,
+                  py: 0,
+                  color: function color(theme) {
+                    return theme.palette.warning.main;
+                  }
+                },
+                children: "Wallet address is required."
+              }) : null]
+            })]
+          }), error.withdrawServer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_4__.HStack, {
+            sx: {
+              mb: 2
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Alert__WEBPACK_IMPORTED_MODULE_46__["default"], {
+              variant: "filled",
+              severity: "error",
+              sx: {
+                width: '100%',
+                borderRadius: 2
+              },
+              children: serverError.withdraw
+            })
+          }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_lab_LoadingButton__WEBPACK_IMPORTED_MODULE_50__["default"], {
+            sx: {
+              padding: 3,
+              fontSize: '18px',
+              borderRadius: '10px'
+            },
+            loading: withdrawLoading,
+            className: "btn active",
+            onClick: function onClick() {
+              return withdrawAction();
+            },
+            children: withdrawLoading ? '' : 'Save'
           })]
         })
       })

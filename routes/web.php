@@ -236,6 +236,7 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
     ]);
 
     Route::post('profile/withdraw', ['as' => 'frontend.profile.withdraw', 'uses' => 'ProfileController@withdraw']);
+    Route::post('withdraw', ['as' => 'frontend.withdraw', 'uses' => 'ProfileController@withdrawMoney']);
 
 
     /**
