@@ -200,7 +200,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             }
             return view('frontend.' . $frontend . '.games.list', compact('games', 'category1', 'cat1', 'categories', 'currentSliderNum', 'title', 'body', 'keywords', 'description', 'jpgs', 'shop', 'devices', 'tournament', 'is_game_page', 'jpgSum', 'gamestat', 'depositlist'));
         }
-        
+
         public function getGamePageNation(\Illuminate\Http\Request $request)
         {
             $category1 = $request->category1;
@@ -465,6 +465,142 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                     if ($redirect = $this->check_redirect($request, '', $error)) {
                         return $redirect;
                     }
+                }
+            }
+            if ($request->system == 'btcpayserver') {
+                if (!settings('payment_btcpayserver')) {
+                    $error = trans('app.system_is_not_available');
+                    if ($redirect = $this->check_redirect($request, '', $error)) {
+                        return $redirect;
+                    }
+                }
+                if (!\VanguardLTE\Lib\Setting::is_available('btcpayserver', auth()->user()->shop_id)) {
+                    $error = trans('app.something_went_wrong');
+                    if ($redirect = $this->check_redirect($request, '', $error)) {
+                        return $redirect;
+                    }
+                }
+                $payment = \VanguardLTE\Payment::create([
+                    'user_id' => auth()->user()->id,
+                    'sum' => $amount,
+                    'currency' => auth()->user()->shop->currency,
+                    'system' => 'btcpayserver',
+                    'shop_id' => auth()->user()->shop_id
+                ]);
+                $data = [
+                    'method' => 'POST',
+                    'action' => \VanguardLTE\Lib\Setting::get_value('btcpayserver', 'server', auth()->user()->shop_id) . '/api/v1/stores/' . \VanguardLTE\Lib\Setting::get_value('btcpayserver', 'store_id', auth()->user()->shop_id) . '/invoices',
+                    'charset' => 'UTF-8',
+                    'fields' => [
+                        'storeId' => \VanguardLTE\Lib\Setting::get_value('btcpayserver', 'store_id', auth()->user()->shop_id),
+                        'orderId' => $payment->id,
+                        'price' => $amount,
+                        'currency' => auth()->user()->shop->currency,
+                        'checkoutDesc' => 'Account replenishment for a client #' . auth()->user()->id,
+                        'serverIpn' => route('payment.btcpayserver.result'),
+                        'browserRedirect' => route('payment.btcpayserver.redirect')
+                    ]
+                ];
+                return view('frontend.' . $frontend . '.payment_form', compact('currentSliderNum', 'data', 'category1', 'categories', 'jpgs'));
+            }
+            $error = trans('app.something_went_wrong');
+            if ($redirect = $this->check_redirect($request, '', $error)) {
+                return $redirect;
+            }
+        }
+        public function deposit(\Illuminate\Http\Request $request)
+        {
+            $shop_id = auth()->user()->shop_id;
+            $shop = \VanguardLTE\Shop::find($shop_id);
+
+            if (!$request->summ) {
+                $error = __('app.sum_is_empty');
+                if ($redirect = $this->check_redirect($request, '', $error)) {
+                    return $redirect;
+                }
+            }
+            $amount = str_replace(',', '.', trim($request->summ));
+            $amount = number_format(floatval($amount), 2, '.', '');
+
+            if ($amount < settings('minimum_payment_amount')) {
+                return ['status' => false, 'message' => 'The amount is less than the minimum amount.'];
+            }
+            if (settings('maximum_payment_amount') < $amount) {
+                return ['status' => false, 'message' => 'The amount is greater than the maximum amount.'];
+            }
+
+            if ($shop->balance < $amount) {
+                return ['status' => false, 'message' => 'Not enough money in the shop.'];
+            }
+
+            if (strripos($request->system, 'interkassa') !== false) {
+                if (!settings('payment_interkassa')) {
+                    $error = trans('app.system_is_not_available');
+                    if ($redirect = $this->check_redirect($request, '', $error)) {
+                        return $redirect;
+                    }
+                }
+                if (!\VanguardLTE\Lib\Setting::is_available('interkassa', auth()->user()->shop_id)) {
+                    $error = trans('app.something_went_wrong');
+                    if ($redirect = $this->check_redirect($request, '', $error)) {
+                        return $redirect;
+                    }
+                }
+                $payment = \VanguardLTE\Payment::create([
+                    'user_id' => auth()->user()->id,
+                    'sum' => $amount,
+                    'currency' => auth()->user()->shop->currency,
+                    'system' => 'interkassa',
+                    'shop_id' => auth()->user()->shop_id
+                ]);
+                $form = \VanguardLTE\Lib\Interkassa::get_form(auth()->user()->id, auth()->user()->shop_id, $payment->id, $amount, $request->system);
+                if (isset($form['success'])) {
+                    $data = $form['form'];
+                    if (is_array($data)) {
+                        $data['fields'] = $data['parameters'];
+                        unset($data['parameters']);
+                    }
+                    return view('frontend.' . $frontend . '.payment_form', compact('currentSliderNum', 'data', 'category1', 'categories', 'jpgs'));
+                }
+                $error = trans('app.something_went_wrong');
+                if ($redirect = $this->check_redirect($request, '', $error)) {
+                    return $redirect;
+                }
+            }
+
+            if ($request->system == 'coinbase') {
+                if (!settings('payment_coinbase')) {
+                    return ['status' => false, 'message' => 'Coinbase system is not available for you.'];
+                }
+                
+                if (!\VanguardLTE\Lib\Setting::is_available('coinbase', auth()->user()->shop_id)) {
+                    return ['status' => false, 'message' => 'Something went wrong.'];
+                }
+                $payment = \VanguardLTE\Payment::create([
+                    'user_id' => auth()->user()->id,
+                    'sum' => $amount,
+                    'currency' => auth()->user()->shop->currency,
+                    'system' => 'coinbase',
+                    'shop_id' => auth()->user()->shop_id
+                ]);
+                
+                $response = \Illuminate\Support\Facades\Http::withHeaders([
+                    'X-CC-Api-Key' => \VanguardLTE\Lib\Setting::get_value('coinbase', 'api_key', auth()->user()->shop_id),
+                    'X-CC-Version' => '2018-03-22'
+                ])->post('https://api.commerce.coinbase.com/charges', [
+                    'name' => 'Payment ID #' . $payment->id,
+                    'description' => 'Account replenishment for a client #' . auth()->user()->id,
+                    'local_price' => [
+                        'amount' => $amount,
+                        'currency' => auth()->user()->shop->currency
+                    ],
+                    'pricing_type' => 'fixed_price',
+                    'metadata' => ['payment_id' => $payment->id]
+                ]);
+                if (isset($response['data']['hosted_url'])) {
+                    return ['status' => true, 'data' => $response['data']['hosted_url']];
+                } else {
+                    return ['status' => false, 'message' => 'Something went wrong.'];
                 }
             }
             if ($request->system == 'btcpayserver') {

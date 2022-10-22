@@ -275,6 +275,10 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'as' => 'frontend.balance.post',
         'uses' => 'GamesController@balanceAdd'
     ]);
+    Route::post('deposit', [
+        'as' => 'frontend.deposit.post',
+        'uses' => 'GamesController@deposit'
+    ]);
 
 
     /*
@@ -393,6 +397,11 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
 
     Route::get('/history', [
         'as' => 'frontend.history',
+        'uses' => 'SportsController@home'
+    ]);
+ 
+    Route::get('/payment', [
+        'as' => 'frontend.payment',
         'uses' => 'SportsController@home'
     ]);
 
