@@ -44984,7 +44984,7 @@ var Header = function Header() {
   }();
   var depositAction = /*#__PURE__*/function () {
     var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(item) {
-      var sdata, rdata;
+      var sdata, rdata, btcdata;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -44994,7 +44994,7 @@ var Header = function Header() {
                 break;
               }
               setError(_objectSpread(_objectSpread({}, error), {}, _defineProperty({}, item, true)));
-              _context3.next = 14;
+              _context3.next = 27;
               break;
             case 4:
               setError(_objectSpread(_objectSpread({}, error), {}, _defineProperty({}, item, false)));
@@ -45013,20 +45013,44 @@ var Header = function Header() {
               return (0,_providers_request__WEBPACK_IMPORTED_MODULE_3__["default"])('post', '/deposit', sdata);
             case 10:
               rdata = _context3.sent;
-              if (rdata.status) {
-                if (item === 'crypto') {
-                  window.open(rdata.data, '_blank');
-                  setDepositOption(0);
-                } else {
-                  (0,_providers_request__WEBPACK_IMPORTED_MODULE_3__["default"])('POST', rdata.data.action, rdata.data.fields);
-                }
-              } else {
-                setError(_objectSpread(_objectSpread({}, error), {}, _defineProperty({}, item, true)));
-                setServerError(_objectSpread(_objectSpread({}, serverError), {}, _defineProperty({}, item, rdata.message)));
+              if (!rdata.status) {
+                _context3.next = 23;
+                break;
               }
+              if (!(item === 'crypto')) {
+                _context3.next = 17;
+                break;
+              }
+              window.open(rdata.data, '_blank');
+              setDepositOption(0);
+              _context3.next = 21;
+              break;
+            case 17:
+              _context3.next = 19;
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_3__["default"])('POST', rdata.data.action, rdata.data.fields);
+            case 19:
+              btcdata = _context3.sent;
+              if (btcdata.code === 'success') {
+                addToast('Success!', {
+                  appearance: 'success',
+                  autoDismiss: true
+                });
+              } else {
+                addToast(btcdata.message, {
+                  appearance: 'error',
+                  autoDismiss: true
+                });
+              }
+            case 21:
+              _context3.next = 25;
+              break;
+            case 23:
+              setError(_objectSpread(_objectSpread({}, error), {}, _defineProperty({}, item, true)));
+              setServerError(_objectSpread(_objectSpread({}, serverError), {}, _defineProperty({}, item, rdata.message)));
+            case 25:
               setCryptoLoading(false);
               setBtcLoading(false);
-            case 14:
+            case 27:
             case "end":
               return _context3.stop();
           }
