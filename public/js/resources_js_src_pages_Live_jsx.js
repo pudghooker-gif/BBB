@@ -1447,7 +1447,7 @@ var EventHeader = function EventHeader(_ref) {
             fontWeight: 900
           },
           children: score.ss ? score.ss : '0:0'
-        }), score.timer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        }), score.timer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
           sx: {
             margin: 'auto',
             mr: 2,
@@ -1456,7 +1456,7 @@ var EventHeader = function EventHeader(_ref) {
             borderRadius: 4,
             bgcolor: '#97aee11c'
           },
-          children: [score.timer, "'"]
+          children: score.timer
         }) : null]
       }), time === today ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
         sx: {
@@ -3792,7 +3792,7 @@ var LiveLeague = function LiveLeague(_ref) {
     });
   };
   var makePreOdd = function makePreOdd(eId, sId, sName, data, home, away, league) {
-    var odd = data["".concat(sId, "_1")];
+    var odd = data && data["".concat(sId, "_1")] ? data["".concat(sId, "_1")] : {};
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
         className: "match-odd-item",
@@ -4213,7 +4213,7 @@ var SportPart = function SportPart(_ref6) {
     });
   };
   var makePreOdd = function makePreOdd(eId, sId, sName, data, home, away, league) {
-    var odd = data["".concat(sId, "_1")];
+    var odd = data && data["".concat(sId, "_1")] ? data["".concat(sId, "_1")] : {};
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
         className: "match-odd-item",

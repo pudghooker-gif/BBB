@@ -1447,7 +1447,7 @@ var EventHeader = function EventHeader(_ref) {
             fontWeight: 900
           },
           children: score.ss ? score.ss : '0:0'
-        }), score.timer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        }), score.timer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
           sx: {
             margin: 'auto',
             mr: 2,
@@ -1456,7 +1456,7 @@ var EventHeader = function EventHeader(_ref) {
             borderRadius: 4,
             bgcolor: '#97aee11c'
           },
-          children: [score.timer, "'"]
+          children: score.timer
         }) : null]
       }), time === today ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
         sx: {

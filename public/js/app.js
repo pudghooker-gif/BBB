@@ -41536,7 +41536,6 @@ var Single = function Single(_ref2) {
   var data = _ref2.data,
     clear = _ref2.clear,
     setStake = _ref2.setStake;
-  console.log(data, '----------');
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
     children: Object.keys(data).map(function (key, idx) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_8__["default"], {
