@@ -1306,6 +1306,14 @@ var Casino = function Casino() {
     _useState14 = _slicedToArray(_useState13, 2),
     allcount = _useState14[0],
     setAllcount = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState16 = _slicedToArray(_useState15, 2),
+    searchKey = _useState16[0],
+    setSearchKey = _useState16[1];
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState18 = _slicedToArray(_useState17, 2),
+    searchData = _useState18[0],
+    setSearchData = _useState18[1];
   var getProvider = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(init) {
       var rdata, data, c, _iterator, _step, item;
@@ -1412,6 +1420,32 @@ var Casino = function Casino() {
       document.getElementsByClassName('login_btn ')[0].click();
     }
   };
+  var seachWord = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(key) {
+      var rdata;
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              setSearchKey(key);
+              _context3.next = 3;
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_2__["default"])('POST', '/game/search', {
+                q: key
+              });
+            case 3:
+              rdata = _context3.sent;
+              setSearchData(rdata);
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+    return function seachWord(_x4) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var param = location.pathname.split('/')[2];
     getProvider(param);
@@ -1440,6 +1474,9 @@ var Casino = function Casino() {
               variant: "outlined",
               className: "casino-search",
               placeholder: "Search",
+              onChange: function onChange(e) {
+                return seachWord(e.target.value);
+              },
               InputProps: {
                 startAdornment: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_12__["default"], {
                   position: "start",
@@ -1699,7 +1736,7 @@ var Casino = function Casino() {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_9__["default"], {
               container: true,
               spacing: 2,
-              children: games.map(function (item, idx) {
+              children: (searchKey ? searchData : games).map(function (item, idx) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_9__["default"], {
                   item: true,
                   xs: 2,

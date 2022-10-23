@@ -886,6 +886,14 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                 'data' => $returns
             ]);
         }
+        public function casino_search(\Illuminate\Http\Request $request)
+        {
+            $query = (isset($request->q) ? $request->q : '');
+            $games = \VanguardLTE\Game::where('name', 'like', '%' . $query . '%')
+            ->orWhere('title', 'like', '%' . $query . '%')
+            ->get();
+            return $games;
+        }
         public function search(\Illuminate\Http\Request $request)
         {
             if (\Illuminate\Support\Facades\Auth::check() && !auth()->user()->hasRole('user')) {

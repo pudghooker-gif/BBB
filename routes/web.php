@@ -537,6 +537,11 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
         'as' => 'frontend.sports.livePopular',
         'uses' => 'SportsController@livePopular',
     ]);
+
+    Route::post('/game/search', [
+        'as' => 'frontend.game.casino_search',
+        'uses' => 'GamesController@casino_search'
+    ]);
 });
 
 /**
