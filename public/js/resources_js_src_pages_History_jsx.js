@@ -3169,7 +3169,7 @@ var SportsHistory = function SportsHistory() {
   });
 };
 var CasinoHistory = function CasinoHistory() {
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(5),
     _useState8 = _slicedToArray(_useState7, 2),
     page = _useState8[0],
     setPage = _useState8[1];
