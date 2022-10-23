@@ -2117,7 +2117,7 @@ var DesktopHome = function DesktopHome() {
     });
   };
   var makePreOdd = function makePreOdd(eId, sId, sName, data, home, away, league) {
-    var odd = data["".concat(sId, "_1")];
+    var odd = data && data["".concat(sId, "_1")] ? data["".concat(sId, "_1")] : {};
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_22__["default"], {
         className: "match-odd-item",
