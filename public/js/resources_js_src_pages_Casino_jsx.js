@@ -1413,13 +1413,6 @@ var Casino = function Casino() {
     getGames(actPro.category_id ? actPro.category_id : 'all', page + 1);
     setPage(page + 1);
   };
-  var goGame = function goGame(item) {
-    if (user.isAuth) {
-      window.open("".concat(location.origin, "/game/").concat(item.name, "/?api_exit=/"), "_blank");
-    } else {
-      document.getElementsByClassName('login_btn ')[0].click();
-    }
-  };
   var seachWord = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(key) {
       var rdata;
@@ -1751,7 +1744,7 @@ var Casino = function Casino() {
                           backgroundSize: '100% 100%'
                         },
                         onClick: function onClick() {
-                          return goGame(item);
+                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_3__.goGame)(item);
                         }
                       })
                     })
@@ -1965,13 +1958,6 @@ var Casino = function Casino() {
     getGames(actPro.category_id ? actPro.category_id : 'all', page + 1);
     setPage(page + 1);
   };
-  var goGame = function goGame(item) {
-    if (user.isAuth) {
-      window.open("".concat(location.origin, "/game/").concat(item.name, "/?api_exit=/"), "_blank");
-    } else {
-      document.getElementsByClassName('login_btn ')[0].click();
-    }
-  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var param = location.pathname.split('/')[2];
     getProvider(param);
@@ -2163,7 +2149,7 @@ var Casino = function Casino() {
                       backgroundSize: '100% 100%'
                     },
                     onClick: function onClick() {
-                      return goGame(item);
+                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_3__.goGame)(item);
                     }
                   })
                 })

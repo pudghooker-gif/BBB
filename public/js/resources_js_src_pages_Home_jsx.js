@@ -2137,13 +2137,6 @@ var DesktopHome = function DesktopHome() {
       })]
     });
   };
-  var goGame = function goGame(item) {
-    if (user.isAuth) {
-      window.open("".concat(location.origin, "/game/").concat(item.name, "/?api_exit=/"), "_blank");
-    } else {
-      document.getElementsByClassName('login_btn ')[0].click();
-    }
-  };
   var goLiveSport = function goLiveSport(sId, cc, lId, eId) {
     navigate("/sports/live/".concat(sId, "/").concat(cc ? cc : 'world', "/").concat(lId, "/").concat(eId));
   };
@@ -3074,7 +3067,7 @@ var DesktopHome = function DesktopHome() {
                           backgroundSize: '100% 100%'
                         },
                         onClick: function onClick() {
-                          return goGame(casino[item]);
+                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item]);
                         }
                       })
                     })
@@ -3145,7 +3138,7 @@ var DesktopHome = function DesktopHome() {
                           backgroundSize: '100% 100%'
                         },
                         onClick: function onClick() {
-                          return goGame(casino[item]);
+                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item]);
                         }
                       })
                     })
@@ -3216,7 +3209,7 @@ var DesktopHome = function DesktopHome() {
                           backgroundSize: '100% 100%'
                         },
                         onClick: function onClick() {
-                          return goGame(casino[item]);
+                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item]);
                         }
                       })
                     })
@@ -3288,7 +3281,7 @@ var DesktopHome = function DesktopHome() {
                           backgroundSize: '100% 100%'
                         },
                         onClick: function onClick() {
-                          return goGame(casino[item]);
+                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item]);
                         }
                       })
                     })
@@ -3704,13 +3697,6 @@ var Home = function Home() {
       return _ref2.apply(this, arguments);
     };
   }();
-  var goGame = function goGame(item) {
-    if (user.isAuth) {
-      window.open("".concat(location.origin, "/game/").concat(item.name, "/?api_exit=/"), "_blank");
-    } else {
-      document.getElementsByClassName('login_btn ')[0].click();
-    }
-  };
   var go = function go(idx) {
     setActive(idx);
     navigate(list[idx].route);
@@ -4039,7 +4025,7 @@ var Home = function Home() {
                       backgroundSize: '100% 100%'
                     },
                     onClick: function onClick() {
-                      return goGame(casino[item]);
+                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item]);
                     }
                   })
                 })
@@ -4096,7 +4082,7 @@ var Home = function Home() {
                       backgroundSize: '100% 100%'
                     },
                     onClick: function onClick() {
-                      return goGame(casino[item]);
+                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item]);
                     }
                   })
                 })
@@ -4153,7 +4139,7 @@ var Home = function Home() {
                       backgroundSize: '100% 100%'
                     },
                     onClick: function onClick() {
-                      return goGame(casino[item]);
+                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item]);
                     }
                   })
                 })
@@ -4210,7 +4196,7 @@ var Home = function Home() {
                       backgroundSize: '100% 100%'
                     },
                     onClick: function onClick() {
-                      return goGame(casino[item]);
+                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item]);
                     }
                   })
                 })

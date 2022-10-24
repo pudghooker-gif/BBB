@@ -41132,6 +41132,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getDate": () => (/* binding */ getDate),
 /* harmony export */   "getMkName": () => (/* binding */ getMkName),
 /* harmony export */   "getScore": () => (/* binding */ getScore),
+/* harmony export */   "goGame": () => (/* binding */ goGame),
 /* harmony export */   "groupBy": () => (/* binding */ groupBy)
 /* harmony export */ });
 /* harmony import */ var _mui_material_styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/material/styles */ "./node_modules/@mui/material/esm/styles/styled.js");
@@ -41153,6 +41154,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+var goGame = function goGame(item) {
+  if (user.isAuth) {
+    window.open("".concat(location.origin, "/game/").concat(item.name, "/?api_exit=/"), "_blank");
+  } else {
+    document.getElementsByClassName('login_btn ')[0].click();
+  }
+};
 var StyledBadge = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_1__["default"])(_mui_material_Badge__WEBPACK_IMPORTED_MODULE_2__["default"])(function (_ref) {
   var theme = _ref.theme;
   return {
