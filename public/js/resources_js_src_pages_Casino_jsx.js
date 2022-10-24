@@ -1744,7 +1744,7 @@ var Casino = function Casino() {
                           backgroundSize: '100% 100%'
                         },
                         onClick: function onClick() {
-                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_3__.goGame)(item);
+                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_3__.goGame)(item, user);
                         }
                       })
                     })
@@ -2149,7 +2149,7 @@ var Casino = function Casino() {
                       backgroundSize: '100% 100%'
                     },
                     onClick: function onClick() {
-                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_3__.goGame)(item);
+                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_3__.goGame)(item, user);
                     }
                   })
                 })

@@ -41154,7 +41154,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var goGame = function goGame(item) {
+var goGame = function goGame(item, user) {
   if (user.isAuth) {
     window.open("".concat(location.origin, "/game/").concat(item.name, "/?api_exit=/"), "_blank");
   } else {

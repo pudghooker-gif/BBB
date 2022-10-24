@@ -3067,7 +3067,7 @@ var DesktopHome = function DesktopHome() {
                           backgroundSize: '100% 100%'
                         },
                         onClick: function onClick() {
-                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item]);
+                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item], user);
                         }
                       })
                     })
@@ -3138,7 +3138,7 @@ var DesktopHome = function DesktopHome() {
                           backgroundSize: '100% 100%'
                         },
                         onClick: function onClick() {
-                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item]);
+                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item], user);
                         }
                       })
                     })
@@ -3209,7 +3209,7 @@ var DesktopHome = function DesktopHome() {
                           backgroundSize: '100% 100%'
                         },
                         onClick: function onClick() {
-                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item]);
+                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item], user);
                         }
                       })
                     })
@@ -3281,7 +3281,7 @@ var DesktopHome = function DesktopHome() {
                           backgroundSize: '100% 100%'
                         },
                         onClick: function onClick() {
-                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item]);
+                          return (0,_components_Base__WEBPACK_IMPORTED_MODULE_9__.goGame)(casino[item], user);
                         }
                       })
                     })
@@ -4025,7 +4025,7 @@ var Home = function Home() {
                       backgroundSize: '100% 100%'
                     },
                     onClick: function onClick() {
-                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item]);
+                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item], user);
                     }
                   })
                 })
@@ -4082,7 +4082,7 @@ var Home = function Home() {
                       backgroundSize: '100% 100%'
                     },
                     onClick: function onClick() {
-                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item]);
+                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item], user);
                     }
                   })
                 })
@@ -4139,7 +4139,7 @@ var Home = function Home() {
                       backgroundSize: '100% 100%'
                     },
                     onClick: function onClick() {
-                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item]);
+                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item], user);
                     }
                   })
                 })
@@ -4196,7 +4196,7 @@ var Home = function Home() {
                       backgroundSize: '100% 100%'
                     },
                     onClick: function onClick() {
-                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item]);
+                      return (0,_components_Base__WEBPACK_IMPORTED_MODULE_8__.goGame)(casino[item], user);
                     }
                   })
                 })
