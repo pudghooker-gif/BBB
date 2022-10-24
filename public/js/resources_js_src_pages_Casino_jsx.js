@@ -1806,17 +1806,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/esm/Box/Box.js");
 /* harmony import */ var _mui_material_Grid__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material/Grid */ "./node_modules/@mui/material/esm/Grid/Grid.js");
 /* harmony import */ var _mui_material_Stack__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Stack */ "./node_modules/@mui/material/esm/Stack/Stack.js");
+/* harmony import */ var _mui_material_Link__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/Link */ "./node_modules/@mui/material/esm/Link/Link.js");
 /* harmony import */ var _mui_material_Select__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material/Select */ "./node_modules/@mui/material/esm/Select/Select.js");
 /* harmony import */ var _mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/material/MenuItem */ "./node_modules/@mui/material/esm/MenuItem/MenuItem.js");
 /* harmony import */ var _mui_material_TextField__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/TextField */ "./node_modules/@mui/material/esm/TextField/TextField.js");
-/* harmony import */ var _mui_lab_LoadingButton__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/lab/LoadingButton */ "./node_modules/@mui/lab/LoadingButton/LoadingButton.js");
+/* harmony import */ var _mui_lab_LoadingButton__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/lab/LoadingButton */ "./node_modules/@mui/lab/LoadingButton/LoadingButton.js");
 /* harmony import */ var _mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/InputAdornment */ "./node_modules/@mui/material/esm/InputAdornment/InputAdornment.js");
 /* harmony import */ var _components_Base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/Base */ "./resources/js/src/components/Base.jsx");
 /* harmony import */ var _components_Part__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/Part */ "./resources/js/src/components/Part.jsx");
-/* harmony import */ var _mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/icons-material/Star */ "./node_modules/@mui/icons-material/Star.js");
+/* harmony import */ var _mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material/Star */ "./node_modules/@mui/icons-material/Star.js");
 /* harmony import */ var _mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/Search */ "./node_modules/@mui/icons-material/Search.js");
 /* harmony import */ var _mui_icons_material_ChevronRight__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/icons-material/ChevronRight */ "./node_modules/@mui/icons-material/ChevronRight.js");
-/* harmony import */ var _mui_icons_material_AddCircleOutline__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/icons-material/AddCircleOutline */ "./node_modules/@mui/icons-material/AddCircleOutline.js");
+/* harmony import */ var _mui_icons_material_AddCircleOutline__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/icons-material/AddCircleOutline */ "./node_modules/@mui/icons-material/AddCircleOutline.js");
 /* harmony import */ var _assets_img_feature_top_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../assets/img/feature/top.svg */ "./resources/js/src/assets/img/feature/top.svg");
 /* harmony import */ var _assets_img_feature_all_game_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../assets/img/feature/all-game.svg */ "./resources/js/src/assets/img/feature/all-game.svg");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
@@ -2142,7 +2143,17 @@ var Casino = function Casino() {
                 className: "game-card",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
                   className: "game-card-image-container",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                    target: "_blank",
+                    href: "".concat(location.origin, "/game/").concat(item ? item.name : '', "/?api_exit=/"),
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                      sx: {
+                        backgroundImage: item ? "url(/frontend/Default/ico/".concat(item.name, ".jpg)") : '',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '100% 100%'
+                      }
+                    })
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_10__["default"], {
                     sx: {
                       backgroundImage: "url(/frontend/Default/ico/".concat(item.name, ".jpg)"),
                       backgroundRepeat: 'no-repeat',
@@ -2163,7 +2174,7 @@ var Casino = function Casino() {
                     WebkitBoxOrient: 'vertical'
                   },
                   children: item.name
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_Star__WEBPACK_IMPORTED_MODULE_21__["default"], {
                   sx: {
                     fontSize: 18
                   }
@@ -2176,7 +2187,7 @@ var Casino = function Casino() {
           sx: {
             mt: 2
           },
-          children: actPro && actPro.count && actPro.count < (page + 1) * 12 ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_lab_LoadingButton__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          children: actPro && actPro.count && actPro.count < (page + 1) * 12 ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_lab_LoadingButton__WEBPACK_IMPORTED_MODULE_22__["default"], {
             size: "large",
             sx: {
               borderRadius: 2,
@@ -2186,7 +2197,7 @@ var Casino = function Casino() {
             },
             className: "able",
             onClick: loadMore,
-            endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_AddCircleOutline__WEBPACK_IMPORTED_MODULE_22__["default"], {
+            endIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_icons_material_AddCircleOutline__WEBPACK_IMPORTED_MODULE_23__["default"], {
               sx: {
                 color: 'white'
               }

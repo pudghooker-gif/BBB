@@ -3326,6 +3326,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/esm/Typography/Typography.js");
 /* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/esm/IconButton/IconButton.js");
 /* harmony import */ var _mui_icons_material_Search__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material/Search */ "./node_modules/@mui/icons-material/Search.js");
+/* harmony import */ var _mui_material_Link__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/material/Link */ "./node_modules/@mui/material/esm/Link/Link.js");
 /* harmony import */ var _components_Part__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components/Part */ "./resources/js/src/components/Part.jsx");
 /* harmony import */ var _components_Base__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../components/Base */ "./resources/js/src/components/Base.jsx");
 /* harmony import */ var _assets_img_feature_qatar_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../assets/img/feature/qatar.svg */ "./resources/js/src/assets/img/feature/qatar.svg");
@@ -3349,6 +3350,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -4018,13 +4020,16 @@ var Home = function Home() {
                 className: "game-card",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                   className: "game-card-image-container",
-                  children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(Link, {
-                    href: "".concat(location.origin, "/game/").concat(casino[item].name, "/?api_exit=/"),
-                    sx: {
-                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: '100% 100%'
-                    }
+                  children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                    target: "_blank",
+                    href: "".concat(location.origin, "/game/").concat(casino[item] ? casino[item].name : '', "/?api_exit=/"),
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                      sx: {
+                        backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '100% 100%'
+                      }
+                    })
                   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                     sx: {
                       backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
@@ -4082,13 +4087,16 @@ var Home = function Home() {
                 className: "game-card",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                   className: "game-card-image-container",
-                  children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(Link, {
-                    href: "".concat(location.origin, "/game/").concat(casino[item].name, "/?api_exit=/"),
-                    sx: {
-                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: '100% 100%'
-                    }
+                  children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                    target: "_blank",
+                    href: "".concat(location.origin, "/game/").concat(casino[item] ? casino[item].name : '', "/?api_exit=/"),
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                      sx: {
+                        backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '100% 100%'
+                      }
+                    })
                   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                     sx: {
                       backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
@@ -4146,13 +4154,16 @@ var Home = function Home() {
                 className: "game-card",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                   className: "game-card-image-container",
-                  children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(Link, {
-                    href: "".concat(location.origin, "/game/").concat(casino[item].name, "/?api_exit=/"),
-                    sx: {
-                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: '100% 100%'
-                    }
+                  children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                    target: "_blank",
+                    href: "".concat(location.origin, "/game/").concat(casino[item] ? casino[item].name : '', "/?api_exit=/"),
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                      sx: {
+                        backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '100% 100%'
+                      }
+                    })
                   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                     sx: {
                       backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
@@ -4210,13 +4221,16 @@ var Home = function Home() {
                 className: "game-card",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                   className: "game-card-image-container",
-                  children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(Link, {
-                    href: "".concat(location.origin, "/game/").concat(casino[item].name, "/?api_exit=/"),
-                    sx: {
-                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: '100% 100%'
-                    }
+                  children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Link__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                    target: "_blank",
+                    href: "".concat(location.origin, "/game/").concat(casino[item] ? casino[item].name : '', "/?api_exit=/"),
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                      sx: {
+                        backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '100% 100%'
+                      }
+                    })
                   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                     sx: {
                       backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
