@@ -556,9 +556,14 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                 return json_decode($games);
             } else {
                 $gameId = \VanguardLTE\GameCategory::where('category_id', $request->id)->get();
+                $categoryId = [];
+             
+                foreach($gameId as $item) {
+                    array_push($categoryId, $item->id);
+                }
 
-                if (count($gameId)) {
-                    $games = \VanguardLTE\Game::whereIn('id', $gameId)->offset($request->page * 12)->take(12)->get();
+                if (count($categoryId)) {
+                    $games = \VanguardLTE\Game::whereIn('id', $categoryId)->offset($request->page * 12)->take(12)->get();
                 } else {
                     $games = \VanguardLTE\Game::where('id', 0)->offset($request->page * 12)->take(12)->get();
                 }

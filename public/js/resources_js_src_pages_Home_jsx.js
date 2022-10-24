@@ -2048,7 +2048,7 @@ var DesktopHome = function DesktopHome() {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_3__["default"])('/home_casino', 'POST');
+              return (0,_providers_request__WEBPACK_IMPORTED_MODULE_3__["default"])('POST', '/home_casino');
             case 2:
               data = _context4.sent;
               setCasino(data);
