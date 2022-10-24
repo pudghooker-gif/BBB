@@ -4021,13 +4021,13 @@ var Home = function Home() {
                   children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(Link, {
                     href: "".concat(location.origin, "/game/").concat(casino[item].name, "/?api_exit=/"),
                     sx: {
-                      backgroundImage: "url(/frontend/Default/ico/".concat(casino[item].name, "}.jpg)"),
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: '100% 100%'
                     }
                   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                     sx: {
-                      backgroundImage: "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)"),
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: '100% 100%'
                     },
@@ -4085,13 +4085,13 @@ var Home = function Home() {
                   children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(Link, {
                     href: "".concat(location.origin, "/game/").concat(casino[item].name, "/?api_exit=/"),
                     sx: {
-                      backgroundImage: "url(/frontend/Default/ico/".concat(casino[item].name, "}.jpg)"),
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: '100% 100%'
                     }
                   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                     sx: {
-                      backgroundImage: "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)"),
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: '100% 100%'
                     },
@@ -4149,13 +4149,13 @@ var Home = function Home() {
                   children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(Link, {
                     href: "".concat(location.origin, "/game/").concat(casino[item].name, "/?api_exit=/"),
                     sx: {
-                      backgroundImage: "url(/frontend/Default/ico/".concat(casino[item].name, "}.jpg)"),
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: '100% 100%'
                     }
                   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                     sx: {
-                      backgroundImage: "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)"),
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: '100% 100%'
                     },
@@ -4213,13 +4213,13 @@ var Home = function Home() {
                   children: user.isAuth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(Link, {
                     href: "".concat(location.origin, "/game/").concat(casino[item].name, "/?api_exit=/"),
                     sx: {
-                      backgroundImage: "url(/frontend/Default/ico/".concat(casino[item].name, "}.jpg)"),
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: '100% 100%'
                     }
                   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_17__["default"], {
                     sx: {
-                      backgroundImage: "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)"),
+                      backgroundImage: casino[item] ? "url(/frontend/Default/ico/".concat(casino[item].name, ".jpg)") : '',
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: '100% 100%'
                     },
