@@ -559,7 +559,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                 $categoryId = [];
              
                 foreach($gameId as $item) {
-                    array_push($categoryId, $item->id);
+                    array_push($categoryId, $item->game_id);
                 }
 
                 if (count($categoryId)) {
