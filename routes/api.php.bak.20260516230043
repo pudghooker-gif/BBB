@@ -154,5 +154,3 @@ Route::prefix('V2')->group(function () {
     Route::post('/player/withdraw', 'V2\AtmControler@CashOUTAsync');
 });
 */
-// B2B Aggregator API routes
-require __DIR__ . '/b2b.php';
