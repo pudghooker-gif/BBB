@@ -156,8 +156,3 @@ Route::prefix('V2')->group(function () {
 */
 // B2B Aggregator API routes
 require __DIR__ . '/b2b.php';
-
-// B2B Aggregator API routes
-if (file_exists(base_path('routes/b2b.php'))) {
-    require base_path('routes/b2b.php');
-}

@@ -3,7 +3,6 @@
 namespace VanguardLTE\B2B\Services;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\TransferException;
 use Illuminate\Support\Facades\Crypt;
 use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BWalletCallbackLog;
@@ -11,13 +10,6 @@ use VanguardLTE\B2B\Models\B2BWalletTransaction;
 
 class OperatorWalletClient
 {
-    protected $guard;
-
-    public function __construct(B2BResilienceGuard $guard)
-    {
-        $this->guard = $guard;
-    }
-
     public function forward(B2BOperator $operator, B2BWalletTransaction $transaction, array $payload)
     {
         if (!$operator->wallet_callback_url) {
@@ -25,7 +17,6 @@ class OperatorWalletClient
                 'forwarded' => false,
                 'accepted' => true,
                 'status' => 'skipped',
-                'error_code' => null,
                 'message' => 'Operator wallet_callback_url is not configured. Sandbox/local mode accepted the request.',
             ];
         }
@@ -56,12 +47,19 @@ class OperatorWalletClient
         }
 
         $startedAt = microtime(true);
-        $log = $this->createLog($operator, $transaction, $headers, $body);
+        $log = B2BWalletCallbackLog::create([
+            'operator_id' => $operator->id,
+            'wallet_transaction_id' => $transaction->id,
+            'direction' => 'outbound',
+            'endpoint' => $operator->wallet_callback_url,
+            'request_headers' => $headers,
+            'request_body' => $body,
+        ]);
 
         try {
             $client = new Client([
-                'timeout' => $this->guard->walletTimeoutSeconds($operator),
-                'connect_timeout' => $this->guard->connectTimeoutSeconds($operator),
+                'timeout' => 8,
+                'connect_timeout' => 3,
                 'http_errors' => false,
             ]);
 
@@ -79,11 +77,10 @@ class OperatorWalletClient
                 $accepted = $accepted && (bool) $decoded['success'];
             }
 
-            $responsePayload = is_array($decoded) ? $decoded : ['raw' => $responseBody];
-            $this->updateLog($log, [
+            $log->update([
                 'http_status' => $httpStatus,
                 'response_headers' => $response->getHeaders(),
-                'response_body' => $responsePayload,
+                'response_body' => is_array($decoded) ? $decoded : ['raw' => $responseBody],
                 'duration_ms' => (int) round((microtime(true) - $startedAt) * 1000),
             ]);
 
@@ -91,24 +88,10 @@ class OperatorWalletClient
                 'forwarded' => true,
                 'accepted' => $accepted,
                 'http_status' => $httpStatus,
-                'body' => $responsePayload,
-                'error_code' => $accepted ? null : 'OPERATOR_REJECTED',
-            ];
-        } catch (TransferException $e) {
-            $errorCode = $this->looksLikeTimeout($e->getMessage()) ? 'CALLBACK_TIMEOUT' : 'CALLBACK_TRANSPORT_ERROR';
-            $this->updateLog($log, [
-                'duration_ms' => (int) round((microtime(true) - $startedAt) * 1000),
-                'error_message' => $e->getMessage(),
-            ]);
-
-            return [
-                'forwarded' => true,
-                'accepted' => false,
-                'error_code' => $errorCode,
-                'error' => $e->getMessage(),
+                'body' => is_array($decoded) ? $decoded : ['raw' => $responseBody],
             ];
         } catch (\Exception $e) {
-            $this->updateLog($log, [
+            $log->update([
                 'duration_ms' => (int) round((microtime(true) - $startedAt) * 1000),
                 'error_message' => $e->getMessage(),
             ]);
@@ -116,7 +99,6 @@ class OperatorWalletClient
             return [
                 'forwarded' => true,
                 'accepted' => false,
-                'error_code' => 'CALLBACK_EXCEPTION',
                 'error' => $e->getMessage(),
             ];
         }
@@ -133,42 +115,5 @@ class OperatorWalletClient
         } catch (\Exception $e) {
             return null;
         }
-    }
-
-    private function createLog(B2BOperator $operator, B2BWalletTransaction $transaction, array $headers, array $body)
-    {
-        try {
-            return B2BWalletCallbackLog::create([
-                'operator_id' => $operator->id,
-                'wallet_transaction_id' => $transaction->id,
-                'direction' => 'outbound',
-                'endpoint' => $operator->wallet_callback_url,
-                'request_headers' => $headers,
-                'request_body' => $body,
-            ]);
-        } catch (\Exception $e) {
-            return null;
-        }
-    }
-
-    private function updateLog($log, array $data)
-    {
-        if (!$log) {
-            return;
-        }
-
-        try {
-            $log->update($data);
-        } catch (\Exception $e) {
-            // Logging must never break live wallet traffic.
-        }
-    }
-
-    private function looksLikeTimeout($message)
-    {
-        $message = strtolower((string) $message);
-        return strpos($message, 'timed out') !== false
-            || strpos($message, 'timeout') !== false
-            || strpos($message, 'curl error 28') !== false;
     }
 }

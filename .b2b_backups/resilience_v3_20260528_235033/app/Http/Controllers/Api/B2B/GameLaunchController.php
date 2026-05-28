@@ -8,23 +8,12 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Models\B2BOperatorPlayer;
-use VanguardLTE\B2B\Services\B2BResilienceGuard;
 
 class GameLaunchController extends Controller
 {
-    public function store(Request $request, B2BResilienceGuard $guard)
+    public function store(Request $request)
     {
         $operator = $request->attributes->get('b2b_operator');
-
-        $availability = $guard->checkOperatorAvailable($operator);
-        if (!$availability['ok']) {
-            return $this->guardError($availability);
-        }
-
-        $rate = $guard->checkRateLimit($operator, 'launch');
-        if (!$rate['ok']) {
-            return $this->guardError($rate);
-        }
 
         $validator = Validator::make($request->all(), [
             'player_id' => 'required|string|max:191',
@@ -91,8 +80,6 @@ class GameLaunchController extends Controller
             'launch_url' => $launchUrl,
             'status' => B2BGameSession::STATUS_ACTIVE,
             'expires_at' => now()->addMinutes(30),
-            'last_seen_at' => now(),
-            'heartbeat_timeout_seconds' => 120,
             'metadata' => $request->input('metadata', []),
         ]);
 
@@ -106,17 +93,5 @@ class GameLaunchController extends Controller
                 'expires_at' => $session->expires_at ? $session->expires_at->toIso8601String() : null,
             ],
         ], 201);
-    }
-
-    private function guardError(array $result)
-    {
-        return response()->json([
-            'success' => false,
-            'error' => [
-                'code' => $result['code'],
-                'message' => $result['message'],
-            ],
-            'retry_after' => isset($result['retry_after']) ? $result['retry_after'] : null,
-        ], isset($result['http_status']) ? $result['http_status'] : 503);
     }
 }

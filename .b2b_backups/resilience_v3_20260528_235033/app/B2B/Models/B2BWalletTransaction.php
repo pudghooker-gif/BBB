@@ -16,8 +16,6 @@ class B2BWalletTransaction extends Model
     const STATUS_ACCEPTED = 'accepted';
     const STATUS_REJECTED = 'rejected';
     const STATUS_FAILED = 'failed';
-    const STATUS_TIMEOUT = 'timeout';
-    const STATUS_ROLLBACK_REQUIRED = 'rollback_required';
 
     protected $table = 'b2b_wallet_transactions';
 
@@ -40,10 +38,6 @@ class B2BWalletTransaction extends Model
         'raw_response',
         'error_code',
         'error_message',
-        'attempts',
-        'last_attempt_at',
-        'locked_until',
-        'processed_at',
     ];
 
     protected $casts = [
@@ -52,22 +46,5 @@ class B2BWalletTransaction extends Model
         'balance_after' => 'decimal:8',
         'raw_request' => 'array',
         'raw_response' => 'array',
-        'attempts' => 'integer',
     ];
-
-    protected $dates = [
-        'last_attempt_at',
-        'locked_until',
-        'processed_at',
-    ];
-
-    public function isFinal()
-    {
-        return in_array($this->status, [
-            self::STATUS_ACCEPTED,
-            self::STATUS_REJECTED,
-            self::STATUS_FAILED,
-            self::STATUS_TIMEOUT,
-        ], true);
-    }
 }

@@ -26,23 +26,23 @@ class VerifyB2BSignature
         $signature = $request->header('X-Signature');
 
         if (!$operatorId || !$apiKey || !$timestamp || !$nonce || !$signature) {
-            return $this->deny('B2B_AUTH_FAILED', 'Missing B2B authentication headers', 401);
+            return $this->deny('Missing B2B authentication headers', 401);
         }
 
         if (!ctype_digit((string) $timestamp) || abs(time() - (int) $timestamp) > 300) {
-            return $this->deny('B2B_AUTH_FAILED', 'Invalid or expired timestamp', 401);
+            return $this->deny('Invalid or expired timestamp', 401);
         }
 
         $operator = B2BOperator::where('operator_uid', $operatorId)
-            ->whereIn('status', [B2BOperator::STATUS_ACTIVE, B2BOperator::STATUS_DEGRADED])
+            ->where('status', B2BOperator::STATUS_ACTIVE)
             ->first();
 
         if (!$operator) {
-            return $this->deny('B2B_AUTH_FAILED', 'Unknown or inactive operator', 401);
+            return $this->deny('Unknown or inactive operator', 401);
         }
 
         if (!$this->isIpAllowed($operator->ip_whitelist, $request->ip())) {
-            return $this->deny('B2B_AUTH_FAILED', 'IP is not allowed for this operator', 403);
+            return $this->deny('IP is not allowed for this operator', 403);
         }
 
         $apiCredential = B2BOperatorApiKey::where('operator_id', $operator->id)
@@ -51,29 +51,29 @@ class VerifyB2BSignature
             ->first();
 
         if (!$apiCredential) {
-            return $this->deny('B2B_AUTH_FAILED', 'Invalid API key', 401);
+            return $this->deny('Invalid API key', 401);
         }
 
         if ($apiCredential->expires_at && $apiCredential->expires_at->isPast()) {
-            return $this->deny('B2B_AUTH_FAILED', 'API key expired', 401);
+            return $this->deny('API key expired', 401);
         }
 
         try {
             $secret = Crypt::decryptString($apiCredential->secret_encrypted);
         } catch (\Exception $e) {
-            return $this->deny('B2B_AUTH_FAILED', 'API secret cannot be decrypted', 500);
+            return $this->deny('API secret cannot be decrypted', 500);
         }
 
         $payload = $timestamp . '.' . $nonce . '.' . $request->getContent();
         $expected = hash_hmac('sha256', $payload, $secret);
 
         if (!hash_equals($expected, $signature)) {
-            return $this->deny('B2B_AUTH_FAILED', 'Invalid signature', 401);
+            return $this->deny('Invalid signature', 401);
         }
 
         $replayKey = 'b2b:nonce:' . $operator->id . ':' . sha1($nonce);
         if (!Cache::add($replayKey, 1, now()->addMinutes(5))) {
-            return $this->deny('B2B_REPLAY_DETECTED', 'Replay detected', 409);
+            return $this->deny('Replay detected', 409);
         }
 
         $apiCredential->forceFill(['last_used_at' => now()])->save();
@@ -84,12 +84,12 @@ class VerifyB2BSignature
         return $next($request);
     }
 
-    private function deny($code, $message, $status)
+    private function deny($message, $status)
     {
         return response()->json([
             'success' => false,
             'error' => [
-                'code' => $code,
+                'code' => 'B2B_AUTH_FAILED',
                 'message' => $message,
             ],
         ], $status);
