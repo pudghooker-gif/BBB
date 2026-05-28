@@ -35,3 +35,10 @@ composer.phar
 composer-setup.php
 *.sql
 /storage/*.key
+
+# B2B patch local ignore rules
+*.bak.*
+routes/api.php-
+bbb_b2b_patch/
+bbb_b2b_repair_v2/
+bbb_b2b_repair_v2_nocleanup/

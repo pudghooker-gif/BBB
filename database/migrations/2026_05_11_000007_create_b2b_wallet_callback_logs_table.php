@@ -8,6 +8,10 @@ class CreateB2BWalletCallbackLogsTable extends Migration
 {
     public function up()
     {
+        if (Schema::hasTable('b2b_wallet_callback_logs')) {
+            return;
+        }
+
         Schema::create('b2b_wallet_callback_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('operator_id')->index();

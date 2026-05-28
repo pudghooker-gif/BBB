@@ -8,6 +8,10 @@ class CreateB2BGameCatalogTable extends Migration
 {
     public function up()
     {
+        if (Schema::hasTable('b2b_game_catalog')) {
+            return;
+        }
+
         Schema::create('b2b_game_catalog', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('game_uid')->unique();

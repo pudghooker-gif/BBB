@@ -12,8 +12,8 @@ use VanguardLTE\Http\Controllers\Api\B2B\ReportsController;
 | B2B Aggregator API
 |--------------------------------------------------------------------------
 |
-| This file is included from routes/api.php by the installer.
-| In a standard Laravel install the final URL prefix is /api/b2b/v1/...
+| This file is included from routes/api.php.
+| Final URLs are /api/b2b/v1/...
 |
 */
 
@@ -28,7 +28,7 @@ Route::prefix('b2b/v1')->group(function () {
 });
 
 Route::prefix('b2b/v1')
-    ->middleware(['api', VerifyB2BSignature::class])
+    ->middleware([VerifyB2BSignature::class])
     ->group(function () {
         Route::get('games', [GameCatalogController::class, 'index']);
         Route::post('games/launch', [GameLaunchController::class, 'store']);

@@ -8,6 +8,10 @@ class CreateB2BOperatorApiKeysTable extends Migration
 {
     public function up()
     {
+        if (Schema::hasTable('b2b_operator_api_keys')) {
+            return;
+        }
+
         Schema::create('b2b_operator_api_keys', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('operator_id')->index();

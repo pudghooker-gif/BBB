@@ -8,6 +8,10 @@ class CreateB2BSettlementsTable extends Migration
 {
     public function up()
     {
+        if (Schema::hasTable('b2b_settlements')) {
+            return;
+        }
+
         Schema::create('b2b_settlements', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('operator_id')->index();

@@ -8,6 +8,10 @@ class CreateB2BOperatorsTable extends Migration
 {
     public function up()
     {
+        if (Schema::hasTable('b2b_operators')) {
+            return;
+        }
+
         Schema::create('b2b_operators', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('operator_uid')->unique();

@@ -8,6 +8,10 @@ class CreateB2BGameSessionsTable extends Migration
 {
     public function up()
     {
+        if (Schema::hasTable('b2b_game_sessions')) {
+            return;
+        }
+
         Schema::create('b2b_game_sessions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('operator_id')->index();

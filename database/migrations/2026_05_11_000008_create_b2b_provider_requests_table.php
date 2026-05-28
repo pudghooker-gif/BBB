@@ -8,6 +8,10 @@ class CreateB2BProviderRequestsTable extends Migration
 {
     public function up()
     {
+        if (Schema::hasTable('b2b_provider_requests')) {
+            return;
+        }
+
         Schema::create('b2b_provider_requests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('operator_id')->nullable()->index();

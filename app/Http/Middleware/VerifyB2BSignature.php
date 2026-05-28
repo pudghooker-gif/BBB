@@ -11,10 +11,11 @@ use VanguardLTE\B2B\Models\B2BOperatorApiKey;
 class VerifyB2BSignature
 {
     /**
-     * Expected signature payload:
-     *   X-Timestamp + "." + X-Nonce + "." + raw_request_body
-     * Signature:
-     *   hash_hmac('sha256', payload, operator_secret)
+     * Headers expected from every B2B operator request:
+     * X-Operator-Id, X-Api-Key, X-Timestamp, X-Nonce, X-Signature.
+     *
+     * Signed payload:
+     * X-Timestamp . "." . X-Nonce . "." . raw_request_body
      */
     public function handle($request, Closure $next)
     {
@@ -53,9 +54,8 @@ class VerifyB2BSignature
             return $this->deny('Invalid API key', 401);
         }
 
-        $replayKey = 'b2b:nonce:' . $operator->id . ':' . sha1($nonce);
-        if (!Cache::add($replayKey, 1, now()->addMinutes(5))) {
-            return $this->deny('Replay detected', 409);
+        if ($apiCredential->expires_at && $apiCredential->expires_at->isPast()) {
+            return $this->deny('API key expired', 401);
         }
 
         try {
@@ -70,6 +70,13 @@ class VerifyB2BSignature
         if (!hash_equals($expected, $signature)) {
             return $this->deny('Invalid signature', 401);
         }
+
+        $replayKey = 'b2b:nonce:' . $operator->id . ':' . sha1($nonce);
+        if (!Cache::add($replayKey, 1, now()->addMinutes(5))) {
+            return $this->deny('Replay detected', 409);
+        }
+
+        $apiCredential->forceFill(['last_used_at' => now()])->save();
 
         $request->attributes->set('b2b_operator', $operator);
         $request->attributes->set('b2b_api_key', $apiCredential);

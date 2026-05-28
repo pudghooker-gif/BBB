@@ -120,12 +120,19 @@ class WalletController extends Controller
             ]);
 
             $callbackResponse = $walletClient->forward($operator, $transaction, $request->all());
-            $accepted = !isset($callbackResponse['error']);
+            $accepted = isset($callbackResponse['accepted']) ? (bool) $callbackResponse['accepted'] : !isset($callbackResponse['error']);
+
+            $errorMessage = null;
+            if (!$accepted) {
+                $errorMessage = isset($callbackResponse['error'])
+                    ? $callbackResponse['error']
+                    : 'Operator wallet callback rejected the transaction';
+            }
 
             $transaction->update([
                 'status' => $accepted ? B2BWalletTransaction::STATUS_ACCEPTED : B2BWalletTransaction::STATUS_FAILED,
                 'raw_response' => $callbackResponse,
-                'error_message' => $accepted ? null : $callbackResponse['error'],
+                'error_message' => $errorMessage,
             ]);
 
             return [$transaction, $callbackResponse];

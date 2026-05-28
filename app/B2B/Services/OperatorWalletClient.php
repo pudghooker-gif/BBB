@@ -15,8 +15,9 @@ class OperatorWalletClient
         if (!$operator->wallet_callback_url) {
             return [
                 'forwarded' => false,
+                'accepted' => true,
                 'status' => 'skipped',
-                'message' => 'Operator wallet_callback_url is not configured',
+                'message' => 'Operator wallet_callback_url is not configured. Sandbox/local mode accepted the request.',
             ];
         }
 
@@ -56,7 +57,12 @@ class OperatorWalletClient
         ]);
 
         try {
-            $client = new Client(['timeout' => 8, 'connect_timeout' => 3]);
+            $client = new Client([
+                'timeout' => 8,
+                'connect_timeout' => 3,
+                'http_errors' => false,
+            ]);
+
             $response = $client->post($operator->wallet_callback_url, [
                 'headers' => $headers,
                 'body' => $rawBody,
@@ -64,9 +70,15 @@ class OperatorWalletClient
 
             $responseBody = (string) $response->getBody();
             $decoded = json_decode($responseBody, true);
+            $httpStatus = $response->getStatusCode();
+            $accepted = $httpStatus >= 200 && $httpStatus < 300;
+
+            if (is_array($decoded) && array_key_exists('success', $decoded)) {
+                $accepted = $accepted && (bool) $decoded['success'];
+            }
 
             $log->update([
-                'http_status' => $response->getStatusCode(),
+                'http_status' => $httpStatus,
                 'response_headers' => $response->getHeaders(),
                 'response_body' => is_array($decoded) ? $decoded : ['raw' => $responseBody],
                 'duration_ms' => (int) round((microtime(true) - $startedAt) * 1000),
@@ -74,7 +86,8 @@ class OperatorWalletClient
 
             return [
                 'forwarded' => true,
-                'http_status' => $response->getStatusCode(),
+                'accepted' => $accepted,
+                'http_status' => $httpStatus,
                 'body' => is_array($decoded) ? $decoded : ['raw' => $responseBody],
             ];
         } catch (\Exception $e) {
@@ -85,6 +98,7 @@ class OperatorWalletClient
 
             return [
                 'forwarded' => true,
+                'accepted' => false,
                 'error' => $e->getMessage(),
             ];
         }

@@ -8,6 +8,10 @@ class CreateB2BOperatorPlayersTable extends Migration
 {
     public function up()
     {
+        if (Schema::hasTable('b2b_operator_players')) {
+            return;
+        }
+
         Schema::create('b2b_operator_players', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('operator_id')->index();
