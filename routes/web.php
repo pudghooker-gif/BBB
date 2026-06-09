@@ -1,3 +1,4 @@
+<?php if (file_exists(base_path('routes/b2b_web.php'))) { require base_path('routes/b2b_web.php'); } ?>
 <?php
 
 use Illuminate\Support\Facades\Route;
