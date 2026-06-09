@@ -171,3 +171,6 @@ if (file_exists(base_path('routes/b2b.php'))) {
 
 // B2B Wallet v7 routes
 require base_path('routes/b2b_wallet_v7.php');
+
+// B2B Sandbox v8 routes
+require base_path('routes/b2b_sandbox_v8.php');
