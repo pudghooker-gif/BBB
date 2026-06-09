@@ -1784,3 +1784,10 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
         ]);
     });
 });
+
+// B2B v5.1 public launcher routes\nif (file_exists(base_path('routes/b2b_web.php'))) {\n    require base_path('routes/b2b_web.php');\n}
+
+// B2B v5.2 public launcher routes
+if (file_exists(base_path('routes/b2b_web.php'))) {
+    require base_path('routes/b2b_web.php');
+}

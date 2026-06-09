@@ -8685,6 +8685,7 @@ return array(
     'VanguardLTE\\Http\\Controllers\\Api\\B2B\\B2BLauncherController' => $baseDir . '/app/Http/Controllers/Api/B2B/B2BLauncherController.php',
     'VanguardLTE\\Http\\Controllers\\Api\\B2B\\GameCatalogController' => $baseDir . '/app/Http/Controllers/Api/B2B/GameCatalogController.php',
     'VanguardLTE\\Http\\Controllers\\Api\\B2B\\GameLaunchController' => $baseDir . '/app/Http/Controllers/Api/B2B/GameLaunchController.php',
+    'VanguardLTE\\Http\\Controllers\\Api\\B2B\\OperatorController' => $baseDir . '/app/Http/Controllers/Api/B2B/OperatorController.php',
     'VanguardLTE\\Http\\Controllers\\Api\\B2B\\ReportsController' => $baseDir . '/app/Http/Controllers/Api/B2B/ReportsController.php',
     'VanguardLTE\\Http\\Controllers\\Api\\B2B\\SessionController' => $baseDir . '/app/Http/Controllers/Api/B2B/SessionController.php',
     'VanguardLTE\\Http\\Controllers\\Api\\B2B\\WalletController' => $baseDir . '/app/Http/Controllers/Api/B2B/WalletController.php',

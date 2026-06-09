@@ -7,6 +7,7 @@ use VanguardLTE\Http\Controllers\Api\B2B\GameLaunchController;
 use VanguardLTE\Http\Controllers\Api\B2B\WalletController;
 use VanguardLTE\Http\Controllers\Api\B2B\ReportsController;
 use VanguardLTE\Http\Controllers\Api\B2B\SessionController;
+use VanguardLTE\Http\Controllers\Api\B2B\OperatorController;
 
 Route::prefix('b2b/v1')->group(function () {
     Route::get('health', function () {
@@ -21,6 +22,8 @@ Route::prefix('b2b/v1')->group(function () {
 Route::prefix('b2b/v1')
     ->middleware([VerifyB2BSignature::class])
     ->group(function () {
+        Route::get('operator/me', [OperatorController::class, 'me']);
+
         Route::get('games', [GameCatalogController::class, 'index']);
         Route::post('games/launch', [GameLaunchController::class, 'store']);
         Route::get('sessions/{session_uid}', [SessionController::class, 'show']);

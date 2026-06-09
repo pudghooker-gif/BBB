@@ -1,18 +1,13 @@
 <?php
 
 use Illuminate\Foundation\Inspiring;
-
-/*
-|--------------------------------------------------------------------------
-| Console Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of your Closure based console
-| commands. Each Closure is bound to a command instance allowing a
-| simple approach to interacting with each command's IO methods.
-|
-*/
+use Illuminate\Support\Facades\Artisan;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+// B2B operator toolkit console commands — v5.2 hotfix
+if (file_exists(base_path('routes/b2b_console.php'))) {
+    require base_path('routes/b2b_console.php');
+}

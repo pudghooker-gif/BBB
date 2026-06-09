@@ -42,3 +42,16 @@ routes/api.php-
 bbb_b2b_patch/
 bbb_b2b_repair_v2/
 bbb_b2b_repair_v2_nocleanup/
+
+# B2B v5 local ignore rules
+*.v5-backup.*
+*.v5tmp
+bbb_b2b_operator_toolkit_v5_nocleanup/
+
+# B2B v5.1 local ignore rules
+*.v5-1-backup.*
+bbb_b2b_operator_toolkit_v5_1_hotfix_nocleanup/
+
+# B2B v5.2 local ignore rules
+*.v5-2-backup.*
+bbb_b2b_operator_toolkit_v5_2_hotfix_nocleanup/

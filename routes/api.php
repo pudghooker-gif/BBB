@@ -161,3 +161,10 @@ require __DIR__ . '/b2b.php';
 if (file_exists(base_path('routes/b2b.php'))) {
     require base_path('routes/b2b.php');
 }
+
+// B2B v5.1 API routes\nif (file_exists(base_path('routes/b2b.php'))) {\n    require base_path('routes/b2b.php');\n}
+
+// B2B v5.2 API routes
+if (file_exists(base_path('routes/b2b.php'))) {
+    require base_path('routes/b2b.php');
+}

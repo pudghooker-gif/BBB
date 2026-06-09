@@ -9362,6 +9362,7 @@ class ComposerStaticInitb320b94ae1db600d5a7b7d85a7fcb11a
         'VanguardLTE\\Http\\Controllers\\Api\\B2B\\B2BLauncherController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/B2B/B2BLauncherController.php',
         'VanguardLTE\\Http\\Controllers\\Api\\B2B\\GameCatalogController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/B2B/GameCatalogController.php',
         'VanguardLTE\\Http\\Controllers\\Api\\B2B\\GameLaunchController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/B2B/GameLaunchController.php',
+        'VanguardLTE\\Http\\Controllers\\Api\\B2B\\OperatorController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/B2B/OperatorController.php',
         'VanguardLTE\\Http\\Controllers\\Api\\B2B\\ReportsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/B2B/ReportsController.php',
         'VanguardLTE\\Http\\Controllers\\Api\\B2B\\SessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/B2B/SessionController.php',
         'VanguardLTE\\Http\\Controllers\\Api\\B2B\\WalletController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/B2B/WalletController.php',
