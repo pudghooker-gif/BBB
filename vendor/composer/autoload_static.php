@@ -6000,6 +6000,7 @@ class ComposerStaticInitb320b94ae1db600d5a7b7d85a7fcb11a
         'VanguardLTE\\B2B\\Models\\B2BWalletTransaction' => __DIR__ . '/../..' . '/app/B2B/Models/B2BWalletTransaction.php',
         'VanguardLTE\\B2B\\Providers\\GoldsvetInternalProvider' => __DIR__ . '/../..' . '/app/B2B/Providers/GoldsvetInternalProvider.php',
         'VanguardLTE\\B2B\\Services\\B2BLaunchBridge' => __DIR__ . '/../..' . '/app/B2B/Services/B2BLaunchBridge.php',
+        'VanguardLTE\\B2B\\Services\\B2BReportQuery' => __DIR__ . '/../..' . '/app/B2B/Services/B2BReportQuery.php',
         'VanguardLTE\\B2B\\Services\\B2BResilienceGuard' => __DIR__ . '/../..' . '/app/B2B/Services/B2BResilienceGuard.php',
         'VanguardLTE\\B2B\\Services\\OperatorWalletClient' => __DIR__ . '/../..' . '/app/B2B/Services/OperatorWalletClient.php',
         'VanguardLTE\\B2B\\Services\\ShadowUserManager' => __DIR__ . '/../..' . '/app/B2B/Services/ShadowUserManager.php',

@@ -5323,6 +5323,7 @@ return array(
     'VanguardLTE\\B2B\\Models\\B2BWalletTransaction' => $baseDir . '/app/B2B/Models/B2BWalletTransaction.php',
     'VanguardLTE\\B2B\\Providers\\GoldsvetInternalProvider' => $baseDir . '/app/B2B/Providers/GoldsvetInternalProvider.php',
     'VanguardLTE\\B2B\\Services\\B2BLaunchBridge' => $baseDir . '/app/B2B/Services/B2BLaunchBridge.php',
+    'VanguardLTE\\B2B\\Services\\B2BReportQuery' => $baseDir . '/app/B2B/Services/B2BReportQuery.php',
     'VanguardLTE\\B2B\\Services\\B2BResilienceGuard' => $baseDir . '/app/B2B/Services/B2BResilienceGuard.php',
     'VanguardLTE\\B2B\\Services\\OperatorWalletClient' => $baseDir . '/app/B2B/Services/OperatorWalletClient.php',
     'VanguardLTE\\B2B\\Services\\ShadowUserManager' => $baseDir . '/app/B2B/Services/ShadowUserManager.php',

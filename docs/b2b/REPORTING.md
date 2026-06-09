@@ -1,0 +1,25 @@
+# B2B Reporting API v6
+
+This patch adds report endpoints for operator-facing monitoring and settlement preparation.
+
+## Endpoints
+
+All endpoints require the normal B2B HMAC headers except `/api/b2b/v1/health`.
+
+```http
+GET /api/b2b/v1/reports/summary?from=2026-06-01&to=2026-06-09
+GET /api/b2b/v1/reports/transactions?limit=100&type=bet&status=success
+GET /api/b2b/v1/reports/transactions/{transaction_uid}
+GET /api/b2b/v1/reports/ggr?from=2026-06-01&to=2026-06-09
+GET /api/b2b/v1/reports/settlements?from=2026-06-01&to=2026-06-09
+GET /api/b2b/v1/sessions?limit=100&status=active
+GET /api/b2b/v1/sessions/{session_uid}
+POST /api/b2b/v1/sessions/{session_uid}/close
+```
+
+## Notes
+
+- `from` and `to` are optional. Default range is last 7 days.
+- `limit` is capped at 1000.
+- GGR formula in this MVP: `bets - wins - refunds`.
+- Heavy monthly settlement exports should later move to queues and summary tables.
