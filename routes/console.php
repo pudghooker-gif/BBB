@@ -11,3 +11,6 @@ Artisan::command('inspire', function () {
 if (file_exists(base_path('routes/b2b_console.php'))) {
     require base_path('routes/b2b_console.php');
 }
+
+// B2B Wallet v7 console commands
+require base_path('routes/b2b_wallet_console.php');

@@ -168,3 +168,6 @@ if (file_exists(base_path('routes/b2b.php'))) {
 if (file_exists(base_path('routes/b2b.php'))) {
     require base_path('routes/b2b.php');
 }
+
+// B2B Wallet v7 routes
+require base_path('routes/b2b_wallet_v7.php');

@@ -2,173 +2,123 @@
 
 namespace VanguardLTE\B2B\Services;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\TransferException;
-use Illuminate\Support\Facades\Crypt;
-use VanguardLTE\B2B\Models\B2BOperator;
-use VanguardLTE\B2B\Models\B2BWalletCallbackLog;
-use VanguardLTE\B2B\Models\B2BWalletTransaction;
+use Exception;
+use Illuminate\Support\Facades\Http;
 
 class OperatorWalletClient
 {
-    protected $guard;
+    protected $attemptLogger;
+    protected $circuitBreaker;
 
-    public function __construct(B2BResilienceGuard $guard)
+    public function __construct(WalletAttemptLogger $attemptLogger, OperatorCircuitBreaker $circuitBreaker)
     {
-        $this->guard = $guard;
+        $this->attemptLogger = $attemptLogger;
+        $this->circuitBreaker = $circuitBreaker;
     }
 
-    public function forward(B2BOperator $operator, B2BWalletTransaction $transaction, array $payload)
+    public function call($operator, $action, array $payload, $transaction = null)
     {
-        if (!$operator->wallet_callback_url) {
-            return [
-                'forwarded' => false,
-                'accepted' => true,
-                'status' => 'skipped',
-                'error_code' => null,
-                'message' => 'Operator wallet_callback_url is not configured. Sandbox/local mode accepted the request.',
-            ];
+        if (!$operator) {
+            return $this->error('OPERATOR_NOT_FOUND', 'Operator was not resolved.', 0, null);
         }
 
-        $body = array_merge($payload, [
-            'operator_id' => $operator->operator_uid,
-            'aggregator_transaction_id' => $transaction->id,
-            'transaction_uid' => $transaction->transaction_uid,
-            'type' => $transaction->type,
-        ]);
+        if ($this->circuitBreaker->isOpen($operator)) {
+            return $this->error('CIRCUIT_OPEN', 'Operator wallet circuit breaker is open.', 0, null);
+        }
 
-        $rawBody = json_encode($body);
-        $timestamp = (string) time();
-        $nonce = bin2hex(random_bytes(16));
-        $secret = $this->callbackSecret($operator);
-        $signature = $secret
-            ? hash_hmac('sha256', $timestamp . '.' . $nonce . '.' . $rawBody, $secret)
-            : null;
+        $url = $this->resolveUrl($operator, $action);
+        if (!$url) {
+            return $this->error('WALLET_CALLBACK_NOT_CONFIGURED', 'Operator wallet callback URL is empty.', 0, null);
+        }
+
+        $timeoutMs = isset($operator->wallet_timeout_ms) ? (int) $operator->wallet_timeout_ms : 5000;
+        if ($timeoutMs < 1000) {
+            $timeoutMs = 1000;
+        }
+        if ($timeoutMs > 15000) {
+            $timeoutMs = 15000;
+        }
+
+        $payload['action'] = $action;
+        $payload['timestamp'] = time();
 
         $headers = [
+            'Accept' => 'application/json',
             'Content-Type' => 'application/json',
-            'X-Aggregator-Timestamp' => $timestamp,
-            'X-Aggregator-Nonce' => $nonce,
+            'X-B2B-Wallet-Action' => $action,
         ];
 
-        if ($signature) {
-            $headers['X-Aggregator-Signature'] = $signature;
+        if (isset($operator->wallet_secret) && $operator->wallet_secret) {
+            $raw = json_encode($payload);
+            $headers['X-B2B-Signature'] = hash_hmac('sha256', $raw, $operator->wallet_secret);
         }
 
-        $startedAt = microtime(true);
-        $log = $this->createLog($operator, $transaction, $headers, $body);
+        $attemptId = $this->attemptLogger->start($transaction, $operator, $action, $url, $timeoutMs, $payload);
+        $started = microtime(true);
 
         try {
-            $client = new Client([
-                'timeout' => $this->guard->walletTimeoutSeconds($operator),
-                'connect_timeout' => $this->guard->connectTimeoutSeconds($operator),
-                'http_errors' => false,
-            ]);
+            $response = Http::withHeaders($headers)
+                ->timeout((int) ceil($timeoutMs / 1000))
+                ->post($url, $payload);
 
-            $response = $client->post($operator->wallet_callback_url, [
-                'headers' => $headers,
-                'body' => $rawBody,
-            ]);
+            $durationMs = (int) round((microtime(true) - $started) * 1000);
+            $body = $response->body();
+            $json = $response->json();
 
-            $responseBody = (string) $response->getBody();
-            $decoded = json_decode($responseBody, true);
-            $httpStatus = $response->getStatusCode();
-            $accepted = $httpStatus >= 200 && $httpStatus < 300;
+            if ($response->successful()) {
+                $this->attemptLogger->finish($attemptId, 'success', $response->status(), $body, null, $durationMs);
+                $this->circuitBreaker->markSuccess($operator);
 
-            if (is_array($decoded) && array_key_exists('success', $decoded)) {
-                $accepted = $accepted && (bool) $decoded['success'];
+                return [
+                    'ok' => true,
+                    'status' => 'success',
+                    'http_status' => $response->status(),
+                    'body' => $json ?: $body,
+                    'duration_ms' => $durationMs,
+                ];
             }
 
-            $responsePayload = is_array($decoded) ? $decoded : ['raw' => $responseBody];
-            $this->updateLog($log, [
-                'http_status' => $httpStatus,
-                'response_headers' => $response->getHeaders(),
-                'response_body' => $responsePayload,
-                'duration_ms' => (int) round((microtime(true) - $startedAt) * 1000),
-            ]);
+            $this->attemptLogger->finish($attemptId, 'failed', $response->status(), $body, 'HTTP '.$response->status(), $durationMs);
+            $this->circuitBreaker->markFailure($operator, 'HTTP '.$response->status());
 
-            return [
-                'forwarded' => true,
-                'accepted' => $accepted,
-                'http_status' => $httpStatus,
-                'body' => $responsePayload,
-                'error_code' => $accepted ? null : 'OPERATOR_REJECTED',
-            ];
-        } catch (TransferException $e) {
-            $errorCode = $this->looksLikeTimeout($e->getMessage()) ? 'CALLBACK_TIMEOUT' : 'CALLBACK_TRANSPORT_ERROR';
-            $this->updateLog($log, [
-                'duration_ms' => (int) round((microtime(true) - $startedAt) * 1000),
-                'error_message' => $e->getMessage(),
-            ]);
+            return $this->error('WALLET_HTTP_ERROR', 'Wallet callback returned HTTP '.$response->status(), $response->status(), $json ?: $body, $durationMs);
+        } catch (Exception $e) {
+            $durationMs = (int) round((microtime(true) - $started) * 1000);
+            $this->attemptLogger->finish($attemptId, 'timeout', null, null, $e->getMessage(), $durationMs);
+            $this->circuitBreaker->markFailure($operator, $e->getMessage());
 
-            return [
-                'forwarded' => true,
-                'accepted' => false,
-                'error_code' => $errorCode,
-                'error' => $e->getMessage(),
-            ];
-        } catch (\Exception $e) {
-            $this->updateLog($log, [
-                'duration_ms' => (int) round((microtime(true) - $startedAt) * 1000),
-                'error_message' => $e->getMessage(),
-            ]);
-
-            return [
-                'forwarded' => true,
-                'accepted' => false,
-                'error_code' => 'CALLBACK_EXCEPTION',
-                'error' => $e->getMessage(),
-            ];
+            return $this->error('WALLET_TIMEOUT_OR_EXCEPTION', $e->getMessage(), 0, null, $durationMs);
         }
     }
 
-    private function callbackSecret(B2BOperator $operator)
+    protected function resolveUrl($operator, $action)
     {
-        if (!$operator->callback_secret_encrypted) {
-            return null;
+        $specificColumn = 'wallet_'.$action.'_url';
+        if (isset($operator->{$specificColumn}) && $operator->{$specificColumn}) {
+            return $operator->{$specificColumn};
         }
 
-        try {
-            return Crypt::decryptString($operator->callback_secret_encrypted);
-        } catch (\Exception $e) {
-            return null;
+        if (isset($operator->wallet_callback_url) && $operator->wallet_callback_url) {
+            return $operator->wallet_callback_url;
         }
+
+        if (isset($operator->callback_url) && $operator->callback_url) {
+            return $operator->callback_url;
+        }
+
+        return null;
     }
 
-    private function createLog(B2BOperator $operator, B2BWalletTransaction $transaction, array $headers, array $body)
+    protected function error($code, $message, $httpStatus = 0, $body = null, $durationMs = null)
     {
-        try {
-            return B2BWalletCallbackLog::create([
-                'operator_id' => $operator->id,
-                'wallet_transaction_id' => $transaction->id,
-                'direction' => 'outbound',
-                'endpoint' => $operator->wallet_callback_url,
-                'request_headers' => $headers,
-                'request_body' => $body,
-            ]);
-        } catch (\Exception $e) {
-            return null;
-        }
-    }
-
-    private function updateLog($log, array $data)
-    {
-        if (!$log) {
-            return;
-        }
-
-        try {
-            $log->update($data);
-        } catch (\Exception $e) {
-            // Logging must never break live wallet traffic.
-        }
-    }
-
-    private function looksLikeTimeout($message)
-    {
-        $message = strtolower((string) $message);
-        return strpos($message, 'timed out') !== false
-            || strpos($message, 'timeout') !== false
-            || strpos($message, 'curl error 28') !== false;
+        return [
+            'ok' => false,
+            'status' => 'failed',
+            'code' => $code,
+            'message' => $message,
+            'http_status' => $httpStatus,
+            'body' => $body,
+            'duration_ms' => $durationMs,
+        ];
     }
 }
