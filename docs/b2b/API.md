@@ -92,7 +92,7 @@ Response:
   "session_id": "sess_xxx",
   "round_id": "round_001",
   "transaction_id": "bet_001",
-  "amount": 10.00,
+  "amount": "10.00000000",
   "currency": "USD"
 }
 ```

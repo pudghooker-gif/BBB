@@ -21,6 +21,7 @@ Date: 2026-06-22
 - Add tenant isolation tests for sessions, reports, and wallet attempts.
 - Add tenant isolation tests for games, launch, and wallet mutation flows.
 - Add request validation tests for launch and wallet operations.
+- Add idempotency conflict tests for duplicate wallet transaction IDs with changed payloads.
 - Normalize JSON response/error format.
 - Add OpenAPI and Postman artifacts from verified routes.
 
