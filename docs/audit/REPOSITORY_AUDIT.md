@@ -49,7 +49,7 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 - The test suite had only example tests before this work. HMAC success/replay/body-hash/IP allowlist coverage, tenant isolation coverage for sessions/reports/wallet attempts, request validation, and wallet idempotency conflict coverage have now been added; launch, wallet mutation state transitions, and broader reporting edge-case coverage remain incomplete.
 - Financial report code used floats before this audit pass.
 - Sandbox wallet code still uses floats and should stay non-production.
-- The provider adapter contract is minimal and does not cover the full target provider lifecycle.
+- The provider adapter contract now covers provider code, health, wallet action capabilities, launch preparation, session refresh, and session close; only the internal Goldsvet adapter is implemented until real provider docs/credentials are available.
 - Admin B2B backoffice and operator portal are not implemented as full production workflows.
 - Queue isolation, reconciliation jobs, settlement workflow, OpenAPI, and CI are incomplete.
 

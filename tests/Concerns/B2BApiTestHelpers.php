@@ -151,6 +151,8 @@ trait B2BApiTestHelpers
             $table->timestamp('last_seen_at')->nullable();
             $table->timestamp('closed_at')->nullable();
             $table->integer('heartbeat_timeout_seconds')->default(120);
+            $table->string('failure_code')->nullable();
+            $table->text('failure_message')->nullable();
             $table->json('metadata')->nullable();
             $table->timestamps();
         });

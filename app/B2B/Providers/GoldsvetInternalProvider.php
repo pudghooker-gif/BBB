@@ -11,10 +11,31 @@ use VanguardLTE\B2B\Services\ShadowUserManager;
 class GoldsvetInternalProvider implements GameProviderInterface
 {
     protected $shadowUsers;
+    protected $walletActions = ['balance', 'bet', 'win', 'refund', 'rollback'];
 
     public function __construct(ShadowUserManager $shadowUsers)
     {
         $this->shadowUsers = $shadowUsers;
+    }
+
+    public function providerCode()
+    {
+        return 'goldsvet_internal';
+    }
+
+    public function health()
+    {
+        return [
+            'ok' => true,
+            'provider' => $this->providerCode(),
+            'games_table_available' => Schema::hasTable('games'),
+            'checked_at' => now()->toIso8601String(),
+        ];
+    }
+
+    public function supportsWalletAction($action)
+    {
+        return in_array((string) $action, $this->walletActions, true);
     }
 
     public function prepareLaunch(B2BGameSession $session)
@@ -71,6 +92,47 @@ class GoldsvetInternalProvider implements GameProviderInterface
             'redirect_url' => $legacyUrl,
             'error_code' => null,
             'error_message' => null,
+        ];
+    }
+
+    public function refreshSession(B2BGameSession $session)
+    {
+        if ($session->status !== B2BGameSession::STATUS_ACTIVE) {
+            return $this->fail('SESSION_NOT_ACTIVE', 'B2B session is not active.');
+        }
+
+        $session->forceFill(['last_seen_at' => now()])->save();
+
+        return [
+            'ok' => true,
+            'session_uid' => $session->session_uid,
+            'status' => $session->status,
+            'last_seen_at' => $session->last_seen_at ? $session->last_seen_at->toIso8601String() : null,
+        ];
+    }
+
+    public function closeSession(B2BGameSession $session, $reason = null)
+    {
+        if ($session->status === B2BGameSession::STATUS_CLOSED) {
+            return [
+                'ok' => true,
+                'session_uid' => $session->session_uid,
+                'status' => $session->status,
+                'closed_at' => $session->closed_at ? $session->closed_at->toIso8601String() : null,
+            ];
+        }
+
+        $session->forceFill([
+            'status' => B2BGameSession::STATUS_CLOSED,
+            'closed_at' => now(),
+            'failure_message' => $reason,
+        ])->save();
+
+        return [
+            'ok' => true,
+            'session_uid' => $session->session_uid,
+            'status' => $session->status,
+            'closed_at' => $session->closed_at ? $session->closed_at->toIso8601String() : null,
         ];
     }
 
