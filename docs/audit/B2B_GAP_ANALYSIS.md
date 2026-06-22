@@ -5,7 +5,7 @@ Date: 2026-06-22
 ## Implemented Foundation
 
 - B2B operator and API key models/migrations.
-- HMAC middleware with timestamp, nonce, encrypted secret, constant-time signature comparison, and IP allowlist.
+- HMAC middleware with timestamp, nonce, body hash, canonical request signing, encrypted secret, constant-time signature comparison, replay protection, request ID propagation, and exact/CIDR IP allowlist.
 - Game catalog model and sync command.
 - B2B launch session model and public launcher bridge to the legacy launcher.
 - Shadow user foundation.

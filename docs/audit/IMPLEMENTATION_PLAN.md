@@ -17,6 +17,7 @@ Date: 2026-06-22
 ## Stage 2: Verified B2B API MVP
 
 - Add feature tests for HMAC success/failure/replay.
+- Document and enforce canonical request signing with `X-Body-Hash`.
 - Add tenant isolation tests for games, sessions, reports, wallet attempts.
 - Add request validation tests for launch and wallet operations.
 - Normalize JSON response/error format.

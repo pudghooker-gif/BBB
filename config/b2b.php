@@ -12,4 +12,8 @@ return [
     */
 
     'allow_private_wallet_callbacks' => env('B2B_ALLOW_PRIVATE_WALLET_CALLBACKS', false),
+
+    'hmac_replay_window_seconds' => env('B2B_HMAC_REPLAY_WINDOW_SECONDS', 300),
+
+    'nonce_cache_store' => env('B2B_NONCE_CACHE_STORE', null),
 ];

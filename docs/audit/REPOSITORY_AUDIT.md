@@ -14,7 +14,7 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 - Scoped `php -l` over `app`, `routes`, `database`, `config`, and `tests`, excluding `app/Games`: passed.
 - `php artisan list`: succeeds outside the filesystem sandbox and registers B2B commands.
 - `php artisan route:list`: initially failed on the B2B launcher route namespace.
-- `php vendor/phpunit/phpunit/phpunit --testdox`: initially failed because the default example feature test expected 200 but `/` redirects with 302.
+- `php vendor/phpunit/phpunit/phpunit --testdox`: initially failed because the default example feature test expected 200 but `/` redirects with 302; after the first hardening pass it passed.
 - `php composer.phar audit`: unavailable in Composer 2.0.13.
 
 ## Current Structure
@@ -40,12 +40,13 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 - Wallet callback URLs had no SSRF guard.
 - Return URLs on launch had no allowlist check.
 - Runtime logging cannot be written from the default Codex sandbox; Laravel checks must be run outside that sandbox in this workspace.
+- HMAC initially signed `timestamp.nonce.body` without a body hash header. The second hardening pass introduced canonical request signing and feature tests.
 
 ### P1
 
 - Composer reports PSR-4 warnings for nested game classes under `app/Games/AmazingSevensGT/...`, `app/Http/Controllers/Web/Backend/ShopsController_original.php`, `tests/unit/ExampleTest.php`, and one vendor Monolog path.
 - Composer security audit is blocked by the old Composer version.
-- The test suite contains only example tests and no B2B HMAC, tenant isolation, idempotency, launch, wallet, or reporting coverage.
+- The test suite had only example tests before this work. HMAC success/replay/body-hash/IP allowlist coverage has now been added; tenant isolation, idempotency, launch, wallet, and reporting feature coverage remain incomplete.
 - Financial report code used floats before this audit pass.
 - Sandbox wallet code still uses floats and should stay non-production.
 - The provider adapter contract is minimal and does not cover the full target provider lifecycle.

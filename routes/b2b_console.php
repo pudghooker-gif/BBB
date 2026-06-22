@@ -10,6 +10,7 @@ use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BOperatorApiKey;
 use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Models\B2BWalletTransaction;
+use VanguardLTE\B2B\Services\B2BSignature;
 
 Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_callback_url=} {--currency=USD} {--max_rps=50} {--wallet_timeout_ms=3000}', function () {
     if (!Schema::hasTable('b2b_operators') || !Schema::hasTable('b2b_operator_api_keys')) {
@@ -148,13 +149,21 @@ Artisan::command('b2b:show-hmac {operator_uid} {key_id} {secret} {method=GET} {p
     $body = $this->option('body') ?: '';
     $timestamp = (string) time();
     $nonce = Str::random(24);
-    $signature = hash_hmac('sha256', $timestamp . '.' . $nonce . '.' . $body, $secret);
+    $bodyHash = B2BSignature::bodyHash($body);
+    $pathOnly = parse_url($path, PHP_URL_PATH) ?: '/';
+    $queryString = parse_url($path, PHP_URL_QUERY) ?: '';
+    $canonical = B2BSignature::canonicalFromParts($method, $pathOnly, $queryString, $bodyHash, $timestamp, $nonce);
+    $signature = hash_hmac('sha256', $canonical, $secret);
 
     $this->line('X-Operator-Id: ' . $operatorUid);
     $this->line('X-Api-Key: ' . $keyId);
     $this->line('X-Timestamp: ' . $timestamp);
     $this->line('X-Nonce: ' . $nonce);
+    $this->line('X-Body-Hash: ' . $bodyHash);
     $this->line('X-Signature: ' . $signature);
+    $this->line('');
+    $this->line('canonical request:');
+    $this->line($canonical);
     $this->line('');
     $this->line('curl example:');
     $curl = "curl -X {$method} \"" . rtrim(config('app.url'), '/') . $path . "\"" .
@@ -162,6 +171,7 @@ Artisan::command('b2b:show-hmac {operator_uid} {key_id} {secret} {method=GET} {p
         " -H \"X-Api-Key: {$keyId}\"" .
         " -H \"X-Timestamp: {$timestamp}\"" .
         " -H \"X-Nonce: {$nonce}\"" .
+        " -H \"X-Body-Hash: {$bodyHash}\"" .
         " -H \"X-Signature: {$signature}\"";
 
     if ($body !== '') {
