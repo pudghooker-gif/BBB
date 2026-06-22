@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BOperatorApiKey;
 use VanguardLTE\B2B\Services\B2BSignature;
+use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class VerifyB2BSignature
 {
@@ -101,14 +102,7 @@ class VerifyB2BSignature
 
     private function deny($requestId, $code, $message, $status)
     {
-        return response()->json([
-            'success' => false,
-            'request_id' => $requestId,
-            'error' => [
-                'code' => $code,
-                'message' => $message,
-            ],
-        ], $status)->header('X-Request-Id', $requestId);
+        return B2BApiResponse::error($requestId, $code, $message, $status);
     }
 
     private function isIpAllowed($ipWhitelist, $requestIp)

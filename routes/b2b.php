@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use VanguardLTE\B2B\Support\B2BApiResponse;
 use VanguardLTE\Http\Controllers\Api\B2B\GameCatalogController;
 use VanguardLTE\Http\Controllers\Api\B2B\GameLaunchController;
 use VanguardLTE\Http\Controllers\Api\B2B\OperatorController;
@@ -19,9 +21,8 @@ use VanguardLTE\Http\Controllers\Api\B2B\WalletController;
 */
 
 Route::prefix('b2b/v1')->group(function () {
-    Route::get('health', function () {
-        return response()->json([
-            'status' => 'ok',
+    Route::get('health', function (Request $request) {
+        return B2BApiResponse::success($request, [
             'service' => 'bbb-b2b',
             'version' => 'v6-reporting',
             'time' => now()->toIso8601String(),

@@ -5,6 +5,7 @@ namespace VanguardLTE\Http\Controllers\Api\B2B;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use VanguardLTE\B2B\Models\B2BGameCatalog;
+use VanguardLTE\B2B\Support\B2BApiResponse;
 use VanguardLTE\Game;
 
 class GameCatalogController extends Controller
@@ -37,10 +38,7 @@ class GameCatalogController extends Controller
             $games = $this->fallbackFromGoldsvetGames($operator->shop_id);
         }
 
-        return response()->json([
-            'success' => true,
-            'data' => $games,
-        ]);
+        return B2BApiResponse::success($request, $games);
     }
 
     private function fallbackFromGoldsvetGames($shopId)

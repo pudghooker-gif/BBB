@@ -40,12 +40,15 @@ class B2BWalletIdempotencyTest extends TestCase
 
         $first = $this->signedPost('/api/b2b/v1/wallet/bet', $body, 'idempotency-first');
         $first->assertStatus(200)
-            ->assertJsonPath('status', 'success');
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('status', 'success')
+            ->assertJsonPath('data.status', 'success');
 
         $second = $this->signedPost('/api/b2b/v1/wallet/bet', $body, 'idempotency-duplicate');
         $second->assertStatus(200)
-            ->assertJsonPath('duplicate', true)
-            ->assertJsonPath('status', 'success');
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.duplicate', true)
+            ->assertJsonPath('data.status', 'success');
 
         $this->assertSame(1, DB::table('b2b_wallet_transactions')->count());
         Http::assertSentCount(1);
@@ -58,8 +61,9 @@ class B2BWalletIdempotencyTest extends TestCase
 
         $conflict = $this->signedPost('/api/b2b/v1/wallet/bet', $this->walletBody('20.00000000'), 'idempotency-conflict-second');
         $conflict->assertStatus(409)
+            ->assertJsonPath('success', false)
             ->assertJsonPath('status', 'error')
-            ->assertJsonPath('code', 'IDEMPOTENCY_CONFLICT');
+            ->assertJsonPath('error.code', 'IDEMPOTENCY_CONFLICT');
 
         $this->assertSame(1, DB::table('b2b_wallet_transactions')->count());
         Http::assertSentCount(1);

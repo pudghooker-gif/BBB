@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use VanguardLTE\Http\Controllers\Controller;
 use VanguardLTE\B2B\Services\B2BContext;
 use VanguardLTE\B2B\Services\OperatorCircuitBreaker;
+use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class WalletHealthController extends Controller
 {
@@ -13,14 +14,10 @@ class WalletHealthController extends Controller
     {
         $operator = B2BContext::operator($request);
         if (!$operator) {
-            return response()->json([
-                'status' => 'error',
-                'code' => 'OPERATOR_NOT_FOUND',
-            ], 401);
+            return B2BApiResponse::error($request, 'OPERATOR_NOT_FOUND');
         }
 
-        return response()->json([
-            'status' => 'success',
+        return B2BApiResponse::success($request, [
             'operator_id' => isset($operator->id) ? $operator->id : null,
             'wallet_callback_configured' => !empty($operator->wallet_callback_url) || !empty($operator->callback_url),
             'wallet_timeout_ms' => isset($operator->wallet_timeout_ms) ? (int) $operator->wallet_timeout_ms : 5000,

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use VanguardLTE\Http\Controllers\Controller;
 use VanguardLTE\B2B\Services\B2BContext;
 use VanguardLTE\B2B\Services\WalletTransactionService;
+use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class WalletController extends Controller
 {
@@ -46,42 +47,39 @@ class WalletController extends Controller
     {
         $operator = B2BContext::operator($request);
         if (!$operator || !isset($operator->id)) {
-            return response()->json([
-                'success' => false,
-                'error' => [
-                    'code' => 'OPERATOR_CONTEXT_MISSING',
-                    'message' => 'B2B operator context is missing.',
-                ],
-            ], 401);
+            return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING');
         }
 
         $validator = Validator::make($request->all(), $this->rules($type));
         if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'error' => [
-                    'code' => 'VALIDATION_FAILED',
-                    'details' => $validator->errors(),
-                ],
-            ], 422);
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
         }
 
         $payload = $request->all();
         $payload['currency'] = strtoupper((string) $payload['currency']);
 
         if (!$this->isCurrencyAllowed($operator, $payload['currency'])) {
-            return response()->json([
-                'success' => false,
-                'error' => [
-                    'code' => 'CURRENCY_NOT_ALLOWED',
-                    'message' => 'Currency is not allowed for this operator.',
-                ],
-            ], 422);
+            return B2BApiResponse::error($request, 'CURRENCY_NOT_ALLOWED');
         }
 
         $result = $this->transactions->process($operator, $type, $payload);
 
-        return response()->json($result['body'], $result['http_status']);
+        if (!$result['ok']) {
+            $body = isset($result['body']) && is_array($result['body']) ? $result['body'] : [];
+            $code = isset($body['code']) ? $body['code'] : 'WALLET_OPERATION_FAILED';
+            $message = isset($body['message']) ? $body['message'] : null;
+
+            return B2BApiResponse::error(
+                $request,
+                $code,
+                $message,
+                $result['http_status'],
+                isset($body['details']) ? $body['details'] : null,
+                isset($body['transaction_uid']) ? ['transaction_uid' => $body['transaction_uid']] : []
+            );
+        }
+
+        return B2BApiResponse::success($request, $result['body'], $result['http_status']);
     }
 
     private function rules($type)

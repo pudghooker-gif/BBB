@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class SessionController extends Controller
 {
@@ -23,7 +24,7 @@ class SessionController extends Controller
     {
         $operatorId = $this->operatorId($request);
         if ($operatorId <= 0) {
-            return $this->operatorContextMissing();
+            return $this->operatorContextMissing($request);
         }
 
         $limit = (int) $request->query('limit', 100);
@@ -54,18 +55,14 @@ class SessionController extends Controller
             $query->where($this->sessionGameColumn(), $request->query('game_id'));
         }
 
-        return response()->json([
-            'status' => 'ok',
-            'data' => $query->get(),
-            'limit' => $limit,
-        ]);
+        return B2BApiResponse::success($request, $query->get(), 200, ['limit' => $limit]);
     }
 
     public function show(Request $request, $sessionUid)
     {
         $operatorId = $this->operatorId($request);
         if ($operatorId <= 0) {
-            return $this->operatorContextMissing();
+            return $this->operatorContextMissing($request);
         }
 
         $query = DB::table('b2b_game_sessions')
@@ -80,10 +77,7 @@ class SessionController extends Controller
 
         $session = $query->first();
         if (!$session) {
-            return response()->json([
-                'status' => 'error',
-                'code' => 'SESSION_NOT_FOUND',
-            ], 404);
+            return B2BApiResponse::error($request, 'SESSION_NOT_FOUND');
         }
 
         $transactions = DB::table('b2b_wallet_transactions')
@@ -98,12 +92,9 @@ class SessionController extends Controller
             ->limit(100)
             ->get();
 
-        return response()->json([
-            'status' => 'ok',
-            'data' => [
-                'session' => $session,
-                'transactions' => $transactions,
-            ],
+        return B2BApiResponse::success($request, [
+            'session' => $session,
+            'transactions' => $transactions,
         ]);
     }
 
@@ -111,7 +102,7 @@ class SessionController extends Controller
     {
         $operatorId = $this->operatorId($request);
         if ($operatorId <= 0) {
-            return $this->operatorContextMissing();
+            return $this->operatorContextMissing($request);
         }
 
         $query = DB::table('b2b_game_sessions')
@@ -126,10 +117,7 @@ class SessionController extends Controller
 
         $session = $query->first();
         if (!$session) {
-            return response()->json([
-                'status' => 'error',
-                'code' => 'SESSION_NOT_FOUND',
-            ], 404);
+            return B2BApiResponse::error($request, 'SESSION_NOT_FOUND');
         }
 
         DB::table('b2b_game_sessions')
@@ -140,8 +128,7 @@ class SessionController extends Controller
                 'updated_at' => Carbon::now(),
             ]);
 
-        return response()->json([
-            'status' => 'ok',
+        return B2BApiResponse::success($request, [
             'message' => 'Session closed',
             'session_uid' => isset($session->session_uid) ? $session->session_uid : $session->id,
         ]);
@@ -152,11 +139,8 @@ class SessionController extends Controller
         return Schema::hasColumn('b2b_game_sessions', 'game_uid') ? 'game_uid' : 'game_id';
     }
 
-    private function operatorContextMissing()
+    private function operatorContextMissing(Request $request)
     {
-        return response()->json([
-            'status' => 'error',
-            'code' => 'OPERATOR_CONTEXT_MISSING',
-        ], 401);
+        return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING');
     }
 }

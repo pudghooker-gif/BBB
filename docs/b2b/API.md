@@ -53,6 +53,37 @@ GET  /api/b2b/v1/reports/transactions
 GET  /api/b2b/v1/reports/ggr
 ```
 
+## Response envelope
+
+Successful JSON responses use:
+
+```json
+{
+  "success": true,
+  "status": "success",
+  "request_id": "uuid-or-client-request-id",
+  "data": {},
+  "meta": {}
+}
+```
+
+Error JSON responses use:
+
+```json
+{
+  "success": false,
+  "status": "error",
+  "request_id": "uuid-or-client-request-id",
+  "error": {
+    "code": "VALIDATION_FAILED",
+    "message": "Request validation failed.",
+    "details": {}
+  }
+}
+```
+
+`meta` and `error.details` are present only when relevant. Every B2B JSON response also returns `X-Request-Id`.
+
 ## Launch example
 
 ```json

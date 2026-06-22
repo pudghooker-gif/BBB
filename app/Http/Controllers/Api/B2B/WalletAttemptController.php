@@ -7,24 +7,19 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use VanguardLTE\Http\Controllers\Controller;
 use VanguardLTE\B2B\Services\B2BContext;
+use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class WalletAttemptController extends Controller
 {
     public function index(Request $request, $transaction_uid)
     {
         if (!Schema::hasTable('b2b_wallet_transaction_attempts')) {
-            return response()->json([
-                'status' => 'error',
-                'code' => 'ATTEMPTS_TABLE_MISSING',
-            ], 500);
+            return B2BApiResponse::error($request, 'ATTEMPTS_TABLE_MISSING');
         }
 
         $operator = B2BContext::operator($request);
         if (!$operator || !isset($operator->id)) {
-            return response()->json([
-                'status' => 'error',
-                'code' => 'OPERATOR_CONTEXT_MISSING',
-            ], 401);
+            return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING');
         }
 
         $query = DB::table('b2b_wallet_transaction_attempts')
@@ -33,10 +28,9 @@ class WalletAttemptController extends Controller
 
         $query->where('operator_id', $operator->id);
 
-        return response()->json([
-            'status' => 'success',
+        return B2BApiResponse::success($request, $query->limit(100)->get(), 200, [
             'transaction_uid' => $transaction_uid,
-            'data' => $query->limit(100)->get(),
+            'limit' => 100,
         ]);
     }
 }

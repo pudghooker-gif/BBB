@@ -32,8 +32,10 @@ class B2BSignatureTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonPath('success', true)
+            ->assertJsonPath('status', 'success')
             ->assertJsonPath('data.operator.id', 'op_demo');
 
+        $this->assertNotEmpty($response->json('request_id'));
         $this->assertNotEmpty($response->headers->get('X-Request-Id'));
     }
 

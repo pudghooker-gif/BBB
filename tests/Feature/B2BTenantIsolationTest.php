@@ -32,13 +32,15 @@ class B2BTenantIsolationTest extends TestCase
         $response = $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/sessions', 'tenant-sessions-list');
 
         $response->assertStatus(200)
-            ->assertJsonPath('status', 'ok')
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('status', 'success')
             ->assertJsonCount(1, 'data')
             ->assertJsonPath('data.0.session_uid', 'sess_a');
 
         $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/sessions/sess_b', 'tenant-sessions-detail')
             ->assertStatus(404)
-            ->assertJsonPath('code', 'SESSION_NOT_FOUND');
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'SESSION_NOT_FOUND');
     }
 
     public function testReportsTransactionsAndSettlementsAreScopedToSignedOperator()
@@ -46,18 +48,21 @@ class B2BTenantIsolationTest extends TestCase
         $transactions = $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/reports/transactions', 'tenant-report-transactions');
 
         $transactions->assertStatus(200)
-            ->assertJsonPath('status', 'ok')
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('status', 'success')
             ->assertJsonCount(1, 'data')
             ->assertJsonPath('data.0.transaction_uid', 'tx_a');
 
         $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/reports/transactions/tx_b', 'tenant-report-detail')
             ->assertStatus(404)
-            ->assertJsonPath('code', 'TRANSACTION_NOT_FOUND');
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'TRANSACTION_NOT_FOUND');
 
         $settlements = $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/reports/settlements', 'tenant-settlements');
 
         $settlements->assertStatus(200)
-            ->assertJsonPath('status', 'ok')
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('status', 'success')
             ->assertJsonCount(1, 'data');
 
         $this->assertEquals((string) $this->operatorA->id, (string) $settlements->json('data.0.operator_id'));
@@ -74,6 +79,7 @@ class B2BTenantIsolationTest extends TestCase
         );
 
         $response->assertStatus(200)
+            ->assertJsonPath('success', true)
             ->assertJsonPath('status', 'success')
             ->assertJsonCount(1, 'data')
             ->assertJsonPath('data.0.result', 'success');

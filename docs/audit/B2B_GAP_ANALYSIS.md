@@ -11,6 +11,7 @@ Date: 2026-06-22
 - Shadow user foundation.
 - Wallet transaction table, idempotency key, changed-payload conflict detection, callback attempt logging, retry command, and sandbox wallet.
 - Reporting endpoints for summary, transactions, GGR, and settlements.
+- Standard B2B JSON response envelope and error catalog for API routes, including request ID propagation.
 - Feature tests now cover HMAC success/failure/replay, tenant isolation for sessions/reports/settlements/wallet attempts, request validation for launch and wallet payloads, and wallet idempotency conflicts.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
@@ -21,7 +22,6 @@ Date: 2026-06-22
 
 - Full migration verification on clean and upgraded databases.
 - Redis-backed nonce/rate-limit/circuit state confirmation.
-- Dedicated API response envelope and error catalog across every endpoint.
 - External provider adapters still require real provider-specific implementations and certification docs.
 - Production-grade wallet state machine: unknown, rollback_required, reversed, dead-letter/manual_review, status lookup, reconciliation, and safe retry budget.
 - Append-oriented immutable ledger with status transitions.

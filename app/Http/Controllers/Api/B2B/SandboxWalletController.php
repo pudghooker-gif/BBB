@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use VanguardLTE\B2B\Support\B2BApiResponse;
 use VanguardLTE\B2B\Services\SandboxWalletService;
 
 class SandboxWalletController extends Controller
@@ -17,10 +18,9 @@ class SandboxWalletController extends Controller
         $this->wallet = $wallet;
     }
 
-    public function health()
+    public function health(Request $request)
     {
-        return response()->json([
-            'status' => 'ok',
+        return B2BApiResponse::success($request, [
             'service' => 'b2b-sandbox-wallet',
             'enabled' => $this->wallet->isEnabled(),
             'tables' => $this->wallet->tableStatus(),
@@ -45,7 +45,18 @@ class SandboxWalletController extends Controller
         $operator = $this->resolveOperator($request, $payload);
         $result = $this->wallet->process($operator, $action, $payload);
 
-        return response()->json($result['body'], $result['http_status']);
+        if (!$result['ok']) {
+            $body = isset($result['body']) && is_array($result['body']) ? $result['body'] : [];
+            return B2BApiResponse::error(
+                $request,
+                isset($body['code']) ? $body['code'] : 'SANDBOX_WALLET_FAILED',
+                isset($body['message']) ? $body['message'] : null,
+                $result['http_status'],
+                isset($body['details']) ? $body['details'] : null
+            );
+        }
+
+        return B2BApiResponse::success($request, $result['body'], $result['http_status']);
     }
 
     protected function resolveOperator(Request $request, array $payload)

@@ -10,6 +10,7 @@ use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Models\B2BOperatorPlayer;
 use VanguardLTE\B2B\Services\B2BLaunchBridge;
 use VanguardLTE\B2B\Services\B2BResilienceGuard;
+use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class GameLaunchController extends Controller
 {
@@ -19,12 +20,12 @@ class GameLaunchController extends Controller
 
         $availability = $guard->checkOperatorAvailable($operator);
         if (!$availability['ok']) {
-            return $this->guardError($availability);
+            return $this->guardError($request, $availability);
         }
 
         $rate = $guard->checkRateLimit($operator, 'launch');
         if (!$rate['ok']) {
-            return $this->guardError($rate);
+            return $this->guardError($request, $rate);
         }
 
         $validator = Validator::make($request->all(), [
@@ -39,34 +40,16 @@ class GameLaunchController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'error' => [
-                    'code' => 'VALIDATION_FAILED',
-                    'details' => $validator->errors(),
-                ],
-            ], 422);
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
         }
 
         $currency = strtoupper($request->input('currency'));
         if (!$this->isCurrencyAllowed($operator, $currency)) {
-            return response()->json([
-                'success' => false,
-                'error' => [
-                    'code' => 'CURRENCY_NOT_ALLOWED',
-                    'message' => 'Currency is not allowed for this operator.',
-                ],
-            ], 422);
+            return B2BApiResponse::error($request, 'CURRENCY_NOT_ALLOWED');
         }
 
         if (!$this->isReturnUrlAllowed($operator, $request->input('return_url'))) {
-            return response()->json([
-                'success' => false,
-                'error' => [
-                    'code' => 'RETURN_URL_NOT_ALLOWED',
-                    'message' => 'Return URL is not allowed for this operator.',
-                ],
-            ], 422);
+            return B2BApiResponse::error($request, 'RETURN_URL_NOT_ALLOWED');
         }
 
         $player = B2BOperatorPlayer::firstOrCreate(
@@ -84,13 +67,7 @@ class GameLaunchController extends Controller
         );
 
         if ($player->status !== B2BOperatorPlayer::STATUS_ACTIVE) {
-            return response()->json([
-                'success' => false,
-                'error' => [
-                    'code' => 'PLAYER_BLOCKED',
-                    'message' => 'Player is not active',
-                ],
-            ], 403);
+            return B2BApiResponse::error($request, 'PLAYER_BLOCKED');
         }
 
         $token = Str::random(64);
@@ -118,28 +95,30 @@ class GameLaunchController extends Controller
             'metadata' => $request->input('metadata', []),
         ]);
 
-        return response()->json([
-            'success' => true,
-            'data' => [
-                'session_id' => $session->session_uid,
-                'game_id' => $session->game_uid,
-                'provider' => $session->provider,
-                'launch_url' => $session->launch_url,
-                'expires_at' => $session->expires_at ? $session->expires_at->toIso8601String() : null,
-            ],
+        return B2BApiResponse::success($request, [
+            'session_id' => $session->session_uid,
+            'game_id' => $session->game_uid,
+            'provider' => $session->provider,
+            'launch_url' => $session->launch_url,
+            'expires_at' => $session->expires_at ? $session->expires_at->toIso8601String() : null,
         ], 201);
     }
 
-    private function guardError(array $result)
+    private function guardError(Request $request, array $result)
     {
-        return response()->json([
-            'success' => false,
-            'error' => [
-                'code' => $result['code'],
-                'message' => $result['message'],
-            ],
-            'retry_after' => isset($result['retry_after']) ? $result['retry_after'] : null,
-        ], isset($result['http_status']) ? $result['http_status'] : 503);
+        $meta = [];
+        if (isset($result['retry_after'])) {
+            $meta['retry_after'] = $result['retry_after'];
+        }
+
+        return B2BApiResponse::error(
+            $request,
+            $result['code'],
+            isset($result['message']) ? $result['message'] : null,
+            isset($result['http_status']) ? $result['http_status'] : 503,
+            null,
+            $meta
+        );
     }
 
     private function isCurrencyAllowed($operator, $currency)

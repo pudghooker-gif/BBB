@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use VanguardLTE\B2B\Services\B2BReportQuery;
+use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class ReportsController extends Controller
 {
@@ -19,7 +20,7 @@ class ReportsController extends Controller
     public function summary(Request $request)
     {
         if ($this->reports->operatorId($request) <= 0) {
-            return $this->operatorContextMissing();
+            return $this->operatorContextMissing($request);
         }
 
         $base = $this->reports->transactionBaseQuery($request);
@@ -57,19 +58,16 @@ class ReportsController extends Controller
 
         $totals['ggr'] = $this->decimalSub($this->decimalSub($totals['bets'], $totals['wins']), $totals['refunds']);
 
-        return response()->json([
-            'status' => 'ok',
-            'data' => [
-                'totals' => $totals,
-                'breakdown' => $rows,
-            ],
+        return B2BApiResponse::success($request, [
+            'totals' => $totals,
+            'breakdown' => $rows,
         ]);
     }
 
     public function transactions(Request $request)
     {
         if ($this->reports->operatorId($request) <= 0) {
-            return $this->operatorContextMissing();
+            return $this->operatorContextMissing($request);
         }
 
         $limit = $this->reports->safeLimit($request);
@@ -79,18 +77,14 @@ class ReportsController extends Controller
             ->limit($limit)
             ->get();
 
-        return response()->json([
-            'status' => 'ok',
-            'data' => $rows,
-            'limit' => $limit,
-        ]);
+        return B2BApiResponse::success($request, $rows, 200, ['limit' => $limit]);
     }
 
     public function transaction(Request $request, $transactionUid)
     {
         $operatorId = $this->reports->operatorId($request);
         if ($operatorId <= 0) {
-            return $this->operatorContextMissing();
+            return $this->operatorContextMissing($request);
         }
 
         $query = DB::table('b2b_wallet_transactions')
@@ -105,10 +99,7 @@ class ReportsController extends Controller
         $transaction = $query->first();
 
         if (!$transaction) {
-            return response()->json([
-                'status' => 'error',
-                'code' => 'TRANSACTION_NOT_FOUND',
-            ], 404);
+            return B2BApiResponse::error($request, 'TRANSACTION_NOT_FOUND');
         }
 
         $logs = DB::table('b2b_wallet_callback_logs')
@@ -117,19 +108,16 @@ class ReportsController extends Controller
             ->limit(20)
             ->get();
 
-        return response()->json([
-            'status' => 'ok',
-            'data' => [
-                'transaction' => $transaction,
-                'callback_logs' => $logs,
-            ],
+        return B2BApiResponse::success($request, [
+            'transaction' => $transaction,
+            'callback_logs' => $logs,
         ]);
     }
 
     public function ggr(Request $request)
     {
         if ($this->reports->operatorId($request) <= 0) {
-            return $this->operatorContextMissing();
+            return $this->operatorContextMissing($request);
         }
 
         $base = $this->reports->transactionBaseQuery($request)->where('status', 'success');
@@ -139,15 +127,12 @@ class ReportsController extends Controller
         $refunds = (clone $base)->where('type', 'refund')->sum('amount');
         $rollbacks = (clone $base)->where('type', 'rollback')->sum('amount');
 
-        return response()->json([
-            'status' => 'ok',
-            'data' => [
-                'bets' => $this->decimalNormalize($bets),
-                'wins' => $this->decimalNormalize($wins),
-                'refunds' => $this->decimalNormalize($refunds),
-                'rollbacks' => $this->decimalNormalize($rollbacks),
-                'ggr' => $this->decimalSub($this->decimalSub($bets, $wins), $refunds),
-            ],
+        return B2BApiResponse::success($request, [
+            'bets' => $this->decimalNormalize($bets),
+            'wins' => $this->decimalNormalize($wins),
+            'refunds' => $this->decimalNormalize($refunds),
+            'rollbacks' => $this->decimalNormalize($rollbacks),
+            'ggr' => $this->decimalSub($this->decimalSub($bets, $wins), $refunds),
         ]);
     }
 
@@ -156,7 +141,7 @@ class ReportsController extends Controller
         list($fromDate, $toDate) = $this->reports->dateRange($request);
         $operatorId = $this->reports->operatorId($request);
         if ($operatorId <= 0) {
-            return $this->operatorContextMissing();
+            return $this->operatorContextMissing($request);
         }
 
         $query = DB::table('b2b_settlements')
@@ -166,10 +151,7 @@ class ReportsController extends Controller
 
         $query->where('operator_id', $operatorId);
 
-        return response()->json([
-            'status' => 'ok',
-            'data' => $query->get(),
-        ]);
+        return B2BApiResponse::success($request, $query->get());
     }
 
     private function decimalAdd($left, $right, $scale = 8)
@@ -327,11 +309,8 @@ class ReportsController extends Controller
         return ltrim(strrev($result), '0') ?: '0';
     }
 
-    private function operatorContextMissing()
+    private function operatorContextMissing(Request $request)
     {
-        return response()->json([
-            'status' => 'error',
-            'code' => 'OPERATOR_CONTEXT_MISSING',
-        ], 401);
+        return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING');
     }
 }
