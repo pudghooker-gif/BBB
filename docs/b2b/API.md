@@ -15,22 +15,28 @@ X-Operator-Id: op_demo
 X-Api-Key: key_public_id
 X-Timestamp: 1715450000
 X-Nonce: random-string
+X-Body-Hash: sha256-raw-body
 X-Signature: hmac-sha256
 ```
 
 Signature payload:
 
 ```text
-X-Timestamp + "." + X-Nonce + "." + raw_request_body
+METHOD
+/path
+canonical_query
+body_hash
+timestamp
+nonce
 ```
 
 Signature value:
 
 ```php
-hash_hmac('sha256', $payload, $operatorSecret)
+hash_hmac('sha256', $canonicalRequest, $operatorSecret)
 ```
 
-Timestamp skew is limited to 300 seconds. Nonces are cached for 5 minutes to reduce replay risk.
+Timestamp skew is limited by `B2B_HMAC_REPLAY_WINDOW_SECONDS` (300 seconds by default). Nonces are cached for the same window to reduce replay risk. See `docs/api/HMAC_AUTHENTICATION.md` for the exact canonicalization rules.
 
 ## Endpoints
 

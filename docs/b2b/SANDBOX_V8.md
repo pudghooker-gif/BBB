@@ -25,7 +25,7 @@ php artisan b2b:sandbox-health
 php artisan b2b:sandbox-operator SandboxOperator --shop_id=1 --currency=USD --balance=1000 --player_id=demo_player --app_url=http://localhost
 ```
 
-The command prints B2B API credentials and an example signed curl request.
+The command prints B2B API credentials and an example signed curl request using the current canonical HMAC headers, including `X-Body-Hash`.
 
 ## How it works
 

@@ -18,7 +18,8 @@ Date: 2026-06-22
 
 - Add feature tests for HMAC success/failure/replay.
 - Document and enforce canonical request signing with `X-Body-Hash`.
-- Add tenant isolation tests for games, sessions, reports, wallet attempts.
+- Add tenant isolation tests for sessions, reports, and wallet attempts.
+- Add tenant isolation tests for games, launch, and wallet mutation flows.
 - Add request validation tests for launch and wallet operations.
 - Normalize JSON response/error format.
 - Add OpenAPI and Postman artifacts from verified routes.

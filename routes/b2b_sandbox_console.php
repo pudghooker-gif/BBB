@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BOperatorApiKey;
+use VanguardLTE\B2B\Services\B2BSignature;
 use VanguardLTE\B2B\Services\SandboxWalletService;
 
 Artisan::command('b2b:sandbox-health', function () {
@@ -91,9 +92,13 @@ Artisan::command('b2b:sandbox-operator {name=SandboxOperator} {--shop_id=1} {--c
     ]);
 
     $body = json_encode(['player_id' => $playerId, 'currency' => $currency], JSON_UNESCAPED_SLASHES);
+    $method = 'POST';
+    $path = '/api/b2b/v1/wallet/balance';
     $timestamp = (string) time();
     $nonce = Str::random(24);
-    $signature = hash_hmac('sha256', $timestamp.'.'.$nonce.'.'.$body, $secret);
+    $bodyHash = B2BSignature::bodyHash($body);
+    $canonical = B2BSignature::canonicalFromParts($method, $path, '', $bodyHash, $timestamp, $nonce);
+    $signature = hash_hmac('sha256', $canonical, $secret);
 
     $this->info('Sandbox operator created. Save credentials now; the secret is not stored in plaintext.');
     $this->line('');
@@ -104,7 +109,7 @@ Artisan::command('b2b:sandbox-operator {name=SandboxOperator} {--shop_id=1} {--c
     $this->line('Demo player:   ' . $playerId . ' / ' . $currency . ' / balance ' . $balance);
     $this->line('');
     $this->line('Example signed request:');
-    $this->line('curl -X POST "'.$appUrl.'/api/b2b/v1/wallet/balance" -H "Content-Type: application/json" -H "X-Operator-Id: '.$operatorUid.'" -H "X-Api-Key: '.$keyId.'" -H "X-Timestamp: '.$timestamp.'" -H "X-Nonce: '.$nonce.'" -H "X-Signature: '.$signature.'" --data \''.$body.'\'');
+    $this->line('curl -X '.$method.' "'.$appUrl.$path.'" -H "Content-Type: application/json" -H "X-Operator-Id: '.$operatorUid.'" -H "X-Api-Key: '.$keyId.'" -H "X-Timestamp: '.$timestamp.'" -H "X-Nonce: '.$nonce.'" -H "X-Body-Hash: '.$bodyHash.'" -H "X-Signature: '.$signature.'" --data \''.$body.'\'');
 
     return 0;
 })->describe('Create a test B2B operator wired to the internal sandbox wallet.');

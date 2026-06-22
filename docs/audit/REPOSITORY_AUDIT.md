@@ -46,7 +46,7 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 
 - Composer reports PSR-4 warnings for nested game classes under `app/Games/AmazingSevensGT/...`, `app/Http/Controllers/Web/Backend/ShopsController_original.php`, `tests/unit/ExampleTest.php`, and one vendor Monolog path.
 - Composer security audit is blocked by the old Composer version.
-- The test suite had only example tests before this work. HMAC success/replay/body-hash/IP allowlist coverage has now been added; tenant isolation, idempotency, launch, wallet, and reporting feature coverage remain incomplete.
+- The test suite had only example tests before this work. HMAC success/replay/body-hash/IP allowlist coverage and tenant isolation coverage for sessions/reports/wallet attempts have now been added; idempotency, launch, wallet mutation, and broader reporting edge-case coverage remain incomplete.
 - Financial report code used floats before this audit pass.
 - Sandbox wallet code still uses floats and should stay non-production.
 - The provider adapter contract is minimal and does not cover the full target provider lifecycle.

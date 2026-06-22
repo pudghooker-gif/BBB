@@ -20,13 +20,18 @@ class WalletAttemptController extends Controller
         }
 
         $operator = B2BContext::operator($request);
+        if (!$operator || !isset($operator->id)) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 'OPERATOR_CONTEXT_MISSING',
+            ], 401);
+        }
+
         $query = DB::table('b2b_wallet_transaction_attempts')
             ->where('transaction_uid', $transaction_uid)
             ->orderBy('id', 'desc');
 
-        if ($operator && isset($operator->id)) {
-            $query->where('operator_id', $operator->id);
-        }
+        $query->where('operator_id', $operator->id);
 
         return response()->json([
             'status' => 'success',

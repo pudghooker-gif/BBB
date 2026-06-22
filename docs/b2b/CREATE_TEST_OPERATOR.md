@@ -30,8 +30,9 @@ B2BOperatorApiKey::create([
 Тестовая подпись считается так:
 
 ```text
-payload = X-Timestamp + "." + X-Nonce + "." + raw_json_body
-signature = HMAC-SHA256(payload, secret)
+body_hash = SHA256(raw_json_body)
+canonical_request = METHOD + "\n" + path + "\n" + canonical_query + "\n" + body_hash + "\n" + X-Timestamp + "\n" + X-Nonce
+signature = HMAC-SHA256(canonical_request, secret)
 ```
 
 Заголовки:
@@ -41,5 +42,8 @@ X-Operator-Id: op_demo
 X-Api-Key: demo_key
 X-Timestamp: <unix timestamp>
 X-Nonce: <random unique string>
+X-Body-Hash: <sha256 raw body>
 X-Signature: <hmac sha256>
 ```
+
+Use `php artisan b2b:show-hmac op_demo demo_key demo_secret_change_me GET /api/b2b/v1/operator/me` to print a ready signed example.

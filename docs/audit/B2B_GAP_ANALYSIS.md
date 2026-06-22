@@ -11,6 +11,7 @@ Date: 2026-06-22
 - Shadow user foundation.
 - Wallet transaction table, idempotency key, callback attempt logging, retry command, and sandbox wallet.
 - Reporting endpoints for summary, transactions, GGR, and settlements.
+- Feature tests now cover HMAC success/failure/replay and tenant isolation for sessions, reports, settlements, and wallet attempts.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
 
@@ -24,7 +25,7 @@ Date: 2026-06-22
 - Provider adapter contract for all required operations.
 - Production-grade wallet state machine: unknown, rollback_required, reversed, dead-letter/manual_review, status lookup, reconciliation, and safe retry budget.
 - Append-oriented immutable ledger with status transitions.
-- Operator-scoped tests for every list/detail/close/report endpoint.
+- Operator-scoped tests for games, launch, wallet mutation flows, and remaining close/detail edge cases.
 - Dedicated B2B admin backoffice and operator portal.
 - OpenAPI/Postman generated from verified routes.
 - Queue topology and worker configs for wallet-live, wallet-retry, provider-callbacks, reporting, settlement, reconciliation, notifications, and maintenance.

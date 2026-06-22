@@ -18,6 +18,10 @@ class ReportsController extends Controller
 
     public function summary(Request $request)
     {
+        if ($this->reports->operatorId($request) <= 0) {
+            return $this->operatorContextMissing();
+        }
+
         $base = $this->reports->transactionBaseQuery($request);
 
         $rows = $base
@@ -64,6 +68,10 @@ class ReportsController extends Controller
 
     public function transactions(Request $request)
     {
+        if ($this->reports->operatorId($request) <= 0) {
+            return $this->operatorContextMissing();
+        }
+
         $limit = $this->reports->safeLimit($request);
 
         $rows = $this->reports->transactionBaseQuery($request)
@@ -81,6 +89,9 @@ class ReportsController extends Controller
     public function transaction(Request $request, $transactionUid)
     {
         $operatorId = $this->reports->operatorId($request);
+        if ($operatorId <= 0) {
+            return $this->operatorContextMissing();
+        }
 
         $query = DB::table('b2b_wallet_transactions')
             ->where(function ($q) use ($transactionUid) {
@@ -89,9 +100,7 @@ class ReportsController extends Controller
                   ->orWhere('id', $transactionUid);
             });
 
-        if ($operatorId > 0) {
-            $query->where('operator_id', $operatorId);
-        }
+        $query->where('operator_id', $operatorId);
 
         $transaction = $query->first();
 
@@ -119,6 +128,10 @@ class ReportsController extends Controller
 
     public function ggr(Request $request)
     {
+        if ($this->reports->operatorId($request) <= 0) {
+            return $this->operatorContextMissing();
+        }
+
         $base = $this->reports->transactionBaseQuery($request)->where('status', 'success');
 
         $bets = (clone $base)->where('type', 'bet')->sum('amount');
@@ -142,15 +155,16 @@ class ReportsController extends Controller
     {
         list($fromDate, $toDate) = $this->reports->dateRange($request);
         $operatorId = $this->reports->operatorId($request);
+        if ($operatorId <= 0) {
+            return $this->operatorContextMissing();
+        }
 
         $query = DB::table('b2b_settlements')
             ->whereBetween('created_at', [$fromDate, $toDate])
             ->orderBy('created_at', 'desc')
             ->limit($this->reports->safeLimit($request));
 
-        if ($operatorId > 0) {
-            $query->where('operator_id', $operatorId);
-        }
+        $query->where('operator_id', $operatorId);
 
         return response()->json([
             'status' => 'ok',
@@ -311,5 +325,13 @@ class ReportsController extends Controller
         }
 
         return ltrim(strrev($result), '0') ?: '0';
+    }
+
+    private function operatorContextMissing()
+    {
+        return response()->json([
+            'status' => 'error',
+            'code' => 'OPERATOR_CONTEXT_MISSING',
+        ], 401);
     }
 }
