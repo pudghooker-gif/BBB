@@ -63,3 +63,11 @@ A single stuck operator wallet should not block all operators. This update adds:
 - Circuit breaker fields
 - Retry command
 - Duplicate transaction protection foundation
+
+## Idempotency conflicts
+
+Wallet mutation endpoints derive an idempotency key from operator, action, `transaction_id`, and `round_id`.
+
+- Repeating the exact same payload returns the stored transaction result with `duplicate: true`.
+- Reusing the same idempotency key with a changed payload returns HTTP `409` and code `IDEMPOTENCY_CONFLICT`.
+- Conflicts do not create a second ledger row and do not call the operator wallet again.

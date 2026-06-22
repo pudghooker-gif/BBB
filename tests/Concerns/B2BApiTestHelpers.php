@@ -98,9 +98,13 @@ trait B2BApiTestHelpers
             $table->json('ip_whitelist')->nullable();
             $table->json('settings')->nullable();
             $table->integer('failure_count')->default(0);
+            $table->timestamp('last_failure_at')->nullable();
+            $table->timestamp('last_success_at')->nullable();
             $table->integer('max_rps')->default(50);
             $table->integer('wallet_timeout_ms')->default(5000);
             $table->integer('connect_timeout_ms')->default(1500);
+            $table->integer('circuit_breaker_threshold')->default(5);
+            $table->integer('circuit_breaker_cooldown_seconds')->default(30);
             $table->timestamp('circuit_open_until')->nullable();
             $table->timestamps();
         });
@@ -161,6 +165,7 @@ trait B2BApiTestHelpers
             $table->string('transaction_uid')->nullable();
             $table->string('transaction_id')->nullable();
             $table->string('idempotency_key')->nullable();
+            $table->string('request_hash', 64)->nullable();
             $table->string('type')->nullable();
             $table->decimal('amount', 20, 8)->default(0);
             $table->string('currency', 3)->default('USD');
@@ -168,6 +173,9 @@ trait B2BApiTestHelpers
             $table->json('raw_request')->nullable();
             $table->json('raw_response')->nullable();
             $table->integer('attempts')->default(0);
+            $table->text('last_error')->nullable();
+            $table->integer('operator_response_code')->nullable();
+            $table->longText('operator_response_body')->nullable();
             $table->timestamp('processed_at')->nullable();
             $table->timestamps();
         });

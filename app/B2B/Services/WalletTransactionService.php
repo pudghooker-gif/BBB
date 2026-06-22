@@ -44,6 +44,19 @@ class WalletTransactionService
 
         $existing = $this->idempotency->findExisting($operatorId, $idempotencyKey);
         if ($existing) {
+            if (isset($existing->request_hash) && $existing->request_hash && !hash_equals($existing->request_hash, $requestHash)) {
+                return [
+                    'ok' => false,
+                    'http_status' => 409,
+                    'body' => [
+                        'status' => 'error',
+                        'code' => 'IDEMPOTENCY_CONFLICT',
+                        'message' => 'Transaction idempotency key was already used with a different payload.',
+                        'transaction_uid' => isset($existing->transaction_uid) ? $existing->transaction_uid : null,
+                    ],
+                ];
+            }
+
             return [
                 'ok' => true,
                 'http_status' => 200,

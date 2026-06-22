@@ -19,7 +19,8 @@ class WalletIdempotencyService
 
     public function requestHash(array $payload)
     {
-        ksort($payload);
+        $payload = $this->sortRecursive($payload);
+
         return hash('sha256', json_encode($payload));
     }
 
@@ -33,5 +34,18 @@ class WalletIdempotencyService
             ->where('operator_id', $operatorId)
             ->where('idempotency_key', $key)
             ->first();
+    }
+
+    private function sortRecursive(array $value)
+    {
+        ksort($value);
+
+        foreach ($value as $key => $item) {
+            if (is_array($item)) {
+                $value[$key] = $this->sortRecursive($item);
+            }
+        }
+
+        return $value;
     }
 }
