@@ -42,6 +42,7 @@ Date: 2026-06-22
 
 - Add Nginx, PHP-FPM, Supervisor/systemd, cron, queue worker, and WebSocket proxy configs.
 - Add health/readiness endpoints, structured logs, correlation IDs, metrics, and release runbooks.
+- Add and run `b2b:release-check --production` for Redis/shared-cache, queue, sandbox, debug, private callback, and artifact-secret gates.
 - Add CI for composer validate/install, syntax lint, PHPUnit, route boot, migration test, security scan, and optional frontend/Node checks.
 
 ## Stage 6: Release Gates

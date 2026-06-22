@@ -43,8 +43,9 @@ class B2BResilienceGuard
         $key = 'b2b:rate:' . $bucket . ':operator:' . $operator->id . ':' . time();
 
         try {
-            Cache::add($key, 0, 2);
-            $current = Cache::increment($key);
+            $cache = $this->cache();
+            $cache->add($key, 0, 2);
+            $current = $cache->increment($key);
         } catch (\Exception $e) {
             return ['ok' => true];
         }
@@ -128,5 +129,12 @@ class B2BResilienceGuard
         } catch (\Exception $e) {
             // Health events must never break live wallet or launch traffic.
         }
+    }
+
+    private function cache()
+    {
+        $store = config('b2b.rate_limit_cache_store');
+
+        return $store ? Cache::store($store) : Cache::store();
     }
 }

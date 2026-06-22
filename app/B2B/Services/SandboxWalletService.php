@@ -13,8 +13,7 @@ class SandboxWalletService
 {
     public function isEnabled()
     {
-        $default = app()->environment('production') ? false : true;
-        $value = env('B2B_SANDBOX_ENABLED', $default);
+        $value = config('b2b.sandbox_enabled');
 
         if ($value === true || $value === 1 || $value === '1' || $value === 'true' || $value === 'TRUE') {
             return true;

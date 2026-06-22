@@ -10,6 +10,7 @@ use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BOperatorApiKey;
 use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Models\B2BWalletTransaction;
+use VanguardLTE\B2B\Services\B2BReleaseGate;
 use VanguardLTE\B2B\Services\B2BSignature;
 
 Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_callback_url=} {--currency=USD} {--max_rps=50} {--wallet_timeout_ms=3000}', function () {
@@ -190,3 +191,21 @@ Artisan::command('b2b:health', function () {
     $this->line('wallet transactions: ' . (Schema::hasTable('b2b_wallet_transactions') ? B2BWalletTransaction::count() : 'missing table'));
     return 0;
 });
+
+Artisan::command('b2b:release-check {--production : Enforce production release gates}', function (B2BReleaseGate $gate) {
+    $result = $gate->run((bool) $this->option('production'));
+
+    $this->line('B2B release gate checks');
+    foreach ($result['checks'] as $check) {
+        $line = strtoupper($check['status']) . ' ' . $check['name'] . ': ' . $check['message'];
+        if ($check['status'] === 'fail') {
+            $this->error($line);
+        } elseif ($check['status'] === 'warn') {
+            $this->comment($line);
+        } else {
+            $this->info($line);
+        }
+    }
+
+    return $result['ok'] ? 0 : 1;
+})->describe('Run B2B production release configuration checks.');

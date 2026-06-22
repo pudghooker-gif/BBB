@@ -15,13 +15,14 @@ Date: 2026-06-22
 - Feature tests now cover HMAC success/failure/replay, tenant isolation for sessions/reports/settlements/wallet attempts, request validation for launch and wallet payloads, and wallet idempotency conflicts.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
+- `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, and release file gates.
 
 ## Missing Or Incomplete
 
 ### P0/P1 Before Production
 
 - Full migration verification on clean and upgraded databases.
-- Redis-backed nonce/rate-limit/circuit state confirmation.
+- Production environment must pass `b2b:release-check --production`; current local workspace still contains release-blocking local files and non-Redis shared-state defaults.
 - External provider adapters still require real provider-specific implementations and certification docs.
 - Production-grade wallet state machine: unknown, rollback_required, reversed, dead-letter/manual_review, status lookup, reconciliation, and safe retry budget.
 - Append-oriented immutable ledger with status transitions.
