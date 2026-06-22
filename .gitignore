@@ -7,6 +7,8 @@
 
 # testing
 /coverage
+/.phpunit.result.cache
+/bootstrap/cache/*.phpunit.php
 
 # production
 /storage

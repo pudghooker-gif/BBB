@@ -48,13 +48,34 @@ class GameLaunchController extends Controller
             ], 422);
         }
 
+        $currency = strtoupper($request->input('currency'));
+        if (!$this->isCurrencyAllowed($operator, $currency)) {
+            return response()->json([
+                'success' => false,
+                'error' => [
+                    'code' => 'CURRENCY_NOT_ALLOWED',
+                    'message' => 'Currency is not allowed for this operator.',
+                ],
+            ], 422);
+        }
+
+        if (!$this->isReturnUrlAllowed($operator, $request->input('return_url'))) {
+            return response()->json([
+                'success' => false,
+                'error' => [
+                    'code' => 'RETURN_URL_NOT_ALLOWED',
+                    'message' => 'Return URL is not allowed for this operator.',
+                ],
+            ], 422);
+        }
+
         $player = B2BOperatorPlayer::firstOrCreate(
             [
                 'operator_id' => $operator->id,
                 'external_player_id' => $request->input('player_id'),
             ],
             [
-                'currency' => strtoupper($request->input('currency')),
+                'currency' => $currency,
                 'country' => strtoupper((string) $request->input('country')),
                 'language' => $request->input('language', 'en'),
                 'status' => B2BOperatorPlayer::STATUS_ACTIVE,
@@ -85,7 +106,7 @@ class GameLaunchController extends Controller
             'game_uid' => $gameId,
             'provider' => 'goldsvet_internal',
             'mode' => $request->input('mode', 'real'),
-            'currency' => strtoupper($request->input('currency')),
+            'currency' => $currency,
             'language' => $request->input('language', 'en'),
             'country' => strtoupper((string) $request->input('country')),
             'return_url' => $request->input('return_url'),
@@ -119,5 +140,64 @@ class GameLaunchController extends Controller
             ],
             'retry_after' => isset($result['retry_after']) ? $result['retry_after'] : null,
         ], isset($result['http_status']) ? $result['http_status'] : 503);
+    }
+
+    private function isCurrencyAllowed($operator, $currency)
+    {
+        $allowed = $operator && is_array($operator->allowed_currencies)
+            ? $operator->allowed_currencies
+            : [];
+
+        if (count($allowed) === 0) {
+            return true;
+        }
+
+        return in_array(strtoupper($currency), array_map('strtoupper', $allowed), true);
+    }
+
+    private function isReturnUrlAllowed($operator, $returnUrl)
+    {
+        if (!$returnUrl) {
+            return true;
+        }
+
+        $host = parse_url($returnUrl, PHP_URL_HOST);
+        if (!$host) {
+            return false;
+        }
+
+        $allowedHosts = [];
+        if ($operator && $operator->base_url) {
+            $baseHost = parse_url($operator->base_url, PHP_URL_HOST);
+            if ($baseHost) {
+                $allowedHosts[] = strtolower($baseHost);
+            }
+        }
+
+        $settings = $operator && is_array($operator->settings) ? $operator->settings : [];
+        if (isset($settings['return_url_allowlist']) && is_array($settings['return_url_allowlist'])) {
+            foreach ($settings['return_url_allowlist'] as $allowed) {
+                $allowedHost = parse_url($allowed, PHP_URL_HOST) ?: $allowed;
+                if ($allowedHost) {
+                    $allowedHosts[] = strtolower($allowedHost);
+                }
+            }
+        }
+
+        $host = strtolower($host);
+        foreach (array_unique($allowedHosts) as $allowedHost) {
+            if ($host === $allowedHost) {
+                return true;
+            }
+
+            if (strpos($allowedHost, '*.') === 0) {
+                $suffix = substr($allowedHost, 1);
+                if (substr($host, -strlen($suffix)) === $suffix) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

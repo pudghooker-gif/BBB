@@ -46,6 +46,7 @@ namespace VanguardLTE\Http
             'only_for_admin' => 'VanguardLTE\Http\Middleware\OnlyForAdmin', 
             'permission_api' => 'VanguardLTE\Http\Middleware\VerifyPermission', 
             'checker' => 'VanguardLTE\Http\Middleware\Checker', 
+            'b2b.signature' => 'VanguardLTE\Http\Middleware\VerifyB2BSignature',
             '2fa' => 'PragmaRX\Google2FALaravel\Middleware'
         ];
     }

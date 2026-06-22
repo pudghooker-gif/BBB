@@ -31,12 +31,25 @@ class OperatorWalletClient
             return $this->error('WALLET_CALLBACK_NOT_CONFIGURED', 'Operator wallet callback URL is empty.', 0, null);
         }
 
+        $urlError = $this->validateCallbackUrl($url);
+        if ($urlError) {
+            return $this->error($urlError['code'], $urlError['message'], 0, null);
+        }
+
         $timeoutMs = isset($operator->wallet_timeout_ms) ? (int) $operator->wallet_timeout_ms : 5000;
         if ($timeoutMs < 1000) {
             $timeoutMs = 1000;
         }
         if ($timeoutMs > 15000) {
             $timeoutMs = 15000;
+        }
+
+        $connectTimeoutMs = isset($operator->connect_timeout_ms) ? (int) $operator->connect_timeout_ms : 1500;
+        if ($connectTimeoutMs < 250) {
+            $connectTimeoutMs = 250;
+        }
+        if ($connectTimeoutMs > $timeoutMs) {
+            $connectTimeoutMs = $timeoutMs;
         }
 
         $payload['action'] = $action;
@@ -58,6 +71,7 @@ class OperatorWalletClient
 
         try {
             $response = Http::withHeaders($headers)
+                ->withOptions(['connect_timeout' => (int) ceil($connectTimeoutMs / 1000)])
                 ->timeout((int) ceil($timeoutMs / 1000))
                 ->post($url, $payload);
 
@@ -107,6 +121,55 @@ class OperatorWalletClient
         }
 
         return null;
+    }
+
+    protected function validateCallbackUrl($url)
+    {
+        $parts = parse_url($url);
+        $scheme = isset($parts['scheme']) ? strtolower($parts['scheme']) : null;
+        $host = isset($parts['host']) ? strtolower($parts['host']) : null;
+
+        if (!in_array($scheme, ['http', 'https'], true) || !$host) {
+            return [
+                'code' => 'WALLET_CALLBACK_URL_INVALID',
+                'message' => 'Wallet callback URL must be absolute HTTP or HTTPS URL.',
+            ];
+        }
+
+        if ($this->privateCallbackTargetsAllowed()) {
+            return null;
+        }
+
+        if (in_array($host, ['localhost', 'localhost.localdomain'], true)) {
+            return [
+                'code' => 'WALLET_CALLBACK_URL_BLOCKED',
+                'message' => 'Wallet callback URL points to a local host.',
+            ];
+        }
+
+        $ips = filter_var($host, FILTER_VALIDATE_IP) ? [$host] : gethostbynamel($host);
+        if (!$ips || !is_array($ips)) {
+            return [
+                'code' => 'WALLET_CALLBACK_HOST_UNRESOLVED',
+                'message' => 'Wallet callback host could not be resolved.',
+            ];
+        }
+
+        foreach ($ips as $ip) {
+            if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                return [
+                    'code' => 'WALLET_CALLBACK_URL_BLOCKED',
+                    'message' => 'Wallet callback URL resolves to a private or reserved IP address.',
+                ];
+            }
+        }
+
+        return null;
+    }
+
+    protected function privateCallbackTargetsAllowed()
+    {
+        return app()->environment('local', 'testing') || (bool) config('b2b.allow_private_wallet_callbacks', false);
     }
 
     protected function error($code, $message, $httpStatus = 0, $body = null, $durationMs = null)

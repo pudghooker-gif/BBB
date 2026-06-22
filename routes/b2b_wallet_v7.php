@@ -5,7 +5,7 @@ use VanguardLTE\Http\Middleware\VerifyB2BSignature;
 use VanguardLTE\Http\Controllers\Api\B2B\WalletAttemptController;
 use VanguardLTE\Http\Controllers\Api\B2B\WalletHealthController;
 
-Route::prefix('api/b2b/v1')
+Route::prefix('b2b/v1')
     ->middleware([VerifyB2BSignature::class])
     ->group(function () {
         Route::get('/wallet/health', [WalletHealthController::class, 'show']);

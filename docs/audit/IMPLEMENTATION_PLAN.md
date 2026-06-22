@@ -1,0 +1,49 @@
+# Implementation Plan
+
+Date: 2026-06-22
+
+## Stage 1: Bootstrap And P0 Hardening
+
+- Deduplicate B2B route includes.
+- Fix B2B launcher namespace and launch action.
+- Register B2B HMAC middleware alias.
+- Fix wallet v7 API prefix.
+- Guard reporting indexes by actual columns and use `game_uid`.
+- Enforce operator context in session/report services.
+- Add SSRF guard for wallet callback URLs.
+- Add return URL allowlist check for launches.
+- Add focused tests for route config and decimal handling.
+
+## Stage 2: Verified B2B API MVP
+
+- Add feature tests for HMAC success/failure/replay.
+- Add tenant isolation tests for games, sessions, reports, wallet attempts.
+- Add request validation tests for launch and wallet operations.
+- Normalize JSON response/error format.
+- Add OpenAPI and Postman artifacts from verified routes.
+
+## Stage 3: Wallet And Ledger
+
+- Implement explicit wallet state machine.
+- Add unknown result handling, status lookup contract, retry budgets, manual review, and reconciliation jobs.
+- Make ledger append-oriented with status transition history and payload redaction.
+- Add duplicate bet/win/refund/rollback tests.
+
+## Stage 4: Admin And Operator Portal
+
+- Add dedicated B2B backoffice routes/controllers/views with server-side RBAC.
+- Add operator portal with tenant-scoped dashboard, credentials, callback settings, games, sessions, transactions, reports, and docs.
+- Add audit events for credential rotation, manual transaction actions, exports, and dangerous actions.
+
+## Stage 5: Deployment And Observability
+
+- Add Nginx, PHP-FPM, Supervisor/systemd, cron, queue worker, and WebSocket proxy configs.
+- Add health/readiness endpoints, structured logs, correlation IDs, metrics, and release runbooks.
+- Add CI for composer validate/install, syntax lint, PHPUnit, route boot, migration test, security scan, and optional frontend/Node checks.
+
+## Stage 6: Release Gates
+
+- Run migrations on clean and upgraded databases.
+- Verify rollback where practical.
+- Verify queues, scheduler, WebSocket proxy, sandbox wallet flow, reports, settlements, backups, and smoke tests.
+- Document all remaining external blockers before any production launch claim.

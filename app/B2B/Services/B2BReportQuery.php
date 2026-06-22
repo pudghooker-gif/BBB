@@ -5,6 +5,7 @@ namespace VanguardLTE\B2B\Services;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class B2BReportQuery
 {
@@ -15,7 +16,7 @@ class B2BReportQuery
             return (int) $operator->id;
         }
 
-        return (int) $request->query('operator_id', 0);
+        return 0;
     }
 
     public function dateRange(Request $request)
@@ -46,9 +47,11 @@ class B2BReportQuery
         $query = DB::table('b2b_wallet_transactions')
             ->whereBetween('created_at', [$fromDate, $toDate]);
 
-        if ($operatorId > 0) {
-            $query->where('operator_id', $operatorId);
+        if ($operatorId <= 0) {
+            return $query->whereRaw('1 = 0');
         }
+
+        $query->where('operator_id', $operatorId);
 
         if ($request->query('status')) {
             $query->where('status', $request->query('status'));
@@ -59,11 +62,16 @@ class B2BReportQuery
         }
 
         if ($request->query('player_id')) {
-            $query->where('external_player_id', $request->query('player_id'));
+            $query->whereIn('operator_player_id', function ($subquery) use ($operatorId, $request) {
+                $subquery->select('id')
+                    ->from('b2b_operator_players')
+                    ->where('operator_id', $operatorId)
+                    ->where('external_player_id', $request->query('player_id'));
+            });
         }
 
         if ($request->query('game_id')) {
-            $query->where('game_id', $request->query('game_id'));
+            $query->where($this->walletGameColumn(), $request->query('game_id'));
         }
 
         if ($request->query('round_id')) {
@@ -83,5 +91,10 @@ class B2BReportQuery
             $limit = $max;
         }
         return $limit;
+    }
+
+    private function walletGameColumn()
+    {
+        return Schema::hasColumn('b2b_wallet_transactions', 'game_uid') ? 'game_uid' : 'game_id';
     }
 }

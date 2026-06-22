@@ -32,7 +32,7 @@ Route::prefix('b2b/v1')->group(function () {
         Route::get('operator/me', [OperatorController::class, 'me']);
 
         Route::get('games', [GameCatalogController::class, 'index']);
-        Route::post('games/launch', [GameLaunchController::class, 'launch']);
+        Route::post('games/launch', [GameLaunchController::class, 'store']);
 
         Route::get('sessions', [SessionController::class, 'index']);
         Route::get('sessions/{session_uid}', [SessionController::class, 'show']);
