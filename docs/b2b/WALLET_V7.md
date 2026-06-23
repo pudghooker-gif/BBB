@@ -11,6 +11,8 @@ This update adds a more resilient wallet layer for the B2B aggregator.
 - Retry command for failed/time-out callbacks
 - Append-only wallet state transition log: `b2b_wallet_transaction_transitions`
 - Configurable retry budget before `dead_letter`: `B2B_WALLET_RETRY_MAX_ATTEMPTS`
+- Wallet status lookup endpoint with attempts, transitions, and reconciliation items
+- Wallet reconciliation queue table: `b2b_wallet_reconciliation_items`
 - Stale session close command
 - API endpoint to check wallet health
 - API endpoint to inspect callback attempts for one transaction
@@ -19,6 +21,7 @@ This update adds a more resilient wallet layer for the B2B aggregator.
 
 ```http
 GET /api/b2b/v1/wallet/health
+GET /api/b2b/v1/wallet/transactions/{transaction_uid}/status
 GET /api/b2b/v1/wallet/transactions/{transaction_uid}/attempts
 ```
 
@@ -28,6 +31,7 @@ Both endpoints use B2B HMAC middleware.
 
 ```bash
 php artisan b2b:retry-wallet --limit=50
+php artisan b2b:reconcile-wallet --limit=100 --pending-minutes=5
 php artisan b2b:close-stale-sessions --minutes=30
 ```
 
@@ -65,6 +69,7 @@ A single stuck operator wallet should not block all operators. This update adds:
 - Failure counting
 - Circuit breaker fields
 - Retry command with a bounded retry budget
+- Reconciliation scan for stale `pending`, `unknown`, `dead_letter`, `manual_review`, `rollback_required`, and exhausted retry states
 - Duplicate transaction protection foundation
 
 ## Idempotency conflicts
@@ -86,3 +91,23 @@ Wallet status changes are recorded in `b2b_wallet_transaction_transitions`.
 - When `attempts >= B2B_WALLET_RETRY_MAX_ATTEMPTS`, retry processing appends `failed|timeout|unknown -> dead_letter` and does not call the operator again.
 
 The transition table is append-only at the application layer; wallet code inserts transition rows and never updates them.
+
+## Status lookup
+
+Operators can inspect one of their own wallet transactions with:
+
+```http
+GET /api/b2b/v1/wallet/transactions/{transaction_uid}/status
+```
+
+The response includes a compact transaction summary, status transition history, recent callback attempts, open reconciliation items, and suggested next actions. Lookup is operator-scoped and accepts internal `transaction_uid`, operator `transaction_id`, or numeric row ID.
+
+## Reconciliation scan
+
+`php artisan b2b:reconcile-wallet` scans wallet rows that need operational follow-up.
+
+- Stale `pending` rows are moved to `unknown` through the state machine and get an open reconciliation item.
+- `failed` or `timeout` rows with attempts greater than or equal to `B2B_WALLET_RETRY_MAX_ATTEMPTS` get an open `retry_budget_exhausted` item.
+- Existing open items are updated instead of duplicated.
+
+This is a reconciliation foundation. Final production readiness still needs operator/provider status lookup contracts, manual review actions, reversal controls, and settlement-grade reconciliation reports.

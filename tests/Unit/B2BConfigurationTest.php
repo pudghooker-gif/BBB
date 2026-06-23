@@ -22,7 +22,10 @@ class B2BConfigurationTest extends TestCase
 
     public function testReportsKeepMoneyAsDecimalStrings()
     {
-        $controller = new ReportsController(app(\VanguardLTE\B2B\Services\B2BReportQuery::class));
+        $controller = new ReportsController(
+            app(\VanguardLTE\B2B\Services\B2BReportQuery::class),
+            app(\VanguardLTE\B2B\Services\WalletTransactionLookupService::class)
+        );
         $reflection = new ReflectionClass($controller);
 
         $add = $reflection->getMethod('decimalAdd');

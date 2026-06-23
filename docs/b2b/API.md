@@ -49,6 +49,8 @@ POST /api/b2b/v1/wallet/bet
 POST /api/b2b/v1/wallet/win
 POST /api/b2b/v1/wallet/refund
 POST /api/b2b/v1/wallet/rollback
+GET  /api/b2b/v1/wallet/transactions/{transaction_uid}/status
+GET  /api/b2b/v1/wallet/transactions/{transaction_uid}/attempts
 GET  /api/b2b/v1/reports/transactions
 GET  /api/b2b/v1/reports/ggr
 ```
@@ -129,6 +131,8 @@ Response:
 ```
 
 This MVP stores every wallet event in `b2b_wallet_transactions` and forwards the payload to `b2b_operators.wallet_callback_url` when configured.
+
+Wallet status lookup returns the current status, recent callback attempts, transition history, open reconciliation items, and suggested operational next actions for the signed operator only.
 
 ## Create demo operator manually
 

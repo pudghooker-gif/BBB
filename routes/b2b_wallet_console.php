@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Carbon\Carbon;
+use VanguardLTE\B2B\Services\WalletReconciliationService;
 use VanguardLTE\B2B\Services\WalletTransactionService;
 
 Artisan::command('b2b:retry-wallet {--limit=50}', function (WalletTransactionService $service) {
@@ -11,6 +12,22 @@ Artisan::command('b2b:retry-wallet {--limit=50}', function (WalletTransactionSer
     $result = $service->retryPending($limit);
     $this->info('B2B wallet retry processed: '.(isset($result['processed']) ? $result['processed'] : 0));
 })->describe('Retry failed or timed out B2B wallet callbacks.');
+
+Artisan::command('b2b:reconcile-wallet {--limit=100} {--pending-minutes=5}', function (WalletReconciliationService $service) {
+    $limit = (int) $this->option('limit');
+    $pendingMinutes = (int) $this->option('pending-minutes');
+    $result = $service->scan($limit, $pendingMinutes);
+
+    if (isset($result['message'])) {
+        $this->error($result['message']);
+        return 1;
+    }
+
+    $this->info('B2B wallet reconciliation processed: '.$result['processed']);
+    $this->info('Opened: '.$result['opened'].'; updated: '.$result['updated'].'; transitioned_unknown: '.$result['transitioned_unknown']);
+
+    return 0;
+})->describe('Scan B2B wallet transactions that need reconciliation or manual review.');
 
 Artisan::command('b2b:close-stale-sessions {--minutes=30}', function () {
     if (!Schema::hasTable('b2b_game_sessions')) {

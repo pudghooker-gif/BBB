@@ -22,4 +22,5 @@ POST /api/b2b/v1/sessions/{session_uid}/close
 - `from` and `to` are optional. Default range is last 7 days.
 - `limit` is capped at 1000.
 - GGR formula in this MVP: `bets - wins - refunds`.
+- Transaction detail includes callback logs plus wallet transition history, recent attempts, and open reconciliation items when those tables exist.
 - Heavy monthly settlement exports should later move to queues and summary tables.

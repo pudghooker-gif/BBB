@@ -6,15 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use VanguardLTE\B2B\Services\B2BReportQuery;
+use VanguardLTE\B2B\Services\WalletTransactionLookupService;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class ReportsController extends Controller
 {
     protected $reports;
+    protected $walletLookup;
 
-    public function __construct(B2BReportQuery $reports)
+    public function __construct(B2BReportQuery $reports, WalletTransactionLookupService $walletLookup)
     {
         $this->reports = $reports;
+        $this->walletLookup = $walletLookup;
     }
 
     public function summary(Request $request)
@@ -108,10 +111,11 @@ class ReportsController extends Controller
             ->limit(20)
             ->get();
 
-        return B2BApiResponse::success($request, [
-            'transaction' => $transaction,
-            'callback_logs' => $logs,
-        ]);
+        $payload = $this->walletLookup->statusPayload($transaction);
+        $payload['transaction'] = $transaction;
+        $payload['callback_logs'] = $logs;
+
+        return B2BApiResponse::success($request, $payload);
     }
 
     public function ggr(Request $request)
