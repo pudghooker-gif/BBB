@@ -11,11 +11,17 @@ class WalletTransactionService
 {
     protected $client;
     protected $idempotency;
+    protected $stateMachine;
 
-    public function __construct(OperatorWalletClient $client, WalletIdempotencyService $idempotency)
+    public function __construct(
+        OperatorWalletClient $client,
+        WalletIdempotencyService $idempotency,
+        WalletTransactionStateMachine $stateMachine
+    )
     {
         $this->client = $client;
         $this->idempotency = $idempotency;
+        $this->stateMachine = $stateMachine;
     }
 
     public function process($operator, $type, array $payload)
@@ -92,22 +98,28 @@ class WalletTransactionService
 
         $transactionIdDb = DB::table('b2b_wallet_transactions')->insertGetId($this->filterColumns('b2b_wallet_transactions', $row));
         $transaction = DB::table('b2b_wallet_transactions')->where('id', $transactionIdDb)->first();
+        $this->stateMachine->record($transaction, null, WalletTransactionStateMachine::STATUS_PENDING, 'wallet_transaction_created', [
+            'type' => $type,
+            'idempotency_key' => $idempotencyKey,
+        ]);
 
         $callbackResult = $this->client->call($operator, $type, $payload, $transaction);
-        $status = $callbackResult['ok'] ? 'success' : ($callbackResult['code'] === 'WALLET_TIMEOUT_OR_EXCEPTION' ? 'timeout' : 'failed');
+        $status = $this->statusFromWalletResult($callbackResult);
 
         $updates = [
-            'status' => $status,
             'attempts' => isset($transaction->attempts) ? ((int) $transaction->attempts + 1) : 1,
             'processed_at' => Carbon::now(),
             'last_error' => $callbackResult['ok'] ? null : (isset($callbackResult['message']) ? $callbackResult['message'] : 'Wallet callback failed'),
             'operator_response_code' => isset($callbackResult['http_status']) ? $callbackResult['http_status'] : null,
             'operator_response_body' => json_encode(isset($callbackResult['body']) ? $callbackResult['body'] : null),
             'raw_response' => json_encode($callbackResult),
-            'updated_at' => Carbon::now(),
         ];
 
-        DB::table('b2b_wallet_transactions')->where('id', $transactionIdDb)->update($this->filterColumns('b2b_wallet_transactions', $updates));
+        $this->stateMachine->transition($transaction, $status, 'wallet_callback_result', $updates, [
+            'wallet_code' => isset($callbackResult['code']) ? $callbackResult['code'] : null,
+            'http_status' => isset($callbackResult['http_status']) ? $callbackResult['http_status'] : null,
+            'duration_ms' => isset($callbackResult['duration_ms']) ? $callbackResult['duration_ms'] : null,
+        ]);
 
         return [
             'ok' => $callbackResult['ok'],
@@ -127,13 +139,30 @@ class WalletTransactionService
         }
 
         $rows = DB::table('b2b_wallet_transactions')
-            ->whereIn('status', ['timeout', 'failed'])
+            ->whereIn('status', ['timeout', 'failed', 'unknown'])
             ->orderBy('id')
             ->limit((int) $limit)
             ->get();
 
         $processed = 0;
+        $deadLettered = 0;
+        $maxAttempts = $this->maxRetryAttempts();
+
         foreach ($rows as $row) {
+            if ((int) $row->attempts >= $maxAttempts) {
+                $this->stateMachine->transition($row, WalletTransactionStateMachine::STATUS_DEAD_LETTER, 'wallet_retry_budget_exhausted', [
+                    'processed_at' => Carbon::now(),
+                    'last_error' => 'Wallet retry budget exhausted after '.$maxAttempts.' attempts.',
+                ], [
+                    'attempts' => (int) $row->attempts,
+                    'max_attempts' => $maxAttempts,
+                ]);
+
+                $processed++;
+                $deadLettered++;
+                continue;
+            }
+
             $operator = DB::table('b2b_operators')->where('id', $row->operator_id)->first();
             if (!$operator) {
                 continue;
@@ -145,24 +174,51 @@ class WalletTransactionService
             }
 
             $result = $this->client->call($operator, $row->type, $payload, $row);
-            $status = $result['ok'] ? 'success' : ($result['code'] === 'WALLET_TIMEOUT_OR_EXCEPTION' ? 'timeout' : 'failed');
+            $status = $this->statusFromWalletResult($result);
 
             $updates = [
-                'status' => $status,
                 'attempts' => isset($row->attempts) ? ((int) $row->attempts + 1) : 1,
                 'processed_at' => Carbon::now(),
                 'last_error' => $result['ok'] ? null : (isset($result['message']) ? $result['message'] : 'Wallet retry failed'),
                 'operator_response_code' => isset($result['http_status']) ? $result['http_status'] : null,
                 'operator_response_body' => json_encode(isset($result['body']) ? $result['body'] : null),
                 'raw_response' => json_encode($result),
-                'updated_at' => Carbon::now(),
             ];
 
-            DB::table('b2b_wallet_transactions')->where('id', $row->id)->update($this->filterColumns('b2b_wallet_transactions', $updates));
+            $this->stateMachine->transition($row, $status, 'wallet_retry_result', $updates, [
+                'wallet_code' => isset($result['code']) ? $result['code'] : null,
+                'http_status' => isset($result['http_status']) ? $result['http_status'] : null,
+                'duration_ms' => isset($result['duration_ms']) ? $result['duration_ms'] : null,
+            ]);
             $processed++;
         }
 
-        return ['processed' => $processed];
+        return ['processed' => $processed, 'dead_lettered' => $deadLettered];
+    }
+
+    protected function statusFromWalletResult(array $result)
+    {
+        if (!empty($result['ok'])) {
+            return WalletTransactionStateMachine::STATUS_SUCCESS;
+        }
+
+        $code = isset($result['code']) ? $result['code'] : null;
+        if ($code === 'WALLET_TIMEOUT_OR_EXCEPTION' || $code === 'CIRCUIT_OPEN') {
+            return WalletTransactionStateMachine::STATUS_TIMEOUT;
+        }
+
+        if ($code === 'WALLET_UNKNOWN_RESULT') {
+            return WalletTransactionStateMachine::STATUS_UNKNOWN;
+        }
+
+        return WalletTransactionStateMachine::STATUS_FAILED;
+    }
+
+    protected function maxRetryAttempts()
+    {
+        $attempts = (int) config('b2b.wallet_retry_max_attempts', 3);
+
+        return $attempts > 0 ? $attempts : 3;
     }
 
     protected function filterColumns($table, array $data)

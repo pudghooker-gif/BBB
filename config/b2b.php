@@ -19,5 +19,7 @@ return [
 
     'rate_limit_cache_store' => env('B2B_RATE_LIMIT_CACHE_STORE', null),
 
+    'wallet_retry_max_attempts' => env('B2B_WALLET_RETRY_MAX_ATTEMPTS', 3),
+
     'sandbox_enabled' => env('B2B_SANDBOX_ENABLED', env('APP_ENV') !== 'production'),
 ];

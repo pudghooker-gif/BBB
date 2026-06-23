@@ -1,6 +1,6 @@
 # Implementation Plan
 
-Date: 2026-06-22
+Date: 2026-06-23
 
 ## Stage 1: Bootstrap And P0 Hardening
 
@@ -27,9 +27,9 @@ Date: 2026-06-22
 
 ## Stage 3: Wallet And Ledger
 
-- Implement explicit wallet state machine.
-- Add unknown result handling, status lookup contract, retry budgets, manual review, and reconciliation jobs.
-- Make ledger append-oriented with status transition history and payload redaction.
+- Expand the explicit wallet state machine beyond the current transition-log foundation.
+- Add status lookup contract, manual review operations, reversal controls, rollback-required recovery, and reconciliation jobs.
+- Keep the wallet ledger append-oriented with status transition history and add stronger payload redaction.
 - Add duplicate bet/win/refund/rollback tests.
 
 ## Stage 4: Admin And Operator Portal

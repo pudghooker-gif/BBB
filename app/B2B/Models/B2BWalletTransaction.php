@@ -15,9 +15,14 @@ class B2BWalletTransaction extends Model
     const STATUS_PENDING = 'pending';
     const STATUS_ACCEPTED = 'accepted';
     const STATUS_REJECTED = 'rejected';
+    const STATUS_SUCCESS = 'success';
     const STATUS_FAILED = 'failed';
     const STATUS_TIMEOUT = 'timeout';
+    const STATUS_UNKNOWN = 'unknown';
     const STATUS_ROLLBACK_REQUIRED = 'rollback_required';
+    const STATUS_REVERSED = 'reversed';
+    const STATUS_MANUAL_REVIEW = 'manual_review';
+    const STATUS_DEAD_LETTER = 'dead_letter';
 
     protected $table = 'b2b_wallet_transactions';
 
@@ -44,6 +49,10 @@ class B2BWalletTransaction extends Model
         'last_attempt_at',
         'locked_until',
         'processed_at',
+        'request_hash',
+        'operator_response_code',
+        'operator_response_body',
+        'last_error',
     ];
 
     protected $casts = [
@@ -66,8 +75,14 @@ class B2BWalletTransaction extends Model
         return in_array($this->status, [
             self::STATUS_ACCEPTED,
             self::STATUS_REJECTED,
-            self::STATUS_FAILED,
-            self::STATUS_TIMEOUT,
+            self::STATUS_SUCCESS,
+            self::STATUS_REVERSED,
+            self::STATUS_DEAD_LETTER,
         ], true);
+    }
+
+    public function transitions()
+    {
+        return $this->hasMany(B2BWalletTransactionTransition::class, 'wallet_transaction_id');
     }
 }
