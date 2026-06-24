@@ -123,6 +123,7 @@ trait B2BApiTestHelpers
             $table->string('key_id');
             $table->text('secret_encrypted');
             $table->string('status')->default('active');
+            $table->integer('max_rps')->nullable();
             $table->timestamp('last_used_at')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();

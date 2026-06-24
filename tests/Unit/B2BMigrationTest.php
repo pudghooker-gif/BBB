@@ -44,6 +44,7 @@ class B2BMigrationTest extends TestCase
             'b2b_operator_game_assignments' => ['operator_id', 'game_uid', 'provider', 'status', 'allowed_currencies', 'allowed_countries'],
             'b2b_wallet_transactions' => ['idempotency_key', 'request_hash', 'raw_response', 'operator_response_body'],
             'b2b_operators' => ['max_rps', 'wallet_timeout_ms', 'connect_timeout_ms', 'circuit_open_until'],
+            'b2b_operator_api_keys' => ['max_rps'],
             'b2b_wallet_transaction_attempts' => ['operator_id', 'attempt_no', 'duration_ms', 'result'],
             'b2b_wallet_reconciliation_items' => ['reason', 'priority', 'state', 'detected_at'],
             'b2b_wallet_manual_actions' => ['action', 'actor', 'reason', 'context'],

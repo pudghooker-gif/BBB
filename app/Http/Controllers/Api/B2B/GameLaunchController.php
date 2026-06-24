@@ -24,7 +24,7 @@ class GameLaunchController extends Controller
             return $this->guardError($request, $availability);
         }
 
-        $rate = $guard->checkRateLimit($operator, 'launch');
+        $rate = $guard->checkRateLimit($operator, 'launch', $request->attributes->get('b2b_api_key'));
         if (!$rate['ok']) {
             return $this->guardError($request, $rate);
         }
@@ -121,6 +121,11 @@ class GameLaunchController extends Controller
         $meta = [];
         if (isset($result['retry_after'])) {
             $meta['retry_after'] = $result['retry_after'];
+        }
+        foreach (['rate_scope', 'limit', 'current'] as $key) {
+            if (isset($result[$key])) {
+                $meta[$key] = $result[$key];
+            }
         }
 
         return B2BApiResponse::error(

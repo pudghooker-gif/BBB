@@ -14,7 +14,7 @@ use VanguardLTE\B2B\Services\B2BOperatorAuditLogger;
 use VanguardLTE\B2B\Services\B2BReleaseGate;
 use VanguardLTE\B2B\Services\B2BSignature;
 
-Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_callback_url=} {--currency=USD} {--max_rps=50} {--wallet_timeout_ms=3000}', function (B2BOperatorAuditLogger $audit) {
+Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_callback_url=} {--currency=USD} {--max_rps=50} {--api_key_max_rps=} {--wallet_timeout_ms=3000}', function (B2BOperatorAuditLogger $audit) {
     if (!Schema::hasTable('b2b_operators') || !Schema::hasTable('b2b_operator_api_keys')) {
         $this->error('B2B tables are missing. Run: php artisan migrate');
         return 1;
@@ -53,12 +53,17 @@ Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_
 
     $operator = B2BOperator::create($data);
 
-    $apiKey = B2BOperatorApiKey::create([
+    $apiKeyData = [
         'operator_id' => $operator->id,
         'key_id' => $keyId,
         'secret_encrypted' => Crypt::encryptString($secret),
         'status' => B2BOperatorApiKey::STATUS_ACTIVE,
-    ]);
+    ];
+    if (Schema::hasColumn('b2b_operator_api_keys', 'max_rps') && $this->option('api_key_max_rps') !== null && $this->option('api_key_max_rps') !== '') {
+        $apiKeyData['max_rps'] = (int) $this->option('api_key_max_rps');
+    }
+
+    $apiKey = B2BOperatorApiKey::create($apiKeyData);
 
     $audit->record($operator, 'operator.created', 'operator', $operatorUid, 'b2b:make-operator', 'Initial B2B operator provisioning.', [
         'operator_uid' => $operatorUid,
@@ -67,6 +72,7 @@ Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_
     ]);
     $audit->record($operator, 'api_key.created', 'api_key', $apiKey->key_id, 'b2b:make-operator', 'Initial B2B API key provisioning.', [
         'key_id' => $apiKey->key_id,
+        'max_rps' => isset($apiKeyData['max_rps']) ? $apiKeyData['max_rps'] : null,
     ]);
 
     $this->info('B2B operator created. Save this secret now; it is not stored in plaintext.');
@@ -80,7 +86,7 @@ Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_
     return 0;
 });
 
-Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--actor=} {--reason=} {--revoke-existing}', function (B2BOperatorAuditLogger $audit) {
+Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--actor=} {--reason=} {--revoke-existing}', function (B2BOperatorAuditLogger $audit) {
     if (!Schema::hasTable('b2b_operators') || !Schema::hasTable('b2b_operator_api_keys') || !Schema::hasTable('b2b_operator_audit_events')) {
         $this->error('B2B credential/audit tables are missing. Run: php artisan migrate');
         return 1;
@@ -111,12 +117,17 @@ Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--actor=} {--re
     }
 
     $secret = Str::random(64);
-    $apiKey = B2BOperatorApiKey::create([
+    $apiKeyData = [
         'operator_id' => $operator->id,
         'key_id' => $keyId,
         'secret_encrypted' => Crypt::encryptString($secret),
         'status' => B2BOperatorApiKey::STATUS_ACTIVE,
-    ]);
+    ];
+    if (Schema::hasColumn('b2b_operator_api_keys', 'max_rps') && $this->option('max-rps') !== null && $this->option('max-rps') !== '') {
+        $apiKeyData['max_rps'] = (int) $this->option('max-rps');
+    }
+
+    $apiKey = B2BOperatorApiKey::create($apiKeyData);
 
     $disabledExisting = 0;
     if ((bool) $this->option('revoke-existing')) {
@@ -139,6 +150,7 @@ Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--actor=} {--re
 
     $audit->record($operator, 'api_key.rotated', 'api_key', $apiKey->key_id, $actor, $reason, [
         'key_id' => $apiKey->key_id,
+        'max_rps' => isset($apiKeyData['max_rps']) ? $apiKeyData['max_rps'] : null,
         'revoke_existing' => (bool) $this->option('revoke-existing'),
         'disabled_existing' => $disabledExisting,
     ]);

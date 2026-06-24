@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BOperatorApiKey;
+use VanguardLTE\B2B\Services\B2BOperatorAuditLogger;
 use VanguardLTE\B2B\Services\B2BSignature;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 
@@ -90,6 +91,11 @@ class VerifyB2BSignature
         }
 
         $apiCredential->forceFill(['last_used_at' => now()])->save();
+        try {
+            app(B2BOperatorAuditLogger::class)->recordApiKeyUsed($operator, $apiCredential, $request);
+        } catch (\Exception $e) {
+            // API-key usage audit must never break authenticated traffic.
+        }
 
         $request->attributes->set('b2b_operator', $operator);
         $request->attributes->set('b2b_api_key', $apiCredential);

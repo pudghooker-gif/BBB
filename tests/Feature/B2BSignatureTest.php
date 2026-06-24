@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Tests\Concerns\B2BApiTestHelpers;
 use Tests\TestCase;
 use VanguardLTE\B2B\Services\B2BSignature;
@@ -37,6 +38,20 @@ class B2BSignatureTest extends TestCase
 
         $this->assertNotEmpty($response->json('request_id'));
         $this->assertNotEmpty($response->headers->get('X-Request-Id'));
+
+        $event = DB::table('b2b_operator_audit_events')
+            ->where('event_type', 'api_key.used')
+            ->where('subject_id', $this->keyId)
+            ->first();
+
+        $this->assertNotNull($event);
+        $this->assertSame('api:op_demo', $event->actor);
+        $this->assertSame('127.0.0.1', $event->ip_address);
+
+        $metadata = json_decode($event->metadata, true);
+        $this->assertSame('GET', $metadata['method']);
+        $this->assertSame('/api/b2b/v1/operator/me', $metadata['path']);
+        $this->assertArrayNotHasKey('signature', $metadata);
     }
 
     public function testReplayNonceIsRejected()
@@ -59,6 +74,8 @@ class B2BSignatureTest extends TestCase
         $this->signedB2BRequest('POST', '/api/b2b/v1/wallet/balance', $body, $headers)
             ->assertStatus(401)
             ->assertJsonPath('error.code', 'B2B_BODY_HASH_MISMATCH');
+
+        $this->assertSame(0, DB::table('b2b_operator_audit_events')->where('event_type', 'api_key.used')->count());
     }
 
     public function testIpOutsideAllowlistIsRejected()

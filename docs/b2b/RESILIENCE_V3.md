@@ -22,9 +22,11 @@ New fields in `b2b_operators`:
 
 When an operator wallet callback fails repeatedly, the operator becomes `degraded` and its circuit opens temporarily. During this time live wallet and launch traffic returns a controlled `OPERATOR_CIRCUIT_OPEN` response instead of blocking the whole platform.
 
-### Per-operator rate limit
+### Per-operator and per-key rate limits
 
-`B2BResilienceGuard` checks `max_rps` per operator via Laravel cache.
+`B2BResilienceGuard` checks `max_rps` per operator and per API key via Laravel cache. API keys can set their own `b2b_operator_api_keys.max_rps`; otherwise `B2B_API_KEY_DEFAULT_MAX_RPS` is used when configured, falling back to the operator `max_rps`.
+
+Launch and wallet mutation endpoints use the same guard and return `RATE_LIMITED` with `meta.rate_scope` set to `operator` or `api_key`.
 
 This is a soft app-level limit. Later it should be combined with Nginx and Redis-based limits.
 

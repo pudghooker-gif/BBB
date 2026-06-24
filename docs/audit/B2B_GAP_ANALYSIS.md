@@ -16,7 +16,7 @@ Date: 2026-06-24
 - OpenAPI and Postman JSON artifacts cover the verified production `b2b/v1` routes.
 - Unit tests verify clean SQLite migration application and no-op re-run for B2B tables/columns.
 - B2B queue topology config, Supervisor worker template, and queue topology tests cover wallet-live, wallet-retry, provider-callbacks, reporting, settlement, reconciliation, notifications, and maintenance queues.
-- Operator credential lifecycle audit foundation: API key rotation/revocation CLI commands require actor/reason, disable revoked keys, and write append-only operator audit events.
+- Operator credential lifecycle audit foundation: API key rotation/revocation CLI commands require actor/reason, disable revoked keys, successful HMAC use writes throttled `api_key.used` events, and per-key `max_rps` is enforced by the shared resilience guard.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
 - `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, and release file gates.

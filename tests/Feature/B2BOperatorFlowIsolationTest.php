@@ -96,6 +96,33 @@ class B2BOperatorFlowIsolationTest extends TestCase
         $this->assertSame('book_flow_a', $session->game_uid);
     }
 
+    public function testPerApiKeyRateLimitBlocksLaunchBeforeSecondSessionCreation()
+    {
+        DB::table('b2b_operator_api_keys')
+            ->where('key_id', 'key_flow_a')
+            ->update(['max_rps' => 1]);
+
+        $body = json_encode([
+            'player_id' => 'player_rate',
+            'game_id' => 'book_flow_a',
+            'currency' => 'USD',
+            'return_url' => 'https://operator-a.example/casino',
+        ]);
+
+        $this->signedPost('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/launch', $body, 'flow-launch-rate-1')
+            ->assertStatus(201)
+            ->assertJsonPath('success', true);
+
+        $this->signedPost('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/launch', $body, 'flow-launch-rate-2')
+            ->assertStatus(429)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'RATE_LIMITED')
+            ->assertJsonPath('meta.rate_scope', 'api_key')
+            ->assertJsonPath('meta.limit', 1);
+
+        $this->assertSame(3, DB::table('b2b_game_sessions')->count());
+    }
+
     public function testDedicatedAssignmentsRestrictLegacyFallbackCatalog()
     {
         $this->seedVisibleGame('book_flow_extra_a', 10);

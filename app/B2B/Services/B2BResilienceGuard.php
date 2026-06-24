@@ -4,6 +4,7 @@ namespace VanguardLTE\B2B\Services;
 
 use Illuminate\Support\Facades\Cache;
 use VanguardLTE\B2B\Models\B2BOperator;
+use VanguardLTE\B2B\Models\B2BOperatorApiKey;
 use VanguardLTE\B2B\Models\B2BOperatorHealthEvent;
 
 class B2BResilienceGuard
@@ -32,16 +33,51 @@ class B2BResilienceGuard
         return ['ok' => true];
     }
 
-    public function checkRateLimit(B2BOperator $operator, $bucket)
+    public function checkRateLimit(B2BOperator $operator, $bucket, B2BOperatorApiKey $apiKey = null)
     {
         $maxRps = (int) ($operator->max_rps ?: 50);
 
-        if ($maxRps <= 0) {
-            return ['ok' => true];
+        if ($maxRps > 0) {
+            $operatorRate = $this->hitRateLimit(
+                'b2b:rate:' . $bucket . ':operator:' . $operator->id . ':' . time(),
+                $maxRps,
+                'operator',
+                'Operator request rate limit exceeded.'
+            );
+
+            if (!$operatorRate['ok']) {
+                return $operatorRate;
+            }
         }
 
-        $key = 'b2b:rate:' . $bucket . ':operator:' . $operator->id . ':' . time();
+        $keyMaxRps = $this->apiKeyMaxRps($apiKey, $maxRps);
+        if ($apiKey && $keyMaxRps > 0) {
+            $keyRate = $this->hitRateLimit(
+                'b2b:rate:' . $bucket . ':operator:' . $operator->id . ':api_key:' . $apiKey->id . ':' . time(),
+                $keyMaxRps,
+                'api_key',
+                'API key request rate limit exceeded.'
+            );
 
+            if (!$keyRate['ok']) {
+                return $keyRate;
+            }
+
+            return array_merge($keyRate, [
+                'operator_limit' => $maxRps,
+            ]);
+        }
+
+        return [
+            'ok' => true,
+            'limit' => $maxRps,
+            'current' => isset($operatorRate['current']) ? $operatorRate['current'] : null,
+            'rate_scope' => 'operator',
+        ];
+    }
+
+    private function hitRateLimit($key, $maxRps, $scope, $message)
+    {
         try {
             $cache = $this->cache();
             $cache->add($key, 0, 2);
@@ -55,13 +91,37 @@ class B2BResilienceGuard
                 'ok' => false,
                 'http_status' => 429,
                 'code' => 'RATE_LIMITED',
-                'message' => 'Operator request rate limit exceeded.',
+                'message' => $message,
                 'limit' => $maxRps,
                 'current' => $current,
+                'rate_scope' => $scope,
             ];
         }
 
-        return ['ok' => true, 'limit' => $maxRps, 'current' => $current];
+        return [
+            'ok' => true,
+            'limit' => $maxRps,
+            'current' => $current,
+            'rate_scope' => $scope,
+        ];
+    }
+
+    private function apiKeyMaxRps(B2BOperatorApiKey $apiKey = null, $operatorMaxRps = 0)
+    {
+        if (!$apiKey) {
+            return 0;
+        }
+
+        if ($apiKey->max_rps !== null) {
+            return (int) $apiKey->max_rps;
+        }
+
+        $default = config('b2b.api_key_default_max_rps');
+        if ($default !== null && $default !== '') {
+            return (int) $default;
+        }
+
+        return (int) $operatorMaxRps;
     }
 
     public function recordSuccess(B2BOperator $operator, $eventType = 'callback_success', array $context = [])

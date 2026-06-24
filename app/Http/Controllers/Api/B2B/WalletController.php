@@ -8,16 +8,19 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use VanguardLTE\Http\Controllers\Controller;
 use VanguardLTE\B2B\Services\B2BContext;
+use VanguardLTE\B2B\Services\B2BResilienceGuard;
 use VanguardLTE\B2B\Services\WalletTransactionService;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class WalletController extends Controller
 {
     protected $transactions;
+    protected $guard;
 
-    public function __construct(WalletTransactionService $transactions)
+    public function __construct(WalletTransactionService $transactions, B2BResilienceGuard $guard)
     {
         $this->transactions = $transactions;
+        $this->guard = $guard;
     }
 
     public function balance(Request $request)
@@ -50,6 +53,16 @@ class WalletController extends Controller
         $operator = B2BContext::operator($request);
         if (!$operator || !isset($operator->id)) {
             return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING');
+        }
+
+        $availability = $this->guard->checkOperatorAvailable($operator);
+        if (!$availability['ok']) {
+            return $this->guardError($request, $availability);
+        }
+
+        $rate = $this->guard->checkRateLimit($operator, 'wallet_' . $type, $request->attributes->get('b2b_api_key'));
+        if (!$rate['ok']) {
+            return $this->guardError($request, $rate);
         }
 
         $validator = Validator::make($request->all(), $this->rules($type));
@@ -159,5 +172,27 @@ class WalletController extends Controller
         }
 
         return $query->exists();
+    }
+
+    private function guardError(Request $request, array $result)
+    {
+        $meta = [];
+        if (isset($result['retry_after'])) {
+            $meta['retry_after'] = $result['retry_after'];
+        }
+        foreach (['rate_scope', 'limit', 'current'] as $key) {
+            if (isset($result[$key])) {
+                $meta[$key] = $result[$key];
+            }
+        }
+
+        return B2BApiResponse::error(
+            $request,
+            $result['code'],
+            isset($result['message']) ? $result['message'] : null,
+            isset($result['http_status']) ? $result['http_status'] : 503,
+            null,
+            $meta
+        );
     }
 }

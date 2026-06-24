@@ -40,6 +40,7 @@ class B2BApiKeyLifecycleCommandTest extends TestCase
         $exitCode = Artisan::call('b2b:rotate-api-key', [
             'operator_uid' => 'op_keys',
             '--key-id' => 'key_rotated',
+            '--max-rps' => 5,
             '--actor' => 'security_user',
             '--reason' => 'Quarterly API key rotation.',
             '--revoke-existing' => true,
@@ -59,6 +60,7 @@ class B2BApiKeyLifecycleCommandTest extends TestCase
             B2BOperatorApiKey::STATUS_ACTIVE,
             DB::table('b2b_operator_api_keys')->where('key_id', 'key_rotated')->value('status')
         );
+        $this->assertSame(5, (int) DB::table('b2b_operator_api_keys')->where('key_id', 'key_rotated')->value('max_rps'));
 
         $revoked = DB::table('b2b_operator_audit_events')
             ->where('event_type', 'api_key.revoked')
@@ -80,6 +82,7 @@ class B2BApiKeyLifecycleCommandTest extends TestCase
         $rotatedMetadata = json_decode($rotated->metadata, true);
         $this->assertTrue($rotatedMetadata['revoke_existing']);
         $this->assertSame(1, $rotatedMetadata['disabled_existing']);
+        $this->assertSame(5, $rotatedMetadata['max_rps']);
     }
 
     public function testRevokeApiKeyRequiresActorAndReason()

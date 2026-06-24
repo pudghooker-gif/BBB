@@ -16,6 +16,7 @@ class B2BOperatorApiKey extends Model
         'key_id',
         'secret_encrypted',
         'status',
+        'max_rps',
         'last_used_at',
         'expires_at',
     ];
@@ -27,6 +28,10 @@ class B2BOperatorApiKey extends Model
     protected $dates = [
         'last_used_at',
         'expires_at',
+    ];
+
+    protected $casts = [
+        'max_rps' => 'integer',
     ];
 
     public function operator()

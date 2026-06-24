@@ -15,7 +15,7 @@ This endpoint requires the normal B2B HMAC headers and returns operator status, 
 Create a test operator:
 
 ```bash
-php artisan b2b:make-operator "Test Operator" --shop_id=1 --currency=USD --max_rps=50 --wallet_timeout_ms=3000
+php artisan b2b:make-operator "Test Operator" --shop_id=1 --currency=USD --max_rps=50 --api_key_max_rps=25 --wallet_timeout_ms=3000
 ```
 
 The command prints:
@@ -43,10 +43,10 @@ php artisan b2b:show-hmac op_xxx key_xxx secret_xxx GET /api/b2b/v1/operator/me
 Rotate an operator API key and audit who did it and why:
 
 ```bash
-php artisan b2b:rotate-api-key op_xxx --actor=security_user --reason="Quarterly API key rotation" --revoke-existing
+php artisan b2b:rotate-api-key op_xxx --max-rps=25 --actor=security_user --reason="Quarterly API key rotation" --revoke-existing
 ```
 
-The command prints the new `X-Api-Key` and one-time secret. Existing active keys are disabled only when `--revoke-existing` is passed.
+The command prints the new `X-Api-Key` and one-time secret. Existing active keys are disabled only when `--revoke-existing` is passed. If `--max-rps` is omitted, the key inherits the default per-key limit, which falls back to the operator `max_rps`.
 
 Revoke one API key and keep an audit event:
 
