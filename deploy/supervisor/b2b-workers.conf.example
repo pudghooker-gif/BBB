@@ -1,0 +1,107 @@
+; Example Supervisor config for BBB B2B production workers.
+; Copy to /etc/supervisor/conf.d/bbb-b2b-workers.conf and adjust user/path/process counts.
+; Requires QUEUE_DRIVER=redis and B2B_QUEUE_CONNECTION=redis.
+
+[program:bbb-b2b-wallet-live]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/bbb/artisan queue:work redis --queue=b2b-wallet-live --sleep=1 --tries=1 --timeout=10 --max-time=3600
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=www-data
+numprocs=4
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/bbb-b2b-wallet-live.log
+stopwaitsecs=15
+
+[program:bbb-b2b-wallet-retry]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/bbb/artisan queue:work redis --queue=b2b-wallet-retry --sleep=3 --tries=2 --timeout=30 --max-time=3600
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=www-data
+numprocs=2
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/bbb-b2b-wallet-retry.log
+stopwaitsecs=35
+
+[program:bbb-b2b-provider-callbacks]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/bbb/artisan queue:work redis --queue=b2b-provider-callbacks --sleep=1 --tries=2 --timeout=30 --max-time=3600
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=www-data
+numprocs=2
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/bbb-b2b-provider-callbacks.log
+stopwaitsecs=35
+
+[program:bbb-b2b-reporting]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/bbb/artisan queue:work redis --queue=b2b-reporting --sleep=5 --tries=1 --timeout=120 --max-time=3600
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=www-data
+numprocs=1
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/bbb-b2b-reporting.log
+stopwaitsecs=130
+
+[program:bbb-b2b-settlement]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/bbb/artisan queue:work redis --queue=b2b-settlement --sleep=5 --tries=1 --timeout=180 --max-time=3600
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=www-data
+numprocs=1
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/bbb-b2b-settlement.log
+stopwaitsecs=190
+
+[program:bbb-b2b-reconciliation]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/bbb/artisan queue:work redis --queue=b2b-reconciliation --sleep=5 --tries=1 --timeout=120 --max-time=3600
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=www-data
+numprocs=1
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/bbb-b2b-reconciliation.log
+stopwaitsecs=130
+
+[program:bbb-b2b-notifications]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/bbb/artisan queue:work redis --queue=b2b-notifications --sleep=5 --tries=2 --timeout=60 --max-time=3600
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=www-data
+numprocs=1
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/bbb-b2b-notifications.log
+stopwaitsecs=70
+
+[program:bbb-b2b-maintenance]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/bbb/artisan queue:work redis --queue=b2b-maintenance --sleep=10 --tries=1 --timeout=180 --max-time=3600
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=www-data
+numprocs=1
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/bbb-b2b-maintenance.log
+stopwaitsecs=190
