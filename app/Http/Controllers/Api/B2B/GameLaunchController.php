@@ -8,13 +8,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Models\B2BOperatorPlayer;
+use VanguardLTE\B2B\Services\B2BGameAvailabilityService;
 use VanguardLTE\B2B\Services\B2BLaunchBridge;
 use VanguardLTE\B2B\Services\B2BResilienceGuard;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class GameLaunchController extends Controller
 {
-    public function store(Request $request, B2BResilienceGuard $guard, B2BLaunchBridge $bridge)
+    public function store(Request $request, B2BResilienceGuard $guard, B2BLaunchBridge $bridge, B2BGameAvailabilityService $games)
     {
         $operator = $request->attributes->get('b2b_operator');
 
@@ -52,6 +53,18 @@ class GameLaunchController extends Controller
             return B2BApiResponse::error($request, 'RETURN_URL_NOT_ALLOWED');
         }
 
+        $mode = $request->input('mode', 'real');
+        $gameId = $request->input('game_id');
+        $country = strtoupper((string) $request->input('country'));
+        $gameAvailability = $games->availableForLaunch($operator, $gameId, $currency, $country, $mode);
+        if (!$gameAvailability['ok']) {
+            return B2BApiResponse::error(
+                $request,
+                $gameAvailability['code'],
+                isset($gameAvailability['message']) ? $gameAvailability['message'] : null
+            );
+        }
+
         $player = B2BOperatorPlayer::firstOrCreate(
             [
                 'operator_id' => $operator->id,
@@ -72,7 +85,6 @@ class GameLaunchController extends Controller
 
         $token = Str::random(64);
         $sessionUid = 'sess_' . Str::uuid()->toString();
-        $gameId = $request->input('game_id');
         $launchUrl = $bridge->publicLaunchUrl($gameId, $token);
 
         $session = B2BGameSession::create([
@@ -81,8 +93,8 @@ class GameLaunchController extends Controller
             'session_uid' => $sessionUid,
             'token_hash' => hash('sha256', $token),
             'game_uid' => $gameId,
-            'provider' => 'goldsvet_internal',
-            'mode' => $request->input('mode', 'real'),
+            'provider' => isset($gameAvailability['provider']) ? $gameAvailability['provider'] : 'goldsvet_internal',
+            'mode' => $mode,
             'currency' => $currency,
             'language' => $request->input('language', 'en'),
             'country' => strtoupper((string) $request->input('country')),

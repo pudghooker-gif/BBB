@@ -12,6 +12,7 @@ class B2BErrorCatalog
         'B2B_REPLAY_DETECTED' => [409, 'Replay detected.'],
         'B2B_WALLET_TABLE_MISSING' => [500, 'B2B wallet transaction table is missing.'],
         'CURRENCY_NOT_ALLOWED' => [422, 'Currency is not allowed for this operator.'],
+        'GAME_NOT_AVAILABLE' => [404, 'Game is not available for this operator.'],
         'IDEMPOTENCY_CONFLICT' => [409, 'Transaction idempotency key was already used with a different payload.'],
         'OPERATOR_CIRCUIT_OPEN' => [503, 'Operator circuit breaker is open.'],
         'OPERATOR_CONTEXT_MISSING' => [401, 'B2B operator context is missing.'],

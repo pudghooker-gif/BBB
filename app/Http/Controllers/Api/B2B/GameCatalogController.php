@@ -5,12 +5,13 @@ namespace VanguardLTE\Http\Controllers\Api\B2B;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use VanguardLTE\B2B\Models\B2BGameCatalog;
+use VanguardLTE\B2B\Services\B2BGameAvailabilityService;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 use VanguardLTE\Game;
 
 class GameCatalogController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, B2BGameAvailabilityService $availability)
     {
         $operator = $request->attributes->get('b2b_operator');
         $currency = $request->query('currency');
@@ -32,7 +33,11 @@ class GameCatalogController extends Controller
             });
         }
 
-        $games = $query->orderBy('provider')->orderBy('title')->get();
+        $games = $query->orderBy('provider')->orderBy('title')->get()
+            ->filter(function ($game) use ($operator, $availability) {
+                return $availability->operatorAllowsGame($operator, $game->game_uid);
+            })
+            ->values();
 
         if ($games->count() === 0 && $operator && $operator->shop_id) {
             $games = $this->fallbackFromGoldsvetGames($operator->shop_id);

@@ -3,6 +3,8 @@
 namespace VanguardLTE\Http\Controllers\Api\B2B;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use VanguardLTE\Http\Controllers\Controller;
 use VanguardLTE\B2B\Services\B2BContext;
@@ -60,6 +62,10 @@ class WalletController extends Controller
 
         if (!$this->isCurrencyAllowed($operator, $payload['currency'])) {
             return B2BApiResponse::error($request, 'CURRENCY_NOT_ALLOWED');
+        }
+
+        if (!$this->isSessionOwnedByOperator($operator, $payload)) {
+            return B2BApiResponse::error($request, 'SESSION_NOT_FOUND');
         }
 
         $result = $this->transactions->process($operator, $type, $payload);
@@ -124,5 +130,34 @@ class WalletController extends Controller
         }
 
         return in_array(strtoupper($currency), array_map('strtoupper', $allowed), true);
+    }
+
+    private function isSessionOwnedByOperator($operator, array $payload)
+    {
+        if (empty($payload['session_id']) || !Schema::hasTable('b2b_game_sessions')) {
+            return true;
+        }
+
+        if (!$operator || !isset($operator->id)) {
+            return false;
+        }
+
+        $query = DB::table('b2b_game_sessions')
+            ->where('operator_id', $operator->id)
+            ->where('session_uid', $payload['session_id']);
+
+        if (!empty($payload['game_id']) && Schema::hasColumn('b2b_game_sessions', 'game_uid')) {
+            $query->where('game_uid', $payload['game_id']);
+        }
+
+        if (!empty($payload['currency']) && Schema::hasColumn('b2b_game_sessions', 'currency')) {
+            $query->where('currency', strtoupper((string) $payload['currency']));
+        }
+
+        if (Schema::hasColumn('b2b_game_sessions', 'status')) {
+            $query->whereIn('status', ['active', 'launched']);
+        }
+
+        return $query->exists();
     }
 }

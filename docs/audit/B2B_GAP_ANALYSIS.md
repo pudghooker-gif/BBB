@@ -1,18 +1,18 @@
 # B2B Gap Analysis
 
-Date: 2026-06-23
+Date: 2026-06-24
 
 ## Implemented Foundation
 
 - B2B operator and API key models/migrations.
 - HMAC middleware with timestamp, nonce, body hash, canonical request signing, encrypted secret, constant-time signature comparison, replay protection, request ID propagation, and exact/CIDR IP allowlist.
 - Game catalog model and sync command.
-- B2B launch session model, provider adapter contract, and public launcher bridge to the legacy launcher.
+- B2B launch session model, operator-scoped game availability guard, provider adapter contract, and public launcher bridge to the legacy launcher.
 - Shadow user foundation.
 - Wallet transaction table, idempotency key, changed-payload conflict detection, callback attempt logging, append-only state transition log, status lookup endpoint, reconciliation item queue, audited manual-action foundation, bounded retry budget to `dead_letter`, retry command, and sandbox wallet.
 - Reporting endpoints for summary, transactions, GGR, and settlements.
 - Standard B2B JSON response envelope and error catalog for API routes, including request ID propagation.
-- Feature tests now cover HMAC success/failure/replay, tenant isolation for sessions/reports/settlements/wallet attempts, request validation for launch and wallet payloads, wallet idempotency conflicts, wallet status transition logging, status lookup scoping, reconciliation scanning, and manual wallet action auditing.
+- Feature tests now cover HMAC success/failure/replay, tenant isolation for sessions/reports/settlements/wallet attempts, operator-scoped games/launch/wallet mutation flows, request validation for launch and wallet payloads, wallet idempotency conflicts, wallet status transition logging, status lookup scoping, reconciliation scanning, and manual wallet action auditing.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
 - `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, and release file gates.
@@ -25,7 +25,7 @@ Date: 2026-06-23
 - Production environment must pass `b2b:release-check --production`; current local workspace still contains release-blocking local files and non-Redis shared-state defaults.
 - External provider adapters still require real provider-specific implementations and certification docs.
 - Production-grade wallet state machine still needs provider/operator status lookup contracts, deny-by-default RBAC and step-up controls for manual actions, settlement-grade reconciliation reports, and full rollback-required recovery flows. The current foundation has explicit transition validation, append-only transition logging, retryable `unknown`, retry-budget `dead_letter`, operator-scoped status lookup, reconciliation item scanning, and audited CLI manual actions.
-- Operator-scoped tests for games, launch, wallet mutation flows, and remaining close/detail edge cases.
+- Remaining operator-scoped close/detail edge cases and a dedicated operator-game assignment model.
 - Dedicated B2B admin backoffice and operator portal.
 - OpenAPI/Postman generated from verified routes.
 - Queue topology and worker configs for wallet-live, wallet-retry, provider-callbacks, reporting, settlement, reconciliation, notifications, and maintenance.

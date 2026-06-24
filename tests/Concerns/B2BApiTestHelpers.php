@@ -4,6 +4,7 @@ namespace Tests\Concerns;
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BOperatorApiKey;
@@ -80,9 +81,11 @@ trait B2BApiTestHelpers
             'b2b_settlements',
             'b2b_wallet_transactions',
             'b2b_game_sessions',
+            'b2b_game_catalog',
             'b2b_operator_players',
             'b2b_operator_api_keys',
             'b2b_operators',
+            'games',
         ] as $table) {
             Schema::dropIfExists($table);
         }
@@ -157,6 +160,34 @@ trait B2BApiTestHelpers
             $table->string('failure_code')->nullable();
             $table->text('failure_message')->nullable();
             $table->json('metadata')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('b2b_game_catalog', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('game_uid')->unique();
+            $table->string('provider')->default('goldsvet_internal');
+            $table->string('title');
+            $table->string('category')->default('slots');
+            $table->decimal('rtp', 6, 2)->nullable();
+            $table->string('volatility')->nullable();
+            $table->string('thumbnail_url')->nullable();
+            $table->boolean('demo_supported')->default(true);
+            $table->boolean('real_supported')->default(true);
+            $table->json('supported_currencies')->nullable();
+            $table->json('supported_countries')->nullable();
+            $table->string('status')->default('active');
+            $table->json('metadata')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('games', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('title')->nullable();
+            $table->integer('shop_id')->nullable();
+            $table->integer('view')->default(1);
+            $table->string('category')->nullable();
             $table->timestamps();
         });
 
@@ -276,5 +307,41 @@ trait B2BApiTestHelpers
             $table->json('context')->nullable();
             $table->timestamps();
         });
+    }
+
+    protected function createB2BSession($operator, $externalPlayerId, $sessionUid, $gameUid, array $overrides = [])
+    {
+        $sessionOverrides = $overrides;
+        unset($sessionOverrides['player_status'], $sessionOverrides['player_metadata']);
+
+        $playerId = DB::table('b2b_operator_players')->insertGetId([
+            'operator_id' => $operator->id,
+            'external_player_id' => $externalPlayerId,
+            'currency' => isset($overrides['currency']) ? $overrides['currency'] : 'USD',
+            'country' => isset($overrides['country']) ? $overrides['country'] : null,
+            'language' => isset($overrides['language']) ? $overrides['language'] : 'en',
+            'status' => isset($overrides['player_status']) ? $overrides['player_status'] : 'active',
+            'metadata' => isset($overrides['player_metadata']) ? json_encode($overrides['player_metadata']) : null,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return DB::table('b2b_game_sessions')->insertGetId(array_merge([
+            'operator_id' => $operator->id,
+            'operator_player_id' => $playerId,
+            'session_uid' => $sessionUid,
+            'token_hash' => hash('sha256', $sessionUid),
+            'game_uid' => $gameUid,
+            'provider' => 'goldsvet_internal',
+            'mode' => 'real',
+            'currency' => isset($overrides['currency']) ? $overrides['currency'] : 'USD',
+            'language' => isset($overrides['language']) ? $overrides['language'] : 'en',
+            'country' => isset($overrides['country']) ? $overrides['country'] : null,
+            'status' => isset($overrides['status']) ? $overrides['status'] : 'active',
+            'expires_at' => now()->addMinutes(30),
+            'last_seen_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ], $sessionOverrides));
     }
 }

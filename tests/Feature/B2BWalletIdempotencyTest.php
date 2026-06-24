@@ -15,6 +15,7 @@ class B2BWalletIdempotencyTest extends TestCase
     private $operatorUid = 'op_idempotency';
     private $keyId = 'key_idempotency';
     private $secret = 'idempotency_secret_1234567890';
+    private $operator;
 
     protected function setUp(): void
     {
@@ -22,9 +23,10 @@ class B2BWalletIdempotencyTest extends TestCase
 
         Cache::flush();
         $this->resetB2BTables();
-        $this->createB2BOperator($this->operatorUid, $this->keyId, $this->secret, [
+        $this->operator = $this->createB2BOperator($this->operatorUid, $this->keyId, $this->secret, [
             'wallet_callback_url' => 'http://wallet.example/callback',
         ]);
+        $this->createB2BSession($this->operator, 'player_1', 'sess_idempotency', 'book_of_idempotency');
 
         Http::fake([
             'wallet.example/*' => Http::response([

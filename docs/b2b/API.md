@@ -115,6 +115,8 @@ Response:
 }
 ```
 
+Launch checks the signed operator's game availability before creating a session. For Goldsvet/internal fallback games, the game must belong to the operator's mapped `shop_id` and be visible. Operators can also restrict catalog games with `settings.enabled_games` or `settings.disabled_games`.
+
 ## Wallet event example
 
 ```json
@@ -131,6 +133,8 @@ Response:
 ```
 
 This MVP stores every wallet event in `b2b_wallet_transactions` and forwards the payload to `b2b_operators.wallet_callback_url` when configured.
+
+Wallet mutation requests with `session_id` must reference an active session owned by the signed operator, matching the requested game and currency. A foreign or stale session is rejected before ledger creation or callback delivery.
 
 Wallet status lookup returns the current status, recent callback attempts, transition history, open reconciliation items, recent manual actions, and suggested operational next actions for the signed operator only.
 

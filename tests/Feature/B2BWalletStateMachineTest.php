@@ -27,6 +27,7 @@ class B2BWalletStateMachineTest extends TestCase
         $this->operator = $this->createB2BOperator($this->operatorUid, $this->keyId, $this->secret, [
             'wallet_callback_url' => 'http://wallet.example/callback',
         ]);
+        $this->createB2BSession($this->operator, 'player_state', 'sess_state', 'book_of_state');
 
         Http::fake([
             'wallet.example/*' => Http::response([
