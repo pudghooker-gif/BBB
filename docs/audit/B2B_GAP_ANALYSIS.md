@@ -14,6 +14,7 @@ Date: 2026-06-24
 - Standard B2B JSON response envelope and error catalog for API routes, including request ID propagation.
 - Feature tests now cover HMAC success/failure/replay, tenant isolation for sessions/reports/settlements/wallet attempts, operator-scoped games/launch/session detail/session close/wallet mutation flows, request validation for launch and wallet payloads, wallet idempotency conflicts, wallet status transition logging, status lookup scoping, reconciliation scanning, and manual wallet action auditing.
 - OpenAPI and Postman JSON artifacts cover the verified production `b2b/v1` routes.
+- Unit tests verify clean SQLite migration application and no-op re-run for B2B tables/columns.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
 - `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, and release file gates.
@@ -22,7 +23,7 @@ Date: 2026-06-24
 
 ### P0/P1 Before Production
 
-- Full migration verification on clean and upgraded databases.
+- Upgraded production database migration verification remains required on a staging copy.
 - Production environment must pass `b2b:release-check --production`; current local workspace still contains release-blocking local files and non-Redis shared-state defaults.
 - External provider adapters still require real provider-specific implementations and certification docs.
 - Production-grade wallet state machine still needs provider/operator status lookup contracts, deny-by-default RBAC and step-up controls for manual actions, settlement-grade reconciliation reports, and full rollback-required recovery flows. The current foundation has explicit transition validation, append-only transition logging, retryable `unknown`, retry-budget `dead_letter`, operator-scoped status lookup, reconciliation item scanning, and audited CLI manual actions.

@@ -47,7 +47,7 @@ Date: 2026-06-24
 
 ## Stage 6: Release Gates
 
-- Run migrations on clean and upgraded databases.
+- Keep clean migration verification in tests and run upgraded-database migrations on a staging copy.
 - Verify rollback where practical.
 - Verify queues, scheduler, WebSocket proxy, sandbox wallet flow, reports, settlements, backups, and smoke tests.
 - Document all remaining external blockers before any production launch claim.
