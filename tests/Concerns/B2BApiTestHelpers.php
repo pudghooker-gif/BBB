@@ -155,7 +155,10 @@ trait B2BApiTestHelpers
             $table->string('status')->default('active');
             $table->timestamp('expires_at')->nullable();
             $table->timestamp('last_seen_at')->nullable();
+            $table->timestamp('heartbeat_at')->nullable();
+            $table->timestamp('stale_at')->nullable();
             $table->timestamp('closed_at')->nullable();
+            $table->string('close_reason', 100)->nullable();
             $table->integer('heartbeat_timeout_seconds')->default(120);
             $table->string('failure_code')->nullable();
             $table->text('failure_message')->nullable();

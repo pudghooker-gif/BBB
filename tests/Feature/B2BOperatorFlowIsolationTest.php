@@ -96,6 +96,84 @@ class B2BOperatorFlowIsolationTest extends TestCase
         $this->assertSame('book_flow_a', $session->game_uid);
     }
 
+    public function testSessionDetailRejectsAnotherOperatorsNumericSessionId()
+    {
+        $foreignSession = DB::table('b2b_game_sessions')->where('session_uid', 'sess_flow_b')->first();
+
+        $this->signedGet(
+            'op_flow_a',
+            'key_flow_a',
+            $this->secretA,
+            '/api/b2b/v1/sessions/' . $foreignSession->id,
+            'flow-session-foreign-id'
+        )
+            ->assertStatus(404)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'SESSION_NOT_FOUND');
+    }
+
+    public function testCloseRejectsAnotherOperatorsNumericSessionId()
+    {
+        $foreignSession = DB::table('b2b_game_sessions')->where('session_uid', 'sess_flow_b')->first();
+        $body = json_encode(['reason' => 'operator_close']);
+
+        $this->signedPost(
+            'op_flow_a',
+            'key_flow_a',
+            $this->secretA,
+            '/api/b2b/v1/sessions/' . $foreignSession->id . '/close',
+            $body,
+            'flow-session-close-foreign-id'
+        )
+            ->assertStatus(404)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'SESSION_NOT_FOUND');
+
+        $unchanged = DB::table('b2b_game_sessions')->where('id', $foreignSession->id)->first();
+        $this->assertSame('active', $unchanged->status);
+        $this->assertNull($unchanged->closed_at);
+        $this->assertNull($unchanged->close_reason);
+    }
+
+    public function testCloseOwnSessionPersistsReasonAndIsIdempotent()
+    {
+        $body = json_encode(['reason' => 'player_logout']);
+
+        $this->signedPost(
+            'op_flow_a',
+            'key_flow_a',
+            $this->secretA,
+            '/api/b2b/v1/sessions/sess_flow_a/close',
+            $body,
+            'flow-session-close-own'
+        )
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.session_uid', 'sess_flow_a')
+            ->assertJsonPath('data.status', 'closed');
+
+        $closed = DB::table('b2b_game_sessions')->where('session_uid', 'sess_flow_a')->first();
+        $this->assertSame('closed', $closed->status);
+        $this->assertNotNull($closed->closed_at);
+        $this->assertSame('player_logout', $closed->close_reason);
+
+        $this->signedPost(
+            'op_flow_a',
+            'key_flow_a',
+            $this->secretA,
+            '/api/b2b/v1/sessions/sess_flow_a/close',
+            json_encode(['reason' => 'second_close']),
+            'flow-session-close-own-repeat'
+        )
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.status', 'closed');
+
+        $closedAgain = DB::table('b2b_game_sessions')->where('session_uid', 'sess_flow_a')->first();
+        $this->assertSame($closed->closed_at, $closedAgain->closed_at);
+        $this->assertSame('player_logout', $closedAgain->close_reason);
+    }
+
     public function testWalletMutationRejectsAnotherOperatorsSessionBeforeLedgerOrCallback()
     {
         $body = json_encode([

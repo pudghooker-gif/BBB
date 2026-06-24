@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
+use VanguardLTE\B2B\Models\B2BGameSession;
+use VanguardLTE\B2B\Services\B2BLaunchBridge;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class SessionController extends Controller
@@ -65,11 +68,8 @@ class SessionController extends Controller
             return $this->operatorContextMissing($request);
         }
 
-        $query = DB::table('b2b_game_sessions')
-            ->where(function ($q) use ($sessionUid) {
-                $q->where('session_uid', $sessionUid)
-                  ->orWhere('id', $sessionUid);
-            });
+        $query = DB::table('b2b_game_sessions');
+        $this->applySessionIdentifier($query, $sessionUid);
 
         if ($operatorId > 0) {
             $query->where('operator_id', $operatorId);
@@ -98,45 +98,91 @@ class SessionController extends Controller
         ]);
     }
 
-    public function close(Request $request, $sessionUid)
+    public function close(Request $request, $sessionUid, B2BLaunchBridge $bridge)
     {
         $operatorId = $this->operatorId($request);
         if ($operatorId <= 0) {
             return $this->operatorContextMissing($request);
         }
 
-        $query = DB::table('b2b_game_sessions')
-            ->where(function ($q) use ($sessionUid) {
-                $q->where('session_uid', $sessionUid)
-                  ->orWhere('id', $sessionUid);
-            });
+        $validator = Validator::make($request->all(), [
+            'reason' => 'nullable|string|max:100',
+        ]);
 
-        if ($operatorId > 0) {
-            $query->where('operator_id', $operatorId);
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
         }
+
+        $query = B2BGameSession::query();
+        $this->applySessionIdentifier($query, $sessionUid);
+        $query->where('operator_id', $operatorId);
 
         $session = $query->first();
         if (!$session) {
             return B2BApiResponse::error($request, 'SESSION_NOT_FOUND');
         }
 
-        DB::table('b2b_game_sessions')
-            ->where('id', $session->id)
-            ->update([
-                'status' => 'closed',
-                'closed_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
+        $reason = $request->input('reason', 'operator_close');
+
+        if ($session->status !== B2BGameSession::STATUS_CLOSED) {
+            $closed = $bridge->closeProviderSession($session, $reason);
+            if (!isset($closed['ok']) || !$closed['ok']) {
+                return B2BApiResponse::error(
+                    $request,
+                    isset($closed['error_code']) ? $closed['error_code'] : 'SESSION_CLOSE_FAILED',
+                    isset($closed['error_message']) ? $closed['error_message'] : null
+                );
+            }
+
+            $this->persistCloseReason($session->id, $reason);
+            $session = $session->fresh();
+        }
 
         return B2BApiResponse::success($request, [
             'message' => 'Session closed',
-            'session_uid' => isset($session->session_uid) ? $session->session_uid : $session->id,
+            'session_uid' => $session->session_uid ? $session->session_uid : $session->id,
+            'status' => $session->status,
+            'closed_at' => $session->closed_at ? Carbon::parse($session->closed_at)->toIso8601String() : null,
         ]);
     }
 
     private function sessionGameColumn()
     {
         return Schema::hasColumn('b2b_game_sessions', 'game_uid') ? 'game_uid' : 'game_id';
+    }
+
+    private function applySessionIdentifier($query, $sessionUid)
+    {
+        $query->where(function ($q) use ($sessionUid) {
+            $q->where('session_uid', $sessionUid);
+
+            if ($this->isUnsignedIntegerString($sessionUid)) {
+                $q->orWhere('id', (int) $sessionUid);
+            }
+        });
+    }
+
+    private function isUnsignedIntegerString($value)
+    {
+        if (is_int($value)) {
+            return $value >= 0;
+        }
+
+        return is_string($value) && $value !== '' && ctype_digit($value);
+    }
+
+    private function persistCloseReason($sessionId, $reason)
+    {
+        if (!Schema::hasColumn('b2b_game_sessions', 'close_reason')) {
+            return;
+        }
+
+        DB::table('b2b_game_sessions')
+            ->where('id', $sessionId)
+            ->update([
+                'close_reason' => $reason,
+                'updated_at' => Carbon::now(),
+            ]);
     }
 
     private function operatorContextMissing(Request $request)

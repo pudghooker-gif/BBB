@@ -122,11 +122,17 @@ class GoldsvetInternalProvider implements GameProviderInterface
             ];
         }
 
-        $session->forceFill([
+        $updates = [
             'status' => B2BGameSession::STATUS_CLOSED,
             'closed_at' => now(),
             'failure_message' => $reason,
-        ])->save();
+        ];
+
+        if (Schema::hasColumn('b2b_game_sessions', 'close_reason')) {
+            $updates['close_reason'] = $reason;
+        }
+
+        $session->forceFill($updates)->save();
 
         return [
             'ok' => true,

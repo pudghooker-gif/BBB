@@ -39,4 +39,17 @@ class B2BLaunchBridge
             'error_message' => 'Provider adapter is not implemented yet: ' . $session->provider,
         ];
     }
+
+    public function closeProviderSession(B2BGameSession $session, $reason = null)
+    {
+        if ($session->provider === 'goldsvet_internal' || !$session->provider) {
+            return $this->goldsvet->closeSession($session, $reason);
+        }
+
+        return [
+            'ok' => false,
+            'error_code' => 'PROVIDER_NOT_IMPLEMENTED',
+            'error_message' => 'Provider adapter is not implemented yet: ' . $session->provider,
+        ];
+    }
 }

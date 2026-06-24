@@ -44,6 +44,9 @@ Timestamp skew is limited by `B2B_HMAC_REPLAY_WINDOW_SECONDS` (300 seconds by de
 GET  /api/b2b/v1/health
 GET  /api/b2b/v1/games
 POST /api/b2b/v1/games/launch
+GET  /api/b2b/v1/sessions
+GET  /api/b2b/v1/sessions/{session_uid}
+POST /api/b2b/v1/sessions/{session_uid}/close
 POST /api/b2b/v1/wallet/balance
 POST /api/b2b/v1/wallet/bet
 POST /api/b2b/v1/wallet/win
@@ -116,6 +119,16 @@ Response:
 ```
 
 Launch checks the signed operator's game availability before creating a session. For Goldsvet/internal fallback games, the game must belong to the operator's mapped `shop_id` and be visible. Operators can also restrict catalog games with `settings.enabled_games` or `settings.disabled_games`.
+
+## Session close example
+
+```json
+{
+  "reason": "player_logout"
+}
+```
+
+Session list, detail, and close endpoints are scoped to the signed operator. Detail and close accept a `session_uid`; numeric database IDs are accepted only when the ID belongs to the signed operator. Closing a session runs through the provider close contract, stores `close_reason` when the column is present, and is idempotent for already closed sessions.
 
 ## Wallet event example
 

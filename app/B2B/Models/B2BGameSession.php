@@ -33,8 +33,11 @@ class B2BGameSession extends Model
         'status',
         'expires_at',
         'last_seen_at',
+        'heartbeat_at',
+        'stale_at',
         'launched_at',
         'closed_at',
+        'close_reason',
         'heartbeat_timeout_seconds',
         'launch_attempts',
         'failure_code',
@@ -51,6 +54,8 @@ class B2BGameSession extends Model
     protected $dates = [
         'expires_at',
         'last_seen_at',
+        'heartbeat_at',
+        'stale_at',
         'launched_at',
         'closed_at',
     ];
