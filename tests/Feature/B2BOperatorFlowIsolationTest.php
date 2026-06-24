@@ -96,6 +96,128 @@ class B2BOperatorFlowIsolationTest extends TestCase
         $this->assertSame('book_flow_a', $session->game_uid);
     }
 
+    public function testDedicatedAssignmentsRestrictLegacyFallbackCatalog()
+    {
+        $this->seedVisibleGame('book_flow_extra_a', 10);
+        $this->assignOperatorGame($this->operatorA, 'book_flow_a');
+
+        $response = $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games', 'flow-games-assigned-a');
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.game_uid', 'book_flow_a');
+    }
+
+    public function testDedicatedAssignmentsRejectUnassignedLegacyLaunch()
+    {
+        $this->seedVisibleGame('book_flow_extra_a', 10);
+        $this->assignOperatorGame($this->operatorA, 'book_flow_a');
+
+        $body = json_encode([
+            'player_id' => 'player_a',
+            'game_id' => 'book_flow_extra_a',
+            'currency' => 'USD',
+            'return_url' => 'https://operator-a.example/casino',
+        ]);
+
+        $this->signedPost('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/launch', $body, 'flow-launch-unassigned')
+            ->assertStatus(404)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'GAME_NOT_AVAILABLE');
+
+        $this->assertSame(2, DB::table('b2b_game_sessions')->count());
+    }
+
+    public function testDedicatedBlockedAssignmentRejectsOtherwiseVisibleGame()
+    {
+        $this->assignOperatorGame($this->operatorA, 'book_flow_a', 'blocked');
+
+        $body = json_encode([
+            'player_id' => 'player_a',
+            'game_id' => 'book_flow_a',
+            'currency' => 'USD',
+            'return_url' => 'https://operator-a.example/casino',
+        ]);
+
+        $this->signedPost('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/launch', $body, 'flow-launch-blocked')
+            ->assertStatus(404)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'GAME_NOT_AVAILABLE');
+
+        $this->assertSame(2, DB::table('b2b_game_sessions')->count());
+    }
+
+    public function testDedicatedAssignmentsScopeCatalogOnlyGames()
+    {
+        DB::table('b2b_game_catalog')->insert([
+            [
+                'game_uid' => 'catalog_flow_a',
+                'provider' => 'external_provider',
+                'title' => 'Catalog Flow A',
+                'category' => 'slots',
+                'demo_supported' => true,
+                'real_supported' => true,
+                'supported_currencies' => json_encode(['USD']),
+                'supported_countries' => json_encode(['BR']),
+                'status' => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'game_uid' => 'catalog_flow_b',
+                'provider' => 'external_provider',
+                'title' => 'Catalog Flow B',
+                'category' => 'slots',
+                'demo_supported' => true,
+                'real_supported' => true,
+                'supported_currencies' => json_encode(['USD']),
+                'supported_countries' => json_encode(['BR']),
+                'status' => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+        $this->assignOperatorGame($this->operatorA, 'catalog_flow_a', 'allowed', [
+            'provider' => 'external_provider',
+            'allowed_currencies' => json_encode(['USD']),
+            'allowed_countries' => json_encode(['BR']),
+        ]);
+
+        $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games?currency=USD&country=BR', 'flow-catalog-assigned')
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.game_uid', 'catalog_flow_a');
+
+        $body = json_encode([
+            'player_id' => 'player_catalog',
+            'game_id' => 'catalog_flow_a',
+            'currency' => 'USD',
+            'country' => 'BR',
+            'return_url' => 'https://operator-a.example/casino',
+        ]);
+
+        $this->signedPost('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/launch', $body, 'flow-launch-catalog-assigned')
+            ->assertStatus(201)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.game_id', 'catalog_flow_a')
+            ->assertJsonPath('data.provider', 'external_provider');
+
+        $unassigned = json_encode([
+            'player_id' => 'player_catalog',
+            'game_id' => 'catalog_flow_b',
+            'currency' => 'USD',
+            'country' => 'BR',
+            'return_url' => 'https://operator-a.example/casino',
+        ]);
+
+        $this->signedPost('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/launch', $unassigned, 'flow-launch-catalog-unassigned')
+            ->assertStatus(404)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'GAME_NOT_AVAILABLE');
+    }
+
     public function testSessionDetailRejectsAnotherOperatorsNumericSessionId()
     {
         $foreignSession = DB::table('b2b_game_sessions')->where('session_uid', 'sess_flow_b')->first();
@@ -263,5 +385,32 @@ class B2BOperatorFlowIsolationTest extends TestCase
                 'updated_at' => now(),
             ],
         ]);
+    }
+
+    private function seedVisibleGame($gameUid, $shopId)
+    {
+        DB::table('games')->insert([
+            'name' => $gameUid,
+            'title' => $gameUid,
+            'shop_id' => $shopId,
+            'view' => 1,
+            'category' => 'slots',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    }
+
+    private function assignOperatorGame($operator, $gameUid, $status = 'allowed', array $overrides = [])
+    {
+        DB::table('b2b_operator_game_assignments')->insert(array_merge([
+            'operator_id' => $operator->id,
+            'game_uid' => $gameUid,
+            'provider' => 'goldsvet_internal',
+            'status' => $status,
+            'demo_enabled' => true,
+            'real_enabled' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ], $overrides));
     }
 }

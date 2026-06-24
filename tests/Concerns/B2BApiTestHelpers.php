@@ -81,6 +81,7 @@ trait B2BApiTestHelpers
             'b2b_settlements',
             'b2b_wallet_transactions',
             'b2b_game_sessions',
+            'b2b_operator_game_assignments',
             'b2b_game_catalog',
             'b2b_operator_players',
             'b2b_operator_api_keys',
@@ -180,6 +181,20 @@ trait B2BApiTestHelpers
             $table->json('supported_currencies')->nullable();
             $table->json('supported_countries')->nullable();
             $table->string('status')->default('active');
+            $table->json('metadata')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('b2b_operator_game_assignments', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('operator_id');
+            $table->string('game_uid');
+            $table->string('provider')->default('goldsvet_internal');
+            $table->string('status', 30)->default('allowed');
+            $table->boolean('demo_enabled')->default(true);
+            $table->boolean('real_enabled')->default(true);
+            $table->json('allowed_currencies')->nullable();
+            $table->json('allowed_countries')->nullable();
             $table->json('metadata')->nullable();
             $table->timestamps();
         });

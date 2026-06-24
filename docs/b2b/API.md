@@ -12,6 +12,7 @@ Machine-readable artifacts:
 
 - `docs/b2b/openapi.json`
 - `docs/b2b/postman_collection.json`
+- `docs/b2b/GAME_ASSIGNMENTS.md`
 
 Every protected request must include:
 
@@ -123,7 +124,7 @@ Response:
 }
 ```
 
-Launch checks the signed operator's game availability before creating a session. For Goldsvet/internal fallback games, the game must belong to the operator's mapped `shop_id` and be visible. Operators can also restrict catalog games with `settings.enabled_games` or `settings.disabled_games`.
+Launch checks the signed operator's game availability before creating a session. Dedicated `b2b_operator_game_assignments` rows are enforced first and can allow, block, or limit games per provider, currency, country, and mode. If an operator has any active `allowed` assignment, unassigned games are denied by default. Without assignments, Goldsvet/internal fallback games must belong to the operator's mapped `shop_id` and be visible; legacy `settings.enabled_games` and `settings.disabled_games` still apply.
 
 ## Session close example
 

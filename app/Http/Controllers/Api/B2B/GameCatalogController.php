@@ -35,24 +35,27 @@ class GameCatalogController extends Controller
 
         $games = $query->orderBy('provider')->orderBy('title')->get()
             ->filter(function ($game) use ($operator, $availability) {
-                return $availability->operatorAllowsGame($operator, $game->game_uid);
+                return $availability->operatorAllowsGame($operator, $game->game_uid, $game->provider);
             })
             ->values();
 
         if ($games->count() === 0 && $operator && $operator->shop_id) {
-            $games = $this->fallbackFromGoldsvetGames($operator->shop_id);
+            $games = $this->fallbackFromGoldsvetGames($operator->shop_id, $operator, $availability);
         }
 
         return B2BApiResponse::success($request, $games);
     }
 
-    private function fallbackFromGoldsvetGames($shopId)
+    private function fallbackFromGoldsvetGames($shopId, $operator, B2BGameAvailabilityService $availability)
     {
         return Game::where('shop_id', $shopId)
             ->where('view', 1)
             ->orderBy('name')
             ->limit(500)
             ->get()
+            ->filter(function ($game) use ($operator, $availability) {
+                return $availability->operatorAllowsGame($operator, $game->name, 'goldsvet_internal');
+            })
             ->map(function ($game) {
                 return [
                     'game_uid' => $game->name,

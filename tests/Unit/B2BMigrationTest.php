@@ -21,6 +21,7 @@ class B2BMigrationTest extends TestCase
             'b2b_operator_api_keys',
             'b2b_operator_players',
             'b2b_game_catalog',
+            'b2b_operator_game_assignments',
             'b2b_game_sessions',
             'b2b_wallet_transactions',
             'b2b_wallet_callback_logs',
@@ -39,6 +40,7 @@ class B2BMigrationTest extends TestCase
 
         foreach ([
             'b2b_game_sessions' => ['shadow_user_id', 'legacy_launch_token', 'launched_at', 'heartbeat_at', 'stale_at', 'close_reason'],
+            'b2b_operator_game_assignments' => ['operator_id', 'game_uid', 'provider', 'status', 'allowed_currencies', 'allowed_countries'],
             'b2b_wallet_transactions' => ['idempotency_key', 'request_hash', 'raw_response', 'operator_response_body'],
             'b2b_operators' => ['max_rps', 'wallet_timeout_ms', 'connect_timeout_ms', 'circuit_open_until'],
             'b2b_wallet_transaction_attempts' => ['operator_id', 'attempt_no', 'duration_ms', 'result'],

@@ -66,6 +66,11 @@ class B2BOperator extends Model
         return $this->hasMany(B2BOperatorPlayer::class, 'operator_id');
     }
 
+    public function gameAssignments()
+    {
+        return $this->hasMany(B2BOperatorGameAssignment::class, 'operator_id');
+    }
+
     public function isBlockedForTraffic()
     {
         return in_array($this->status, [self::STATUS_DISABLED, self::STATUS_SUSPENDED], true);

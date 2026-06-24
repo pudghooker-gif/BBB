@@ -3,6 +3,7 @@
 namespace VanguardLTE\B2B\Services;
 
 use VanguardLTE\B2B\Models\B2BGameCatalog;
+use VanguardLTE\B2B\Models\B2BOperatorGameAssignment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -11,11 +12,21 @@ class B2BGameAvailabilityService
     public function availableForLaunch($operator, $gameUid, $currency = null, $country = null, $mode = 'real')
     {
         $gameUid = (string) $gameUid;
-        if (!$this->operatorAllowsGame($operator, $gameUid)) {
+
+        $catalogGame = $this->catalogGame($gameUid);
+        $provider = $catalogGame
+            ? $catalogGame->provider
+            : ($this->legacyGameExists($gameUid) ? 'goldsvet_internal' : null);
+
+        $assignment = $this->operatorAssignmentDecision($operator, $gameUid, $currency, $country, $mode, $provider);
+        if ($assignment && !$assignment['ok']) {
+            return $this->unavailable('GAME_NOT_AVAILABLE', $assignment['message']);
+        }
+
+        if (!$assignment && !$this->operatorAllowsGame($operator, $gameUid, $provider)) {
             return $this->unavailable('GAME_NOT_AVAILABLE', 'Game is not enabled for this operator.');
         }
 
-        $catalogGame = $this->catalogGame($gameUid);
         if ($catalogGame) {
             if (!$this->catalogSupports($catalogGame, $currency, $country, $mode)) {
                 return $this->unavailable('GAME_NOT_AVAILABLE', 'Game is not available for the requested currency, country, or mode.');
@@ -35,8 +46,13 @@ class B2BGameAvailabilityService
         return $this->unavailable('GAME_NOT_AVAILABLE', 'Game was not found in the B2B catalog.');
     }
 
-    public function operatorAllowsGame($operator, $gameUid)
+    public function operatorAllowsGame($operator, $gameUid, $provider = null)
     {
+        $assignment = $this->operatorAssignmentDecision($operator, $gameUid, null, null, null, $provider);
+        if ($assignment) {
+            return $assignment['ok'];
+        }
+
         $settings = $operator && is_array($operator->settings) ? $operator->settings : [];
 
         if (isset($settings['disabled_games']) && is_array($settings['disabled_games'])) {
@@ -85,6 +101,86 @@ class B2BGameAvailabilityService
         return true;
     }
 
+    public function operatorAssignmentDecision($operator, $gameUid, $currency = null, $country = null, $mode = null, $provider = null)
+    {
+        if (!$operator || !isset($operator->id) || !$this->hasAssignmentTable()) {
+            return null;
+        }
+
+        $query = B2BOperatorGameAssignment::query()
+            ->where('operator_id', $operator->id);
+
+        $hasAllowedAssignments = (clone $query)
+            ->where('status', B2BOperatorGameAssignment::STATUS_ALLOWED)
+            ->exists();
+
+        $assignment = (clone $query)
+            ->where('game_uid', (string) $gameUid)
+            ->when($provider, function ($q) use ($provider) {
+                $q->where('provider', $provider);
+            })
+            ->whereIn('status', [
+                B2BOperatorGameAssignment::STATUS_ALLOWED,
+                B2BOperatorGameAssignment::STATUS_BLOCKED,
+            ])
+            ->first();
+
+        if (!$assignment) {
+            if (!$hasAllowedAssignments) {
+                return null;
+            }
+
+            return [
+                'ok' => false,
+                'message' => 'Game is not assigned to this operator.',
+            ];
+        }
+
+        if ($assignment->isBlocked()) {
+            return [
+                'ok' => false,
+                'message' => 'Game is blocked for this operator.',
+            ];
+        }
+
+        if ($mode === 'demo' && !$assignment->demo_enabled) {
+            return [
+                'ok' => false,
+                'message' => 'Demo mode is not enabled for this operator game assignment.',
+            ];
+        }
+
+        if ($mode !== null && $mode !== 'demo' && !$assignment->real_enabled) {
+            return [
+                'ok' => false,
+                'message' => 'Real mode is not enabled for this operator game assignment.',
+            ];
+        }
+
+        if ($currency && is_array($assignment->allowed_currencies) && count($assignment->allowed_currencies) > 0) {
+            if (!in_array(strtoupper($currency), array_map('strtoupper', $assignment->allowed_currencies), true)) {
+                return [
+                    'ok' => false,
+                    'message' => 'Currency is not enabled for this operator game assignment.',
+                ];
+            }
+        }
+
+        if ($country && is_array($assignment->allowed_countries) && count($assignment->allowed_countries) > 0) {
+            if (!in_array(strtoupper($country), array_map('strtoupper', $assignment->allowed_countries), true)) {
+                return [
+                    'ok' => false,
+                    'message' => 'Country is not enabled for this operator game assignment.',
+                ];
+            }
+        }
+
+        return [
+            'ok' => true,
+            'assignment' => $assignment,
+        ];
+    }
+
     private function catalogGame($gameUid)
     {
         if (!Schema::hasTable('b2b_game_catalog')) {
@@ -95,6 +191,11 @@ class B2BGameAvailabilityService
             ->where('game_uid', $gameUid)
             ->where('status', 'active')
             ->first();
+    }
+
+    private function hasAssignmentTable()
+    {
+        return Schema::hasTable('b2b_operator_game_assignments');
     }
 
     private function legacyGameExists($gameUid)
