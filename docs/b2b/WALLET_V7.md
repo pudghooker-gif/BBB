@@ -13,6 +13,7 @@ This update adds a more resilient wallet layer for the B2B aggregator.
 - Configurable retry budget before `dead_letter`: `B2B_WALLET_RETRY_MAX_ATTEMPTS`
 - Wallet status lookup endpoint with attempts, transitions, and reconciliation items
 - Wallet reconciliation queue table: `b2b_wallet_reconciliation_items`
+- Audited manual wallet action log: `b2b_wallet_manual_actions`
 - Stale session close command
 - API endpoint to check wallet health
 - API endpoint to inspect callback attempts for one transaction
@@ -32,6 +33,7 @@ Both endpoints use B2B HMAC middleware.
 ```bash
 php artisan b2b:retry-wallet --limit=50
 php artisan b2b:reconcile-wallet --limit=100 --pending-minutes=5
+php artisan b2b:wallet-manual-action {transaction_uid} {action} --operator-id=1 --actor=ops_user --reason="Case reference"
 php artisan b2b:close-stale-sessions --minutes=30
 ```
 
@@ -70,6 +72,7 @@ A single stuck operator wallet should not block all operators. This update adds:
 - Circuit breaker fields
 - Retry command with a bounded retry budget
 - Reconciliation scan for stale `pending`, `unknown`, `dead_letter`, `manual_review`, `rollback_required`, and exhausted retry states
+- Manual review/reversal control foundation with required actor and reason
 - Duplicate transaction protection foundation
 
 ## Idempotency conflicts
@@ -100,7 +103,7 @@ Operators can inspect one of their own wallet transactions with:
 GET /api/b2b/v1/wallet/transactions/{transaction_uid}/status
 ```
 
-The response includes a compact transaction summary, status transition history, recent callback attempts, open reconciliation items, and suggested next actions. Lookup is operator-scoped and accepts internal `transaction_uid`, operator `transaction_id`, or numeric row ID.
+The response includes a compact transaction summary, status transition history, recent callback attempts, open reconciliation items, recent manual actions, and suggested next actions. Lookup is operator-scoped and accepts internal `transaction_uid`, operator `transaction_id`, or numeric row ID.
 
 ## Reconciliation scan
 
@@ -111,3 +114,24 @@ The response includes a compact transaction summary, status transition history, 
 - Existing open items are updated instead of duplicated.
 
 This is a reconciliation foundation. Final production readiness still needs operator/provider status lookup contracts, manual review actions, reversal controls, and settlement-grade reconciliation reports.
+
+## Manual wallet actions
+
+Manual state transitions are available through a CLI-only foundation:
+
+```bash
+php artisan b2b:wallet-manual-action tx_123 mark-review --operator-id=1 --actor=ops_user --reason="Provider case ABC-123 is unresolved"
+```
+
+Supported actions:
+
+- `mark-review` -> `manual_review`
+- `resolve-success` -> `success`
+- `resolve-failed` -> `failed`
+- `mark-rollback-required` -> `rollback_required`
+- `mark-reversed` -> `reversed`
+- `dead-letter` -> `dead_letter`
+
+Every manual action requires `--actor` and `--reason`, writes `b2b_wallet_manual_actions`, appends a wallet transition, and opens or resolves reconciliation items where appropriate.
+
+This is not yet the final production backoffice. Full production readiness still needs deny-by-default RBAC, step-up authentication, confirmation dialogs, raw payload permissions, and operator-visible case workflow.

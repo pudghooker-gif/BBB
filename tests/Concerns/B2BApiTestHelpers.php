@@ -72,6 +72,7 @@ trait B2BApiTestHelpers
     protected function resetB2BTables()
     {
         foreach ([
+            'b2b_wallet_manual_actions',
             'b2b_wallet_reconciliation_items',
             'b2b_wallet_transaction_transitions',
             'b2b_wallet_transaction_attempts',
@@ -259,6 +260,20 @@ trait B2BApiTestHelpers
             $table->json('context')->nullable();
             $table->timestamp('detected_at')->nullable();
             $table->timestamp('resolved_at')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('b2b_wallet_manual_actions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('wallet_transaction_id')->nullable();
+            $table->integer('operator_id')->nullable();
+            $table->string('transaction_uid')->nullable();
+            $table->string('action', 80);
+            $table->string('from_status', 50)->nullable();
+            $table->string('to_status', 50);
+            $table->string('actor');
+            $table->text('reason');
+            $table->json('context')->nullable();
             $table->timestamps();
         });
     }

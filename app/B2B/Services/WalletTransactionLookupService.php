@@ -33,6 +33,7 @@ class WalletTransactionLookupService
             'transitions' => $this->transitions($transaction),
             'attempts' => $this->attempts($transaction),
             'reconciliation_items' => $this->reconciliationItems($transaction),
+            'manual_actions' => $this->manualActions($transaction),
             'next_actions' => $this->nextActions($transaction),
         ];
     }
@@ -96,6 +97,28 @@ class WalletTransactionLookupService
             });
     }
 
+    public function manualActions($transaction, $limit = 20)
+    {
+        if (!$transaction || !isset($transaction->id) || !Schema::hasTable('b2b_wallet_manual_actions')) {
+            return collect();
+        }
+
+        return DB::table('b2b_wallet_manual_actions')
+            ->where('wallet_transaction_id', $transaction->id)
+            ->where('operator_id', $transaction->operator_id)
+            ->orderBy('id', 'desc')
+            ->limit((int) $limit)
+            ->get()
+            ->map(function ($row) {
+                if (isset($row->context)) {
+                    $decoded = json_decode($row->context, true);
+                    $row->context = is_array($decoded) ? $decoded : null;
+                }
+
+                return $row;
+            });
+    }
+
     private function transactionSummary($transaction)
     {
         return [
@@ -125,11 +148,15 @@ class WalletTransactionLookupService
         $status = $transaction && isset($transaction->status) ? $transaction->status : null;
 
         if (in_array($status, ['failed', 'timeout', 'unknown'], true)) {
-            return ['retry_wallet', 'reconcile_wallet'];
+            return ['retry_wallet', 'reconcile_wallet', 'manual_review'];
         }
 
         if (in_array($status, ['dead_letter', 'manual_review', 'rollback_required'], true)) {
             return ['manual_review', 'reconcile_wallet'];
+        }
+
+        if ($status === 'reversed') {
+            return [];
         }
 
         if ($status === 'pending') {

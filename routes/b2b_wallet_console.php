@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Carbon\Carbon;
+use VanguardLTE\B2B\Services\WalletManualActionService;
 use VanguardLTE\B2B\Services\WalletReconciliationService;
 use VanguardLTE\B2B\Services\WalletTransactionService;
 
@@ -28,6 +29,37 @@ Artisan::command('b2b:reconcile-wallet {--limit=100} {--pending-minutes=5}', fun
 
     return 0;
 })->describe('Scan B2B wallet transactions that need reconciliation or manual review.');
+
+Artisan::command('b2b:wallet-manual-action {transaction_uid} {action} {--operator-id=} {--actor=} {--reason=}', function (WalletManualActionService $service) {
+    $actor = (string) $this->option('actor');
+    $reason = (string) $this->option('reason');
+
+    if (trim($actor) === '' || trim($reason) === '') {
+        $this->error('Manual wallet actions require --actor and --reason.');
+        return 1;
+    }
+
+    try {
+        $result = $service->apply(
+            $this->argument('transaction_uid'),
+            $this->argument('action'),
+            $reason,
+            $actor,
+            $this->option('operator-id')
+        );
+    } catch (\Exception $e) {
+        $this->error($e->getMessage());
+        return 1;
+    }
+
+    $this->info('B2B wallet manual action applied.');
+    $this->line('transaction_uid: '.$result['transaction_uid']);
+    $this->line('from_status: '.$result['from_status']);
+    $this->line('to_status: '.$result['to_status']);
+    $this->line('manual_action_id: '.($result['manual_action_id'] ?: 'not_recorded'));
+
+    return 0;
+})->describe('Apply an audited manual state transition to one B2B wallet transaction.');
 
 Artisan::command('b2b:close-stale-sessions {--minutes=30}', function () {
     if (!Schema::hasTable('b2b_game_sessions')) {

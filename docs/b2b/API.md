@@ -132,7 +132,7 @@ Response:
 
 This MVP stores every wallet event in `b2b_wallet_transactions` and forwards the payload to `b2b_operators.wallet_callback_url` when configured.
 
-Wallet status lookup returns the current status, recent callback attempts, transition history, open reconciliation items, and suggested operational next actions for the signed operator only.
+Wallet status lookup returns the current status, recent callback attempts, transition history, open reconciliation items, recent manual actions, and suggested operational next actions for the signed operator only.
 
 ## Create demo operator manually
 
