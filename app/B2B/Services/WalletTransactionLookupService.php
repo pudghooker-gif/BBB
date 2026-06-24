@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Schema;
 
 class WalletTransactionLookupService
 {
+    protected $redactor;
+
+    public function __construct(B2BPayloadRedactor $redactor)
+    {
+        $this->redactor = $redactor;
+    }
+
     public function findForOperator($operatorId, $transactionUid)
     {
         if (!Schema::hasTable('b2b_wallet_transactions')) {
@@ -53,7 +60,7 @@ class WalletTransactionLookupService
             ->map(function ($row) {
                 if (isset($row->context)) {
                     $decoded = json_decode($row->context, true);
-                    $row->context = is_array($decoded) ? $decoded : null;
+                    $row->context = is_array($decoded) ? $this->redactor->redact($decoded) : null;
                 }
 
                 return $row;
@@ -71,7 +78,41 @@ class WalletTransactionLookupService
             ->where('operator_id', $transaction->operator_id)
             ->orderBy('id', 'desc')
             ->limit((int) $limit)
-            ->get();
+            ->get()
+            ->map(function ($row) {
+                if (isset($row->request_body)) {
+                    $row->request_body = $this->decodeAndRedact($row->request_body);
+                }
+                if (isset($row->response_body)) {
+                    $row->response_body = $this->decodeAndRedact($row->response_body);
+                }
+
+                return $row;
+            });
+    }
+
+    public function callbackLogs($transaction, $limit = 20)
+    {
+        if (!$transaction || !isset($transaction->id) || !Schema::hasTable('b2b_wallet_callback_logs')) {
+            return collect();
+        }
+
+        return DB::table('b2b_wallet_callback_logs')
+            ->where('wallet_transaction_id', $transaction->id)
+            ->where('operator_id', $transaction->operator_id)
+            ->orderBy('created_at', 'desc')
+            ->limit((int) $limit)
+            ->get()
+            ->map(function ($row) {
+                if (isset($row->request_body)) {
+                    $row->request_body = $this->decodeAndRedact($row->request_body);
+                }
+                if (isset($row->response_body)) {
+                    $row->response_body = $this->decodeAndRedact($row->response_body);
+                }
+
+                return $row;
+            });
     }
 
     public function reconciliationItems($transaction, $limit = 20)
@@ -90,7 +131,7 @@ class WalletTransactionLookupService
             ->map(function ($row) {
                 if (isset($row->context)) {
                     $decoded = json_decode($row->context, true);
-                    $row->context = is_array($decoded) ? $decoded : null;
+                    $row->context = is_array($decoded) ? $this->redactor->redact($decoded) : null;
                 }
 
                 return $row;
@@ -112,7 +153,7 @@ class WalletTransactionLookupService
             ->map(function ($row) {
                 if (isset($row->context)) {
                     $decoded = json_decode($row->context, true);
-                    $row->context = is_array($decoded) ? $decoded : null;
+                    $row->context = is_array($decoded) ? $this->redactor->redact($decoded) : null;
                 }
 
                 return $row;
@@ -168,5 +209,19 @@ class WalletTransactionLookupService
         }
 
         return ['inspect_transaction'];
+    }
+
+    private function decodeAndRedact($value)
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        $decoded = is_string($value) ? json_decode($value, true) : null;
+        if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+            return $this->redactor->redact($decoded);
+        }
+
+        return $this->redactor->storageValue($value);
     }
 }

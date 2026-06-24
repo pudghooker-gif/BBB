@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Schema;
 class WalletReconciliationService
 {
     protected $stateMachine;
+    protected $redactor;
 
-    public function __construct(WalletTransactionStateMachine $stateMachine)
+    public function __construct(WalletTransactionStateMachine $stateMachine, B2BPayloadRedactor $redactor)
     {
         $this->stateMachine = $stateMachine;
+        $this->redactor = $redactor;
     }
 
     public function scan($limit = 100, $pendingMinutes = null)
@@ -118,7 +120,7 @@ class WalletReconciliationService
             'status' => isset($row->status) ? $row->status : 'unknown',
             'reason' => $reason,
             'priority' => $this->priorityFor(isset($row->status) ? $row->status : null, $reason),
-            'context' => json_encode($context),
+            'context' => $this->redactor->json($context),
             'detected_at' => $now,
             'updated_at' => $now,
         ];

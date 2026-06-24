@@ -29,7 +29,7 @@ Date: 2026-06-24
 
 - Expand the explicit wallet state machine beyond the current transition-log foundation.
 - Add provider/operator status lookup contracts, deny-by-default RBAC and step-up UI for manual actions, rollback-required recovery, and settlement-grade reconciliation reports.
-- Keep the wallet ledger append-oriented with status transition history and add stronger payload redaction.
+- Keep the wallet ledger append-oriented with status transition history and maintain payload redaction on every new wallet persistence/output path.
 - Add duplicate bet/win/refund/rollback tests.
 
 ## Stage 4: Admin And Operator Portal

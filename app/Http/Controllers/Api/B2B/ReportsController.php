@@ -105,15 +105,8 @@ class ReportsController extends Controller
             return B2BApiResponse::error($request, 'TRANSACTION_NOT_FOUND');
         }
 
-        $logs = DB::table('b2b_wallet_callback_logs')
-            ->where('wallet_transaction_id', $transaction->id)
-            ->orderBy('created_at', 'desc')
-            ->limit(20)
-            ->get();
-
         $payload = $this->walletLookup->statusPayload($transaction);
-        $payload['transaction'] = $transaction;
-        $payload['callback_logs'] = $logs;
+        $payload['callback_logs'] = $this->walletLookup->callbackLogs($transaction);
 
         return B2BApiResponse::success($request, $payload);
     }

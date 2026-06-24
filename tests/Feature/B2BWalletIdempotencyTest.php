@@ -32,6 +32,11 @@ class B2BWalletIdempotencyTest extends TestCase
             'wallet.example/*' => Http::response([
                 'status' => 'ok',
                 'balance' => '100.00000000',
+                'access_token' => 'operator-response-token',
+                'nested' => [
+                    'signature' => 'operator-response-signature',
+                    'safe' => 'kept',
+                ],
             ], 200),
         ]);
     }
@@ -71,6 +76,48 @@ class B2BWalletIdempotencyTest extends TestCase
         Http::assertSentCount(1);
     }
 
+    public function testWalletPayloadStorageRedactsSensitiveFields()
+    {
+        $this->signedPost('/api/b2b/v1/wallet/bet', $this->walletBody('10.00000000'), 'idempotency-redaction')
+            ->assertStatus(200)
+            ->assertJsonPath('success', true);
+
+        $transaction = DB::table('b2b_wallet_transactions')->first();
+        $rawRequest = json_decode($transaction->raw_request, true);
+        $operatorResponse = json_decode($transaction->operator_response_body, true);
+        $rawResponse = json_decode($transaction->raw_response, true);
+        $attempt = DB::table('b2b_wallet_transaction_attempts')->first();
+        $attemptRequest = json_decode($attempt->request_body, true);
+        $attemptResponse = json_decode($attempt->response_body, true);
+
+        $this->assertSame('player_1', $rawRequest['player_id']);
+        $this->assertSame('book_of_idempotency', $rawRequest['game_id']);
+        $this->assertSame('[REDACTED]', $rawRequest['metadata']['access_token']);
+        $this->assertSame('[REDACTED]', $rawRequest['metadata']['nested']['password']);
+        $this->assertSame('1', $rawRequest['metadata']['nested']['a']);
+
+        $this->assertSame('[REDACTED]', $operatorResponse['access_token']);
+        $this->assertSame('[REDACTED]', $operatorResponse['nested']['signature']);
+        $this->assertSame('kept', $operatorResponse['nested']['safe']);
+        $this->assertSame('[REDACTED]', $rawResponse['body']['access_token']);
+
+        $this->assertSame('bet', $attemptRequest['action']);
+        $this->assertSame('[REDACTED]', $attemptRequest['metadata']['access_token']);
+        $this->assertSame('[REDACTED]', $attemptResponse['access_token']);
+
+        $storedPayloads = implode("\n", [
+            $transaction->raw_request,
+            $transaction->operator_response_body,
+            $transaction->raw_response,
+            $attempt->request_body,
+            $attempt->response_body,
+        ]);
+        $this->assertStringNotContainsString('request-token-secret', $storedPayloads);
+        $this->assertStringNotContainsString('request-password-secret', $storedPayloads);
+        $this->assertStringNotContainsString('operator-response-token', $storedPayloads);
+        $this->assertStringNotContainsString('operator-response-signature', $storedPayloads);
+    }
+
     private function signedPost($uri, $body, $nonce)
     {
         $headers = $this->signedB2BHeaders($this->operatorUid, $this->keyId, $this->secret, 'POST', $uri, $body, $nonce);
@@ -93,7 +140,9 @@ class B2BWalletIdempotencyTest extends TestCase
                 'nested' => [
                     'b' => '2',
                     'a' => '1',
+                    'password' => 'request-password-secret',
                 ],
+                'access_token' => 'request-token-secret',
             ],
         ]);
     }

@@ -19,6 +19,13 @@ class WalletTransactionStateMachine
     const STATUS_MANUAL_REVIEW = 'manual_review';
     const STATUS_DEAD_LETTER = 'dead_letter';
 
+    protected $redactor;
+
+    public function __construct(B2BPayloadRedactor $redactor)
+    {
+        $this->redactor = $redactor;
+    }
+
     public function transition($transaction, $toStatus, $reason, array $updates = [], array $context = [], $actor = 'system')
     {
         if (!$transaction || !isset($transaction->id)) {
@@ -156,7 +163,7 @@ class WalletTransactionStateMachine
 
     private function json(array $value)
     {
-        $json = json_encode($value);
+        $json = $this->redactor->json($value);
 
         return $json === false ? null : $json;
     }

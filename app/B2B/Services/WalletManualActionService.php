@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\Schema;
 class WalletManualActionService
 {
     protected $stateMachine;
+    protected $redactor;
 
-    public function __construct(WalletTransactionStateMachine $stateMachine)
+    public function __construct(WalletTransactionStateMachine $stateMachine, B2BPayloadRedactor $redactor)
     {
         $this->stateMachine = $stateMachine;
+        $this->redactor = $redactor;
     }
 
     public function apply($transactionUid, $action, $reason, $actor, $operatorId = null, array $context = [])
@@ -174,7 +176,7 @@ class WalletManualActionService
             'to_status' => $targetStatus,
             'actor' => $actor,
             'reason' => $reason,
-            'context' => json_encode($context),
+            'context' => $this->redactor->json($context),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
@@ -221,7 +223,7 @@ class WalletManualActionService
                 WalletTransactionStateMachine::STATUS_DEAD_LETTER,
             ], true) ? 'high' : 'medium',
             'state' => 'open',
-            'context' => json_encode([
+            'context' => $this->redactor->json([
                 'manual_action_id' => $actionId,
                 'manual_action' => $action,
                 'manual_actor' => $actor,
@@ -251,7 +253,7 @@ class WalletManualActionService
             ->update($this->filterColumns('b2b_wallet_reconciliation_items', [
                 'state' => 'resolved',
                 'resolved_at' => Carbon::now(),
-                'context' => json_encode([
+                'context' => $this->redactor->json([
                     'manual_action_id' => $actionId,
                     'manual_action' => $action,
                     'manual_actor' => $actor,

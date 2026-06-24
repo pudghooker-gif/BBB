@@ -51,6 +51,11 @@ class B2BWalletStatusLookupTest extends TestCase
         $this->assertEquals((string) $this->operatorA->id, (string) $response->json('data.transitions.0.operator_id'));
         $this->assertEquals((string) $this->operatorA->id, (string) $response->json('data.attempts.0.operator_id'));
         $this->assertEquals((string) $this->operatorA->id, (string) $response->json('data.reconciliation_items.0.operator_id'));
+        $this->assertSame('[REDACTED]', $response->json('data.transitions.0.context.signature'));
+        $this->assertSame('[REDACTED]', $response->json('data.attempts.0.request_body.access_token'));
+        $this->assertSame('[REDACTED]', $response->json('data.attempts.0.response_body.api_key'));
+        $this->assertSame('[REDACTED]', $response->json('data.reconciliation_items.0.context.token'));
+        $this->assertStringNotContainsString('legacy-status-secret', json_encode($response->json()));
     }
 
     public function testWalletStatusLookupDoesNotExposeAnotherOperatorsTransaction()
@@ -65,6 +70,27 @@ class B2BWalletStatusLookupTest extends TestCase
             ->assertStatus(404)
             ->assertJsonPath('success', false)
             ->assertJsonPath('error.code', 'TRANSACTION_NOT_FOUND');
+    }
+
+    public function testReportTransactionDetailRedactsLegacyRawPayloads()
+    {
+        $response = $this->signedGet(
+            'op_status_a',
+            'key_status_a',
+            $this->secretA,
+            '/api/b2b/v1/reports/transactions/shared_status',
+            'report-status-redaction'
+        );
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.transaction.transaction_uid', 'shared_status')
+            ->assertJsonPath('data.attempts.0.request_body.access_token', '[REDACTED]');
+
+        $json = json_encode($response->json());
+        $this->assertStringNotContainsString('legacy-status-secret', $json);
+        $this->assertStringNotContainsString('legacy-status-password', $json);
+        $this->assertStringNotContainsString('legacy-response-secret', $json);
     }
 
     private function signedGet($operatorUid, $keyId, $secret, $uri, $nonce)
@@ -92,6 +118,19 @@ class B2BWalletStatusLookupTest extends TestCase
             'status' => 'unknown',
             'attempts' => 2,
             'last_error' => 'Wallet result could not be confirmed.',
+            'raw_request' => json_encode([
+                'player_id' => 'player_status',
+                'access_token' => 'legacy-status-secret',
+                'metadata' => ['password' => 'legacy-status-password'],
+            ]),
+            'raw_response' => json_encode([
+                'status' => 'failed',
+                'secret' => 'legacy-response-secret',
+            ]),
+            'operator_response_body' => json_encode([
+                'status' => 'failed',
+                'secret' => 'legacy-response-secret',
+            ]),
             'created_at' => $now,
             'updated_at' => $now,
         ]);
@@ -122,7 +161,7 @@ class B2BWalletStatusLookupTest extends TestCase
                 'to_status' => 'unknown',
                 'reason' => 'wallet_status_lookup_seed',
                 'actor' => 'test',
-                'context' => json_encode(['operator' => 'a']),
+                'context' => json_encode(['operator' => 'a', 'signature' => 'legacy-status-secret']),
                 'created_at' => $now,
             ],
             [
@@ -146,6 +185,8 @@ class B2BWalletStatusLookupTest extends TestCase
                 'type' => 'bet',
                 'attempt_no' => 2,
                 'result' => 'timeout',
+                'request_body' => json_encode(['access_token' => 'legacy-status-secret', 'player_id' => 'player_status']),
+                'response_body' => json_encode(['api_key' => 'legacy-response-secret', 'status' => 'timeout']),
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
@@ -156,6 +197,8 @@ class B2BWalletStatusLookupTest extends TestCase
                 'type' => 'bet',
                 'attempt_no' => 3,
                 'result' => 'failed',
+                'request_body' => null,
+                'response_body' => null,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
@@ -170,7 +213,7 @@ class B2BWalletStatusLookupTest extends TestCase
                 'reason' => 'unknown_result',
                 'priority' => 'medium',
                 'state' => 'open',
-                'context' => json_encode(['operator' => 'a']),
+                'context' => json_encode(['operator' => 'a', 'token' => 'legacy-status-secret']),
                 'detected_at' => $now,
                 'created_at' => $now,
                 'updated_at' => $now,

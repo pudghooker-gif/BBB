@@ -12,16 +12,19 @@ class WalletTransactionService
     protected $client;
     protected $idempotency;
     protected $stateMachine;
+    protected $redactor;
 
     public function __construct(
         OperatorWalletClient $client,
         WalletIdempotencyService $idempotency,
-        WalletTransactionStateMachine $stateMachine
+        WalletTransactionStateMachine $stateMachine,
+        B2BPayloadRedactor $redactor
     )
     {
         $this->client = $client;
         $this->idempotency = $idempotency;
         $this->stateMachine = $stateMachine;
+        $this->redactor = $redactor;
     }
 
     public function process($operator, $type, array $payload)
@@ -91,7 +94,7 @@ class WalletTransactionService
             'idempotency_key' => $idempotencyKey,
             'request_hash' => $requestHash,
             'attempts' => 0,
-            'raw_request' => json_encode($payload),
+            'raw_request' => $this->redactor->json($payload),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
@@ -111,8 +114,8 @@ class WalletTransactionService
             'processed_at' => Carbon::now(),
             'last_error' => $callbackResult['ok'] ? null : (isset($callbackResult['message']) ? $callbackResult['message'] : 'Wallet callback failed'),
             'operator_response_code' => isset($callbackResult['http_status']) ? $callbackResult['http_status'] : null,
-            'operator_response_body' => json_encode(isset($callbackResult['body']) ? $callbackResult['body'] : null),
-            'raw_response' => json_encode($callbackResult),
+            'operator_response_body' => $this->redactor->json(isset($callbackResult['body']) ? $callbackResult['body'] : null),
+            'raw_response' => $this->redactor->json($callbackResult),
         ];
 
         $this->stateMachine->transition($transaction, $status, 'wallet_callback_result', $updates, [
@@ -181,8 +184,8 @@ class WalletTransactionService
                 'processed_at' => Carbon::now(),
                 'last_error' => $result['ok'] ? null : (isset($result['message']) ? $result['message'] : 'Wallet retry failed'),
                 'operator_response_code' => isset($result['http_status']) ? $result['http_status'] : null,
-                'operator_response_body' => json_encode(isset($result['body']) ? $result['body'] : null),
-                'raw_response' => json_encode($result),
+                'operator_response_body' => $this->redactor->json(isset($result['body']) ? $result['body'] : null),
+                'raw_response' => $this->redactor->json($result),
             ];
 
             $this->stateMachine->transition($row, $status, 'wallet_retry_result', $updates, [

@@ -83,6 +83,10 @@ Wallet mutation endpoints derive an idempotency key from operator, action, `tran
 - Reusing the same idempotency key with a changed payload returns HTTP `409` and code `IDEMPOTENCY_CONFLICT`.
 - Conflicts do not create a second ledger row and do not call the operator wallet again.
 
+## Payload redaction
+
+Wallet raw request/response persistence, callback attempt logs, transition contexts, manual-action contexts, reconciliation contexts, and status/report output pass through recursive sensitive-field redaction. Operational fields such as `player_id`, `game_id`, `session_id`, `round_id`, `transaction_id`, `amount`, and `currency` remain available for retry and investigation, while keys such as tokens, passwords, secrets, signatures, API keys, card numbers, PANs, CVV/CVC, IBAN, and SSN are replaced with `[REDACTED]`.
+
 ## State transitions
 
 Wallet status changes are recorded in `b2b_wallet_transaction_transitions`.

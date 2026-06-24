@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Schema;
 
 class WalletAttemptLogger
 {
+    protected $redactor;
+
+    public function __construct(B2BPayloadRedactor $redactor)
+    {
+        $this->redactor = $redactor;
+    }
+
     public function start($transaction, $operator, $type, $url, $timeoutMs, array $payload)
     {
         if (!Schema::hasTable('b2b_wallet_transaction_attempts')) {
@@ -28,7 +35,7 @@ class WalletAttemptLogger
             'url' => $url,
             'timeout_ms' => $timeoutMs,
             'result' => 'pending',
-            'request_body' => json_encode($payload),
+            'request_body' => $this->redactor->json($payload),
             'started_at' => Carbon::now(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
@@ -45,7 +52,7 @@ class WalletAttemptLogger
             'http_status' => $httpStatus,
             'result' => $result,
             'duration_ms' => $durationMs,
-            'response_body' => is_string($responseBody) ? $responseBody : json_encode($responseBody),
+            'response_body' => $this->redactor->storageValue($responseBody),
             'error' => $error,
             'finished_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
