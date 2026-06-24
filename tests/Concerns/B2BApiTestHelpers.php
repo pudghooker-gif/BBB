@@ -84,6 +84,7 @@ trait B2BApiTestHelpers
             'b2b_operator_game_assignments',
             'b2b_game_catalog',
             'b2b_operator_players',
+            'b2b_operator_audit_events',
             'b2b_operator_api_keys',
             'b2b_operators',
             'games',
@@ -124,6 +125,20 @@ trait B2BApiTestHelpers
             $table->string('status')->default('active');
             $table->timestamp('last_used_at')->nullable();
             $table->timestamp('expires_at')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('b2b_operator_audit_events', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('operator_id')->nullable();
+            $table->string('event_type', 100);
+            $table->string('subject_type', 80)->nullable();
+            $table->string('subject_id')->nullable();
+            $table->string('actor', 100);
+            $table->text('reason')->nullable();
+            $table->string('ip_address', 45)->nullable();
+            $table->string('user_agent', 500)->nullable();
+            $table->json('metadata')->nullable();
             $table->timestamps();
         });
 

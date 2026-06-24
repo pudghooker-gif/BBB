@@ -36,7 +36,8 @@ Date: 2026-06-24
 
 - Add dedicated B2B backoffice routes/controllers/views with server-side RBAC.
 - Add operator portal with tenant-scoped dashboard, credentials, callback settings, game assignments, sessions, transactions, reports, and docs.
-- Add audit events for credential rotation, manual transaction actions, exports, and dangerous actions.
+- Build the portal UX over the current audited credential rotation/revocation CLI foundation.
+- Add remaining audit events for exports and dangerous admin actions.
 
 ## Stage 5: Deployment And Observability
 

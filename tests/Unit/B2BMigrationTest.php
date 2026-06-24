@@ -19,6 +19,7 @@ class B2BMigrationTest extends TestCase
         foreach ([
             'b2b_operators',
             'b2b_operator_api_keys',
+            'b2b_operator_audit_events',
             'b2b_operator_players',
             'b2b_game_catalog',
             'b2b_operator_game_assignments',
@@ -46,6 +47,7 @@ class B2BMigrationTest extends TestCase
             'b2b_wallet_transaction_attempts' => ['operator_id', 'attempt_no', 'duration_ms', 'result'],
             'b2b_wallet_reconciliation_items' => ['reason', 'priority', 'state', 'detected_at'],
             'b2b_wallet_manual_actions' => ['action', 'actor', 'reason', 'context'],
+            'b2b_operator_audit_events' => ['operator_id', 'event_type', 'actor', 'subject_type', 'subject_id', 'reason', 'metadata'],
         ] as $table => $columns) {
             foreach ($columns as $column) {
                 $this->assertTrue(

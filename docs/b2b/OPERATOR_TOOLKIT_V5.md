@@ -40,6 +40,22 @@ Generate HMAC headers and a curl example:
 php artisan b2b:show-hmac op_xxx key_xxx secret_xxx GET /api/b2b/v1/operator/me
 ```
 
+Rotate an operator API key and audit who did it and why:
+
+```bash
+php artisan b2b:rotate-api-key op_xxx --actor=security_user --reason="Quarterly API key rotation" --revoke-existing
+```
+
+The command prints the new `X-Api-Key` and one-time secret. Existing active keys are disabled only when `--revoke-existing` is passed.
+
+Revoke one API key and keep an audit event:
+
+```bash
+php artisan b2b:revoke-api-key op_xxx key_xxx --actor=security_user --reason="Partner requested revocation"
+```
+
+Revocation stores `disabled` in `b2b_operator_api_keys.status`; the HMAC middleware accepts only `active` keys.
+
 Show B2B summary:
 
 ```bash
@@ -51,6 +67,7 @@ php artisan b2b:health
 ```bash
 php artisan migrate
 php artisan b2b:make-operator "Test Operator" --shop_id=1 --currency=USD
+php artisan b2b:rotate-api-key op_xxx --actor=security_user --reason="Initial smoke rotation"
 php artisan b2b:sync-games --shop_id=1 --limit=20
 php artisan b2b:health
 php artisan route:list | grep b2b

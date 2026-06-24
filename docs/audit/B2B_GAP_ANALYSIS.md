@@ -16,6 +16,7 @@ Date: 2026-06-24
 - OpenAPI and Postman JSON artifacts cover the verified production `b2b/v1` routes.
 - Unit tests verify clean SQLite migration application and no-op re-run for B2B tables/columns.
 - B2B queue topology config, Supervisor worker template, and queue topology tests cover wallet-live, wallet-retry, provider-callbacks, reporting, settlement, reconciliation, notifications, and maintenance queues.
+- Operator credential lifecycle audit foundation: API key rotation/revocation CLI commands require actor/reason, disable revoked keys, and write append-only operator audit events.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
 - `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, and release file gates.
@@ -28,7 +29,7 @@ Date: 2026-06-24
 - Production environment must pass `b2b:release-check --production`; current local workspace still contains release-blocking local files and non-Redis shared-state defaults.
 - External provider adapters still require real provider-specific implementations and certification docs.
 - Production-grade wallet state machine still needs provider/operator status lookup contracts, deny-by-default RBAC and step-up controls for manual actions, settlement-grade reconciliation reports, and full rollback-required recovery flows. The current foundation has explicit transition validation, append-only transition logging, recursive sensitive-field redaction, retryable `unknown`, retry-budget `dead_letter`, operator-scoped status lookup, reconciliation item scanning, and audited CLI manual actions.
-- Dedicated B2B admin backoffice and operator portal.
+- Dedicated B2B admin backoffice and operator portal, including deny-by-default RBAC and step-up approval for credential and manual-wallet actions.
 - Runtime job implementations are still needed for workflows that currently run as artisan commands or inline request work.
 - Deployment configs for Nginx, PHP-FPM, Supervisor/systemd, cron, backups, rollback, and health checks.
 
