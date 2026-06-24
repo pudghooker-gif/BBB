@@ -23,7 +23,7 @@ Date: 2026-06-24
 - Add request validation tests for launch and wallet operations.
 - Add idempotency conflict tests for duplicate wallet transaction IDs with changed payloads.
 - Normalize JSON response/error format and keep envelope compatibility tests.
-- Add OpenAPI and Postman artifacts from verified routes.
+- Maintain OpenAPI and Postman artifacts from verified production routes.
 
 ## Stage 3: Wallet And Ledger
 

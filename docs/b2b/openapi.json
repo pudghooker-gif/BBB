@@ -1,0 +1,393 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "BBB B2B Aggregator API",
+    "version": "1.0.0",
+    "description": "Verified MVP contract for the signed B2B API. All protected endpoints use HMAC headers documented in docs/api/HMAC_AUTHENTICATION.md."
+  },
+  "servers": [
+    {
+      "url": "{baseUrl}/api/b2b/v1",
+      "variables": {
+        "baseUrl": {
+          "default": "https://operator-api.example"
+        }
+      }
+    }
+  ],
+  "tags": [
+    { "name": "health" },
+    { "name": "operator" },
+    { "name": "games" },
+    { "name": "sessions" },
+    { "name": "wallet" },
+    { "name": "reports" }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["health"],
+        "summary": "Public B2B health check",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service health envelope",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiSuccess" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operator/me": {
+      "get": {
+        "tags": ["operator"],
+        "summary": "Return signed operator profile and operational counters",
+        "security": [{ "B2BHmac": [] }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/games": {
+      "get": {
+        "tags": ["games"],
+        "summary": "List games available to the signed operator",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "currency", "in": "query", "schema": { "type": "string", "minLength": 3, "maxLength": 3 }, "example": "USD" },
+          { "name": "country", "in": "query", "schema": { "type": "string", "minLength": 2, "maxLength": 2 }, "example": "BR" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/games/launch": {
+      "post": {
+        "tags": ["games"],
+        "summary": "Create a B2B game session and return a public launch URL",
+        "security": [{ "B2BHmac": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LaunchRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "$ref": "#/components/responses/Success" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/sessions": {
+      "get": {
+        "tags": ["sessions"],
+        "summary": "List sessions for the signed operator",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 1000 }, "example": 100 },
+          { "name": "status", "in": "query", "schema": { "type": "string" }, "example": "active" },
+          { "name": "player_id", "in": "query", "schema": { "type": "string" }, "example": "player_123" },
+          { "name": "game_id", "in": "query", "schema": { "type": "string" }, "example": "bookofdead" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/sessions/{session_uid}": {
+      "get": {
+        "tags": ["sessions"],
+        "summary": "Return one operator-owned session and recent wallet transactions",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "$ref": "#/components/parameters/SessionUid" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/sessions/{session_uid}/close": {
+      "post": {
+        "tags": ["sessions"],
+        "summary": "Close an operator-owned session through the provider close contract",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "$ref": "#/components/parameters/SessionUid" }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SessionCloseRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" },
+          "501": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/wallet/health": {
+      "get": {
+        "tags": ["wallet"],
+        "summary": "Return wallet callback and circuit-breaker health for the signed operator",
+        "security": [{ "B2BHmac": [] }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/wallet/balance": {
+      "post": {
+        "tags": ["wallet"],
+        "summary": "Forward a balance request to the operator wallet",
+        "security": [{ "B2BHmac": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WalletBalanceRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "422": { "$ref": "#/components/responses/Error" },
+          "502": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/wallet/bet": { "$ref": "#/components/pathItems/WalletMutation" },
+    "/wallet/win": { "$ref": "#/components/pathItems/WalletMutation" },
+    "/wallet/refund": { "$ref": "#/components/pathItems/WalletMutation" },
+    "/wallet/rollback": { "$ref": "#/components/pathItems/WalletMutation" },
+    "/wallet/transactions/{transaction_uid}/status": {
+      "get": {
+        "tags": ["wallet"],
+        "summary": "Return operator-scoped wallet transaction status and operational history",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "$ref": "#/components/parameters/TransactionUid" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/wallet/transactions/{transaction_uid}/attempts": {
+      "get": {
+        "tags": ["wallet"],
+        "summary": "Return recent callback attempts for an operator-scoped transaction UID",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "$ref": "#/components/parameters/TransactionUid" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "500": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/reports/summary": { "$ref": "#/components/pathItems/ReportCollection" },
+    "/reports/transactions": { "$ref": "#/components/pathItems/ReportCollection" },
+    "/reports/ggr": { "$ref": "#/components/pathItems/ReportCollection" },
+    "/reports/settlements": { "$ref": "#/components/pathItems/ReportCollection" },
+    "/reports/transactions/{transaction_uid}": {
+      "get": {
+        "tags": ["reports"],
+        "summary": "Return one operator-scoped wallet transaction with logs and status history",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "$ref": "#/components/parameters/TransactionUid" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "B2BHmac": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Signature",
+        "description": "Protected endpoints also require X-Operator-Id, X-Api-Key, X-Timestamp, X-Nonce, and X-Body-Hash. Signature payload is METHOD, path, canonical query, body hash, timestamp, nonce joined by newlines."
+      }
+    },
+    "parameters": {
+      "SessionUid": {
+        "name": "session_uid",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string", "maxLength": 191 },
+        "example": "sess_xxx"
+      },
+      "TransactionUid": {
+        "name": "transaction_uid",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string", "maxLength": 191 },
+        "example": "bet_001"
+      }
+    },
+    "pathItems": {
+      "WalletMutation": {
+        "post": {
+          "tags": ["wallet"],
+          "summary": "Forward a wallet mutation to the operator wallet",
+          "security": [{ "B2BHmac": [] }],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WalletMutationRequest" }
+              }
+            }
+          },
+          "responses": {
+            "200": { "$ref": "#/components/responses/Success" },
+            "404": { "$ref": "#/components/responses/Error" },
+            "409": { "$ref": "#/components/responses/Error" },
+            "422": { "$ref": "#/components/responses/Error" },
+            "502": { "$ref": "#/components/responses/Error" }
+          }
+        }
+      },
+      "ReportCollection": {
+        "get": {
+          "tags": ["reports"],
+          "summary": "Return operator-scoped report data",
+          "security": [{ "B2BHmac": [] }],
+          "parameters": [
+            { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
+            { "name": "to", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-24" },
+            { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 1000 }, "example": 100 },
+            { "name": "game_id", "in": "query", "schema": { "type": "string" }, "example": "bookofdead" },
+            { "name": "currency", "in": "query", "schema": { "type": "string", "minLength": 3, "maxLength": 3 }, "example": "USD" }
+          ],
+          "responses": {
+            "200": { "$ref": "#/components/responses/Success" },
+            "401": { "$ref": "#/components/responses/Error" }
+          }
+        }
+      }
+    },
+    "responses": {
+      "Success": {
+        "description": "Standard success envelope",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ApiSuccess" }
+          }
+        }
+      },
+      "Error": {
+        "description": "Standard error envelope",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ApiError" }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "ApiSuccess": {
+        "type": "object",
+        "required": ["success", "status", "request_id", "data"],
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "status": { "type": "string", "example": "success" },
+          "request_id": { "type": "string", "example": "uuid-or-client-request-id" },
+          "data": { "type": "object", "additionalProperties": true },
+          "meta": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "ApiError": {
+        "type": "object",
+        "required": ["success", "status", "request_id", "error"],
+        "properties": {
+          "success": { "type": "boolean", "example": false },
+          "status": { "type": "string", "example": "error" },
+          "request_id": { "type": "string", "example": "uuid-or-client-request-id" },
+          "error": {
+            "type": "object",
+            "required": ["code", "message"],
+            "properties": {
+              "code": { "type": "string", "example": "VALIDATION_FAILED" },
+              "message": { "type": "string", "example": "Request validation failed." },
+              "details": { "type": "object", "additionalProperties": true }
+            }
+          },
+          "meta": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "LaunchRequest": {
+        "type": "object",
+        "required": ["player_id", "game_id", "currency"],
+        "properties": {
+          "player_id": { "type": "string", "maxLength": 191, "example": "player_123" },
+          "game_id": { "type": "string", "maxLength": 191, "example": "bookofdead" },
+          "currency": { "type": "string", "minLength": 3, "maxLength": 3, "example": "USD" },
+          "language": { "type": "string", "maxLength": 8, "example": "en" },
+          "country": { "type": "string", "minLength": 2, "maxLength": 2, "example": "BR" },
+          "mode": { "type": "string", "enum": ["real", "demo"], "example": "real" },
+          "return_url": { "type": "string", "format": "uri", "example": "https://operator.example/casino" },
+          "metadata": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "SessionCloseRequest": {
+        "type": "object",
+        "properties": {
+          "reason": { "type": "string", "maxLength": 100, "example": "player_logout" }
+        }
+      },
+      "WalletBalanceRequest": {
+        "type": "object",
+        "required": ["player_id", "currency"],
+        "properties": {
+          "player_id": { "type": "string", "maxLength": 191, "example": "player_123" },
+          "currency": { "type": "string", "minLength": 3, "maxLength": 3, "example": "USD" },
+          "provider": { "type": "string", "maxLength": 191, "example": "goldsvet_internal" },
+          "game_id": { "type": "string", "maxLength": 191, "example": "bookofdead" },
+          "session_id": { "type": "string", "maxLength": 191, "example": "sess_xxx" },
+          "metadata": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "WalletMutationRequest": {
+        "type": "object",
+        "required": ["player_id", "game_id", "session_id", "round_id", "transaction_id", "amount", "currency"],
+        "properties": {
+          "player_id": { "type": "string", "maxLength": 191, "example": "player_123" },
+          "game_id": { "type": "string", "maxLength": 191, "example": "bookofdead" },
+          "provider": { "type": "string", "maxLength": 191, "example": "goldsvet_internal" },
+          "session_id": { "type": "string", "maxLength": 191, "example": "sess_xxx" },
+          "round_id": { "type": "string", "maxLength": 191, "example": "round_001" },
+          "transaction_id": { "type": "string", "maxLength": 191, "example": "bet_001" },
+          "original_transaction_id": { "type": "string", "maxLength": 191, "example": "bet_001" },
+          "amount": { "type": "string", "pattern": "^\\d{1,12}(\\.\\d{1,8})?$", "example": "10.00000000" },
+          "currency": { "type": "string", "minLength": 3, "maxLength": 3, "example": "USD" },
+          "metadata": { "type": "object", "additionalProperties": true }
+        }
+      }
+    }
+  }
+}

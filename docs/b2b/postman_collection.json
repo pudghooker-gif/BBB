@@ -1,0 +1,275 @@
+{
+  "info": {
+    "_postman_id": "5a3c3fc1-0c4b-4e1d-9a0c-bbb-b2b-api",
+    "name": "BBB B2B Aggregator API",
+    "description": "Verified B2B API MVP collection. Set baseUrl, operatorId, apiKey, and operatorSecret variables before calling protected endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const operatorId = pm.variables.get('operatorId');",
+          "const apiKey = pm.variables.get('apiKey');",
+          "const secret = pm.variables.get('operatorSecret');",
+          "if (!operatorId || !apiKey || !secret) {",
+          "  console.warn('B2B HMAC variables are not set. Protected requests will fail until operatorId, apiKey, and operatorSecret are configured.');",
+          "  return;",
+          "}",
+          "let rawBody = '';",
+          "if (pm.request.body && pm.request.body.mode === 'raw' && pm.request.body.raw) {",
+          "  rawBody = pm.variables.replaceIn(pm.request.body.raw);",
+          "}",
+          "const bodyHash = CryptoJS.SHA256(rawBody).toString(CryptoJS.enc.Hex);",
+          "const timestamp = Math.floor(Date.now() / 1000).toString();",
+          "const nonce = `${timestamp}-${pm.variables.replaceIn('{{$guid}}')}`;",
+          "const path = '/' + pm.request.url.path.map(segment => pm.variables.replaceIn(segment)).join('/');",
+          "const queryPairs = pm.request.url.query.all()",
+          "  .filter(item => !item.disabled && item.key)",
+          "  .map(item => [pm.variables.replaceIn(item.key), pm.variables.replaceIn(item.value || '')])",
+          "  .sort((left, right) => left[0].localeCompare(right[0]))",
+          "  .map(pair => `${encodeURIComponent(pair[0])}=${encodeURIComponent(pair[1])}`);",
+          "const canonical = [pm.request.method.toUpperCase(), path, queryPairs.join('&'), bodyHash, timestamp, nonce].join('\\n');",
+          "const signature = CryptoJS.HmacSHA256(canonical, secret).toString(CryptoJS.enc.Hex);",
+          "pm.request.headers.upsert({ key: 'X-Operator-Id', value: operatorId });",
+          "pm.request.headers.upsert({ key: 'X-Api-Key', value: apiKey });",
+          "pm.request.headers.upsert({ key: 'X-Timestamp', value: timestamp });",
+          "pm.request.headers.upsert({ key: 'X-Nonce', value: nonce });",
+          "pm.request.headers.upsert({ key: 'X-Body-Hash', value: bodyHash });",
+          "pm.request.headers.upsert({ key: 'X-Signature', value: signature });",
+          "pm.request.headers.upsert({ key: 'Accept', value: 'application/json' });",
+          "pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost" },
+    { "key": "operatorId", "value": "op_demo" },
+    { "key": "apiKey", "value": "demo_key" },
+    { "key": "operatorSecret", "value": "change-me-demo-secret", "type": "secret" },
+    { "key": "playerId", "value": "player_123" },
+    { "key": "gameId", "value": "bookofdead" },
+    { "key": "sessionId", "value": "sess_xxx" },
+    { "key": "transactionId", "value": "bet_001" },
+    { "key": "roundId", "value": "round_001" },
+    { "key": "currency", "value": "USD" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/b2b/v1/health"
+      },
+      "response": []
+    },
+    {
+      "name": "Operator",
+      "item": [
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/operator/me"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Games",
+      "item": [
+        {
+          "name": "List Games",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/games?currency={{currency}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Launch Game",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/games/launch",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_id\": \"{{playerId}}\",\n  \"game_id\": \"{{gameId}}\",\n  \"currency\": \"{{currency}}\",\n  \"language\": \"en\",\n  \"country\": \"BR\",\n  \"mode\": \"real\",\n  \"return_url\": \"https://operator.example/casino\"\n}"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sessions",
+      "item": [
+        {
+          "name": "List Sessions",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/sessions?limit=100"
+          },
+          "response": []
+        },
+        {
+          "name": "Session Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/sessions/{{sessionId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Close Session",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/sessions/{{sessionId}}/close",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"player_logout\"\n}"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Wallet",
+      "item": [
+        {
+          "name": "Wallet Health",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/wallet/health"
+          },
+          "response": []
+        },
+        {
+          "name": "Balance",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/wallet/balance",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_id\": \"{{playerId}}\",\n  \"game_id\": \"{{gameId}}\",\n  \"session_id\": \"{{sessionId}}\",\n  \"currency\": \"{{currency}}\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bet",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/wallet/bet",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_id\": \"{{playerId}}\",\n  \"game_id\": \"{{gameId}}\",\n  \"session_id\": \"{{sessionId}}\",\n  \"round_id\": \"{{roundId}}\",\n  \"transaction_id\": \"{{transactionId}}\",\n  \"amount\": \"10.00000000\",\n  \"currency\": \"{{currency}}\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Win",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/wallet/win",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_id\": \"{{playerId}}\",\n  \"game_id\": \"{{gameId}}\",\n  \"session_id\": \"{{sessionId}}\",\n  \"round_id\": \"{{roundId}}\",\n  \"transaction_id\": \"win_001\",\n  \"amount\": \"15.00000000\",\n  \"currency\": \"{{currency}}\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refund",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/wallet/refund",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_id\": \"{{playerId}}\",\n  \"game_id\": \"{{gameId}}\",\n  \"session_id\": \"{{sessionId}}\",\n  \"round_id\": \"{{roundId}}\",\n  \"transaction_id\": \"refund_001\",\n  \"original_transaction_id\": \"{{transactionId}}\",\n  \"amount\": \"10.00000000\",\n  \"currency\": \"{{currency}}\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rollback",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/wallet/rollback",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_id\": \"{{playerId}}\",\n  \"game_id\": \"{{gameId}}\",\n  \"session_id\": \"{{sessionId}}\",\n  \"round_id\": \"{{roundId}}\",\n  \"transaction_id\": \"rollback_001\",\n  \"original_transaction_id\": \"{{transactionId}}\",\n  \"amount\": \"10.00000000\",\n  \"currency\": \"{{currency}}\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transaction Status",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/wallet/transactions/{{transactionId}}/status"
+          },
+          "response": []
+        },
+        {
+          "name": "Transaction Attempts",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/wallet/transactions/{{transactionId}}/attempts"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Summary",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/reports/summary?from=2026-06-01&to=2026-06-24"
+          },
+          "response": []
+        },
+        {
+          "name": "Transactions",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/reports/transactions?limit=100"
+          },
+          "response": []
+        },
+        {
+          "name": "GGR",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/reports/ggr?from=2026-06-01&to=2026-06-24"
+          },
+          "response": []
+        },
+        {
+          "name": "Settlements",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/reports/settlements?from=2026-06-01&to=2026-06-24"
+          },
+          "response": []
+        },
+        {
+          "name": "Transaction Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/reports/transactions/{{transactionId}}"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

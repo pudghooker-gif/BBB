@@ -8,6 +8,11 @@ Base URL in a standard Laravel install:
 
 ## Authentication
 
+Machine-readable artifacts:
+
+- `docs/b2b/openapi.json`
+- `docs/b2b/postman_collection.json`
+
 Every protected request must include:
 
 ```text

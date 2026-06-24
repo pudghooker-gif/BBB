@@ -13,6 +13,7 @@ Date: 2026-06-24
 - Reporting endpoints for summary, transactions, GGR, and settlements.
 - Standard B2B JSON response envelope and error catalog for API routes, including request ID propagation.
 - Feature tests now cover HMAC success/failure/replay, tenant isolation for sessions/reports/settlements/wallet attempts, operator-scoped games/launch/session detail/session close/wallet mutation flows, request validation for launch and wallet payloads, wallet idempotency conflicts, wallet status transition logging, status lookup scoping, reconciliation scanning, and manual wallet action auditing.
+- OpenAPI and Postman JSON artifacts cover the verified production `b2b/v1` routes.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
 - `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, and release file gates.
@@ -27,7 +28,6 @@ Date: 2026-06-24
 - Production-grade wallet state machine still needs provider/operator status lookup contracts, deny-by-default RBAC and step-up controls for manual actions, settlement-grade reconciliation reports, and full rollback-required recovery flows. The current foundation has explicit transition validation, append-only transition logging, retryable `unknown`, retry-budget `dead_letter`, operator-scoped status lookup, reconciliation item scanning, and audited CLI manual actions.
 - Dedicated operator-game assignment model.
 - Dedicated B2B admin backoffice and operator portal.
-- OpenAPI/Postman generated from verified routes.
 - Queue topology and worker configs for wallet-live, wallet-retry, provider-callbacks, reporting, settlement, reconciliation, notifications, and maintenance.
 - Deployment configs for Nginx, PHP-FPM, Supervisor/systemd, cron, backups, rollback, and health checks.
 
