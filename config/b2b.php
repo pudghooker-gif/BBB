@@ -25,6 +25,8 @@ return [
 
     'wallet_retry_max_attempts' => env('B2B_WALLET_RETRY_MAX_ATTEMPTS', 3),
 
+    'wallet_rollback_max_attempts' => env('B2B_WALLET_ROLLBACK_MAX_ATTEMPTS', 3),
+
     'wallet_reconciliation_pending_minutes' => env('B2B_WALLET_RECONCILIATION_PENDING_MINUTES', 5),
 
     'sandbox_enabled' => env('B2B_SANDBOX_ENABLED', env('APP_ENV') !== 'production'),

@@ -18,7 +18,7 @@ B2B_RATE_LIMIT_CACHE_STORE=redis
 | Key | Default queue | Purpose |
 | --- | --- | --- |
 | `wallet_live` | `b2b-wallet-live` | Latency-sensitive wallet traffic when wallet callbacks are moved off request threads. |
-| `wallet_retry` | `b2b-wallet-retry` | Retrying failed or unknown wallet transactions. |
+| `wallet_retry` | `b2b-wallet-retry` | Retrying failed/unknown wallet transactions and rollback recovery callbacks. |
 | `provider_callbacks` | `b2b-provider-callbacks` | Provider-originated callbacks and session events. |
 | `reporting` | `b2b-reporting` | Heavy report generation and exports. |
 | `settlement` | `b2b-settlement` | Settlement generation, approval, and export work. |
@@ -44,6 +44,7 @@ The current codebase exposes retry/reconciliation/session cleanup as artisan com
 
 ```text
 b2b:retry-wallet --limit=50
+b2b:recover-rollbacks --limit=50
 b2b:reconcile-wallet --limit=100 --pending-minutes=5
 b2b:close-stale-sessions --minutes=30
 ```

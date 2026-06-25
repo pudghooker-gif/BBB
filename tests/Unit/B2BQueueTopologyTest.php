@@ -49,6 +49,8 @@ class B2BQueueTopologyTest extends TestCase
 
         $this->assertSame('b2b:retry-wallet --limit=50', $commands['wallet_retry']['command']);
         $this->assertSame('wallet_retry', $commands['wallet_retry']['queue']);
+        $this->assertSame('b2b:recover-rollbacks --limit=50', $commands['wallet_rollback_recovery']['command']);
+        $this->assertSame('wallet_retry', $commands['wallet_rollback_recovery']['queue']);
         $this->assertStringContainsString('b2b:reconcile-wallet', $commands['wallet_reconciliation']['command']);
         $this->assertSame('reconciliation', $commands['wallet_reconciliation']['queue']);
         $this->assertSame('b2b:close-stale-sessions --minutes=30', $commands['stale_sessions']['command']);

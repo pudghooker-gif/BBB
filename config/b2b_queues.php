@@ -99,6 +99,11 @@ return [
             'frequency' => 'everyMinute',
             'queue' => 'wallet_retry',
         ],
+        'wallet_rollback_recovery' => [
+            'command' => 'b2b:recover-rollbacks --limit=50',
+            'frequency' => 'everyFiveMinutes',
+            'queue' => 'wallet_retry',
+        ],
         'wallet_reconciliation' => [
             'command' => 'b2b:reconcile-wallet --limit=100 --pending-minutes=' . env('B2B_WALLET_RECONCILIATION_PENDING_MINUTES', 5),
             'frequency' => 'everyFiveMinutes',

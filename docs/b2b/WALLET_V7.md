@@ -9,8 +9,10 @@ This update adds a more resilient wallet layer for the B2B aggregator.
 - Operator circuit breaker fields
 - Wallet timeout fields
 - Retry command for failed/time-out callbacks
+- Rollback recovery command for `rollback_required` wallet states
 - Append-only wallet state transition log: `b2b_wallet_transaction_transitions`
 - Configurable retry budget before `dead_letter`: `B2B_WALLET_RETRY_MAX_ATTEMPTS`
+- Configurable rollback recovery budget before manual review: `B2B_WALLET_ROLLBACK_MAX_ATTEMPTS`
 - Wallet status lookup endpoint with attempts, transitions, and reconciliation items
 - Wallet reconciliation queue table: `b2b_wallet_reconciliation_items`
 - Operator `transaction_status` lookup during reconciliation for `unknown` wallet states
@@ -33,6 +35,7 @@ Both endpoints use B2B HMAC middleware.
 
 ```bash
 php artisan b2b:retry-wallet --limit=50
+php artisan b2b:recover-rollbacks --limit=50
 php artisan b2b:reconcile-wallet --limit=100 --pending-minutes=5
 php artisan b2b:wallet-manual-action {transaction_uid} {action} --operator-id=1 --actor=ops_user --reason="Case reference" --permission=b2b.wallet.manual_action --confirm=MANUAL_WALLET_ACTION
 php artisan b2b:close-stale-sessions --minutes=30
@@ -73,6 +76,7 @@ A single stuck operator wallet should not block all operators. This update adds:
 - Failure counting
 - Circuit breaker fields
 - Retry command with a bounded retry budget
+- Rollback recovery command with a bounded recovery budget
 - Reconciliation scan for stale `pending`, `unknown`, `dead_letter`, `manual_review`, `rollback_required`, and exhausted retry states
 - Conservative operator status lookup for `unknown` wallet rows before opening or updating a reconciliation item
 - Manual review/reversal control foundation with required actor and reason
@@ -99,6 +103,8 @@ Wallet status changes are recorded in `b2b_wallet_transaction_transitions`.
 - Retry results append from the previous retryable state to the new state.
 - Retryable states are `failed`, `timeout`, and `unknown`.
 - When `attempts >= B2B_WALLET_RETRY_MAX_ATTEMPTS`, retry processing appends `failed|timeout|unknown -> dead_letter` and does not call the operator again.
+- Rollback recovery appends `rollback_required -> reversed` when the operator accepts the `rollback` callback.
+- When `B2B_WALLET_ROLLBACK_MAX_ATTEMPTS` rollback callbacks are exhausted, recovery appends `rollback_required -> manual_review` and opens a manual-review reconciliation item.
 
 The transition table is append-only at the application layer; wallet code inserts transition rows and never updates them.
 
@@ -125,7 +131,20 @@ The response includes a compact transaction summary, status transition history, 
 - `failed` or `timeout` rows with attempts greater than or equal to `B2B_WALLET_RETRY_MAX_ATTEMPTS` get an open `retry_budget_exhausted` item.
 - Existing open items are updated instead of duplicated.
 
-This is still a reconciliation foundation. Final production readiness still needs provider-specific status contracts/certification, web manual-review workflows, reversal recovery controls, and settlement-grade reconciliation reports.
+This is still a reconciliation foundation. Final production readiness still needs provider-specific status contracts/certification, web manual-review workflows, provider-certified reversal semantics, and settlement-grade reconciliation reports.
+
+## Rollback recovery
+
+`php artisan b2b:recover-rollbacks` scans `rollback_required` wallet rows and calls the operator wallet `rollback` action with a stable recovery payload.
+
+- The recovery `transaction_id` is deterministic: `rollback_{transaction_uid}` or a hashed fallback when it would exceed storage limits.
+- The payload includes the original operator transaction ID, original transaction UID, round, session, game, amount, currency, and original type where available.
+- Each recovery callback is logged in `b2b_wallet_transaction_attempts` with `type=rollback`.
+- A successful operator callback moves the wallet transaction to `reversed` and resolves open reconciliation items.
+- A failed callback keeps `rollback_required` open until `B2B_WALLET_ROLLBACK_MAX_ATTEMPTS` is reached.
+- Exhausted rollback recovery moves the transaction to `manual_review`, resolves rollback items, and opens a manual-review item.
+
+This is an automated recovery foundation. Operators still need provider-specific rollback semantics and a web case workflow before broad production operations.
 
 ## Manual wallet actions
 

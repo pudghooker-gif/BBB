@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use VanguardLTE\B2B\Services\B2BPrivilegedActionGuard;
 use VanguardLTE\B2B\Services\WalletManualActionService;
 use VanguardLTE\B2B\Services\WalletReconciliationService;
+use VanguardLTE\B2B\Services\WalletRollbackRecoveryService;
 use VanguardLTE\B2B\Services\WalletTransactionService;
 
 Artisan::command('b2b:retry-wallet {--limit=50}', function (WalletTransactionService $service) {
@@ -14,6 +15,21 @@ Artisan::command('b2b:retry-wallet {--limit=50}', function (WalletTransactionSer
     $result = $service->retryPending($limit);
     $this->info('B2B wallet retry processed: '.(isset($result['processed']) ? $result['processed'] : 0));
 })->describe('Retry failed or timed out B2B wallet callbacks.');
+
+Artisan::command('b2b:recover-rollbacks {--limit=50}', function (WalletRollbackRecoveryService $service) {
+    $limit = (int) $this->option('limit');
+    $result = $service->recover($limit);
+
+    if (isset($result['message'])) {
+        $this->error($result['message']);
+        return 1;
+    }
+
+    $this->info('B2B wallet rollback recovery processed: '.$result['processed']);
+    $this->info('Reversed: '.$result['reversed'].'; failed: '.$result['failed'].'; manual_review: '.$result['manual_review'].'; skipped: '.$result['skipped']);
+
+    return 0;
+})->describe('Recover B2B rollback_required wallet transactions by calling operator rollback.');
 
 Artisan::command('b2b:reconcile-wallet {--limit=100} {--pending-minutes=5}', function (WalletReconciliationService $service) {
     $limit = (int) $this->option('limit');
