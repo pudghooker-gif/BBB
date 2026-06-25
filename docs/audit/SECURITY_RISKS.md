@@ -16,6 +16,7 @@ Date: 2026-06-22
 - API key rotation/revocation now has audited CLI coverage with mandatory actor/reason, throttled successful-use audit events, and per-key app-level rate limits. Production UX, RBAC, and step-up controls are still required before broad admin exposure.
 - Raw wallet payload persistence and status/report output now redact sensitive fields recursively. Before broad admin exposure, run a one-time review of any production rows created before this redaction existed.
 - Admin RBAC is inherited from existing app roles and is not yet a dedicated B2B deny-by-default permission model.
+- Production deployment templates and runbook are now release-gate checked, but host secret storage, off-host backups, TLS/domain setup, and rollback rehearsal must be verified per environment.
 - Composer dependency audit could not be run with Composer 2.0.13.
 - Existing B2C balance flows use floats and direct balance mutation in legacy code. Do not reuse those flows as B2B financial ledger logic.
 

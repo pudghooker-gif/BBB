@@ -41,7 +41,7 @@ Date: 2026-06-24
 
 ## Stage 5: Deployment And Observability
 
-- Add remaining Nginx, PHP-FPM, systemd, cron, WebSocket proxy, backup, and rollback configs; B2B Supervisor worker template now exists.
+- Keep deployment templates and runbook current; validate Nginx, PHP-FPM, systemd, cron, WebSocket, backup, healthcheck, and rollback on a staging host.
 - Add health/readiness endpoints, structured logs, correlation IDs, metrics, and release runbooks.
 - Add and run `b2b:release-check --production` for Redis/shared-cache, queue, sandbox, debug, private callback, and artifact-secret gates.
 - Add CI for composer validate/install, syntax lint, PHPUnit, route boot, migration test, security scan, and optional frontend/Node checks.

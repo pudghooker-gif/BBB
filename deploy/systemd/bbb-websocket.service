@@ -1,0 +1,20 @@
+[Unit]
+Description=BBB Node/WebSocket runtime
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/bbb/current/PTWebSocket
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node Server.js
+Restart=always
+RestartSec=5
+LimitNOFILE=65535
+StandardOutput=append:/var/log/bbb/websocket.log
+StandardError=append:/var/log/bbb/websocket-error.log
+
+[Install]
+WantedBy=multi-user.target

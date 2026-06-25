@@ -28,6 +28,7 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckFailed($result, 'app_debug');
         $this->assertCheckFailed($result, 'private_wallet_callbacks');
         $this->assertCheckFailed($result, 'sandbox_disabled');
+        $this->assertCheckPassed($result, 'deployment_artifacts');
     }
 
     public function testProductionGatePassesRedisSharedStateAndSafeFlags()
@@ -45,6 +46,7 @@ class B2BReleaseGateTest extends TestCase
         $result = app(B2BReleaseGate::class)->run(true, false);
 
         $this->assertTrue($result['ok']);
+        $this->assertCheckPassed($result, 'deployment_artifacts');
     }
 
     private function assertCheckFailed(array $result, $name)
@@ -52,6 +54,18 @@ class B2BReleaseGateTest extends TestCase
         foreach ($result['checks'] as $check) {
             if ($check['name'] === $name) {
                 $this->assertSame('fail', $check['status']);
+                return;
+            }
+        }
+
+        $this->fail('Release gate check was not found: ' . $name);
+    }
+
+    private function assertCheckPassed(array $result, $name)
+    {
+        foreach ($result['checks'] as $check) {
+            if ($check['name'] === $name) {
+                $this->assertSame('pass', $check['status']);
                 return;
             }
         }

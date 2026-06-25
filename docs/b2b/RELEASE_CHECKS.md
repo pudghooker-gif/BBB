@@ -14,6 +14,7 @@ The command fails production mode when:
 - `APP_DEBUG` is enabled;
 - private wallet callback targets are enabled;
 - sandbox wallet is enabled;
+- deployment templates or the production runbook are missing;
 - known local/secret-bearing files are present in the release artifact.
 
 Required production environment values:
@@ -29,3 +30,5 @@ APP_DEBUG=false
 ```
 
 Local development may run `php artisan b2b:release-check` without `--production`; local secret-bearing files are reported as warnings, not release failures.
+
+Production deployment templates live under `deploy/` and the runbook lives in `docs/deployment/PRODUCTION_RUNBOOK.md`.

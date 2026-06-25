@@ -13,6 +13,7 @@ class B2BReleaseGate
             $this->booleanCheck('app_debug', !(bool) config('app.debug'), $production, 'APP_DEBUG must be false for production.'),
             $this->booleanCheck('private_wallet_callbacks', !(bool) config('b2b.allow_private_wallet_callbacks'), $production, 'Private wallet callback targets must stay disabled in production.'),
             $this->booleanCheck('sandbox_disabled', !(bool) config('b2b.sandbox_enabled'), $production, 'B2B sandbox must be disabled in production.'),
+            $this->deploymentArtifactsCheck($production),
         ];
 
         if ($checkFiles) {
@@ -94,6 +95,38 @@ class B2BReleaseGate
             'message' => count($present) > 0
                 ? 'Secret-bearing/local files must be excluded from production artifacts: ' . implode(', ', $present)
                 : 'No known secret-bearing/local release blocker files were found.',
+        ];
+    }
+
+    private function deploymentArtifactsCheck($production)
+    {
+        $paths = [
+            'deploy/nginx/bbb-b2b.conf.example',
+            'deploy/php-fpm/bbb-b2b.pool.conf.example',
+            'deploy/supervisor/b2b-workers.conf.example',
+            'deploy/systemd/bbb-scheduler.service',
+            'deploy/systemd/bbb-scheduler.timer',
+            'deploy/systemd/bbb-websocket.service',
+            'deploy/cron/bbb-maintenance.cron.example',
+            'deploy/scripts/backup.sh',
+            'deploy/scripts/rollback.sh',
+            'deploy/scripts/healthcheck.sh',
+            'docs/deployment/PRODUCTION_RUNBOOK.md',
+        ];
+
+        $missing = [];
+        foreach ($paths as $path) {
+            if (!file_exists(base_path($path))) {
+                $missing[] = $path;
+            }
+        }
+
+        return [
+            'name' => 'deployment_artifacts',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Production deployment templates and runbook are present.'
+                : 'Missing production deployment artifacts: ' . implode(', ', $missing),
         ];
     }
 }

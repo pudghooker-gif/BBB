@@ -1,0 +1,11 @@
+[Unit]
+Description=Run BBB Laravel scheduler every minute
+
+[Timer]
+OnCalendar=*:0/1
+AccuracySec=5s
+Persistent=true
+Unit=bbb-scheduler.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=BBB Laravel scheduler
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/bbb/current
+ExecStart=/usr/bin/php artisan schedule:run --no-interaction
+Nice=5
