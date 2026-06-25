@@ -29,6 +29,7 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckFailed($result, 'private_wallet_callbacks');
         $this->assertCheckFailed($result, 'sandbox_disabled');
         $this->assertCheckPassed($result, 'deployment_artifacts');
+        $this->assertCheckPassed($result, 'admin_rbac_config');
     }
 
     public function testProductionGatePassesRedisSharedStateAndSafeFlags()
@@ -47,6 +48,7 @@ class B2BReleaseGateTest extends TestCase
 
         $this->assertTrue($result['ok']);
         $this->assertCheckPassed($result, 'deployment_artifacts');
+        $this->assertCheckPassed($result, 'admin_rbac_config');
     }
 
     private function assertCheckFailed(array $result, $name)

@@ -15,6 +15,7 @@ The command fails production mode when:
 - private wallet callback targets are enabled;
 - sandbox wallet is enabled;
 - deployment templates or the production runbook are missing;
+- B2B admin RBAC/privileged step-up configuration is missing;
 - known local/secret-bearing files are present in the release artifact.
 
 Required production environment values:

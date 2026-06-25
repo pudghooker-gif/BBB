@@ -28,7 +28,7 @@ Date: 2026-06-24
 ## Stage 3: Wallet And Ledger
 
 - Expand the explicit wallet state machine beyond the current transition-log foundation.
-- Add provider/operator status lookup contracts, deny-by-default RBAC and step-up UI for manual actions, rollback-required recovery, and settlement-grade reconciliation reports.
+- Add provider/operator status lookup contracts, authenticated step-up UI for manual actions, rollback-required recovery, and settlement-grade reconciliation reports.
 - Keep the wallet ledger append-oriented with status transition history and maintain payload redaction on every new wallet persistence/output path.
 - Add duplicate bet/win/refund/rollback tests.
 
@@ -36,7 +36,7 @@ Date: 2026-06-24
 
 - Add dedicated B2B backoffice routes/controllers/views with server-side RBAC.
 - Add operator portal with tenant-scoped dashboard, credentials, callback settings, game assignments, sessions, transactions, reports, and docs.
-- Build the portal UX over the current audited credential rotation/revocation, successful-use audit, and per-key rate-limit foundation.
+- Build the portal UX over the current audited credential rotation/revocation, successful-use audit, per-key rate-limit, and deny-by-default privileged-action guard foundation.
 - Add remaining audit events for exports and dangerous admin actions.
 
 ## Stage 5: Deployment And Observability

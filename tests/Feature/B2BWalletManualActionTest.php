@@ -117,6 +117,34 @@ class B2BWalletManualActionTest extends TestCase
         $this->assertSame(0, DB::table('b2b_wallet_manual_actions')->count());
     }
 
+    public function testManualActionCommandRequiresPermissionAndStepUpConfirmation()
+    {
+        $this->insertWalletTransaction('tx_manual_command_privilege_guard', 'unknown');
+
+        $exitCode = Artisan::call('b2b:wallet-manual-action', [
+            'transaction_uid' => 'tx_manual_command_privilege_guard',
+            'action' => 'mark-review',
+            '--operator-id' => $this->operator->id,
+            '--actor' => 'ops_user',
+            '--reason' => 'Provider could not confirm final state.',
+            '--permission' => 'b2b.wallet.manual_action',
+        ]);
+
+        $this->assertSame(1, $exitCode);
+        $this->assertSame(0, DB::table('b2b_wallet_manual_actions')->count());
+
+        $event = DB::table('b2b_operator_audit_events')
+            ->where('event_type', 'privileged_action.denied')
+            ->where('subject_id', 'wallet.manual_action')
+            ->first();
+
+        $this->assertNotNull($event);
+        $this->assertSame((string) $this->operator->id, (string) $event->operator_id);
+        $metadata = json_decode($event->metadata, true);
+        $this->assertSame('step_up_required', $metadata['code']);
+        $this->assertSame('MANUAL_WALLET_ACTION', $metadata['required_confirmation']);
+    }
+
     public function testManualActionCommandAppliesAuditedDeadLetter()
     {
         $transactionId = $this->insertWalletTransaction('tx_manual_command', 'unknown');
@@ -127,6 +155,8 @@ class B2BWalletManualActionTest extends TestCase
             '--operator-id' => $this->operator->id,
             '--actor' => 'ops_user',
             '--reason' => 'Provider could not confirm final state.',
+            '--permission' => 'b2b.wallet.manual_action',
+            '--confirm' => 'MANUAL_WALLET_ACTION',
         ]);
 
         $this->assertSame(0, $exitCode);

@@ -15,7 +15,7 @@ This endpoint requires the normal B2B HMAC headers and returns operator status, 
 Create a test operator:
 
 ```bash
-php artisan b2b:make-operator "Test Operator" --shop_id=1 --currency=USD --max_rps=50 --api_key_max_rps=25 --wallet_timeout_ms=3000
+php artisan b2b:make-operator "Test Operator" --shop_id=1 --currency=USD --max_rps=50 --api_key_max_rps=25 --wallet_timeout_ms=3000 --actor=integration_manager --reason="Onboarding ticket B2B-123" --permission=b2b.operators.create --confirm=CREATE_OPERATOR
 ```
 
 The command prints:
@@ -43,7 +43,7 @@ php artisan b2b:show-hmac op_xxx key_xxx secret_xxx GET /api/b2b/v1/operator/me
 Rotate an operator API key and audit who did it and why:
 
 ```bash
-php artisan b2b:rotate-api-key op_xxx --max-rps=25 --actor=security_user --reason="Quarterly API key rotation" --revoke-existing
+php artisan b2b:rotate-api-key op_xxx --max-rps=25 --actor=security_user --reason="Quarterly API key rotation" --permission=b2b.credentials.rotate --confirm=ROTATE_API_KEY --revoke-existing
 ```
 
 The command prints the new `X-Api-Key` and one-time secret. Existing active keys are disabled only when `--revoke-existing` is passed. If `--max-rps` is omitted, the key inherits the default per-key limit, which falls back to the operator `max_rps`.
@@ -51,7 +51,7 @@ The command prints the new `X-Api-Key` and one-time secret. Existing active keys
 Revoke one API key and keep an audit event:
 
 ```bash
-php artisan b2b:revoke-api-key op_xxx key_xxx --actor=security_user --reason="Partner requested revocation"
+php artisan b2b:revoke-api-key op_xxx key_xxx --actor=security_user --reason="Partner requested revocation" --permission=b2b.credentials.revoke --confirm=REVOKE_API_KEY
 ```
 
 Revocation stores `disabled` in `b2b_operator_api_keys.status`; the HMAC middleware accepts only `active` keys.
@@ -66,8 +66,8 @@ php artisan b2b:health
 
 ```bash
 php artisan migrate
-php artisan b2b:make-operator "Test Operator" --shop_id=1 --currency=USD
-php artisan b2b:rotate-api-key op_xxx --actor=security_user --reason="Initial smoke rotation"
+php artisan b2b:make-operator "Test Operator" --shop_id=1 --currency=USD --actor=integration_manager --reason="Initial smoke provisioning" --permission=b2b.operators.create --confirm=CREATE_OPERATOR
+php artisan b2b:rotate-api-key op_xxx --actor=security_user --reason="Initial smoke rotation" --permission=b2b.credentials.rotate --confirm=ROTATE_API_KEY
 php artisan b2b:sync-games --shop_id=1 --limit=20
 php artisan b2b:health
 php artisan route:list | grep b2b

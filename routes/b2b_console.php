@@ -11,12 +11,19 @@ use VanguardLTE\B2B\Models\B2BOperatorApiKey;
 use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Models\B2BWalletTransaction;
 use VanguardLTE\B2B\Services\B2BOperatorAuditLogger;
+use VanguardLTE\B2B\Services\B2BPrivilegedActionGuard;
 use VanguardLTE\B2B\Services\B2BReleaseGate;
 use VanguardLTE\B2B\Services\B2BSignature;
 
-Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_callback_url=} {--currency=USD} {--max_rps=50} {--api_key_max_rps=} {--wallet_timeout_ms=3000}', function (B2BOperatorAuditLogger $audit) {
+Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_callback_url=} {--currency=USD} {--max_rps=50} {--api_key_max_rps=} {--wallet_timeout_ms=3000} {--actor=} {--reason=} {--permission=} {--confirm=}', function (B2BOperatorAuditLogger $audit, B2BPrivilegedActionGuard $guard) {
     if (!Schema::hasTable('b2b_operators') || !Schema::hasTable('b2b_operator_api_keys')) {
         $this->error('B2B tables are missing. Run: php artisan migrate');
+        return 1;
+    }
+
+    $privilege = $guard->authorize(null, 'operator.create', $this->option('actor'), $this->option('reason'), $this->option('permission'), $this->option('confirm'));
+    if (!$privilege['ok']) {
+        $this->error($privilege['message']);
         return 1;
     }
 
@@ -65,14 +72,18 @@ Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_
 
     $apiKey = B2BOperatorApiKey::create($apiKeyData);
 
-    $audit->record($operator, 'operator.created', 'operator', $operatorUid, 'b2b:make-operator', 'Initial B2B operator provisioning.', [
+    $audit->record($operator, 'operator.created', 'operator', $operatorUid, $this->option('actor') ?: 'b2b:make-operator', $this->option('reason') ?: 'Initial B2B operator provisioning.', [
         'operator_uid' => $operatorUid,
         'shop_id' => $operator->shop_id,
         'currency' => $currency,
+        'permission' => isset($privilege['permission']) ? $privilege['permission'] : null,
+        'step_up' => !empty($privilege['step_up']),
     ]);
-    $audit->record($operator, 'api_key.created', 'api_key', $apiKey->key_id, 'b2b:make-operator', 'Initial B2B API key provisioning.', [
+    $audit->record($operator, 'api_key.created', 'api_key', $apiKey->key_id, $this->option('actor') ?: 'b2b:make-operator', $this->option('reason') ?: 'Initial B2B API key provisioning.', [
         'key_id' => $apiKey->key_id,
         'max_rps' => isset($apiKeyData['max_rps']) ? $apiKeyData['max_rps'] : null,
+        'permission' => isset($privilege['permission']) ? $privilege['permission'] : null,
+        'step_up' => !empty($privilege['step_up']),
     ]);
 
     $this->info('B2B operator created. Save this secret now; it is not stored in plaintext.');
@@ -86,7 +97,7 @@ Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_
     return 0;
 });
 
-Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--actor=} {--reason=} {--revoke-existing}', function (B2BOperatorAuditLogger $audit) {
+Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--actor=} {--reason=} {--permission=} {--confirm=} {--revoke-existing}', function (B2BOperatorAuditLogger $audit, B2BPrivilegedActionGuard $guard) {
     if (!Schema::hasTable('b2b_operators') || !Schema::hasTable('b2b_operator_api_keys') || !Schema::hasTable('b2b_operator_audit_events')) {
         $this->error('B2B credential/audit tables are missing. Run: php artisan migrate');
         return 1;
@@ -103,6 +114,12 @@ Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--
     $operator = B2BOperator::where('operator_uid', $this->argument('operator_uid'))->first();
     if (!$operator) {
         $this->error('B2B operator was not found.');
+        return 1;
+    }
+
+    $privilege = $guard->authorize($operator, 'api_key.rotate', $actor, $reason, $this->option('permission'), $this->option('confirm'));
+    if (!$privilege['ok']) {
+        $this->error($privilege['message']);
         return 1;
     }
 
@@ -144,6 +161,8 @@ Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--
                 'replacement_key_id' => $apiKey->key_id,
                 'previous_status' => B2BOperatorApiKey::STATUS_ACTIVE,
                 'new_status' => B2BOperatorApiKey::STATUS_DISABLED,
+                'permission' => isset($privilege['permission']) ? $privilege['permission'] : null,
+                'step_up' => !empty($privilege['step_up']),
             ]);
         }
     }
@@ -153,6 +172,8 @@ Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--
         'max_rps' => isset($apiKeyData['max_rps']) ? $apiKeyData['max_rps'] : null,
         'revoke_existing' => (bool) $this->option('revoke-existing'),
         'disabled_existing' => $disabledExisting,
+        'permission' => isset($privilege['permission']) ? $privilege['permission'] : null,
+        'step_up' => !empty($privilege['step_up']),
     ]);
 
     $this->info('B2B API key rotated. Save this secret now; it is not stored in plaintext.');
@@ -165,7 +186,7 @@ Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--
     return 0;
 })->describe('Rotate a B2B operator API key and write an audit event.');
 
-Artisan::command('b2b:revoke-api-key {operator_uid} {key_id} {--actor=} {--reason=}', function (B2BOperatorAuditLogger $audit) {
+Artisan::command('b2b:revoke-api-key {operator_uid} {key_id} {--actor=} {--reason=} {--permission=} {--confirm=}', function (B2BOperatorAuditLogger $audit, B2BPrivilegedActionGuard $guard) {
     if (!Schema::hasTable('b2b_operators') || !Schema::hasTable('b2b_operator_api_keys') || !Schema::hasTable('b2b_operator_audit_events')) {
         $this->error('B2B credential/audit tables are missing. Run: php artisan migrate');
         return 1;
@@ -194,6 +215,12 @@ Artisan::command('b2b:revoke-api-key {operator_uid} {key_id} {--actor=} {--reaso
         return 1;
     }
 
+    $privilege = $guard->authorize($operator, 'api_key.revoke', $actor, $reason, $this->option('permission'), $this->option('confirm'));
+    if (!$privilege['ok']) {
+        $this->error($privilege['message']);
+        return 1;
+    }
+
     $previousStatus = $apiKey->status;
     if ($apiKey->status !== B2BOperatorApiKey::STATUS_DISABLED) {
         $apiKey->forceFill(['status' => B2BOperatorApiKey::STATUS_DISABLED])->save();
@@ -202,6 +229,8 @@ Artisan::command('b2b:revoke-api-key {operator_uid} {key_id} {--actor=} {--reaso
     $audit->record($operator, $previousStatus === B2BOperatorApiKey::STATUS_DISABLED ? 'api_key.revoke_noop' : 'api_key.revoked', 'api_key', $apiKey->key_id, $actor, $reason, [
         'previous_status' => $previousStatus,
         'new_status' => B2BOperatorApiKey::STATUS_DISABLED,
+        'permission' => isset($privilege['permission']) ? $privilege['permission'] : null,
+        'step_up' => !empty($privilege['step_up']),
     ]);
 
     $this->info($previousStatus === B2BOperatorApiKey::STATUS_DISABLED ? 'B2B API key was already revoked.' : 'B2B API key revoked.');

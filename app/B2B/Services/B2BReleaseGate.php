@@ -14,6 +14,7 @@ class B2BReleaseGate
             $this->booleanCheck('private_wallet_callbacks', !(bool) config('b2b.allow_private_wallet_callbacks'), $production, 'Private wallet callback targets must stay disabled in production.'),
             $this->booleanCheck('sandbox_disabled', !(bool) config('b2b.sandbox_enabled'), $production, 'B2B sandbox must be disabled in production.'),
             $this->deploymentArtifactsCheck($production),
+            $this->adminRbacCheck($production),
         ];
 
         if ($checkFiles) {
@@ -127,6 +128,55 @@ class B2BReleaseGate
             'message' => count($missing) === 0
                 ? 'Production deployment templates and runbook are present.'
                 : 'Missing production deployment artifacts: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function adminRbacCheck($production)
+    {
+        $requiredPermissions = [
+            'b2b.operators.create',
+            'b2b.credentials.rotate',
+            'b2b.credentials.revoke',
+            'b2b.wallet.manual_action',
+            'b2b.audit.view',
+        ];
+        $requiredActions = [
+            'operator.create' => 'b2b.operators.create',
+            'api_key.rotate' => 'b2b.credentials.rotate',
+            'api_key.revoke' => 'b2b.credentials.revoke',
+            'wallet.manual_action' => 'b2b.wallet.manual_action',
+        ];
+
+        $permissions = config('b2b_admin.permissions', []);
+        $actions = config('b2b_admin.privileged_actions', []);
+        $missing = [];
+
+        foreach ($requiredPermissions as $permission) {
+            if (!array_key_exists($permission, $permissions)) {
+                $missing[] = 'permission:' . $permission;
+            }
+        }
+
+        foreach ($requiredActions as $action => $permission) {
+            if (!isset($actions[$action])) {
+                $missing[] = 'action:' . $action;
+                continue;
+            }
+
+            if (!isset($actions[$action]['permission']) || $actions[$action]['permission'] !== $permission) {
+                $missing[] = 'action_permission:' . $action;
+            }
+            if (empty($actions[$action]['step_up']) || empty($actions[$action]['confirm'])) {
+                $missing[] = 'action_step_up:' . $action;
+            }
+        }
+
+        return [
+            'name' => 'admin_rbac_config',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'B2B admin RBAC and privileged step-up configuration is present.'
+                : 'Missing B2B admin RBAC configuration: ' . implode(', ', $missing),
         ];
     }
 }

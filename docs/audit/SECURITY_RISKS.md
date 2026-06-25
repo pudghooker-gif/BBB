@@ -13,9 +13,9 @@ Date: 2026-06-22
 ## P1
 
 - B2B HMAC replay protection and rate limiting must use Redis/shared cache across API nodes. `php artisan b2b:release-check --production` now fails when production shared state is not Redis.
-- API key rotation/revocation now has audited CLI coverage with mandatory actor/reason, throttled successful-use audit events, and per-key app-level rate limits. Production UX, RBAC, and step-up controls are still required before broad admin exposure.
+- API key rotation/revocation now has audited CLI coverage with mandatory actor/reason, permission, step-up confirmation, throttled successful-use audit events, and per-key app-level rate limits. Production UX and real authenticated step-up controls are still required before broad admin exposure.
 - Raw wallet payload persistence and status/report output now redact sensitive fields recursively. Before broad admin exposure, run a one-time review of any production rows created before this redaction existed.
-- Admin RBAC is inherited from existing app roles and is not yet a dedicated B2B deny-by-default permission model.
+- B2B privileged CLI actions now use a dedicated deny-by-default permission model, but the web admin/portal still needs authenticated B2B RBAC middleware and real session step-up before broad exposure.
 - Production deployment templates and runbook are now release-gate checked, but host secret storage, off-host backups, TLS/domain setup, and rollback rehearsal must be verified per environment.
 - Composer dependency audit could not be run with Composer 2.0.13.
 - Existing B2C balance flows use floats and direct balance mutation in legacy code. Do not reuse those flows as B2B financial ledger logic.

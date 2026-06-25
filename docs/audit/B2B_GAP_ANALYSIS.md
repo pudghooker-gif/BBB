@@ -18,6 +18,7 @@ Date: 2026-06-24
 - B2B queue topology config, Supervisor worker template, and queue topology tests cover wallet-live, wallet-retry, provider-callbacks, reporting, settlement, reconciliation, notifications, and maintenance queues.
 - Operator credential lifecycle audit foundation: API key rotation/revocation CLI commands require actor/reason, disable revoked keys, successful HMAC use writes throttled `api_key.used` events, and per-key `max_rps` is enforced by the shared resilience guard.
 - Production deployment artifact foundation: Nginx, PHP-FPM, Supervisor, systemd scheduler/WebSocket, cron fallback, backup, healthcheck, rollback templates, release runbook, and release-gate coverage are present.
+- B2B admin authorization foundation: dedicated permission catalog, role map, deny-by-default privileged action guard, CLI step-up confirmation, and denial audit events protect operator creation, credential rotation/revocation, and manual wallet actions.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
 - `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, and release file gates.
@@ -29,8 +30,8 @@ Date: 2026-06-24
 - Upgraded production database migration verification remains required on a staging copy.
 - Production environment must pass `b2b:release-check --production`; current local workspace still contains release-blocking local files and non-Redis shared-state defaults.
 - External provider adapters still require real provider-specific implementations and certification docs.
-- Production-grade wallet state machine still needs provider/operator status lookup contracts, deny-by-default RBAC and step-up controls for manual actions, settlement-grade reconciliation reports, and full rollback-required recovery flows. The current foundation has explicit transition validation, append-only transition logging, recursive sensitive-field redaction, retryable `unknown`, retry-budget `dead_letter`, operator-scoped status lookup, reconciliation item scanning, and audited CLI manual actions.
-- Dedicated B2B admin backoffice and operator portal, including deny-by-default RBAC and step-up approval for credential and manual-wallet actions.
+- Production-grade wallet state machine still needs provider/operator status lookup contracts, authenticated web step-up for manual actions, settlement-grade reconciliation reports, and full rollback-required recovery flows. The current foundation has explicit transition validation, append-only transition logging, recursive sensitive-field redaction, retryable `unknown`, retry-budget `dead_letter`, operator-scoped status lookup, reconciliation item scanning, privileged CLI guard, and audited CLI manual actions.
+- Dedicated B2B admin backoffice and operator portal, including web UI over the deny-by-default RBAC/step-up foundation.
 - Runtime job implementations are still needed for workflows that currently run as artisan commands or inline request work.
 - Production domains, host-level secret store, off-host backup storage, WebSocket TLS/proxy validation, and rollback drill remain environment-specific launch blockers.
 

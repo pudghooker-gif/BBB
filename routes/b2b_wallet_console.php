@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Carbon\Carbon;
+use VanguardLTE\B2B\Services\B2BPrivilegedActionGuard;
 use VanguardLTE\B2B\Services\WalletManualActionService;
 use VanguardLTE\B2B\Services\WalletReconciliationService;
 use VanguardLTE\B2B\Services\WalletTransactionService;
@@ -30,12 +31,13 @@ Artisan::command('b2b:reconcile-wallet {--limit=100} {--pending-minutes=5}', fun
     return 0;
 })->describe('Scan B2B wallet transactions that need reconciliation or manual review.');
 
-Artisan::command('b2b:wallet-manual-action {transaction_uid} {action} {--operator-id=} {--actor=} {--reason=}', function (WalletManualActionService $service) {
+Artisan::command('b2b:wallet-manual-action {transaction_uid} {action} {--operator-id=} {--actor=} {--reason=} {--permission=} {--confirm=}', function (WalletManualActionService $service, B2BPrivilegedActionGuard $guard) {
     $actor = (string) $this->option('actor');
     $reason = (string) $this->option('reason');
 
-    if (trim($actor) === '' || trim($reason) === '') {
-        $this->error('Manual wallet actions require --actor and --reason.');
+    $privilege = $guard->authorize($this->option('operator-id'), 'wallet.manual_action', $actor, $reason, $this->option('permission'), $this->option('confirm'));
+    if (!$privilege['ok']) {
+        $this->error($privilege['message']);
         return 1;
     }
 

@@ -33,7 +33,7 @@ Both endpoints use B2B HMAC middleware.
 ```bash
 php artisan b2b:retry-wallet --limit=50
 php artisan b2b:reconcile-wallet --limit=100 --pending-minutes=5
-php artisan b2b:wallet-manual-action {transaction_uid} {action} --operator-id=1 --actor=ops_user --reason="Case reference"
+php artisan b2b:wallet-manual-action {transaction_uid} {action} --operator-id=1 --actor=ops_user --reason="Case reference" --permission=b2b.wallet.manual_action --confirm=MANUAL_WALLET_ACTION
 php artisan b2b:close-stale-sessions --minutes=30
 ```
 
@@ -124,7 +124,7 @@ This is a reconciliation foundation. Final production readiness still needs oper
 Manual state transitions are available through a CLI-only foundation:
 
 ```bash
-php artisan b2b:wallet-manual-action tx_123 mark-review --operator-id=1 --actor=ops_user --reason="Provider case ABC-123 is unresolved"
+php artisan b2b:wallet-manual-action tx_123 mark-review --operator-id=1 --actor=ops_user --reason="Provider case ABC-123 is unresolved" --permission=b2b.wallet.manual_action --confirm=MANUAL_WALLET_ACTION
 ```
 
 Supported actions:
@@ -136,6 +136,6 @@ Supported actions:
 - `mark-reversed` -> `reversed`
 - `dead-letter` -> `dead_letter`
 
-Every manual action requires `--actor` and `--reason`, writes `b2b_wallet_manual_actions`, appends a wallet transition, and opens or resolves reconciliation items where appropriate.
+Every manual action requires `--actor`, `--reason`, exact `--permission=b2b.wallet.manual_action`, and exact `--confirm=MANUAL_WALLET_ACTION`, writes `b2b_wallet_manual_actions`, appends a wallet transition, and opens or resolves reconciliation items where appropriate. Denied attempts write `privileged_action.denied` when the operator audit table exists.
 
-This is not yet the final production backoffice. Full production readiness still needs deny-by-default RBAC, step-up authentication, confirmation dialogs, raw payload permissions, and operator-visible case workflow.
+This is not yet the final production backoffice. Full production readiness still needs authenticated web step-up challenges, confirmation dialogs, raw payload permissions wired into B2B UI, and operator-visible case workflow.
