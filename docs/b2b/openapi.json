@@ -209,6 +209,7 @@
     "/reports/transactions": { "$ref": "#/components/pathItems/ReportCollection" },
     "/reports/ggr": { "$ref": "#/components/pathItems/ReportCollection" },
     "/reports/settlements": { "$ref": "#/components/pathItems/ReportCollection" },
+    "/reports/reconciliation": { "$ref": "#/components/pathItems/ReportCollection" },
     "/reports/transactions/{transaction_uid}": {
       "get": {
         "tags": ["reports"],

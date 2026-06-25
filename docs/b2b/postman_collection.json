@@ -262,6 +262,14 @@
           "response": []
         },
         {
+          "name": "Reconciliation",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/reports/reconciliation?from=2026-06-01&to=2026-06-24&limit=20"
+          },
+          "response": []
+        },
+        {
           "name": "Transaction Detail",
           "request": {
             "method": "GET",

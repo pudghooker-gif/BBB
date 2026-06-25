@@ -5,6 +5,7 @@ namespace VanguardLTE\Http\Controllers\Api\B2B;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use VanguardLTE\B2B\Services\B2BReconciliationReportQuery;
 use VanguardLTE\B2B\Services\B2BReportQuery;
 use VanguardLTE\B2B\Services\WalletTransactionLookupService;
 use VanguardLTE\B2B\Support\B2BApiResponse;
@@ -12,11 +13,17 @@ use VanguardLTE\B2B\Support\B2BApiResponse;
 class ReportsController extends Controller
 {
     protected $reports;
+    protected $reconciliationReports;
     protected $walletLookup;
 
-    public function __construct(B2BReportQuery $reports, WalletTransactionLookupService $walletLookup)
+    public function __construct(
+        B2BReportQuery $reports,
+        B2BReconciliationReportQuery $reconciliationReports,
+        WalletTransactionLookupService $walletLookup
+    )
     {
         $this->reports = $reports;
+        $this->reconciliationReports = $reconciliationReports;
         $this->walletLookup = $walletLookup;
     }
 
@@ -149,6 +156,15 @@ class ReportsController extends Controller
         $query->where('operator_id', $operatorId);
 
         return B2BApiResponse::success($request, $query->get());
+    }
+
+    public function reconciliation(Request $request)
+    {
+        if ($this->reports->operatorId($request) <= 0) {
+            return $this->operatorContextMissing($request);
+        }
+
+        return B2BApiResponse::success($request, $this->reconciliationReports->build($request));
     }
 
     private function decimalAdd($left, $right, $scale = 8)

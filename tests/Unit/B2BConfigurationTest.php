@@ -24,6 +24,7 @@ class B2BConfigurationTest extends TestCase
     {
         $controller = new ReportsController(
             app(\VanguardLTE\B2B\Services\B2BReportQuery::class),
+            app(\VanguardLTE\B2B\Services\B2BReconciliationReportQuery::class),
             app(\VanguardLTE\B2B\Services\WalletTransactionLookupService::class)
         );
         $reflection = new ReflectionClass($controller);
@@ -74,6 +75,7 @@ class B2BConfigurationTest extends TestCase
             '/reports/transactions',
             '/reports/ggr',
             '/reports/settlements',
+            '/reports/reconciliation',
             '/reports/transactions/{transaction_uid}',
         ];
 
@@ -88,6 +90,7 @@ class B2BConfigurationTest extends TestCase
             '/api/b2b/v1/sessions/{{sessionId}}/close',
             '/api/b2b/v1/wallet/bet',
             '/api/b2b/v1/wallet/transactions/{{transactionId}}/status',
+            '/api/b2b/v1/reports/reconciliation',
             '/api/b2b/v1/reports/transactions/{{transactionId}}',
         ] as $needle) {
             $this->assertTrue(

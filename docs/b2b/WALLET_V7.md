@@ -131,7 +131,7 @@ The response includes a compact transaction summary, status transition history, 
 - `failed` or `timeout` rows with attempts greater than or equal to `B2B_WALLET_RETRY_MAX_ATTEMPTS` get an open `retry_budget_exhausted` item.
 - Existing open items are updated instead of duplicated.
 
-This is still a reconciliation foundation. Final production readiness still needs provider-specific status contracts/certification, web manual-review workflows, provider-certified reversal semantics, and settlement-grade reconciliation reports.
+This is still a reconciliation foundation. Final production readiness still needs provider-specific status contracts/certification, web manual-review workflows, provider-certified reversal semantics, and settlement export/approval workflows.
 
 ## Rollback recovery
 

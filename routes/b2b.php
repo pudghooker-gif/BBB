@@ -49,6 +49,7 @@ Route::prefix('b2b/v1')->group(function () {
         Route::get('reports/transactions', [ReportsController::class, 'transactions']);
         Route::get('reports/ggr', [ReportsController::class, 'ggr']);
         Route::get('reports/settlements', [ReportsController::class, 'settlements']);
+        Route::get('reports/reconciliation', [ReportsController::class, 'reconciliation']);
         Route::get('reports/transactions/{transaction_uid}', [ReportsController::class, 'transaction']);
     });
 });
