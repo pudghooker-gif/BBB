@@ -13,6 +13,7 @@ This update adds a more resilient wallet layer for the B2B aggregator.
 - Configurable retry budget before `dead_letter`: `B2B_WALLET_RETRY_MAX_ATTEMPTS`
 - Wallet status lookup endpoint with attempts, transitions, and reconciliation items
 - Wallet reconciliation queue table: `b2b_wallet_reconciliation_items`
+- Operator `transaction_status` lookup during reconciliation for `unknown` wallet states
 - Audited manual wallet action log: `b2b_wallet_manual_actions`
 - Stale session close command
 - API endpoint to check wallet health
@@ -53,6 +54,7 @@ bet
 win
 refund
 rollback
+transaction_status
 ```
 
 If `wallet_secret` is configured for the operator, outbound wallet callbacks include:
@@ -72,6 +74,7 @@ A single stuck operator wallet should not block all operators. This update adds:
 - Circuit breaker fields
 - Retry command with a bounded retry budget
 - Reconciliation scan for stale `pending`, `unknown`, `dead_letter`, `manual_review`, `rollback_required`, and exhausted retry states
+- Conservative operator status lookup for `unknown` wallet rows before opening or updating a reconciliation item
 - Manual review/reversal control foundation with required actor and reason
 - Duplicate transaction protection foundation
 
@@ -113,11 +116,16 @@ The response includes a compact transaction summary, status transition history, 
 
 `php artisan b2b:reconcile-wallet` scans wallet rows that need operational follow-up.
 
-- Stale `pending` rows are moved to `unknown` through the state machine and get an open reconciliation item.
+- Stale `pending` rows are moved to `unknown` through the state machine and then checked with the operator wallet `transaction_status` action.
+- Existing `unknown` rows also call the operator wallet `transaction_status` action before opening or updating an item.
+- Lookup payloads include operational identifiers such as `transaction_uid`, operator `transaction_id`, `round_id`, `session_id`, `game_uid`, `type`, `amount`, `currency`, and current status.
+- Accepted final lookup statuses are intentionally conservative: `success`/`accepted`/`settled`/`processed`/`confirmed` resolve to `success`; `failed`/`declined`/`rejected`/`canceled` resolve to `failed`; `reversed`/`rolled_back` resolve to `reversed`; `rollback_required`/`reversal_required` resolve to `rollback_required`.
+- Ambiguous lookup statuses such as `pending`, `processing`, `unknown`, `not_found`, or malformed responses do not change the wallet transaction and are stored in the reconciliation item context.
+- Final `success`, `failed`, or `reversed` lookup results close existing open reconciliation items for the transaction. `rollback_required` opens or updates a high-priority follow-up item.
 - `failed` or `timeout` rows with attempts greater than or equal to `B2B_WALLET_RETRY_MAX_ATTEMPTS` get an open `retry_budget_exhausted` item.
 - Existing open items are updated instead of duplicated.
 
-This is a reconciliation foundation. Final production readiness still needs operator/provider status lookup contracts, manual review actions, reversal controls, and settlement-grade reconciliation reports.
+This is still a reconciliation foundation. Final production readiness still needs provider-specific status contracts/certification, web manual-review workflows, reversal recovery controls, and settlement-grade reconciliation reports.
 
 ## Manual wallet actions
 

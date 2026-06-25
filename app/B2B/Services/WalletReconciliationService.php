@@ -10,21 +10,27 @@ class WalletReconciliationService
 {
     protected $stateMachine;
     protected $redactor;
+    protected $statusResolver;
 
-    public function __construct(WalletTransactionStateMachine $stateMachine, B2BPayloadRedactor $redactor)
+    public function __construct(
+        WalletTransactionStateMachine $stateMachine,
+        B2BPayloadRedactor $redactor,
+        WalletTransactionStatusResolver $statusResolver
+    )
     {
         $this->stateMachine = $stateMachine;
         $this->redactor = $redactor;
+        $this->statusResolver = $statusResolver;
     }
 
     public function scan($limit = 100, $pendingMinutes = null)
     {
         if (!Schema::hasTable('b2b_wallet_transactions')) {
-            return ['processed' => 0, 'opened' => 0, 'updated' => 0, 'transitioned_unknown' => 0, 'message' => 'b2b_wallet_transactions table missing'];
+            return ['processed' => 0, 'opened' => 0, 'updated' => 0, 'transitioned_unknown' => 0, 'status_lookups' => 0, 'status_resolved' => 0, 'message' => 'b2b_wallet_transactions table missing'];
         }
 
         if (!Schema::hasTable('b2b_wallet_reconciliation_items')) {
-            return ['processed' => 0, 'opened' => 0, 'updated' => 0, 'transitioned_unknown' => 0, 'message' => 'b2b_wallet_reconciliation_items table missing'];
+            return ['processed' => 0, 'opened' => 0, 'updated' => 0, 'transitioned_unknown' => 0, 'status_lookups' => 0, 'status_resolved' => 0, 'message' => 'b2b_wallet_reconciliation_items table missing'];
         }
 
         $limit = $this->safeLimit($limit);
@@ -42,11 +48,14 @@ class WalletReconciliationService
             'opened' => 0,
             'updated' => 0,
             'transitioned_unknown' => 0,
+            'status_lookups' => 0,
+            'status_resolved' => 0,
         ];
 
         foreach ($rows as $row) {
             $result['processed']++;
             $reason = $this->reasonFor($row, $cutoff, $maxAttempts);
+            $statusLookup = null;
 
             if ($reason === 'stale_pending') {
                 $this->stateMachine->transition($row, WalletTransactionStateMachine::STATUS_UNKNOWN, 'wallet_reconciliation_stale_pending', [
@@ -61,7 +70,24 @@ class WalletReconciliationService
                 $result['transitioned_unknown']++;
             }
 
-            $opened = $this->openItem($row, $reason, $maxAttempts, $pendingMinutes);
+            if ($this->shouldLookupStatus($row, $reason)) {
+                $statusLookup = $this->lookupStatus($row);
+                $result['status_lookups']++;
+
+                if (!empty($statusLookup['final'])) {
+                    $row = $this->transitionFromStatusLookup($row, $statusLookup);
+                    $this->resolveOpenItems($row, $statusLookup);
+                    $result['status_resolved']++;
+
+                    if (!$this->requiresFollowUp($row)) {
+                        continue;
+                    }
+
+                    $reason = $this->reasonFor($row, $cutoff, $maxAttempts);
+                }
+            }
+
+            $opened = $this->openItem($row, $reason, $maxAttempts, $pendingMinutes, $statusLookup);
             if ($opened) {
                 $result['opened']++;
             } else {
@@ -100,7 +126,7 @@ class WalletReconciliationService
             });
     }
 
-    private function openItem($row, $reason, $maxAttempts, $pendingMinutes)
+    private function openItem($row, $reason, $maxAttempts, $pendingMinutes, array $statusLookup = null)
     {
         $now = Carbon::now();
         $context = [
@@ -112,6 +138,10 @@ class WalletReconciliationService
             'processed_at' => isset($row->processed_at) ? $row->processed_at : null,
             'last_error' => isset($row->last_error) ? $row->last_error : null,
         ];
+
+        if ($statusLookup !== null) {
+            $context['status_lookup'] = $this->statusLookupContext($statusLookup);
+        }
 
         $data = [
             'wallet_transaction_id' => isset($row->id) ? $row->id : null,
@@ -146,6 +176,109 @@ class WalletReconciliationService
             ->insert($this->filterColumns('b2b_wallet_reconciliation_items', $data));
 
         return true;
+    }
+
+    private function shouldLookupStatus($row, $reason)
+    {
+        return $reason === 'unknown_result'
+            && isset($row->status)
+            && $row->status === WalletTransactionStateMachine::STATUS_UNKNOWN;
+    }
+
+    private function lookupStatus($row)
+    {
+        $operator = null;
+        if (Schema::hasTable('b2b_operators') && isset($row->operator_id)) {
+            $operator = DB::table('b2b_operators')->where('id', $row->operator_id)->first();
+        }
+
+        return $this->statusResolver->lookup($operator, $row);
+    }
+
+    private function transitionFromStatusLookup($row, array $statusLookup)
+    {
+        $this->stateMachine->transition(
+            $row,
+            $statusLookup['status'],
+            'wallet_reconciliation_status_lookup',
+            [
+                'processed_at' => Carbon::now(),
+                'last_error' => $this->lastErrorForLookupStatus($statusLookup['status']),
+                'operator_response_code' => isset($statusLookup['http_status']) ? $statusLookup['http_status'] : null,
+                'operator_response_body' => $this->redactor->json(isset($statusLookup['raw']) ? $statusLookup['raw'] : null),
+                'raw_response' => $this->redactor->json(['status_lookup' => $statusLookup]),
+            ],
+            $this->statusLookupContext($statusLookup)
+        );
+
+        return DB::table('b2b_wallet_transactions')->where('id', $row->id)->first();
+    }
+
+    private function resolveOpenItems($row, array $statusLookup)
+    {
+        if (!Schema::hasTable('b2b_wallet_reconciliation_items')) {
+            return;
+        }
+
+        DB::table('b2b_wallet_reconciliation_items')
+            ->where('wallet_transaction_id', $row->id)
+            ->whereIn('state', ['open', 'in_progress'])
+            ->update($this->filterColumns('b2b_wallet_reconciliation_items', [
+                'state' => 'resolved',
+                'resolved_at' => Carbon::now(),
+                'context' => $this->redactor->json([
+                    'resolved_by' => 'wallet_reconciliation_status_lookup',
+                    'resolved_status' => isset($statusLookup['status']) ? $statusLookup['status'] : null,
+                    'status_lookup' => $this->statusLookupContext($statusLookup),
+                ]),
+                'updated_at' => Carbon::now(),
+            ]));
+    }
+
+    private function requiresFollowUp($row)
+    {
+        $status = isset($row->status) ? $row->status : null;
+
+        return in_array($status, [
+            WalletTransactionStateMachine::STATUS_ROLLBACK_REQUIRED,
+            WalletTransactionStateMachine::STATUS_MANUAL_REVIEW,
+            WalletTransactionStateMachine::STATUS_DEAD_LETTER,
+        ], true);
+    }
+
+    private function lastErrorForLookupStatus($status)
+    {
+        if (in_array($status, [
+            WalletTransactionStateMachine::STATUS_SUCCESS,
+            WalletTransactionStateMachine::STATUS_REVERSED,
+        ], true)) {
+            return null;
+        }
+
+        if ($status === WalletTransactionStateMachine::STATUS_ROLLBACK_REQUIRED) {
+            return 'Operator status lookup requires rollback.';
+        }
+
+        if ($status === WalletTransactionStateMachine::STATUS_FAILED) {
+            return 'Operator status lookup resolved transaction as failed.';
+        }
+
+        return 'Operator status lookup resolved transaction as '.$status.'.';
+    }
+
+    private function statusLookupContext(array $statusLookup)
+    {
+        return [
+            'source' => isset($statusLookup['source']) ? $statusLookup['source'] : 'operator',
+            'ok' => isset($statusLookup['ok']) ? (bool) $statusLookup['ok'] : false,
+            'final' => isset($statusLookup['final']) ? (bool) $statusLookup['final'] : false,
+            'status' => isset($statusLookup['status']) ? $statusLookup['status'] : null,
+            'lookup_status' => isset($statusLookup['lookup_status']) ? $statusLookup['lookup_status'] : null,
+            'http_status' => isset($statusLookup['http_status']) ? $statusLookup['http_status'] : null,
+            'code' => isset($statusLookup['code']) ? $statusLookup['code'] : null,
+            'message' => isset($statusLookup['message']) ? $statusLookup['message'] : null,
+            'duration_ms' => isset($statusLookup['duration_ms']) ? $statusLookup['duration_ms'] : null,
+        ];
     }
 
     private function reasonFor($row, Carbon $cutoff, $maxAttempts)

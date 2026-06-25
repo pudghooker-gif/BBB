@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Tests\Concerns\B2BApiTestHelpers;
 use Tests\TestCase;
 use VanguardLTE\B2B\Services\WalletReconciliationService;
@@ -20,7 +21,12 @@ class B2BWalletReconciliationTest extends TestCase
 
         Cache::flush();
         $this->resetB2BTables();
-        $this->operator = $this->createB2BOperator('op_reconcile', 'key_reconcile', 'reconcile_secret_1234567890');
+        Http::fake([
+            'wallet-reconcile.test/*' => Http::response(['status' => 'unknown'], 200),
+        ]);
+        $this->operator = $this->createB2BOperator('op_reconcile', 'key_reconcile', 'reconcile_secret_1234567890', [
+            'wallet_callback_url' => 'https://wallet-reconcile.test/callback',
+        ]);
     }
 
     public function testReconciliationMovesStalePendingTransactionToUnknownAndOpensItem()
@@ -33,6 +39,8 @@ class B2BWalletReconciliationTest extends TestCase
         $this->assertSame(1, $result['opened']);
         $this->assertSame(0, $result['updated']);
         $this->assertSame(1, $result['transitioned_unknown']);
+        $this->assertSame(1, $result['status_lookups']);
+        $this->assertSame(0, $result['status_resolved']);
 
         $transaction = DB::table('b2b_wallet_transactions')->where('id', $transactionId)->first();
         $this->assertSame('unknown', $transaction->status);
@@ -54,6 +62,10 @@ class B2BWalletReconciliationTest extends TestCase
         $this->assertSame('unknown_result', $item->reason);
         $this->assertSame('medium', $item->priority);
         $this->assertSame('open', $item->state);
+
+        $context = json_decode($item->context, true);
+        $this->assertSame('unknown', $context['status_lookup']['lookup_status']);
+        $this->assertFalse($context['status_lookup']['final']);
     }
 
     public function testReconciliationOpensRetryBudgetItemWithoutChangingTimeoutStatus()
@@ -66,6 +78,7 @@ class B2BWalletReconciliationTest extends TestCase
         $this->assertSame(1, $result['processed']);
         $this->assertSame(1, $result['opened']);
         $this->assertSame(0, $result['transitioned_unknown']);
+        $this->assertSame(0, $result['status_lookups']);
 
         $transaction = DB::table('b2b_wallet_transactions')->where('id', $transactionId)->first();
         $this->assertSame('timeout', $transaction->status);
@@ -89,7 +102,92 @@ class B2BWalletReconciliationTest extends TestCase
         $this->assertSame(1, $result['processed']);
         $this->assertSame(0, $result['opened']);
         $this->assertSame(1, $result['updated']);
+        $this->assertSame(0, $result['status_lookups']);
         $this->assertSame(1, DB::table('b2b_wallet_reconciliation_items')->where('wallet_transaction_id', $transactionId)->count());
+    }
+
+    public function testReconciliationResolvesUnknownTransactionFromOperatorStatusLookup()
+    {
+        Http::fake([
+            'wallet-success.test/*' => Http::response([
+                'transaction_status' => 'settled',
+                'api_key' => 'lookup-response-secret',
+            ], 200),
+        ]);
+        DB::table('b2b_operators')
+            ->where('id', $this->operator->id)
+            ->update(['wallet_callback_url' => 'https://wallet-success.test/callback']);
+
+        $transactionId = $this->insertWalletTransaction('tx_lookup_success', 'unknown', 1, now()->subMinutes(2));
+        DB::table('b2b_wallet_reconciliation_items')->insert([
+            'wallet_transaction_id' => $transactionId,
+            'operator_id' => $this->operator->id,
+            'transaction_uid' => 'tx_lookup_success',
+            'status' => 'unknown',
+            'reason' => 'unknown_result',
+            'priority' => 'medium',
+            'state' => 'open',
+            'context' => json_encode(['token' => 'existing-reconcile-secret']),
+            'detected_at' => now()->subMinute(),
+            'created_at' => now()->subMinute(),
+            'updated_at' => now()->subMinute(),
+        ]);
+
+        $result = app(WalletReconciliationService::class)->scan(10, 5);
+
+        $this->assertSame(1, $result['processed']);
+        $this->assertSame(0, $result['opened']);
+        $this->assertSame(0, $result['updated']);
+        $this->assertSame(1, $result['status_lookups']);
+        $this->assertSame(1, $result['status_resolved']);
+
+        $transaction = DB::table('b2b_wallet_transactions')->where('id', $transactionId)->first();
+        $this->assertSame('success', $transaction->status);
+        $this->assertNull($transaction->last_error);
+
+        $operatorResponse = json_decode($transaction->operator_response_body, true);
+        $this->assertSame('settled', $operatorResponse['transaction_status']);
+        $this->assertSame('[REDACTED]', $operatorResponse['api_key']);
+
+        $transition = DB::table('b2b_wallet_transaction_transitions')
+            ->where('wallet_transaction_id', $transactionId)
+            ->orderByDesc('id')
+            ->first();
+
+        $this->assertSame('unknown', $transition->from_status);
+        $this->assertSame('success', $transition->to_status);
+        $this->assertSame('wallet_reconciliation_status_lookup', $transition->reason);
+
+        $attempt = DB::table('b2b_wallet_transaction_attempts')
+            ->where('wallet_transaction_id', $transactionId)
+            ->first();
+
+        $this->assertSame('transaction_status', $attempt->type);
+        $this->assertSame('success', $attempt->result);
+        $this->assertSame(200, (int) $attempt->http_status);
+
+        $attemptRequest = json_decode($attempt->request_body, true);
+        $this->assertSame('transaction_status', $attemptRequest['action']);
+        $this->assertSame('tx_lookup_success', $attemptRequest['transaction_uid']);
+
+        $attemptResponse = json_decode($attempt->response_body, true);
+        $this->assertSame('[REDACTED]', $attemptResponse['api_key']);
+
+        $item = DB::table('b2b_wallet_reconciliation_items')
+            ->where('wallet_transaction_id', $transactionId)
+            ->first();
+
+        $this->assertSame('resolved', $item->state);
+        $this->assertNotNull($item->resolved_at);
+        $context = json_decode($item->context, true);
+        $this->assertSame('wallet_reconciliation_status_lookup', $context['resolved_by']);
+        $this->assertSame('success', $context['resolved_status']);
+
+        Http::assertSent(function ($request) {
+            return $request->url() === 'https://wallet-success.test/callback'
+                && $request['action'] === 'transaction_status'
+                && $request['transaction_uid'] === 'tx_lookup_success';
+        });
     }
 
     private function insertWalletTransaction($transactionUid, $status, $attempts, $createdAt)
