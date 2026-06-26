@@ -1,6 +1,7 @@
 {
     "name": "loshmis/vanguard",
     "description": "Advanced PHP Login and User Management",
+    "license": "proprietary",
     "keywords": ["advanced", "secure", "login", "user management", "authentication", "authorization", "register"],
     "type": "project",
     "repositories": [],
@@ -22,7 +23,7 @@
         "laravel/framework": "8.x",
         "laravel/legacy-factories": "^1.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "*",
+        "laravel/ui": "^3.2",
         "laravelcollective/html": "^6.0",
         "league/fractal": "^0.16.0",
         "mobiledetect/mobiledetectlib": "^2.8",
@@ -49,6 +50,20 @@
         "psr-4": {
             "VanguardLTE\\": "app/"
         },
+        "exclude-from-classmap": [
+            "app/Games/AmazingSevensGT/AtTheMoviesBS/",
+            "app/Games/AmazingSevensGT/BookOfDarknessBS/",
+            "app/Games/AmazingSevensGT/DimSumPrizeBS/",
+            "app/Games/AmazingSevensGT/GoldenHornsBS/",
+            "app/Games/AmazingSevensGT/Lucky7BS/",
+            "app/Games/AmazingSevensGT/PrimalHuntBS/",
+            "app/Games/AmazingSevensGT/QuestToTheWestBS/",
+            "app/Games/AmazingSevensGT/SpringTailsBS/",
+            "app/Games/AmazingSevensGT/SushiBarBS/",
+            "app/Games/AmazingSevensGT/WolfMoonRisingBS/",
+            "app/Http/Controllers/Web/Backend/ShopsController_original.php",
+            "app/Jobs/CoinpaymentListener.php"
+        ],
         "files": [
             "app/Support/helpers.php"
         ]

@@ -45,7 +45,7 @@ Date: 2026-06-24
 - Keep job-backed wallet retry/reconciliation/cleanup workflows wired to the B2B queue topology and validate worker execution in staging.
 - Keep health/readiness endpoints current, then add structured logs, correlation IDs, metrics, and alerting.
 - Add and run `b2b:release-check --production` for Redis/shared-cache, queue, sandbox, debug, private callback, and artifact-secret gates.
-- Add CI for composer validate/install, syntax lint, PHPUnit, route boot, migration test, security scan, and optional frontend/Node checks.
+- Keep CI release verification current for Composer validate/install, syntax lint, PHPUnit, route boot/cache, dependency audit visibility, and production release-check, then close dependency advisories so audit can become a blocking green gate.
 
 ## Stage 6: Release Gates
 

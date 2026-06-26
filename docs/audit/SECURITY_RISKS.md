@@ -17,7 +17,7 @@ Date: 2026-06-22
 - Raw wallet payload persistence and status/report output now redact sensitive fields recursively. Before broad admin exposure, run a one-time review of any production rows created before this redaction existed.
 - B2B privileged CLI actions now use a dedicated deny-by-default permission model, but the web admin/portal still needs authenticated B2B RBAC middleware and real session step-up before broad exposure.
 - Production deployment templates and runbook are now release-gate checked, but host secret storage, off-host backups, TLS/domain setup, and rollback rehearsal must be verified per environment.
-- Composer dependency audit could not be run with Composer 2.0.13.
+- Composer dependency audit now runs and reports 39 advisories across 16 packages, including Laravel/Symfony/Guzzle/Flysystem-era high or critical advisories. Treat dependency upgrades and regression testing as a production blocker.
 - Existing B2C balance flows use floats and direct balance mutation in legacy code. Do not reuse those flows as B2B financial ledger logic.
 
 ## Rotation Plan

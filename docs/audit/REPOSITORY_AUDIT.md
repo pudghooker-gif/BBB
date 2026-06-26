@@ -9,13 +9,13 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 ## Verified Commands
 
 - `php -v`: PHP 7.4.33.
-- `php composer.phar validate --strict`: valid schema with warnings.
+- `composer validate --strict`: passes after adding proprietary license metadata and pinning `laravel/ui` to the locked `^3.2` series.
 - `php composer.phar install --no-interaction --no-progress --prefer-dist`: succeeds outside the Codex filesystem sandbox.
 - Scoped `php -l` over `app`, `routes`, `database`, `config`, and `tests`, excluding `app/Games`: passed.
 - `php artisan list`: succeeds outside the filesystem sandbox and registers B2B commands.
 - `php artisan route:list`: initially failed on the B2B launcher route namespace.
 - `php vendor/phpunit/phpunit/phpunit --testdox`: initially failed because the default example feature test expected 200 but `/` redirects with 302; after the first hardening pass it passed.
-- `php composer.phar audit`: unavailable in Composer 2.0.13.
+- `composer audit --format=plain`: runs and currently reports 39 advisories across 16 packages.
 
 ## Current Structure
 
@@ -44,15 +44,15 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 
 ### P1
 
-- Composer reports PSR-4 warnings for nested game classes under `app/Games/AmazingSevensGT/...`, `app/Http/Controllers/Web/Backend/ShopsController_original.php`, `tests/unit/ExampleTest.php`, and one vendor Monolog path.
-- Composer security audit is blocked by the old Composer version.
+- Composer optimized autoload no longer reports the previously identified PSR-4 warnings after explicitly excluding legacy non-autoloadable paths from the classmap.
+- Composer security audit is available and currently reports dependency advisories that block production until upgraded and regression-tested.
 - The test suite had only example tests before this work. HMAC success/replay/body-hash/IP allowlist coverage, tenant isolation coverage for sessions/reports/wallet attempts, request validation, and wallet idempotency conflict coverage have now been added; launch, wallet mutation state transitions, and broader reporting edge-case coverage remain incomplete.
 - B2B API JSON responses now use a shared envelope with `success`, `status`, `request_id`, `data` or `error`, backed by a central error catalog.
 - Financial report code used floats before this audit pass.
 - Sandbox wallet code still uses floats and should stay non-production.
 - The provider adapter contract now covers provider code, health, wallet action capabilities, launch preparation, session refresh, and session close; only the internal Goldsvet adapter is implemented until real provider docs/credentials are available.
 - Admin B2B backoffice and operator portal are not implemented as full production workflows.
-- Queue isolation, reconciliation jobs, settlement workflow, OpenAPI, and CI are incomplete.
+- Queue isolation, reconciliation jobs, settlement workflow, OpenAPI, readiness checks, and CI foundations are present; dependency-audit, production release-check, staging, WebSocket, backup, and provider gates still need closure.
 - `b2b:release-check --production` is available and currently identifies production blockers in this local workspace: non-Redis shared-state/queue defaults, enabled sandbox config, and local secret-bearing files.
 
 ### P2

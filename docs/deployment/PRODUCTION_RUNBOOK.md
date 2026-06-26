@@ -14,6 +14,8 @@ This runbook documents the production deployment shape. It intentionally uses pl
 
 ## Preflight
 
+GitHub Actions workflow `B2B Release Verification` runs Composer validation, dependency install, PHP syntax lint, Laravel route boot/cache, PHPUnit, dependency audit, and the B2B production release-check. The dependency audit and production release-check jobs are currently allowed to report known blockers without hiding them; production launch still requires those blockers to be closed.
+
 ```bash
 cd /var/www/bbb/current
 composer install --no-dev --prefer-dist --optimize-autoloader

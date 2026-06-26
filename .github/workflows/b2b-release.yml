@@ -1,0 +1,136 @@
+name: B2B Release Verification
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: b2b-release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php-tests:
+    name: PHP release gates
+    runs-on: ubuntu-22.04
+    env:
+      APP_ENV: testing
+      APP_KEY: base64:YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE=
+      BCRYPT_ROUNDS: 4
+      CACHE_DRIVER: array
+      DB_CONNECTION: sqlite_memory
+      MAIL_DRIVER: array
+      MAIL_MAILER: array
+      QUEUE_DRIVER: sync
+      QUEUE_CONNECTION: sync
+      SESSION_DRIVER: array
+      APP_CONFIG_CACHE: bootstrap/cache/config.ci.php
+      APP_SERVICES_CACHE: bootstrap/cache/services.ci.php
+      APP_PACKAGES_CACHE: bootstrap/cache/packages.ci.php
+      APP_ROUTES_CACHE: bootstrap/cache/routes.ci.php
+      APP_EVENTS_CACHE: bootstrap/cache/events.ci.php
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: bcmath, ctype, curl, dom, fileinfo, gd, json, mbstring, openssl, pdo, pdo_sqlite, tokenizer, xml, zip
+          coverage: none
+          tools: composer:v2
+
+      - name: Validate Composer metadata
+        run: composer validate --strict
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Syntax lint tracked PHP
+        run: |
+          git ls-files '*.php' \
+            ':!:vendor/*' \
+            ':!:node_modules/*' \
+            ':!:app/Games/*' \
+            ':!:storage/*' \
+            ':!:bootstrap/cache/*' \
+            | xargs -r -n 1 php -l
+
+      - name: Laravel route boot and cache
+        run: |
+          php artisan config:clear
+          php artisan route:list --json > /tmp/b2b-routes.json
+          php artisan route:cache
+          php artisan route:clear
+
+      - name: Run PHPUnit
+        run: php vendor/phpunit/phpunit/phpunit --testdox --colors=never
+
+  dependency-audit:
+    name: Dependency vulnerability audit
+    runs-on: ubuntu-22.04
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          tools: composer:v2
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Run Composer audit
+        run: composer audit --format=plain
+
+  production-release-check:
+    name: Production release-check command
+    runs-on: ubuntu-22.04
+    continue-on-error: true
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      APP_ENV: production
+      APP_DEBUG: 'false'
+      APP_KEY: base64:YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE=
+      CACHE_DRIVER: redis
+      QUEUE_DRIVER: redis
+      B2B_NONCE_CACHE_STORE: redis
+      B2B_RATE_LIMIT_CACHE_STORE: redis
+      B2B_SANDBOX_ENABLED: 'false'
+      B2B_ALLOW_PRIVATE_WALLET_CALLBACKS: 'false'
+      DB_CONNECTION: sqlite_memory
+      REDIS_HOST: 127.0.0.1
+      SESSION_DRIVER: array
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: bcmath, ctype, curl, dom, fileinfo, gd, json, mbstring, openssl, pdo, pdo_sqlite, redis, tokenizer, xml, zip
+          coverage: none
+          tools: composer:v2
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Run B2B production release-check
+        run: php artisan b2b:release-check --production

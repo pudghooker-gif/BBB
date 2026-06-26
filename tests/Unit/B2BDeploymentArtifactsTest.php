@@ -49,6 +49,7 @@ class B2BDeploymentArtifactsTest extends TestCase
 
         foreach ([
             'php artisan b2b:release-check --production',
+            'B2B Release Verification',
             'B2B_NONCE_CACHE_STORE=redis',
             'B2B_RATE_LIMIT_CACHE_STORE=redis',
             'deploy/scripts/backup.sh',
@@ -61,9 +62,29 @@ class B2BDeploymentArtifactsTest extends TestCase
         }
     }
 
+    public function testCiWorkflowCoversReleaseVerification()
+    {
+        $workflow = file_get_contents(base_path('.github/workflows/b2b-release.yml'));
+
+        foreach ([
+            'composer validate --strict',
+            'composer install --prefer-dist --no-interaction --no-progress',
+            'php artisan route:list --json',
+            'php artisan route:cache',
+            'php vendor/phpunit/phpunit/phpunit --testdox --colors=never',
+            'composer audit --format=plain',
+            'php artisan b2b:release-check --production',
+            'continue-on-error: true',
+            'redis:7-alpine',
+        ] as $needle) {
+            $this->assertStringContainsString($needle, $workflow);
+        }
+    }
+
     private function requiredArtifacts()
     {
         return [
+            '.github/workflows/b2b-release.yml',
             'deploy/nginx/bbb-b2b.conf.example',
             'deploy/php-fpm/bbb-b2b.pool.conf.example',
             'deploy/supervisor/b2b-workers.conf.example',
