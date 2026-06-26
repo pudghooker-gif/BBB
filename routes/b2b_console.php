@@ -13,6 +13,7 @@ use VanguardLTE\B2B\Models\B2BWalletTransaction;
 use VanguardLTE\B2B\Services\B2BOperatorAuditLogger;
 use VanguardLTE\B2B\Services\B2BPrivilegedActionGuard;
 use VanguardLTE\B2B\Services\B2BReleaseGate;
+use VanguardLTE\B2B\Services\B2BSettlementWorkflowService;
 use VanguardLTE\B2B\Services\B2BSignature;
 
 Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_callback_url=} {--currency=USD} {--max_rps=50} {--api_key_max_rps=} {--wallet_timeout_ms=3000} {--actor=} {--reason=} {--permission=} {--confirm=}', function (B2BOperatorAuditLogger $audit, B2BPrivilegedActionGuard $guard) {
@@ -239,6 +240,80 @@ Artisan::command('b2b:revoke-api-key {operator_uid} {key_id} {--actor=} {--reaso
 
     return 0;
 })->describe('Revoke a B2B operator API key and write an audit event.');
+
+Artisan::command('b2b:submit-settlement {settlement_uid} {--actor=} {--reason=} {--permission=} {--confirm=}', function (B2BSettlementWorkflowService $service, B2BPrivilegedActionGuard $guard) {
+    if (!Schema::hasTable('b2b_settlements')) {
+        $this->error('B2B settlements table is missing. Run: php artisan migrate');
+        return 1;
+    }
+
+    $operatorId = DB::table('b2b_settlements')
+        ->where('settlement_uid', $this->argument('settlement_uid'))
+        ->value('operator_id');
+
+    $actor = (string) $this->option('actor');
+    $reason = (string) $this->option('reason');
+    $privilege = $guard->authorize($operatorId, 'settlement.submit', $actor, $reason, $this->option('permission'), $this->option('confirm'));
+    if (!$privilege['ok']) {
+        $this->error($privilege['message']);
+        return 1;
+    }
+
+    try {
+        $settlement = $service->submit($this->argument('settlement_uid'), $actor, $reason, $privilege);
+    } catch (\Exception $e) {
+        $this->error($e->getMessage());
+        return 1;
+    }
+
+    $this->info('B2B settlement submitted for approval.');
+    $this->line('settlement_uid: '.$settlement->settlement_uid);
+    $this->line('status: '.$settlement->status);
+    $this->line('submitted_by: '.$settlement->submitted_by);
+
+    return 0;
+})->describe('Submit an exported B2B settlement for finance approval.');
+
+Artisan::command('b2b:approve-settlement {settlement_uid} {decision=approve} {--actor=} {--reason=} {--permission=} {--confirm=}', function (B2BSettlementWorkflowService $service, B2BPrivilegedActionGuard $guard) {
+    if (!Schema::hasTable('b2b_settlements')) {
+        $this->error('B2B settlements table is missing. Run: php artisan migrate');
+        return 1;
+    }
+
+    $decision = strtolower((string) $this->argument('decision'));
+    if (!in_array($decision, ['approve', 'reject'], true)) {
+        $this->error('Settlement decision must be approve or reject.');
+        return 1;
+    }
+
+    $operatorId = DB::table('b2b_settlements')
+        ->where('settlement_uid', $this->argument('settlement_uid'))
+        ->value('operator_id');
+
+    $actor = (string) $this->option('actor');
+    $reason = (string) $this->option('reason');
+    $action = $decision === 'reject' ? 'settlement.reject' : 'settlement.approve';
+    $privilege = $guard->authorize($operatorId, $action, $actor, $reason, $this->option('permission'), $this->option('confirm'));
+    if (!$privilege['ok']) {
+        $this->error($privilege['message']);
+        return 1;
+    }
+
+    try {
+        $settlement = $decision === 'reject'
+            ? $service->reject($this->argument('settlement_uid'), $actor, $reason, $privilege)
+            : $service->approve($this->argument('settlement_uid'), $actor, $reason, $privilege);
+    } catch (\Exception $e) {
+        $this->error($e->getMessage());
+        return 1;
+    }
+
+    $this->info('B2B settlement '.$decision.' decision recorded.');
+    $this->line('settlement_uid: '.$settlement->settlement_uid);
+    $this->line('status: '.$settlement->status);
+
+    return 0;
+})->describe('Approve or reject a submitted B2B settlement with privileged step-up.');
 
 Artisan::command('b2b:sync-games {--shop_id=} {--limit=0}', function () {
     if (!Schema::hasTable('b2b_game_catalog')) {

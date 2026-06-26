@@ -2,11 +2,14 @@
 
 namespace VanguardLTE\Http\Controllers\Api\B2B;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use VanguardLTE\B2B\Services\B2BReconciliationReportQuery;
 use VanguardLTE\B2B\Services\B2BReportQuery;
+use VanguardLTE\B2B\Services\B2BSettlementWorkflowService;
 use VanguardLTE\B2B\Services\WalletTransactionLookupService;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 
@@ -14,16 +17,19 @@ class ReportsController extends Controller
 {
     protected $reports;
     protected $reconciliationReports;
+    protected $settlementWorkflow;
     protected $walletLookup;
 
     public function __construct(
         B2BReportQuery $reports,
         B2BReconciliationReportQuery $reconciliationReports,
+        B2BSettlementWorkflowService $settlementWorkflow,
         WalletTransactionLookupService $walletLookup
     )
     {
         $this->reports = $reports;
         $this->reconciliationReports = $reconciliationReports;
+        $this->settlementWorkflow = $settlementWorkflow;
         $this->walletLookup = $walletLookup;
     }
 
@@ -156,6 +162,74 @@ class ReportsController extends Controller
         $query->where('operator_id', $operatorId);
 
         return B2BApiResponse::success($request, $query->get());
+    }
+
+    public function settlement(Request $request, $settlementUid)
+    {
+        $operatorId = $this->reports->operatorId($request);
+        if ($operatorId <= 0) {
+            return $this->operatorContextMissing($request);
+        }
+
+        try {
+            $settlement = $this->settlementWorkflow->settlementForOperator($settlementUid, $operatorId);
+        } catch (\InvalidArgumentException $e) {
+            return B2BApiResponse::error($request, 'SETTLEMENT_NOT_FOUND');
+        }
+
+        return B2BApiResponse::success($request, $this->settlementWorkflow->payload($settlement));
+    }
+
+    public function exportSettlement(Request $request)
+    {
+        $operator = $request->attributes->get('b2b_operator');
+        if (!$operator || !isset($operator->id)) {
+            return $this->operatorContextMissing($request);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'from' => 'nullable|date',
+            'to' => 'nullable|date',
+            'currency' => 'nullable|string|size:3',
+            'format' => 'nullable|in:csv,json',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        try {
+            $from = $request->input('from') ? Carbon::parse($request->input('from'))->startOfDay() : Carbon::now()->subDays(7)->startOfDay();
+            $to = $request->input('to') ? Carbon::parse($request->input('to'))->endOfDay() : Carbon::now()->endOfDay();
+        } catch (\Exception $e) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, [
+                'period' => ['Invalid settlement period.'],
+            ]);
+        }
+
+        if ($from->gt($to)) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, [
+                'period' => ['Settlement period start must be before period end.'],
+            ]);
+        }
+
+        try {
+            $payload = $this->settlementWorkflow->exportForOperator(
+                $operator,
+                $from,
+                $to,
+                $request->input('currency', $operator->default_currency),
+                $request->input('format', 'csv'),
+                'api:' . $operator->operator_uid,
+                'Operator requested settlement export via API.'
+            );
+        } catch (\InvalidArgumentException $e) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', $e->getMessage(), 422);
+        } catch (\RuntimeException $e) {
+            return B2BApiResponse::error($request, 'SETTLEMENT_EXPORT_FAILED', $e->getMessage(), 500);
+        }
+
+        return B2BApiResponse::success($request, $payload);
     }
 
     public function reconciliation(Request $request)

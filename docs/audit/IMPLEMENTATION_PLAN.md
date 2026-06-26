@@ -28,7 +28,7 @@ Date: 2026-06-24
 ## Stage 3: Wallet And Ledger
 
 - Expand the explicit wallet state machine beyond the current transition-log foundation.
-- Extend provider-specific status/rollback contracts beyond the current operator `transaction_status` lookup and bounded rollback recovery, then add authenticated step-up UI for manual actions and settlement export/approval workflows.
+- Extend provider-specific status/rollback contracts beyond the current operator `transaction_status` lookup and bounded rollback recovery, then add authenticated web step-up UI over the current CLI manual-action and settlement export/approval foundations.
 - Keep the wallet ledger append-oriented with status transition history and maintain payload redaction on every new wallet persistence/output path.
 - Add duplicate bet/win/refund/rollback tests.
 

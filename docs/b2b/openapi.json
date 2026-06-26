@@ -209,6 +209,40 @@
     "/reports/transactions": { "$ref": "#/components/pathItems/ReportCollection" },
     "/reports/ggr": { "$ref": "#/components/pathItems/ReportCollection" },
     "/reports/settlements": { "$ref": "#/components/pathItems/ReportCollection" },
+    "/reports/settlements/export": {
+      "post": {
+        "tags": ["reports"],
+        "summary": "Generate or return an operator-scoped settlement export snapshot",
+        "security": [{ "B2BHmac": [] }],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SettlementExportRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "422": { "$ref": "#/components/responses/Error" },
+          "500": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/reports/settlements/{settlement_uid}": {
+      "get": {
+        "tags": ["reports"],
+        "summary": "Return one operator-scoped settlement snapshot and lifecycle state",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "$ref": "#/components/parameters/SettlementUid" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/reports/reconciliation": { "$ref": "#/components/pathItems/ReportCollection" },
     "/reports/transactions/{transaction_uid}": {
       "get": {
@@ -248,6 +282,13 @@
         "required": true,
         "schema": { "type": "string", "maxLength": 191 },
         "example": "bet_001"
+      },
+      "SettlementUid": {
+        "name": "settlement_uid",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string", "maxLength": 80 },
+        "example": "stl_abc123"
       }
     },
     "pathItems": {
@@ -359,6 +400,15 @@
         "type": "object",
         "properties": {
           "reason": { "type": "string", "maxLength": 100, "example": "player_logout" }
+        }
+      },
+      "SettlementExportRequest": {
+        "type": "object",
+        "properties": {
+          "from": { "type": "string", "format": "date", "example": "2026-06-01" },
+          "to": { "type": "string", "format": "date", "example": "2026-06-30" },
+          "currency": { "type": "string", "minLength": 3, "maxLength": 3, "example": "USD" },
+          "format": { "type": "string", "enum": ["csv", "json"], "example": "csv" }
         }
       },
       "WalletBalanceRequest": {

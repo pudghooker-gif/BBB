@@ -20,6 +20,8 @@ Key permissions:
 - `b2b.payloads.view_raw`
 - `b2b.reports.view`
 - `b2b.reports.export`
+- `b2b.settlements.submit`
+- `b2b.settlements.approve`
 - `b2b.audit.view`
 - `b2b.system.release_check`
 
@@ -73,6 +75,24 @@ php artisan b2b:wallet-manual-action tx_123 mark-review \
   --reason="Provider case ABC-123 is unresolved" \
   --permission=b2b.wallet.manual_action \
   --confirm=MANUAL_WALLET_ACTION
+
+php artisan b2b:submit-settlement stl_xxx \
+  --actor=finance_user \
+  --reason="Monthly settlement close" \
+  --permission=b2b.settlements.submit \
+  --confirm=SUBMIT_SETTLEMENT
+
+php artisan b2b:approve-settlement stl_xxx approve \
+  --actor=finance_lead \
+  --reason="Totals match finance reconciliation" \
+  --permission=b2b.settlements.approve \
+  --confirm=APPROVE_SETTLEMENT
+
+php artisan b2b:approve-settlement stl_xxx reject \
+  --actor=finance_lead \
+  --reason="Disputed transaction is still open" \
+  --permission=b2b.settlements.approve \
+  --confirm=REJECT_SETTLEMENT
 ```
 
 Denied privileged attempts write `privileged_action.denied` to `b2b_operator_audit_events` when the audit table exists.

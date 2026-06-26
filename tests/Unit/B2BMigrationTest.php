@@ -49,6 +49,7 @@ class B2BMigrationTest extends TestCase
             'b2b_wallet_reconciliation_items' => ['reason', 'priority', 'state', 'detected_at'],
             'b2b_wallet_manual_actions' => ['action', 'actor', 'reason', 'context'],
             'b2b_operator_audit_events' => ['operator_id', 'event_type', 'actor', 'subject_type', 'subject_id', 'reason', 'metadata'],
+            'b2b_settlements' => ['settlement_uid', 'export_hash', 'exported_at', 'submitted_at', 'submitted_by', 'approved_at', 'approved_by', 'rejected_at', 'rejected_by'],
         ] as $table => $columns) {
             foreach ($columns as $column) {
                 $this->assertTrue(

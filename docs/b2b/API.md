@@ -60,8 +60,14 @@ POST /api/b2b/v1/wallet/refund
 POST /api/b2b/v1/wallet/rollback
 GET  /api/b2b/v1/wallet/transactions/{transaction_uid}/status
 GET  /api/b2b/v1/wallet/transactions/{transaction_uid}/attempts
+GET  /api/b2b/v1/reports/summary
 GET  /api/b2b/v1/reports/transactions
 GET  /api/b2b/v1/reports/ggr
+GET  /api/b2b/v1/reports/settlements
+POST /api/b2b/v1/reports/settlements/export
+GET  /api/b2b/v1/reports/settlements/{settlement_uid}
+GET  /api/b2b/v1/reports/reconciliation
+GET  /api/b2b/v1/reports/transactions/{transaction_uid}
 ```
 
 ## Response envelope
@@ -156,6 +162,19 @@ This MVP stores every wallet event in `b2b_wallet_transactions` and forwards the
 Wallet mutation requests with `session_id` must reference an active session owned by the signed operator, matching the requested game and currency. A foreign or stale session is rejected before ledger creation or callback delivery.
 
 Wallet status lookup returns the current status, recent callback attempts, transition history, open reconciliation items, recent manual actions, and suggested operational next actions for the signed operator only.
+
+## Settlement export example
+
+```json
+{
+  "from": "2026-06-01",
+  "to": "2026-06-30",
+  "currency": "USD",
+  "format": "csv"
+}
+```
+
+`POST /reports/settlements/export` creates or returns a deterministic operator-scoped settlement snapshot for one period/currency. The export uses successful wallet transactions only, freezes totals in `b2b_settlements`, stores a SHA-256 hash, writes `settlement.exported` to the B2B audit log, and returns the export content inline for the MVP. Internal finance approval is handled by privileged artisan commands documented in `docs/b2b/B2B_RBAC.md`.
 
 ## Create demo operator manually
 

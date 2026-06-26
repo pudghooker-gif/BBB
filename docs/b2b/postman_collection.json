@@ -54,6 +54,7 @@
     { "key": "gameId", "value": "bookofdead" },
     { "key": "sessionId", "value": "sess_xxx" },
     { "key": "transactionId", "value": "bet_001" },
+    { "key": "settlementId", "value": "stl_xxx" },
     { "key": "roundId", "value": "round_001" },
     { "key": "currency", "value": "USD" }
   ],
@@ -258,6 +259,26 @@
           "request": {
             "method": "GET",
             "url": "{{baseUrl}}/api/b2b/v1/reports/settlements?from=2026-06-01&to=2026-06-24"
+          },
+          "response": []
+        },
+        {
+          "name": "Export Settlement",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/reports/settlements/export",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"2026-06-01\",\n  \"to\": \"2026-06-30\",\n  \"currency\": \"{{currency}}\",\n  \"format\": \"csv\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Settlement Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/reports/settlements/{{settlementId}}"
           },
           "response": []
         },

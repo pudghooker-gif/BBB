@@ -264,6 +264,7 @@ trait B2BApiTestHelpers
 
         Schema::create('b2b_settlements', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('settlement_uid', 80)->nullable()->unique();
             $table->integer('operator_id');
             $table->timestamp('period_start')->nullable();
             $table->timestamp('period_end')->nullable();
@@ -276,6 +277,15 @@ trait B2BApiTestHelpers
             $table->decimal('provider_fee_amount', 20, 8)->default(0);
             $table->decimal('net_amount', 20, 8)->default(0);
             $table->string('status')->default('draft');
+            $table->string('export_format', 20)->nullable();
+            $table->string('export_hash', 64)->nullable();
+            $table->timestamp('exported_at')->nullable();
+            $table->timestamp('submitted_at')->nullable();
+            $table->string('submitted_by', 100)->nullable();
+            $table->timestamp('approved_at')->nullable();
+            $table->string('approved_by', 100)->nullable();
+            $table->timestamp('rejected_at')->nullable();
+            $table->string('rejected_by', 100)->nullable();
             $table->json('metadata')->nullable();
             $table->timestamps();
         });

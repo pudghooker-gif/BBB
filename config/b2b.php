@@ -29,5 +29,9 @@ return [
 
     'wallet_reconciliation_pending_minutes' => env('B2B_WALLET_RECONCILIATION_PENDING_MINUTES', 5),
 
+    'settlement_aggregator_fee_bps' => env('B2B_SETTLEMENT_AGGREGATOR_FEE_BPS', 0),
+
+    'settlement_provider_fee_bps' => env('B2B_SETTLEMENT_PROVIDER_FEE_BPS', 0),
+
     'sandbox_enabled' => env('B2B_SANDBOX_ENABLED', env('APP_ENV') !== 'production'),
 ];
