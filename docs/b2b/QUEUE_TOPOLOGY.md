@@ -38,18 +38,20 @@ Start from `deploy/supervisor/b2b-workers.conf.example` and adjust:
 
 Live wallet workers use short timeout and single try by default. Retry, reporting, settlement, reconciliation, notification, and maintenance workers are separated so slow jobs cannot starve live wallet traffic.
 
-## Scheduled Commands
+## Scheduled Commands And Jobs
 
-The current codebase exposes retry/reconciliation/session cleanup as artisan commands:
+The current codebase exposes retry/reconciliation/session cleanup as artisan commands. In production, run the dispatching form from one scheduler node so the scheduler only enqueues work and B2B workers execute it:
 
 ```text
-b2b:retry-wallet --limit=50
-b2b:recover-rollbacks --limit=50
-b2b:reconcile-wallet --limit=100 --pending-minutes=5
-b2b:close-stale-sessions --minutes=30
+b2b:retry-wallet --limit=50 --dispatch
+b2b:recover-rollbacks --limit=50 --dispatch
+b2b:reconcile-wallet --limit=100 --pending-minutes=5 --dispatch
+b2b:close-stale-sessions --minutes=30 --dispatch
 ```
 
-Run these from the Laravel scheduler or an external cron on one scheduler node only. The queue topology already reserves `wallet_retry`, `reconciliation`, and `maintenance` queues for the future job-backed versions of the same workflows.
+These dispatch `RetryWalletTransactionsJob`, `RecoverWalletRollbacksJob`, `ReconcileWalletTransactionsJob`, and `CloseStaleB2BSessionsJob` onto `wallet_retry`, `reconciliation`, and `maintenance` queues. The same commands still support inline execution without `--dispatch` for local development and emergency single-node operations.
+
+`app/Console/Kernel.php` reads `config/b2b_queues.scheduled_commands` and registers the dispatching commands with `withoutOverlapping()`. Keep only one scheduler node active, or use Laravel's standard scheduler locking on shared cache.
 
 ## Release Checks
 

@@ -30,6 +30,24 @@ namespace VanguardLTE\Console
             $schedule->call(new Schedules\SMSMailings($_obf_0D2F242F2D052B0938193F2D0D2F192F27160616153332))->everyMinute();
             $schedule->call(new Schedules\EveryFiveMinutesCleanUp($_obf_0D2F242F2D052B0938193F2D0D2F192F27160616153332))->everyFiveMinutes();
             $schedule->call(new Schedules\EveryMinuteCleanUp($_obf_0D2F242F2D052B0938193F2D0D2F192F27160616153332))->everyMinute();
+            $this->scheduleB2BCommands($schedule);
+        }
+        protected function scheduleB2BCommands(\Illuminate\Console\Scheduling\Schedule $schedule)
+        {
+            foreach ((array) config('b2b_queues.scheduled_commands', []) as $definition) {
+                if (!isset($definition['command']) || trim((string) $definition['command']) === '') {
+                    continue;
+                }
+
+                $event = $schedule->command($definition['command'])->withoutOverlapping();
+                $frequency = isset($definition['frequency']) ? (string) $definition['frequency'] : 'everyFiveMinutes';
+
+                if (method_exists($event, $frequency)) {
+                    $event->{$frequency}();
+                } else {
+                    $event->everyFiveMinutes();
+                }
+            }
         }
         protected function commands()
         {

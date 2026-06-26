@@ -41,6 +41,8 @@ php artisan b2b:wallet-manual-action {transaction_uid} {action} --operator-id=1 
 php artisan b2b:close-stale-sessions --minutes=30
 ```
 
+Production schedulers should use the same retry/recovery/reconciliation/cleanup commands with `--dispatch` so work runs in the configured B2B Redis queues. Inline execution remains available for local development and controlled emergency operations.
+
 ## Operator wallet callback
 
 The system resolves callback URL in this order:

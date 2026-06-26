@@ -95,22 +95,22 @@ return [
 
     'scheduled_commands' => [
         'wallet_retry' => [
-            'command' => 'b2b:retry-wallet --limit=50',
+            'command' => 'b2b:retry-wallet --limit=50 --dispatch',
             'frequency' => 'everyMinute',
             'queue' => 'wallet_retry',
         ],
         'wallet_rollback_recovery' => [
-            'command' => 'b2b:recover-rollbacks --limit=50',
+            'command' => 'b2b:recover-rollbacks --limit=50 --dispatch',
             'frequency' => 'everyFiveMinutes',
             'queue' => 'wallet_retry',
         ],
         'wallet_reconciliation' => [
-            'command' => 'b2b:reconcile-wallet --limit=100 --pending-minutes=' . env('B2B_WALLET_RECONCILIATION_PENDING_MINUTES', 5),
+            'command' => 'b2b:reconcile-wallet --limit=100 --pending-minutes=' . env('B2B_WALLET_RECONCILIATION_PENDING_MINUTES', 5) . ' --dispatch',
             'frequency' => 'everyFiveMinutes',
             'queue' => 'reconciliation',
         ],
         'stale_sessions' => [
-            'command' => 'b2b:close-stale-sessions --minutes=30',
+            'command' => 'b2b:close-stale-sessions --minutes=30 --dispatch',
             'frequency' => 'everyFiveMinutes',
             'queue' => 'maintenance',
         ],
