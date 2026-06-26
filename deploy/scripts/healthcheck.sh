@@ -6,7 +6,7 @@ APP_DIR="${APP_DIR:-/var/www/bbb/current}"
 PHP_BIN="${PHP_BIN:-/usr/bin/php}"
 TIMEOUT="${TIMEOUT:-5}"
 
-curl -fsS --max-time "${TIMEOUT}" "${APP_URL%/}/api/b2b/v1/health" | grep -q '"success":true'
+curl -fsS --max-time "${TIMEOUT}" "${APP_URL%/}/api/b2b/v1/readiness" | grep -q '"status":"ready"'
 
 cd "${APP_DIR}"
 "${PHP_BIN}" artisan b2b:release-check --production --no-interaction >/tmp/bbb-b2b-release-check.out

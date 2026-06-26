@@ -39,6 +39,10 @@ server {
         rewrite ^ /api/b2b/v1/health last;
     }
 
+    location = /readyz {
+        rewrite ^ /api/b2b/v1/readiness last;
+    }
+
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }

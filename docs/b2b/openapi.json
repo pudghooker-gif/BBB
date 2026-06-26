@@ -41,6 +41,31 @@
         }
       }
     },
+    "/readiness": {
+      "get": {
+        "tags": ["health"],
+        "summary": "Public B2B readiness check for runtime dependencies",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service is ready",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiSuccess" }
+              }
+            }
+          },
+          "503": {
+            "description": "Service is not ready",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/operator/me": {
       "get": {
         "tags": ["operator"],

@@ -58,6 +58,7 @@ class B2BConfigurationTest extends TestCase
 
         $expectedPaths = [
             '/health',
+            '/readiness',
             '/operator/me',
             '/games',
             '/games/launch',
@@ -89,6 +90,7 @@ class B2BConfigurationTest extends TestCase
         $urls = $this->collectPostmanUrls($postman['item']);
         foreach ([
             '/api/b2b/v1/health',
+            '/api/b2b/v1/readiness',
             '/api/b2b/v1/games/launch',
             '/api/b2b/v1/sessions/{{sessionId}}/close',
             '/api/b2b/v1/wallet/bet',

@@ -43,7 +43,7 @@ Date: 2026-06-24
 
 - Keep deployment templates and runbook current; validate Nginx, PHP-FPM, systemd, cron, WebSocket, backup, healthcheck, and rollback on a staging host.
 - Keep job-backed wallet retry/reconciliation/cleanup workflows wired to the B2B queue topology and validate worker execution in staging.
-- Add health/readiness endpoints, structured logs, correlation IDs, metrics, and release runbooks.
+- Keep health/readiness endpoints current, then add structured logs, correlation IDs, metrics, and alerting.
 - Add and run `b2b:release-check --production` for Redis/shared-cache, queue, sandbox, debug, private callback, and artifact-secret gates.
 - Add CI for composer validate/install, syntax lint, PHPUnit, route boot, migration test, security scan, and optional frontend/Node checks.
 

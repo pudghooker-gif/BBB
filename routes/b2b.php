@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use VanguardLTE\B2B\Support\B2BApiResponse;
 use VanguardLTE\Http\Controllers\Api\B2B\GameCatalogController;
 use VanguardLTE\Http\Controllers\Api\B2B\GameLaunchController;
+use VanguardLTE\Http\Controllers\Api\B2B\HealthController;
 use VanguardLTE\Http\Controllers\Api\B2B\OperatorController;
 use VanguardLTE\Http\Controllers\Api\B2B\ReportsController;
 use VanguardLTE\Http\Controllers\Api\B2B\SessionController;
@@ -21,13 +20,8 @@ use VanguardLTE\Http\Controllers\Api\B2B\WalletController;
 */
 
 Route::prefix('b2b/v1')->group(function () {
-    Route::get('health', function (Request $request) {
-        return B2BApiResponse::success($request, [
-            'service' => 'bbb-b2b',
-            'version' => 'v6-reporting',
-            'time' => now()->toIso8601String(),
-        ]);
-    });
+    Route::get('health', [HealthController::class, 'health']);
+    Route::get('readiness', [HealthController::class, 'readiness']);
 
     Route::middleware(['b2b.signature'])->group(function () {
         Route::get('operator/me', [OperatorController::class, 'me']);

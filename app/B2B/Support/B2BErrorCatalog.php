@@ -26,6 +26,7 @@ class B2BErrorCatalog
         'SANDBOX_DISABLED' => [403, 'B2B sandbox wallet is disabled.'],
         'SANDBOX_TABLES_MISSING' => [500, 'Sandbox wallet tables are missing.'],
         'SANDBOX_WALLET_FAILED' => [502, 'Sandbox wallet request failed.'],
+        'SERVICE_NOT_READY' => [503, 'Service is not ready.'],
         'SETTLEMENT_EXPORT_FAILED' => [500, 'Settlement export failed.'],
         'SETTLEMENT_NOT_FOUND' => [404, 'Settlement was not found.'],
         'SESSION_CLOSE_FAILED' => [502, 'Session close failed.'],

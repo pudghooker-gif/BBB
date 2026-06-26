@@ -48,6 +48,7 @@ Timestamp skew is limited by `B2B_HMAC_REPLAY_WINDOW_SECONDS` (300 seconds by de
 
 ```text
 GET  /api/b2b/v1/health
+GET  /api/b2b/v1/readiness
 GET  /api/b2b/v1/games
 POST /api/b2b/v1/games/launch
 GET  /api/b2b/v1/sessions

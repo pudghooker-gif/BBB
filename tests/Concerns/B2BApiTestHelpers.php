@@ -79,11 +79,13 @@ trait B2BApiTestHelpers
             'b2b_wallet_transaction_attempts',
             'b2b_wallet_callback_logs',
             'b2b_settlements',
+            'b2b_provider_requests',
             'b2b_wallet_transactions',
             'b2b_game_sessions',
             'b2b_operator_game_assignments',
             'b2b_game_catalog',
             'b2b_operator_players',
+            'b2b_operator_health_events',
             'b2b_operator_audit_events',
             'b2b_operator_api_keys',
             'b2b_operators',
@@ -141,6 +143,17 @@ trait B2BApiTestHelpers
             $table->string('user_agent', 500)->nullable();
             $table->json('metadata')->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('b2b_operator_health_events', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('operator_id');
+            $table->string('event_type');
+            $table->string('status');
+            $table->integer('failure_count')->default(0);
+            $table->text('message')->nullable();
+            $table->json('context')->nullable();
+            $table->timestamp('created_at')->nullable();
         });
 
         Schema::create('b2b_operator_players', function (Blueprint $table) {
@@ -259,6 +272,22 @@ trait B2BApiTestHelpers
             $table->integer('http_status')->nullable();
             $table->json('request_body')->nullable();
             $table->json('response_body')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('b2b_provider_requests', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('operator_id')->nullable();
+            $table->string('provider');
+            $table->string('game_uid')->nullable();
+            $table->string('session_id')->nullable();
+            $table->string('request_uid')->unique();
+            $table->string('action');
+            $table->string('status')->default('pending');
+            $table->json('request_payload')->nullable();
+            $table->json('response_payload')->nullable();
+            $table->text('error_message')->nullable();
+            $table->integer('duration_ms')->nullable();
             $table->timestamps();
         });
 

@@ -21,7 +21,7 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
     ]);
 
     Route::post('pre', [
-        'as' => 'frontend.auth.login.post',
+        'as' => 'frontend.sports.pre',
         'uses' => 'SportsController@pre'
     ]);
 
@@ -407,19 +407,19 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
     ]);
 
     Route::get('sports/live/{sportId}/{country}/{league}/{match}', [
-        'as' => 'frontend.sports.live',
+        'as' => 'frontend.sports.live.match',
         'uses' => 'SportsController@home'
     ]);
     Route::get('sports/live/{sportId}/{country}/{league}', [
-        'as' => 'frontend.sports.live',
+        'as' => 'frontend.sports.live.league',
         'uses' => 'SportsController@home'
     ]);
     Route::get('sports/live/{sportId}/{country}', [
-        'as' => 'frontend.sports.live',
+        'as' => 'frontend.sports.live.country',
         'uses' => 'SportsController@home'
     ]);
     Route::get('sports/live/{sportId}', [
-        'as' => 'frontend.sports.live',
+        'as' => 'frontend.sports.live.sport',
         'uses' => 'SportsController@home'
     ]);
     Route::get('sports/live', [
@@ -428,19 +428,19 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
     ]);
 
     Route::get('sports/prematch/{sportId}/{country}/{league}/{match}', [
-        'as' => 'frontend.sports.prematch',
+        'as' => 'frontend.sports.prematch.match',
         'uses' => 'SportsController@home'
     ]);
     Route::get('sports/prematch/{sportId}/{country}/{league}', [
-        'as' => 'frontend.sports.prematch',
+        'as' => 'frontend.sports.prematch.league',
         'uses' => 'SportsController@home'
     ]);
     Route::get('sports/prematch/{sportId}/{country}', [
-        'as' => 'frontend.sports.prematch',
+        'as' => 'frontend.sports.prematch.country',
         'uses' => 'SportsController@home'
     ]);
     Route::get('sports/prematch/{sportId}', [
-        'as' => 'frontend.sports.prematch',
+        'as' => 'frontend.sports.prematch.sport',
         'uses' => 'SportsController@home'
     ]);
     Route::get('sports/prematch', [
@@ -449,7 +449,7 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
     ]);
 
     Route::get('sports/event/{id}', [
-        'as' => 'frontend.sports.event',
+        'as' => 'frontend.sports.event.view',
         'uses' => 'SportsController@home'
     ]);
     Route::get('sports/event', [
@@ -504,7 +504,7 @@ Route::namespace('Frontend')->middleware(['siteisclosed', 'checker'])->group(fun
     ]);
 
     Route::post('sports/get_history', [
-        'as' => 'frontend.sports.get_history',
+        'as' => 'frontend.sports.get_history.post',
         'uses' => 'SportsController@get_history',
     ]);
 

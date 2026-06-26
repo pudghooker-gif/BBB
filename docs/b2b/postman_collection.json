@@ -61,11 +61,24 @@
   "item": [
     {
       "name": "Health",
-      "request": {
-        "method": "GET",
-        "url": "{{baseUrl}}/api/b2b/v1/health"
-      },
-      "response": []
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/health"
+          },
+          "response": []
+        },
+        {
+          "name": "Readiness",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/readiness"
+          },
+          "response": []
+        }
+      ]
     },
     {
       "name": "Operator",

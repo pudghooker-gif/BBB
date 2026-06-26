@@ -19,6 +19,7 @@ class B2BDeploymentArtifactsTest extends TestCase
 
         $this->assertStringContainsString('server_name b2b.example.com', $template);
         $this->assertStringContainsString('/api/b2b/v1/health', $template);
+        $this->assertStringContainsString('/api/b2b/v1/readiness', $template);
         $this->assertStringContainsString('fastcgi_pass bbb_b2b_php', $template);
         $this->assertStringContainsString('env|sql|bak|backup|old|key|crt|pem|log', $template);
         $this->assertStringContainsString('deny all', $template);
@@ -36,6 +37,10 @@ class B2BDeploymentArtifactsTest extends TestCase
             $this->assertStringNotContainsString('password=', strtolower($script), $path);
             $this->assertStringNotContainsString('APP_KEY=', $script, $path);
         }
+
+        $healthcheck = file_get_contents(base_path('deploy/scripts/healthcheck.sh'));
+        $this->assertStringContainsString('/api/b2b/v1/readiness', $healthcheck);
+        $this->assertStringContainsString('"status":"ready"', $healthcheck);
     }
 
     public function testRunbookDocumentsReleaseGateBackupsHealthAndRollback()
@@ -50,6 +55,7 @@ class B2BDeploymentArtifactsTest extends TestCase
             'deploy/scripts/healthcheck.sh',
             'deploy/scripts/rollback.sh',
             'External Launch Blockers',
+            '/api/b2b/v1/readiness',
         ] as $needle) {
             $this->assertStringContainsString($needle, $runbook);
         }
