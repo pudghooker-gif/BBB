@@ -15,6 +15,7 @@ The command fails production mode when:
 - private wallet callback targets are enabled;
 - sandbox wallet is enabled;
 - `composer.lock` has security advisories or abandoned packages;
+- B2B readiness, metrics, or backend dashboard web surfaces are not registered;
 - deployment templates or the production runbook are missing;
 - B2B admin RBAC/privileged step-up configuration is missing;
 - known local/secret-bearing files are present in the release artifact.

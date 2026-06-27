@@ -2,6 +2,8 @@
 
 namespace VanguardLTE\B2B\Services;
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use Symfony\Component\Process\Process;
 
 class B2BReleaseGate
@@ -17,6 +19,7 @@ class B2BReleaseGate
             $this->booleanCheck('sandbox_disabled', !(bool) config('b2b.sandbox_enabled'), $production, 'B2B sandbox must be disabled in production.'),
             $this->deploymentArtifactsCheck($production),
             $this->adminRbacCheck($production),
+            $this->webSurfacesCheck($production),
         ];
 
         if ($checkFiles) {
@@ -184,6 +187,44 @@ class B2BReleaseGate
                 ? 'B2B admin RBAC and privileged step-up configuration is present.'
                 : 'Missing B2B admin RBAC configuration: ' . implode(', ', $missing),
         ];
+    }
+
+    private function webSurfacesCheck($production)
+    {
+        $missing = [];
+
+        if (!Route::has('backend.b2b.dashboard')) {
+            $missing[] = 'route:backend.b2b.dashboard';
+        }
+
+        if (!View::exists('backend.b2b.dashboard')) {
+            $missing[] = 'view:backend.b2b.dashboard';
+        }
+
+        foreach (['api/b2b/v1/readiness', 'api/b2b/v1/metrics'] as $uri) {
+            if (!$this->routeExists('GET', $uri)) {
+                $missing[] = 'route:' . $uri;
+            }
+        }
+
+        return [
+            'name' => 'web_surfaces',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'B2B backend, readiness, and metrics web surfaces are registered.'
+                : 'Missing B2B web surfaces: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function routeExists($method, $uri)
+    {
+        foreach (Route::getRoutes() as $route) {
+            if ($route->uri() === $uri && in_array($method, $route->methods(), true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function dependencyAuditCheck($production)

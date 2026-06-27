@@ -25,7 +25,7 @@ Date: 2026-06-24
 - Read-only B2B backend operations dashboard is wired into the existing authenticated backend at `/backend/b2b`.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
-- `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, locked Composer dependency audit, and release file gates.
+- `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, web-surface registration, locked Composer dependency audit, and release file gates.
 
 ## Missing Or Incomplete
 
