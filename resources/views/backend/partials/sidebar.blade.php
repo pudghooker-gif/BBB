@@ -149,6 +149,15 @@ a:focus + .tool-tip .tool-tip__info {
             </li>
             @endpermission
 
+            @if( auth()->user()->hasRole('admin') )
+            <li class="{{ Request::is('backend/b2b*') ? 'active' : ''  }}">
+                <a href="{{ route('backend.b2b.dashboard') }}">
+                    <i class="fa fa-line-chart"></i>
+                    <span>B2B Operations</span>
+                </a>
+            </li>
+            @endif
+
             @permission('users.manage')
             <li class="{{ Request::is('backend/user*') ? 'active' : ''  }}">
                 <a href="{{ route('backend.user.list') }}">	
@@ -848,5 +857,4 @@ a:focus + .tool-tip .tool-tip__info {
         </div>
     </div>
 </div>
-
 

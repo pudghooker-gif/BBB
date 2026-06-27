@@ -660,6 +660,13 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
             'uses' => 'DashboardController@index',
             //
         ]);
+
+        Route::get('/b2b', [
+            'as' => 'backend.b2b.dashboard',
+            'uses' => 'B2BDashboardController@index',
+            'middleware' => 'only_for_admin',
+        ]);
+
         Route::get('/game_stat', [
             'as' => 'backend.game_stat',
             'uses' => 'DashboardController@game_stat',

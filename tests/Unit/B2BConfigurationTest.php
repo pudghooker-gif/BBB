@@ -13,10 +13,14 @@ class B2BConfigurationTest extends TestCase
     {
         $apiRoutes = file_get_contents(base_path('routes/api.php'));
         $b2bRoutes = file_get_contents(base_path('routes/b2b.php'));
+        $webRoutes = file_get_contents(base_path('routes/web.php'));
         $kernel = file_get_contents(base_path('app/Http/Kernel.php'));
 
         $this->assertSame(1, substr_count($apiRoutes, "require base_path('routes/b2b.php')"));
         $this->assertStringContainsString("[GameLaunchController::class, 'store']", $b2bRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.dashboard'", $webRoutes);
+        $this->assertStringContainsString("'uses' => 'B2BDashboardController@index'", $webRoutes);
+        $this->assertStringContainsString("'middleware' => 'only_for_admin'", $webRoutes);
         $this->assertStringContainsString("'b2b.signature'", $kernel);
     }
 

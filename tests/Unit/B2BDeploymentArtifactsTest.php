@@ -62,6 +62,7 @@ class B2BDeploymentArtifactsTest extends TestCase
             'External Launch Blockers',
             '/api/b2b/v1/readiness',
             '/api/b2b/v1/metrics',
+            '/backend/b2b',
         ] as $needle) {
             $this->assertStringContainsString($needle, $runbook);
         }

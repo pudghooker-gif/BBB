@@ -57,6 +57,8 @@ B2B_ALLOW_PRIVATE_WALLET_CALLBACKS=false
 
 Nginx exposes `/healthz`, which rewrites to `/api/b2b/v1/health`, `/readyz`, which rewrites to `/api/b2b/v1/readiness`, and `/metrics`, which rewrites to `/api/b2b/v1/metrics` for Prometheus-compatible aggregate scraping.
 
+The read-only B2B operations dashboard is available to backend admins at `/backend/b2b`.
+
 ```bash
 APP_URL=https://b2b.example.com bash deploy/scripts/healthcheck.sh
 ```
