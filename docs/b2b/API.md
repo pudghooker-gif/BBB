@@ -49,6 +49,7 @@ Timestamp skew is limited by `B2B_HMAC_REPLAY_WINDOW_SECONDS` (300 seconds by de
 ```text
 GET  /api/b2b/v1/health
 GET  /api/b2b/v1/readiness
+GET  /api/b2b/v1/metrics
 GET  /api/b2b/v1/games
 POST /api/b2b/v1/games/launch
 GET  /api/b2b/v1/sessions
@@ -101,6 +102,8 @@ Error JSON responses use:
 ```
 
 `meta` and `error.details` are present only when relevant. Every B2B JSON response also returns `X-Request-Id`.
+
+`GET /api/b2b/v1/metrics` returns Prometheus text format instead of the JSON envelope. It contains aggregate counts and latency gauges only, without operator identifiers, raw payloads, or secrets. Restrict scraping at the edge in production.
 
 ## Launch example
 

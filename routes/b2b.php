@@ -22,6 +22,7 @@ use VanguardLTE\Http\Controllers\Api\B2B\WalletController;
 Route::prefix('b2b/v1')->group(function () {
     Route::get('health', [HealthController::class, 'health']);
     Route::get('readiness', [HealthController::class, 'readiness']);
+    Route::get('metrics', [HealthController::class, 'metrics']);
 
     Route::middleware(['b2b.signature'])->group(function () {
         Route::get('operator/me', [OperatorController::class, 'me']);

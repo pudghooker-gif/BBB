@@ -43,6 +43,11 @@ server {
         rewrite ^ /api/b2b/v1/readiness last;
     }
 
+    location = /metrics {
+        # Restrict this endpoint to the monitoring network on the final host.
+        rewrite ^ /api/b2b/v1/metrics last;
+    }
+
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }

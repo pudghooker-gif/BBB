@@ -55,13 +55,13 @@ B2B_ALLOW_PRIVATE_WALLET_CALLBACKS=false
 
 ## Health Checks
 
-Nginx exposes `/healthz`, which rewrites to `/api/b2b/v1/health`, and `/readyz`, which rewrites to `/api/b2b/v1/readiness`.
+Nginx exposes `/healthz`, which rewrites to `/api/b2b/v1/health`, `/readyz`, which rewrites to `/api/b2b/v1/readiness`, and `/metrics`, which rewrites to `/api/b2b/v1/metrics` for Prometheus-compatible aggregate scraping.
 
 ```bash
 APP_URL=https://b2b.example.com bash deploy/scripts/healthcheck.sh
 ```
 
-The health check validates the public B2B readiness endpoint and the production release gate. Readiness checks database connectivity, critical B2B tables, cache runtime, queue configuration, storage writability, and production-safe configuration. It does not validate real provider credentials or gambling certification.
+The health check validates the public B2B readiness endpoint, metrics scrape, and the production release gate. Readiness checks database connectivity, critical B2B tables, cache runtime, queue configuration, storage writability, and production-safe configuration. It does not validate real provider credentials or gambling certification.
 
 ## Backup
 

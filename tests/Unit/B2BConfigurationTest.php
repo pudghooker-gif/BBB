@@ -59,6 +59,7 @@ class B2BConfigurationTest extends TestCase
         $expectedPaths = [
             '/health',
             '/readiness',
+            '/metrics',
             '/operator/me',
             '/games',
             '/games/launch',
@@ -91,6 +92,7 @@ class B2BConfigurationTest extends TestCase
         foreach ([
             '/api/b2b/v1/health',
             '/api/b2b/v1/readiness',
+            '/api/b2b/v1/metrics',
             '/api/b2b/v1/games/launch',
             '/api/b2b/v1/sessions/{{sessionId}}/close',
             '/api/b2b/v1/wallet/bet',

@@ -77,6 +77,14 @@
             "url": "{{baseUrl}}/api/b2b/v1/readiness"
           },
           "response": []
+        },
+        {
+          "name": "Metrics",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/metrics"
+          },
+          "response": []
         }
       ]
     },

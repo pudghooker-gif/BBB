@@ -4,6 +4,7 @@ namespace VanguardLTE\Http\Controllers\Api\B2B;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use VanguardLTE\B2B\Services\B2BMetricsExporter;
 use VanguardLTE\B2B\Services\B2BReadinessService;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 
@@ -27,5 +28,12 @@ class HealthController extends Controller
         }
 
         return B2BApiResponse::success($request, $result);
+    }
+
+    public function metrics(B2BMetricsExporter $metrics)
+    {
+        return response($metrics->render(), 200)
+            ->header('Content-Type', 'text/plain; version=0.0.4; charset=utf-8')
+            ->header('Cache-Control', 'no-store');
     }
 }

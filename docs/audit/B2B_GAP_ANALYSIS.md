@@ -17,7 +17,7 @@ Date: 2026-06-24
 - Unit tests verify clean SQLite migration application and no-op re-run for B2B tables/columns.
 - B2B queue topology config, Supervisor worker template, and queue topology tests cover wallet-live, wallet-retry, provider-callbacks, reporting, settlement, reconciliation, notifications, and maintenance queues.
 - Runtime job foundation dispatches wallet retry, rollback recovery, reconciliation, and stale-session cleanup work onto the configured B2B Redis queues, while preserving inline artisan execution for local/emergency operations.
-- Public health/readiness foundation checks database connectivity, critical B2B tables, cache runtime, queue configuration, storage writability, and production-safe release configuration without exposing secrets.
+- Public health/readiness foundation checks database connectivity, critical B2B tables, cache runtime, queue configuration, storage writability, and production-safe release configuration without exposing secrets. Prometheus-compatible aggregate metrics are exposed without operator IDs, payloads, or secrets.
 - CI release-verification foundation is present in GitHub Actions for Composer validation/install, PHP syntax lint, Laravel route boot/cache, PHPUnit, Composer audit visibility, and the B2B production release-check.
 - Operator credential lifecycle audit foundation: API key rotation/revocation CLI commands require actor/reason, disable revoked keys, successful HMAC use writes throttled `api_key.used` events, and per-key `max_rps` is enforced by the shared resilience guard.
 - Production deployment artifact foundation: Nginx, PHP-FPM, Supervisor, systemd scheduler/WebSocket, cron fallback, backup, healthcheck, rollback templates, release runbook, and release-gate coverage are present.
@@ -37,7 +37,7 @@ Date: 2026-06-24
 - Production-grade wallet state machine still needs provider-specific status/rollback contracts and certification plus authenticated web step-up over manual actions and settlement approval. The current foundation has explicit transition validation, append-only transition logging, recursive sensitive-field redaction, retryable `unknown`, retry-budget `dead_letter`, operator-scoped status lookup, reconciliation item scanning/reporting with conservative operator `transaction_status` resolution, bounded rollback recovery, privileged CLI guard, audited CLI manual actions, deterministic settlement exports, and audited settlement submit/approve/reject commands.
 - Dedicated B2B admin backoffice and operator portal, including web UI over the deny-by-default RBAC/step-up foundation.
 - Runtime job implementations now cover scheduled wallet retry/reconciliation/cleanup workflows; production still needs staging validation of worker counts, scheduler locking, failed-job handling, and observability under real traffic.
-- Health/readiness endpoints are present; production still needs external uptime checks, metrics scraping, alert routing, and staging validation behind the final Nginx/TLS topology.
+- Health/readiness/metrics endpoints are present; production still needs external uptime checks, Prometheus scrape wiring, alert routing, and staging validation behind the final Nginx/TLS topology.
 - Production domains, host-level secret store, off-host backup storage, WebSocket TLS/proxy validation, and rollback drill remain environment-specific launch blockers.
 
 ### P2 After Stable MVP

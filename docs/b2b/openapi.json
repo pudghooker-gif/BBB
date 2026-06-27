@@ -66,6 +66,24 @@
         }
       }
     },
+    "/metrics": {
+      "get": {
+        "tags": ["health"],
+        "summary": "Prometheus-compatible aggregate B2B metrics",
+        "description": "Exports aggregate service, session, wallet, reconciliation, settlement, provider, and queue metrics without operator identifiers or payload data. Restrict this endpoint at the edge in production.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Prometheus text exposition format",
+            "content": {
+              "text/plain; version=0.0.4": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/operator/me": {
       "get": {
         "tags": ["operator"],
