@@ -49,6 +49,7 @@ class B2BDeploymentArtifactsTest extends TestCase
 
         foreach ([
             'php artisan b2b:release-check --production',
+            'locked Composer dependency audit',
             'B2B Release Verification',
             'B2B_NONCE_CACHE_STORE=redis',
             'B2B_RATE_LIMIT_CACHE_STORE=redis',

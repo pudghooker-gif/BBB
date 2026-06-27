@@ -2,9 +2,11 @@
 
 namespace VanguardLTE\B2B\Services;
 
+use Symfony\Component\Process\Process;
+
 class B2BReleaseGate
 {
-    public function run($production = false, $checkFiles = true)
+    public function run($production = false, $checkFiles = true, $checkDependencyAudit = false)
     {
         $checks = [
             $this->cacheStoreCheck('nonce_cache', config('b2b.nonce_cache_store') ?: config('cache.default'), $production),
@@ -19,6 +21,10 @@ class B2BReleaseGate
 
         if ($checkFiles) {
             $checks[] = $this->secretFilesCheck($production);
+        }
+
+        if ($checkDependencyAudit) {
+            $checks[] = $this->dependencyAuditCheck($production);
         }
 
         $ok = true;
@@ -177,6 +183,76 @@ class B2BReleaseGate
             'message' => count($missing) === 0
                 ? 'B2B admin RBAC and privileged step-up configuration is present.'
                 : 'Missing B2B admin RBAC configuration: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function dependencyAuditCheck($production)
+    {
+        if (!file_exists(base_path('composer.lock'))) {
+            return [
+                'name' => 'dependency_audit',
+                'status' => $production ? 'fail' : 'warn',
+                'message' => 'composer.lock is missing; dependency advisories cannot be verified.',
+            ];
+        }
+
+        $result = $this->runDependencyAuditCommand();
+        $payload = json_decode($result['output'], true);
+
+        if (!is_array($payload)) {
+            return [
+                'name' => 'dependency_audit',
+                'status' => $production ? 'fail' : 'warn',
+                'message' => 'Composer locked dependency audit could not be parsed: ' . trim($result['error'] ?: $result['output']),
+            ];
+        }
+
+        $advisoryPackages = isset($payload['advisories']) && is_array($payload['advisories'])
+            ? array_keys($payload['advisories'])
+            : [];
+        $advisoryCount = 0;
+        foreach ($advisoryPackages as $package) {
+            $advisoryCount += is_array($payload['advisories'][$package]) ? count($payload['advisories'][$package]) : 0;
+        }
+
+        $abandonedPackages = isset($payload['abandoned']) && is_array($payload['abandoned'])
+            ? array_keys($payload['abandoned'])
+            : [];
+        $abandonedCount = count($abandonedPackages);
+
+        if ($advisoryCount === 0 && $abandonedCount === 0) {
+            return [
+                'name' => 'dependency_audit',
+                'status' => 'pass',
+                'message' => 'Composer locked dependency audit has no advisories or abandoned packages.',
+            ];
+        }
+
+        $parts = [];
+        if ($advisoryCount > 0) {
+            $parts[] = $advisoryCount . ' advisories across ' . count($advisoryPackages) . ' packages: ' . implode(', ', $advisoryPackages);
+        }
+        if ($abandonedCount > 0) {
+            $parts[] = $abandonedCount . ' abandoned packages: ' . implode(', ', $abandonedPackages);
+        }
+
+        return [
+            'name' => 'dependency_audit',
+            'status' => $production ? 'fail' : 'warn',
+            'message' => 'Composer locked dependency audit found ' . implode('; ', $parts) . '.',
+        ];
+    }
+
+    protected function runDependencyAuditCommand()
+    {
+        $process = Process::fromShellCommandline('composer audit --locked --format=json --abandoned=report', base_path());
+        $process->setTimeout(120);
+        $process->run();
+
+        return [
+            'exit_code' => $process->getExitCode(),
+            'output' => $process->getOutput(),
+            'error' => $process->getErrorOutput(),
         ];
     }
 }

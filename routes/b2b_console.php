@@ -438,7 +438,7 @@ Artisan::command('b2b:health', function () {
 });
 
 Artisan::command('b2b:release-check {--production : Enforce production release gates}', function (B2BReleaseGate $gate) {
-    $result = $gate->run((bool) $this->option('production'));
+    $result = $gate->run((bool) $this->option('production'), true, true);
 
     $this->line('B2B release gate checks');
     foreach ($result['checks'] as $check) {

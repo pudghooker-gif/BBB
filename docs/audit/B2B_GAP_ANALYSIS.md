@@ -24,14 +24,14 @@ Date: 2026-06-24
 - B2B admin authorization foundation: dedicated permission catalog, role map, deny-by-default privileged action guard, CLI step-up confirmation, and denial audit events protect operator creation, credential rotation/revocation, manual wallet actions, and settlement approval actions.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
-- `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, and release file gates.
+- `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, locked Composer dependency audit, and release file gates.
 
 ## Missing Or Incomplete
 
 ### P0/P1 Before Production
 
 - Upgraded production database migration verification remains required on a staging copy.
-- Production environment must pass `b2b:release-check --production`; current local workspace still contains release-blocking local files and non-Redis shared-state defaults.
+- Production environment must pass `b2b:release-check --production`; current local workspace still contains release-blocking local files, non-Redis shared-state defaults, and Composer audit blockers.
 - Composer dependency audit has been reduced to 3 Laravel framework advisories after a PHP 7.4-compatible dependency refresh. The remaining Laravel advisories require a PHP/Laravel major-upgrade plan or vendor-supported security backports before production.
 - External provider adapters still require real provider-specific implementations and certification docs.
 - Production-grade wallet state machine still needs provider-specific status/rollback contracts and certification plus authenticated web step-up over manual actions and settlement approval. The current foundation has explicit transition validation, append-only transition logging, recursive sensitive-field redaction, retryable `unknown`, retry-budget `dead_letter`, operator-scoped status lookup, reconciliation item scanning/reporting with conservative operator `transaction_status` resolution, bounded rollback recovery, privileged CLI guard, audited CLI manual actions, deterministic settlement exports, and audited settlement submit/approve/reject commands.

@@ -51,6 +51,61 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckPassed($result, 'admin_rbac_config');
     }
 
+    public function testProductionGateFailsWhenDependencyAuditFindsAdvisories()
+    {
+        $this->configureSafeProductionSettings();
+
+        $gate = new class extends B2BReleaseGate {
+            protected function runDependencyAuditCommand()
+            {
+                return [
+                    'exit_code' => 1,
+                    'output' => json_encode([
+                        'advisories' => [
+                            'laravel/framework' => [
+                                ['title' => 'Laravel advisory'],
+                                ['title' => 'Another Laravel advisory'],
+                            ],
+                        ],
+                        'abandoned' => [
+                            'swiftmailer/swiftmailer' => 'symfony/mailer',
+                        ],
+                    ]),
+                    'error' => '',
+                ];
+            }
+        };
+
+        $result = $gate->run(true, false, true);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'dependency_audit');
+    }
+
+    public function testProductionGatePassesCleanDependencyAudit()
+    {
+        $this->configureSafeProductionSettings();
+
+        $gate = new class extends B2BReleaseGate {
+            protected function runDependencyAuditCommand()
+            {
+                return [
+                    'exit_code' => 0,
+                    'output' => json_encode([
+                        'advisories' => [],
+                        'abandoned' => [],
+                    ]),
+                    'error' => '',
+                ];
+            }
+        };
+
+        $result = $gate->run(true, false, true);
+
+        $this->assertTrue($result['ok']);
+        $this->assertCheckPassed($result, 'dependency_audit');
+    }
+
     private function assertCheckFailed(array $result, $name)
     {
         foreach ($result['checks'] as $check) {
@@ -73,5 +128,18 @@ class B2BReleaseGateTest extends TestCase
         }
 
         $this->fail('Release gate check was not found: ' . $name);
+    }
+
+    private function configureSafeProductionSettings()
+    {
+        config([
+            'app.debug' => false,
+            'b2b.allow_private_wallet_callbacks' => false,
+            'b2b.nonce_cache_store' => 'redis',
+            'b2b.rate_limit_cache_store' => 'redis',
+            'b2b.sandbox_enabled' => false,
+            'cache.default' => 'redis',
+            'queue.default' => 'redis',
+        ]);
     }
 }
