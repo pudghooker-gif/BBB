@@ -1,179 +1,175 @@
 <?php return array (
-  'anlutro/l4-settings' => 
+  'anlutro/l4-settings' =>
   array (
-    'aliases' => 
+    'aliases' =>
     array (
       'Setting' => 'anlutro\\LaravelSettings\\Facade',
     ),
-    'providers' => 
+    'providers' =>
     array (
       0 => 'anlutro\\LaravelSettings\\ServiceProvider',
     ),
   ),
-  'barryvdh/laravel-debugbar' => 
+  'barryvdh/laravel-debugbar' =>
   array (
-    'providers' => 
+    'aliases' =>
+    array (
+      'Debugbar' => 'Barryvdh\\Debugbar\\Facades\\Debugbar',
+    ),
+    'providers' =>
     array (
       0 => 'Barryvdh\\Debugbar\\ServiceProvider',
     ),
-    'aliases' => 
-    array (
-      'Debugbar' => 'Barryvdh\\Debugbar\\Facade',
-    ),
   ),
-  'eklundkristoffer/seedster' => 
+  'eklundkristoffer/seedster' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Seedster\\SeedsterServiceProvider',
     ),
   ),
-  'fideloper/proxy' => 
+  'fideloper/proxy' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
-  'hexters/coinpayment' => 
+  'hexters/coinpayment' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Hexters\\CoinPayment\\Providers\\CoinPaymentServiceProvider',
     ),
-    'aliases' => 
+    'aliases' =>
     array (
       'CoinPayment' => 'Hexters\\CoinPayment\\Helpers\\CoinPaymentFacade',
     ),
   ),
-  'intergo/sms.to-laravel-lumen' => 
+  'intergo/sms.to-laravel-lumen' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
-      0 => 'Intergo\\SmsTo\\ServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'SmsTo' => 'Intergo\\SmsTo\\Facades\\SmsToFacade',
+      0 => 'Intergo\\SmsTo\\SmsToServiceProvider',
     ),
   ),
-  'intervention/image' => 
+  'intervention/image' =>
   array (
-    'providers' => 
-    array (
-      0 => 'Intervention\\Image\\ImageServiceProvider',
-    ),
-    'aliases' => 
+    'aliases' =>
     array (
       'Image' => 'Intervention\\Image\\Facades\\Image',
     ),
+    'providers' =>
+    array (
+      0 => 'Intervention\\Image\\ImageServiceProvider',
+    ),
   ),
-  'jenssegers/agent' => 
+  'jenssegers/agent' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Jenssegers\\Agent\\AgentServiceProvider',
     ),
-    'aliases' => 
+    'aliases' =>
     array (
       'Agent' => 'Jenssegers\\Agent\\Facades\\Agent',
     ),
   ),
-  'jeremykenedy/laravel-roles' => 
+  'jeremykenedy/laravel-roles' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'jeremykenedy\\LaravelRoles\\RolesServiceProvider',
     ),
   ),
-  'laravel/legacy-factories' => 
+  'laravel/legacy-factories' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Illuminate\\Database\\Eloquent\\LegacyFactoryServiceProvider',
     ),
   ),
-  'laravel/tinker' => 
+  'laravel/tinker' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
-  'laravel/ui' => 
+  'laravel/ui' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Laravel\\Ui\\UiServiceProvider',
     ),
   ),
-  'laravelcollective/html' => 
+  'laravelcollective/html' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Collective\\Html\\HtmlServiceProvider',
     ),
-    'aliases' => 
+    'aliases' =>
     array (
       'Form' => 'Collective\\Html\\FormFacade',
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
-  'nesbot/carbon' => 
+  'nesbot/carbon' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Carbon\\Laravel\\ServiceProvider',
     ),
   ),
-  'nunomaduro/collision' => 
+  'nunomaduro/collision' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
-  'pragmarx/google2fa-laravel' => 
+  'pragmarx/google2fa-laravel' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'PragmaRX\\Google2FALaravel\\ServiceProvider',
     ),
-    'aliases' => 
+    'aliases' =>
     array (
       'Google2FA' => 'PragmaRX\\Google2FALaravel\\Facade',
     ),
   ),
-  'proengsoft/laravel-jsvalidation' => 
+  'proengsoft/laravel-jsvalidation' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Proengsoft\\JsValidation\\JsValidationServiceProvider',
     ),
-    'aliases' => 
+    'aliases' =>
     array (
       'JsValidator' => 'Proengsoft\\JsValidation\\Facades\\JsValidatorFacade',
     ),
   ),
-  'tymon/jwt-auth' => 
+  'tymon/jwt-auth' =>
   array (
-    'aliases' => 
+    'aliases' =>
     array (
       'JWTAuth' => 'Tymon\\JWTAuth\\Facades\\JWTAuth',
       'JWTFactory' => 'Tymon\\JWTAuth\\Facades\\JWTFactory',
     ),
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
     ),
   ),
-  'yajra/laravel-datatables-oracle' => 
+  'yajra/laravel-datatables-oracle' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Yajra\\DataTables\\DataTablesServiceProvider',
     ),
-    'aliases' => 
+    'aliases' =>
     array (
       'DataTables' => 'Yajra\\DataTables\\Facades\\DataTables',
     ),

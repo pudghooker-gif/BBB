@@ -15,7 +15,7 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 - `php artisan list`: succeeds outside the filesystem sandbox and registers B2B commands.
 - `php artisan route:list`: initially failed on the B2B launcher route namespace.
 - `php vendor/phpunit/phpunit/phpunit --testdox`: initially failed because the default example feature test expected 200 but `/` redirects with 302; after the first hardening pass it passed.
-- `composer audit --format=plain`: runs and currently reports 39 advisories across 16 packages.
+- `composer audit --format=plain`: runs and currently reports 3 Laravel framework advisories after the PHP 7.4-compatible dependency refresh.
 
 ## Current Structure
 
@@ -45,14 +45,14 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 ### P1
 
 - Composer optimized autoload no longer reports the previously identified PSR-4 warnings after explicitly excluding legacy non-autoloadable paths from the classmap.
-- Composer security audit is available and currently reports dependency advisories that block production until upgraded and regression-tested.
+- Composer security audit is available. Most advisories were closed by updating the PHP 7.4-compatible dependency set; the remaining Laravel framework advisories block production until a PHP/Laravel major-upgrade or supported security-backport plan is completed and regression-tested.
 - The test suite had only example tests before this work. HMAC success/replay/body-hash/IP allowlist coverage, tenant isolation coverage for sessions/reports/wallet attempts, request validation, and wallet idempotency conflict coverage have now been added; launch, wallet mutation state transitions, and broader reporting edge-case coverage remain incomplete.
 - B2B API JSON responses now use a shared envelope with `success`, `status`, `request_id`, `data` or `error`, backed by a central error catalog.
 - Financial report code used floats before this audit pass.
 - Sandbox wallet code still uses floats and should stay non-production.
 - The provider adapter contract now covers provider code, health, wallet action capabilities, launch preparation, session refresh, and session close; only the internal Goldsvet adapter is implemented until real provider docs/credentials are available.
 - Admin B2B backoffice and operator portal are not implemented as full production workflows.
-- Queue isolation, reconciliation jobs, settlement workflow, OpenAPI, readiness checks, and CI foundations are present; dependency-audit, production release-check, staging, WebSocket, backup, and provider gates still need closure.
+- Queue isolation, reconciliation jobs, settlement workflow, OpenAPI, readiness checks, CI foundations, and partial dependency-audit remediation are present; remaining Laravel advisories, production release-check, staging, WebSocket, backup, and provider gates still need closure.
 - `b2b:release-check --production` is available and currently identifies production blockers in this local workspace: non-Redis shared-state/queue defaults, enabled sandbox config, and local secret-bearing files.
 
 ### P2

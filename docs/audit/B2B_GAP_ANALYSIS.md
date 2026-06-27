@@ -32,7 +32,7 @@ Date: 2026-06-24
 
 - Upgraded production database migration verification remains required on a staging copy.
 - Production environment must pass `b2b:release-check --production`; current local workspace still contains release-blocking local files and non-Redis shared-state defaults.
-- Composer dependency audit currently reports 39 advisories across 16 packages, including high/critical issues in Laravel/Symfony/Guzzle/Flysystem-era dependencies; dependency upgrade and regression testing remain required before production.
+- Composer dependency audit has been reduced to 3 Laravel framework advisories after a PHP 7.4-compatible dependency refresh. The remaining Laravel advisories require a PHP/Laravel major-upgrade plan or vendor-supported security backports before production.
 - External provider adapters still require real provider-specific implementations and certification docs.
 - Production-grade wallet state machine still needs provider-specific status/rollback contracts and certification plus authenticated web step-up over manual actions and settlement approval. The current foundation has explicit transition validation, append-only transition logging, recursive sensitive-field redaction, retryable `unknown`, retry-budget `dead_letter`, operator-scoped status lookup, reconciliation item scanning/reporting with conservative operator `transaction_status` resolution, bounded rollback recovery, privileged CLI guard, audited CLI manual actions, deterministic settlement exports, and audited settlement submit/approve/reject commands.
 - Dedicated B2B admin backoffice and operator portal, including web UI over the deny-by-default RBAC/step-up foundation.

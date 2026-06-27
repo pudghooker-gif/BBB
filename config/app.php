@@ -199,8 +199,6 @@ return [
 		
         Yajra\DataTables\DataTablesServiceProvider::class,
 
-        Intergo\SmsTo\ServiceProvider::class,
-
     ],
 
     /*
@@ -262,7 +260,7 @@ return [
 
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
-        'SmsTo' => Intergo\SmsTo\Facades\SmsToFacade::class,
+        'SmsTo' => Intergo\SmsTo\Facades\SmsToSms::class,
 
 
 
