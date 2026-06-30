@@ -39,15 +39,13 @@ When `/api/b2b/v1/wallet/bet` or `/api/b2b/v1/wallet/win` is called, the normal 
 
 ## Safety
 
-This patch does not delete `.env`, `vendor`, SQL dumps, or other local files.
-
-The sandbox is enabled by default outside production. In production, keep it disabled by adding this to `.env`:
+The sandbox is disabled by default. Keep it disabled in production:
 
 ```env
 B2B_SANDBOX_ENABLED=false
 ```
 
-For local testing you may explicitly enable it:
+For isolated local testing you may explicitly enable it:
 
 ```env
 B2B_SANDBOX_ENABLED=true

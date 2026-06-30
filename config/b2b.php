@@ -15,9 +15,9 @@ return [
 
     'hmac_replay_window_seconds' => env('B2B_HMAC_REPLAY_WINDOW_SECONDS', 300),
 
-    'nonce_cache_store' => env('B2B_NONCE_CACHE_STORE', null),
+    'nonce_cache_store' => env('B2B_NONCE_CACHE_STORE', 'redis'),
 
-    'rate_limit_cache_store' => env('B2B_RATE_LIMIT_CACHE_STORE', null),
+    'rate_limit_cache_store' => env('B2B_RATE_LIMIT_CACHE_STORE', 'redis'),
 
     'api_key_default_max_rps' => env('B2B_API_KEY_DEFAULT_MAX_RPS', null),
 
@@ -33,5 +33,5 @@ return [
 
     'settlement_provider_fee_bps' => env('B2B_SETTLEMENT_PROVIDER_FEE_BPS', 0),
 
-    'sandbox_enabled' => env('B2B_SANDBOX_ENABLED', env('APP_ENV') !== 'production'),
+    'sandbox_enabled' => env('B2B_SANDBOX_ENABLED', false),
 ];

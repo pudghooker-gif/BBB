@@ -27,6 +27,9 @@
         <server name="APP_KEY" value="base64:YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE="/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>
+        <server name="B2B_NONCE_CACHE_STORE" value="array"/>
+        <server name="B2B_RATE_LIMIT_CACHE_STORE" value="array"/>
+        <server name="B2B_SANDBOX_ENABLED" value="false"/>
         <server name="DB_CONNECTION" value="sqlite_memory"/>
         <server name="MAIL_DRIVER" value="array"/>
         <server name="QUEUE_CONNECTION" value="sync"/>

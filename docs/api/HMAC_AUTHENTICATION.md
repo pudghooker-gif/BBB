@@ -71,6 +71,6 @@ php artisan b2b:show-hmac op_xxx key_xxx secret_xxx GET /api/b2b/v1/operator/me
 
 ## Production Notes
 
-Set `B2B_NONCE_CACHE_STORE=redis` and `B2B_RATE_LIMIT_CACHE_STORE=redis` in production so replay protection and app-level rate limits work across multiple API nodes. Keep the sandbox/private callback exception disabled outside isolated local testing.
+`B2B_NONCE_CACHE_STORE` and `B2B_RATE_LIMIT_CACHE_STORE` default to `redis` so replay protection and app-level rate limits work across multiple API nodes in production. Test/local environments without Redis must explicitly override them to an isolated non-shared store. Keep the sandbox/private callback exception disabled outside isolated local testing.
 
 Successful HMAC authentication updates `last_used_at` and writes a throttled `api_key.used` audit event with method, path, IP address, request ID, and key ID. It does not store API secrets, signatures, nonce values, or request bodies. Tune the sampling window with `B2B_API_KEY_USAGE_AUDIT_SAMPLE_SECONDS`; set it to `0` only if every authenticated request must be audited.
