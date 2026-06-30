@@ -97,6 +97,25 @@ php artisan b2b:approve-settlement stl_xxx reject \
 
 Denied privileged attempts write `privileged_action.denied` to `b2b_operator_audit_events` when the audit table exists.
 
+## Web Step-Up
+
+The backend now has a session-bound step-up guard for mutating B2B web actions.
+
+Routes:
+
+```text
+GET  /backend/b2b/step-up/{action}
+POST /backend/b2b/step-up/{action}
+```
+
+Middleware for dangerous web routes:
+
+```php
+'middleware' => 'b2b.web_step_up:api_key.rotate'
+```
+
+The guard requires the authenticated backend user to have the configured B2B permission, enter the exact action confirmation phrase, and keep the confirmation inside the same user session. The default TTL is 300 seconds and can be changed with `B2B_WEB_STEP_UP_TTL_SECONDS`.
+
 ## Remaining Production Work
 
-This foundation does not replace a real admin session step-up challenge. The production backoffice still needs authenticated user binding, TOTP/WebAuthn or equivalent step-up, dedicated B2B UI permissions, session revocation, and operator-visible case workflow.
+The web guard is only the confirmation/session foundation. Production B2B mutation screens still need provider-specific forms, full audit event coverage, stronger re-authentication such as TOTP/WebAuthn for high-risk actions, session revocation hooks, and operator-visible case workflow.

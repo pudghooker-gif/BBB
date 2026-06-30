@@ -19,4 +19,10 @@ Current widgets:
 - recent reconciliation queue items;
 - links to health, readiness, metrics, and the repository OpenAPI artifact path.
 
-Dangerous actions such as API credential rotation, settlement approval, and manual wallet state changes remain on the audited CLI/step-up foundation until authenticated web step-up and confirmation flows are implemented.
+Authenticated web step-up is now available for future mutating B2B backoffice actions:
+
+- `GET /backend/b2b/step-up/{action}` renders the confirmation challenge for a configured privileged action;
+- `POST /backend/b2b/step-up/{action}` stores a session-bound confirmation for the authenticated backend user;
+- route middleware `b2b.web_step_up:{action}` blocks protected web actions until the confirmation is fresh.
+
+Dangerous actions such as API credential rotation, settlement approval, and manual wallet state changes remain hidden from the read-only dashboard until their mutation controllers are wired to `b2b.web_step_up:{action}`, audit logging, and provider-specific operational workflows.

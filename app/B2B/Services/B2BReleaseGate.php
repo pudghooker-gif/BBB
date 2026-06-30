@@ -201,6 +201,20 @@ class B2BReleaseGate
             $missing[] = 'view:backend.b2b.dashboard';
         }
 
+        foreach (['backend.b2b.step_up.show', 'backend.b2b.step_up.store'] as $routeName) {
+            if (!Route::has($routeName)) {
+                $missing[] = 'route:' . $routeName;
+            }
+        }
+
+        if (!View::exists('backend.b2b.step-up')) {
+            $missing[] = 'view:backend.b2b.step-up';
+        }
+
+        if ($this->routeMiddlewareClass('b2b.web_step_up') !== 'VanguardLTE\Http\Middleware\RequireB2BWebStepUp') {
+            $missing[] = 'middleware:b2b.web_step_up';
+        }
+
         foreach (['api/b2b/v1/readiness', 'api/b2b/v1/metrics'] as $uri) {
             if (!$this->routeExists('GET', $uri)) {
                 $missing[] = 'route:' . $uri;
@@ -211,9 +225,36 @@ class B2BReleaseGate
             'name' => 'web_surfaces',
             'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
             'message' => count($missing) === 0
-                ? 'B2B backend, readiness, and metrics web surfaces are registered.'
+                ? 'B2B backend, web step-up, readiness, and metrics web surfaces are registered.'
                 : 'Missing B2B web surfaces: ' . implode(', ', $missing),
         ];
+    }
+
+    protected function routeMiddlewareClass($alias)
+    {
+        $routerMiddleware = app('router')->getMiddleware();
+        if (isset($routerMiddleware[$alias]) && is_string($routerMiddleware[$alias])) {
+            return ltrim($routerMiddleware[$alias], '\\');
+        }
+
+        try {
+            $kernel = app(\Illuminate\Contracts\Http\Kernel::class);
+            $reflection = new \ReflectionClass($kernel);
+            if (!$reflection->hasProperty('routeMiddleware')) {
+                return null;
+            }
+
+            $property = $reflection->getProperty('routeMiddleware');
+            $property->setAccessible(true);
+            $middleware = $property->getValue($kernel);
+            if (is_array($middleware) && isset($middleware[$alias]) && is_string($middleware[$alias])) {
+                return ltrim($middleware[$alias], '\\');
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
+
+        return null;
     }
 
     private function routeExists($method, $uri)

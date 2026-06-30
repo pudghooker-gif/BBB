@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'web_step_up_ttl_seconds' => env('B2B_WEB_STEP_UP_TTL_SECONDS', 300),
+
     'permissions' => [
         'b2b.operators.create' => 'Create B2B operators and first credentials.',
         'b2b.operators.update' => 'Update B2B operator configuration.',

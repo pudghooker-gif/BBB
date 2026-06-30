@@ -47,6 +47,7 @@ namespace VanguardLTE\Http
             'permission_api' => 'VanguardLTE\Http\Middleware\VerifyPermission', 
             'checker' => 'VanguardLTE\Http\Middleware\Checker', 
             'b2b.signature' => 'VanguardLTE\Http\Middleware\VerifyB2BSignature',
+            'b2b.web_step_up' => 'VanguardLTE\Http\Middleware\RequireB2BWebStepUp',
             '2fa' => 'PragmaRX\Google2FALaravel\Middleware'
         ];
     }

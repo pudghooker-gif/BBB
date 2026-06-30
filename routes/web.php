@@ -667,6 +667,18 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
             'middleware' => 'only_for_admin',
         ]);
 
+        Route::get('/b2b/step-up/{action}', [
+            'as' => 'backend.b2b.step_up.show',
+            'uses' => 'B2BStepUpController@show',
+            'middleware' => 'only_for_admin',
+        ])->where('action', '[A-Za-z0-9_.-]+');
+
+        Route::post('/b2b/step-up/{action}', [
+            'as' => 'backend.b2b.step_up.store',
+            'uses' => 'B2BStepUpController@store',
+            'middleware' => 'only_for_admin',
+        ])->where('action', '[A-Za-z0-9_.-]+');
+
         Route::get('/game_stat', [
             'as' => 'backend.game_stat',
             'uses' => 'DashboardController@game_stat',
