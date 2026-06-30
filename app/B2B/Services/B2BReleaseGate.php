@@ -282,7 +282,7 @@ class B2BReleaseGate
             $missing[] = 'middleware:b2b.web_step_up';
         }
 
-        foreach (['api/b2b/v1/readiness', 'api/b2b/v1/metrics'] as $uri) {
+        foreach (['api/b2b/v1/readiness', 'api/b2b/v1/metrics', 'api/b2b/v1/portal/overview'] as $uri) {
             if (!$this->routeExists('GET', $uri)) {
                 $missing[] = 'route:' . $uri;
             }
@@ -292,7 +292,7 @@ class B2BReleaseGate
             'name' => 'web_surfaces',
             'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
             'message' => count($missing) === 0
-                ? 'B2B backend, web step-up, readiness, and metrics web surfaces are registered.'
+                ? 'B2B backend, operator portal, web step-up, readiness, and metrics web surfaces are registered.'
                 : 'Missing B2B web surfaces: ' . implode(', ', $missing),
         ];
     }

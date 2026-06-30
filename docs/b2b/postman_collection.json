@@ -98,6 +98,14 @@
             "url": "{{baseUrl}}/api/b2b/v1/operator/me"
           },
           "response": []
+        },
+        {
+          "name": "Portal Overview",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/portal/overview?limit=10"
+          },
+          "response": []
         }
       ]
     },

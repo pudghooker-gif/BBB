@@ -51,7 +51,7 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 - Financial report code used floats before this audit pass.
 - Sandbox wallet code still uses floats and should stay non-production.
 - The provider adapter contract now covers provider code, health, wallet action capabilities, launch preparation, session refresh, and session close; only the internal Goldsvet adapter is implemented until real provider docs/credentials are available.
-- Admin B2B backoffice and operator portal are not implemented as full production workflows. A read-only B2B operations dashboard now boots inside the authenticated backend at `/backend/b2b`, with session-bound web step-up routes/middleware available for future dangerous B2B actions.
+- Admin B2B backoffice and operator portal are not implemented as full production workflows. A read-only B2B operations dashboard now boots inside the authenticated backend at `/backend/b2b`, and a signed tenant-scoped operator portal overview endpoint is available at `/api/b2b/v1/portal/overview`, with session-bound web step-up routes/middleware available for future dangerous B2B actions.
 - Queue isolation, reconciliation jobs, settlement workflow, OpenAPI, readiness checks, aggregate metrics, CI foundations, Node/WebSocket manifest/proxy preflight, and partial dependency-audit remediation are present; remaining Laravel advisories, production release-check, staging, final WebSocket proxy validation, backup, and provider gates still need closure.
 - `b2b:release-check --production` is available and currently identifies production blockers in this local workspace: non-Redis shared-state/queue defaults, enabled sandbox config, Composer audit findings, and local secret-bearing files.
 

@@ -18,6 +18,7 @@
   "tags": [
     { "name": "health" },
     { "name": "operator" },
+    { "name": "portal" },
     { "name": "games" },
     { "name": "sessions" },
     { "name": "wallet" },
@@ -89,6 +90,23 @@
         "tags": ["operator"],
         "summary": "Return signed operator profile and operational counters",
         "security": [{ "B2BHmac": [] }],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/portal/overview": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Return a tenant-scoped read-only operator portal overview",
+        "description": "Aggregates signed-operator profile, API key status, wallet/session/reporting summaries, recent sessions, recent transactions, settlements, reconciliation items, and safe navigation links. Secret material and raw wallet payloads are never returned.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
+          { "name": "to", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-24" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 50 }, "example": 10 }
+        ],
         "responses": {
           "200": { "$ref": "#/components/responses/Success" },
           "401": { "$ref": "#/components/responses/Error" }

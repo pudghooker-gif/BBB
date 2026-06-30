@@ -5,6 +5,7 @@ use VanguardLTE\Http\Controllers\Api\B2B\GameCatalogController;
 use VanguardLTE\Http\Controllers\Api\B2B\GameLaunchController;
 use VanguardLTE\Http\Controllers\Api\B2B\HealthController;
 use VanguardLTE\Http\Controllers\Api\B2B\OperatorController;
+use VanguardLTE\Http\Controllers\Api\B2B\PortalController;
 use VanguardLTE\Http\Controllers\Api\B2B\ReportsController;
 use VanguardLTE\Http\Controllers\Api\B2B\SessionController;
 use VanguardLTE\Http\Controllers\Api\B2B\WalletController;
@@ -26,6 +27,7 @@ Route::prefix('b2b/v1')->group(function () {
 
     Route::middleware(['b2b.signature'])->group(function () {
         Route::get('operator/me', [OperatorController::class, 'me']);
+        Route::get('portal/overview', [PortalController::class, 'overview']);
 
         Route::get('games', [GameCatalogController::class, 'index']);
         Route::post('games/launch', [GameLaunchController::class, 'store']);
