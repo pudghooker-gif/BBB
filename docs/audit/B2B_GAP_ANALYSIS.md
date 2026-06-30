@@ -20,12 +20,12 @@ Date: 2026-06-24
 - Public health/readiness foundation checks database connectivity, critical B2B tables, cache runtime, queue configuration, storage writability, and production-safe release configuration without exposing secrets. Prometheus-compatible aggregate metrics are exposed without operator IDs, payloads, or secrets.
 - CI release-verification foundation is present in GitHub Actions for Composer validation/install, PHP syntax lint, Laravel route boot/cache, PHPUnit, Composer audit visibility, and the B2B production release-check.
 - Operator credential lifecycle audit foundation: API key rotation/revocation CLI commands require actor/reason, disable revoked keys, successful HMAC use writes throttled `api_key.used` events, and per-key `max_rps` is enforced by the shared resilience guard.
-- Production deployment artifact foundation: Nginx, PHP-FPM, Supervisor, systemd scheduler/WebSocket, cron fallback, backup, healthcheck, rollback templates, release runbook, and release-gate coverage are present.
+- Production deployment artifact foundation: Nginx, PHP-FPM, Supervisor, systemd scheduler/WebSocket, cron fallback, backup, healthcheck, rollback templates, WebSocket Node manifest/lockfile, release runbook, and release-gate coverage are present.
 - B2B admin authorization foundation: dedicated permission catalog, role map, deny-by-default privileged action guard, CLI step-up confirmation, session-bound web step-up middleware/routes, and denial audit events protect operator creation, credential rotation/revocation, manual wallet actions, and settlement approval actions.
 - Read-only B2B backend operations dashboard is wired into the existing authenticated backend at `/backend/b2b`; web step-up confirmation routes are available under `/backend/b2b/step-up/{action}` for future mutating screens.
 - Operator health/circuit breaker foundation.
 - B2B console commands are registered.
-- `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, web-surface and web step-up registration, locked Composer dependency audit, and release file gates.
+- `b2b:release-check --production` verifies Redis/shared-cache, queue, sandbox, debug, private callback, web-surface and web step-up registration, Node/WebSocket release coverage, locked Composer dependency audit, and release file gates.
 
 ## Missing Or Incomplete
 
@@ -39,7 +39,7 @@ Date: 2026-06-24
 - Dedicated B2B admin backoffice and operator portal remain incomplete. A read-only backend operations dashboard now boots at `/backend/b2b`, and web step-up confirmation is available, but dangerous mutation screens and a tenant-scoped operator portal still need implementation.
 - Runtime job implementations now cover scheduled wallet retry/reconciliation/cleanup workflows; production still needs staging validation of worker counts, scheduler locking, failed-job handling, and observability under real traffic.
 - Health/readiness/metrics endpoints are present; production still needs external uptime checks, Prometheus scrape wiring, alert routing, and staging validation behind the final Nginx/TLS topology.
-- Production domains, host-level secret store, off-host backup storage, WebSocket TLS/proxy validation, and rollback drill remain environment-specific launch blockers.
+- Production domains, host-level secret store, off-host backup storage, final WebSocket TLS/proxy validation, and rollback drill remain environment-specific launch blockers.
 
 ### P2 After Stable MVP
 

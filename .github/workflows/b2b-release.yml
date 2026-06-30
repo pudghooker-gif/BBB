@@ -90,6 +90,31 @@ jobs:
       - name: Run Composer audit
         run: composer audit --format=plain
 
+  websocket-runtime:
+    name: Node/WebSocket runtime gates
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.7.0 --activate
+
+      - name: Install WebSocket dependencies
+        working-directory: PTWebSocket
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Syntax check WebSocket runtime
+        working-directory: PTWebSocket
+        run: pnpm run check:syntax
+
   production-release-check:
     name: Production release-check command
     runs-on: ubuntu-22.04

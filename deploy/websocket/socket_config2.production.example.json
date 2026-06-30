@@ -1,0 +1,10 @@
+{
+  "port": 12096,
+  "listen_port": 12097,
+  "listen_host": "127.0.0.1",
+  "host": "b2b.example.com",
+  "prefix": "https://",
+  "host_ws": "b2b.example.com",
+  "prefix_ws": "wss://",
+  "ssl": false
+}

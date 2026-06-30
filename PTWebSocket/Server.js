@@ -6,6 +6,8 @@ var fs = require('fs');
 var serverConfig;
 
 serverConfig = JSON.parse(fs.readFileSync('../public/socket_config2.json', 'utf8'));
+var socketListenPort = serverConfig.listen_port || serverConfig.port;
+var socketListenHost = serverConfig.listen_host || undefined;
 	
 
 /*-----------------------------------*/
@@ -816,7 +818,7 @@ var https = require('https');
 
 
 var httpsServer = https.createServer(credentials);
-httpsServer.listen(serverConfig.port);
+httpsServer.listen(socketListenPort, socketListenHost);
 
 var WebSocket = require('ws').Server;
 var wss = new WebSocket({
@@ -826,7 +828,7 @@ var wss = new WebSocket({
 }else{
 
 var WebSocket = require('ws');
-var wss = new WebSocket.Server({port: serverConfig.port });
+var wss = new WebSocket.Server({port: socketListenPort, host: socketListenHost });
 
 
 }
@@ -1073,5 +1075,4 @@ ws.msgId++;
 
 
 });
-
 

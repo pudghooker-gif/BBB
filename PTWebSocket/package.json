@@ -1,0 +1,24 @@
+{
+  "name": "bbb-pt-websocket",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Legacy BBB Node/WebSocket game runtime.",
+  "main": "Server.js",
+  "engines": {
+    "node": ">=20 <25"
+  },
+  "packageManager": "pnpm@11.7.0",
+  "scripts": {
+    "start": "node Server.js",
+    "start:slots": "node Slots.js",
+    "start:arcade": "node Arcade.js",
+    "check:syntax": "node --check Server.js && node --check Slots.js && node --check Arcade.js && node --check arcade_server/System.js && node --check arcade_server/Queue.js"
+  },
+  "dependencies": {
+    "ioredis": "4.14.1",
+    "moment-timezone": "0.5.32",
+    "mysql2": "2.2.5",
+    "request": "2.88.0",
+    "ws": "7.1.2"
+  }
+}

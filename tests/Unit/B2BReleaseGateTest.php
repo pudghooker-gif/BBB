@@ -29,6 +29,7 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckFailed($result, 'private_wallet_callbacks');
         $this->assertCheckFailed($result, 'sandbox_disabled');
         $this->assertCheckPassed($result, 'deployment_artifacts');
+        $this->assertCheckPassed($result, 'websocket_runtime');
         $this->assertCheckPassed($result, 'admin_rbac_config');
         $this->assertCheckPassed($result, 'web_surfaces');
     }
@@ -49,6 +50,7 @@ class B2BReleaseGateTest extends TestCase
 
         $this->assertTrue($result['ok']);
         $this->assertCheckPassed($result, 'deployment_artifacts');
+        $this->assertCheckPassed($result, 'websocket_runtime');
         $this->assertCheckPassed($result, 'admin_rbac_config');
         $this->assertCheckPassed($result, 'web_surfaces');
     }

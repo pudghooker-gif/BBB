@@ -18,6 +18,7 @@ class B2BReleaseGate
             $this->booleanCheck('private_wallet_callbacks', !(bool) config('b2b.allow_private_wallet_callbacks'), $production, 'Private wallet callback targets must stay disabled in production.'),
             $this->booleanCheck('sandbox_disabled', !(bool) config('b2b.sandbox_enabled'), $production, 'B2B sandbox must be disabled in production.'),
             $this->deploymentArtifactsCheck($production),
+            $this->websocketRuntimeCheck($production),
             $this->adminRbacCheck($production),
             $this->webSurfacesCheck($production),
         ];
@@ -140,6 +141,72 @@ class B2BReleaseGate
         ];
     }
 
+    private function websocketRuntimeCheck($production)
+    {
+        $missing = [];
+        $paths = [
+            'PTWebSocket/Server.js',
+            'PTWebSocket/package.json',
+            'PTWebSocket/pnpm-lock.yaml',
+            'deploy/websocket/socket_config2.production.example.json',
+            'deploy/systemd/bbb-websocket.service',
+        ];
+
+        foreach ($paths as $path) {
+            if (!file_exists(base_path($path))) {
+                $missing[] = 'path:' . $path;
+            }
+        }
+
+        $package = $this->jsonFile(base_path('PTWebSocket/package.json'));
+        if (!$package) {
+            $missing[] = 'json:PTWebSocket/package.json';
+        } else {
+            foreach (['ws', 'request', 'mysql2', 'ioredis', 'moment-timezone'] as $dependency) {
+                if (empty($package['dependencies'][$dependency])) {
+                    $missing[] = 'package_dependency:' . $dependency;
+                }
+            }
+
+            if (empty($package['scripts']['start']) || strpos($package['scripts']['start'], 'node Server.js') === false) {
+                $missing[] = 'package_script:start';
+            }
+
+            if (empty($package['scripts']['check:syntax'])) {
+                $missing[] = 'package_script:check:syntax';
+            }
+        }
+
+        $server = $this->fileContents(base_path('PTWebSocket/Server.js'));
+        foreach (['serverConfig.listen_port', 'serverConfig.listen_host', '../public/socket_config2.json', 'new WebSocket.Server'] as $needle) {
+            if (strpos($server, $needle) === false) {
+                $missing[] = 'server_js:' . $needle;
+            }
+        }
+
+        $nginx = $this->fileContents(base_path('deploy/nginx/bbb-b2b.conf.example'));
+        foreach (['bbb_b2b_websocket', 'listen 12096 ssl', 'proxy_set_header Upgrade', 'proxy_buffering off'] as $needle) {
+            if (strpos($nginx, $needle) === false) {
+                $missing[] = 'nginx_websocket:' . $needle;
+            }
+        }
+
+        $healthcheck = $this->fileContents(base_path('deploy/scripts/healthcheck.sh'));
+        foreach (['WEBSOCKET_TCP_HOST', 'WEBSOCKET_TCP_PORT', '/dev/tcp'] as $needle) {
+            if (strpos($healthcheck, $needle) === false) {
+                $missing[] = 'healthcheck_websocket:' . $needle;
+            }
+        }
+
+        return [
+            'name' => 'websocket_runtime',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Node/WebSocket manifest, lockfile, proxy template, and health probe are present.'
+                : 'Missing Node/WebSocket runtime release coverage: ' . implode(', ', $missing),
+        ];
+    }
+
     private function adminRbacCheck($production)
     {
         $requiredPermissions = [
@@ -255,6 +322,22 @@ class B2BReleaseGate
         }
 
         return null;
+    }
+
+    private function jsonFile($path)
+    {
+        if (!file_exists($path)) {
+            return null;
+        }
+
+        $decoded = json_decode(file_get_contents($path), true);
+
+        return is_array($decoded) ? $decoded : null;
+    }
+
+    private function fileContents($path)
+    {
+        return file_exists($path) ? file_get_contents($path) : '';
     }
 
     private function routeExists($method, $uri)

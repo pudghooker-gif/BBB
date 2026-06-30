@@ -9,7 +9,8 @@ This runbook documents the production deployment shape. It intentionally uses pl
 - Redis is the shared cache, nonce, rate-limit, lock, and queue backend.
 - Supervisor runs the B2B queue workers from `deploy/supervisor/b2b-workers.conf.example`.
 - Systemd timer `bbb-scheduler.timer` runs Laravel scheduler every minute.
-- Systemd service `bbb-websocket.service` runs the Node/WebSocket runtime.
+- Systemd service `bbb-websocket.service` runs the Node/WebSocket runtime from `PTWebSocket/package.json`.
+- Nginx terminates public WebSocket TLS on port `12096` and proxies to the Node process on `127.0.0.1:12097`.
 - Backups run `deploy/scripts/backup.sh` with credentials stored outside the repository in `/etc/bbb/mysql-backup.cnf`.
 
 ## Preflight
@@ -28,6 +29,19 @@ php artisan route:cache
 php artisan view:cache
 php artisan b2b:release-check --production
 ```
+
+Install and syntax-check the WebSocket runtime before switching traffic:
+
+```bash
+cd /var/www/bbb/current/PTWebSocket
+corepack enable
+corepack prepare pnpm@11.7.0 --activate
+pnpm install --frozen-lockfile --ignore-scripts
+pnpm run check:syntax
+cp ../deploy/websocket/socket_config2.production.example.json ../public/socket_config2.json
+```
+
+The production WebSocket config should keep `ssl=false` and bind Node to localhost through `listen_host=127.0.0.1` and `listen_port=12097`; Nginx owns the public TLS endpoint on `12096`.
 
 Required production environment values:
 
@@ -51,7 +65,7 @@ B2B_ALLOW_PRIVATE_WALLET_CALLBACKS=false
 5. Run `php artisan b2b:release-check --production`.
 6. Switch `/var/www/bbb/current` to the new release with an atomic symlink update.
 7. Reload PHP-FPM, restart B2B workers, and restart the WebSocket service.
-8. Run `bash deploy/scripts/healthcheck.sh`.
+8. Run `WEBSOCKET_TCP_HOST=127.0.0.1 WEBSOCKET_TCP_PORT=12097 bash deploy/scripts/healthcheck.sh`.
 
 ## Health Checks
 
@@ -63,7 +77,7 @@ The read-only B2B operations dashboard is available to backend admins at `/backe
 APP_URL=https://b2b.example.com bash deploy/scripts/healthcheck.sh
 ```
 
-The health check validates the public B2B readiness endpoint, metrics scrape, and the production release gate. Readiness checks database connectivity, critical B2B tables, cache runtime, queue configuration, storage writability, and production-safe configuration. It does not validate real provider credentials or gambling certification.
+The health check validates the public B2B readiness endpoint, metrics scrape, optional WebSocket TCP reachability, and the production release gate. Readiness checks database connectivity, critical B2B tables, cache runtime, queue configuration, storage writability, and production-safe configuration. It does not validate real provider credentials or gambling certification.
 
 ## Backup
 
@@ -96,4 +110,4 @@ Before rollback, confirm whether the new release ran irreversible migrations. If
 
 ## External Launch Blockers
 
-Production readiness still requires real provider credentials and documentation, production domains and TLS, legal/certification approval, verified backup storage, load testing, and a staging migration rehearsal against a production copy.
+Production readiness still requires real provider credentials and documentation, production domains and TLS, WebSocket proxy validation through the final public domain, legal/certification approval, verified backup storage, load testing, and a staging migration rehearsal against a production copy.
