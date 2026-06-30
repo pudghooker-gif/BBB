@@ -8,3 +8,6 @@ CHANGELOG.md export-ignore
 *.sql export-ignore
 PTWebSocket/ssl/*.key export-ignore
 PTWebSocket/ssl/*.crt export-ignore
+vendor/ export-ignore
+composer.phar export-ignore
+composer-setup.php export-ignore

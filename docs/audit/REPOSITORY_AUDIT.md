@@ -45,7 +45,7 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 ### P1
 
 - Composer optimized autoload no longer reports the previously identified PSR-4 warnings after explicitly excluding legacy non-autoloadable paths from the classmap.
-- Composer security audit is available. Most advisories were closed by updating the PHP 7.4-compatible dependency set; the remaining Laravel framework advisories block production until a PHP/Laravel major-upgrade or supported security-backport plan is completed and regression-tested.
+- Composer security audit is available. Most advisories were closed by updating the PHP 7.4-compatible dependency set; debug tooling has been moved out of production dependencies and legacy Faker has been replaced. The remaining Laravel framework advisories and Laravel 8 SwiftMailer dependency block production until a PHP/Laravel major-upgrade or supported security-backport plan is completed and regression-tested.
 - The test suite had only example tests before this work. HMAC success/replay/body-hash/IP allowlist coverage, tenant isolation coverage for sessions/reports/wallet attempts, request validation, and wallet idempotency conflict coverage have now been added; launch, wallet mutation state transitions, and broader reporting edge-case coverage remain incomplete.
 - B2B API JSON responses now use a shared envelope with `success`, `status`, `request_id`, `data` or `error`, backed by a central error catalog.
 - Financial report code used floats before this audit pass.
@@ -63,5 +63,5 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 
 ## Notes
 
-- Previously tracked `.env`, `.env_old`, SQL dump, and WebSocket key/cert files have been removed from the current tree and are covered by ignore/export-ignore rules. Treat any values committed to history as compromised and rotate before production launch.
+- Previously tracked `.env`, `.env_old`, SQL dump, WebSocket key/cert files, `vendor`, `composer.phar`, and `composer-setup.php` have been removed from the current tree and are covered by ignore/export-ignore rules. Treat any values committed to history as compromised and rotate before production launch.
 - The project must not be called production-ready until release gates are rerun on a clean Linux-like environment with database, Redis, queue workers, WebSocket proxy, SSL, production secrets, and real provider/legal artifacts.

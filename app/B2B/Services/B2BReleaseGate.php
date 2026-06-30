@@ -410,7 +410,7 @@ class B2BReleaseGate
 
     protected function runDependencyAuditCommand()
     {
-        $process = Process::fromShellCommandline('composer audit --locked --format=json --abandoned=report', base_path());
+        $process = Process::fromShellCommandline('composer audit --locked --no-dev --format=json --abandoned=report', base_path());
         $process->setTimeout(120);
         $process->run();
 

@@ -8,7 +8,9 @@
 # testing
 /coverage
 /.phpunit.result.cache
+/bootstrap/cache/*.php
 /bootstrap/cache/*.phpunit.php
+!/bootstrap/cache/.gitignore
 
 # production
 /storage
