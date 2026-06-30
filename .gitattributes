@@ -3,3 +3,8 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
+.env export-ignore
+.env_old export-ignore
+*.sql export-ignore
+PTWebSocket/ssl/*.key export-ignore
+PTWebSocket/ssl/*.crt export-ignore

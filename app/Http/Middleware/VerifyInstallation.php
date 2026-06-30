@@ -5,11 +5,13 @@ namespace VanguardLTE\Http\Middleware
     {
         public function handle($request, \Closure $next)
         {
-            if( !file_exists(base_path('.env')) && !$request->is('install*') ) 
+            $installed = file_exists(base_path('.env')) || (bool) config('app.key');
+
+            if( !$installed && !$request->is('install*') )
             {
                 return redirect()->to('install');
             }
-            if( file_exists(base_path('.env')) && $request->is('install*') && !$request->is('install/complete') ) 
+            if( $installed && $request->is('install*') && !$request->is('install/complete') )
             {
                 throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
             }

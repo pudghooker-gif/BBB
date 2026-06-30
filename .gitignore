@@ -37,6 +37,8 @@ composer.phar
 composer-setup.php
 *.sql
 /storage/*.key
+/PTWebSocket/ssl/*.key
+/PTWebSocket/ssl/*.crt
 
 # B2B patch local ignore rules
 *.bak.*

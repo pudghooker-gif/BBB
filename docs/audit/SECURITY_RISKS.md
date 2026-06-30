@@ -4,9 +4,9 @@ Date: 2026-06-22
 
 ## P0
 
-- Secret-bearing files are present in the repository working tree: `.env`, `.env_old`, `PTWebSocket/ssl/key.key`, `PTWebSocket/ssl/crt.crt`, and `totalbet365.sql`. Contents were not copied or inspected in this report.
+- Secret-bearing files were previously tracked in the repository working tree: `.env`, `.env_old`, `PTWebSocket/ssl/key.key`, `PTWebSocket/ssl/crt.crt`, and `totalbet365.sql`. They have been removed from the current tree; contents were not copied or inspected in this report.
 - Production release artifacts must exclude local env files, SQL dumps, backups, development logs, and local TLS keys.
-- If any secret-bearing file has been committed to public history, rotate the affected secrets and treat production launch as blocked until rotation is complete.
+- Because these secret-bearing paths were tracked, rotate the affected secrets and treat production launch as blocked until rotation is complete.
 - Wallet callback URLs require SSRF protection. This audit pass adds scheme, localhost, private IP, reserved IP, and DNS resolution checks outside local/testing environments.
 - Launch `return_url` requires an operator allowlist to reduce open redirect risk. This audit pass enforces operator `base_url` or `settings.return_url_allowlist`.
 

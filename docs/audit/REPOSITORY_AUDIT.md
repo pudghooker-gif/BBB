@@ -53,7 +53,7 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 - The provider adapter contract now covers provider code, health, wallet action capabilities, launch preparation, session refresh, and session close; only the internal Goldsvet adapter is implemented until real provider docs/credentials are available.
 - Admin B2B backoffice and operator portal are not implemented as full production workflows. A read-only B2B operations dashboard now boots inside the authenticated backend at `/backend/b2b`, and a signed tenant-scoped operator portal overview endpoint is available at `/api/b2b/v1/portal/overview`, with session-bound web step-up routes/middleware available for future dangerous B2B actions.
 - Queue isolation, reconciliation jobs, settlement workflow, OpenAPI, readiness checks, aggregate metrics, CI foundations, Node/WebSocket manifest/proxy preflight, and partial dependency-audit remediation are present; remaining Laravel advisories, production release-check, staging, final WebSocket proxy validation, backup, and provider gates still need closure.
-- `b2b:release-check --production` is available and currently identifies production blockers in this local workspace: non-Redis shared-state/queue defaults, enabled sandbox config, Composer audit findings, and local secret-bearing files.
+- `b2b:release-check --production` is available and currently identifies production blockers in this local workspace: non-Redis shared-state/queue defaults, enabled sandbox config, and Composer audit findings. Previously tracked local secret-bearing files have been removed from the current tree; rotate any values that were committed to history before production launch.
 
 ### P2
 
@@ -63,5 +63,5 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 
 ## Notes
 
-- Existing `.env`, `.env_old`, SQL dump, and WebSocket key/cert files are present and must not be removed automatically. They are covered in `SECURITY_RISKS.md`.
+- Previously tracked `.env`, `.env_old`, SQL dump, and WebSocket key/cert files have been removed from the current tree and are covered by ignore/export-ignore rules. Treat any values committed to history as compromised and rotate before production launch.
 - The project must not be called production-ready until release gates are rerun on a clean Linux-like environment with database, Redis, queue workers, WebSocket proxy, SSL, production secrets, and real provider/legal artifacts.

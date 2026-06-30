@@ -55,6 +55,16 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckPassed($result, 'web_surfaces');
     }
 
+    public function testProductionGatePassesWhenSecretReleaseFilesAreAbsent()
+    {
+        $this->configureSafeProductionSettings();
+
+        $result = app(B2BReleaseGate::class)->run(true, true);
+
+        $this->assertTrue($result['ok']);
+        $this->assertCheckPassed($result, 'release_secret_files');
+    }
+
     public function testProductionGateFailsWhenDependencyAuditFindsAdvisories()
     {
         $this->configureSafeProductionSettings();
