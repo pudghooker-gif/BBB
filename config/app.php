@@ -193,8 +193,6 @@ return [
         VanguardLTE\Providers\RouteServiceProvider::class,
 		jeremykenedy\LaravelRoles\RolesServiceProvider::class,
 		
-        Yajra\DataTables\DataTablesServiceProvider::class,
-
     ],
 
     /*
@@ -254,7 +252,6 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
 
-        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];

@@ -23,8 +23,7 @@
         "predis/predis": "^1.1",
         "proengsoft/laravel-jsvalidation": "^4.0",
         "spatie/db-dumper": "^2.21",
-        "tymon/jwt-auth": "1.*",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "tymon/jwt-auth": "1.*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

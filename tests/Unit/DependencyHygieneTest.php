@@ -19,6 +19,7 @@ class DependencyHygieneTest extends TestCase
             'laracasts/presenter',
             'laravel/legacy-factories',
             'laravel/ui',
+            'yajra/laravel-datatables-oracle',
         ] as $package) {
             $this->assertArrayNotHasKey($package, $composer['require']);
             $this->assertArrayNotHasKey($package, $composer['require-dev']);
@@ -33,8 +34,14 @@ class DependencyHygieneTest extends TestCase
         $this->assertStringNotContainsString('SMSToServiceProvider', $appConfig);
         $this->assertStringNotContainsString('Intergo\SmsTo', $appConfig);
         $this->assertStringNotContainsString('anlutro\LaravelSettings\Facade', $appConfig);
+        $this->assertStringNotContainsString('Yajra\DataTables', $appConfig);
         $this->assertStringContainsString('GuzzleHttp\Client', $smsSender);
         $this->assertStringContainsString("config('smsto.base_url')", $smsSender);
+    }
+
+    public function testUnusedServerSideDataTablesPackageConfigIsRemoved()
+    {
+        $this->assertFileNotExists(base_path('config/datatables.php'));
     }
 
     public function testLegacyFactoryClassmapIsRemoved()
