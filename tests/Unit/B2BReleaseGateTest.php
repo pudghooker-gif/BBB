@@ -32,6 +32,7 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckPassed($result, 'websocket_runtime');
         $this->assertCheckPassed($result, 'admin_rbac_config');
         $this->assertCheckPassed($result, 'web_surfaces');
+        $this->assertCheckPassed($result, 'laravel_security_mitigations');
     }
 
     public function testProductionGatePassesRedisSharedStateAndSafeFlags()
@@ -53,6 +54,7 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckPassed($result, 'websocket_runtime');
         $this->assertCheckPassed($result, 'admin_rbac_config');
         $this->assertCheckPassed($result, 'web_surfaces');
+        $this->assertCheckPassed($result, 'laravel_security_mitigations');
     }
 
     public function testProductionGatePassesWhenSecretReleaseFilesAreAbsent()
@@ -118,6 +120,27 @@ class B2BReleaseGateTest extends TestCase
 
         $this->assertTrue($result['ok']);
         $this->assertCheckPassed($result, 'dependency_audit');
+    }
+
+    public function testProductionGateFailsWhenLaravelSignedMiddlewareIsEnabled()
+    {
+        $this->configureSafeProductionSettings();
+
+        $gate = new class extends B2BReleaseGate {
+            protected function routeMiddlewareClass($alias)
+            {
+                if ($alias === 'signed') {
+                    return 'Illuminate\Routing\Middleware\ValidateSignature';
+                }
+
+                return parent::routeMiddlewareClass($alias);
+            }
+        };
+
+        $result = $gate->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'laravel_security_mitigations');
     }
 
     private function assertCheckFailed(array $result, $name)

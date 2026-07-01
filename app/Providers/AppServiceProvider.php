@@ -18,8 +18,10 @@ use VanguardLTE\Repositories\User\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use VanguardLTE\Support\Validation\SecurityHardenedValidator;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -31,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Validator::resolver(function ($translator, $data, $rules, $messages, $customAttributes) {
+            return new SecurityHardenedValidator($translator, $data, $rules, $messages, $customAttributes);
+        });
+
         Carbon::setLocale(config('app.locale'));
         config(['app.name' => settings('app_name')]);
         \Illuminate\Database\Schema\Builder::defaultStringLength(191);

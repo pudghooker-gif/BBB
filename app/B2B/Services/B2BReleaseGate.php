@@ -5,6 +5,7 @@ namespace VanguardLTE\B2B\Services;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\Process\Process;
+use VanguardLTE\Support\Validation\SecurityHardenedValidator;
 
 class B2BReleaseGate
 {
@@ -21,6 +22,7 @@ class B2BReleaseGate
             $this->websocketRuntimeCheck($production),
             $this->adminRbacCheck($production),
             $this->webSurfacesCheck($production),
+            $this->laravelSecurityMitigationsCheck($production),
         ];
 
         if ($checkFiles) {
@@ -295,6 +297,96 @@ class B2BReleaseGate
                 ? 'B2B backend, operator portal, web step-up, readiness, and metrics web surfaces are registered.'
                 : 'Missing B2B web surfaces: ' . implode(', ', $missing),
         ];
+    }
+
+    private function laravelSecurityMitigationsCheck($production)
+    {
+        $missing = [];
+
+        if (!$this->hardenedValidatorRejectsCrlfEmail()) {
+            $missing[] = 'validator:email_crlf_mitigation';
+        }
+
+        if (!$this->hardenedValidatorBlocksPhp8UploadExtension()) {
+            $missing[] = 'validator:php8_upload_extension_mitigation';
+        }
+
+        if ($this->routeMiddlewareClass('signed') === 'Illuminate\Routing\Middleware\ValidateSignature') {
+            $missing[] = 'middleware_alias:signed';
+        }
+
+        if ($this->usesLaravelSignedRouteMiddleware()) {
+            $missing[] = 'route_middleware:signed';
+        }
+
+        return [
+            'name' => 'laravel_security_mitigations',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Laravel advisory mitigations are active for email validation, PHP upload extensions, and signed-route exposure.'
+                : 'Missing Laravel advisory mitigations: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function hardenedValidatorRejectsCrlfEmail()
+    {
+        try {
+            $validator = app('validator')->make(
+                ['email' => "ops@example.test\r\nBcc: attacker@example.test"],
+                ['email' => 'email']
+            );
+
+            return $validator instanceof SecurityHardenedValidator && $validator->fails();
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    private function hardenedValidatorBlocksPhp8UploadExtension()
+    {
+        $path = tempnam(sys_get_temp_dir(), 'bbb-upload-check-');
+        if ($path === false) {
+            return false;
+        }
+
+        try {
+            file_put_contents($path, base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAFgwJ/lUcQGQAAAABJRU5ErkJggg=='));
+            $file = new \Illuminate\Http\UploadedFile($path, 'avatar.php8', 'image/png', null, true);
+            $validator = app('validator')->make(['file' => $file], ['file' => 'file|mimes:png']);
+
+            return $validator instanceof SecurityHardenedValidator && $validator->fails();
+        } catch (\Exception $e) {
+            return false;
+        } finally {
+            @unlink($path);
+        }
+    }
+
+    private function usesLaravelSignedRouteMiddleware()
+    {
+        foreach (Route::getRoutes() as $route) {
+            foreach ($route->gatherMiddleware() as $middleware) {
+                if ($this->isLaravelSignedMiddlewareReference($middleware)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private function isLaravelSignedMiddlewareReference($middleware)
+    {
+        if (!is_string($middleware)) {
+            return false;
+        }
+
+        $middleware = ltrim($middleware, '\\');
+
+        return $middleware === 'signed'
+            || strpos($middleware, 'signed:') === 0
+            || $middleware === 'Illuminate\Routing\Middleware\ValidateSignature'
+            || strpos($middleware, 'Illuminate\Routing\Middleware\ValidateSignature:') === 0;
     }
 
     protected function routeMiddlewareClass($alias)

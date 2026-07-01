@@ -15,6 +15,7 @@ The command fails production mode when:
 - private wallet callback targets are enabled;
 - sandbox wallet is enabled;
 - production Composer dependencies (`composer audit --locked --no-dev`) have security advisories or abandoned packages;
+- Laravel advisory mitigations for CRLF email validation, PHP upload extensions, or disabled framework signed routes are missing;
 - B2B readiness, metrics, backend dashboard, operator portal overview, or web step-up surfaces are not registered;
 - Node/WebSocket manifest, lockfile, proxy template, or health probe are missing;
 - deployment templates or the production runbook are missing;
