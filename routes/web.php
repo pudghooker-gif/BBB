@@ -667,6 +667,18 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
             'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view'],
         ]);
 
+        Route::get('/b2b/wallet/manual-actions', [
+            'as' => 'backend.b2b.wallet_manual_actions.index',
+            'uses' => 'B2BWalletManualActionController@index',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.wallet.manual_action'],
+        ]);
+
+        Route::post('/b2b/wallet/manual-actions', [
+            'as' => 'backend.b2b.wallet_manual_actions.store',
+            'uses' => 'B2BWalletManualActionController@store',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.wallet.manual_action', 'b2b.web_step_up:wallet.manual_action'],
+        ]);
+
         Route::get('/b2b/step-up/{action}', [
             'as' => 'backend.b2b.step_up.show',
             'uses' => 'B2BStepUpController@show',

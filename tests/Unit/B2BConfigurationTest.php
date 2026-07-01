@@ -20,6 +20,10 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("[GameLaunchController::class, 'store']", $b2bRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.dashboard'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BDashboardController@index'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.wallet_manual_actions.index'", $webRoutes);
+        $this->assertStringContainsString("'uses' => 'B2BWalletManualActionController@index'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.wallet_manual_actions.store'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:wallet.manual_action'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.step_up.show'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BStepUpController@show'", $webRoutes);
         $this->assertStringContainsString("'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view']", $webRoutes);

@@ -149,7 +149,7 @@ This is still a reconciliation foundation. Final production readiness still need
 - A failed callback keeps `rollback_required` open until `B2B_WALLET_ROLLBACK_MAX_ATTEMPTS` is reached.
 - Exhausted rollback recovery moves the transaction to `manual_review`, resolves rollback items, and opens a manual-review item.
 
-This is an automated recovery foundation with an explicit internal provider contract. Operators still need provider-specific certification for rollback semantics and a web case workflow before broad production operations.
+This is an automated recovery foundation with an explicit internal provider contract. A B2B-RBAC and web-step-up protected manual action screen is available at `/backend/b2b/wallet/manual-actions` for controlled case handling. Operators still need provider-specific certification for rollback semantics before broad production operations.
 
 ## Manual wallet actions
 
@@ -170,4 +170,4 @@ Supported actions:
 
 Every manual action requires `--actor`, `--reason`, exact `--permission=b2b.wallet.manual_action`, and exact `--confirm=MANUAL_WALLET_ACTION`, writes `b2b_wallet_manual_actions`, appends a wallet transition, and opens or resolves reconciliation items where appropriate. Denied attempts write `privileged_action.denied` when the operator audit table exists.
 
-This is not yet the final production backoffice. Full production readiness still needs authenticated web step-up challenges, confirmation dialogs, raw payload permissions wired into B2B UI, and operator-visible case workflow.
+This is not yet the final production backoffice. Full production readiness still needs expanded confirmation dialogs, raw payload permissions wired into B2B UI, settlement approval screens, and operator-visible case workflow.

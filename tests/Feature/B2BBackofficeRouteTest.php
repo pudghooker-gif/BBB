@@ -17,4 +17,10 @@ class B2BBackofficeRouteTest extends TestCase
         $this->get('/backend/b2b/step-up/api_key.rotate')
             ->assertRedirect('/backend/login');
     }
+
+    public function testB2BManualWalletActionsRedirectGuestsToBackendLogin()
+    {
+        $this->get('/backend/b2b/wallet/manual-actions')
+            ->assertRedirect('/backend/login');
+    }
 }
