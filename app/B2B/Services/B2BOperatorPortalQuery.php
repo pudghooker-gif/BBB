@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\Schema;
 class B2BOperatorPortalQuery
 {
     private $reports;
+    private $redactor;
 
-    public function __construct(B2BReportQuery $reports)
+    public function __construct(B2BReportQuery $reports, B2BPayloadRedactor $redactor)
     {
         $this->reports = $reports;
+        $this->redactor = $redactor;
     }
 
     public function overview(Request $request)
@@ -38,6 +40,7 @@ class B2BOperatorPortalQuery
             'game_assignments' => $this->gameAssignmentSummary($operatorId, $limit),
             'settlements' => $this->settlementSummary($operatorId, $limit),
             'reconciliation' => $this->reconciliationSummary($operatorId, $limit),
+            'callbacks' => $this->callbackSummary($operatorId, $fromDate, $toDate, $limit),
             'recent_sessions' => $this->recentSessions($operatorId, $limit),
             'recent_transactions' => $this->recentTransactions($operatorId, $fromDate, $toDate, $limit),
             'links' => [
@@ -48,11 +51,15 @@ class B2BOperatorPortalQuery
                 'portal_transactions' => '/api/b2b/v1/portal/transactions',
                 'portal_settlements' => '/api/b2b/v1/portal/settlements',
                 'portal_cases' => '/api/b2b/v1/portal/cases',
+                'portal_callbacks' => '/api/b2b/v1/portal/callbacks',
+                'portal_reports' => '/api/b2b/v1/portal/reports',
                 'portal_docs' => '/api/b2b/v1/portal/docs',
                 'operator_profile' => '/api/b2b/v1/operator/me',
                 'games' => '/api/b2b/v1/games',
                 'sessions' => '/api/b2b/v1/sessions',
+                'reports_summary' => '/api/b2b/v1/reports/summary',
                 'transactions' => '/api/b2b/v1/reports/transactions',
+                'reports_ggr' => '/api/b2b/v1/reports/ggr',
                 'settlements' => '/api/b2b/v1/reports/settlements',
                 'reconciliation' => '/api/b2b/v1/reports/reconciliation',
             ],
@@ -69,7 +76,7 @@ class B2BOperatorPortalQuery
             'allowed_currencies' => $this->arrayValue($operator->allowed_currencies),
             'allowed_countries' => $this->arrayValue($operator->allowed_countries),
             'base_url' => $operator->base_url,
-            'wallet_callback_url' => $operator->wallet_callback_url,
+            'wallet_callback_url' => $this->safeEndpoint($operator->wallet_callback_url),
             'wallet_callback_configured' => !empty($operator->wallet_callback_url),
             'max_rps' => isset($operator->max_rps) ? (int) $operator->max_rps : null,
             'wallet_timeout_ms' => isset($operator->wallet_timeout_ms) ? (int) $operator->wallet_timeout_ms : null,
@@ -359,6 +366,133 @@ class B2BOperatorPortalQuery
         })->values();
     }
 
+    private function callbackSummary($operatorId, Carbon $fromDate, Carbon $toDate, $limit)
+    {
+        return [
+            'by_direction' => $this->groupCountsBetween('b2b_wallet_callback_logs', $operatorId, 'direction', $fromDate, $toDate),
+            'by_result' => $this->callbackResultCounts($operatorId, $fromDate, $toDate),
+            'attempts_by_result' => $this->groupCountsBetween('b2b_wallet_transaction_attempts', $operatorId, 'result', $fromDate, $toDate),
+            'recent_logs' => $this->recentCallbackLogs($operatorId, $fromDate, $toDate, $limit),
+            'recent_attempts' => $this->recentCallbackAttempts($operatorId, $fromDate, $toDate, $limit),
+        ];
+    }
+
+    private function callbackResultCounts($operatorId, Carbon $fromDate, Carbon $toDate)
+    {
+        if (!Schema::hasTable('b2b_wallet_callback_logs') || !Schema::hasColumn('b2b_wallet_callback_logs', 'http_status')) {
+            return [];
+        }
+
+        $rows = DB::table('b2b_wallet_callback_logs')
+            ->where('operator_id', $operatorId)
+            ->whereBetween('created_at', [$fromDate, $toDate])
+            ->select('http_status', DB::raw('COUNT(*) as count'))
+            ->groupBy('http_status')
+            ->orderBy('http_status')
+            ->get();
+
+        $result = [];
+        foreach ($rows as $row) {
+            $bucket = $this->callbackStatusBucket($row->http_status);
+            if (!isset($result[$bucket])) {
+                $result[$bucket] = ['count' => 0];
+            }
+
+            $result[$bucket]['count'] += (int) $row->count;
+        }
+
+        return $result;
+    }
+
+    private function recentCallbackLogs($operatorId, Carbon $fromDate, Carbon $toDate, $limit)
+    {
+        if (!Schema::hasTable('b2b_wallet_callback_logs')) {
+            return [];
+        }
+
+        $query = DB::table('b2b_wallet_callback_logs as l')
+            ->where('l.operator_id', $operatorId)
+            ->whereBetween('l.created_at', [$fromDate, $toDate])
+            ->orderBy('l.created_at', 'desc')
+            ->limit($limit);
+
+        $select = [
+            'l.direction',
+            'l.endpoint',
+            'l.http_status',
+            'l.duration_ms',
+            'l.created_at',
+            DB::raw('NULL as transaction_uid'),
+            DB::raw('NULL as error_message'),
+        ];
+
+        if (Schema::hasColumn('b2b_wallet_callback_logs', 'error_message')) {
+            $select[count($select) - 1] = 'l.error_message';
+        }
+
+        if (Schema::hasTable('b2b_wallet_transactions') && Schema::hasColumn('b2b_wallet_transactions', 'transaction_uid')) {
+            $query->leftJoin('b2b_wallet_transactions as tx', function ($join) {
+                $join->on('tx.id', '=', 'l.wallet_transaction_id')
+                    ->on('tx.operator_id', '=', 'l.operator_id');
+            });
+            $select[count($select) - 2] = 'tx.transaction_uid';
+        }
+
+        return $query->get($select)->map(function ($row) {
+            return [
+                'transaction_uid' => isset($row->transaction_uid) ? $row->transaction_uid : null,
+                'direction' => isset($row->direction) ? $row->direction : null,
+                'endpoint' => isset($row->endpoint) ? $this->safeEndpoint($row->endpoint) : null,
+                'http_status' => isset($row->http_status) ? (int) $row->http_status : null,
+                'result' => isset($row->http_status) ? $this->callbackStatusBucket($row->http_status) : 'unknown',
+                'duration_ms' => isset($row->duration_ms) ? (int) $row->duration_ms : null,
+                'error_summary' => isset($row->error_message) ? $this->safeErrorSummary($row->error_message) : null,
+                'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
+            ];
+        })->values();
+    }
+
+    private function recentCallbackAttempts($operatorId, Carbon $fromDate, Carbon $toDate, $limit)
+    {
+        if (!Schema::hasTable('b2b_wallet_transaction_attempts')) {
+            return [];
+        }
+
+        return DB::table('b2b_wallet_transaction_attempts')
+            ->where('operator_id', $operatorId)
+            ->whereBetween('created_at', [$fromDate, $toDate])
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get($this->selectExisting('b2b_wallet_transaction_attempts', [
+                'transaction_uid',
+                'type',
+                'attempt_no',
+                'url',
+                'http_status',
+                'result',
+                'duration_ms',
+                'error',
+                'started_at',
+                'finished_at',
+                'created_at',
+            ]))
+            ->map(function ($row) {
+                return [
+                    'transaction_uid' => isset($row->transaction_uid) ? $row->transaction_uid : null,
+                    'type' => isset($row->type) ? $row->type : null,
+                    'attempt_no' => isset($row->attempt_no) ? (int) $row->attempt_no : null,
+                    'endpoint' => isset($row->url) ? $this->safeEndpoint($row->url) : null,
+                    'http_status' => isset($row->http_status) ? (int) $row->http_status : null,
+                    'result' => isset($row->result) ? $row->result : null,
+                    'duration_ms' => isset($row->duration_ms) ? (int) $row->duration_ms : null,
+                    'error_summary' => isset($row->error) ? $this->safeErrorSummary($row->error) : null,
+                    'started_at' => isset($row->started_at) ? $this->isoTime($row->started_at) : null,
+                    'finished_at' => isset($row->finished_at) ? $this->isoTime($row->finished_at) : null,
+                    'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
+                ];
+            })->values();
+    }
+
     private function recentTransactions($operatorId, Carbon $fromDate, Carbon $toDate, $limit)
     {
         if (!Schema::hasTable('b2b_wallet_transactions')) {
@@ -437,6 +571,32 @@ class B2BOperatorPortalQuery
         return $result;
     }
 
+    private function groupCountsBetween($table, $operatorId, $column, Carbon $fromDate, Carbon $toDate)
+    {
+        if (!Schema::hasTable($table) || !Schema::hasColumn($table, $column)) {
+            return [];
+        }
+
+        $query = DB::table($table)
+            ->where('operator_id', $operatorId)
+            ->select($column, DB::raw('COUNT(*) as count'))
+            ->groupBy($column)
+            ->orderBy($column);
+
+        if (Schema::hasColumn($table, 'created_at')) {
+            $query->whereBetween('created_at', [$fromDate, $toDate]);
+        }
+
+        $rows = $query->get();
+        $result = [];
+        foreach ($rows as $row) {
+            $key = isset($row->{$column}) && $row->{$column} !== null ? (string) $row->{$column} : 'unknown';
+            $result[$key] = ['count' => (int) $row->count];
+        }
+
+        return $result;
+    }
+
     private function selectExisting($table, array $columns)
     {
         $select = [];
@@ -500,4 +660,62 @@ class B2BOperatorPortalQuery
 
         return number_format((float) $value, $scale, '.', '');
     }
+
+    private function callbackStatusBucket($status)
+    {
+        if ($status === null) {
+            return 'unknown';
+        }
+
+        $status = (int) $status;
+        if ($status === 0) {
+            return 'network_error';
+        }
+        if ($status >= 200 && $status < 300) {
+            return 'success';
+        }
+        if ($status >= 400 && $status < 500) {
+            return 'client_error';
+        }
+        if ($status >= 500) {
+            return 'server_error';
+        }
+
+        return 'other';
+    }
+
+    private function safeEndpoint($url)
+    {
+        if (!$url) {
+            return null;
+        }
+
+        $parts = parse_url((string) $url);
+        if ($parts === false) {
+            return substr($this->redactor->storageValue((string) $url), 0, 160);
+        }
+
+        if (!isset($parts['host'])) {
+            return isset($parts['path']) ? $parts['path'] : null;
+        }
+
+        $endpoint = (isset($parts['scheme']) ? $parts['scheme'] : 'https') . '://' . $parts['host'];
+        if (isset($parts['port'])) {
+            $endpoint .= ':' . $parts['port'];
+        }
+
+        return $endpoint . (isset($parts['path']) ? $parts['path'] : '/');
+    }
+
+    private function safeErrorSummary($value)
+    {
+        if (!$value) {
+            return null;
+        }
+
+        $summary = $this->redactor->storageValue((string) $value);
+
+        return strlen($summary) > 160 ? substr($summary, 0, 157) . '...' : $summary;
+    }
+
 }

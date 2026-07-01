@@ -185,6 +185,28 @@
           "response": []
         },
         {
+          "name": "Portal Callbacks",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/callbacks?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/reports?limit=10"
+          },
+          "response": []
+        },
+        {
           "name": "Portal Docs",
           "request": {
             "method": "GET",

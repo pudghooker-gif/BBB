@@ -244,6 +244,138 @@
         </section>
     @endif
 
+    @if($portal_section['key'] === 'callbacks')
+        <section class="grid">
+            @forelse($callbacks['by_result'] as $result => $row)
+                <div class="panel metric">
+                    <div class="value">{{ number_format((int) $row['count']) }}</div>
+                    <div class="label">{{ $result }} callbacks</div>
+                </div>
+            @empty
+                <div class="panel metric">
+                    <div class="value">0</div>
+                    <div class="label">Callbacks</div>
+                </div>
+            @endforelse
+        </section>
+
+        <section class="panel section">
+            <h2>Callback Settings</h2>
+            <table>
+                <tbody>
+                <tr><th>Wallet Callback</th><td>{{ $operator['wallet_callback_url'] ?: 'missing' }}</td></tr>
+                <tr><th>Base URL</th><td>{{ $operator['base_url'] ?: 'n/a' }}</td></tr>
+                <tr><th>Wallet Timeout</th><td>{{ $operator['wallet_timeout_ms'] ?: 'n/a' }} ms</td></tr>
+                <tr><th>Connect Timeout</th><td>{{ $operator['connect_timeout_ms'] ?: 'n/a' }} ms</td></tr>
+                <tr><th>Failure Count</th><td>{{ $operator['failure_count'] === null ? 'n/a' : number_format((int) $operator['failure_count']) }}</td></tr>
+                <tr><th>Circuit Open Until</th><td>{{ $operator['circuit_open_until'] ?: 'closed' }}</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="panel section">
+            <h2>Callback Logs</h2>
+            <table>
+                <thead><tr><th>Transaction</th><th>Endpoint</th><th>Result</th><th>Status</th><th>Duration</th><th>Error</th><th>Created</th></tr></thead>
+                <tbody>
+                @forelse($callbacks['recent_logs'] as $log)
+                    <tr>
+                        <td>{{ $log['transaction_uid'] ?: 'n/a' }}</td>
+                        <td>{{ $log['endpoint'] ?: 'n/a' }}</td>
+                        <td><span class="status {{ in_array($log['result'], ['server_error', 'network_error', 'unknown'], true) ? 'bad' : '' }}">{{ $log['result'] }}</span></td>
+                        <td>{{ $log['http_status'] ?: 'n/a' }}</td>
+                        <td>{{ $log['duration_ms'] === null ? 'n/a' : $log['duration_ms'] . ' ms' }}</td>
+                        <td>{{ $log['error_summary'] ?: 'n/a' }}</td>
+                        <td>{{ $log['created_at'] ?: 'n/a' }}</td>
+                    </tr>
+                @empty
+                    <tr><td colspan="7" class="muted">No callback logs</td></tr>
+                @endforelse
+                </tbody>
+            </table>
+        </section>
+
+        <section class="panel section">
+            <h2>Callback Attempts</h2>
+            <table>
+                <thead><tr><th>Transaction</th><th>Type</th><th>Attempt</th><th>Endpoint</th><th>Result</th><th>Status</th><th>Duration</th><th>Error</th></tr></thead>
+                <tbody>
+                @forelse($callbacks['recent_attempts'] as $attempt)
+                    <tr>
+                        <td>{{ $attempt['transaction_uid'] ?: 'n/a' }}</td>
+                        <td>{{ $attempt['type'] ?: 'n/a' }}</td>
+                        <td>{{ $attempt['attempt_no'] ?: 'n/a' }}</td>
+                        <td>{{ $attempt['endpoint'] ?: 'n/a' }}</td>
+                        <td><span class="status {{ in_array($attempt['result'], ['failed', 'timeout', 'error'], true) ? 'bad' : '' }}">{{ $attempt['result'] ?: 'unknown' }}</span></td>
+                        <td>{{ $attempt['http_status'] ?: 'n/a' }}</td>
+                        <td>{{ $attempt['duration_ms'] === null ? 'n/a' : $attempt['duration_ms'] . ' ms' }}</td>
+                        <td>{{ $attempt['error_summary'] ?: 'n/a' }}</td>
+                    </tr>
+                @empty
+                    <tr><td colspan="8" class="muted">No callback attempts</td></tr>
+                @endforelse
+                </tbody>
+            </table>
+        </section>
+    @endif
+
+    @if($portal_section['key'] === 'reports')
+        <section class="grid">
+            <div class="panel metric">
+                <div class="value">{{ number_format((int) $summary['players']) }}</div>
+                <div class="label">Players</div>
+            </div>
+            <div class="panel metric">
+                <div class="value">{{ number_format((int) $summary['active_sessions']) }}</div>
+                <div class="label">Active Sessions</div>
+            </div>
+            <div class="panel metric">
+                <div class="value">{{ number_format((int) $summary['wallet_transactions']) }}</div>
+                <div class="label">Wallet Transactions</div>
+            </div>
+            <div class="panel metric">
+                <div class="value">{{ number_format((int) $summary['pending_settlements']) }}</div>
+                <div class="label">Pending Settlements</div>
+            </div>
+        </section>
+
+        <section class="panel section">
+            <h2>Success Amounts</h2>
+            <table>
+                <thead><tr><th>Type</th><th>Currency</th><th>Amount</th><th>Count</th></tr></thead>
+                <tbody>
+                @forelse($wallet['success_amounts'] as $type => $currencies)
+                    @foreach($currencies as $currency => $amount)
+                        <tr>
+                            <td>{{ $type }}</td>
+                            <td>{{ $currency }}</td>
+                            <td>{{ $amount['amount'] }}</td>
+                            <td>{{ number_format((int) $amount['count']) }}</td>
+                        </tr>
+                    @endforeach
+                @empty
+                    <tr><td colspan="4" class="muted">No successful wallet amounts in this period</td></tr>
+                @endforelse
+                </tbody>
+            </table>
+        </section>
+
+        <section class="panel section">
+            <h2>Report Links</h2>
+            <table>
+                <thead><tr><th>Report</th><th>Path</th></tr></thead>
+                <tbody>
+                @foreach(['reports_summary' => 'Summary', 'transactions' => 'Transactions', 'reports_ggr' => 'GGR', 'settlements' => 'Settlements', 'reconciliation' => 'Reconciliation'] as $key => $label)
+                    <tr>
+                        <td>{{ $label }}</td>
+                        <td>{{ isset($links[$key]) ? $links[$key] : 'n/a' }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </section>
+    @endif
+
     @if($portal_section['key'] === 'docs')
         <section class="panel section">
             <h2>API Links</h2>

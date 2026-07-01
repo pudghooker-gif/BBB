@@ -59,6 +59,8 @@ GET  /api/b2b/v1/portal/sessions
 GET  /api/b2b/v1/portal/transactions
 GET  /api/b2b/v1/portal/settlements
 GET  /api/b2b/v1/portal/cases
+GET  /api/b2b/v1/portal/callbacks
+GET  /api/b2b/v1/portal/reports
 GET  /api/b2b/v1/portal/docs
 GET  /api/b2b/v1/games
 POST /api/b2b/v1/games/launch
@@ -121,7 +123,7 @@ Error JSON responses use:
 
 `GET /api/b2b/v1/portal/overview` is a signed, read-only bootstrap endpoint for an operator-facing portal. It returns tenant-scoped operator/API-key profile data, wallet and session counters, credential/game-assignment/settlement/reconciliation summaries, recent sessions, recent wallet transactions, and links to the underlying B2B API routes. It intentionally omits API key secrets, raw wallet request/response payloads, and foreign-operator records.
 
-Signed read-only HTML workflow pages are available at `/portal/credentials`, `/portal/games`, `/portal/sessions`, `/portal/transactions`, `/portal/settlements`, `/portal/cases`, and `/portal/docs`. They use the same HMAC authentication and tenant-scoped redacted data as `/portal/overview`.
+Signed read-only HTML workflow pages are available at `/portal/credentials`, `/portal/games`, `/portal/sessions`, `/portal/transactions`, `/portal/settlements`, `/portal/cases`, `/portal/callbacks`, `/portal/reports`, and `/portal/docs`. They use the same HMAC authentication and tenant-scoped redacted data as `/portal/overview`. The callbacks page shows sanitized callback settings, status buckets, and recent callback attempts without query strings or raw payload bodies. The reports page links to the signed reporting endpoints and summarizes successful wallet amounts for the selected period.
 
 ## Launch example
 

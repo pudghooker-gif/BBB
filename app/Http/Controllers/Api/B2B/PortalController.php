@@ -16,6 +16,8 @@ class PortalController extends Controller
         'transactions' => 'Transactions',
         'settlements' => 'Settlements',
         'cases' => 'Cases',
+        'callbacks' => 'Callbacks',
+        'reports' => 'Reports',
         'docs' => 'Docs',
     ];
 

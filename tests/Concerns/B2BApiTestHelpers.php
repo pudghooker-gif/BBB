@@ -273,6 +273,7 @@ trait B2BApiTestHelpers
             $table->json('request_body')->nullable();
             $table->json('response_body')->nullable();
             $table->integer('duration_ms')->nullable();
+            $table->text('error_message')->nullable();
             $table->timestamps();
         });
 

@@ -58,6 +58,9 @@ class B2BOperatorPortalTest extends TestCase
             ->assertJsonPath('data.game_assignments.by_status.allowed.count', 1)
             ->assertJsonPath('data.settlements.by_status.submitted.count', 1)
             ->assertJsonPath('data.reconciliation.by_state.open.count', 1)
+            ->assertJsonPath('data.callbacks.by_result.server_error.count', 1)
+            ->assertJsonPath('data.callbacks.recent_logs.0.endpoint', 'https://wallet-a.example/callback')
+            ->assertJsonPath('data.callbacks.recent_attempts.0.endpoint', 'https://wallet-a.example/callback')
             ->assertJsonPath('data.recent_sessions.0.session_uid', 'sess_portal_a')
             ->assertJsonPath('data.recent_transactions.0.transaction_uid', 'tx_portal_a_win');
     }
@@ -75,6 +78,9 @@ class B2BOperatorPortalTest extends TestCase
         $this->assertStringNotContainsString('raw_request', $content);
         $this->assertStringNotContainsString('raw_response', $content);
         $this->assertStringNotContainsString('super-secret-value', $content);
+        $this->assertStringNotContainsString('callback-secret-value', $content);
+        $this->assertStringNotContainsString('attempt-secret-value', $content);
+        $this->assertStringNotContainsString('wallet-b.example', $content);
     }
 
     public function testPortalOverviewRequiresSignature()
@@ -113,6 +119,8 @@ class B2BOperatorPortalTest extends TestCase
             'transactions' => 'tx_portal_a_bet',
             'settlements' => 'settlement_portal_a',
             'cases' => 'tx_portal_a_win',
+            'callbacks' => 'server_error',
+            'reports' => '/api/b2b/v1/reports/ggr',
             'docs' => '/api/b2b/v1/reports/transactions',
         ] as $section => $expected) {
             $response = $this->signedGet('op_portal_a', 'key_portal_a', $this->secretA, '/api/b2b/v1/portal/' . $section . '?limit=10', 'portal-section-' . $section);
@@ -128,6 +136,9 @@ class B2BOperatorPortalTest extends TestCase
             $this->assertStringNotContainsString('raw_request', $content);
             $this->assertStringNotContainsString('raw_response', $content);
             $this->assertStringNotContainsString('super-secret-value', $content);
+            $this->assertStringNotContainsString('callback-secret-value', $content);
+            $this->assertStringNotContainsString('attempt-secret-value', $content);
+            $this->assertStringNotContainsString('wallet-b.example', $content);
         }
     }
 
@@ -252,6 +263,85 @@ class B2BOperatorPortalTest extends TestCase
             'created_at' => $now,
             'updated_at' => $now,
         ]]));
+
+        $walletTransactionA = DB::table('b2b_wallet_transactions')
+            ->where('operator_id', $this->operatorA->id)
+            ->where('transaction_uid', 'tx_portal_a_bet')
+            ->first();
+        $walletTransactionB = DB::table('b2b_wallet_transactions')
+            ->where('operator_id', $this->operatorB->id)
+            ->where('transaction_uid', 'tx_portal_b_bet')
+            ->first();
+
+        DB::table('b2b_wallet_callback_logs')->insert([
+            [
+                'operator_id' => $this->operatorA->id,
+                'wallet_transaction_id' => $walletTransactionA->id,
+                'direction' => 'outbound',
+                'endpoint' => 'https://wallet-a.example/callback?token=callback-secret-value',
+                'http_status' => 500,
+                'request_body' => json_encode(['access_token' => 'callback-secret-value']),
+                'response_body' => json_encode(['signature' => 'callback-secret-value']),
+                'duration_ms' => 850,
+                'error_message' => 'callback failed token=callback-secret-value',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'operator_id' => $this->operatorB->id,
+                'wallet_transaction_id' => $walletTransactionB->id,
+                'direction' => 'outbound',
+                'endpoint' => 'https://wallet-b.example/callback?token=callback-secret-value-b',
+                'http_status' => 200,
+                'request_body' => null,
+                'response_body' => null,
+                'duration_ms' => 90,
+                'error_message' => null,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+        ]);
+
+        DB::table('b2b_wallet_transaction_attempts')->insert([
+            [
+                'wallet_transaction_id' => $walletTransactionA->id,
+                'operator_id' => $this->operatorA->id,
+                'transaction_uid' => 'tx_portal_a_bet',
+                'type' => 'bet',
+                'attempt_no' => 1,
+                'url' => 'https://wallet-a.example/callback?signature=attempt-secret-value',
+                'timeout_ms' => 5000,
+                'http_status' => 504,
+                'result' => 'timeout',
+                'duration_ms' => 5000,
+                'request_body' => json_encode(['access_token' => 'attempt-secret-value']),
+                'response_body' => json_encode(['api_key' => 'attempt-secret-value']),
+                'error' => 'timeout signature=attempt-secret-value',
+                'started_at' => $now->copy()->subSeconds(5),
+                'finished_at' => $now,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'wallet_transaction_id' => $walletTransactionB->id,
+                'operator_id' => $this->operatorB->id,
+                'transaction_uid' => 'tx_portal_b_bet',
+                'type' => 'bet',
+                'attempt_no' => 1,
+                'url' => 'https://wallet-b.example/callback?signature=attempt-secret-value-b',
+                'timeout_ms' => 5000,
+                'http_status' => 200,
+                'result' => 'success',
+                'duration_ms' => 90,
+                'request_body' => null,
+                'response_body' => null,
+                'error' => null,
+                'started_at' => $now->copy()->subSeconds(1),
+                'finished_at' => $now,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+        ]);
 
         DB::table('b2b_operator_game_assignments')->insert([
             'operator_id' => $this->operatorA->id,

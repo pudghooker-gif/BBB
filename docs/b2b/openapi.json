@@ -143,6 +143,8 @@
     "/portal/transactions": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/settlements": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/cases": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/callbacks": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/reports": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/docs": { "$ref": "#/components/pathItems/PortalPage" },
     "/games": {
       "get": {
