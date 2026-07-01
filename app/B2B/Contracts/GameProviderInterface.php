@@ -12,6 +12,10 @@ interface GameProviderInterface
 
     public function supportsWalletAction($action);
 
+    public function walletActionContracts();
+
+    public function walletActionContract($action);
+
     public function prepareLaunch(B2BGameSession $session);
 
     public function refreshSession(B2BGameSession $session);

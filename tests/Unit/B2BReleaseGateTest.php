@@ -3,6 +3,8 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use VanguardLTE\B2B\Contracts\GameProviderInterface;
+use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Services\B2BReleaseGate;
 
 class B2BReleaseGateTest extends TestCase
@@ -28,6 +30,7 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckFailed($result, 'app_debug');
         $this->assertCheckFailed($result, 'private_wallet_callbacks');
         $this->assertCheckFailed($result, 'sandbox_disabled');
+        $this->assertCheckPassed($result, 'provider_wallet_contracts');
         $this->assertCheckPassed($result, 'deployment_artifacts');
         $this->assertCheckPassed($result, 'websocket_runtime');
         $this->assertCheckPassed($result, 'admin_rbac_config');
@@ -50,6 +53,7 @@ class B2BReleaseGateTest extends TestCase
         $result = app(B2BReleaseGate::class)->run(true, false);
 
         $this->assertTrue($result['ok']);
+        $this->assertCheckPassed($result, 'provider_wallet_contracts');
         $this->assertCheckPassed($result, 'deployment_artifacts');
         $this->assertCheckPassed($result, 'websocket_runtime');
         $this->assertCheckPassed($result, 'admin_rbac_config');
@@ -120,6 +124,72 @@ class B2BReleaseGateTest extends TestCase
 
         $this->assertTrue($result['ok']);
         $this->assertCheckPassed($result, 'dependency_audit');
+    }
+
+    public function testProductionGateFailsWhenProviderWalletContractIsIncomplete()
+    {
+        $this->configureSafeProductionSettings();
+
+        $gate = new class extends B2BReleaseGate {
+            protected function walletContractProviders()
+            {
+                return [
+                    new class implements GameProviderInterface {
+                        public function providerCode()
+                        {
+                            return 'broken_provider';
+                        }
+
+                        public function health()
+                        {
+                            return ['ok' => true];
+                        }
+
+                        public function supportsWalletAction($action)
+                        {
+                            return $action === 'bet';
+                        }
+
+                        public function walletActionContracts()
+                        {
+                            return [
+                                'bet' => [
+                                    'request_fields' => ['transaction_id'],
+                                    'response_fields' => ['status'],
+                                ],
+                            ];
+                        }
+
+                        public function walletActionContract($action)
+                        {
+                            $contracts = $this->walletActionContracts();
+
+                            return isset($contracts[$action]) ? $contracts[$action] : null;
+                        }
+
+                        public function prepareLaunch(B2BGameSession $session)
+                        {
+                            return ['ok' => false];
+                        }
+
+                        public function refreshSession(B2BGameSession $session)
+                        {
+                            return ['ok' => false];
+                        }
+
+                        public function closeSession(B2BGameSession $session, $reason = null)
+                        {
+                            return ['ok' => false];
+                        }
+                    },
+                ];
+            }
+        };
+
+        $result = $gate->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'provider_wallet_contracts');
     }
 
     public function testProductionGateFailsWhenLaravelSignedMiddlewareIsEnabled()

@@ -16,6 +16,7 @@ This update adds a more resilient wallet layer for the B2B aggregator.
 - Wallet status lookup endpoint with attempts, transitions, and reconciliation items
 - Wallet reconciliation queue table: `b2b_wallet_reconciliation_items`
 - Operator `transaction_status` lookup during reconciliation for `unknown` wallet states
+- Explicit provider wallet action contract profile for mutation, status lookup, and rollback recovery flows
 - Audited manual wallet action log: `b2b_wallet_manual_actions`
 - Stale session close command
 - API endpoint to check wallet health
@@ -61,6 +62,8 @@ refund
 rollback
 transaction_status
 ```
+
+The first-party provider adapter exposes these actions through `GameProviderInterface::walletActionContracts()`. The production release gate checks that every registered provider declares the required mutation actions plus explicit `transaction_status` and `rollback` contracts before launch.
 
 If `wallet_secret` is configured for the operator, outbound wallet callbacks include:
 
@@ -146,7 +149,7 @@ This is still a reconciliation foundation. Final production readiness still need
 - A failed callback keeps `rollback_required` open until `B2B_WALLET_ROLLBACK_MAX_ATTEMPTS` is reached.
 - Exhausted rollback recovery moves the transaction to `manual_review`, resolves rollback items, and opens a manual-review item.
 
-This is an automated recovery foundation. Operators still need provider-specific rollback semantics and a web case workflow before broad production operations.
+This is an automated recovery foundation with an explicit internal provider contract. Operators still need provider-specific certification for rollback semantics and a web case workflow before broad production operations.
 
 ## Manual wallet actions
 

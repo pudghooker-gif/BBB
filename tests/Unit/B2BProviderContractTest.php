@@ -29,8 +29,29 @@ class B2BProviderContractTest extends TestCase
         $this->assertSame('goldsvet_internal', $provider->providerCode());
         $this->assertTrue($provider->supportsWalletAction('bet'));
         $this->assertTrue($provider->supportsWalletAction('rollback'));
+        $this->assertTrue($provider->supportsWalletAction('transaction_status'));
         $this->assertFalse($provider->supportsWalletAction('unknown'));
         $this->assertTrue($provider->health()['ok']);
+
+        $contracts = $provider->walletActionContracts();
+        foreach (['balance', 'bet', 'win', 'refund', 'rollback', 'transaction_status'] as $action) {
+            $this->assertArrayHasKey($action, $contracts);
+            $this->assertIsArray($provider->walletActionContract($action));
+        }
+
+        $statusContract = $provider->walletActionContract('transaction_status');
+        $this->assertContains('transaction_uid', $statusContract['request_fields']);
+        $this->assertContains('current_status', $statusContract['request_fields']);
+        $this->assertContains('transaction_status', $statusContract['response_fields']);
+        $this->assertContains('rollback_required', $statusContract['final_statuses']);
+        $this->assertContains('not_found', $statusContract['ambiguous_statuses']);
+
+        $rollbackContract = $provider->walletActionContract('rollback');
+        $this->assertSame('transaction_id', $rollbackContract['idempotency_key']);
+        $this->assertContains('original_transaction_id', $rollbackContract['request_fields']);
+        $this->assertContains('recovery_attempt', $rollbackContract['request_fields']);
+        $this->assertContains('accepted', $rollbackContract['terminal_statuses']);
+        $this->assertNull($provider->walletActionContract('unknown'));
     }
 
     public function testGoldsvetProviderCanRefreshAndCloseSession()

@@ -5,6 +5,8 @@ namespace VanguardLTE\B2B\Services;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\Process\Process;
+use VanguardLTE\B2B\Contracts\GameProviderInterface;
+use VanguardLTE\B2B\Providers\GoldsvetInternalProvider;
 use VanguardLTE\Support\Validation\SecurityHardenedValidator;
 
 class B2BReleaseGate
@@ -18,6 +20,7 @@ class B2BReleaseGate
             $this->booleanCheck('app_debug', !(bool) config('app.debug'), $production, 'APP_DEBUG must be false for production.'),
             $this->booleanCheck('private_wallet_callbacks', !(bool) config('b2b.allow_private_wallet_callbacks'), $production, 'Private wallet callback targets must stay disabled in production.'),
             $this->booleanCheck('sandbox_disabled', !(bool) config('b2b.sandbox_enabled'), $production, 'B2B sandbox must be disabled in production.'),
+            $this->providerWalletContractsCheck($production),
             $this->deploymentArtifactsCheck($production),
             $this->websocketRuntimeCheck($production),
             $this->adminRbacCheck($production),
@@ -108,6 +111,110 @@ class B2BReleaseGate
             'message' => count($present) > 0
                 ? 'Secret-bearing/local files must be excluded from production artifacts: ' . implode(', ', $present)
                 : 'No known secret-bearing/local release blocker files were found.',
+        ];
+    }
+
+    private function providerWalletContractsCheck($production)
+    {
+        $missing = [];
+
+        try {
+            foreach ($this->walletContractProviders() as $provider) {
+                $label = is_object($provider) && method_exists($provider, 'providerCode')
+                    ? $provider->providerCode()
+                    : (is_object($provider) ? get_class($provider) : 'unknown_provider');
+
+                if (!$provider instanceof GameProviderInterface) {
+                    $missing[] = 'provider_interface:' . $label;
+                    continue;
+                }
+
+                $contracts = $provider->walletActionContracts();
+                if (!is_array($contracts) || count($contracts) === 0) {
+                    $missing[] = 'contracts:' . $label;
+                    continue;
+                }
+
+                foreach ($this->requiredWalletActions() as $action) {
+                    if (!$provider->supportsWalletAction($action)) {
+                        $missing[] = 'action:' . $label . ':' . $action;
+                        continue;
+                    }
+
+                    $contract = $provider->walletActionContract($action);
+                    if (!is_array($contract)) {
+                        $missing[] = 'contract:' . $label . ':' . $action;
+                    }
+                }
+
+                foreach ($this->requiredWalletActionContracts() as $action => $requirements) {
+                    $contract = $provider->walletActionContract($action);
+                    if (!is_array($contract)) {
+                        $missing[] = 'contract:' . $label . ':' . $action;
+                        continue;
+                    }
+
+                    foreach ($requirements as $key => $values) {
+                        if ($key === 'idempotency_key') {
+                            if (!isset($contract[$key]) || $contract[$key] !== $values) {
+                                $missing[] = 'contract:' . $label . ':' . $action . ':' . $key;
+                            }
+                            continue;
+                        }
+
+                        if (empty($contract[$key]) || !is_array($contract[$key])) {
+                            $missing[] = 'contract:' . $label . ':' . $action . ':' . $key;
+                            continue;
+                        }
+
+                        foreach ($values as $value) {
+                            if (!in_array($value, $contract[$key], true)) {
+                                $missing[] = 'contract:' . $label . ':' . $action . ':' . $key . ':' . $value;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (\Throwable $e) {
+            $missing[] = 'exception:' . $e->getMessage();
+        }
+
+        return [
+            'name' => 'provider_wallet_contracts',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Provider wallet action contracts are explicit for mutation, status lookup, and rollback recovery flows.'
+                : 'Missing provider wallet action contract coverage: ' . implode(', ', $missing),
+        ];
+    }
+
+    protected function walletContractProviders()
+    {
+        return [
+            app(GoldsvetInternalProvider::class),
+        ];
+    }
+
+    private function requiredWalletActions()
+    {
+        return ['balance', 'bet', 'win', 'refund', 'rollback', 'transaction_status'];
+    }
+
+    private function requiredWalletActionContracts()
+    {
+        return [
+            'transaction_status' => [
+                'request_fields' => ['transaction_uid', 'transaction_id', 'round_id', 'session_id', 'game_uid', 'type', 'amount', 'currency', 'current_status'],
+                'response_fields' => ['transaction_status', 'status', 'state'],
+                'final_statuses' => ['success', 'failed', 'rollback_required', 'reversed'],
+                'ambiguous_statuses' => ['pending', 'processing', 'unknown', 'not_found'],
+            ],
+            'rollback' => [
+                'request_fields' => ['transaction_id', 'original_transaction_id', 'original_transaction_uid', 'round_id', 'session_id', 'game_id', 'amount', 'currency', 'recovery_reason', 'recovery_attempt'],
+                'response_fields' => ['status'],
+                'terminal_statuses' => ['accepted', 'success', 'ok', 'failed'],
+                'idempotency_key' => 'transaction_id',
+            ],
         ];
     }
 

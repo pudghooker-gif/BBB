@@ -11,7 +11,41 @@ use VanguardLTE\B2B\Services\ShadowUserManager;
 class GoldsvetInternalProvider implements GameProviderInterface
 {
     protected $shadowUsers;
-    protected $walletActions = ['balance', 'bet', 'win', 'refund', 'rollback'];
+    protected $walletActionContracts = [
+        'balance' => [
+            'request_fields' => ['player_id', 'currency'],
+            'response_fields' => ['status', 'balance', 'currency'],
+            'terminal_statuses' => ['success', 'failed'],
+        ],
+        'bet' => [
+            'request_fields' => ['player_id', 'game_id', 'session_id', 'round_id', 'transaction_id', 'amount', 'currency'],
+            'response_fields' => ['status', 'balance', 'currency'],
+            'terminal_statuses' => ['success', 'failed', 'rollback_required'],
+        ],
+        'win' => [
+            'request_fields' => ['player_id', 'game_id', 'session_id', 'round_id', 'transaction_id', 'amount', 'currency'],
+            'response_fields' => ['status', 'balance', 'currency'],
+            'terminal_statuses' => ['success', 'failed'],
+        ],
+        'refund' => [
+            'request_fields' => ['player_id', 'game_id', 'session_id', 'round_id', 'transaction_id', 'amount', 'currency'],
+            'response_fields' => ['status', 'balance', 'currency'],
+            'terminal_statuses' => ['success', 'failed', 'reversed'],
+        ],
+        'rollback' => [
+            'request_fields' => ['transaction_id', 'original_transaction_id', 'original_transaction_uid', 'round_id', 'session_id', 'game_id', 'amount', 'currency', 'recovery_reason', 'recovery_attempt'],
+            'response_fields' => ['status'],
+            'terminal_statuses' => ['accepted', 'success', 'ok', 'failed'],
+            'idempotency_key' => 'transaction_id',
+            'resolved_wallet_status' => 'reversed',
+        ],
+        'transaction_status' => [
+            'request_fields' => ['transaction_uid', 'transaction_id', 'idempotency_key', 'round_id', 'session_id', 'game_uid', 'type', 'amount', 'currency', 'current_status'],
+            'response_fields' => ['transaction_status', 'status', 'state'],
+            'final_statuses' => ['success', 'failed', 'rollback_required', 'reversed'],
+            'ambiguous_statuses' => ['pending', 'processing', 'unknown', 'not_found'],
+        ],
+    ];
 
     public function __construct(ShadowUserManager $shadowUsers)
     {
@@ -35,7 +69,19 @@ class GoldsvetInternalProvider implements GameProviderInterface
 
     public function supportsWalletAction($action)
     {
-        return in_array((string) $action, $this->walletActions, true);
+        return array_key_exists((string) $action, $this->walletActionContracts);
+    }
+
+    public function walletActionContracts()
+    {
+        return $this->walletActionContracts;
+    }
+
+    public function walletActionContract($action)
+    {
+        $action = (string) $action;
+
+        return isset($this->walletActionContracts[$action]) ? $this->walletActionContracts[$action] : null;
     }
 
     public function prepareLaunch(B2BGameSession $session)
