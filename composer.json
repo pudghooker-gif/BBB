@@ -21,7 +21,6 @@
         "laravel/framework": "^8.83.29",
         "laravel/legacy-factories": "^1.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.0",
         "league/fractal": "^0.16.0",
         "mobiledetect/mobiledetectlib": "^2.8",
