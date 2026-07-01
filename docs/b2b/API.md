@@ -51,6 +51,7 @@ GET  /api/b2b/v1/health
 GET  /api/b2b/v1/readiness
 GET  /api/b2b/v1/metrics
 GET  /api/b2b/v1/operator/me
+GET  /api/b2b/v1/portal
 GET  /api/b2b/v1/portal/overview
 GET  /api/b2b/v1/games
 POST /api/b2b/v1/games/launch
@@ -107,7 +108,9 @@ Error JSON responses use:
 
 `GET /api/b2b/v1/metrics` returns Prometheus text format instead of the JSON envelope. It contains aggregate counts and latency gauges only, without operator identifiers, raw payloads, or secrets. Restrict scraping at the edge in production.
 
-## Operator portal overview
+## Operator portal
+
+`GET /api/b2b/v1/portal` is a signed, read-only HTML operator portal page. It uses the same tenant-scoped data as the overview endpoint and intentionally omits API key secrets, raw wallet request/response payloads, and foreign-operator records.
 
 `GET /api/b2b/v1/portal/overview` is a signed, read-only bootstrap endpoint for an operator-facing portal. It returns tenant-scoped operator/API-key profile data, wallet and session counters, credential/game-assignment/settlement/reconciliation summaries, recent sessions, recent wallet transactions, and links to the underlying B2B API routes. It intentionally omits API key secrets, raw wallet request/response payloads, and foreign-operator records.
 

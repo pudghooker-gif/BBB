@@ -85,6 +85,25 @@ class B2BOperatorPortalTest extends TestCase
             ->assertJsonPath('error.code', 'B2B_AUTH_FAILED');
     }
 
+    public function testSignedOperatorPortalPageIsTenantScopedAndRedacted()
+    {
+        $response = $this->signedGet('op_portal_a', 'key_portal_a', $this->secretA, '/api/b2b/v1/portal?limit=10', 'portal-page-a');
+
+        $response->assertStatus(200);
+
+        $content = $response->getContent();
+
+        $this->assertStringContainsString('<html', $content);
+        $this->assertStringContainsString('Portal Operator A', $content);
+        $this->assertStringContainsString('tx_portal_a_bet', $content);
+        $this->assertStringContainsString('settlement_portal_a', $content);
+        $this->assertStringNotContainsString('Portal Operator B', $content);
+        $this->assertStringNotContainsString('tx_portal_b_bet', $content);
+        $this->assertStringNotContainsString('sess_portal_b', $content);
+        $this->assertStringNotContainsString('secret_encrypted', $content);
+        $this->assertStringNotContainsString('super-secret-value', $content);
+    }
+
     private function signedGet($operatorUid, $keyId, $secret, $uri, $nonce)
     {
         $headers = $this->signedB2BHeaders($operatorUid, $keyId, $secret, 'GET', $uri, '', $nonce);

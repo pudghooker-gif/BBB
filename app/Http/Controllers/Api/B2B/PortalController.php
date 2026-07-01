@@ -18,4 +18,16 @@ class PortalController extends Controller
 
         return B2BApiResponse::success($request, $payload);
     }
+
+    public function page(Request $request, B2BOperatorPortalQuery $portal)
+    {
+        $payload = $portal->overview($request);
+        if (!$payload) {
+            abort(500, 'B2B operator context is missing.');
+        }
+
+        return response()
+            ->view('b2b.operator-portal.overview', $payload)
+            ->header('Cache-Control', 'no-store, private');
+    }
 }

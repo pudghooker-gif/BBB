@@ -27,6 +27,7 @@ Route::prefix('b2b/v1')->group(function () {
 
     Route::middleware(['b2b.signature'])->group(function () {
         Route::get('operator/me', [OperatorController::class, 'me']);
+        Route::get('portal', [PortalController::class, 'page']);
         Route::get('portal/overview', [PortalController::class, 'overview']);
 
         Route::get('games', [GameCatalogController::class, 'index']);

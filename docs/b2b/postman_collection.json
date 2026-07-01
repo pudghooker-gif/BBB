@@ -100,6 +100,17 @@
           "response": []
         },
         {
+          "name": "Portal Page",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal?limit=10"
+          },
+          "response": []
+        },
+        {
           "name": "Portal Overview",
           "request": {
             "method": "GET",

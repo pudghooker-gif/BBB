@@ -76,6 +76,8 @@ Nginx exposes `/healthz`, which rewrites to `/api/b2b/v1/health`, `/readyz`, whi
 
 The read-only B2B operations dashboard is available to backend admins at `/backend/b2b` and requires the `b2b.reports.view` permission through B2B web RBAC middleware. Mutating B2B backend routes must be protected with `b2b.admin:{permission}` plus `b2b.web_step_up:{action}` and use `/backend/b2b/step-up/{action}` for session-bound confirmation.
 
+The signed read-only operator portal is available at `/api/b2b/v1/portal`, with the same HMAC headers as other operator API calls. Its JSON source remains available at `/api/b2b/v1/portal/overview`.
+
 ```bash
 APP_URL=https://b2b.example.com bash deploy/scripts/healthcheck.sh
 ```

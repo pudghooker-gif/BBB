@@ -294,11 +294,15 @@ class B2BReleaseGate
             $missing[] = 'view:backend.b2b.step-up';
         }
 
+        if (!View::exists('b2b.operator-portal.overview')) {
+            $missing[] = 'view:b2b.operator-portal.overview';
+        }
+
         if ($this->routeMiddlewareClass('b2b.web_step_up') !== 'VanguardLTE\Http\Middleware\RequireB2BWebStepUp') {
             $missing[] = 'middleware:b2b.web_step_up';
         }
 
-        foreach (['api/b2b/v1/readiness', 'api/b2b/v1/metrics', 'api/b2b/v1/portal/overview'] as $uri) {
+        foreach (['api/b2b/v1/readiness', 'api/b2b/v1/metrics', 'api/b2b/v1/portal', 'api/b2b/v1/portal/overview'] as $uri) {
             if (!$this->routeExists('GET', $uri)) {
                 $missing[] = 'route:' . $uri;
             }

@@ -96,6 +96,30 @@
         }
       }
     },
+    "/portal": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Render the signed read-only operator portal page",
+        "description": "Returns an HTML operator portal for the signed operator using the same tenant-scoped, redacted data as /portal/overview.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
+          { "name": "to", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-24" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 50 }, "example": 10 }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped operator portal HTML",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/portal/overview": {
       "get": {
         "tags": ["portal"],
