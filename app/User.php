@@ -3,7 +3,7 @@ namespace VanguardLTE
 {
     class User extends \Illuminate\Foundation\Auth\User implements \Tymon\JWTAuth\Contracts\JWTSubject
     {
-        use \Laracasts\Presenter\PresentableTrait, 
+        use \VanguardLTE\Support\Presenter\PresentableTrait,
             \Illuminate\Notifications\Notifiable, 
             \jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
         protected $presenter = 'VanguardLTE\Presenters\UserPresenter';

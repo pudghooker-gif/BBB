@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use VanguardLTE\User;
 
 class DependencyHygieneTest extends TestCase
 {
@@ -14,6 +15,7 @@ class DependencyHygieneTest extends TestCase
             'barryvdh/laravel-debugbar',
             'fideloper/proxy',
             'intergo/sms.to-laravel-lumen',
+            'laracasts/presenter',
             'laravel/ui',
         ] as $package) {
             $this->assertArrayNotHasKey($package, $composer['require']);
@@ -30,5 +32,17 @@ class DependencyHygieneTest extends TestCase
         $this->assertStringNotContainsString('Intergo\SmsTo', $appConfig);
         $this->assertStringContainsString('GuzzleHttp\Client', $smsSender);
         $this->assertStringContainsString("config('smsto.base_url')", $smsSender);
+    }
+
+    public function testLocalPresenterKeepsUserPresentationBehavior()
+    {
+        $user = new User();
+        $user->username = 'alice';
+        $user->first_name = 'Ada';
+        $user->last_name = 'Lovelace';
+
+        $this->assertSame('alice', $user->present()->username);
+        $this->assertSame('Ada Lovelace', $user->present()->name);
+        $this->assertSame($user->present(), $user->present());
     }
 }

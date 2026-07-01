@@ -9,7 +9,7 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 ## Verified Commands
 
 - `php -v`: PHP 7.4.33.
-- `composer validate --strict`: passes after adding proprietary license metadata; unused `laravel/ui`, legacy `fideloper/proxy`, unused SMS.to Laravel wrapper, and dev-only debugbar direct dependencies were removed during dependency-trim work.
+- `composer validate --strict`: passes after adding proprietary license metadata; unused `laravel/ui`, legacy `fideloper/proxy`, unused SMS.to Laravel wrapper, dev-only debugbar, and legacy `laracasts/presenter` direct dependencies were removed during dependency-trim work.
 - `php composer.phar install --no-interaction --no-progress --prefer-dist`: succeeds outside the Codex filesystem sandbox.
 - Scoped `php -l` over `app`, `routes`, `database`, `config`, and `tests`, excluding `app/Games`: passed.
 - `php artisan list`: succeeds outside the filesystem sandbox and registers B2B commands.
@@ -45,9 +45,10 @@ Audited the Laravel 8 / PHP 7.4 repository structure, B2B route files, B2B contr
 ### P1
 
 - Composer optimized autoload no longer reports the previously identified PSR-4 warnings after explicitly excluding legacy non-autoloadable paths from the classmap.
-- Composer security audit is available. Most advisories were closed by updating the PHP 7.4-compatible dependency set; debug tooling has been removed from Composer dependencies, legacy Faker has been replaced, and unused `laravel/ui`, legacy `fideloper/proxy`, plus the unused SMS.to Laravel wrapper have been removed. The remaining Laravel framework advisories and Laravel 8 SwiftMailer dependency block production until a PHP/Laravel major-upgrade or supported security-backport plan is completed and regression-tested.
+- Composer security audit is available. Most advisories were closed by updating the PHP 7.4-compatible dependency set; debug tooling has been removed from Composer dependencies, legacy Faker has been replaced, and unused `laravel/ui`, legacy `fideloper/proxy`, the unused SMS.to Laravel wrapper, plus legacy `laracasts/presenter` have been removed. The remaining Laravel framework advisories and Laravel 8 SwiftMailer dependency block production until a PHP/Laravel major-upgrade or supported security-backport plan is completed and regression-tested.
 - Trusted proxy handling now uses Laravel's built-in `TrustProxies` middleware with `TRUSTED_PROXIES` documented for production reverse-proxy deployments.
 - SMS.to sending remains implemented through the existing direct Guzzle client and local `config/smsto.php`; the unused Laravel/Lumen wrapper provider and facade registration were removed.
+- User view presenters now use a small local `VanguardLTE\Support\Presenter` implementation instead of the legacy Laracasts package.
 - The test suite had only example tests before this work. HMAC success/replay/body-hash/IP allowlist coverage, tenant isolation coverage for sessions/reports/wallet attempts, request validation, and wallet idempotency conflict coverage have now been added; launch, wallet mutation state transitions, and broader reporting edge-case coverage remain incomplete.
 - B2B API JSON responses now use a shared envelope with `success`, `status`, `request_id`, `data` or `error`, backed by a central error catalog.
 - Financial report code used floats before this audit pass.

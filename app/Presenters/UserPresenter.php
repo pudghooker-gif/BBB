@@ -4,7 +4,7 @@ namespace VanguardLTE\Presenters;
 
 use VanguardLTE\Support\Enum\UserStatus;
 use Illuminate\Support\Str;
-use Laracasts\Presenter\Presenter;
+use VanguardLTE\Support\Presenter\Presenter;
 
 class UserPresenter extends Presenter
 {
