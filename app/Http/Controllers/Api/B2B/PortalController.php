@@ -9,6 +9,16 @@ use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class PortalController extends Controller
 {
+    private $sections = [
+        'credentials' => 'Credentials',
+        'games' => 'Game Assignments',
+        'sessions' => 'Sessions',
+        'transactions' => 'Transactions',
+        'settlements' => 'Settlements',
+        'cases' => 'Cases',
+        'docs' => 'Docs',
+    ];
+
     public function overview(Request $request, B2BOperatorPortalQuery $portal)
     {
         $payload = $portal->overview($request);
@@ -28,6 +38,29 @@ class PortalController extends Controller
 
         return response()
             ->view('b2b.operator-portal.overview', $payload)
+            ->header('Cache-Control', 'no-store, private');
+    }
+
+    public function section(Request $request, B2BOperatorPortalQuery $portal, $section)
+    {
+        $section = strtolower((string) $section);
+        if (!isset($this->sections[$section])) {
+            abort(404);
+        }
+
+        $payload = $portal->overview($request);
+        if (!$payload) {
+            abort(500, 'B2B operator context is missing.');
+        }
+
+        $payload['portal_section'] = [
+            'key' => $section,
+            'title' => $this->sections[$section],
+        ];
+        $payload['portal_sections'] = $this->sections;
+
+        return response()
+            ->view('b2b.operator-portal.section', $payload)
             ->header('Cache-Control', 'no-store, private');
     }
 }

@@ -117,6 +117,83 @@
             "url": "{{baseUrl}}/api/b2b/v1/portal/overview?limit=10"
           },
           "response": []
+        },
+        {
+          "name": "Portal Credentials",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/credentials?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Games",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/games?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Sessions",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/sessions?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/transactions?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Settlements",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/settlements?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Cases",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/cases?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Docs",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/docs?limit=10"
+          },
+          "response": []
         }
       ]
     },

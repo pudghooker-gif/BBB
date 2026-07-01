@@ -29,6 +29,10 @@ Route::prefix('b2b/v1')->group(function () {
         Route::get('operator/me', [OperatorController::class, 'me']);
         Route::get('portal', [PortalController::class, 'page']);
         Route::get('portal/overview', [PortalController::class, 'overview']);
+        foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'docs'] as $portalSection) {
+            Route::get('portal/' . $portalSection, [PortalController::class, 'section'])
+                ->defaults('section', $portalSection);
+        }
 
         Route::get('games', [GameCatalogController::class, 'index']);
         Route::post('games/launch', [GameLaunchController::class, 'store']);

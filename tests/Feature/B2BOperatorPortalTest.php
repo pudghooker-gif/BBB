@@ -104,6 +104,41 @@ class B2BOperatorPortalTest extends TestCase
         $this->assertStringNotContainsString('super-secret-value', $content);
     }
 
+    public function testSignedOperatorPortalWorkflowPagesAreTenantScopedAndRedacted()
+    {
+        foreach ([
+            'credentials' => 'key_portal_a',
+            'games' => 'book_portal_a',
+            'sessions' => 'sess_portal_a',
+            'transactions' => 'tx_portal_a_bet',
+            'settlements' => 'settlement_portal_a',
+            'cases' => 'tx_portal_a_win',
+            'docs' => '/api/b2b/v1/reports/transactions',
+        ] as $section => $expected) {
+            $response = $this->signedGet('op_portal_a', 'key_portal_a', $this->secretA, '/api/b2b/v1/portal/' . $section . '?limit=10', 'portal-section-' . $section);
+            $response->assertStatus(200);
+
+            $content = $response->getContent();
+            $this->assertStringContainsString('Portal Operator A', $content);
+            $this->assertStringContainsString($expected, $content);
+            $this->assertStringNotContainsString('Portal Operator B', $content);
+            $this->assertStringNotContainsString('tx_portal_b_bet', $content);
+            $this->assertStringNotContainsString('sess_portal_b', $content);
+            $this->assertStringNotContainsString('secret_encrypted', $content);
+            $this->assertStringNotContainsString('raw_request', $content);
+            $this->assertStringNotContainsString('raw_response', $content);
+            $this->assertStringNotContainsString('super-secret-value', $content);
+        }
+    }
+
+    public function testOperatorPortalWorkflowPagesRequireSignature()
+    {
+        $this->get('/api/b2b/v1/portal/transactions')
+            ->assertStatus(401)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'B2B_AUTH_FAILED');
+    }
+
     private function signedGet($operatorUid, $keyId, $secret, $uri, $nonce)
     {
         $headers = $this->signedB2BHeaders($operatorUid, $keyId, $secret, 'GET', $uri, '', $nonce);

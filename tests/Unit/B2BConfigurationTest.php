@@ -18,6 +18,8 @@ class B2BConfigurationTest extends TestCase
 
         $this->assertSame(1, substr_count($apiRoutes, "require base_path('routes/b2b.php')"));
         $this->assertStringContainsString("[GameLaunchController::class, 'store']", $b2bRoutes);
+        $this->assertStringContainsString("foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'docs'] as \$portalSection)", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('portal/' . \$portalSection, [PortalController::class, 'section'])", $b2bRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.dashboard'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BDashboardController@index'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.wallet_manual_actions.index'", $webRoutes);
@@ -127,6 +129,13 @@ class B2BConfigurationTest extends TestCase
             '/operator/me',
             '/portal',
             '/portal/overview',
+            '/portal/credentials',
+            '/portal/games',
+            '/portal/sessions',
+            '/portal/transactions',
+            '/portal/settlements',
+            '/portal/cases',
+            '/portal/docs',
             '/games',
             '/games/launch',
             '/sessions',
@@ -161,6 +170,8 @@ class B2BConfigurationTest extends TestCase
             '/api/b2b/v1/metrics',
             '/api/b2b/v1/portal?limit=10',
             '/api/b2b/v1/portal/overview',
+            '/api/b2b/v1/portal/transactions?limit=10',
+            '/api/b2b/v1/portal/cases?limit=10',
             '/api/b2b/v1/games/launch',
             '/api/b2b/v1/sessions/{{sessionId}}/close',
             '/api/b2b/v1/wallet/bet',

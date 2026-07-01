@@ -137,6 +137,13 @@
         }
       }
     },
+    "/portal/credentials": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/games": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/sessions": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/transactions": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/settlements": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/cases": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/docs": { "$ref": "#/components/pathItems/PortalPage" },
     "/games": {
       "get": {
         "tags": ["games"],
@@ -396,6 +403,30 @@
             "409": { "$ref": "#/components/responses/Error" },
             "422": { "$ref": "#/components/responses/Error" },
             "502": { "$ref": "#/components/responses/Error" }
+          }
+        }
+      },
+      "PortalPage": {
+        "get": {
+          "tags": ["portal"],
+          "summary": "Render a signed read-only operator portal workflow page",
+          "description": "Returns tenant-scoped HTML for credentials, games, sessions, transactions, settlements, cases, or docs without secret material or raw wallet payloads.",
+          "security": [{ "B2BHmac": [] }],
+          "parameters": [
+            { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
+            { "name": "to", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-24" },
+            { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 50 }, "example": 10 }
+          ],
+          "responses": {
+            "200": {
+              "description": "Tenant-scoped operator portal workflow HTML",
+              "content": {
+                "text/html": {
+                  "schema": { "type": "string" }
+                }
+              }
+            },
+            "401": { "$ref": "#/components/responses/Error" }
           }
         }
       },
