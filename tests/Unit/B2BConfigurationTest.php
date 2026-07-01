@@ -32,6 +32,12 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'b2b.web_step_up:settlement.approve'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.settlements.reject'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:settlement.reject'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.credentials.index'", $webRoutes);
+        $this->assertStringContainsString("'uses' => 'B2BCredentialBackofficeController@index'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.credentials.rotate'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:api_key.rotate'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.credentials.revoke'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:api_key.revoke'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.step_up.show'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BStepUpController@show'", $webRoutes);
         $this->assertStringContainsString("'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view']", $webRoutes);

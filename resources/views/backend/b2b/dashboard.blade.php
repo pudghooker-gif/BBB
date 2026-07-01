@@ -199,6 +199,7 @@
                     <div class="box-body">
                         <p><a href="{{ route('backend.b2b.wallet_manual_actions.index') }}">Manual Wallet Actions</a></p>
                         <p><a href="{{ route('backend.b2b.settlements.index') }}">Settlement Workflow</a></p>
+                        <p><a href="{{ route('backend.b2b.credentials.index') }}">Credential Lifecycle</a></p>
                         <p><a href="/api/b2b/v1/health" target="_blank" rel="noopener">Health</a></p>
                         <p><a href="/api/b2b/v1/readiness" target="_blank" rel="noopener">Readiness</a></p>
                         <p><a href="/api/b2b/v1/metrics" target="_blank" rel="noopener">Metrics</a></p>

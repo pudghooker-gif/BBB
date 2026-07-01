@@ -6,6 +6,7 @@ The first B2B operations surfaces are available inside the existing backend:
 /backend/b2b
 /backend/b2b/wallet/manual-actions
 /backend/b2b/settlements
+/backend/b2b/credentials
 ```
 
 They are protected by the existing backend `auth`, `2fa`, `access.admin.panel`, `only_for_admin`, and dedicated `b2b.admin:*` controls. The dashboard does not expose API secrets, raw wallet payloads, callback bodies, player identifiers, or silent financial mutation controls. Mutating wallet and settlement actions are kept on dedicated routes with session-bound web step-up middleware.
@@ -31,5 +32,6 @@ Implemented mutating screens:
 
 - `/backend/b2b/wallet/manual-actions` applies audited manual wallet state transitions with `b2b.wallet.manual_action` and `b2b.web_step_up:wallet.manual_action`;
 - `/backend/b2b/settlements` submits exported settlements and records approve/reject decisions with `b2b.settlements.submit`, `b2b.settlements.approve`, and matching `settlement.*` web step-up actions.
+- `/backend/b2b/credentials` rotates and revokes operator API keys with `b2b.credentials.rotate`, `b2b.credentials.revoke`, and matching `api_key.*` web step-up actions. Newly rotated plaintext secrets are shown once and are not stored in plaintext.
 
-API credential rotation/revocation and richer operator case-management screens still need dedicated web workflows before this becomes a complete production backoffice.
+Richer operator case-management, raw payload review, and portal workflows still need dedicated web screens before this becomes a complete production backoffice.

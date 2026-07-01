@@ -117,6 +117,9 @@ GET  /backend/b2b/settlements
 POST /backend/b2b/settlements/submit
 POST /backend/b2b/settlements/approve
 POST /backend/b2b/settlements/reject
+GET  /backend/b2b/credentials
+POST /backend/b2b/credentials/rotate
+POST /backend/b2b/credentials/revoke
 ```
 
 Middleware for dangerous web routes:

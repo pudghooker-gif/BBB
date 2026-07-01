@@ -451,6 +451,36 @@ class B2BReleaseGate
             $missing[] = 'view:backend.b2b.settlements';
         }
 
+        foreach (['backend.b2b.credentials.index', 'backend.b2b.credentials.rotate', 'backend.b2b.credentials.revoke'] as $routeName) {
+            if (!Route::has($routeName)) {
+                $missing[] = 'route:' . $routeName;
+            }
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.credentials.index', 'b2b.admin:b2b.credentials.rotate')) {
+            $missing[] = 'route_middleware:backend.b2b.credentials.index:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.credentials.rotate', 'b2b.admin:b2b.credentials.rotate')) {
+            $missing[] = 'route_middleware:backend.b2b.credentials.rotate:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.credentials.rotate', 'b2b.web_step_up:api_key.rotate')) {
+            $missing[] = 'route_middleware:backend.b2b.credentials.rotate:b2b.web_step_up';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.credentials.revoke', 'b2b.admin:b2b.credentials.revoke')) {
+            $missing[] = 'route_middleware:backend.b2b.credentials.revoke:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.credentials.revoke', 'b2b.web_step_up:api_key.revoke')) {
+            $missing[] = 'route_middleware:backend.b2b.credentials.revoke:b2b.web_step_up';
+        }
+
+        if (!View::exists('backend.b2b.credentials')) {
+            $missing[] = 'view:backend.b2b.credentials';
+        }
+
         foreach (['backend.b2b.step_up.show', 'backend.b2b.step_up.store'] as $routeName) {
             if (!Route::has($routeName)) {
                 $missing[] = 'route:' . $routeName;

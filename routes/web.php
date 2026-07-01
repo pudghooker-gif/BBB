@@ -718,6 +718,34 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
             'middleware' => ['only_for_admin', 'b2b.admin:b2b.settlements.approve', 'b2b.web_step_up:settlement.reject'],
         ]);
 
+        Route::get('/b2b/credentials', [
+            'as' => 'backend.b2b.credentials.index',
+            'uses' => 'B2BCredentialBackofficeController@index',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.credentials.rotate'],
+        ]);
+
+        Route::get('/b2b/credentials/rotate', [
+            'uses' => 'B2BCredentialBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.credentials.rotate'],
+        ]);
+
+        Route::post('/b2b/credentials/rotate', [
+            'as' => 'backend.b2b.credentials.rotate',
+            'uses' => 'B2BCredentialBackofficeController@rotate',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.credentials.rotate', 'b2b.web_step_up:api_key.rotate'],
+        ]);
+
+        Route::get('/b2b/credentials/revoke', [
+            'uses' => 'B2BCredentialBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.credentials.revoke'],
+        ]);
+
+        Route::post('/b2b/credentials/revoke', [
+            'as' => 'backend.b2b.credentials.revoke',
+            'uses' => 'B2BCredentialBackofficeController@revoke',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.credentials.revoke', 'b2b.web_step_up:api_key.revoke'],
+        ]);
+
         Route::get('/b2b/step-up/{action}', [
             'as' => 'backend.b2b.step_up.show',
             'uses' => 'B2BStepUpController@show',

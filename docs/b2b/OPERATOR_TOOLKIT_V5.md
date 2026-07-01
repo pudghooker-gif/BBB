@@ -42,6 +42,8 @@ php artisan b2b:show-hmac op_xxx key_xxx secret_xxx GET /api/b2b/v1/operator/me
 
 Rotate an operator API key and audit who did it and why:
 
+Backoffice web workflow: `/backend/b2b/credentials` rotates and revokes keys through B2B RBAC plus session-bound web step-up. The generated plaintext secret is shown once and is not stored in plaintext.
+
 ```bash
 php artisan b2b:rotate-api-key op_xxx --max-rps=25 --actor=security_user --reason="Quarterly API key rotation" --permission=b2b.credentials.rotate --confirm=ROTATE_API_KEY --revoke-existing
 ```
