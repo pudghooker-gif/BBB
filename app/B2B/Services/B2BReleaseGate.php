@@ -122,6 +122,7 @@ class B2BReleaseGate
             'deploy/systemd/bbb-websocket.service',
             'deploy/cron/bbb-maintenance.cron.example',
             'deploy/scripts/backup.sh',
+            'deploy/scripts/restore.sh',
             'deploy/scripts/rollback.sh',
             'deploy/scripts/healthcheck.sh',
             'docs/deployment/PRODUCTION_RUNBOOK.md',

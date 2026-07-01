@@ -101,6 +101,21 @@ DB_NAME=bbb BACKUP_DIR=/var/backups/bbb MYSQL_CNF=/etc/bbb/mysql-backup.cnf bash
 
 Backups must be copied to verified off-host storage. Do not store `.env`, local TLS keys, SQL dumps, or private provider documents in the release artifact.
 
+## Restore
+
+Restore is destructive and must be rehearsed on staging before production use. Confirm the selected backup timestamp, pause traffic, and keep the operator/provider incident notes outside the repository.
+
+```bash
+CONFIRM_RESTORE=RESTORE_BBB \
+DB_NAME=bbb \
+MYSQL_CNF=/etc/bbb/mysql-backup.cnf \
+bash deploy/scripts/restore.sh \
+    /var/backups/bbb/database/bbb-<timestamp>.sql.gz \
+    /var/backups/bbb/storage/bbb-storage-<timestamp>.tar.gz
+```
+
+The restore script puts Laravel into maintenance mode, restores the gzip-compressed SQL dump with the external MySQL defaults file, optionally restores `storage/app` and `public`, clears Laravel caches, runs the production release gate, and brings the app back up through a trap. If only code rollback is required, use rollback instead of restoring the database. Never silently edit wallet ledger rows to simulate a restore.
+
 ## Rollback
 
 Rollback switches the `current` symlink to a known previous release and clears Laravel caches:

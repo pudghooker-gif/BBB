@@ -41,7 +41,7 @@ Date: 2026-06-24
 
 ## Stage 5: Deployment And Observability
 
-- Keep deployment templates and runbook current; validate Nginx, PHP-FPM, systemd, cron, WebSocket, backup, healthcheck, and rollback on a staging host.
+- Keep deployment templates and runbook current; validate Nginx, PHP-FPM, systemd, cron, WebSocket, backup, restore, healthcheck, and rollback on a staging host.
 - Keep job-backed wallet retry/reconciliation/cleanup workflows wired to the B2B queue topology and validate worker execution in staging.
 - Keep health/readiness/metrics endpoints current, then add structured logs, deeper correlation IDs, alert routing, and staging scrape validation.
 - Add and run `b2b:release-check --production` for Redis/shared-cache, queue, sandbox, debug, private callback, locked Composer dependency audit, Laravel advisory mitigations, and artifact-secret gates. Keep the local Laravel advisory gate covering CRLF email validation, PHP upload extension bypasses, signed-route middleware exposure, and temporary signed URL API exposure until the PHP/Laravel major upgrade removes those audit findings.
@@ -52,5 +52,5 @@ Date: 2026-06-24
 
 - Keep clean migration verification in tests and run upgraded-database migrations on a staging copy.
 - Verify rollback where practical.
-- Verify queues, scheduler-dispatched B2B jobs, WebSocket proxy, sandbox wallet flow, reports, settlements, backups, and smoke tests.
+- Verify queues, scheduler-dispatched B2B jobs, WebSocket proxy, sandbox wallet flow, reports, settlements, backup/restore drills, and smoke tests.
 - Document all remaining external blockers before any production launch claim.

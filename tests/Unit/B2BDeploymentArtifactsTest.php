@@ -64,6 +64,7 @@ class B2BDeploymentArtifactsTest extends TestCase
     {
         foreach ([
             'deploy/scripts/backup.sh',
+            'deploy/scripts/restore.sh',
             'deploy/scripts/rollback.sh',
             'deploy/scripts/healthcheck.sh',
         ] as $path) {
@@ -78,6 +79,13 @@ class B2BDeploymentArtifactsTest extends TestCase
         $this->assertStringContainsString('/api/b2b/v1/metrics', $healthcheck);
         $this->assertStringContainsString('"status":"ready"', $healthcheck);
         $this->assertStringContainsString('bbb_b2b_info', $healthcheck);
+
+        $restore = file_get_contents(base_path('deploy/scripts/restore.sh'));
+        $this->assertStringContainsString('CONFIRM_RESTORE', $restore);
+        $this->assertStringContainsString('gzip -dc', $restore);
+        $this->assertStringContainsString('mysql', $restore);
+        $this->assertStringContainsString('trap restore_up EXIT', $restore);
+        $this->assertStringContainsString('b2b:release-check --production', $restore);
     }
 
     public function testRunbookDocumentsReleaseGateBackupsHealthAndRollback()
@@ -92,8 +100,10 @@ class B2BDeploymentArtifactsTest extends TestCase
             'B2B_NONCE_CACHE_STORE=redis',
             'B2B_RATE_LIMIT_CACHE_STORE=redis',
             'deploy/scripts/backup.sh',
+            'deploy/scripts/restore.sh',
             'deploy/scripts/healthcheck.sh',
             'deploy/scripts/rollback.sh',
+            'CONFIRM_RESTORE=RESTORE_BBB',
             'External Launch Blockers',
             '/api/b2b/v1/readiness',
             '/api/b2b/v1/metrics',
@@ -135,6 +145,7 @@ class B2BDeploymentArtifactsTest extends TestCase
             'deploy/websocket/socket_config2.production.example.json',
             'deploy/cron/bbb-maintenance.cron.example',
             'deploy/scripts/backup.sh',
+            'deploy/scripts/restore.sh',
             'deploy/scripts/rollback.sh',
             'deploy/scripts/healthcheck.sh',
             'docs/deployment/PRODUCTION_RUNBOOK.md',
