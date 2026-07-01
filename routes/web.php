@@ -664,7 +664,7 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
         Route::get('/b2b', [
             'as' => 'backend.b2b.dashboard',
             'uses' => 'B2BDashboardController@index',
-            'middleware' => 'only_for_admin',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view'],
         ]);
 
         Route::get('/b2b/step-up/{action}', [

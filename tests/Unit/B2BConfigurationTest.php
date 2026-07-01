@@ -22,8 +22,9 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'uses' => 'B2BDashboardController@index'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.step_up.show'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BStepUpController@show'", $webRoutes);
-        $this->assertStringContainsString("'middleware' => 'only_for_admin'", $webRoutes);
+        $this->assertStringContainsString("'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view']", $webRoutes);
         $this->assertStringContainsString("'b2b.signature'", $kernel);
+        $this->assertStringContainsString("'b2b.admin'", $kernel);
         $this->assertStringContainsString("'b2b.web_step_up'", $kernel);
     }
 

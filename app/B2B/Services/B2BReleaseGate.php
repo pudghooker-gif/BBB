@@ -272,6 +272,14 @@ class B2BReleaseGate
             $missing[] = 'route:backend.b2b.dashboard';
         }
 
+        if ($this->routeMiddlewareClass('b2b.admin') !== 'VanguardLTE\Http\Middleware\AuthorizeB2BAdminPermission') {
+            $missing[] = 'middleware:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.dashboard', 'b2b.admin:b2b.reports.view')) {
+            $missing[] = 'route_middleware:backend.b2b.dashboard:b2b.admin';
+        }
+
         if (!View::exists('backend.b2b.dashboard')) {
             $missing[] = 'view:backend.b2b.dashboard';
         }
@@ -525,6 +533,16 @@ class B2BReleaseGate
         }
 
         return false;
+    }
+
+    private function routeUsesMiddleware($name, $middleware)
+    {
+        $route = Route::getRoutes()->getByName($name);
+        if (!$route) {
+            return false;
+        }
+
+        return in_array($middleware, $route->gatherMiddleware(), true);
     }
 
     private function dependencyAuditCheck($production)

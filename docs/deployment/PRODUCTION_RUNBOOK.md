@@ -74,7 +74,7 @@ B2B_ALLOW_PRIVATE_WALLET_CALLBACKS=false
 
 Nginx exposes `/healthz`, which rewrites to `/api/b2b/v1/health`, `/readyz`, which rewrites to `/api/b2b/v1/readiness`, and `/metrics`, which rewrites to `/api/b2b/v1/metrics` for Prometheus-compatible aggregate scraping.
 
-The read-only B2B operations dashboard is available to backend admins at `/backend/b2b`. Mutating B2B backend routes must be protected with `b2b.web_step_up:{action}` and use `/backend/b2b/step-up/{action}` for session-bound confirmation.
+The read-only B2B operations dashboard is available to backend admins at `/backend/b2b` and requires the `b2b.reports.view` permission through B2B web RBAC middleware. Mutating B2B backend routes must be protected with `b2b.admin:{permission}` plus `b2b.web_step_up:{action}` and use `/backend/b2b/step-up/{action}` for session-bound confirmation.
 
 ```bash
 APP_URL=https://b2b.example.com bash deploy/scripts/healthcheck.sh

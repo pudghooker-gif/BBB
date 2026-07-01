@@ -34,7 +34,7 @@ Date: 2026-06-24
 
 ## Stage 4: Admin And Operator Portal
 
-- Extend the read-only `/backend/b2b` operations dashboard into dedicated B2B backoffice routes/controllers/views with server-side RBAC and authenticated step-up for dangerous actions.
+- Extend the B2B-RBAC-protected read-only `/backend/b2b` operations dashboard into dedicated B2B backoffice routes/controllers/views with authenticated step-up for dangerous actions.
 - Build the tenant-facing operator portal UI over the signed read-only `/api/b2b/v1/portal/overview` bootstrap, then expand it into credentials, callback settings, game assignments, sessions, transactions, reports, and docs.
 - Build the portal UX over the current audited credential rotation/revocation, successful-use audit, per-key rate-limit, and deny-by-default privileged-action guard foundation.
 - Keep unified operator audit coverage for exports and dangerous admin actions; settlement export/submission/approval, credential lifecycle actions, denied privileged actions, and manual wallet actions now write operator audit events.
