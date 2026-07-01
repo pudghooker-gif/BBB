@@ -192,9 +192,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         VanguardLTE\Providers\EventServiceProvider::class,
         VanguardLTE\Providers\RouteServiceProvider::class,
-
-        VanguardLTE\Providers\SMSToServiceProvider::class,
-		
 		jeremykenedy\LaravelRoles\RolesServiceProvider::class,
 		
         Yajra\DataTables\DataTablesServiceProvider::class,
@@ -259,11 +256,6 @@ return [
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
 
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-
-        'SmsTo' => Intergo\SmsTo\Facades\SmsToSms::class,
-
-
-
     ],
 
 ];

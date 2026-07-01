@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d171880d892caa59f5378982da20618a",
+    "content-hash": "533e452544ef284760f17d8385e7f39e",
     "packages": [
         {
             "name": "anlutro/l4-settings",
@@ -1301,113 +1301,6 @@
                 "source": "https://github.com/hexters/CoinPayment/tree/v2.1.1"
             },
             "time": "2020-10-28T22:16:35+00:00"
-        },
-        {
-            "name": "intergo/sms.to-laravel-lumen",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/intergo/sms.to-laravel-lumen.git",
-                "reference": "3d75adfbe7149fe8bafedc417989861c0e109380"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/intergo/sms.to-laravel-lumen/zipball/3d75adfbe7149fe8bafedc417989861c0e109380",
-                "reference": "3d75adfbe7149fe8bafedc417989861c0e109380",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "7.*",
-                "illuminate/support": "^8.75 || ^9.24 || ^10.0",
-                "intergo/sms.to-php": "^1.0",
-                "php": ">=7.1.3"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Intergo\\SmsTo\\SmsToServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-0": {
-                    "Intergo\\SmsTo\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Intergo Telecom",
-                    "email": "italosm@intergo.com.cy",
-                    "homepage": "https://intergo.com.cy",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Laravel 5 package for sending sms in SMS.to",
-            "keywords": [
-                "bulksms",
-                "laravel",
-                "marketing",
-                "sms"
-            ],
-            "support": {
-                "issues": "https://github.com/intergo/sms.to-laravel-lumen/issues",
-                "source": "https://github.com/intergo/sms.to-laravel-lumen/tree/1.2.0"
-            },
-            "time": "2023-06-14T08:59:19+00:00"
-        },
-        {
-            "name": "intergo/sms.to-php",
-            "version": "1.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/intergo/sms.to-php.git",
-                "reference": "30c06a8eecd55e7ebfa9311d99a8ebeb38f51aa0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/intergo/sms.to-php/zipball/30c06a8eecd55e7ebfa9311d99a8ebeb38f51aa0",
-                "reference": "30c06a8eecd55e7ebfa9311d99a8ebeb38f51aa0",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^7.4",
-                "php": ">=7.0.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Intergo\\SmsTo\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sujit Baniya",
-                    "email": "sujit@intergo.com.cy",
-                    "homepage": "https://intergo.com.cy",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A PHP library for communicating with the SMS.to REST API",
-            "keywords": [
-                "bulksms",
-                "marketing",
-                "php",
-                "sms"
-            ],
-            "support": {
-                "issues": "https://github.com/intergo/sms.to-php/issues",
-                "source": "https://github.com/intergo/sms.to-php/tree/1.1.4"
-            },
-            "time": "2023-02-20T10:07:44+00:00"
         },
         {
             "name": "intervention/image",

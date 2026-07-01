@@ -12,7 +12,6 @@
         "geoip2/geoip2": "^2.11",
         "guzzlehttp/guzzle": "^7.12",
         "hexters/coinpayment": "^2.0",
-        "intergo/sms.to-laravel-lumen": "^1.2",
         "intervention/image": "^2.3",
         "jenssegers/agent": "^2.5",
         "jeremykenedy/laravel-roles": "3.*",
