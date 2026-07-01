@@ -43,11 +43,14 @@ cp ../deploy/websocket/socket_config2.production.example.json ../public/socket_c
 
 The production WebSocket config should keep `ssl=false` and bind Node to localhost through `listen_host=127.0.0.1` and `listen_port=12097`; Nginx owns the public TLS endpoint on `12096`.
 
+Set `TRUSTED_PROXIES` to the exact Nginx or load-balancer IP/CIDR list that is allowed to supply forwarded request headers. Use `*` only when the direct upstream proxy address is dynamic and cannot be pinned.
+
 Required production environment values:
 
 ```env
 APP_ENV=production
 APP_DEBUG=false
+TRUSTED_PROXIES=10.0.0.10,10.0.0.11
 CACHE_DRIVER=redis
 QUEUE_DRIVER=redis
 B2B_NONCE_CACHE_STORE=redis

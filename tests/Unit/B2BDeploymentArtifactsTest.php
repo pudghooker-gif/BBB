@@ -88,6 +88,7 @@ class B2BDeploymentArtifactsTest extends TestCase
             'php artisan b2b:release-check --production',
             'locked Composer dependency audit',
             'B2B Release Verification',
+            'TRUSTED_PROXIES=',
             'B2B_NONCE_CACHE_STORE=redis',
             'B2B_RATE_LIMIT_CACHE_STORE=redis',
             'deploy/scripts/backup.sh',

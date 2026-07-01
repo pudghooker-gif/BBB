@@ -27,6 +27,20 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'b2b.web_step_up'", $kernel);
     }
 
+    public function testTrustedProxyConfigurationUsesLaravelMiddlewareAndEnvironment()
+    {
+        $middleware = file_get_contents(base_path('app/Http/Middleware/TrustProxies.php'));
+        $config = file_get_contents(base_path('config/trustedproxy.php'));
+        $envExample = file_get_contents(base_path('.env.example'));
+        $composer = file_get_contents(base_path('composer.json'));
+
+        $this->assertStringContainsString('Illuminate\Http\Middleware\TrustProxies', $middleware);
+        $this->assertStringContainsString("env('TRUSTED_PROXIES') ?: null", $config);
+        $this->assertStringContainsString('TRUSTED_PROXIES=', $envExample);
+        $this->assertStringNotContainsString('Fideloper', $middleware);
+        $this->assertStringNotContainsString('fideloper/proxy', $composer);
+    }
+
     public function testReportsKeepMoneyAsDecimalStrings()
     {
         $controller = new ReportsController(

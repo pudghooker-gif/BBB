@@ -3,32 +3,13 @@
 return [
 
     /*
-     * Set trusted proxy IP addresses.
+     * Set trusted reverse proxy IP addresses for Laravel's TrustProxies middleware.
      *
-     * Both IPv4 and IPv6 addresses are
-     * supported, along with CIDR notation.
-     *
-     * The "*" character is syntactic sugar
-     * within TrustedProxy to trust any proxy
-     * that connects directly to your server,
-     * a requirement when you cannot know the address
-     * of your proxy (e.g. if using ELB or similar).
-     *
+     * IPv4, IPv6, and CIDR notation are supported. Use a comma-separated list for
+     * static load balancers, or "*" only when the direct upstream proxy address
+     * cannot be known ahead of time.
      */
-    'proxies' => null, // [<ip addresses>,], '*', '<ip addresses>,'
-
-    /*
-     * To trust one or more specific proxies that connect
-     * directly to your server, use an array or a string separated by comma of IP addresses:
-     */
-    // 'proxies' => ['192.168.1.1'],
-    // 'proxies' => '192.168.1.1, 192.168.1.2',
-
-    /*
-     * Or, to trust all proxies that connect
-     * directly to your server, use a "*"
-     */
-    // 'proxies' => '*',
+    'proxies' => env('TRUSTED_PROXIES') ?: null,
 
     /*
      * Which headers to use to detect proxy related data (For, Host, Proto, Port)
