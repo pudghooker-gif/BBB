@@ -202,6 +202,7 @@
                         <p><a href="{{ route('backend.b2b.credentials.index') }}">Credential Lifecycle</a></p>
                         <p><a href="{{ route('backend.b2b.operators.index') }}">Operator Configuration</a></p>
                         <p><a href="{{ route('backend.b2b.payloads.index') }}">Payload Review</a></p>
+                        <p><a href="{{ route('backend.b2b.cases.index') }}">Case Management</a></p>
                         <p><a href="/api/b2b/v1/health" target="_blank" rel="noopener">Health</a></p>
                         <p><a href="/api/b2b/v1/readiness" target="_blank" rel="noopener">Readiness</a></p>
                         <p><a href="/api/b2b/v1/metrics" target="_blank" rel="noopener">Metrics</a></p>

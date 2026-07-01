@@ -16,6 +16,8 @@ Key permissions:
 - `b2b.wallet.manual_action`
 - `b2b.wallet.retry`
 - `b2b.wallet.reconcile`
+- `b2b.cases.view`
+- `b2b.cases.manage`
 - `b2b.payloads.view_redacted`
 - `b2b.payloads.view_raw`
 - `b2b.reports.view`
@@ -126,6 +128,10 @@ POST /backend/b2b/operators/suspend
 POST /backend/b2b/operators/resume
 GET  /backend/b2b/payloads
 POST /backend/b2b/payloads/raw
+GET  /backend/b2b/cases
+POST /backend/b2b/cases/claim
+POST /backend/b2b/cases/resolve
+POST /backend/b2b/cases/reopen
 ```
 
 Middleware for dangerous web routes:
@@ -138,4 +144,4 @@ The guard requires the authenticated backend user to have the configured B2B per
 
 ## Remaining Production Work
 
-The web guard is only the confirmation/session foundation. Production B2B mutation and sensitive-review screens still need provider-specific forms, stronger re-authentication such as TOTP/WebAuthn for high-risk actions, session revocation hooks, and operator-visible case workflow.
+The web guard is only the confirmation/session foundation. Production B2B mutation and sensitive-review screens still need stronger re-authentication such as TOTP/WebAuthn for high-risk actions, session revocation hooks, provider-specific forms, and operator-visible portal case workflow.

@@ -326,6 +326,8 @@ class B2BReleaseGate
             'b2b.credentials.rotate',
             'b2b.credentials.revoke',
             'b2b.wallet.manual_action',
+            'b2b.cases.view',
+            'b2b.cases.manage',
             'b2b.payloads.view_redacted',
             'b2b.payloads.view_raw',
             'b2b.settlements.submit',
@@ -341,6 +343,9 @@ class B2BReleaseGate
             'api_key.revoke' => 'b2b.credentials.revoke',
             'wallet.manual_action' => 'b2b.wallet.manual_action',
             'payload.view_raw' => 'b2b.payloads.view_raw',
+            'case.claim' => 'b2b.cases.manage',
+            'case.resolve' => 'b2b.cases.manage',
+            'case.reopen' => 'b2b.cases.manage',
             'settlement.submit' => 'b2b.settlements.submit',
             'settlement.approve' => 'b2b.settlements.approve',
             'settlement.reject' => 'b2b.settlements.approve',
@@ -547,6 +552,34 @@ class B2BReleaseGate
 
         if (!View::exists('backend.b2b.payloads')) {
             $missing[] = 'view:backend.b2b.payloads';
+        }
+
+        foreach (['backend.b2b.cases.index', 'backend.b2b.cases.claim', 'backend.b2b.cases.resolve', 'backend.b2b.cases.reopen'] as $routeName) {
+            if (!Route::has($routeName)) {
+                $missing[] = 'route:' . $routeName;
+            }
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.cases.index', 'b2b.admin:b2b.cases.view')) {
+            $missing[] = 'route_middleware:backend.b2b.cases.index:b2b.admin';
+        }
+
+        foreach ([
+            'backend.b2b.cases.claim' => 'case.claim',
+            'backend.b2b.cases.resolve' => 'case.resolve',
+            'backend.b2b.cases.reopen' => 'case.reopen',
+        ] as $routeName => $stepUpAction) {
+            if (!$this->routeUsesMiddleware($routeName, 'b2b.admin:b2b.cases.manage')) {
+                $missing[] = 'route_middleware:' . $routeName . ':b2b.admin';
+            }
+
+            if (!$this->routeUsesMiddleware($routeName, 'b2b.web_step_up:' . $stepUpAction)) {
+                $missing[] = 'route_middleware:' . $routeName . ':b2b.web_step_up';
+            }
+        }
+
+        if (!View::exists('backend.b2b.cases')) {
+            $missing[] = 'view:backend.b2b.cases';
         }
 
         foreach (['backend.b2b.step_up.show', 'backend.b2b.step_up.store'] as $routeName) {

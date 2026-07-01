@@ -802,6 +802,45 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
             'middleware' => ['only_for_admin', 'b2b.admin:b2b.payloads.view_raw', 'b2b.web_step_up:payload.view_raw'],
         ]);
 
+        Route::get('/b2b/cases', [
+            'as' => 'backend.b2b.cases.index',
+            'uses' => 'B2BCaseBackofficeController@index',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.view'],
+        ]);
+
+        Route::get('/b2b/cases/claim', [
+            'uses' => 'B2BCaseBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage'],
+        ]);
+
+        Route::post('/b2b/cases/claim', [
+            'as' => 'backend.b2b.cases.claim',
+            'uses' => 'B2BCaseBackofficeController@claim',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage', 'b2b.web_step_up:case.claim'],
+        ]);
+
+        Route::get('/b2b/cases/resolve', [
+            'uses' => 'B2BCaseBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage'],
+        ]);
+
+        Route::post('/b2b/cases/resolve', [
+            'as' => 'backend.b2b.cases.resolve',
+            'uses' => 'B2BCaseBackofficeController@resolve',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage', 'b2b.web_step_up:case.resolve'],
+        ]);
+
+        Route::get('/b2b/cases/reopen', [
+            'uses' => 'B2BCaseBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage'],
+        ]);
+
+        Route::post('/b2b/cases/reopen', [
+            'as' => 'backend.b2b.cases.reopen',
+            'uses' => 'B2BCaseBackofficeController@reopen',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage', 'b2b.web_step_up:case.reopen'],
+        ]);
+
         Route::get('/b2b/step-up/{action}', [
             'as' => 'backend.b2b.step_up.show',
             'uses' => 'B2BStepUpController@show',

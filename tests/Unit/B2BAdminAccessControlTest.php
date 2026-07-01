@@ -85,6 +85,16 @@ class B2BAdminAccessControlTest extends TestCase
 
         $this->assertTrue($rawPayload['ok']);
         $this->assertSame('b2b.payloads.view_raw', $rawPayload['permission']);
+
+        $caseClaim = $access->authorizePrivilegedAction('case.claim', [
+            'actor' => 'ops_user',
+            'reason' => 'Taking ownership of a reconciliation case.',
+            'permission' => 'b2b.cases.manage',
+            'confirm' => 'CLAIM_CASE',
+        ]);
+
+        $this->assertTrue($caseClaim['ok']);
+        $this->assertSame('b2b.cases.manage', $caseClaim['permission']);
     }
 
     public function testConfiguredRolesDenyByDefaultAndGrantKnownPermissions()
@@ -94,6 +104,9 @@ class B2BAdminAccessControlTest extends TestCase
         $this->assertFalse($access->roleGrantsPermission('read_only', 'b2b.credentials.rotate'));
         $this->assertTrue($access->roleGrantsPermission('integration_manager', 'b2b.credentials.rotate'));
         $this->assertTrue($access->roleGrantsPermission('super_admin', 'b2b.payloads.view_raw'));
+        $this->assertTrue($access->roleGrantsPermission('support', 'b2b.cases.view'));
+        $this->assertFalse($access->roleGrantsPermission('support', 'b2b.cases.manage'));
+        $this->assertTrue($access->roleGrantsPermission('finance', 'b2b.cases.manage'));
         $this->assertFalse($access->roleGrantsPermission('missing_role', 'b2b.audit.view'));
     }
 

@@ -52,6 +52,16 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'b2b.admin:b2b.payloads.view_redacted'", $webRoutes);
         $this->assertStringContainsString("'b2b.admin:b2b.payloads.view_raw'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:payload.view_raw'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.cases.index'", $webRoutes);
+        $this->assertStringContainsString("'uses' => 'B2BCaseBackofficeController@index'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.cases.claim'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.cases.resolve'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.cases.reopen'", $webRoutes);
+        $this->assertStringContainsString("'b2b.admin:b2b.cases.view'", $webRoutes);
+        $this->assertStringContainsString("'b2b.admin:b2b.cases.manage'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:case.claim'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:case.resolve'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:case.reopen'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.step_up.show'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BStepUpController@show'", $webRoutes);
         $this->assertStringContainsString("'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view']", $webRoutes);

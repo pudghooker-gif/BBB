@@ -12,6 +12,8 @@ return [
         'b2b.wallet.manual_action' => 'Apply manual wallet state transitions.',
         'b2b.wallet.retry' => 'Retry B2B wallet callbacks.',
         'b2b.wallet.reconcile' => 'Run B2B wallet reconciliation scans.',
+        'b2b.cases.view' => 'View B2B reconciliation cases.',
+        'b2b.cases.manage' => 'Claim, resolve, and reopen B2B reconciliation cases.',
         'b2b.payloads.view_redacted' => 'View redacted wallet payloads.',
         'b2b.payloads.view_raw' => 'View raw sensitive payloads after step-up approval.',
         'b2b.reports.view' => 'View B2B reports.',
@@ -34,6 +36,8 @@ return [
                 'b2b.credentials.revoke',
                 'b2b.wallet.retry',
                 'b2b.wallet.reconcile',
+                'b2b.cases.view',
+                'b2b.cases.manage',
                 'b2b.payloads.view_redacted',
                 'b2b.audit.view',
                 'b2b.system.release_check',
@@ -43,6 +47,8 @@ return [
             'permissions' => [
                 'b2b.wallet.manual_action',
                 'b2b.wallet.reconcile',
+                'b2b.cases.view',
+                'b2b.cases.manage',
                 'b2b.payloads.view_redacted',
                 'b2b.reports.view',
                 'b2b.reports.export',
@@ -54,12 +60,14 @@ return [
         'support' => [
             'permissions' => [
                 'b2b.payloads.view_redacted',
+                'b2b.cases.view',
                 'b2b.reports.view',
             ],
         ],
         'auditor' => [
             'permissions' => [
                 'b2b.payloads.view_redacted',
+                'b2b.cases.view',
                 'b2b.reports.view',
                 'b2b.audit.view',
             ],
@@ -70,6 +78,7 @@ return [
                 'b2b.operators.update',
                 'b2b.credentials.rotate',
                 'b2b.credentials.revoke',
+                'b2b.cases.view',
                 'b2b.payloads.view_redacted',
                 'b2b.audit.view',
             ],
@@ -77,6 +86,7 @@ return [
         'read_only' => [
             'permissions' => [
                 'b2b.payloads.view_redacted',
+                'b2b.cases.view',
                 'b2b.reports.view',
                 'b2b.audit.view',
             ],
@@ -122,6 +132,21 @@ return [
         'payload.view_raw' => [
             'permission' => 'b2b.payloads.view_raw',
             'confirm' => 'VIEW_RAW_PAYLOAD',
+            'step_up' => true,
+        ],
+        'case.claim' => [
+            'permission' => 'b2b.cases.manage',
+            'confirm' => 'CLAIM_CASE',
+            'step_up' => true,
+        ],
+        'case.resolve' => [
+            'permission' => 'b2b.cases.manage',
+            'confirm' => 'RESOLVE_CASE',
+            'step_up' => true,
+        ],
+        'case.reopen' => [
+            'permission' => 'b2b.cases.manage',
+            'confirm' => 'REOPEN_CASE',
             'step_up' => true,
         ],
         'settlement.submit' => [
