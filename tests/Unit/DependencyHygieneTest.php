@@ -16,6 +16,7 @@ class DependencyHygieneTest extends TestCase
             'fideloper/proxy',
             'intergo/sms.to-laravel-lumen',
             'laracasts/presenter',
+            'laravel/legacy-factories',
             'laravel/ui',
         ] as $package) {
             $this->assertArrayNotHasKey($package, $composer['require']);
@@ -32,6 +33,14 @@ class DependencyHygieneTest extends TestCase
         $this->assertStringNotContainsString('Intergo\SmsTo', $appConfig);
         $this->assertStringContainsString('GuzzleHttp\Client', $smsSender);
         $this->assertStringContainsString("config('smsto.base_url')", $smsSender);
+    }
+
+    public function testLegacyFactoryClassmapIsRemoved()
+    {
+        $composer = json_decode(file_get_contents(base_path('composer.json')), true);
+
+        $this->assertNotContains('database/factories', $composer['autoload']['classmap']);
+        $this->assertFileNotExists(base_path('database/factories/UserFactory.php'));
     }
 
     public function testLocalPresenterKeepsUserPresentationBehavior()
