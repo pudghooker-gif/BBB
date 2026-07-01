@@ -124,6 +124,8 @@ GET  /backend/b2b/operators
 POST /backend/b2b/operators/update
 POST /backend/b2b/operators/suspend
 POST /backend/b2b/operators/resume
+GET  /backend/b2b/payloads
+POST /backend/b2b/payloads/raw
 ```
 
 Middleware for dangerous web routes:
@@ -136,4 +138,4 @@ The guard requires the authenticated backend user to have the configured B2B per
 
 ## Remaining Production Work
 
-The web guard is only the confirmation/session foundation. Production B2B mutation screens still need provider-specific forms, full audit event coverage, stronger re-authentication such as TOTP/WebAuthn for high-risk actions, session revocation hooks, and operator-visible case workflow.
+The web guard is only the confirmation/session foundation. Production B2B mutation and sensitive-review screens still need provider-specific forms, stronger re-authentication such as TOTP/WebAuthn for high-risk actions, session revocation hooks, and operator-visible case workflow.

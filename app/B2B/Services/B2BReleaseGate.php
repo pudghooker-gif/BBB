@@ -326,6 +326,8 @@ class B2BReleaseGate
             'b2b.credentials.rotate',
             'b2b.credentials.revoke',
             'b2b.wallet.manual_action',
+            'b2b.payloads.view_redacted',
+            'b2b.payloads.view_raw',
             'b2b.settlements.submit',
             'b2b.settlements.approve',
             'b2b.audit.view',
@@ -338,6 +340,7 @@ class B2BReleaseGate
             'api_key.rotate' => 'b2b.credentials.rotate',
             'api_key.revoke' => 'b2b.credentials.revoke',
             'wallet.manual_action' => 'b2b.wallet.manual_action',
+            'payload.view_raw' => 'b2b.payloads.view_raw',
             'settlement.submit' => 'b2b.settlements.submit',
             'settlement.approve' => 'b2b.settlements.approve',
             'settlement.reject' => 'b2b.settlements.approve',
@@ -522,6 +525,28 @@ class B2BReleaseGate
 
         if (!View::exists('backend.b2b.operators')) {
             $missing[] = 'view:backend.b2b.operators';
+        }
+
+        foreach (['backend.b2b.payloads.index', 'backend.b2b.payloads.raw'] as $routeName) {
+            if (!Route::has($routeName)) {
+                $missing[] = 'route:' . $routeName;
+            }
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.payloads.index', 'b2b.admin:b2b.payloads.view_redacted')) {
+            $missing[] = 'route_middleware:backend.b2b.payloads.index:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.payloads.raw', 'b2b.admin:b2b.payloads.view_raw')) {
+            $missing[] = 'route_middleware:backend.b2b.payloads.raw:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.payloads.raw', 'b2b.web_step_up:payload.view_raw')) {
+            $missing[] = 'route_middleware:backend.b2b.payloads.raw:b2b.web_step_up';
+        }
+
+        if (!View::exists('backend.b2b.payloads')) {
+            $missing[] = 'view:backend.b2b.payloads';
         }
 
         foreach (['backend.b2b.step_up.show', 'backend.b2b.step_up.store'] as $routeName) {

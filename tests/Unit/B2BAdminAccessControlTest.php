@@ -75,6 +75,16 @@ class B2BAdminAccessControlTest extends TestCase
 
         $this->assertTrue($operatorSuspend['ok']);
         $this->assertSame('b2b.operators.suspend', $operatorSuspend['permission']);
+
+        $rawPayload = $access->authorizePrivilegedAction('payload.view_raw', [
+            'actor' => 'ops_user',
+            'reason' => 'Wallet incident investigation.',
+            'permission' => 'b2b.payloads.view_raw',
+            'confirm' => 'VIEW_RAW_PAYLOAD',
+        ]);
+
+        $this->assertTrue($rawPayload['ok']);
+        $this->assertSame('b2b.payloads.view_raw', $rawPayload['permission']);
     }
 
     public function testConfiguredRolesDenyByDefaultAndGrantKnownPermissions()

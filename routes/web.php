@@ -785,6 +785,23 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
             'middleware' => ['only_for_admin', 'b2b.admin:b2b.operators.suspend', 'b2b.web_step_up:operator.resume'],
         ]);
 
+        Route::get('/b2b/payloads', [
+            'as' => 'backend.b2b.payloads.index',
+            'uses' => 'B2BPayloadBackofficeController@index',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.payloads.view_redacted'],
+        ]);
+
+        Route::get('/b2b/payloads/raw', [
+            'uses' => 'B2BPayloadBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.payloads.view_raw'],
+        ]);
+
+        Route::post('/b2b/payloads/raw', [
+            'as' => 'backend.b2b.payloads.raw',
+            'uses' => 'B2BPayloadBackofficeController@raw',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.payloads.view_raw', 'b2b.web_step_up:payload.view_raw'],
+        ]);
+
         Route::get('/b2b/step-up/{action}', [
             'as' => 'backend.b2b.step_up.show',
             'uses' => 'B2BStepUpController@show',

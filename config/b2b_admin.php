@@ -119,6 +119,11 @@ return [
             'confirm' => 'MANUAL_WALLET_ACTION',
             'step_up' => true,
         ],
+        'payload.view_raw' => [
+            'permission' => 'b2b.payloads.view_raw',
+            'confirm' => 'VIEW_RAW_PAYLOAD',
+            'step_up' => true,
+        ],
         'settlement.submit' => [
             'permission' => 'b2b.settlements.submit',
             'confirm' => 'SUBMIT_SETTLEMENT',

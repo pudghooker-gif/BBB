@@ -170,4 +170,4 @@ Supported actions:
 
 Every manual action requires `--actor`, `--reason`, exact `--permission=b2b.wallet.manual_action`, and exact `--confirm=MANUAL_WALLET_ACTION`, writes `b2b_wallet_manual_actions`, appends a wallet transition, and opens or resolves reconciliation items where appropriate. Denied attempts write `privileged_action.denied` when the operator audit table exists.
 
-This is not yet the final production backoffice. Full production readiness still needs expanded confirmation dialogs, raw payload permissions wired into B2B UI, richer operator-visible case workflow, and production validation of the settlement workflow screen.
+This is not yet the final production backoffice. Full production readiness still needs stronger confirmation/re-authentication UX, richer operator-visible case workflow, and staging validation of the web settlement and payload-review screens.
