@@ -12,6 +12,7 @@ class DependencyHygieneTest extends TestCase
         $composer = json_decode(file_get_contents(base_path('composer.json')), true);
 
         foreach ([
+            'anlutro/l4-settings',
             'barryvdh/laravel-debugbar',
             'fideloper/proxy',
             'intergo/sms.to-laravel-lumen',
@@ -31,6 +32,7 @@ class DependencyHygieneTest extends TestCase
 
         $this->assertStringNotContainsString('SMSToServiceProvider', $appConfig);
         $this->assertStringNotContainsString('Intergo\SmsTo', $appConfig);
+        $this->assertStringNotContainsString('anlutro\LaravelSettings\Facade', $appConfig);
         $this->assertStringContainsString('GuzzleHttp\Client', $smsSender);
         $this->assertStringContainsString("config('smsto.base_url')", $smsSender);
     }

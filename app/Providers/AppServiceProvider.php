@@ -21,6 +21,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use VanguardLTE\Support\Settings\JsonSettingStore;
 use VanguardLTE\Support\Validation\SecurityHardenedValidator;
 
 
@@ -68,6 +69,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton('settings', function ($app) {
+            if (config('settings.store', 'json') !== 'json') {
+                throw new \RuntimeException('Only the json settings store is supported by the local settings implementation.');
+            }
+
+            $store = new JsonSettingStore($app['files'], config('settings.path', storage_path('settings.json')));
+            $store->setDefaults(config('settings.defaults', []));
+
+            return $store;
+        });
+        $this->app->alias('settings', 'setting');
+        $this->app->alias('settings', 'anlutro\LaravelSettings\SettingStore');
+        $this->app->alias('settings', JsonSettingStore::class);
+
         $this->app->singleton(UserRepository::class, EloquentUser::class);
         $this->app->singleton(ActivityRepository::class, EloquentActivity::class);
         $this->app->singleton(RoleRepository::class, EloquentRole::class);

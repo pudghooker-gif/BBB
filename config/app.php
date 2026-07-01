@@ -180,7 +180,6 @@ return [
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
         VanguardLTE\Providers\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        //anlutro\LaravelSettings\ServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
 
         /*
@@ -251,7 +250,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Settings' => anlutro\LaravelSettings\Facade::class,
+        'Settings' => VanguardLTE\Support\Settings\SettingsFacade::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
 

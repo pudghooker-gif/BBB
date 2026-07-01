@@ -14,10 +14,10 @@ if (! function_exists('settings')) {
     function settings($key = null, $default = null)
     {
         if (is_null($key)) {
-            return app('anlutro\LaravelSettings\SettingStore');
+            return app('settings');
         }
 
-        return app('anlutro\LaravelSettings\SettingStore')->get($key, $default);
+        return app('settings')->get($key, $default);
     }
 }
 
