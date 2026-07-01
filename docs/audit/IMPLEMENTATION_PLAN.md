@@ -45,7 +45,7 @@ Date: 2026-06-24
 - Keep job-backed wallet retry/reconciliation/cleanup workflows wired to the B2B queue topology and validate worker execution in staging.
 - Keep health/readiness/metrics endpoints current, then add structured logs, deeper correlation IDs, alert routing, and staging scrape validation.
 - Add and run `b2b:release-check --production` for Redis/shared-cache, queue, sandbox, debug, private callback, locked Composer dependency audit, Laravel advisory mitigations, and artifact-secret gates.
-- Keep CI release verification current for Composer validate/install, syntax lint, PHPUnit, route boot/cache, dependency audit visibility, and production release-check. Keep trimming legacy upgrade blockers as they are proven unused; direct `laravel/ui`, `fideloper/proxy`, and SMS.to Laravel wrapper dependencies are already removed. Close the remaining Laravel/SwiftMailer findings through a PHP/Laravel major-upgrade or supported security-backport plan so the blocking audit gate can turn green.
+- Keep CI release verification current for Composer validate/install, syntax lint, PHPUnit, route boot/cache, dependency audit visibility, and production release-check. Keep trimming legacy upgrade blockers as they are proven unused; direct `laravel/ui`, `fideloper/proxy`, SMS.to Laravel wrapper, and debugbar dependencies are already removed. Close the remaining Laravel/SwiftMailer findings through a PHP/Laravel major-upgrade or supported security-backport plan so the blocking audit gate can turn green.
 
 ## Stage 6: Release Gates
 

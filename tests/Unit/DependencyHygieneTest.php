@@ -11,6 +11,7 @@ class DependencyHygieneTest extends TestCase
         $composer = json_decode(file_get_contents(base_path('composer.json')), true);
 
         foreach ([
+            'barryvdh/laravel-debugbar',
             'fideloper/proxy',
             'intergo/sms.to-laravel-lumen',
             'laravel/ui',
