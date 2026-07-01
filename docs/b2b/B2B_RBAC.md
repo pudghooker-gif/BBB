@@ -120,6 +120,10 @@ POST /backend/b2b/settlements/reject
 GET  /backend/b2b/credentials
 POST /backend/b2b/credentials/rotate
 POST /backend/b2b/credentials/revoke
+GET  /backend/b2b/operators
+POST /backend/b2b/operators/update
+POST /backend/b2b/operators/suspend
+POST /backend/b2b/operators/resume
 ```
 
 Middleware for dangerous web routes:

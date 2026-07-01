@@ -89,6 +89,21 @@ return [
             'confirm' => 'CREATE_OPERATOR',
             'step_up' => true,
         ],
+        'operator.update' => [
+            'permission' => 'b2b.operators.update',
+            'confirm' => 'UPDATE_OPERATOR',
+            'step_up' => true,
+        ],
+        'operator.suspend' => [
+            'permission' => 'b2b.operators.suspend',
+            'confirm' => 'SUSPEND_OPERATOR',
+            'step_up' => true,
+        ],
+        'operator.resume' => [
+            'permission' => 'b2b.operators.suspend',
+            'confirm' => 'RESUME_OPERATOR',
+            'step_up' => true,
+        ],
         'api_key.rotate' => [
             'permission' => 'b2b.credentials.rotate',
             'confirm' => 'ROTATE_API_KEY',

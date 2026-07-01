@@ -746,6 +746,45 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
             'middleware' => ['only_for_admin', 'b2b.admin:b2b.credentials.revoke', 'b2b.web_step_up:api_key.revoke'],
         ]);
 
+        Route::get('/b2b/operators', [
+            'as' => 'backend.b2b.operators.index',
+            'uses' => 'B2BOperatorBackofficeController@index',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.operators.update'],
+        ]);
+
+        Route::get('/b2b/operators/update', [
+            'uses' => 'B2BOperatorBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.operators.update'],
+        ]);
+
+        Route::post('/b2b/operators/update', [
+            'as' => 'backend.b2b.operators.update',
+            'uses' => 'B2BOperatorBackofficeController@update',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.operators.update', 'b2b.web_step_up:operator.update'],
+        ]);
+
+        Route::get('/b2b/operators/suspend', [
+            'uses' => 'B2BOperatorBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.operators.suspend'],
+        ]);
+
+        Route::post('/b2b/operators/suspend', [
+            'as' => 'backend.b2b.operators.suspend',
+            'uses' => 'B2BOperatorBackofficeController@suspend',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.operators.suspend', 'b2b.web_step_up:operator.suspend'],
+        ]);
+
+        Route::get('/b2b/operators/resume', [
+            'uses' => 'B2BOperatorBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.operators.suspend'],
+        ]);
+
+        Route::post('/b2b/operators/resume', [
+            'as' => 'backend.b2b.operators.resume',
+            'uses' => 'B2BOperatorBackofficeController@resume',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.operators.suspend', 'b2b.web_step_up:operator.resume'],
+        ]);
+
         Route::get('/b2b/step-up/{action}', [
             'as' => 'backend.b2b.step_up.show',
             'uses' => 'B2BStepUpController@show',

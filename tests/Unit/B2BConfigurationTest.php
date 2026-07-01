@@ -38,6 +38,14 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'b2b.web_step_up:api_key.rotate'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.credentials.revoke'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:api_key.revoke'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.operators.index'", $webRoutes);
+        $this->assertStringContainsString("'uses' => 'B2BOperatorBackofficeController@index'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.operators.update'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:operator.update'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.operators.suspend'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:operator.suspend'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.operators.resume'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:operator.resume'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.step_up.show'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BStepUpController@show'", $webRoutes);
         $this->assertStringContainsString("'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view']", $webRoutes);

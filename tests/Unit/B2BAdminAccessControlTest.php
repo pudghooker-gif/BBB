@@ -55,6 +55,26 @@ class B2BAdminAccessControlTest extends TestCase
         $this->assertTrue($allowed['ok']);
         $this->assertSame('b2b.credentials.rotate', $allowed['permission']);
         $this->assertTrue($allowed['step_up']);
+
+        $operatorUpdate = $access->authorizePrivilegedAction('operator.update', [
+            'actor' => 'ops_user',
+            'reason' => 'Operator settings change.',
+            'permission' => 'b2b.operators.update',
+            'confirm' => 'UPDATE_OPERATOR',
+        ]);
+
+        $this->assertTrue($operatorUpdate['ok']);
+        $this->assertSame('b2b.operators.update', $operatorUpdate['permission']);
+
+        $operatorSuspend = $access->authorizePrivilegedAction('operator.suspend', [
+            'actor' => 'ops_user',
+            'reason' => 'Operator incident.',
+            'permission' => 'b2b.operators.suspend',
+            'confirm' => 'SUSPEND_OPERATOR',
+        ]);
+
+        $this->assertTrue($operatorSuspend['ok']);
+        $this->assertSame('b2b.operators.suspend', $operatorSuspend['permission']);
     }
 
     public function testConfiguredRolesDenyByDefaultAndGrantKnownPermissions()

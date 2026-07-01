@@ -18,6 +18,8 @@ Create a test operator:
 php artisan b2b:make-operator "Test Operator" --shop_id=1 --currency=USD --max_rps=50 --api_key_max_rps=25 --wallet_timeout_ms=3000 --actor=integration_manager --reason="Onboarding ticket B2B-123" --permission=b2b.operators.create --confirm=CREATE_OPERATOR
 ```
 
+Backoffice web workflow: `/backend/b2b/operators` updates non-secret operator settings and records suspend/resume decisions through B2B RBAC plus session-bound web step-up.
+
 The command prints:
 
 ```text

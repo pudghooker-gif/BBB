@@ -321,6 +321,8 @@ class B2BReleaseGate
     {
         $requiredPermissions = [
             'b2b.operators.create',
+            'b2b.operators.update',
+            'b2b.operators.suspend',
             'b2b.credentials.rotate',
             'b2b.credentials.revoke',
             'b2b.wallet.manual_action',
@@ -330,6 +332,9 @@ class B2BReleaseGate
         ];
         $requiredActions = [
             'operator.create' => 'b2b.operators.create',
+            'operator.update' => 'b2b.operators.update',
+            'operator.suspend' => 'b2b.operators.suspend',
+            'operator.resume' => 'b2b.operators.suspend',
             'api_key.rotate' => 'b2b.credentials.rotate',
             'api_key.revoke' => 'b2b.credentials.revoke',
             'wallet.manual_action' => 'b2b.wallet.manual_action',
@@ -479,6 +484,44 @@ class B2BReleaseGate
 
         if (!View::exists('backend.b2b.credentials')) {
             $missing[] = 'view:backend.b2b.credentials';
+        }
+
+        foreach (['backend.b2b.operators.index', 'backend.b2b.operators.update', 'backend.b2b.operators.suspend', 'backend.b2b.operators.resume'] as $routeName) {
+            if (!Route::has($routeName)) {
+                $missing[] = 'route:' . $routeName;
+            }
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.operators.index', 'b2b.admin:b2b.operators.update')) {
+            $missing[] = 'route_middleware:backend.b2b.operators.index:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.operators.update', 'b2b.admin:b2b.operators.update')) {
+            $missing[] = 'route_middleware:backend.b2b.operators.update:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.operators.update', 'b2b.web_step_up:operator.update')) {
+            $missing[] = 'route_middleware:backend.b2b.operators.update:b2b.web_step_up';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.operators.suspend', 'b2b.admin:b2b.operators.suspend')) {
+            $missing[] = 'route_middleware:backend.b2b.operators.suspend:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.operators.suspend', 'b2b.web_step_up:operator.suspend')) {
+            $missing[] = 'route_middleware:backend.b2b.operators.suspend:b2b.web_step_up';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.operators.resume', 'b2b.admin:b2b.operators.suspend')) {
+            $missing[] = 'route_middleware:backend.b2b.operators.resume:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.operators.resume', 'b2b.web_step_up:operator.resume')) {
+            $missing[] = 'route_middleware:backend.b2b.operators.resume:b2b.web_step_up';
+        }
+
+        if (!View::exists('backend.b2b.operators')) {
+            $missing[] = 'view:backend.b2b.operators';
         }
 
         foreach (['backend.b2b.step_up.show', 'backend.b2b.step_up.store'] as $routeName) {
