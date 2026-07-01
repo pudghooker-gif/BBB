@@ -319,11 +319,15 @@ class B2BReleaseGate
             $missing[] = 'route_middleware:signed';
         }
 
+        if ($this->usesLaravelTemporarySignedUrls()) {
+            $missing[] = 'temporary_signed_urls';
+        }
+
         return [
             'name' => 'laravel_security_mitigations',
             'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
             'message' => count($missing) === 0
-                ? 'Laravel advisory mitigations are active for email validation, PHP upload extensions, and signed-route exposure.'
+                ? 'Laravel advisory mitigations are active for email validation, PHP upload extensions, signed-route exposure, and temporary signed URL exposure.'
                 : 'Missing Laravel advisory mitigations: ' . implode(', ', $missing),
         ];
     }
@@ -414,6 +418,80 @@ class B2BReleaseGate
         }
 
         return null;
+    }
+
+    protected function usesLaravelTemporarySignedUrls()
+    {
+        $patterns = [
+            'temporarySignedRoute',
+            'temporaryUrl',
+            'temporaryUploadUrl',
+            'buildTemporaryUrlsUsing',
+        ];
+
+        foreach ($this->firstPartySourceFiles() as $path) {
+            $contents = @file_get_contents($path);
+            if ($contents === false) {
+                continue;
+            }
+
+            foreach ($patterns as $pattern) {
+                if (strpos($contents, $pattern) !== false) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private function firstPartySourceFiles()
+    {
+        $roots = [
+            'app/B2B',
+            'app/Console',
+            'app/Exceptions',
+            'app/Http',
+            'app/Jobs',
+            'app/Lib',
+            'app/Providers',
+            'app/Repositories',
+            'app/Services',
+            'app/Support',
+            'config',
+            'resources/views',
+            'routes',
+        ];
+        $self = realpath(__FILE__);
+
+        foreach ($roots as $root) {
+            $rootPath = base_path($root);
+            if (!is_dir($rootPath)) {
+                continue;
+            }
+
+            $iterator = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($rootPath, \FilesystemIterator::SKIP_DOTS)
+            );
+
+            foreach ($iterator as $file) {
+                if (!$file->isFile()) {
+                    continue;
+                }
+
+                $path = $file->getPathname();
+                $realPath = realpath($path);
+                if ($realPath === $self) {
+                    continue;
+                }
+
+                if (preg_match('/(\.php|\.blade\.php)$/', $path) !== 1) {
+                    continue;
+                }
+
+                yield $path;
+            }
+        }
     }
 
     private function jsonFile($path)

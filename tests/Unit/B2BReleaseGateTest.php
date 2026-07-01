@@ -143,6 +143,23 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckFailed($result, 'laravel_security_mitigations');
     }
 
+    public function testProductionGateFailsWhenLaravelTemporarySignedUrlsAreUsed()
+    {
+        $this->configureSafeProductionSettings();
+
+        $gate = new class extends B2BReleaseGate {
+            protected function usesLaravelTemporarySignedUrls()
+            {
+                return true;
+            }
+        };
+
+        $result = $gate->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'laravel_security_mitigations');
+    }
+
     private function assertCheckFailed(array $result, $name)
     {
         foreach ($result['checks'] as $check) {
