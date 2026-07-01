@@ -64,6 +64,19 @@ class B2BWalletManualActionTest extends TestCase
         $this->assertSame('manual_review', $item->reason);
         $this->assertSame('medium', $item->priority);
         $this->assertSame('open', $item->state);
+
+        $event = DB::table('b2b_operator_audit_events')
+            ->where('event_type', 'wallet.manual_action.applied')
+            ->where('subject_id', 'tx_manual_review')
+            ->first();
+
+        $this->assertNotNull($event);
+        $this->assertSame((string) $this->operator->id, (string) $event->operator_id);
+        $this->assertSame('ops_user', $event->actor);
+        $metadata = json_decode($event->metadata, true);
+        $this->assertSame('mark-review', $metadata['manual_action']);
+        $this->assertSame('unknown', $metadata['from_status']);
+        $this->assertSame('manual_review', $metadata['to_status']);
     }
 
     public function testManualResolveSuccessClosesOpenReconciliationItems()
@@ -162,6 +175,18 @@ class B2BWalletManualActionTest extends TestCase
         $this->assertSame(0, $exitCode);
         $this->assertSame('dead_letter', DB::table('b2b_wallet_transactions')->where('id', $transactionId)->value('status'));
         $this->assertSame('dead-letter', DB::table('b2b_wallet_manual_actions')->where('wallet_transaction_id', $transactionId)->value('action'));
+
+        $event = DB::table('b2b_operator_audit_events')
+            ->where('event_type', 'wallet.manual_action.applied')
+            ->where('subject_id', 'tx_manual_command')
+            ->first();
+
+        $this->assertNotNull($event);
+        $metadata = json_decode($event->metadata, true);
+        $this->assertSame('dead-letter', $metadata['manual_action']);
+        $this->assertSame('b2b.wallet.manual_action', $metadata['permission']);
+        $this->assertTrue($metadata['step_up']);
+        $this->assertSame('console:b2b:wallet-manual-action', $metadata['source']);
     }
 
     private function insertWalletTransaction($transactionUid, $status)

@@ -216,6 +216,8 @@ class B2BReleaseGate
             'b2b.credentials.rotate',
             'b2b.credentials.revoke',
             'b2b.wallet.manual_action',
+            'b2b.settlements.submit',
+            'b2b.settlements.approve',
             'b2b.audit.view',
         ];
         $requiredActions = [
@@ -223,6 +225,9 @@ class B2BReleaseGate
             'api_key.rotate' => 'b2b.credentials.rotate',
             'api_key.revoke' => 'b2b.credentials.revoke',
             'wallet.manual_action' => 'b2b.wallet.manual_action',
+            'settlement.submit' => 'b2b.settlements.submit',
+            'settlement.approve' => 'b2b.settlements.approve',
+            'settlement.reject' => 'b2b.settlements.approve',
         ];
 
         $permissions = config('b2b_admin.permissions', []);

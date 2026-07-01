@@ -12,11 +12,13 @@ class WalletManualActionService
 {
     protected $stateMachine;
     protected $redactor;
+    protected $audit;
 
-    public function __construct(WalletTransactionStateMachine $stateMachine, B2BPayloadRedactor $redactor)
+    public function __construct(WalletTransactionStateMachine $stateMachine, B2BPayloadRedactor $redactor, B2BOperatorAuditLogger $audit)
     {
         $this->stateMachine = $stateMachine;
         $this->redactor = $redactor;
+        $this->audit = $audit;
     }
 
     public function apply($transactionUid, $action, $reason, $actor, $operatorId = null, array $context = [])
@@ -51,7 +53,7 @@ class WalletManualActionService
             'manual_reason' => $reason,
         ]);
 
-        return DB::transaction(function () use ($transaction, $normalizedAction, $targetStatus, $reason, $actor, $updates, $transitionContext) {
+        return DB::transaction(function () use ($transaction, $normalizedAction, $fromStatus, $targetStatus, $reason, $actor, $updates, $transitionContext) {
             $this->stateMachine->transition(
                 $transaction,
                 $targetStatus,
@@ -63,6 +65,7 @@ class WalletManualActionService
 
             $actionId = $this->recordManualAction($transaction, $normalizedAction, $targetStatus, $reason, $actor, $transitionContext);
             $this->syncReconciliationItem($transaction, $normalizedAction, $targetStatus, $reason, $actor, $actionId);
+            $this->recordOperatorAudit($transaction, $normalizedAction, $fromStatus, $targetStatus, $reason, $actor, $actionId, $transitionContext);
 
             return [
                 'wallet_transaction_id' => $transaction->id,
@@ -183,6 +186,31 @@ class WalletManualActionService
 
         return DB::table('b2b_wallet_manual_actions')
             ->insertGetId($this->filterColumns('b2b_wallet_manual_actions', $row));
+    }
+
+    private function recordOperatorAudit($transaction, $action, $fromStatus, $targetStatus, $reason, $actor, $actionId, array $context)
+    {
+        $transactionUid = isset($transaction->transaction_uid) ? $transaction->transaction_uid : null;
+
+        $this->audit->record(
+            isset($transaction->operator_id) ? $transaction->operator_id : null,
+            'wallet.manual_action.applied',
+            'wallet_transaction',
+            $transactionUid ?: (isset($transaction->id) ? $transaction->id : null),
+            $actor,
+            $reason,
+            [
+                'wallet_transaction_id' => isset($transaction->id) ? $transaction->id : null,
+                'transaction_uid' => $transactionUid,
+                'manual_action_id' => $actionId,
+                'manual_action' => $action,
+                'from_status' => $fromStatus,
+                'to_status' => $targetStatus,
+                'permission' => isset($context['permission']) ? $context['permission'] : null,
+                'step_up' => !empty($context['step_up']),
+                'source' => isset($context['source']) ? $context['source'] : null,
+            ]
+        );
     }
 
     private function syncReconciliationItem($transaction, $action, $targetStatus, $reason, $actor, $actionId)

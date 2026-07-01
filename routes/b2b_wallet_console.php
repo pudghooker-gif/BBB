@@ -88,7 +88,12 @@ Artisan::command('b2b:wallet-manual-action {transaction_uid} {action} {--operato
             $this->argument('action'),
             $reason,
             $actor,
-            $this->option('operator-id')
+            $this->option('operator-id'),
+            [
+                'permission' => isset($privilege['permission']) ? $privilege['permission'] : null,
+                'step_up' => !empty($privilege['step_up']),
+                'source' => 'console:b2b:wallet-manual-action',
+            ]
         );
     } catch (\Exception $e) {
         $this->error($e->getMessage());
