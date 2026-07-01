@@ -679,6 +679,45 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
             'middleware' => ['only_for_admin', 'b2b.admin:b2b.wallet.manual_action', 'b2b.web_step_up:wallet.manual_action'],
         ]);
 
+        Route::get('/b2b/settlements', [
+            'as' => 'backend.b2b.settlements.index',
+            'uses' => 'B2BSettlementBackofficeController@index',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view'],
+        ]);
+
+        Route::get('/b2b/settlements/submit', [
+            'uses' => 'B2BSettlementBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.settlements.submit'],
+        ]);
+
+        Route::post('/b2b/settlements/submit', [
+            'as' => 'backend.b2b.settlements.submit',
+            'uses' => 'B2BSettlementBackofficeController@submit',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.settlements.submit', 'b2b.web_step_up:settlement.submit'],
+        ]);
+
+        Route::get('/b2b/settlements/approve', [
+            'uses' => 'B2BSettlementBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.settlements.approve'],
+        ]);
+
+        Route::post('/b2b/settlements/approve', [
+            'as' => 'backend.b2b.settlements.approve',
+            'uses' => 'B2BSettlementBackofficeController@approve',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.settlements.approve', 'b2b.web_step_up:settlement.approve'],
+        ]);
+
+        Route::get('/b2b/settlements/reject', [
+            'uses' => 'B2BSettlementBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.settlements.approve'],
+        ]);
+
+        Route::post('/b2b/settlements/reject', [
+            'as' => 'backend.b2b.settlements.reject',
+            'uses' => 'B2BSettlementBackofficeController@reject',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.settlements.approve', 'b2b.web_step_up:settlement.reject'],
+        ]);
+
         Route::get('/b2b/step-up/{action}', [
             'as' => 'backend.b2b.step_up.show',
             'uses' => 'B2BStepUpController@show',

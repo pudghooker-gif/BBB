@@ -28,13 +28,13 @@ Date: 2026-06-24
 ## Stage 3: Wallet And Ledger
 
 - Expand the explicit wallet state machine beyond the current transition-log foundation.
-- Extend provider-specific status/rollback contracts beyond the current operator `transaction_status` lookup and bounded rollback recovery, then add authenticated web step-up UI over the current CLI manual-action and settlement export/approval foundations.
+- Extend provider-specific status/rollback contracts beyond the current operator `transaction_status` lookup and bounded rollback recovery, then expand the authenticated web step-up UI beyond the current manual-action and settlement workflow screens.
 - Keep the wallet ledger append-oriented with status transition history and maintain payload redaction on every new wallet persistence/output path.
 - Add duplicate bet/win/refund/rollback tests.
 
 ## Stage 4: Admin And Operator Portal
 
-- Extend the B2B-RBAC-protected read-only `/backend/b2b` operations dashboard into dedicated B2B backoffice routes/controllers/views with authenticated step-up for dangerous actions.
+- Extend the B2B-RBAC-protected `/backend/b2b` operations dashboard, manual wallet action screen, and settlement workflow screen into full B2B backoffice routes/controllers/views for operator, credential, payload, and case-management workflows.
 - Expand the tenant-facing signed read-only `/api/b2b/v1/portal` UI beyond its overview into credentials, callback settings, game assignments, sessions, transactions, reports, and docs workflows.
 - Build the portal UX over the current audited credential rotation/revocation, successful-use audit, per-key rate-limit, and deny-by-default privileged-action guard foundation.
 - Keep unified operator audit coverage for exports and dangerous admin actions; settlement export/submission/approval, credential lifecycle actions, denied privileged actions, and manual wallet actions now write operator audit events.

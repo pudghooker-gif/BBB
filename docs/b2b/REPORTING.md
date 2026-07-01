@@ -27,7 +27,7 @@ POST /api/b2b/v1/sessions/{session_uid}/close
 - GGR formula in this MVP: `bets - wins - refunds`.
 - Transaction detail includes callback logs plus wallet transition history, recent attempts, and open reconciliation items when those tables exist.
 - Settlement export creates a deterministic one-currency snapshot from successful wallet transactions for the signed operator, stores export format/hash and lifecycle state, and writes `settlement.exported` audit events.
-- Settlement approval is intentionally internal-only in this foundation: use `b2b:submit-settlement` and `b2b:approve-settlement` with exact RBAC permission and confirmation phrases.
+- Settlement approval is internal finance workflow only. Use the B2B backoffice screen at `/backend/b2b/settlements` for session-bound web step-up submit/approve/reject actions, or the `b2b:submit-settlement` and `b2b:approve-settlement` commands with exact RBAC permission and confirmation phrases for CLI operations.
 - Reconciliation report is tenant-scoped and includes item counts by state/reason/priority, unresolved aging buckets, oldest open items, and open monetary exposure by currency.
 - Open monetary exposure is calculated once per unresolved wallet transaction, even if the transaction has multiple open reconciliation items.
 - Heavy monthly settlement exports should later move to the reserved settlement/reporting queues and summary tables.

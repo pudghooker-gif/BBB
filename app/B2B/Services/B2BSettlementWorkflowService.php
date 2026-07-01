@@ -291,6 +291,9 @@ class B2BSettlementWorkflowService
             'net_amount' => $this->decimalNormalize($settlement->net_amount),
             'permission' => isset($privilege['permission']) ? $privilege['permission'] : null,
             'step_up' => !empty($privilege['step_up']),
+            'source' => isset($privilege['source']) ? $privilege['source'] : null,
+            'ip_address' => isset($privilege['ip_address']) ? $privilege['ip_address'] : null,
+            'user_agent' => isset($privilege['user_agent']) ? $privilege['user_agent'] : null,
         ]);
     }
 

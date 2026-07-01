@@ -413,6 +413,44 @@ class B2BReleaseGate
             $missing[] = 'view:backend.b2b.wallet-manual-actions';
         }
 
+        foreach (['backend.b2b.settlements.index', 'backend.b2b.settlements.submit', 'backend.b2b.settlements.approve', 'backend.b2b.settlements.reject'] as $routeName) {
+            if (!Route::has($routeName)) {
+                $missing[] = 'route:' . $routeName;
+            }
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.settlements.index', 'b2b.admin:b2b.reports.view')) {
+            $missing[] = 'route_middleware:backend.b2b.settlements.index:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.settlements.submit', 'b2b.admin:b2b.settlements.submit')) {
+            $missing[] = 'route_middleware:backend.b2b.settlements.submit:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.settlements.submit', 'b2b.web_step_up:settlement.submit')) {
+            $missing[] = 'route_middleware:backend.b2b.settlements.submit:b2b.web_step_up';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.settlements.approve', 'b2b.admin:b2b.settlements.approve')) {
+            $missing[] = 'route_middleware:backend.b2b.settlements.approve:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.settlements.approve', 'b2b.web_step_up:settlement.approve')) {
+            $missing[] = 'route_middleware:backend.b2b.settlements.approve:b2b.web_step_up';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.settlements.reject', 'b2b.admin:b2b.settlements.approve')) {
+            $missing[] = 'route_middleware:backend.b2b.settlements.reject:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.settlements.reject', 'b2b.web_step_up:settlement.reject')) {
+            $missing[] = 'route_middleware:backend.b2b.settlements.reject:b2b.web_step_up';
+        }
+
+        if (!View::exists('backend.b2b.settlements')) {
+            $missing[] = 'view:backend.b2b.settlements';
+        }
+
         foreach (['backend.b2b.step_up.show', 'backend.b2b.step_up.store'] as $routeName) {
             if (!Route::has($routeName)) {
                 $missing[] = 'route:' . $routeName;

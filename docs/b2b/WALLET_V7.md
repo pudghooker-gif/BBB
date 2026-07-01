@@ -136,7 +136,7 @@ The response includes a compact transaction summary, status transition history, 
 - `failed` or `timeout` rows with attempts greater than or equal to `B2B_WALLET_RETRY_MAX_ATTEMPTS` get an open `retry_budget_exhausted` item.
 - Existing open items are updated instead of duplicated.
 
-This is still a reconciliation foundation. Final production readiness still needs provider-specific status contracts/certification, web manual-review workflows, provider-certified reversal semantics, and UI/queue hardening over the current settlement export/approval foundation.
+This is still a reconciliation foundation. Final production readiness still needs provider-specific status contracts/certification, richer web manual-review workflows, provider-certified reversal semantics, and UI/queue hardening over the current settlement export/approval foundation.
 
 ## Rollback recovery
 
@@ -170,4 +170,4 @@ Supported actions:
 
 Every manual action requires `--actor`, `--reason`, exact `--permission=b2b.wallet.manual_action`, and exact `--confirm=MANUAL_WALLET_ACTION`, writes `b2b_wallet_manual_actions`, appends a wallet transition, and opens or resolves reconciliation items where appropriate. Denied attempts write `privileged_action.denied` when the operator audit table exists.
 
-This is not yet the final production backoffice. Full production readiness still needs expanded confirmation dialogs, raw payload permissions wired into B2B UI, settlement approval screens, and operator-visible case workflow.
+This is not yet the final production backoffice. Full production readiness still needs expanded confirmation dialogs, raw payload permissions wired into B2B UI, richer operator-visible case workflow, and production validation of the settlement workflow screen.

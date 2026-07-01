@@ -108,6 +108,17 @@ GET  /backend/b2b/step-up/{action}
 POST /backend/b2b/step-up/{action}
 ```
 
+Protected backoffice workflows:
+
+```text
+GET  /backend/b2b/wallet/manual-actions
+POST /backend/b2b/wallet/manual-actions
+GET  /backend/b2b/settlements
+POST /backend/b2b/settlements/submit
+POST /backend/b2b/settlements/approve
+POST /backend/b2b/settlements/reject
+```
+
 Middleware for dangerous web routes:
 
 ```php
