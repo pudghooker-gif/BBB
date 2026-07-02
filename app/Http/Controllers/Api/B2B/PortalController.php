@@ -9,6 +9,7 @@ use InvalidArgumentException;
 use RuntimeException;
 use VanguardLTE\B2B\Services\B2BOperatorPortalQuery;
 use VanguardLTE\B2B\Services\B2BOperatorSupportCaseService;
+use VanguardLTE\B2B\Services\B2BOperatorSupportTicketService;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class PortalController extends Controller
@@ -101,5 +102,104 @@ class PortalController extends Controller
         }
 
         return B2BApiResponse::success($request, $payload, 201);
+    }
+
+    public function createSupportTicket(Request $request, B2BOperatorSupportTicketService $tickets)
+    {
+        $operator = $request->attributes->get('b2b_operator');
+        if (!$operator || !isset($operator->id)) {
+            return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'subject' => 'required|string|max:160',
+            'message' => 'required|string|max:2000',
+            'priority' => 'nullable|string|in:low,normal,high,urgent',
+            'category' => 'nullable|string|max:80',
+            'external_reference' => 'nullable|string|max:120',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        try {
+            $payload = $tickets->create($operator, $request->only([
+                'subject',
+                'message',
+                'priority',
+                'category',
+                'external_reference',
+            ]), $this->supportTicketContext($request));
+        } catch (InvalidArgumentException $e) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', $e->getMessage(), 422);
+        } catch (RuntimeException $e) {
+            return B2BApiResponse::error($request, 'SERVICE_NOT_READY', $e->getMessage(), 503);
+        }
+
+        return B2BApiResponse::success($request, $payload, 201);
+    }
+
+    public function commentSupportTicket(Request $request, B2BOperatorSupportTicketService $tickets, $ticketUid)
+    {
+        $operator = $request->attributes->get('b2b_operator');
+        if (!$operator || !isset($operator->id)) {
+            return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'message' => 'required|string|max:2000',
+            'external_reference' => 'nullable|string|max:120',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        try {
+            $payload = $tickets->comment($operator, $ticketUid, $request->input('message'), $this->supportTicketContext($request));
+        } catch (InvalidArgumentException $e) {
+            return B2BApiResponse::error($request, 'SUPPORT_TICKET_NOT_FOUND', $e->getMessage(), 404);
+        } catch (RuntimeException $e) {
+            return B2BApiResponse::error($request, 'SERVICE_NOT_READY', $e->getMessage(), 503);
+        }
+
+        return B2BApiResponse::success($request, $payload, 201);
+    }
+
+    public function closeSupportTicket(Request $request, B2BOperatorSupportTicketService $tickets, $ticketUid)
+    {
+        $operator = $request->attributes->get('b2b_operator');
+        if (!$operator || !isset($operator->id)) {
+            return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'reason' => 'required|string|max:1000',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        try {
+            $payload = $tickets->close($operator, $ticketUid, $request->input('reason'), $this->supportTicketContext($request));
+        } catch (InvalidArgumentException $e) {
+            return B2BApiResponse::error($request, 'SUPPORT_TICKET_NOT_FOUND', $e->getMessage(), 404);
+        } catch (RuntimeException $e) {
+            return B2BApiResponse::error($request, 'SERVICE_NOT_READY', $e->getMessage(), 503);
+        }
+
+        return B2BApiResponse::success($request, $payload);
+    }
+
+    private function supportTicketContext(Request $request)
+    {
+        return [
+            'external_reference' => $request->input('external_reference'),
+            'request_id' => $request->attributes->get('request_id') ?: $request->header('X-Request-Id'),
+            'ip_address' => $request->ip(),
+            'user_agent' => substr((string) $request->userAgent(), 0, 500),
+        ];
     }
 }

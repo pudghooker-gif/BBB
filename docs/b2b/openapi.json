@@ -178,6 +178,100 @@
         }
       }
     },
+    "/portal/support/tickets": {
+      "post": {
+        "tags": ["portal"],
+        "summary": "Create an operator support ticket",
+        "description": "Creates a tenant-scoped support ticket from the signed operator portal. Subject, message, metadata, and audit reason are redacted before persistence.",
+        "security": [{ "B2BHmac": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["subject", "message"],
+                "properties": {
+                  "subject": { "type": "string", "maxLength": 160 },
+                  "message": { "type": "string", "maxLength": 2000 },
+                  "priority": { "type": "string", "enum": ["low", "normal", "high", "urgent"], "default": "normal" },
+                  "category": { "type": "string", "maxLength": 80 },
+                  "external_reference": { "type": "string", "maxLength": 120 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/portal/support/tickets/{ticket_uid}/comments": {
+      "post": {
+        "tags": ["portal"],
+        "summary": "Add an operator support ticket comment",
+        "description": "Appends a redacted operator message to the signed operator's own open or in-progress support ticket and writes a support_ticket.operator_commented audit event.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "ticket_uid", "in": "path", "required": true, "schema": { "type": "string" }, "example": "sup_abc123" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["message"],
+                "properties": {
+                  "message": { "type": "string", "maxLength": 2000 },
+                  "external_reference": { "type": "string", "maxLength": 120 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/portal/support/tickets/{ticket_uid}/close": {
+      "post": {
+        "tags": ["portal"],
+        "summary": "Close an operator support ticket",
+        "description": "Closes the signed operator's own open or in-progress support ticket, stores the redacted close reason, and writes a support_ticket.closed audit event.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "ticket_uid", "in": "path", "required": true, "schema": { "type": "string" }, "example": "sup_abc123" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["reason"],
+                "properties": {
+                  "reason": { "type": "string", "maxLength": 1000 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/portal/docs": { "$ref": "#/components/pathItems/PortalPage" },
     "/games": {
       "get": {

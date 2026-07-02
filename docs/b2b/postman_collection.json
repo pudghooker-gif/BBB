@@ -230,6 +230,42 @@
           "response": []
         },
         {
+          "name": "Portal Support Ticket Create",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/portal/support/tickets",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject\": \"Wallet callback follow-up\",\n  \"message\": \"Please investigate this operator-visible issue.\",\n  \"priority\": \"high\",\n  \"category\": \"wallet\",\n  \"external_reference\": \"OP-TICKET-123\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Support Ticket Comment",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/comments",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Operator follow-up for this support ticket.\",\n  \"external_reference\": \"OP-TICKET-123\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Support Ticket Close",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/close",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Operator confirms this ticket is resolved.\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Portal Docs",
           "request": {
             "method": "GET",

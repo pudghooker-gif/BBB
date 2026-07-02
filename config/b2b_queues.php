@@ -94,6 +94,11 @@ return [
     ],
 
     'scheduled_commands' => [
+        'scheduler_heartbeat' => [
+            'command' => 'b2b:scheduler-heartbeat --source=scheduler',
+            'frequency' => 'everyMinute',
+            'queue' => 'maintenance',
+        ],
         'wallet_retry' => [
             'command' => 'b2b:retry-wallet --limit=50 --dispatch',
             'frequency' => 'everyMinute',

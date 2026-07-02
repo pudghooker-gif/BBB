@@ -95,6 +95,16 @@ class B2BAdminAccessControlTest extends TestCase
 
         $this->assertTrue($caseClaim['ok']);
         $this->assertSame('b2b.cases.manage', $caseClaim['permission']);
+
+        $supportTicketClose = $access->authorizePrivilegedAction('support_ticket.close', [
+            'actor' => 'ops_user',
+            'reason' => 'Closing resolved operator support ticket.',
+            'permission' => 'b2b.cases.manage',
+            'confirm' => 'CLOSE_SUPPORT_TICKET',
+        ]);
+
+        $this->assertTrue($supportTicketClose['ok']);
+        $this->assertSame('b2b.cases.manage', $supportTicketClose['permission']);
     }
 
     public function testConfiguredRolesDenyByDefaultAndGrantKnownPermissions()

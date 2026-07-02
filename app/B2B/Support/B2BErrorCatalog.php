@@ -32,6 +32,7 @@ class B2BErrorCatalog
         'SETTLEMENT_NOT_FOUND' => [404, 'Settlement was not found.'],
         'SESSION_CLOSE_FAILED' => [502, 'Session close failed.'],
         'SESSION_NOT_FOUND' => [404, 'Session was not found.'],
+        'SUPPORT_TICKET_NOT_FOUND' => [404, 'Support ticket was not found.'],
         'TRANSACTION_NOT_FOUND' => [404, 'Transaction was not found.'],
         'UNSUPPORTED_ACTION' => [422, 'Unsupported wallet action.'],
         'WALLET_BLOCKED' => [402, 'Wallet is blocked.'],

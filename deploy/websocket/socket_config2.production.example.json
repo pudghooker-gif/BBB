@@ -6,5 +6,19 @@
   "prefix": "https://",
   "host_ws": "b2b.example.com",
   "prefix_ws": "wss://",
-  "ssl": false
+  "ssl": false,
+  "health_path": "/healthz",
+  "ready_path": "/readyz",
+  "allowed_origins": [
+    "https://b2b.example.com"
+  ],
+  "require_session_cookie": true,
+  "auth_required": false,
+  "auth_tokens_env": "BBB_WEBSOCKET_AUTH_TOKENS",
+  "auth_header": "x-bbb-websocket-token",
+  "auth_query_param": "ws_token",
+  "max_connections": 5000,
+  "heartbeat_interval_ms": 30000,
+  "idle_timeout_ms": 90000,
+  "log_json": true
 }

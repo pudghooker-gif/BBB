@@ -13,6 +13,7 @@ use VanguardLTE\B2B\Models\B2BWalletTransaction;
 use VanguardLTE\B2B\Services\B2BOperatorAuditLogger;
 use VanguardLTE\B2B\Services\B2BPrivilegedActionGuard;
 use VanguardLTE\B2B\Services\B2BReleaseGate;
+use VanguardLTE\B2B\Services\B2BSchedulerHeartbeat;
 use VanguardLTE\B2B\Services\B2BSettlementWorkflowService;
 use VanguardLTE\B2B\Services\B2BSignature;
 
@@ -427,6 +428,17 @@ Artisan::command('b2b:show-hmac {operator_uid} {key_id} {secret} {method=GET} {p
     $this->line($curl);
     return 0;
 });
+
+Artisan::command('b2b:scheduler-heartbeat {--source=scheduler : Source label for scheduler evidence}', function (B2BSchedulerHeartbeat $heartbeat) {
+    $payload = $heartbeat->record($this->option('source') ?: 'scheduler');
+
+    $this->info('B2B scheduler heartbeat recorded.');
+    $this->line('cache_store: ' . $heartbeat->cacheStoreName());
+    $this->line('cache_key: ' . $heartbeat->cacheKey());
+    $this->line('recorded_at: ' . $payload['recorded_at']);
+
+    return 0;
+})->describe('Record B2B scheduler heartbeat for readiness and metrics.');
 
 Artisan::command('b2b:health', function () {
     $this->line('B2B health summary');

@@ -86,6 +86,8 @@ trait B2BApiTestHelpers
             'b2b_game_catalog',
             'b2b_operator_players',
             'b2b_operator_health_events',
+            'b2b_operator_support_ticket_messages',
+            'b2b_operator_support_tickets',
             'b2b_operator_audit_events',
             'b2b_operator_api_keys',
             'b2b_operators',
@@ -154,6 +156,32 @@ trait B2BApiTestHelpers
             $table->text('message')->nullable();
             $table->json('context')->nullable();
             $table->timestamp('created_at')->nullable();
+        });
+
+        Schema::create('b2b_operator_support_tickets', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('operator_id');
+            $table->string('ticket_uid', 80)->unique();
+            $table->string('subject', 160);
+            $table->string('status', 30)->default('open');
+            $table->string('priority', 20)->default('normal');
+            $table->string('category', 80)->nullable();
+            $table->string('external_reference', 120)->nullable();
+            $table->json('context')->nullable();
+            $table->timestamp('last_message_at')->nullable();
+            $table->timestamp('closed_at')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('b2b_operator_support_ticket_messages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('ticket_id');
+            $table->integer('operator_id');
+            $table->string('actor', 100);
+            $table->string('source', 40)->default('operator_portal');
+            $table->longText('message');
+            $table->json('metadata')->nullable();
+            $table->timestamps();
         });
 
         Schema::create('b2b_operator_players', function (Blueprint $table) {

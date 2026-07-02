@@ -63,6 +63,8 @@ class B2BOperatorPortalTest extends TestCase
             ->assertJsonPath('data.callbacks.recent_attempts.0.endpoint', 'https://wallet-a.example/callback')
             ->assertJsonPath('data.support.by_status.degraded.count', 1)
             ->assertJsonPath('data.support.recent_events.0.event_type', 'wallet_degraded')
+            ->assertJsonPath('data.support.tickets_by_status.open.count', 1)
+            ->assertJsonPath('data.support.recent_tickets.0.ticket_uid', 'sup_portal_a')
             ->assertJsonPath('data.recent_sessions.0.session_uid', 'sess_portal_a')
             ->assertJsonPath('data.recent_transactions.0.transaction_uid', 'tx_portal_a_win');
     }
@@ -83,6 +85,8 @@ class B2BOperatorPortalTest extends TestCase
         $this->assertStringNotContainsString('callback-secret-value', $content);
         $this->assertStringNotContainsString('attempt-secret-value', $content);
         $this->assertStringNotContainsString('support-secret-value', $content);
+        $this->assertStringNotContainsString('support-ticket-secret', $content);
+        $this->assertStringNotContainsString('sup_portal_b', $content);
         $this->assertStringNotContainsString('wallet-b.example', $content);
         $this->assertStringNotContainsString('wallet_restored', $content);
     }
@@ -144,6 +148,8 @@ class B2BOperatorPortalTest extends TestCase
             $this->assertStringNotContainsString('callback-secret-value', $content);
             $this->assertStringNotContainsString('attempt-secret-value', $content);
             $this->assertStringNotContainsString('support-secret-value', $content);
+            $this->assertStringNotContainsString('support-ticket-secret', $content);
+            $this->assertStringNotContainsString('sup_portal_b', $content);
             $this->assertStringNotContainsString('wallet-b.example', $content);
             $this->assertStringNotContainsString('wallet_restored', $content);
         }
@@ -221,6 +227,118 @@ class B2BOperatorPortalTest extends TestCase
     {
         $this->postJson('/api/b2b/v1/portal/support/cases/tx_portal_a_win/comments', [
             'message' => 'Unsigned support update.',
+        ])
+            ->assertStatus(401)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'B2B_AUTH_FAILED');
+    }
+
+    public function testOperatorPortalSupportTicketLifecycleIsScopedRedactedAndAudited()
+    {
+        $create = $this->signedPost(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/support/tickets',
+            json_encode([
+                'subject' => 'Wallet callback secret=operator-ticket-secret',
+                'message' => 'Please investigate token=operator-ticket-secret urgently.',
+                'priority' => 'high',
+                'category' => 'wallet',
+                'external_reference' => 'OP-TICKET-1',
+            ]),
+            'portal-ticket-create-a'
+        );
+
+        $create->assertStatus(201)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.status', 'open')
+            ->assertJsonPath('data.priority', 'high')
+            ->assertJsonPath('data.category', 'wallet')
+            ->assertJsonPath('data.external_reference', 'OP-TICKET-1')
+            ->assertJsonPath('data.message_count', 1);
+
+        $ticketUid = $create->json('data.ticket_uid');
+        $this->assertNotEmpty($ticketUid);
+
+        $ticket = DB::table('b2b_operator_support_tickets')
+            ->where('operator_id', $this->operatorA->id)
+            ->where('ticket_uid', $ticketUid)
+            ->first();
+        $this->assertNotNull($ticket);
+        $this->assertStringContainsString('[REDACTED]', $ticket->subject);
+        $this->assertStringNotContainsString('operator-ticket-secret', $ticket->subject);
+
+        $message = DB::table('b2b_operator_support_ticket_messages')
+            ->where('ticket_id', $ticket->id)
+            ->first();
+        $this->assertNotNull($message);
+        $this->assertStringContainsString('[REDACTED]', $message->message);
+        $this->assertStringNotContainsString('operator-ticket-secret', $message->message);
+
+        $this->signedPost(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/support/tickets/' . $ticketUid . '/comments',
+            json_encode([
+                'message' => 'Operator added signature=operator-comment-secret.',
+                'external_reference' => 'OP-TICKET-1B',
+            ]),
+            'portal-ticket-comment-a'
+        )
+            ->assertStatus(201)
+            ->assertJsonPath('data.status', 'in_progress')
+            ->assertJsonPath('data.message_count', 2);
+
+        $this->signedPost(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/support/tickets/' . $ticketUid . '/close',
+            json_encode([
+                'reason' => 'Operator confirms resolved password=operator-close-secret.',
+            ]),
+            'portal-ticket-close-a'
+        )
+            ->assertStatus(200)
+            ->assertJsonPath('data.status', 'closed')
+            ->assertJsonPath('data.message_count', 3);
+
+        $this->assertSame(3, DB::table('b2b_operator_support_ticket_messages')->where('ticket_id', $ticket->id)->count());
+
+        foreach (['support_ticket.created', 'support_ticket.operator_commented', 'support_ticket.closed'] as $eventType) {
+            $event = DB::table('b2b_operator_audit_events')
+                ->where('operator_id', $this->operatorA->id)
+                ->where('event_type', $eventType)
+                ->where('subject_type', 'support_ticket')
+                ->where('subject_id', $ticketUid)
+                ->first();
+
+            $this->assertNotNull($event, $eventType . ' audit event is missing');
+            $this->assertStringNotContainsString('operator-ticket-secret', (string) $event->reason);
+            $this->assertStringNotContainsString('operator-comment-secret', (string) $event->reason);
+            $this->assertStringNotContainsString('operator-close-secret', (string) $event->reason);
+        }
+
+        $this->signedPost(
+            'op_portal_b',
+            'key_portal_b',
+            $this->secretB,
+            '/api/b2b/v1/portal/support/tickets/' . $ticketUid . '/comments',
+            json_encode(['message' => 'Trying to touch another operator ticket.']),
+            'portal-ticket-foreign'
+        )
+            ->assertStatus(404)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'SUPPORT_TICKET_NOT_FOUND');
+    }
+
+    public function testOperatorPortalSupportTicketsRequireSignature()
+    {
+        $this->postJson('/api/b2b/v1/portal/support/tickets', [
+            'subject' => 'Unsigned support ticket',
+            'message' => 'Unsigned ticket body.',
         ])
             ->assertStatus(401)
             ->assertJsonPath('success', false)
@@ -491,6 +609,57 @@ class B2BOperatorPortalTest extends TestCase
                 'message' => 'Other operator restored.',
                 'context' => null,
                 'created_at' => $now,
+            ],
+        ]);
+
+        $ticketA = DB::table('b2b_operator_support_tickets')->insertGetId([
+            'operator_id' => $this->operatorA->id,
+            'ticket_uid' => 'sup_portal_a',
+            'subject' => 'Wallet issue token=support-ticket-secret',
+            'status' => 'open',
+            'priority' => 'high',
+            'category' => 'wallet',
+            'external_reference' => 'OP-SUP-A',
+            'context' => json_encode(['token' => 'support-ticket-secret']),
+            'last_message_at' => $now,
+            'closed_at' => null,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+        $ticketB = DB::table('b2b_operator_support_tickets')->insertGetId([
+            'operator_id' => $this->operatorB->id,
+            'ticket_uid' => 'sup_portal_b',
+            'subject' => 'Foreign ticket',
+            'status' => 'open',
+            'priority' => 'normal',
+            'category' => 'wallet',
+            'external_reference' => 'OP-SUP-B',
+            'context' => null,
+            'last_message_at' => $now,
+            'closed_at' => null,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+        DB::table('b2b_operator_support_ticket_messages')->insert([
+            [
+                'ticket_id' => $ticketA,
+                'operator_id' => $this->operatorA->id,
+                'actor' => 'operator:op_portal_a',
+                'source' => 'operator_portal',
+                'message' => 'Wallet issue token=support-ticket-secret',
+                'metadata' => json_encode(['token' => 'support-ticket-secret']),
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'ticket_id' => $ticketB,
+                'operator_id' => $this->operatorB->id,
+                'actor' => 'operator:op_portal_b',
+                'source' => 'operator_portal',
+                'message' => 'Foreign operator ticket.',
+                'metadata' => null,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
     }

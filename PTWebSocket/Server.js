@@ -3,11 +3,173 @@
 
 
 var fs = require('fs');
+var http = require('http');
+var https = require('https');
+var crypto = require('crypto');
+var url = require('url');
 var serverConfig;
 
 serverConfig = JSON.parse(fs.readFileSync('../public/socket_config2.json', 'utf8'));
 var socketListenPort = serverConfig.listen_port || serverConfig.port;
 var socketListenHost = serverConfig.listen_host || undefined;
+var activeConnections = 0;
+var totalConnections = 0;
+
+function numberConfig(name, fallback) {
+  var value = parseInt(serverConfig[name], 10);
+  return isNaN(value) ? fallback : value;
+}
+
+function arrayConfig(name) {
+  if (!serverConfig[name]) {
+    return [];
+  }
+
+  return Array.isArray(serverConfig[name]) ? serverConfig[name] : [serverConfig[name]];
+}
+
+function structuredLog(event, fields) {
+  var payload = fields || {};
+  payload.event = event;
+  payload.component = 'bbb-websocket';
+  payload.time = new Date().toISOString();
+
+  if (serverConfig.log_json === false) {
+    console.log(event, payload);
+    return;
+  }
+
+  console.log(JSON.stringify(payload));
+}
+
+function allowedOrigin(origin) {
+  var allowed = arrayConfig('allowed_origins');
+  if (allowed.length === 0) {
+    return true;
+  }
+
+  if (!origin) {
+    return false;
+  }
+
+  return allowed.indexOf(origin) !== -1;
+}
+
+function authTokens() {
+  var tokens = arrayConfig('auth_tokens');
+  var envName = serverConfig.auth_tokens_env || '';
+
+  if (envName && process.env[envName]) {
+    tokens = tokens.concat(process.env[envName].split(','));
+  }
+
+  return tokens.map(function (token) {
+    return String(token).trim();
+  }).filter(function (token) {
+    return token !== '';
+  });
+}
+
+function safeEqual(a, b) {
+  var left = Buffer.from(String(a));
+  var right = Buffer.from(String(b));
+
+  if (left.length !== right.length) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(left, right);
+}
+
+function requestToken(req) {
+  var headerName = String(serverConfig.auth_header || 'x-bbb-websocket-token').toLowerCase();
+  var queryName = String(serverConfig.auth_query_param || 'ws_token');
+  var parsed = url.parse(req.url || '/', true);
+
+  return req.headers[headerName] || parsed.query[queryName] || '';
+}
+
+function tokenAllowed(req) {
+  var required = serverConfig.auth_required === true;
+  var tokens = authTokens();
+
+  if (!required && tokens.length === 0) {
+    return true;
+  }
+
+  var provided = requestToken(req);
+  if (!provided || tokens.length === 0) {
+    return false;
+  }
+
+  return tokens.some(function (token) {
+    return safeEqual(provided, token);
+  });
+}
+
+function verifyClient(info, done) {
+  var req = info.req;
+  var origin = info.origin || req.headers.origin || '';
+  var maxConnections = numberConfig('max_connections', 0);
+
+  if (maxConnections > 0 && activeConnections >= maxConnections) {
+    structuredLog('websocket.upgrade_denied', { reason: 'max_connections', active_connections: activeConnections });
+    done(false, 503, 'Connection limit reached');
+    return;
+  }
+
+  if (!allowedOrigin(origin)) {
+    structuredLog('websocket.upgrade_denied', { reason: 'origin', origin: origin });
+    done(false, 403, 'Forbidden origin');
+    return;
+  }
+
+  if (!tokenAllowed(req)) {
+    structuredLog('websocket.upgrade_denied', { reason: 'auth' });
+    done(false, 401, 'Unauthorized');
+    return;
+  }
+
+  done(true);
+}
+
+function healthResponse(req, res) {
+  var pathname = url.parse(req.url || '/').pathname;
+  var healthPath = serverConfig.health_path || '/healthz';
+  var readyPath = serverConfig.ready_path || '/readyz';
+
+  if (pathname !== healthPath && pathname !== readyPath) {
+    res.statusCode = 404;
+    res.setHeader('content-type', 'application/json');
+    res.end(JSON.stringify({ service: 'bbb-websocket', status: 'not_found' }));
+    return;
+  }
+
+  res.statusCode = 200;
+  res.setHeader('content-type', 'application/json');
+  res.end(JSON.stringify({
+    service: 'bbb-websocket',
+    status: 'ok',
+    active_connections: activeConnections,
+    uptime_seconds: Math.floor(process.uptime())
+  }));
+}
+
+function validHandshakeMessage(message) {
+  if (!message || typeof message !== 'object') {
+    return false;
+  }
+
+  if (!message.sessionId || !message.gameName) {
+    return false;
+  }
+
+  if (serverConfig.require_session_cookie === true && !message.cookie) {
+    return false;
+  }
+
+  return /^[A-Za-z0-9_-]+$/.test(String(message.gameName));
+}
 	
 
 /*-----------------------------------*/
@@ -98,9 +260,11 @@ gameName=ws.gameName;
 
 var gameURL= serverConfig.prefix+serverConfig.host+'/game/'+gameName+'/server?&sessionId='+sessionId;
 
-console.log(gameURL);
-console.log(params);
-console.log(ck);
+structuredLog('websocket.php_request', {
+  action: params.action,
+  msg_id: params.msgId,
+  game: gameName
+});
 
 var options = {
   method: 'post',
@@ -118,11 +282,20 @@ var options = {
 
 request(options, function (err, res, body) {
   if (err) {
-    console.log('Error :', err)
+    structuredLog('websocket.php_error', {
+      action: params.action,
+      msg_id: params.msgId,
+      game: gameName,
+      error: err.message || String(err)
+    });
     return
   }
-  console.log('answer');
-  console.log(body);
+  structuredLog('websocket.php_response', {
+    action: params.action,
+    msg_id: params.msgId,
+    game: gameName,
+    status_code: res && res.statusCode ? res.statusCode : null
+  });
   
   
  try{
@@ -130,7 +303,11 @@ request(options, function (err, res, body) {
 var sAnswer=JSON.parse(body.split(":::")[1]);
   
   }catch(e){
-	
+structuredLog('websocket.php_parse_failed', {
+  action: params.action,
+  msg_id: params.msgId,
+  game: gameName
+});
 return;	
 	  
   }
@@ -808,38 +985,42 @@ ws.send(responsePacket.buffer);
 
 
 
+var WebSocket = require('ws');
+var socketServer;
+
 if(serverConfig.ssl){
 	
 var privateKey = fs.readFileSync('ssl/key.key', 'utf8');
 var certificate = fs.readFileSync('ssl/crt.crt', 'utf8');
 
 var credentials = { key: privateKey, cert: certificate };
-var https = require('https');
-
-
-var httpsServer = https.createServer(credentials);
-httpsServer.listen(socketListenPort, socketListenHost);
-
-var WebSocket = require('ws').Server;
-var wss = new WebSocket({
-    server: httpsServer
-});
+socketServer = https.createServer(credentials, healthResponse);
 
 }else{
 
-var WebSocket = require('ws');
-var wss = new WebSocket.Server({port: socketListenPort, host: socketListenHost });
-
+socketServer = http.createServer(healthResponse);
 
 }
 
+socketServer.listen(socketListenPort, socketListenHost, function () {
+  structuredLog('websocket.started', {
+    listen_port: socketListenPort,
+    listen_host: socketListenHost || '0.0.0.0',
+    ssl: serverConfig.ssl === true
+  });
+});
+
+var wss = new WebSocket.Server({
+    server: socketServer,
+    verifyClient: verifyClient
+});
 
 //
 function ResponseHandler(msg){
 	
 var msgJson=JSON.parse(msg);	
 	
-console.log(msgJson);	
+structuredLog('websocket.response_handler', { has_message: !!msgJson });
 	
 	
 }
@@ -849,26 +1030,96 @@ var  wsClients=[];
 var  wsClientsId=0;
 
  wss.binaryType='arraybuffer';
-wss.on('connection', function connection(ws) {
+var heartbeatTimer = setInterval(function () {
+  var idleTimeout = numberConfig('idle_timeout_ms', 90000);
+  var now = Date.now();
+
+  wss.clients.forEach(function (ws) {
+    if (ws.isAlive === false || (idleTimeout > 0 && ws.lastMessageAt && now - ws.lastMessageAt > idleTimeout)) {
+      structuredLog('websocket.idle_closed', { connection_id: ws.connectionId || null });
+      ws.terminate();
+      return;
+    }
+
+    ws.isAlive = false;
+    try {
+      ws.ping();
+    } catch (e) {
+      ws.terminate();
+    }
+  });
+}, numberConfig('heartbeat_interval_ms', 30000));
+
+wss.on('close', function () {
+  clearInterval(heartbeatTimer);
+});
+
+wss.on('connection', function connection(ws, req) {
 	
 ws.msgId=0;
+ws.isAlive = true;
+ws.lastMessageAt = Date.now();
+ws.connectionId = ++totalConnections;
+activeConnections++;
+
+structuredLog('websocket.connected', {
+  connection_id: ws.connectionId,
+  active_connections: activeConnections,
+  origin: req && req.headers ? (req.headers.origin || null) : null,
+  remote_addr: req && req.socket ? req.socket.remoteAddress : null
+});
+
+ws.on('pong', function () {
+  ws.isAlive = true;
+  ws.lastMessageAt = Date.now();
+});
+
+ws.on('close', function (code) {
+  activeConnections = Math.max(0, activeConnections - 1);
+  structuredLog('websocket.closed', {
+    connection_id: ws.connectionId,
+    active_connections: activeConnections,
+    code: code
+  });
+});
 	
 	
   ws.on('message', function incoming(message) {
 	  
+ws.isAlive = true;
+ws.lastMessageAt = Date.now();
 
 var messageView8= new Int8Array(message);
 
 if(ws.msgId==0){
 	
 var msgString=DecodeMessage(message);	
-var msgJson=JSON.parse(msgString.split(":::")[1]);	
+var msgJson;
+
+try {
+  msgJson=JSON.parse(msgString.split(":::")[1]);
+} catch (e) {
+  structuredLog('websocket.handshake_invalid', { connection_id: ws.connectionId, reason: 'parse_failed' });
+  ws.close(1008, 'invalid handshake');
+  return;
+}
+
+if (!validHandshakeMessage(msgJson)) {
+  structuredLog('websocket.handshake_invalid', { connection_id: ws.connectionId, reason: 'missing_session' });
+  ws.close(1008, 'invalid handshake');
+  return;
+}
 	
 
 	
 ws.cookie=msgJson.cookie;	
 ws.sessionId=msgJson.sessionId;	
 ws.gameName=msgJson.gameName;	
+
+structuredLog('websocket.handshake_ok', {
+  connection_id: ws.connectionId,
+  game: ws.gameName
+});
 
 
 	
@@ -1075,4 +1326,3 @@ ws.msgId++;
 
 
 });
-

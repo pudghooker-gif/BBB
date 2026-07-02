@@ -23,6 +23,18 @@ return [
 
     'api_key_usage_audit_sample_seconds' => env('B2B_API_KEY_USAGE_AUDIT_SAMPLE_SECONDS', 60),
 
+    'structured_logging_enabled' => env('B2B_STRUCTURED_LOGGING_ENABLED', true),
+
+    'structured_log_channel' => env('B2B_STRUCTURED_LOG_CHANNEL', 'b2b'),
+
+    'scheduler_heartbeat_required' => env('B2B_SCHEDULER_HEARTBEAT_REQUIRED', true),
+
+    'scheduler_heartbeat_cache_store' => env('B2B_SCHEDULER_HEARTBEAT_CACHE_STORE', 'redis'),
+
+    'scheduler_heartbeat_key' => env('B2B_SCHEDULER_HEARTBEAT_KEY', 'b2b:scheduler:heartbeat'),
+
+    'scheduler_heartbeat_max_age_seconds' => env('B2B_SCHEDULER_HEARTBEAT_MAX_AGE_SECONDS', 180),
+
     'wallet_retry_max_attempts' => env('B2B_WALLET_RETRY_MAX_ATTEMPTS', 3),
 
     'wallet_rollback_max_attempts' => env('B2B_WALLET_ROLLBACK_MAX_ATTEMPTS', 3),

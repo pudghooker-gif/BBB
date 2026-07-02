@@ -13,6 +13,10 @@ if [[ -n "${WEBSOCKET_TCP_HOST:-}" && -n "${WEBSOCKET_TCP_PORT:-}" ]]; then
   timeout "${TIMEOUT}" bash -c "</dev/tcp/${WEBSOCKET_TCP_HOST}/${WEBSOCKET_TCP_PORT}"
 fi
 
+if [[ -n "${WEBSOCKET_HEALTH_URL:-}" ]]; then
+  curl -fsS --max-time "${TIMEOUT}" "${WEBSOCKET_HEALTH_URL}" | grep -q '"service":"bbb-websocket"'
+fi
+
 cd "${APP_DIR}"
 "${PHP_BIN}" artisan b2b:release-check --production --no-interaction >/tmp/bbb-b2b-release-check.out
 

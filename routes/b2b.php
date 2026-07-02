@@ -34,6 +34,9 @@ Route::prefix('b2b/v1')->group(function () {
                 ->defaults('section', $portalSection);
         }
         Route::post('portal/support/cases/{transaction_uid}/comments', [PortalController::class, 'commentCase']);
+        Route::post('portal/support/tickets', [PortalController::class, 'createSupportTicket']);
+        Route::post('portal/support/tickets/{ticket_uid}/comments', [PortalController::class, 'commentSupportTicket']);
+        Route::post('portal/support/tickets/{ticket_uid}/close', [PortalController::class, 'closeSupportTicket']);
 
         Route::get('games', [GameCatalogController::class, 'index']);
         Route::post('games/launch', [GameLaunchController::class, 'store']);

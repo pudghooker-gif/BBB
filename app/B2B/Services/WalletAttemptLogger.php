@@ -15,7 +15,7 @@ class WalletAttemptLogger
         $this->redactor = $redactor;
     }
 
-    public function start($transaction, $operator, $type, $url, $timeoutMs, array $payload)
+    public function start($transaction, $operator, $type, $url, $timeoutMs, array $payload, array $context = [])
     {
         if (!Schema::hasTable('b2b_wallet_transaction_attempts')) {
             return null;
@@ -24,6 +24,11 @@ class WalletAttemptLogger
         $attemptNo = 1;
         if ($transaction && isset($transaction->attempts)) {
             $attemptNo = (int) $transaction->attempts + 1;
+        }
+
+        $requestBody = $payload;
+        if (count($context) > 0) {
+            $requestBody['_context'] = $context;
         }
 
         return DB::table('b2b_wallet_transaction_attempts')->insertGetId([
@@ -35,7 +40,7 @@ class WalletAttemptLogger
             'url' => $url,
             'timeout_ms' => $timeoutMs,
             'result' => 'pending',
-            'request_body' => $this->redactor->json($payload),
+            'request_body' => $this->redactor->json($requestBody),
             'started_at' => Carbon::now(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

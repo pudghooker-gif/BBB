@@ -10,6 +10,7 @@ use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BOperatorApiKey;
 use VanguardLTE\B2B\Services\B2BOperatorAuditLogger;
 use VanguardLTE\B2B\Services\B2BSignature;
+use VanguardLTE\B2B\Services\B2BStructuredEventLogger;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class VerifyB2BSignature
@@ -36,15 +37,15 @@ class VerifyB2BSignature
         $signature = $request->header('X-Signature');
 
         if (!$operatorId || !$apiKey || !$timestamp || !$nonce || !$bodyHash || !$signature) {
-            return $this->deny($requestId, 'B2B_AUTH_FAILED', 'Missing B2B authentication headers', 401);
+            return $this->deny($request, $requestId, 'B2B_AUTH_FAILED', 'Missing B2B authentication headers', 401);
         }
 
         if (!ctype_digit((string) $timestamp) || abs(time() - (int) $timestamp) > $this->replayWindowSeconds()) {
-            return $this->deny($requestId, 'B2B_AUTH_FAILED', 'Invalid or expired timestamp', 401);
+            return $this->deny($request, $requestId, 'B2B_AUTH_FAILED', 'Invalid or expired timestamp', 401);
         }
 
         if (!hash_equals(B2BSignature::bodyHash($request->getContent()), strtolower($bodyHash))) {
-            return $this->deny($requestId, 'B2B_BODY_HASH_MISMATCH', 'Invalid request body hash', 401);
+            return $this->deny($request, $requestId, 'B2B_BODY_HASH_MISMATCH', 'Invalid request body hash', 401);
         }
 
         $operator = B2BOperator::where('operator_uid', $operatorId)
@@ -52,11 +53,13 @@ class VerifyB2BSignature
             ->first();
 
         if (!$operator) {
-            return $this->deny($requestId, 'B2B_AUTH_FAILED', 'Unknown or inactive operator', 401);
+            return $this->deny($request, $requestId, 'B2B_AUTH_FAILED', 'Unknown or inactive operator', 401);
         }
 
+        $request->attributes->set('b2b_operator', $operator);
+
         if (!$this->isIpAllowed($operator->ip_whitelist, $request->ip())) {
-            return $this->deny($requestId, 'B2B_AUTH_FAILED', 'IP is not allowed for this operator', 403);
+            return $this->deny($request, $requestId, 'B2B_AUTH_FAILED', 'IP is not allowed for this operator', 403);
         }
 
         $apiCredential = B2BOperatorApiKey::where('operator_id', $operator->id)
@@ -65,29 +68,31 @@ class VerifyB2BSignature
             ->first();
 
         if (!$apiCredential) {
-            return $this->deny($requestId, 'B2B_AUTH_FAILED', 'Invalid API key', 401);
+            return $this->deny($request, $requestId, 'B2B_AUTH_FAILED', 'Invalid API key', 401);
         }
 
+        $request->attributes->set('b2b_api_key', $apiCredential);
+
         if ($apiCredential->expires_at && $apiCredential->expires_at->isPast()) {
-            return $this->deny($requestId, 'B2B_AUTH_FAILED', 'API key expired', 401);
+            return $this->deny($request, $requestId, 'B2B_AUTH_FAILED', 'API key expired', 401);
         }
 
         try {
             $secret = Crypt::decryptString($apiCredential->secret_encrypted);
         } catch (\Exception $e) {
-            return $this->deny($requestId, 'B2B_AUTH_FAILED', 'API secret cannot be decrypted', 500);
+            return $this->deny($request, $requestId, 'B2B_AUTH_FAILED', 'API secret cannot be decrypted', 500);
         }
 
         $canonical = B2BSignature::canonicalRequest($request, $bodyHash, $timestamp, $nonce);
         $expected = hash_hmac('sha256', $canonical, $secret);
 
         if (!hash_equals($expected, $signature)) {
-            return $this->deny($requestId, 'B2B_AUTH_FAILED', 'Invalid signature', 401);
+            return $this->deny($request, $requestId, 'B2B_AUTH_FAILED', 'Invalid signature', 401);
         }
 
         $replayKey = 'b2b:nonce:' . $operator->id . ':' . sha1($nonce);
         if (!$this->cache()->add($replayKey, 1, now()->addSeconds($this->replayWindowSeconds()))) {
-            return $this->deny($requestId, 'B2B_REPLAY_DETECTED', 'Replay detected', 409);
+            return $this->deny($request, $requestId, 'B2B_REPLAY_DETECTED', 'Replay detected', 409);
         }
 
         $apiCredential->forceFill(['last_used_at' => now()])->save();
@@ -97,18 +102,30 @@ class VerifyB2BSignature
             // API-key usage audit must never break authenticated traffic.
         }
 
-        $request->attributes->set('b2b_operator', $operator);
-        $request->attributes->set('b2b_api_key', $apiCredential);
-
         $response = $next($request);
         $response->headers->set('X-Request-Id', $requestId);
+
+        $this->structuredLogger()->request('api.request', $request, [
+            'status_code' => $response->getStatusCode(),
+        ]);
 
         return $response;
     }
 
-    private function deny($requestId, $code, $message, $status)
+    private function deny($request, $requestId, $code, $message, $status)
     {
+        $this->structuredLogger()->request('api.auth_failed', $request, [
+            'status_code' => $status,
+            'error_code' => $code,
+            'failure_reason' => $message,
+        ], 'warning');
+
         return B2BApiResponse::error($requestId, $code, $message, $status);
+    }
+
+    private function structuredLogger()
+    {
+        return app(B2BStructuredEventLogger::class);
     }
 
     private function isIpAllowed($ipWhitelist, $requestIp)

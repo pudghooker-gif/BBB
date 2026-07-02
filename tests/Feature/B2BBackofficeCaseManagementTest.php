@@ -18,6 +18,8 @@ class B2BBackofficeCaseManagementTest extends TestCase
     private $operator;
     private $transactionId;
     private $caseId;
+    private $supportTicketUid = 'sup_case_review';
+    private $supportTicketId;
 
     protected function setUp(): void
     {
@@ -32,6 +34,7 @@ class B2BBackofficeCaseManagementTest extends TestCase
         $this->operator = $this->createB2BOperator('op_case_review', 'key_case_review', 'case_review_secret_1234567890');
         $this->transactionId = $this->insertWalletTransaction('tx_case_review', 'manual_review');
         $this->caseId = $this->insertCase('open');
+        $this->supportTicketId = $this->insertSupportTicket('open');
     }
 
     public function testCaseManagementScreenListsRedactedCases()
@@ -41,8 +44,10 @@ class B2BBackofficeCaseManagementTest extends TestCase
             ->assertStatus(200)
             ->assertSee('B2B Case Management')
             ->assertSee('tx_case_review')
+            ->assertSee('sup_case_review')
             ->assertSee('[REDACTED]')
-            ->assertDontSee('case-secret-token');
+            ->assertDontSee('case-secret-token')
+            ->assertDontSee('ticket-secret-token');
     }
 
     public function testCaseClaimRequiresWebStepUp()
@@ -147,6 +152,108 @@ class B2BBackofficeCaseManagementTest extends TestCase
         $this->assertSame('open', $reopenMetadata['new_state']);
     }
 
+    public function testSupportTicketStaffCommentRequiresWebStepUp()
+    {
+        $response = $this->actingAs($this->adminUser())
+            ->withSession(['_token' => 'test-token'])
+            ->post('/backend/b2b/cases/support-ticket/comment', [
+                '_token' => 'test-token',
+                'ticket_uid' => $this->supportTicketUid,
+                'message' => 'Staff asks operator for callback logs.',
+            ]);
+
+        $this->assertStringContainsString('/backend/b2b/step-up/support_ticket.comment', $response->headers->get('Location'));
+        $this->assertSame(0, DB::table('b2b_operator_audit_events')->where('event_type', 'support_ticket.staff_commented')->count());
+        $this->assertSame(1, DB::table('b2b_operator_support_ticket_messages')->where('ticket_id', $this->supportTicketId)->count());
+    }
+
+    public function testSupportTicketStaffCommentCloseAndReopenApplyWithFreshWebStepUp()
+    {
+        $admin = $this->adminUser();
+        $guard = app(B2BWebStepUpGuard::class);
+
+        $comment = $this->actingAs($admin)
+            ->withHeaders(['User-Agent' => 'CaseManagementTest/1.0'])
+            ->withSession([
+                '_token' => 'test-token',
+                $guard->sessionKey('support_ticket.comment') => [
+                    'user_id' => (string) $admin->getAuthIdentifier(),
+                    'verified_at' => time(),
+                ],
+            ])
+            ->post('/backend/b2b/cases/support-ticket/comment', [
+                '_token' => 'test-token',
+                'ticket_uid' => $this->supportTicketUid,
+                'message' => 'Staff response token=staff-ticket-secret.',
+            ]);
+
+        $comment->assertRedirect(route('backend.b2b.cases.index'));
+        $comment->assertSessionMissing($guard->sessionKey('support_ticket.comment'));
+        $this->assertSame('in_progress', DB::table('b2b_operator_support_tickets')->where('id', $this->supportTicketId)->value('status'));
+
+        $commentMessage = DB::table('b2b_operator_support_ticket_messages')
+            ->where('ticket_id', $this->supportTicketId)
+            ->orderBy('id', 'desc')
+            ->first();
+        $this->assertSame('web_backoffice', $commentMessage->source);
+        $this->assertStringContainsString('[REDACTED]', $commentMessage->message);
+        $this->assertStringNotContainsString('staff-ticket-secret', $commentMessage->message);
+
+        $commentMetadata = $this->ticketAuditMetadata('support_ticket.staff_commented');
+        $this->assertSame('staff_commented', $commentMetadata['ticket_action']);
+        $this->assertSame('b2b.cases.manage', $commentMetadata['permission']);
+        $this->assertTrue($commentMetadata['step_up']);
+        $this->assertSame('web_backoffice', $commentMetadata['source']);
+
+        $close = $this->actingAs($admin)
+            ->withSession([
+                '_token' => 'test-token',
+                $guard->sessionKey('support_ticket.close') => [
+                    'user_id' => (string) $admin->getAuthIdentifier(),
+                    'verified_at' => time(),
+                ],
+            ])
+            ->post('/backend/b2b/cases/support-ticket/close', [
+                '_token' => 'test-token',
+                'ticket_uid' => $this->supportTicketUid,
+                'reason' => 'Operator confirmed resolution password=staff-close-secret.',
+            ]);
+
+        $close->assertRedirect(route('backend.b2b.cases.index'));
+        $close->assertSessionMissing($guard->sessionKey('support_ticket.close'));
+        $closedTicket = DB::table('b2b_operator_support_tickets')->where('id', $this->supportTicketId)->first();
+        $this->assertSame('closed', $closedTicket->status);
+        $this->assertNotNull($closedTicket->closed_at);
+
+        $closeMetadata = $this->ticketAuditMetadata('support_ticket.staff_closed');
+        $this->assertSame('staff_closed', $closeMetadata['ticket_action']);
+        $this->assertSame('closed', $closeMetadata['new_status']);
+
+        $reopen = $this->actingAs($admin)
+            ->withSession([
+                '_token' => 'test-token',
+                $guard->sessionKey('support_ticket.reopen') => [
+                    'user_id' => (string) $admin->getAuthIdentifier(),
+                    'verified_at' => time(),
+                ],
+            ])
+            ->post('/backend/b2b/cases/support-ticket/reopen', [
+                '_token' => 'test-token',
+                'ticket_uid' => $this->supportTicketUid,
+                'reason' => 'Follow-up evidence arrived secret=staff-reopen-secret.',
+            ]);
+
+        $reopen->assertRedirect(route('backend.b2b.cases.index'));
+        $reopen->assertSessionMissing($guard->sessionKey('support_ticket.reopen'));
+        $reopenedTicket = DB::table('b2b_operator_support_tickets')->where('id', $this->supportTicketId)->first();
+        $this->assertSame('open', $reopenedTicket->status);
+        $this->assertNull($reopenedTicket->closed_at);
+
+        $reopenMetadata = $this->ticketAuditMetadata('support_ticket.staff_reopened');
+        $this->assertSame('staff_reopened', $reopenMetadata['ticket_action']);
+        $this->assertSame('open', $reopenMetadata['new_status']);
+    }
+
     private function insertWalletTransaction($transactionUid, $status)
     {
         return DB::table('b2b_wallet_transactions')->insertGetId([
@@ -189,6 +296,41 @@ class B2BBackofficeCaseManagementTest extends TestCase
         ]);
     }
 
+    private function insertSupportTicket($status)
+    {
+        $now = now();
+        $ticketId = DB::table('b2b_operator_support_tickets')->insertGetId([
+            'operator_id' => $this->operator->id,
+            'ticket_uid' => $this->supportTicketUid,
+            'subject' => 'Operator support ticket token=ticket-secret-token',
+            'status' => $status,
+            'priority' => 'high',
+            'category' => 'wallet',
+            'external_reference' => 'OPS-TICKET-token=ticket-secret-token',
+            'context' => json_encode([
+                'token' => 'ticket-secret-token',
+                'note' => 'Operator needs support response.',
+            ]),
+            'last_message_at' => $now,
+            'closed_at' => $status === 'closed' ? $now : null,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+
+        DB::table('b2b_operator_support_ticket_messages')->insert([
+            'ticket_id' => $ticketId,
+            'operator_id' => $this->operator->id,
+            'actor' => 'operator:op_case_review',
+            'source' => 'operator_portal',
+            'message' => 'Initial support message token=ticket-secret-token',
+            'metadata' => json_encode(['token' => 'ticket-secret-token']),
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+
+        return $ticketId;
+    }
+
     private function auditMetadata($eventType)
     {
         $event = DB::table('b2b_operator_audit_events')
@@ -200,6 +342,24 @@ class B2BBackofficeCaseManagementTest extends TestCase
         $this->assertNotNull($event);
         $this->assertSame($this->operator->id, (int) $event->operator_id);
         $this->assertSame('web:b2b_case_ops', $event->actor);
+
+        return json_decode($event->metadata, true);
+    }
+
+    private function ticketAuditMetadata($eventType)
+    {
+        $event = DB::table('b2b_operator_audit_events')
+            ->where('event_type', $eventType)
+            ->where('subject_id', $this->supportTicketUid)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $this->assertNotNull($event);
+        $this->assertSame($this->operator->id, (int) $event->operator_id);
+        $this->assertSame('web:b2b_case_ops', $event->actor);
+        $this->assertStringNotContainsString('staff-ticket-secret', (string) $event->reason);
+        $this->assertStringNotContainsString('staff-close-secret', (string) $event->reason);
+        $this->assertStringNotContainsString('staff-reopen-secret', (string) $event->reason);
 
         return json_decode($event->metadata, true);
     }

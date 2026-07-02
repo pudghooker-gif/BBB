@@ -41,9 +41,10 @@ class B2BWalletStateMachineTest extends TestCase
     {
         $body = $this->walletBody('tx_state_machine', 'round_state_machine', '10.00000000');
 
-        $this->signedPost('/api/b2b/v1/wallet/bet', $body, 'wallet-state-machine')
+        $this->signedPost('/api/b2b/v1/wallet/bet', $body, 'wallet-state-machine', 'req-wallet-state')
             ->assertStatus(200)
             ->assertJsonPath('success', true)
+            ->assertJsonPath('request_id', 'req-wallet-state')
             ->assertJsonPath('data.status', 'success');
 
         $transaction = DB::table('b2b_wallet_transactions')
@@ -65,6 +66,23 @@ class B2BWalletStateMachineTest extends TestCase
         $this->assertSame('pending', $transitions[1]->from_status);
         $this->assertSame('success', $transitions[1]->to_status);
         $this->assertSame('wallet_callback_result', $transitions[1]->reason);
+
+        $transitionContext = json_decode($transitions[1]->context, true);
+        $this->assertSame('req-wallet-state', $transitionContext['request_id']);
+
+        $attempt = DB::table('b2b_wallet_transaction_attempts')
+            ->where('wallet_transaction_id', $transaction->id)
+            ->first();
+        $attemptRequest = json_decode($attempt->request_body, true);
+
+        $this->assertSame('req-wallet-state', $attemptRequest['_context']['request_id']);
+        $this->assertSame($transaction->transaction_uid, $attemptRequest['_context']['transaction_uid']);
+
+        Http::assertSent(function ($request) use ($transaction) {
+            return $request->url() === 'http://wallet.example/callback'
+                && $request->hasHeader('X-Request-Id', 'req-wallet-state')
+                && $request->hasHeader('X-B2B-Transaction-Uid', $transaction->transaction_uid);
+        });
     }
 
     public function testRetryMovesFailedTransactionThroughTransitionLog()
@@ -117,9 +135,12 @@ class B2BWalletStateMachineTest extends TestCase
         Http::assertSentCount(0);
     }
 
-    private function signedPost($uri, $body, $nonce)
+    private function signedPost($uri, $body, $nonce, $requestId = null)
     {
         $headers = $this->signedB2BHeaders($this->operatorUid, $this->keyId, $this->secret, 'POST', $uri, $body, $nonce);
+        if ($requestId !== null) {
+            $headers['X-Request-Id'] = $requestId;
+        }
 
         return $this->signedB2BRequest('POST', $uri, $body, $headers);
     }

@@ -3,12 +3,14 @@
 namespace Tests\Feature;
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Tests\Concerns\B2BApiTestHelpers;
 use Tests\TestCase;
 use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BWalletTransaction;
+use VanguardLTE\B2B\Services\B2BSchedulerHeartbeat;
 
 class B2BMetricsEndpointTest extends TestCase
 {
@@ -20,8 +22,11 @@ class B2BMetricsEndpointTest extends TestCase
 
         $this->resetB2BTables();
         $this->resetJobsTable();
+        Cache::flush();
 
         config([
+            'cache.default' => 'array',
+            'b2b.scheduler_heartbeat_cache_store' => null,
             'queue.default' => 'database',
             'b2b_queues.queues.wallet_retry' => 'b2b-wallet-retry',
         ]);
@@ -128,6 +133,7 @@ class B2BMetricsEndpointTest extends TestCase
             'available_at' => time() - 60,
             'created_at' => time() - 120,
         ]);
+        app(B2BSchedulerHeartbeat::class)->record('phpunit');
 
         $response = $this->get('/api/b2b/v1/metrics');
         $body = $response->getContent();
@@ -147,6 +153,9 @@ class B2BMetricsEndpointTest extends TestCase
         $this->assertStringContainsString('bbb_b2b_reconciliation_items_total{state="open",status="open"} 1', $body);
         $this->assertStringContainsString('bbb_b2b_settlements_total{status="submitted"} 1', $body);
         $this->assertStringContainsString('bbb_b2b_queue_depth{queue="wallet_retry"} 1', $body);
+        $this->assertStringContainsString('# HELP bbb_b2b_scheduler_heartbeat_age_seconds', $body);
+        $this->assertStringContainsString('bbb_b2b_scheduler_heartbeat_fresh{cache_store="array"} 1', $body);
+        $this->assertStringContainsString('bbb_b2b_scheduler_heartbeat_max_age_seconds{cache_store="array"} 180', $body);
         $this->assertStringContainsString('bbb_b2b_metrics_collection_errors 0', $body);
         $this->assertStringNotContainsString('op_metrics_a', $body);
         $this->assertStringNotContainsString('op_metrics_b', $body);

@@ -42,8 +42,31 @@ cp ../deploy/websocket/socket_config2.production.example.json ../public/socket_c
 ```
 
 The production WebSocket config should keep `ssl=false` and bind Node to localhost through `listen_host=127.0.0.1` and `listen_port=12097`; Nginx owns the public TLS endpoint on `12096`.
+Keep `allowed_origins` pinned to the final HTTPS application origin, keep `require_session_cookie=true`, and keep `log_json=true` so the Node runtime rejects cross-origin upgrades, requires the legacy Laravel session handshake payload, and avoids logging cookies/raw game payloads. `BBB_WEBSOCKET_AUTH_TOKENS` may be supplied from the host secret store if a deployment adds a token to the WebSocket URL or header, but do not place tokens in `socket_config2.json`.
+
+Load the monitoring artifacts into the production Prometheus/Alertmanager stack before switching traffic:
+
+```bash
+cp deploy/prometheus/b2b-alerts.yml /etc/prometheus/rules/bbb-b2b.yml
+cp deploy/prometheus/alertmanager-routes.example.yml /etc/alertmanager/bbb-b2b-routes.example.yml
+```
+
+Replace the placeholder Alertmanager webhook URLs with secret-store-managed incident endpoints and verify one non-production test alert reaches both the `b2b-ops` and critical `b2b-pager` routes.
 
 Set `TRUSTED_PROXIES` to the exact Nginx or load-balancer IP/CIDR list that is allowed to supply forwarded request headers. Use `*` only when the direct upstream proxy address is dynamic and cannot be pinned.
+
+## Staging Migration Rehearsal
+
+Before production deployment, restore the latest production backup into staging and run the migration rehearsal script against that staging database copy:
+
+```bash
+CONFIRM_STAGING_MIGRATION=STAGING_MIGRATION_REHEARSAL \
+APP_DIR=/var/www/bbb/current \
+PHP_BIN=/usr/bin/php \
+bash deploy/scripts/migration-rehearsal.sh
+```
+
+The script refuses to run when Laravel reports `APP_ENV=production`, clears caches, records migration status before/after, captures `migrate --pretend --force` SQL preview, applies `migrate --force`, verifies route/config cache boot, clears caches again, and writes an artifact log named `storage/logs/b2b-migration-rehearsal-<timestamp>.log`. Archive that log with the release evidence before promoting the build. Review the SQL preview for the B2B production index migration because it adds operator-scoped lookup/reporting indexes and the wallet `transaction_id` column required by status lookup and rollback recovery.
 
 Required production environment values:
 
@@ -55,8 +78,13 @@ CACHE_DRIVER=redis
 QUEUE_DRIVER=redis
 B2B_NONCE_CACHE_STORE=redis
 B2B_RATE_LIMIT_CACHE_STORE=redis
+B2B_SCHEDULER_HEARTBEAT_CACHE_STORE=redis
+B2B_SCHEDULER_HEARTBEAT_MAX_AGE_SECONDS=180
 B2B_SANDBOX_ENABLED=false
 B2B_ALLOW_PRIVATE_WALLET_CALLBACKS=false
+B2B_STRUCTURED_LOGGING_ENABLED=true
+B2B_STRUCTURED_LOG_CHANNEL=b2b
+B2B_LOG_LEVEL=info
 ```
 
 ## Deployment
@@ -65,10 +93,13 @@ B2B_ALLOW_PRIVATE_WALLET_CALLBACKS=false
 2. Install Composer dependencies with `--no-dev`.
 3. Copy a production `.env` from the deployment secret store, not from the repository.
 4. Run `php artisan migrate --force` after taking a database backup.
-5. Run `php artisan b2b:release-check --production`.
-6. Switch `/var/www/bbb/current` to the new release with an atomic symlink update.
-7. Reload PHP-FPM, restart B2B workers, and restart the WebSocket service.
-8. Run `WEBSOCKET_TCP_HOST=127.0.0.1 WEBSOCKET_TCP_PORT=12097 bash deploy/scripts/healthcheck.sh`.
+5. Confirm the staging migration rehearsal artifact exists for the same release.
+6. Run `php artisan b2b:release-check --production`.
+7. Switch `/var/www/bbb/current` to the new release with an atomic symlink update.
+8. Reload PHP-FPM, restart B2B workers, and restart the WebSocket service.
+9. Enable or restart `bbb-scheduler.timer`, then confirm `php artisan b2b:scheduler-heartbeat --source=deploy-check` records successfully.
+10. Run `WEBSOCKET_TCP_HOST=127.0.0.1 WEBSOCKET_TCP_PORT=12097 WEBSOCKET_HEALTH_URL=http://127.0.0.1:12097/healthz bash deploy/scripts/healthcheck.sh`.
+11. Run the B2B smoke script with staging or production-canary credentials from the secret store, then archive the generated `b2b-smoke-*.log` artifact.
 
 ## Health Checks
 
@@ -78,11 +109,41 @@ The read-only B2B operations dashboard is available to backend admins at `/backe
 
 The signed operator portal is available at `/api/b2b/v1/portal`, with the same HMAC headers as other operator API calls. Its JSON source remains available at `/api/b2b/v1/portal/overview`, workflow pages are available under `/api/b2b/v1/portal/*` for credentials, games, sessions, transactions, settlements, cases, callbacks, reports, support, and docs, and signed support case comments can be posted to `/api/b2b/v1/portal/support/cases/{transaction_uid}/comments`.
 
+B2B structured logs write JSON records to the configured `B2B_STRUCTURED_LOG_CHANNEL` (`b2b` by default, `storage/logs/b2b.log` for the template). Ship this log alongside Laravel application logs and preserve the `request_id`, `operator_uid`, `key_id`, `event`, and `status_code` fields for incident triage. Outbound wallet callbacks receive the same `request_id` as `X-Request-Id` plus `X-B2B-Transaction-Uid`, so operator-side logs can be joined to BBB wallet attempts.
+
+Prometheus alert rules live at `deploy/prometheus/b2b-alerts.yml`; Alertmanager routing example lives at `deploy/prometheus/alertmanager-routes.example.yml`. Production release checks verify both files are present, but staging must still confirm final scrape labels and notification delivery.
+
 ```bash
 APP_URL=https://b2b.example.com bash deploy/scripts/healthcheck.sh
 ```
 
-The health check validates the public B2B readiness endpoint, metrics scrape, optional WebSocket TCP reachability, and the production release gate. Readiness checks database connectivity, critical B2B tables, cache runtime, queue configuration, storage writability, and production-safe configuration. It does not validate real provider credentials or gambling certification.
+The health check validates the public B2B readiness endpoint, metrics scrape, optional WebSocket TCP reachability, optional WebSocket `/healthz` JSON response, and the production release gate. Readiness checks database connectivity, critical B2B tables and columns, cache runtime, queue configuration, fresh scheduler heartbeat, storage writability, and production-safe configuration. It does not validate real provider credentials or gambling certification.
+
+## Smoke And Load Verification
+
+Run the production smoke script after deployment and before broad traffic. Public health/readiness/metrics checks always run; signed read-only operator checks run only when the operator credentials are provided from the environment:
+
+```bash
+APP_URL=https://b2b.example.com \
+B2B_SMOKE_OPERATOR_ID=op_canary \
+B2B_SMOKE_API_KEY=key_canary \
+B2B_SMOKE_API_SECRET="$B2B_CANARY_SECRET" \
+bash deploy/scripts/b2b-smoke.sh
+```
+
+The script does not print the API secret. It writes request evidence under `storage/logs/b2b-smoke-<timestamp>.log` plus response snapshots in the same artifact directory. Archive those artifacts with the release evidence.
+
+Run the k6 smoke-load scenario on staging or a production canary window after the release gate and smoke script pass:
+
+```bash
+BASE_URL=https://b2b-staging.example.com \
+B2B_OPERATOR_ID=op_canary \
+B2B_API_KEY=key_canary \
+B2B_API_SECRET="$B2B_CANARY_SECRET" \
+k6 run deploy/k6/b2b-smoke-load.js
+```
+
+The default scenario checks public readiness/metrics and signed read-only operator/portal requests with conservative thresholds. Increase `K6_PUBLIC_VUS`, `K6_SIGNED_VUS`, and duration variables only in a dedicated load-test environment with agreed traffic limits.
 
 ## Backup
 
@@ -130,4 +191,4 @@ Before rollback, confirm whether the new release ran irreversible migrations. If
 
 ## External Launch Blockers
 
-Production readiness still requires real provider credentials and documentation, production domains and TLS, WebSocket proxy validation through the final public domain, legal/certification approval, verified backup storage, load testing, and a staging migration rehearsal against a production copy.
+Production readiness still requires real provider credentials and documentation, production domains and TLS, WebSocket proxy validation through the final public domain, legal/certification approval, verified backup storage, executed smoke/load evidence from the target environment, and a completed staging migration rehearsal artifact from a production-copy database.

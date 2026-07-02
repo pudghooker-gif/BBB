@@ -25,6 +25,7 @@ class B2BDeploymentArtifactsTest extends TestCase
         $this->assertStringContainsString('upstream bbb_b2b_websocket', $template);
         $this->assertStringContainsString('listen 12096 ssl', $template);
         $this->assertStringContainsString('proxy_set_header Upgrade', $template);
+        $this->assertStringContainsString('proxy_set_header Origin', $template);
         $this->assertStringContainsString('proxy_buffering off', $template);
         $this->assertStringContainsString('env|sql|bak|backup|old|key|crt|pem|log', $template);
         $this->assertStringContainsString('deny all', $template);
@@ -48,15 +49,36 @@ class B2BDeploymentArtifactsTest extends TestCase
 
         $this->assertStringContainsString('serverConfig.listen_port', $server);
         $this->assertStringContainsString('serverConfig.listen_host', $server);
+        $this->assertStringContainsString('verifyClient: verifyClient', $server);
+        $this->assertStringContainsString('function allowedOrigin', $server);
+        $this->assertStringContainsString('function tokenAllowed', $server);
+        $this->assertStringContainsString('function healthResponse', $server);
+        $this->assertStringContainsString('function validHandshakeMessage', $server);
+        $this->assertStringContainsString('websocket.handshake_invalid', $server);
+        $this->assertStringContainsString('ws.ping()', $server);
+        $this->assertStringContainsString('structuredLog', $server);
+        $this->assertStringNotContainsString('console.log(ck)', $server);
+        $this->assertStringNotContainsString('console.log(body)', $server);
         $this->assertSame(12096, $socketConfig['port']);
         $this->assertSame(12097, $socketConfig['listen_port']);
         $this->assertSame('127.0.0.1', $socketConfig['listen_host']);
         $this->assertFalse($socketConfig['ssl']);
+        $this->assertSame('/healthz', $socketConfig['health_path']);
+        $this->assertSame('/readyz', $socketConfig['ready_path']);
+        $this->assertSame(['https://b2b.example.com'], $socketConfig['allowed_origins']);
+        $this->assertTrue($socketConfig['require_session_cookie']);
+        $this->assertSame('BBB_WEBSOCKET_AUTH_TOKENS', $socketConfig['auth_tokens_env']);
+        $this->assertArrayNotHasKey('auth_tokens', $socketConfig);
+        $this->assertGreaterThan(0, $socketConfig['max_connections']);
+        $this->assertGreaterThan(0, $socketConfig['heartbeat_interval_ms']);
+        $this->assertGreaterThan(0, $socketConfig['idle_timeout_ms']);
+        $this->assertTrue($socketConfig['log_json']);
 
         $this->assertStringContainsString('websocket_runtime', $releaseGate);
         $this->assertStringContainsString('pnpm install --frozen-lockfile --ignore-scripts', $workflow);
         $this->assertStringContainsString('pnpm run check:syntax', $workflow);
         $this->assertStringContainsString('WEBSOCKET_TCP_HOST', $healthcheck);
+        $this->assertStringContainsString('WEBSOCKET_HEALTH_URL', $healthcheck);
         $this->assertStringContainsString('/dev/tcp', $healthcheck);
     }
 
@@ -67,6 +89,8 @@ class B2BDeploymentArtifactsTest extends TestCase
             'deploy/scripts/restore.sh',
             'deploy/scripts/rollback.sh',
             'deploy/scripts/healthcheck.sh',
+            'deploy/scripts/migration-rehearsal.sh',
+            'deploy/scripts/b2b-smoke.sh',
         ] as $path) {
             $script = file_get_contents(base_path($path));
             $this->assertStringContainsString('set -euo pipefail', $script, $path);
@@ -86,6 +110,86 @@ class B2BDeploymentArtifactsTest extends TestCase
         $this->assertStringContainsString('mysql', $restore);
         $this->assertStringContainsString('trap restore_up EXIT', $restore);
         $this->assertStringContainsString('b2b:release-check --production', $restore);
+
+        $migrationRehearsal = file_get_contents(base_path('deploy/scripts/migration-rehearsal.sh'));
+        $this->assertStringContainsString('CONFIRM_STAGING_MIGRATION=STAGING_MIGRATION_REHEARSAL', $migrationRehearsal);
+        $this->assertStringContainsString('Refusing to run migration rehearsal against APP_ENV=production', $migrationRehearsal);
+        $this->assertStringContainsString('trap cleanup_boot_cache EXIT', $migrationRehearsal);
+        $this->assertStringContainsString('artisan migrate --pretend --force', $migrationRehearsal);
+        $this->assertStringContainsString('artisan migrate --force', $migrationRehearsal);
+        $this->assertStringContainsString('b2b-migration-rehearsal-', $migrationRehearsal);
+
+        $smoke = file_get_contents(base_path('deploy/scripts/b2b-smoke.sh'));
+        $this->assertStringContainsString('/api/b2b/v1/health', $smoke);
+        $this->assertStringContainsString('/api/b2b/v1/readiness', $smoke);
+        $this->assertStringContainsString('/api/b2b/v1/metrics', $smoke);
+        $this->assertStringContainsString('/api/b2b/v1/operator/me', $smoke);
+        $this->assertStringContainsString('/api/b2b/v1/portal/overview', $smoke);
+        $this->assertStringContainsString('B2B_SMOKE_OPERATOR_ID', $smoke);
+        $this->assertStringContainsString('B2B_SMOKE_API_KEY', $smoke);
+        $this->assertStringContainsString('B2B_SMOKE_API_SECRET', $smoke);
+        $this->assertStringContainsString('hash_hmac("sha256"', $smoke);
+    }
+
+    public function testLoadTestArtifactsCoverPublicAndSignedB2BReads()
+    {
+        $script = file_get_contents(base_path('deploy/k6/b2b-smoke-load.js'));
+        $releaseGate = file_get_contents(base_path('app/B2B/Services/B2BReleaseGate.php'));
+
+        foreach ([
+            'constant-vus',
+            'publicReadiness',
+            'signedOperatorReads',
+            '/api/b2b/v1/readiness',
+            '/api/b2b/v1/metrics',
+            '/api/b2b/v1/operator/me',
+            '/api/b2b/v1/portal/overview',
+            'B2B_OPERATOR_ID',
+            'B2B_API_KEY',
+            'B2B_API_SECRET',
+            "crypto.hmac('sha256'",
+            'http_req_failed',
+            'http_req_duration',
+        ] as $needle) {
+            $this->assertStringContainsString($needle, $script);
+        }
+
+        $this->assertStringContainsString('deploy/k6/b2b-smoke-load.js', $releaseGate);
+    }
+
+    public function testPrometheusAlertArtifactsCoverB2BMetricsAndRoutes()
+    {
+        $alerts = file_get_contents(base_path('deploy/prometheus/b2b-alerts.yml'));
+        $routes = file_get_contents(base_path('deploy/prometheus/alertmanager-routes.example.yml'));
+        $releaseGate = file_get_contents(base_path('app/B2B/Services/B2BReleaseGate.php'));
+
+        foreach ([
+            'bbb_b2b_metrics_collection_errors',
+            'bbb_b2b_operator_circuit_open_total',
+            'bbb_b2b_wallet_callbacks_total{outcome="failed"}',
+            'bbb_b2b_wallet_transactions_status_total',
+            'bbb_b2b_reconciliation_items_open_total',
+            'bbb_b2b_queue_depth',
+            'bbb_b2b_queue_oldest_job_age_seconds',
+            'bbb_b2b_scheduler_heartbeat_fresh',
+            'route: b2b-pager',
+            'route: b2b-ops',
+        ] as $needle) {
+            $this->assertStringContainsString($needle, $alerts);
+        }
+
+        foreach ([
+            'service="bbb-b2b"',
+            'severity="critical"',
+            'receiver: b2b-pager',
+            'receiver: b2b-ops',
+            'https://alertmanager.example.invalid/b2b-critical',
+        ] as $needle) {
+            $this->assertStringContainsString($needle, $routes);
+        }
+
+        $this->assertStringContainsString('deploy/prometheus/b2b-alerts.yml', $releaseGate);
+        $this->assertStringContainsString('deploy/prometheus/alertmanager-routes.example.yml', $releaseGate);
     }
 
     public function testRunbookDocumentsReleaseGateBackupsHealthAndRollback()
@@ -99,10 +203,15 @@ class B2BDeploymentArtifactsTest extends TestCase
             'TRUSTED_PROXIES=',
             'B2B_NONCE_CACHE_STORE=redis',
             'B2B_RATE_LIMIT_CACHE_STORE=redis',
+            'B2B_SCHEDULER_HEARTBEAT_CACHE_STORE=redis',
             'deploy/scripts/backup.sh',
             'deploy/scripts/restore.sh',
             'deploy/scripts/healthcheck.sh',
             'deploy/scripts/rollback.sh',
+            'deploy/scripts/migration-rehearsal.sh',
+            'deploy/scripts/b2b-smoke.sh',
+            'deploy/k6/b2b-smoke-load.js',
+            'deploy/prometheus/b2b-alerts.yml',
             'CONFIRM_RESTORE=RESTORE_BBB',
             'External Launch Blockers',
             '/api/b2b/v1/readiness',
@@ -148,6 +257,11 @@ class B2BDeploymentArtifactsTest extends TestCase
             'deploy/scripts/restore.sh',
             'deploy/scripts/rollback.sh',
             'deploy/scripts/healthcheck.sh',
+            'deploy/scripts/migration-rehearsal.sh',
+            'deploy/scripts/b2b-smoke.sh',
+            'deploy/k6/b2b-smoke-load.js',
+            'deploy/prometheus/b2b-alerts.yml',
+            'deploy/prometheus/alertmanager-routes.example.yml',
             'docs/deployment/PRODUCTION_RUNBOOK.md',
             'PTWebSocket/package.json',
             'PTWebSocket/pnpm-lock.yaml',

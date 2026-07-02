@@ -81,7 +81,9 @@ class WalletController extends Controller
             return B2BApiResponse::error($request, 'SESSION_NOT_FOUND');
         }
 
-        $result = $this->transactions->process($operator, $type, $payload);
+        $result = $this->transactions->process($operator, $type, $payload, [
+            'request_id' => $request->attributes->get('request_id') ?: $request->header('X-Request-Id'),
+        ]);
 
         if (!$result['ok']) {
             $body = isset($result['body']) && is_array($result['body']) ? $result['body'] : [];

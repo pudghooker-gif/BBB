@@ -24,8 +24,10 @@ class B2BReadinessService
         $checks = [
             $this->databaseCheck(),
             $this->tablesCheck(),
+            $this->columnsCheck(),
             $this->cacheRuntimeCheck($production),
             $this->queueConfigCheck($production),
+            $this->schedulerHeartbeatCheck($production),
             $this->storageCheck(),
         ];
 
@@ -83,12 +85,35 @@ class B2BReadinessService
         return $this->checkResult('b2b_tables', 'pass', 'Required B2B tables are present.');
     }
 
+    private function columnsCheck()
+    {
+        $missing = [];
+        foreach ($this->requiredColumns() as $table => $columns) {
+            if (!Schema::hasTable($table)) {
+                continue;
+            }
+
+            foreach ($columns as $column) {
+                if (!Schema::hasColumn($table, $column)) {
+                    $missing[] = $table.'.'.$column;
+                }
+            }
+        }
+
+        if (count($missing) > 0) {
+            return $this->checkResult('b2b_columns', 'fail', 'Missing B2B columns: '.implode(', ', $missing).'.');
+        }
+
+        return $this->checkResult('b2b_columns', 'pass', 'Critical B2B columns are present.');
+    }
+
     private function cacheRuntimeCheck($production)
     {
         $stores = array_values(array_unique(array_filter([
             config('cache.default'),
             config('b2b.nonce_cache_store') ?: config('cache.default'),
             config('b2b.rate_limit_cache_store') ?: config('cache.default'),
+            config('b2b.scheduler_heartbeat_cache_store') ?: config('cache.default'),
         ])));
 
         if (count($stores) === 0) {
@@ -147,6 +172,33 @@ class B2BReadinessService
         return $this->checkResult('queue_config', 'pass', 'Queue configuration is present.');
     }
 
+    private function schedulerHeartbeatCheck($production)
+    {
+        if (!config('b2b.scheduler_heartbeat_required', true)) {
+            return $this->checkResult('scheduler_heartbeat', 'pass', 'Scheduler heartbeat freshness enforcement is disabled.');
+        }
+
+        if (!$production) {
+            return $this->checkResult('scheduler_heartbeat', 'pass', 'Scheduler heartbeat freshness is enforced in production mode.');
+        }
+
+        try {
+            $status = app(B2BSchedulerHeartbeat::class)->status();
+        } catch (\Exception $e) {
+            return $this->checkResult('scheduler_heartbeat', 'fail', 'Scheduler heartbeat cache could not be read.');
+        }
+
+        if (!$status['present']) {
+            return $this->checkResult('scheduler_heartbeat', 'fail', 'B2B scheduler heartbeat is missing; confirm schedule:run is active on one node.');
+        }
+
+        if (!$status['fresh']) {
+            return $this->checkResult('scheduler_heartbeat', 'fail', 'B2B scheduler heartbeat is stale: '.$status['age_seconds'].' seconds old, max '.$status['max_age_seconds'].'.');
+        }
+
+        return $this->checkResult('scheduler_heartbeat', 'pass', 'B2B scheduler heartbeat is fresh: '.$status['age_seconds'].' seconds old.');
+    }
+
     private function storageCheck()
     {
         foreach ([storage_path('framework'), storage_path('logs')] as $path) {
@@ -194,6 +246,40 @@ class B2BReadinessService
             'b2b_wallet_reconciliation_items',
             'b2b_wallet_manual_actions',
             'b2b_settlements',
+            'b2b_operator_support_tickets',
+            'b2b_operator_support_ticket_messages',
+        ];
+    }
+
+    private function requiredColumns()
+    {
+        return [
+            'b2b_wallet_transactions' => [
+                'transaction_uid',
+                'transaction_id',
+                'idempotency_key',
+                'request_hash',
+                'operator_response_body',
+            ],
+            'b2b_game_sessions' => [
+                'session_uid',
+                'token_hash',
+                'heartbeat_at',
+                'stale_at',
+                'close_reason',
+            ],
+            'b2b_wallet_reconciliation_items' => [
+                'wallet_transaction_id',
+                'operator_id',
+                'state',
+                'detected_at',
+            ],
+            'b2b_settlements' => [
+                'settlement_uid',
+                'period_start',
+                'period_end',
+                'status',
+            ],
         ];
     }
 

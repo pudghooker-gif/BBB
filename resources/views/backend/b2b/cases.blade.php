@@ -51,6 +51,50 @@
                         </div>
                     </form>
                 </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Support Ticket Actions</h3>
+                    </div>
+                    <form method="post">
+                        @csrf
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="b2b-support-ticket-uid">Ticket UID</label>
+                                <input id="b2b-support-ticket-uid" type="text" name="ticket_uid" value="{{ old('ticket_uid') }}" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="b2b-support-ticket-message">Message</label>
+                                <textarea id="b2b-support-ticket-message" name="message" rows="4" class="form-control">{{ old('message') }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="b2b-support-ticket-reason">Reason</label>
+                                <textarea id="b2b-support-ticket-reason" name="reason" rows="4" class="form-control">{{ old('reason') }}</textarea>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" formaction="{{ route('backend.b2b.cases.support_ticket.comment') }}" class="btn btn-primary">
+                                <i class="fa fa-comment"></i> Comment
+                            </button>
+                            <button type="submit" formaction="{{ route('backend.b2b.cases.support_ticket.close') }}" class="btn btn-success">
+                                <i class="fa fa-check"></i> Close
+                            </button>
+                            <button type="submit" formaction="{{ route('backend.b2b.cases.support_ticket.reopen') }}" class="btn btn-default">
+                                <i class="fa fa-undo"></i> Reopen
+                            </button>
+                            <hr>
+                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'support_ticket.comment', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                <i class="fa fa-shield"></i> Comment Step-Up
+                            </a>
+                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'support_ticket.close', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                <i class="fa fa-shield"></i> Close Step-Up
+                            </a>
+                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'support_ticket.reopen', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                <i class="fa fa-shield"></i> Reopen Step-Up
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <div class="col-md-8">
@@ -104,6 +148,64 @@
                                 </tr>
                             @empty
                                 <tr><td colspan="6">No B2B cases</td></tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Operator Support Tickets</h3>
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Ticket</th>
+                                <th>Operator</th>
+                                <th>Status</th>
+                                <th>Subject</th>
+                                <th>Reference</th>
+                                <th>Context</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($support_tickets as $ticket)
+                                <tr>
+                                    <td>
+                                        <strong>{{ $ticket->ticket_uid }}</strong>
+                                        <br><small class="text-muted">{{ $ticket->created_at ?: 'n/a' }}</small>
+                                    </td>
+                                    <td>
+                                        {{ isset($ticket->operator_uid) && $ticket->operator_uid ? $ticket->operator_uid : ('operator ' . ($ticket->operator_id ?: 'n/a')) }}
+                                        @if(isset($ticket->operator_name) && $ticket->operator_name)
+                                            <br><small class="text-muted">{{ $ticket->operator_name }}</small>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $ticket->status ?: 'open' }}
+                                        <br><small class="text-muted">{{ $ticket->priority ?: 'normal' }}</small>
+                                    </td>
+                                    <td>
+                                        {{ $ticket->subject ?: 'n/a' }}
+                                        <br><small class="text-muted">
+                                            {{ $ticket->category ?: 'uncategorized' }}
+                                            / messages {{ isset($ticket->message_count) ? (int) $ticket->message_count : 0 }}
+                                        </small>
+                                    </td>
+                                    <td>
+                                        {{ $ticket->external_reference ?: 'n/a' }}
+                                        <br><small class="text-muted">last {{ $ticket->last_message_at ?: 'n/a' }}</small>
+                                    </td>
+                                    <td><pre style="white-space: pre-wrap; word-break: break-word; max-height: 180px;">{{ $ticket->context_display ?: 'n/a' }}</pre></td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="6">No operator support tickets</td></tr>
                             @endforelse
                             </tbody>
                         </table>

@@ -1,0 +1,98 @@
+groups:
+  - name: bbb-b2b
+    rules:
+      - alert: BBBB2BMetricsCollectionErrors
+        expr: bbb_b2b_metrics_collection_errors > 0
+        for: 5m
+        labels:
+          service: bbb-b2b
+          severity: warning
+          route: b2b-ops
+        annotations:
+          summary: B2B metrics scrape has collector errors
+          description: One or more B2B metric collectors failed during scrape. Check application logs and database/Redis connectivity.
+          runbook: docs/b2b/OBSERVABILITY.md
+
+      - alert: BBBB2BOperatorCircuitOpen
+        expr: bbb_b2b_operator_circuit_open_total > 0
+        for: 2m
+        labels:
+          service: bbb-b2b
+          severity: critical
+          route: b2b-pager
+        annotations:
+          summary: B2B operator circuit breaker is open
+          description: At least one operator circuit breaker is open. Inspect provider health events, callback failures, and affected operator traffic.
+          runbook: docs/b2b/OBSERVABILITY.md
+
+      - alert: BBBB2BWalletCallbackFailures
+        expr: bbb_b2b_wallet_callbacks_total{outcome="failed"} > 0
+        for: 10m
+        labels:
+          service: bbb-b2b
+          severity: warning
+          route: b2b-ops
+        annotations:
+          summary: B2B wallet callback failures detected
+          description: Wallet callback failures are present. Use structured logs, wallet attempts, and reconciliation items to identify affected transactions.
+          runbook: docs/b2b/WALLET_V7.md
+
+      - alert: BBBB2BWalletManualReview
+        expr: bbb_b2b_wallet_transactions_status_total{status=~"manual_review|dead_letter|rollback_required"} > 0
+        for: 5m
+        labels:
+          service: bbb-b2b
+          severity: critical
+          route: b2b-pager
+        annotations:
+          summary: B2B wallet transaction needs manual review
+          description: Wallet transactions reached manual_review, dead_letter, or rollback_required status. Use /backend/b2b/wallet/manual-actions and the audit trail.
+          runbook: docs/b2b/BACKOFFICE.md
+
+      - alert: BBBB2BReconciliationBacklog
+        expr: bbb_b2b_reconciliation_items_open_total > 0
+        for: 15m
+        labels:
+          service: bbb-b2b
+          severity: warning
+          route: b2b-ops
+        annotations:
+          summary: B2B reconciliation backlog is open
+          description: Open reconciliation items remain after the grace period. Review /backend/b2b/cases and signed operator support comments.
+          runbook: docs/b2b/BACKOFFICE.md
+
+      - alert: BBBB2BQueueBacklog
+        expr: bbb_b2b_queue_depth > 100
+        for: 10m
+        labels:
+          service: bbb-b2b
+          severity: warning
+          route: b2b-ops
+        annotations:
+          summary: B2B queue backlog is high
+          description: A B2B logical queue has more than 100 waiting jobs. Scale workers or inspect failed dependencies.
+          runbook: docs/b2b/QUEUE_TOPOLOGY.md
+
+      - alert: BBBB2BSchedulerHeartbeatStale
+        expr: bbb_b2b_scheduler_heartbeat_fresh == 0
+        for: 3m
+        labels:
+          service: bbb-b2b
+          severity: critical
+          route: b2b-pager
+        annotations:
+          summary: B2B scheduler heartbeat is stale
+          description: Laravel schedule:run has not recorded a fresh B2B heartbeat. Confirm bbb-scheduler.timer, scheduler locks, and Redis cache health.
+          runbook: docs/b2b/QUEUE_TOPOLOGY.md
+
+      - alert: BBBB2BQueueStaleJob
+        expr: bbb_b2b_queue_oldest_job_age_seconds > 300
+        for: 5m
+        labels:
+          service: bbb-b2b
+          severity: critical
+          route: b2b-pager
+        annotations:
+          summary: B2B queue has stale jobs
+          description: The oldest queued B2B job is older than five minutes. Confirm workers, Redis/database queue health, and scheduler locking.
+          runbook: docs/b2b/QUEUE_TOPOLOGY.md

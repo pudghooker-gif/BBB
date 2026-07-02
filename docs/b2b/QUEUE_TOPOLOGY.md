@@ -9,6 +9,7 @@ QUEUE_DRIVER=redis
 B2B_QUEUE_CONNECTION=redis
 B2B_NONCE_CACHE_STORE=redis
 B2B_RATE_LIMIT_CACHE_STORE=redis
+B2B_SCHEDULER_HEARTBEAT_CACHE_STORE=redis
 ```
 
 `config/b2b_queues.php` is the source of truth for queue names and worker defaults.
@@ -43,15 +44,18 @@ Live wallet workers use short timeout and single try by default. Retry, reportin
 The current codebase exposes retry/reconciliation/session cleanup as artisan commands. In production, run the dispatching form from one scheduler node so the scheduler only enqueues work and B2B workers execute it:
 
 ```text
+b2b:scheduler-heartbeat --source=scheduler
 b2b:retry-wallet --limit=50 --dispatch
 b2b:recover-rollbacks --limit=50 --dispatch
 b2b:reconcile-wallet --limit=100 --pending-minutes=5 --dispatch
 b2b:close-stale-sessions --minutes=30 --dispatch
 ```
 
-These dispatch `RetryWalletTransactionsJob`, `RecoverWalletRollbacksJob`, `ReconcileWalletTransactionsJob`, and `CloseStaleB2BSessionsJob` onto `wallet_retry`, `reconciliation`, and `maintenance` queues. The same commands still support inline execution without `--dispatch` for local development and emergency single-node operations.
+`b2b:scheduler-heartbeat` writes a Redis-backed heartbeat every minute so readiness and Prometheus can prove that the Laravel scheduler is actually running. The dispatching commands enqueue `RetryWalletTransactionsJob`, `RecoverWalletRollbacksJob`, `ReconcileWalletTransactionsJob`, and `CloseStaleB2BSessionsJob` onto `wallet_retry`, `reconciliation`, and `maintenance` queues. The same commands still support inline execution without `--dispatch` for local development and emergency single-node operations.
 
 `app/Console/Kernel.php` reads `config/b2b_queues.scheduled_commands` and registers the dispatching commands with `withoutOverlapping()`. Keep only one scheduler node active, or use Laravel's standard scheduler locking on shared cache.
+
+Production readiness requires a fresh heartbeat by default. Tune the allowed freshness window with `B2B_SCHEDULER_HEARTBEAT_MAX_AGE_SECONDS` only when the scheduler interval is intentionally changed.
 
 ## Release Checks
 

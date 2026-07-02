@@ -63,6 +63,9 @@ GET  /api/b2b/v1/portal/callbacks
 GET  /api/b2b/v1/portal/reports
 GET  /api/b2b/v1/portal/support
 POST /api/b2b/v1/portal/support/cases/{transaction_uid}/comments
+POST /api/b2b/v1/portal/support/tickets
+POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/comments
+POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/close
 GET  /api/b2b/v1/portal/docs
 GET  /api/b2b/v1/games
 POST /api/b2b/v1/games/launch
@@ -125,9 +128,15 @@ Error JSON responses use:
 
 `GET /api/b2b/v1/portal/overview` is a signed, read-only bootstrap endpoint for an operator-facing portal. It returns tenant-scoped operator/API-key profile data, wallet and session counters, credential/game-assignment/settlement/reconciliation summaries, recent sessions, recent wallet transactions, and links to the underlying B2B API routes. It intentionally omits API key secrets, raw wallet request/response payloads, and foreign-operator records.
 
-Signed read-only HTML workflow pages are available at `/portal/credentials`, `/portal/games`, `/portal/sessions`, `/portal/transactions`, `/portal/settlements`, `/portal/cases`, `/portal/callbacks`, `/portal/reports`, `/portal/support`, and `/portal/docs`. They use the same HMAC authentication and tenant-scoped redacted data as `/portal/overview`. The callbacks page shows sanitized callback settings, status buckets, and recent callback attempts without query strings or raw payload bodies. The reports page links to the signed reporting endpoints and summarizes successful wallet amounts for the selected period. The support page shows tenant-scoped health incidents and open reconciliation cases without exposing foreign operators or raw payloads.
+Signed read-only HTML workflow pages are available at `/portal/credentials`, `/portal/games`, `/portal/sessions`, `/portal/transactions`, `/portal/settlements`, `/portal/cases`, `/portal/callbacks`, `/portal/reports`, `/portal/support`, and `/portal/docs`. They use the same HMAC authentication and tenant-scoped redacted data as `/portal/overview`. The callbacks page shows sanitized callback settings, status buckets, and recent callback attempts without query strings or raw payload bodies. The reports page links to the signed reporting endpoints and summarizes successful wallet amounts for the selected period. The support page shows tenant-scoped health incidents, open reconciliation cases, and recent operator support tickets without exposing foreign operators or raw payloads.
 
 `POST /api/b2b/v1/portal/support/cases/{transaction_uid}/comments` appends an operator follow-up comment to the signed operator's own open or in-progress reconciliation case. It redacts sensitive text before persistence, writes `case.operator_commented` to the B2B audit trail, and does not change wallet transaction state, settlement state, or case assignment.
+
+`POST /api/b2b/v1/portal/support/tickets` creates an operator-owned support ticket with `subject`, `message`, optional `priority` (`low`, `normal`, `high`, `urgent`), `category`, and `external_reference`. The ticket subject, message, context, and audit metadata are redacted before storage and the action writes `support_ticket.created`.
+
+`POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/comments` appends a redacted operator comment to the signed operator's own open or in-progress support ticket, moves it to `in_progress`, and writes `support_ticket.operator_commented`.
+
+`POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/close` closes the signed operator's own open or in-progress support ticket with a required redacted `reason` and writes `support_ticket.closed`.
 
 ## Launch example
 

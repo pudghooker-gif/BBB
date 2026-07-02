@@ -13,9 +13,12 @@ class B2BOperatorAuditLogger
 {
     private $redactor;
 
-    public function __construct(B2BPayloadRedactor $redactor)
+    private $structuredLogger;
+
+    public function __construct(B2BPayloadRedactor $redactor, B2BStructuredEventLogger $structuredLogger)
     {
         $this->redactor = $redactor;
+        $this->structuredLogger = $structuredLogger;
     }
 
     public function record($operator, $eventType, $subjectType, $subjectId, $actor, $reason = null, array $metadata = [], $ipAddress = null, $userAgent = null)
@@ -27,7 +30,9 @@ class B2BOperatorAuditLogger
         $operatorId = $operator instanceof B2BOperator ? $operator->id : $operator;
         $actor = trim((string) $actor);
 
-        return B2BOperatorAuditEvent::create([
+        $metadata = $this->redactor->redact($metadata);
+
+        $event = B2BOperatorAuditEvent::create([
             'operator_id' => $operatorId ?: null,
             'event_type' => (string) $eventType,
             'subject_type' => $subjectType ?: null,
@@ -36,8 +41,22 @@ class B2BOperatorAuditLogger
             'reason' => $reason !== null ? (string) $reason : null,
             'ip_address' => $ipAddress !== null ? (string) $ipAddress : null,
             'user_agent' => $userAgent !== null ? substr((string) $userAgent, 0, 500) : null,
-            'metadata' => $this->redactor->redact($metadata),
+            'metadata' => $metadata,
         ]);
+
+        $this->structuredLogger->info('audit.event', [
+            'operator_id' => $operatorId ?: null,
+            'event_type' => (string) $eventType,
+            'subject_type' => $subjectType ?: null,
+            'subject_id' => $subjectId !== null ? (string) $subjectId : null,
+            'actor' => $actor !== '' ? $actor : 'system',
+            'reason' => $reason !== null ? (string) $reason : null,
+            'ip_address' => $ipAddress !== null ? (string) $ipAddress : null,
+            'user_agent' => $userAgent !== null ? substr((string) $userAgent, 0, 500) : null,
+            'metadata' => $metadata,
+        ]);
+
+        return $event;
     }
 
     public function recordApiKeyUsed(B2BOperator $operator, B2BOperatorApiKey $apiKey, Request $request)

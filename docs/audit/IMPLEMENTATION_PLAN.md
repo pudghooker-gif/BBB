@@ -34,23 +34,23 @@ Date: 2026-06-24
 
 ## Stage 4: Admin And Operator Portal
 
-- Keep extending the B2B-RBAC-protected `/backend/b2b` operations dashboard, operator configuration screen, credential lifecycle screen, manual wallet action screen, settlement workflow screen, raw payload review screen, case-management screen, and audit trail screen into a cohesive production backoffice.
-- Keep expanding the tenant-facing signed `/api/b2b/v1/portal` UI beyond the current credentials, game assignments, sessions, transactions, settlements, cases, callback settings/errors, report drilldowns, support incidents, docs workflow pages, and audited support case comments into a richer operator support ticket lifecycle.
+- Keep extending the B2B-RBAC-protected `/backend/b2b` operations dashboard, operator configuration screen, credential lifecycle screen, manual wallet action screen, settlement workflow screen, raw payload review screen, case-management/support-ticket screen, and audit trail screen into a cohesive production backoffice.
+- Keep expanding the tenant-facing signed `/api/b2b/v1/portal` UI beyond the current credentials, game assignments, sessions, transactions, settlements, cases, callback settings/errors, report drilldowns, support incidents, docs workflow pages, audited support case comments, and audited support ticket create/comment/close lifecycle into a richer production operator experience.
 - Build the portal UX over the current audited credential rotation/revocation, successful-use audit, per-key rate-limit, and deny-by-default privileged-action guard foundation, then validate it in staging behind the final signing/proxy topology.
-- Keep unified operator audit coverage for exports and dangerous admin actions; settlement export/submission/approval, credential lifecycle actions, denied privileged actions, and manual wallet actions now write operator audit events.
+- Keep unified operator audit coverage for exports and dangerous admin actions; settlement export/submission/approval, credential lifecycle actions, denied privileged actions, manual wallet actions, case actions, and support-ticket lifecycle actions now write operator audit events.
 
 ## Stage 5: Deployment And Observability
 
-- Keep deployment templates and runbook current; validate Nginx, PHP-FPM, systemd, cron, WebSocket, backup, restore, healthcheck, and rollback on a staging host.
+- Keep deployment templates and runbook current; validate Nginx, PHP-FPM, systemd, cron, WebSocket origin/session-cookie/heartbeat controls, backup, restore, migration rehearsal, healthcheck, smoke/load verification, and rollback on a staging host.
 - Keep job-backed wallet retry/reconciliation/cleanup workflows wired to the B2B queue topology and validate worker execution in staging.
-- Keep health/readiness/metrics endpoints current, then add structured logs, deeper correlation IDs, alert routing, and staging scrape validation.
-- Add and run `b2b:release-check --production` for Redis/shared-cache, queue, sandbox, debug, private callback, locked Composer dependency audit, Laravel advisory mitigations, and artifact-secret gates. Keep the local Laravel advisory gate covering CRLF email validation, PHP upload extension bypasses, signed-route middleware exposure, and temporary signed URL API exposure until the PHP/Laravel major upgrade removes those audit findings.
+- Keep health/readiness/metrics endpoints, B2B structured JSON logs, outbound wallet callback correlation IDs, and shipped Prometheus/Alertmanager alert-routing artifacts current, then add deeper provider-side correlation and staging scrape/log-shipper/notification validation.
+- Add and run `b2b:release-check --production` for Redis/shared-cache, queue, sandbox, debug, private callback, structured logging, locked Composer dependency audit, Laravel advisory mitigations, and artifact-secret gates. Keep the local Laravel advisory gate covering CRLF email validation, PHP upload extension bypasses, signed-route middleware exposure, and temporary signed URL API exposure until the PHP/Laravel major upgrade removes those audit findings.
 - Keep CI release verification current for Composer validate/install, syntax lint, PHPUnit, route boot/cache, dependency audit visibility, and production release-check. Keep trimming legacy upgrade blockers as they are proven unused or easy to localize; direct `laravel/ui`, `fideloper/proxy`, SMS.to Laravel wrapper, debugbar, `laracasts/presenter`, `laravel/legacy-factories`, `anlutro/l4-settings`, and server-side Yajra DataTables dependencies are already removed. Close the remaining Laravel/SwiftMailer findings through a PHP/Laravel major-upgrade or supported security-backport plan so the blocking audit gate can turn green.
 - Treat the remaining Laravel-major package blockers as replacement projects, not deletion candidates: roles/permissions, Collective forms, JS validation, and JWT auth all have live application usage.
 
 ## Stage 6: Release Gates
 
-- Keep clean migration verification in tests and run upgraded-database migrations on a staging copy.
+- Keep clean migration verification in tests, including B2B production lookup/reporting indexes, and run `deploy/scripts/migration-rehearsal.sh` against a restored production database copy on staging.
 - Verify rollback where practical.
-- Verify queues, scheduler-dispatched B2B jobs, WebSocket proxy, sandbox wallet flow, reports, settlements, backup/restore drills, and smoke tests.
+- Verify queues, scheduler-dispatched B2B jobs, WebSocket proxy, sandbox wallet flow, reports, settlements, backup/restore drills, smoke tests, and measured smoke-load results.
 - Document all remaining external blockers before any production launch claim.

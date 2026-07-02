@@ -539,30 +539,31 @@ class B2BOperatorPortalQuery
 
     private function supportSummary($operatorId, $limit)
     {
-        if (!Schema::hasTable('b2b_operator_health_events')) {
-            return [
-                'by_status' => [],
-                'by_event_type' => [],
-                'recent_events' => [],
-            ];
-        }
+        $summary = [
+            'by_status' => [],
+            'by_event_type' => [],
+            'recent_events' => [],
+            'tickets_by_status' => [],
+            'tickets_by_priority' => [],
+            'recent_tickets' => [],
+        ];
 
-        $rows = DB::table('b2b_operator_health_events')
-            ->where('operator_id', $operatorId)
-            ->orderBy('created_at', 'desc')
-            ->limit($limit)
-            ->get($this->selectExisting('b2b_operator_health_events', [
-                'event_type',
-                'status',
-                'failure_count',
-                'message',
-                'created_at',
-            ]));
+        if (Schema::hasTable('b2b_operator_health_events')) {
+            $rows = DB::table('b2b_operator_health_events')
+                ->where('operator_id', $operatorId)
+                ->orderBy('created_at', 'desc')
+                ->limit($limit)
+                ->get($this->selectExisting('b2b_operator_health_events', [
+                    'event_type',
+                    'status',
+                    'failure_count',
+                    'message',
+                    'created_at',
+                ]));
 
-        return [
-            'by_status' => $this->groupCounts('b2b_operator_health_events', $operatorId, 'status'),
-            'by_event_type' => $this->groupCounts('b2b_operator_health_events', $operatorId, 'event_type'),
-            'recent_events' => $rows->map(function ($row) {
+            $summary['by_status'] = $this->groupCounts('b2b_operator_health_events', $operatorId, 'status');
+            $summary['by_event_type'] = $this->groupCounts('b2b_operator_health_events', $operatorId, 'event_type');
+            $summary['recent_events'] = $rows->map(function ($row) {
                 return [
                     'event_type' => isset($row->event_type) ? $row->event_type : null,
                     'status' => isset($row->status) ? $row->status : null,
@@ -570,8 +571,45 @@ class B2BOperatorPortalQuery
                     'message' => isset($row->message) ? $this->safeErrorSummary($row->message) : null,
                     'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
                 ];
-            })->values(),
-        ];
+            })->values();
+        }
+
+        if (Schema::hasTable('b2b_operator_support_tickets')) {
+            $ticketRows = DB::table('b2b_operator_support_tickets')
+                ->where('operator_id', $operatorId)
+                ->orderBy('last_message_at', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->limit($limit)
+                ->get($this->selectExisting('b2b_operator_support_tickets', [
+                    'ticket_uid',
+                    'subject',
+                    'status',
+                    'priority',
+                    'category',
+                    'external_reference',
+                    'last_message_at',
+                    'closed_at',
+                    'created_at',
+                ]));
+
+            $summary['tickets_by_status'] = $this->groupCounts('b2b_operator_support_tickets', $operatorId, 'status');
+            $summary['tickets_by_priority'] = $this->groupCounts('b2b_operator_support_tickets', $operatorId, 'priority');
+            $summary['recent_tickets'] = $ticketRows->map(function ($row) {
+                return [
+                    'ticket_uid' => isset($row->ticket_uid) ? $row->ticket_uid : null,
+                    'subject' => isset($row->subject) ? $this->safeErrorSummary($row->subject) : null,
+                    'status' => isset($row->status) ? $row->status : null,
+                    'priority' => isset($row->priority) ? $row->priority : null,
+                    'category' => isset($row->category) ? $row->category : null,
+                    'external_reference' => isset($row->external_reference) ? $this->safeErrorSummary($row->external_reference) : null,
+                    'last_message_at' => isset($row->last_message_at) ? $this->isoTime($row->last_message_at) : null,
+                    'closed_at' => isset($row->closed_at) ? $this->isoTime($row->closed_at) : null,
+                    'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
+                ];
+            })->values();
+        }
+
+        return $summary;
     }
 
     private function countWhere($table, $operatorId, callable $callback = null)

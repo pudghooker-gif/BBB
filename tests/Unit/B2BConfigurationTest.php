@@ -21,6 +21,9 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'docs'] as \$portalSection)", $b2bRoutes);
         $this->assertStringContainsString("Route::get('portal/' . \$portalSection, [PortalController::class, 'section'])", $b2bRoutes);
         $this->assertStringContainsString("Route::post('portal/support/cases/{transaction_uid}/comments', [PortalController::class, 'commentCase'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::post('portal/support/tickets', [PortalController::class, 'createSupportTicket'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::post('portal/support/tickets/{ticket_uid}/comments', [PortalController::class, 'commentSupportTicket'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::post('portal/support/tickets/{ticket_uid}/close', [PortalController::class, 'closeSupportTicket'])", $b2bRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.dashboard'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BDashboardController@index'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.wallet_manual_actions.index'", $webRoutes);
@@ -60,11 +63,17 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'as' => 'backend.b2b.cases.claim'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.cases.resolve'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.cases.reopen'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.cases.support_ticket.comment'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.cases.support_ticket.close'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.cases.support_ticket.reopen'", $webRoutes);
         $this->assertStringContainsString("'b2b.admin:b2b.cases.view'", $webRoutes);
         $this->assertStringContainsString("'b2b.admin:b2b.cases.manage'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:case.claim'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:case.resolve'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:case.reopen'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:support_ticket.comment'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:support_ticket.close'", $webRoutes);
+        $this->assertStringContainsString("'b2b.web_step_up:support_ticket.reopen'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.audit.index'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BAuditBackofficeController@index'", $webRoutes);
         $this->assertStringContainsString("'b2b.admin:b2b.audit.view'", $webRoutes);
@@ -143,6 +152,9 @@ class B2BConfigurationTest extends TestCase
             '/portal/reports',
             '/portal/support',
             '/portal/support/cases/{transaction_uid}/comments',
+            '/portal/support/tickets',
+            '/portal/support/tickets/{ticket_uid}/comments',
+            '/portal/support/tickets/{ticket_uid}/close',
             '/portal/docs',
             '/games',
             '/games/launch',
@@ -184,6 +196,9 @@ class B2BConfigurationTest extends TestCase
             '/api/b2b/v1/portal/reports?limit=10',
             '/api/b2b/v1/portal/support?limit=10',
             '/api/b2b/v1/portal/support/cases/{{transactionId}}/comments',
+            '/api/b2b/v1/portal/support/tickets',
+            '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/comments',
+            '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/close',
             '/api/b2b/v1/games/launch',
             '/api/b2b/v1/sessions/{{sessionId}}/close',
             '/api/b2b/v1/wallet/bet',

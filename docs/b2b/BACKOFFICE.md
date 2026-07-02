@@ -12,7 +12,7 @@ The first B2B operations surfaces are available inside the existing backend:
 /backend/b2b/cases
 ```
 
-They are protected by the existing backend `auth`, `2fa`, `access.admin.panel`, `only_for_admin`, and dedicated `b2b.admin:*` controls. The dashboard does not expose API secrets, raw wallet payloads, callback bodies, player identifiers, or silent financial mutation controls. The default payload review and case tables keep request/response/context bodies redacted with the wallet redaction policy. Mutating wallet, settlement, credential, operator, case, and raw-payload access actions are kept on dedicated routes with session-bound web step-up middleware.
+They are protected by the existing backend `auth`, `2fa`, `access.admin.panel`, `only_for_admin`, and dedicated `b2b.admin:*` controls. The dashboard does not expose API secrets, raw wallet payloads, callback bodies, player identifiers, or silent financial mutation controls. The default payload review, case, and support-ticket tables keep request/response/context bodies redacted with the wallet redaction policy. Mutating wallet, settlement, credential, operator, case, support-ticket, and raw-payload access actions are kept on dedicated routes with session-bound web step-up middleware.
 
 Current widgets:
 
@@ -39,8 +39,11 @@ Implemented mutating and sensitive-review screens:
 - `/backend/b2b/operators` updates non-secret operator configuration and records suspend/resume decisions with `b2b.operators.update`, `b2b.operators.suspend`, and matching `operator.*` web step-up actions.
 - `/backend/b2b/payloads` lists recent wallet attempts with recursively redacted request/response payloads under `b2b.payloads.view_redacted`. Raw payload reveal uses `POST /backend/b2b/payloads/raw`, requires `b2b.payloads.view_raw` plus `b2b.web_step_up:payload.view_raw`, and writes `payload.raw_viewed` audit events with actor, reason, source, IP, and user-agent context.
 - `/backend/b2b/cases` lists reconciliation/manual-review cases with redacted context under `b2b.cases.view`. Claim, resolve, and reopen actions require `b2b.cases.manage`, matching `case.*` web step-up actions, and write `case.claimed`, `case.resolved`, or `case.reopened` audit events.
+- `/backend/b2b/cases` also lists operator-created support tickets with redacted subject/reference/context, status, priority, and message counts so support staff can correlate operator-visible tickets with reconciliation cases and audit events. Staff comment, close, and reopen actions require `b2b.cases.manage`, matching `support_ticket.*` web step-up actions, and write `support_ticket.staff_commented`, `support_ticket.staff_closed`, or `support_ticket.staff_reopened` audit events.
 - `/backend/b2b/audit` lists B2B operator audit events under `b2b.audit.view`, with filters for operator, event, actor, subject, and period. Metadata and free-text reasons are redacted before display.
 
 Signed operator support comments are accepted through `/api/b2b/v1/portal/support/cases/{transaction_uid}/comments`, appended to reconciliation context, redacted before persistence, and visible in `/backend/b2b/cases` context plus `/backend/b2b/audit`.
 
-Production operator portal UX, including staging validation and richer operator support ticket lifecycle beyond signed case comments, still needs dedicated work before this becomes a complete production backoffice.
+Signed operator support tickets are accepted through `/api/b2b/v1/portal/support/tickets`, `/api/b2b/v1/portal/support/tickets/{ticket_uid}/comments`, and `/api/b2b/v1/portal/support/tickets/{ticket_uid}/close`. They are tenant-scoped, redacted before persistence, visible and manageable in `/backend/b2b/cases`, and audited with `support_ticket.created`, `support_ticket.operator_commented`, `support_ticket.closed`, plus the staff-side `support_ticket.staff_*` events.
+
+Production operator portal UX still needs staging validation and broader workflow polish before this becomes a complete production backoffice.

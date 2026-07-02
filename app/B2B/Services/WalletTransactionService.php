@@ -27,8 +27,9 @@ class WalletTransactionService
         $this->redactor = $redactor;
     }
 
-    public function process($operator, $type, array $payload)
+    public function process($operator, $type, array $payload, array $context = [])
     {
+        $context = $this->normalizeContext($context);
         $operatorId = B2BContext::operatorId($operator);
         if (!$operatorId) {
             return [
@@ -104,9 +105,9 @@ class WalletTransactionService
         $this->stateMachine->record($transaction, null, WalletTransactionStateMachine::STATUS_PENDING, 'wallet_transaction_created', [
             'type' => $type,
             'idempotency_key' => $idempotencyKey,
-        ]);
+        ] + $context);
 
-        $callbackResult = $this->client->call($operator, $type, $payload, $transaction);
+        $callbackResult = $this->client->call($operator, $type, $payload, $transaction, $context);
         $status = $this->statusFromWalletResult($callbackResult);
 
         $updates = [
@@ -122,7 +123,7 @@ class WalletTransactionService
             'wallet_code' => isset($callbackResult['code']) ? $callbackResult['code'] : null,
             'http_status' => isset($callbackResult['http_status']) ? $callbackResult['http_status'] : null,
             'duration_ms' => isset($callbackResult['duration_ms']) ? $callbackResult['duration_ms'] : null,
-        ]);
+        ] + $context);
 
         return [
             'ok' => $callbackResult['ok'],
@@ -222,6 +223,17 @@ class WalletTransactionService
         $attempts = (int) config('b2b.wallet_retry_max_attempts', 3);
 
         return $attempts > 0 ? $attempts : 3;
+    }
+
+    protected function normalizeContext(array $context)
+    {
+        $normalized = [];
+
+        if (!empty($context['request_id'])) {
+            $normalized['request_id'] = (string) $context['request_id'];
+        }
+
+        return $normalized;
     }
 
     protected function filterColumns($table, array $data)

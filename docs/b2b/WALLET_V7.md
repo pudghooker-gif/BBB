@@ -11,6 +11,7 @@ This update adds a more resilient wallet layer for the B2B aggregator.
 - Retry command for failed/time-out callbacks
 - Rollback recovery command for `rollback_required` wallet states
 - Append-only wallet state transition log: `b2b_wallet_transaction_transitions`
+- Inbound wallet API `request_id` propagation to outbound callbacks through `X-Request-Id`; callbacks also include `X-B2B-Transaction-Uid`, and attempt logs keep the redacted payload plus `_context` correlation fields.
 - Configurable retry budget before `dead_letter`: `B2B_WALLET_RETRY_MAX_ATTEMPTS`
 - Configurable rollback recovery budget before manual review: `B2B_WALLET_ROLLBACK_MAX_ATTEMPTS`
 - Wallet status lookup endpoint with attempts, transitions, and reconciliation items
@@ -94,6 +95,7 @@ Wallet mutation endpoints derive an idempotency key from operator, action, `tran
 - Repeating the exact same payload returns the stored transaction result with `duplicate: true`.
 - Reusing the same idempotency key with a changed payload returns HTTP `409` and code `IDEMPOTENCY_CONFLICT`.
 - Conflicts do not create a second ledger row and do not call the operator wallet again.
+- The operator-provided `transaction_id` is stored on the wallet transaction row and indexed with `operator_id` for tenant-scoped status lookup, reconciliation, support, and manual-review workflows.
 
 ## Payload redaction
 
@@ -170,4 +172,4 @@ Supported actions:
 
 Every manual action requires `--actor`, `--reason`, exact `--permission=b2b.wallet.manual_action`, and exact `--confirm=MANUAL_WALLET_ACTION`, writes `b2b_wallet_manual_actions`, appends a wallet transition, and opens or resolves reconciliation items where appropriate. Denied attempts write `privileged_action.denied` when the operator audit table exists.
 
-This is not yet the final production backoffice. Full production readiness still needs stronger confirmation/re-authentication UX, richer operator-visible support ticket lifecycle beyond signed case comments, and staging validation of the web settlement, payload-review, case-management, and portal screens.
+This is not yet the final production backoffice. Full production readiness still needs stronger confirmation/re-authentication UX, staff workflow polish around the new operator-visible support ticket lifecycle, and staging validation of the web settlement, payload-review, case-management, support-ticket, and portal screens.

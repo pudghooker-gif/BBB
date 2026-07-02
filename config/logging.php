@@ -48,6 +48,14 @@ return [
             'days' => 7,
         ],
 
+        'b2b' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/b2b.log'),
+            'level' => env('B2B_LOG_LEVEL', env('LOG_LEVEL', 'info')),
+            'days' => env('B2B_LOG_DAYS', 14),
+            'tap' => [\VanguardLTE\Logging\B2BJsonFormatter::class],
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

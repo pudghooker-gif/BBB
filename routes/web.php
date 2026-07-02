@@ -841,6 +841,39 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
             'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage', 'b2b.web_step_up:case.reopen'],
         ]);
 
+        Route::get('/b2b/cases/support-ticket/comment', [
+            'uses' => 'B2BCaseBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage'],
+        ]);
+
+        Route::post('/b2b/cases/support-ticket/comment', [
+            'as' => 'backend.b2b.cases.support_ticket.comment',
+            'uses' => 'B2BCaseBackofficeController@commentSupportTicket',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage', 'b2b.web_step_up:support_ticket.comment'],
+        ]);
+
+        Route::get('/b2b/cases/support-ticket/close', [
+            'uses' => 'B2BCaseBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage'],
+        ]);
+
+        Route::post('/b2b/cases/support-ticket/close', [
+            'as' => 'backend.b2b.cases.support_ticket.close',
+            'uses' => 'B2BCaseBackofficeController@closeSupportTicket',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage', 'b2b.web_step_up:support_ticket.close'],
+        ]);
+
+        Route::get('/b2b/cases/support-ticket/reopen', [
+            'uses' => 'B2BCaseBackofficeController@redirectToIndex',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage'],
+        ]);
+
+        Route::post('/b2b/cases/support-ticket/reopen', [
+            'as' => 'backend.b2b.cases.support_ticket.reopen',
+            'uses' => 'B2BCaseBackofficeController@reopenSupportTicket',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.manage', 'b2b.web_step_up:support_ticket.reopen'],
+        ]);
+
         Route::get('/b2b/audit', [
             'as' => 'backend.b2b.audit.index',
             'uses' => 'B2BAuditBackofficeController@index',

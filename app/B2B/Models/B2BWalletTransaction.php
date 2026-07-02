@@ -34,6 +34,7 @@ class B2BWalletTransaction extends Model
         'provider',
         'round_id',
         'transaction_uid',
+        'transaction_id',
         'idempotency_key',
         'type',
         'amount',

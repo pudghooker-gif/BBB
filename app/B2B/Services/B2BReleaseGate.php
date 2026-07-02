@@ -16,11 +16,15 @@ class B2BReleaseGate
         $checks = [
             $this->cacheStoreCheck('nonce_cache', config('b2b.nonce_cache_store') ?: config('cache.default'), $production),
             $this->cacheStoreCheck('rate_limit_cache', config('b2b.rate_limit_cache_store') ?: config('cache.default'), $production),
+            $this->cacheStoreCheck('scheduler_heartbeat_cache', config('b2b.scheduler_heartbeat_cache_store') ?: config('cache.default'), $production),
             $this->queueCheck($production),
+            $this->schedulerConfigCheck($production),
             $this->booleanCheck('app_debug', !(bool) config('app.debug'), $production, 'APP_DEBUG must be false for production.'),
             $this->booleanCheck('private_wallet_callbacks', !(bool) config('b2b.allow_private_wallet_callbacks'), $production, 'Private wallet callback targets must stay disabled in production.'),
             $this->booleanCheck('sandbox_disabled', !(bool) config('b2b.sandbox_enabled'), $production, 'B2B sandbox must be disabled in production.'),
+            $this->structuredLoggingCheck($production),
             $this->providerWalletContractsCheck($production),
+            $this->databaseSchemaCheck($production),
             $this->deploymentArtifactsCheck($production),
             $this->websocketRuntimeCheck($production),
             $this->adminRbacCheck($production),
@@ -79,12 +83,68 @@ class B2BReleaseGate
         ];
     }
 
+    private function schedulerConfigCheck($production)
+    {
+        $scheduled = (array) config('b2b_queues.scheduled_commands', []);
+        $heartbeat = isset($scheduled['scheduler_heartbeat']) && is_array($scheduled['scheduler_heartbeat'])
+            ? $scheduled['scheduler_heartbeat']
+            : [];
+        $missing = [];
+
+        if (empty($heartbeat['command']) || strpos((string) $heartbeat['command'], 'b2b:scheduler-heartbeat') !== 0) {
+            $missing[] = 'command:b2b:scheduler-heartbeat';
+        }
+
+        if (empty($heartbeat['frequency']) || $heartbeat['frequency'] !== 'everyMinute') {
+            $missing[] = 'frequency:everyMinute';
+        }
+
+        if (empty($heartbeat['queue']) || $heartbeat['queue'] !== 'maintenance') {
+            $missing[] = 'queue:maintenance';
+        }
+
+        $kernel = $this->fileContents(base_path('app/Console/Kernel.php'));
+        foreach (['scheduleB2BCommands($schedule)', "config('b2b_queues.scheduled_commands'", 'withoutOverlapping()'] as $needle) {
+            if (strpos($kernel, $needle) === false) {
+                $missing[] = 'kernel:' . $needle;
+            }
+        }
+
+        return [
+            'name' => 'scheduler_config',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'B2B scheduler heartbeat command is registered with shared scheduler locking.'
+                : 'Missing B2B scheduler heartbeat coverage: ' . implode(', ', $missing),
+        ];
+    }
+
     private function booleanCheck($name, $condition, $production, $message)
     {
         return [
             'name' => $name,
             'status' => (!$production || $condition) ? 'pass' : 'fail',
             'message' => (!$production || $condition) ? 'Configuration is acceptable.' : $message,
+        ];
+    }
+
+    private function structuredLoggingCheck($production)
+    {
+        $enabled = (bool) config('b2b.structured_logging_enabled', true);
+        $channel = config('b2b.structured_log_channel') ?: config('logging.default');
+        $channelConfig = config('logging.channels.' . $channel);
+        $taps = is_array($channelConfig) && isset($channelConfig['tap']) && is_array($channelConfig['tap'])
+            ? $channelConfig['tap']
+            : [];
+        $hasJsonFormatter = in_array(\VanguardLTE\Logging\B2BJsonFormatter::class, $taps, true);
+        $ok = !$production || ($enabled && is_array($channelConfig) && $hasJsonFormatter);
+
+        return [
+            'name' => 'structured_logging',
+            'status' => $ok ? 'pass' : 'fail',
+            'message' => $ok
+                ? 'B2B structured JSON logging is enabled on channel: ' . ($channel ?: 'default') . '.'
+                : 'Production B2B structured logging must be enabled and point to a JSON-formatted channel.',
         ];
     }
 
@@ -232,6 +292,11 @@ class B2BReleaseGate
             'deploy/scripts/restore.sh',
             'deploy/scripts/rollback.sh',
             'deploy/scripts/healthcheck.sh',
+            'deploy/scripts/migration-rehearsal.sh',
+            'deploy/scripts/b2b-smoke.sh',
+            'deploy/k6/b2b-smoke-load.js',
+            'deploy/prometheus/b2b-alerts.yml',
+            'deploy/prometheus/alertmanager-routes.example.yml',
             'docs/deployment/PRODUCTION_RUNBOOK.md',
         ];
 
@@ -246,8 +311,47 @@ class B2BReleaseGate
             'name' => 'deployment_artifacts',
             'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
             'message' => count($missing) === 0
-                ? 'Production deployment templates and runbook are present.'
+                ? 'Production deployment, monitoring, smoke/load, and runbook artifacts are present.'
                 : 'Missing production deployment artifacts: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function databaseSchemaCheck($production)
+    {
+        $missing = [];
+        $migration = $this->fileContents(base_path('database/migrations/2026_06_24_000007_add_production_indexes_to_b2b_tables.php'));
+        if ($migration === '') {
+            $missing[] = 'migration:production_indexes';
+        }
+
+        foreach ([
+            'transaction_id',
+            'b2b_wt_operator_tx_uid_idx',
+            'b2b_wt_operator_tx_id_idx',
+            'b2b_wt_operator_status_created_idx',
+            'b2b_gs_operator_session_uid_idx',
+            'b2b_gs_operator_status_created_idx',
+            'b2b_wcl_operator_http_created_idx',
+            'b2b_set_operator_period_idx',
+            'b2b_oae_operator_event_created_idx',
+            'b2b_pr_provider_action_status_created_idx',
+        ] as $needle) {
+            if (strpos($migration, $needle) === false) {
+                $missing[] = 'migration_index:' . $needle;
+            }
+        }
+
+        $model = $this->fileContents(base_path('app/B2B/Models/B2BWalletTransaction.php'));
+        if (strpos($model, "'transaction_id'") === false) {
+            $missing[] = 'model_fillable:transaction_id';
+        }
+
+        return [
+            'name' => 'database_schema',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'B2B wallet transaction IDs and production lookup/reporting indexes are covered by migrations.'
+                : 'Missing B2B production database schema coverage: ' . implode(', ', $missing),
         ];
     }
 
@@ -287,22 +391,78 @@ class B2BReleaseGate
             }
         }
 
+        $socketConfig = $this->jsonFile(base_path('deploy/websocket/socket_config2.production.example.json'));
+        if (!$socketConfig) {
+            $missing[] = 'json:deploy/websocket/socket_config2.production.example.json';
+        } else {
+            foreach ([
+                'listen_port' => 12097,
+                'listen_host' => '127.0.0.1',
+                'ssl' => false,
+                'health_path' => '/healthz',
+                'ready_path' => '/readyz',
+                'require_session_cookie' => true,
+                'log_json' => true,
+            ] as $key => $expected) {
+                if (!array_key_exists($key, $socketConfig) || $socketConfig[$key] !== $expected) {
+                    $missing[] = 'socket_config:' . $key;
+                }
+            }
+
+            if (empty($socketConfig['allowed_origins']) || !is_array($socketConfig['allowed_origins'])) {
+                $missing[] = 'socket_config:allowed_origins';
+            }
+
+            if (empty($socketConfig['auth_tokens_env'])) {
+                $missing[] = 'socket_config:auth_tokens_env';
+            }
+
+            if (!empty($socketConfig['auth_tokens'])) {
+                $missing[] = 'socket_config:no_inline_auth_tokens';
+            }
+
+            foreach (['max_connections', 'heartbeat_interval_ms', 'idle_timeout_ms'] as $key) {
+                if (empty($socketConfig[$key]) || (int) $socketConfig[$key] <= 0) {
+                    $missing[] = 'socket_config:' . $key;
+                }
+            }
+        }
+
         $server = $this->fileContents(base_path('PTWebSocket/Server.js'));
-        foreach (['serverConfig.listen_port', 'serverConfig.listen_host', '../public/socket_config2.json', 'new WebSocket.Server'] as $needle) {
+        foreach ([
+            'serverConfig.listen_port',
+            'serverConfig.listen_host',
+            '../public/socket_config2.json',
+            'new WebSocket.Server',
+            'verifyClient: verifyClient',
+            'function allowedOrigin',
+            'function tokenAllowed',
+            'function healthResponse',
+            'function validHandshakeMessage',
+            'structuredLog',
+            'ws.ping()',
+            'websocket.handshake_invalid',
+        ] as $needle) {
             if (strpos($server, $needle) === false) {
                 $missing[] = 'server_js:' . $needle;
             }
         }
 
+        foreach (['console.log(ck)', 'console.log(body)'] as $needle) {
+            if (strpos($server, $needle) !== false) {
+                $missing[] = 'server_js_raw_log:' . $needle;
+            }
+        }
+
         $nginx = $this->fileContents(base_path('deploy/nginx/bbb-b2b.conf.example'));
-        foreach (['bbb_b2b_websocket', 'listen 12096 ssl', 'proxy_set_header Upgrade', 'proxy_buffering off'] as $needle) {
+        foreach (['bbb_b2b_websocket', 'listen 12096 ssl', 'proxy_set_header Upgrade', 'proxy_set_header Origin', 'proxy_buffering off'] as $needle) {
             if (strpos($nginx, $needle) === false) {
                 $missing[] = 'nginx_websocket:' . $needle;
             }
         }
 
         $healthcheck = $this->fileContents(base_path('deploy/scripts/healthcheck.sh'));
-        foreach (['WEBSOCKET_TCP_HOST', 'WEBSOCKET_TCP_PORT', '/dev/tcp'] as $needle) {
+        foreach (['WEBSOCKET_TCP_HOST', 'WEBSOCKET_TCP_PORT', 'WEBSOCKET_HEALTH_URL', '/dev/tcp'] as $needle) {
             if (strpos($healthcheck, $needle) === false) {
                 $missing[] = 'healthcheck_websocket:' . $needle;
             }
@@ -312,7 +472,7 @@ class B2BReleaseGate
             'name' => 'websocket_runtime',
             'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
             'message' => count($missing) === 0
-                ? 'Node/WebSocket manifest, lockfile, proxy template, and health probe are present.'
+                ? 'Node/WebSocket manifest, lockfile, proxy template, health probe, origin guard, heartbeat, and safe logging are present.'
                 : 'Missing Node/WebSocket runtime release coverage: ' . implode(', ', $missing),
         ];
     }
@@ -346,6 +506,9 @@ class B2BReleaseGate
             'case.claim' => 'b2b.cases.manage',
             'case.resolve' => 'b2b.cases.manage',
             'case.reopen' => 'b2b.cases.manage',
+            'support_ticket.comment' => 'b2b.cases.manage',
+            'support_ticket.close' => 'b2b.cases.manage',
+            'support_ticket.reopen' => 'b2b.cases.manage',
             'settlement.submit' => 'b2b.settlements.submit',
             'settlement.approve' => 'b2b.settlements.approve',
             'settlement.reject' => 'b2b.settlements.approve',
@@ -554,7 +717,15 @@ class B2BReleaseGate
             $missing[] = 'view:backend.b2b.payloads';
         }
 
-        foreach (['backend.b2b.cases.index', 'backend.b2b.cases.claim', 'backend.b2b.cases.resolve', 'backend.b2b.cases.reopen'] as $routeName) {
+        foreach ([
+            'backend.b2b.cases.index',
+            'backend.b2b.cases.claim',
+            'backend.b2b.cases.resolve',
+            'backend.b2b.cases.reopen',
+            'backend.b2b.cases.support_ticket.comment',
+            'backend.b2b.cases.support_ticket.close',
+            'backend.b2b.cases.support_ticket.reopen',
+        ] as $routeName) {
             if (!Route::has($routeName)) {
                 $missing[] = 'route:' . $routeName;
             }
@@ -568,6 +739,9 @@ class B2BReleaseGate
             'backend.b2b.cases.claim' => 'case.claim',
             'backend.b2b.cases.resolve' => 'case.resolve',
             'backend.b2b.cases.reopen' => 'case.reopen',
+            'backend.b2b.cases.support_ticket.comment' => 'support_ticket.comment',
+            'backend.b2b.cases.support_ticket.close' => 'support_ticket.close',
+            'backend.b2b.cases.support_ticket.reopen' => 'support_ticket.reopen',
         ] as $routeName => $stepUpAction) {
             if (!$this->routeUsesMiddleware($routeName, 'b2b.admin:b2b.cases.manage')) {
                 $missing[] = 'route_middleware:' . $routeName . ':b2b.admin';
@@ -639,6 +813,16 @@ class B2BReleaseGate
 
         if (!$this->routeExists('POST', 'api/b2b/v1/portal/support/cases/{transaction_uid}/comments')) {
             $missing[] = 'route:api/b2b/v1/portal/support/cases/{transaction_uid}/comments';
+        }
+
+        foreach ([
+            'api/b2b/v1/portal/support/tickets',
+            'api/b2b/v1/portal/support/tickets/{ticket_uid}/comments',
+            'api/b2b/v1/portal/support/tickets/{ticket_uid}/close',
+        ] as $uri) {
+            if (!$this->routeExists('POST', $uri)) {
+                $missing[] = 'route:' . $uri;
+            }
         }
 
         return [

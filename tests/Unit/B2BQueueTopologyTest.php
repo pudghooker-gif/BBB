@@ -47,6 +47,9 @@ class B2BQueueTopologyTest extends TestCase
     {
         $commands = config('b2b_queues.scheduled_commands');
 
+        $this->assertSame('b2b:scheduler-heartbeat --source=scheduler', $commands['scheduler_heartbeat']['command']);
+        $this->assertSame('everyMinute', $commands['scheduler_heartbeat']['frequency']);
+        $this->assertSame('maintenance', $commands['scheduler_heartbeat']['queue']);
         $this->assertSame('b2b:retry-wallet --limit=50 --dispatch', $commands['wallet_retry']['command']);
         $this->assertSame('wallet_retry', $commands['wallet_retry']['queue']);
         $this->assertSame('b2b:recover-rollbacks --limit=50 --dispatch', $commands['wallet_rollback_recovery']['command']);

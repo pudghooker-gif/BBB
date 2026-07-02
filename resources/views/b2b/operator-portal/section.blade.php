@@ -389,10 +389,42 @@
                     <div class="label">Health Events</div>
                 </div>
             @endforelse
+            @forelse(isset($support['tickets_by_status']) ? $support['tickets_by_status'] : [] as $status => $row)
+                <div class="panel metric">
+                    <div class="value">{{ number_format((int) $row['count']) }}</div>
+                    <div class="label">{{ $status }} tickets</div>
+                </div>
+            @empty
+                <div class="panel metric">
+                    <div class="value">0</div>
+                    <div class="label">Support Tickets</div>
+                </div>
+            @endforelse
             <div class="panel metric">
                 <div class="value">{{ number_format((int) $summary['open_reconciliation_items']) }}</div>
                 <div class="label">Open Cases</div>
             </div>
+        </section>
+
+        <section class="panel section">
+            <h2>Support Tickets</h2>
+            <table>
+                <thead><tr><th>Ticket</th><th>Status</th><th>Priority</th><th>Subject</th><th>Reference</th><th>Updated</th></tr></thead>
+                <tbody>
+                @forelse(isset($support['recent_tickets']) ? $support['recent_tickets'] : [] as $ticket)
+                    <tr>
+                        <td>{{ $ticket['ticket_uid'] ?: 'n/a' }}</td>
+                        <td><span class="status {{ in_array($ticket['status'], ['open', 'in_progress'], true) ? 'warn' : '' }}">{{ $ticket['status'] ?: 'unknown' }}</span></td>
+                        <td><span class="status {{ in_array($ticket['priority'], ['high', 'urgent'], true) ? 'bad' : '' }}">{{ $ticket['priority'] ?: 'normal' }}</span></td>
+                        <td>{{ $ticket['subject'] ?: 'n/a' }}</td>
+                        <td>{{ $ticket['external_reference'] ?: ($ticket['category'] ?: 'n/a') }}</td>
+                        <td>{{ $ticket['last_message_at'] ?: ($ticket['created_at'] ?: 'n/a') }}</td>
+                    </tr>
+                @empty
+                    <tr><td colspan="6" class="muted">No support tickets</td></tr>
+                @endforelse
+                </tbody>
+            </table>
         </section>
 
         <section class="panel section">

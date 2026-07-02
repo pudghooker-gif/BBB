@@ -45,6 +45,9 @@ class B2BMetricsExporter
         $this->collect($errors, function () use (&$lines, &$errors) {
             $this->queueDepth($lines, $errors);
         });
+        $this->collect($errors, function () use (&$lines, &$errors) {
+            $this->schedulerHeartbeat($lines, $errors);
+        });
 
         $this->metric($lines, 'bbb_b2b_metrics_collection_errors', 'gauge', 'Number of metric collectors that failed or were unavailable during this scrape.', $errors);
 
@@ -209,6 +212,37 @@ class B2BMetricsExporter
         } catch (\Exception $e) {
             $errors++;
         }
+    }
+
+    private function schedulerHeartbeat(array &$lines, &$errors)
+    {
+        $status = app(B2BSchedulerHeartbeat::class)->status();
+        $labels = ['cache_store' => $this->labelValue($status['cache_store'])];
+
+        $this->metric(
+            $lines,
+            'bbb_b2b_scheduler_heartbeat_age_seconds',
+            'gauge',
+            'Age in seconds of the latest B2B scheduler heartbeat, or -1 when missing.',
+            $status['age_seconds'] === null ? -1 : $status['age_seconds'],
+            $labels
+        );
+        $this->metric(
+            $lines,
+            'bbb_b2b_scheduler_heartbeat_fresh',
+            'gauge',
+            'Whether the latest B2B scheduler heartbeat is within the configured freshness window.',
+            $status['fresh'] ? 1 : 0,
+            $labels
+        );
+        $this->metric(
+            $lines,
+            'bbb_b2b_scheduler_heartbeat_max_age_seconds',
+            'gauge',
+            'Configured freshness window for the B2B scheduler heartbeat.',
+            $status['max_age_seconds'],
+            $labels
+        );
     }
 
     private function groupedCount(array &$lines, $name, $type, $help, $table, array $columns)

@@ -26,11 +26,15 @@ class B2BReleaseGateTest extends TestCase
         $this->assertFalse($result['ok']);
         $this->assertCheckFailed($result, 'nonce_cache');
         $this->assertCheckFailed($result, 'rate_limit_cache');
+        $this->assertCheckFailed($result, 'scheduler_heartbeat_cache');
         $this->assertCheckFailed($result, 'queue_driver');
         $this->assertCheckFailed($result, 'app_debug');
         $this->assertCheckFailed($result, 'private_wallet_callbacks');
         $this->assertCheckFailed($result, 'sandbox_disabled');
+        $this->assertCheckPassed($result, 'structured_logging');
+        $this->assertCheckPassed($result, 'scheduler_config');
         $this->assertCheckPassed($result, 'provider_wallet_contracts');
+        $this->assertCheckPassed($result, 'database_schema');
         $this->assertCheckPassed($result, 'deployment_artifacts');
         $this->assertCheckPassed($result, 'websocket_runtime');
         $this->assertCheckPassed($result, 'admin_rbac_config');
@@ -45,6 +49,7 @@ class B2BReleaseGateTest extends TestCase
             'b2b.allow_private_wallet_callbacks' => false,
             'b2b.nonce_cache_store' => 'redis',
             'b2b.rate_limit_cache_store' => 'redis',
+            'b2b.scheduler_heartbeat_cache_store' => 'redis',
             'b2b.sandbox_enabled' => false,
             'cache.default' => 'redis',
             'queue.default' => 'redis',
@@ -53,7 +58,11 @@ class B2BReleaseGateTest extends TestCase
         $result = app(B2BReleaseGate::class)->run(true, false);
 
         $this->assertTrue($result['ok']);
+        $this->assertCheckPassed($result, 'scheduler_heartbeat_cache');
+        $this->assertCheckPassed($result, 'scheduler_config');
+        $this->assertCheckPassed($result, 'structured_logging');
         $this->assertCheckPassed($result, 'provider_wallet_contracts');
+        $this->assertCheckPassed($result, 'database_schema');
         $this->assertCheckPassed($result, 'deployment_artifacts');
         $this->assertCheckPassed($result, 'websocket_runtime');
         $this->assertCheckPassed($result, 'admin_rbac_config');
@@ -69,6 +78,39 @@ class B2BReleaseGateTest extends TestCase
 
         $this->assertTrue($result['ok']);
         $this->assertCheckPassed($result, 'release_secret_files');
+    }
+
+    public function testProductionGateFailsWhenStructuredLoggingIsDisabled()
+    {
+        $this->configureSafeProductionSettings();
+        config(['b2b.structured_logging_enabled' => false]);
+
+        $result = app(B2BReleaseGate::class)->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'structured_logging');
+    }
+
+    public function testProductionGateFailsWhenStructuredLoggingChannelIsNotJsonFormatted()
+    {
+        $this->configureSafeProductionSettings();
+        config(['b2b.structured_log_channel' => 'single']);
+
+        $result = app(B2BReleaseGate::class)->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'structured_logging');
+    }
+
+    public function testProductionGateFailsWhenSchedulerHeartbeatCommandIsMissing()
+    {
+        $this->configureSafeProductionSettings();
+        config(['b2b_queues.scheduled_commands.scheduler_heartbeat' => null]);
+
+        $result = app(B2BReleaseGate::class)->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'scheduler_config');
     }
 
     public function testProductionGateFailsWhenDependencyAuditFindsAdvisories()
@@ -261,7 +303,10 @@ class B2BReleaseGateTest extends TestCase
             'b2b.allow_private_wallet_callbacks' => false,
             'b2b.nonce_cache_store' => 'redis',
             'b2b.rate_limit_cache_store' => 'redis',
+            'b2b.scheduler_heartbeat_cache_store' => 'redis',
             'b2b.sandbox_enabled' => false,
+            'b2b.structured_logging_enabled' => true,
+            'b2b.structured_log_channel' => 'b2b',
             'cache.default' => 'redis',
             'queue.default' => 'redis',
         ]);

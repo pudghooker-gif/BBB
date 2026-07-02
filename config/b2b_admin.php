@@ -13,7 +13,7 @@ return [
         'b2b.wallet.retry' => 'Retry B2B wallet callbacks.',
         'b2b.wallet.reconcile' => 'Run B2B wallet reconciliation scans.',
         'b2b.cases.view' => 'View B2B reconciliation cases.',
-        'b2b.cases.manage' => 'Claim, resolve, and reopen B2B reconciliation cases.',
+        'b2b.cases.manage' => 'Manage B2B reconciliation cases and operator support tickets.',
         'b2b.payloads.view_redacted' => 'View redacted wallet payloads.',
         'b2b.payloads.view_raw' => 'View raw sensitive payloads after step-up approval.',
         'b2b.reports.view' => 'View B2B reports.',
@@ -147,6 +147,21 @@ return [
         'case.reopen' => [
             'permission' => 'b2b.cases.manage',
             'confirm' => 'REOPEN_CASE',
+            'step_up' => true,
+        ],
+        'support_ticket.comment' => [
+            'permission' => 'b2b.cases.manage',
+            'confirm' => 'COMMENT_SUPPORT_TICKET',
+            'step_up' => true,
+        ],
+        'support_ticket.close' => [
+            'permission' => 'b2b.cases.manage',
+            'confirm' => 'CLOSE_SUPPORT_TICKET',
+            'step_up' => true,
+        ],
+        'support_ticket.reopen' => [
+            'permission' => 'b2b.cases.manage',
+            'confirm' => 'REOPEN_SUPPORT_TICKET',
             'step_up' => true,
         ],
         'settlement.submit' => [
