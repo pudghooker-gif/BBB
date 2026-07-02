@@ -218,6 +218,18 @@
           "response": []
         },
         {
+          "name": "Portal Support Case Comment",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/portal/support/cases/{{transactionId}}/comments",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Operator follow-up for this support case.\",\n  \"external_reference\": \"OP-CASE-123\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Portal Docs",
           "request": {
             "method": "GET",

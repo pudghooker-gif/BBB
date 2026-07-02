@@ -146,6 +146,38 @@
     "/portal/callbacks": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/reports": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/support": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/support/cases/{transaction_uid}/comments": {
+      "post": {
+        "tags": ["portal"],
+        "summary": "Add an operator-visible support comment to an open case",
+        "description": "Appends a signed operator comment to the operator's own open or in-progress reconciliation case. The comment is redacted before persistence, writes a B2B audit event, and never changes wallet state or settlement data.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "transaction_uid", "in": "path", "required": true, "schema": { "type": "string" }, "example": "tx_123" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["message"],
+                "properties": {
+                  "message": { "type": "string", "maxLength": 1000 },
+                  "external_reference": { "type": "string", "maxLength": 120 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/portal/docs": { "$ref": "#/components/pathItems/PortalPage" },
     "/games": {
       "get": {
