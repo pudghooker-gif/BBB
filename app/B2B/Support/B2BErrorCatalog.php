@@ -11,6 +11,7 @@ class B2BErrorCatalog
         'B2B_BODY_HASH_MISMATCH' => [401, 'Invalid request body hash.'],
         'B2B_REPLAY_DETECTED' => [409, 'Replay detected.'],
         'B2B_WALLET_TABLE_MISSING' => [500, 'B2B wallet transaction table is missing.'],
+        'CASE_NOT_FOUND' => [404, 'Support case was not found.'],
         'CURRENCY_NOT_ALLOWED' => [422, 'Currency is not allowed for this operator.'],
         'GAME_NOT_AVAILABLE' => [404, 'Game is not available for this operator.'],
         'IDEMPOTENCY_CONFLICT' => [409, 'Transaction idempotency key was already used with a different payload.'],
