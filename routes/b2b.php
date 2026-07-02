@@ -33,6 +33,7 @@ Route::prefix('b2b/v1')->group(function () {
             Route::get('portal/' . $portalSection, [PortalController::class, 'section'])
                 ->defaults('section', $portalSection);
         }
+        Route::post('portal/support/cases/{transaction_uid}/comments', [PortalController::class, 'commentCase']);
 
         Route::get('games', [GameCatalogController::class, 'index']);
         Route::post('games/launch', [GameLaunchController::class, 'store']);

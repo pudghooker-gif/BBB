@@ -637,6 +637,10 @@ class B2BReleaseGate
             }
         }
 
+        if (!$this->routeExists('POST', 'api/b2b/v1/portal/support/cases/{transaction_uid}/comments')) {
+            $missing[] = 'route:api/b2b/v1/portal/support/cases/{transaction_uid}/comments';
+        }
+
         return [
             'name' => 'web_surfaces',
             'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
