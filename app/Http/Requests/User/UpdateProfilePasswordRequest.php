@@ -7,8 +7,11 @@ namespace VanguardLTE\Http\Requests\User
         {
             return [
                 'old_password' => 'required', 
-                'password' => 'required|min:8|confirmed|different:old_password', 
-                'password_confirmation' => 'required|min:8'
+                'password' => array_merge(
+                    \VanguardLTE\Support\Security\PasswordPolicy::requiredConfirmedRules(),
+                    ['different:old_password']
+                ),
+                'password_confirmation' => 'required'
             ];
         }
     }

@@ -5,7 +5,7 @@ namespace VanguardLTE\Http\Requests\User
     {
         protected function getUserForUpdate()
         {
-            return Auth::user();
+            return \Auth::user();
         }
     }
 

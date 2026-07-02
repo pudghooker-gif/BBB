@@ -32,6 +32,7 @@ class B2BReadinessEndpointTest extends TestCase
         $this->assertNotEmpty($response->headers->get('X-Request-Id'));
         $this->assertReadinessCheck($response->json('data.checks'), 'b2b_tables', 'pass');
         $this->assertReadinessCheck($response->json('data.checks'), 'b2b_columns', 'pass');
+        $this->assertReadinessCheck($response->json('data.checks'), 'failed_job_storage', 'pass');
         $this->assertReadinessCheck($response->json('data.checks'), 'scheduler_heartbeat', 'pass');
     }
 
@@ -72,6 +73,7 @@ class B2BReadinessEndpointTest extends TestCase
         $checks = $response->json('error.details.checks');
         $this->assertReadinessCheck($checks, 'cache_runtime', 'fail');
         $this->assertReadinessCheck($checks, 'queue_config', 'fail');
+        $this->assertReadinessCheck($checks, 'failed_job_storage', 'fail');
         $this->assertReadinessCheck($checks, 'scheduler_heartbeat', 'fail');
         $this->assertReadinessCheck($checks, 'release_gate_config', 'fail');
     }

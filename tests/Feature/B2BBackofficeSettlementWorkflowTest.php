@@ -22,7 +22,7 @@ class B2BBackofficeSettlementWorkflowTest extends TestCase
         parent::setUp();
 
         $this->withoutMiddleware(\VanguardLTE\Http\Middleware\Checker::class);
-        $this->withoutMiddleware(\PragmaRX\Google2FALaravel\Middleware::class);
+        $this->withoutMiddleware(\VanguardLTE\Http\Middleware\Google2FAMiddleware::class);
         Cache::flush();
         $this->resetB2BTables();
         $this->createLegacyBackendTables();

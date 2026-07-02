@@ -19,11 +19,9 @@
         "laravelcollective/html": "^6.0",
         "league/fractal": "^0.16.0",
         "mobiledetect/mobiledetectlib": "^2.8",
-        "pragmarx/google2fa-laravel": "^1.4",
+        "pragmarx/google2fa-qrcode": "^1.0",
         "predis/predis": "^1.1",
-        "proengsoft/laravel-jsvalidation": "^4.0",
-        "spatie/db-dumper": "^2.21",
-        "tymon/jwt-auth": "1.*"
+        "spatie/db-dumper": "^2.21"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -37,6 +35,7 @@
             "database/seeds"
         ],
         "psr-4": {
+            "Tymon\\JWTAuth\\": "app/Support/Jwt/Tymon/",
             "VanguardLTE\\": "app/"
         },
         "exclude-from-classmap": [

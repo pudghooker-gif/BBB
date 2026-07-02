@@ -5,7 +5,7 @@ namespace VanguardLTE\Http\Requests\User
     {
         public function rules()
         {
-            return ['password' => 'nullable|confirmed|min:6'];
+            return ['password' => \VanguardLTE\Support\Security\PasswordPolicy::nullableConfirmedRules()];
         }
     }
 

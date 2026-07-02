@@ -49,7 +49,7 @@ namespace VanguardLTE\Http
             'b2b.admin' => 'VanguardLTE\Http\Middleware\AuthorizeB2BAdminPermission',
             'b2b.signature' => 'VanguardLTE\Http\Middleware\VerifyB2BSignature',
             'b2b.web_step_up' => 'VanguardLTE\Http\Middleware\RequireB2BWebStepUp',
-            '2fa' => 'PragmaRX\Google2FALaravel\Middleware'
+            '2fa' => 'VanguardLTE\Http\Middleware\Google2FAMiddleware'
         ];
     }
 

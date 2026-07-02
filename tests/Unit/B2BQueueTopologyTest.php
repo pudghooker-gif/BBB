@@ -37,10 +37,25 @@ class B2BQueueTopologyTest extends TestCase
         $template = file_get_contents(base_path('deploy/supervisor/b2b-workers.conf.example'));
 
         $this->assertStringContainsString('queue:work redis', $template);
+        $this->assertStringContainsString('--tries=', $template);
+        $this->assertStringContainsString('--timeout=', $template);
 
         foreach (config('b2b_queues.queues') as $queue) {
             $this->assertStringContainsString('--queue=' . $queue, $template);
         }
+    }
+
+    public function testFailedJobStorageUsesDatabaseProviderAndMigration()
+    {
+        $this->assertSame('database-uuids', config('queue.failed.driver'));
+        $this->assertSame('failed_jobs', config('queue.failed.table'));
+
+        $migration = file_get_contents(base_path('database/migrations/2026_06_24_000008_create_queue_runtime_tables.php'));
+
+        $this->assertStringContainsString("Schema::create('jobs'", $migration);
+        $this->assertStringContainsString("Schema::create('failed_jobs'", $migration);
+        $this->assertStringContainsString("'uuid'", $migration);
+        $this->assertStringContainsString("'failed_at'", $migration);
     }
 
     public function testB2BScheduledCommandTopologyDocumentsOperationalCommands()

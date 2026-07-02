@@ -185,10 +185,10 @@ namespace VanguardLTE\Http\Controllers\Api\Users
                     $role = \jeremykenedy\LaravelRoles\Models\Role::find(1);
                     for( $i = 0; $i < $request->count; $i++ ) 
                     {
-                        $number = rand(111111111, 999999999);
+                        $credential = \VanguardLTE\Support\Security\PasswordPolicy::generateTemporaryCredential();
                         $data = [
-                            'username' => $number, 
-                            'password' => $number, 
+                            'username' => $credential,
+                            'password' => $credential,
                             'role_id' => $role->id, 
                             'status' => \VanguardLTE\Support\Enum\UserStatus::ACTIVE, 
                             'parent_id' => auth()->user()->id, 
@@ -238,6 +238,7 @@ namespace VanguardLTE\Http\Controllers\Api\Users
                 'email' => 'nullable|unique:users,email,' . $user->id
             ]);
             $data = $request->all();
+            $passwordChanged = !empty($data['password']);
             if( empty($data['password']) ) 
             {
                 unset($data['password']);
@@ -259,6 +260,9 @@ namespace VanguardLTE\Http\Controllers\Api\Users
             }
             $user = $this->users->update($user->id, $data);
             event(new \VanguardLTE\Events\User\UpdatedByAdmin($user));
+            if ($passwordChanged) {
+                event(new \VanguardLTE\Events\User\UserCredentialsChanged($user, 'api_admin_password_change'));
+            }
             if( $this->userIsBanned($user, $request) ) 
             {
                 event(new \VanguardLTE\Events\User\Banned($user));

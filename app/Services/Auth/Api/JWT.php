@@ -2,7 +2,6 @@
 
 namespace VanguardLTE\Services\Auth\Api;
 
-class JWT extends \Tymon\JWTAuth\JWT
+class JWT extends JWTAuth
 {
-    use ExtendsJwtValidation;
 }

@@ -22,11 +22,12 @@ namespace VanguardLTE\Http\Controllers\Api\Profile
                 'language', 
                 'password'
             ])->toArray();
+            $passwordChanged = !empty($data['password']);
             if( isset($data['language']) ) 
             {
                 $data['language'] = mb_strtolower($data['language']);
             }
-            if( !$data['password'] ) 
+            if( !$passwordChanged )
             {
                 unset($data['password']);
                 unset($data['password_confirmation']);
@@ -48,6 +49,9 @@ namespace VanguardLTE\Http\Controllers\Api\Profile
             $request->validate(['username' => 'required|unique:users,username,' . $user->id]);
             $user = $users->update($user->id, $data);
             event(new \VanguardLTE\Events\User\UpdatedProfileDetails());
+            if ($passwordChanged) {
+                event(new \VanguardLTE\Events\User\UserCredentialsChanged($user, 'api_profile_password_change'));
+            }
             return $this->respondWithItem($user, new \VanguardLTE\Transformers\UserTransformer());
         }
         public function refunds(\VanguardLTE\Http\Requests\User\UpdateProfileDetailsRequest $request, \VanguardLTE\Repositories\User\UserRepository $users)
@@ -207,7 +211,7 @@ namespace VanguardLTE\Http\Controllers\Api\Profile
                 return $this->errorWrongArgs(__('validation.unique', ['attribute' => 'phone']));
             }
             $username = rand(111111111, 999999999);
-            $password = rand(111111111, 999999999);
+            $password = \VanguardLTE\Support\Security\PasswordPolicy::generateTemporaryPassword();
             foreach( [
                 'url' => $request->base_url, 
                 'login' => $username, 

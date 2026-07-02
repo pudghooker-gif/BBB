@@ -19,6 +19,8 @@ class B2BReleaseGateTest extends TestCase
             'b2b.sandbox_enabled' => true,
             'cache.default' => 'file',
             'queue.default' => 'sync',
+            'session.driver' => 'database',
+            'session.table' => 'sessions',
         ]);
 
         $result = app(B2BReleaseGate::class)->run(true, false);
@@ -28,7 +30,12 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckFailed($result, 'rate_limit_cache');
         $this->assertCheckFailed($result, 'scheduler_heartbeat_cache');
         $this->assertCheckFailed($result, 'queue_driver');
+        $this->assertCheckPassed($result, 'failed_job_storage');
         $this->assertCheckFailed($result, 'app_debug');
+        $this->assertCheckFailed($result, 'session_cookie_security');
+        $this->assertCheckPassed($result, 'login_throttle_security');
+        $this->assertCheckPassed($result, 'password_policy_security');
+        $this->assertCheckPassed($result, 'credential_session_revocation');
         $this->assertCheckFailed($result, 'private_wallet_callbacks');
         $this->assertCheckFailed($result, 'sandbox_disabled');
         $this->assertCheckPassed($result, 'structured_logging');
@@ -53,13 +60,32 @@ class B2BReleaseGateTest extends TestCase
             'b2b.sandbox_enabled' => false,
             'cache.default' => 'redis',
             'queue.default' => 'redis',
+            'session.secure' => true,
+            'session.http_only' => true,
+            'session.same_site' => 'lax',
+            'session.driver' => 'database',
+            'session.table' => 'sessions',
+            'security.login_throttle.production_enforced' => true,
+            'security.login_throttle.max_attempts' => 10,
+            'security.login_throttle.lockout_minutes' => 1,
+            'security.password_policy.min_length' => 12,
+            'security.password_policy.max_length' => 72,
+            'security.password_policy.require_mixed_case' => true,
+            'security.password_policy.require_numbers' => true,
+            'security.password_policy.disallow_whitespace' => true,
+            'security.password_policy.temporary_length' => 16,
         ]);
 
         $result = app(B2BReleaseGate::class)->run(true, false);
 
         $this->assertTrue($result['ok']);
         $this->assertCheckPassed($result, 'scheduler_heartbeat_cache');
+        $this->assertCheckPassed($result, 'failed_job_storage');
         $this->assertCheckPassed($result, 'scheduler_config');
+        $this->assertCheckPassed($result, 'session_cookie_security');
+        $this->assertCheckPassed($result, 'login_throttle_security');
+        $this->assertCheckPassed($result, 'password_policy_security');
+        $this->assertCheckPassed($result, 'credential_session_revocation');
         $this->assertCheckPassed($result, 'structured_logging');
         $this->assertCheckPassed($result, 'provider_wallet_contracts');
         $this->assertCheckPassed($result, 'database_schema');
@@ -91,6 +117,68 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckFailed($result, 'structured_logging');
     }
 
+    public function testProductionGateFailsWhenSessionCookiesAreNotHardened()
+    {
+        $this->configureSafeProductionSettings();
+        config([
+            'session.secure' => false,
+            'session.http_only' => false,
+            'session.same_site' => null,
+        ]);
+
+        $result = app(B2BReleaseGate::class)->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'session_cookie_security');
+    }
+
+    public function testProductionGateFailsWhenLoginThrottlingPolicyIsUnsafe()
+    {
+        $this->configureSafeProductionSettings();
+        config([
+            'security.login_throttle.production_enforced' => false,
+            'security.login_throttle.max_attempts' => 50,
+            'security.login_throttle.lockout_minutes' => 0,
+        ]);
+
+        $result = app(B2BReleaseGate::class)->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'login_throttle_security');
+    }
+
+    public function testProductionGateFailsWhenPasswordPolicyIsUnsafe()
+    {
+        $this->configureSafeProductionSettings();
+        config([
+            'security.password_policy.min_length' => 8,
+            'security.password_policy.max_length' => 128,
+            'security.password_policy.require_mixed_case' => false,
+            'security.password_policy.require_numbers' => false,
+            'security.password_policy.disallow_whitespace' => false,
+            'security.password_policy.temporary_length' => 8,
+        ]);
+
+        $result = app(B2BReleaseGate::class)->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'password_policy_security');
+    }
+
+    public function testProductionGateFailsWhenCredentialSessionRevocationCannotWork()
+    {
+        $this->configureSafeProductionSettings();
+        config([
+            'session.driver' => 'file',
+            'session.table' => 'legacy_sessions',
+        ]);
+
+        $result = app(B2BReleaseGate::class)->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'credential_session_revocation');
+    }
+
     public function testProductionGateFailsWhenStructuredLoggingChannelIsNotJsonFormatted()
     {
         $this->configureSafeProductionSettings();
@@ -111,6 +199,17 @@ class B2BReleaseGateTest extends TestCase
 
         $this->assertFalse($result['ok']);
         $this->assertCheckFailed($result, 'scheduler_config');
+    }
+
+    public function testProductionGateFailsWhenFailedJobDriverIsDisabled()
+    {
+        $this->configureSafeProductionSettings();
+        config(['queue.failed.driver' => 'null']);
+
+        $result = app(B2BReleaseGate::class)->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'failed_job_storage');
     }
 
     public function testProductionGateFailsWhenDependencyAuditFindsAdvisories()
@@ -309,6 +408,20 @@ class B2BReleaseGateTest extends TestCase
             'b2b.structured_log_channel' => 'b2b',
             'cache.default' => 'redis',
             'queue.default' => 'redis',
+            'session.secure' => true,
+            'session.http_only' => true,
+            'session.same_site' => 'lax',
+            'session.driver' => 'database',
+            'session.table' => 'sessions',
+            'security.login_throttle.production_enforced' => true,
+            'security.login_throttle.max_attempts' => 10,
+            'security.login_throttle.lockout_minutes' => 1,
+            'security.password_policy.min_length' => 12,
+            'security.password_policy.max_length' => 72,
+            'security.password_policy.require_mixed_case' => true,
+            'security.password_policy.require_numbers' => true,
+            'security.password_policy.disallow_whitespace' => true,
+            'security.password_policy.temporary_length' => 16,
         ]);
     }
 }

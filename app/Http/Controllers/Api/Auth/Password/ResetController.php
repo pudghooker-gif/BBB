@@ -28,6 +28,7 @@ namespace VanguardLTE\Http\Controllers\Api\Auth\Password
             $user->password = $password;
             $user->save();
             event(new \VanguardLTE\Events\User\ResetedPasswordViaEmail($user));
+            event(new \VanguardLTE\Events\User\UserCredentialsChanged($user, 'password_reset'));
         }
     }
 

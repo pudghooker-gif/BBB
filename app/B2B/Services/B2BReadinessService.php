@@ -27,6 +27,7 @@ class B2BReadinessService
             $this->columnsCheck(),
             $this->cacheRuntimeCheck($production),
             $this->queueConfigCheck($production),
+            $this->failedJobStorageCheck($production),
             $this->schedulerHeartbeatCheck($production),
             $this->storageCheck(),
         ];
@@ -170,6 +171,44 @@ class B2BReadinessService
         }
 
         return $this->checkResult('queue_config', 'pass', 'Queue configuration is present.');
+    }
+
+    private function failedJobStorageCheck($production)
+    {
+        $failed = (array) config('queue.failed', []);
+        $driver = isset($failed['driver'])
+            ? (string) $failed['driver']
+            : (isset($failed['table']) ? 'database' : null);
+        $table = isset($failed['table']) ? (string) $failed['table'] : null;
+
+        if (!$production) {
+            return $this->checkResult('failed_job_storage', 'pass', 'Failed-job storage is enforced in production mode.');
+        }
+
+        if (!$driver || $driver === 'null') {
+            return $this->checkResult('failed_job_storage', 'fail', 'Production failed-job storage must not use the null driver.');
+        }
+
+        if (!in_array($driver, ['database', 'database-uuids'], true)) {
+            return $this->checkResult('failed_job_storage', 'fail', 'Production failed-job storage must use the database failed-job provider.');
+        }
+
+        if (!$table || !Schema::hasTable($table)) {
+            return $this->checkResult('failed_job_storage', 'fail', 'Production failed-job table is missing: '.($table ?: 'not configured').'.');
+        }
+
+        $missingColumns = [];
+        foreach (['connection', 'queue', 'payload', 'exception', 'failed_at'] as $column) {
+            if (!Schema::hasColumn($table, $column)) {
+                $missingColumns[] = $column;
+            }
+        }
+
+        if (count($missingColumns) > 0) {
+            return $this->checkResult('failed_job_storage', 'fail', 'Production failed-job table is missing columns: '.implode(', ', $missingColumns).'.');
+        }
+
+        return $this->checkResult('failed_job_storage', 'pass', 'Production failed-job storage is available on '.$table.'.');
     }
 
     private function schedulerHeartbeatCheck($production)

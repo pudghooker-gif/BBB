@@ -5,7 +5,7 @@ namespace VanguardLTE\Http\Requests\User
     {
         public function rules()
         {
-            return [];
+            return ['password' => \VanguardLTE\Support\Security\PasswordPolicy::nullableConfirmedRules()];
         }
     }
 

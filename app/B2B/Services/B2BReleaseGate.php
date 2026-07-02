@@ -18,8 +18,13 @@ class B2BReleaseGate
             $this->cacheStoreCheck('rate_limit_cache', config('b2b.rate_limit_cache_store') ?: config('cache.default'), $production),
             $this->cacheStoreCheck('scheduler_heartbeat_cache', config('b2b.scheduler_heartbeat_cache_store') ?: config('cache.default'), $production),
             $this->queueCheck($production),
+            $this->failedJobStorageCheck($production),
             $this->schedulerConfigCheck($production),
             $this->booleanCheck('app_debug', !(bool) config('app.debug'), $production, 'APP_DEBUG must be false for production.'),
+            $this->sessionCookieSecurityCheck($production),
+            $this->loginThrottleSecurityCheck($production),
+            $this->passwordPolicySecurityCheck($production),
+            $this->credentialSessionRevocationCheck($production),
             $this->booleanCheck('private_wallet_callbacks', !(bool) config('b2b.allow_private_wallet_callbacks'), $production, 'Private wallet callback targets must stay disabled in production.'),
             $this->booleanCheck('sandbox_disabled', !(bool) config('b2b.sandbox_enabled'), $production, 'B2B sandbox must be disabled in production.'),
             $this->structuredLoggingCheck($production),
@@ -83,6 +88,74 @@ class B2BReleaseGate
         ];
     }
 
+    private function failedJobStorageCheck($production)
+    {
+        $failed = (array) config('queue.failed', []);
+        $driver = isset($failed['driver'])
+            ? (string) $failed['driver']
+            : (isset($failed['table']) ? 'database' : null);
+        $table = isset($failed['table']) ? (string) $failed['table'] : '';
+        $database = isset($failed['database']) ? (string) $failed['database'] : '';
+        $missing = [];
+
+        if (!in_array($driver, ['database', 'database-uuids'], true)) {
+            $missing[] = 'driver:' . ($driver ?: 'missing');
+        }
+
+        if ($database === '') {
+            $missing[] = 'database';
+        }
+
+        if ($table !== 'failed_jobs') {
+            $missing[] = 'table:' . ($table ?: 'missing');
+        }
+
+        $queueConfig = $this->fileContents(base_path('config/queue.php'));
+        foreach (['QUEUE_FAILED_DRIVER', 'database-uuids', "'failed'"] as $needle) {
+            if (strpos($queueConfig, $needle) === false) {
+                $missing[] = 'queue_config:' . $needle;
+            }
+        }
+
+        $migration = $this->fileContents(base_path('database/migrations/2026_06_24_000008_create_queue_runtime_tables.php'));
+        foreach ([
+            "Schema::create('failed_jobs'",
+            "Schema::create('jobs'",
+            "'uuid'",
+            "'connection'",
+            "'queue'",
+            "'payload'",
+            "'exception'",
+            "'failed_at'",
+        ] as $needle) {
+            if (strpos($migration, $needle) === false) {
+                $missing[] = 'migration:' . $needle;
+            }
+        }
+
+        $supervisor = $this->fileContents(base_path('deploy/supervisor/b2b-workers.conf.example'));
+        foreach (['queue:work redis', '--tries=', '--timeout=', '--max-time='] as $needle) {
+            if (strpos($supervisor, $needle) === false) {
+                $missing[] = 'supervisor:' . $needle;
+            }
+        }
+
+        $runbook = $this->fileContents(base_path('docs/deployment/PRODUCTION_RUNBOOK.md'));
+        foreach (['queue:failed', 'queue:retry', 'failed_jobs'] as $needle) {
+            if (strpos($runbook, $needle) === false) {
+                $missing[] = 'runbook:' . $needle;
+            }
+        }
+
+        return [
+            'name' => 'failed_job_storage',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Laravel failed-job storage, migration, worker retry limits, and runbook coverage are present.'
+                : 'Missing failed-job production coverage: ' . implode(', ', $missing),
+        ];
+    }
+
     private function schedulerConfigCheck($production)
     {
         $scheduled = (array) config('b2b_queues.scheduled_commands', []);
@@ -125,6 +198,239 @@ class B2BReleaseGate
             'name' => $name,
             'status' => (!$production || $condition) ? 'pass' : 'fail',
             'message' => (!$production || $condition) ? 'Configuration is acceptable.' : $message,
+        ];
+    }
+
+    private function sessionCookieSecurityCheck($production)
+    {
+        $missing = [];
+        $sameSite = strtolower((string) config('session.same_site'));
+
+        if (!(bool) config('session.secure')) {
+            $missing[] = 'SESSION_SECURE_COOKIE=true';
+        }
+
+        if (!(bool) config('session.http_only')) {
+            $missing[] = 'SESSION_HTTP_ONLY=true';
+        }
+
+        if (!in_array($sameSite, ['lax', 'strict'], true)) {
+            $missing[] = 'SESSION_SAME_SITE=lax|strict';
+        }
+
+        return [
+            'name' => 'session_cookie_security',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Session cookies are secure, HTTP-only, and SameSite protected.'
+                : 'Production session cookie settings are unsafe: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function loginThrottleSecurityCheck($production)
+    {
+        $missing = [];
+        $enforced = (bool) config('security.login_throttle.production_enforced', true);
+        $maxAttempts = (int) config('security.login_throttle.max_attempts', 10);
+        $lockoutMinutes = (int) config('security.login_throttle.lockout_minutes', 1);
+
+        if (!$enforced) {
+            $missing[] = 'LOGIN_THROTTLE_PRODUCTION_ENFORCED=true';
+        }
+
+        if ($maxAttempts < 1 || $maxAttempts > 10) {
+            $missing[] = 'LOGIN_THROTTLE_MAX_ATTEMPTS<=10';
+        }
+
+        if ($lockoutMinutes < 1) {
+            $missing[] = 'LOGIN_THROTTLE_LOCKOUT_MINUTES>=1';
+        }
+
+        foreach ([
+            'app/Http/Controllers/Web/Backend/Auth/AuthController.php',
+            'app/Http/Controllers/Web/Frontend/Auth/AuthController.php',
+        ] as $path) {
+            $contents = $this->fileContents(base_path($path));
+            foreach (['loginThrottlingEnabled', 'productionLoginThrottleEnforced', 'security.login_throttle.max_attempts'] as $needle) {
+                if (strpos($contents, $needle) === false) {
+                    $missing[] = $path . ':' . $needle;
+                }
+            }
+
+            if (strpos($contents, 'lockoutTime() / 60') !== false) {
+                $missing[] = $path . ':rate_limiter_decay_seconds';
+            }
+        }
+
+        return [
+            'name' => 'login_throttle_security',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Production login throttling is enforced with bounded attempts and lockout.'
+                : 'Production login throttling is unsafe: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function passwordPolicySecurityCheck($production)
+    {
+        $missing = [];
+        $minLength = (int) config('security.password_policy.min_length', 12);
+        $maxLength = (int) config('security.password_policy.max_length', 72);
+        $temporaryLength = (int) config('security.password_policy.temporary_length', 16);
+
+        if ($minLength < 12) {
+            $missing[] = 'PASSWORD_POLICY_MIN_LENGTH>=12';
+        }
+
+        if ($maxLength < $minLength || $maxLength > 72) {
+            $missing[] = 'PASSWORD_POLICY_MAX_LENGTH between min length and 72';
+        }
+
+        if (!(bool) config('security.password_policy.require_mixed_case', true)) {
+            $missing[] = 'PASSWORD_POLICY_REQUIRE_MIXED_CASE=true';
+        }
+
+        if (!(bool) config('security.password_policy.require_numbers', true)) {
+            $missing[] = 'PASSWORD_POLICY_REQUIRE_NUMBERS=true';
+        }
+
+        if (!(bool) config('security.password_policy.disallow_whitespace', true)) {
+            $missing[] = 'PASSWORD_POLICY_DISALLOW_WHITESPACE=true';
+        }
+
+        if ($temporaryLength < $minLength || $temporaryLength > $maxLength) {
+            $missing[] = 'PASSWORD_POLICY_TEMPORARY_LENGTH within policy bounds';
+        }
+
+        foreach ($this->passwordPolicyFiles() as $path) {
+            $contents = $this->fileContents(base_path($path));
+            if (strpos($contents, 'PasswordPolicy') === false) {
+                $missing[] = $path . ':PasswordPolicy';
+            }
+
+            foreach (['min:6', 'min:8'] as $legacyRule) {
+                if (strpos($contents, $legacyRule) !== false) {
+                    $missing[] = $path . ':' . $legacyRule;
+                }
+            }
+
+            foreach ([
+                '$password = rand(111111111, 999999999)',
+                "'password' => \$number",
+            ] as $legacyPassword) {
+                if (strpos($contents, $legacyPassword) !== false) {
+                    $missing[] = $path . ':legacy_generated_password';
+                }
+            }
+        }
+
+        return [
+            'name' => 'password_policy_security',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Production password policy is centralized, strong, and applied to active credential flows.'
+                : 'Production password policy is unsafe: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function passwordPolicyFiles()
+    {
+        return [
+            'app/Http/Requests/Auth/RegisterRequest.php',
+            'app/Http/Requests/Auth/PasswordResetRequest.php',
+            'app/Http/Requests/User/CreateUserRequest.php',
+            'app/Http/Requests/User/UpdateUserRequest.php',
+            'app/Http/Requests/User/UpdateLoginDetailsRequest.php',
+            'app/Http/Requests/User/UpdateProfileDetailsRequest.php',
+            'app/Http/Requests/User/UpdateProfilePasswordRequest.php',
+            'app/Http/Requests/User/UpdateDetailsRequest.php',
+            'app/Http/Controllers/Api/BasicController.php',
+            'app/Http/Controllers/Api/ShopController.php',
+            'app/Http/Controllers/Api/Users/UsersController.php',
+            'app/Http/Controllers/Api/Profile/DetailsController.php',
+            'app/Http/Controllers/Web/Backend/UsersController.php',
+            'app/Http/Controllers/Web/Backend/ShopsController.php',
+            'app/Http/Controllers/Web/Frontend/ProfileController.php',
+        ];
+    }
+
+    private function credentialSessionRevocationCheck($production)
+    {
+        $missing = [];
+
+        if ((string) config('session.driver') !== 'database') {
+            $missing[] = 'SESSION_DRIVER=database';
+        }
+
+        if ((string) config('session.table') !== 'sessions') {
+            $missing[] = 'SESSION_TABLE=sessions';
+        }
+
+        $migration = $this->fileContents(base_path('database/migrations/2026_06_24_000009_create_sessions_runtime_table.php'));
+        foreach ([
+            "Schema::create('sessions'",
+            "\$table->string('id')->primary()",
+            "\$table->unsignedInteger('user_id')->nullable()->index()",
+            "\$table->integer('last_activity')->index()",
+        ] as $needle) {
+            if (strpos($migration, $needle) === false) {
+                $missing[] = 'sessions_migration:' . $needle;
+            }
+        }
+
+        $eventProvider = $this->fileContents(base_path('app/Providers/EventServiceProvider.php'));
+        foreach (['UserCredentialsChanged::class', 'InvalidateSessionsAndTokens::class'] as $needle) {
+            if (strpos($eventProvider, $needle) === false) {
+                $missing[] = 'event_provider:' . $needle;
+            }
+        }
+
+        $listener = $this->fileContents(base_path('app/Listeners/Users/InvalidateSessionsAndTokens.php'));
+        foreach (['invalidateAllSessionsForUser', "Token::where('user_id'", "Schema::hasTable('api_tokens')"] as $needle) {
+            if (strpos($listener, $needle) === false) {
+                $missing[] = 'listener:' . $needle;
+            }
+        }
+
+        $apiTokensMigration = $this->fileContents(base_path('database/migrations/2026_06_24_000010_create_api_tokens_runtime_table.php'));
+        foreach ([
+            "Schema::create('api_tokens'",
+            "\$table->string('id', 80)->primary()",
+            "\$table->unsignedInteger('user_id')->index()",
+            "\$table->timestamp('expires_at')->nullable()->index()",
+        ] as $needle) {
+            if (strpos($apiTokensMigration, $needle) === false) {
+                $missing[] = 'api_tokens_migration:' . $needle;
+            }
+        }
+
+        foreach ($this->credentialChangeFiles() as $path) {
+            $contents = $this->fileContents(base_path($path));
+            if (strpos($contents, 'UserCredentialsChanged') === false) {
+                $missing[] = $path . ':UserCredentialsChanged';
+            }
+        }
+
+        return [
+            'name' => 'credential_session_revocation',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Password changes revoke database sessions, remember tokens, and local API tokens.'
+                : 'Credential-change session revocation is incomplete: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function credentialChangeFiles()
+    {
+        return [
+            'app/Http/Controllers/Web/Frontend/Auth/PasswordController.php',
+            'app/Http/Controllers/Api/Auth/Password/ResetController.php',
+            'app/Http/Controllers/Web/Frontend/ProfileController.php',
+            'app/Http/Controllers/Web/Backend/ProfileController.php',
+            'app/Http/Controllers/Api/Profile/DetailsController.php',
+            'app/Http/Controllers/Api/Users/UsersController.php',
+            'app/Http/Controllers/Web/Backend/UsersController.php',
+            'app/Http/Controllers/Web/Backend/ShopsController.php',
         ];
     }
 

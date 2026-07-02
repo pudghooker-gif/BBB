@@ -73,6 +73,18 @@ groups:
           description: A B2B logical queue has more than 100 waiting jobs. Scale workers or inspect failed dependencies.
           runbook: docs/b2b/QUEUE_TOPOLOGY.md
 
+      - alert: BBBB2BQueueFailedJobs
+        expr: bbb_b2b_queue_failed_jobs_total > 0
+        for: 2m
+        labels:
+          service: bbb-b2b
+          severity: critical
+          route: b2b-pager
+        annotations:
+          summary: B2B queue has failed jobs
+          description: One or more B2B queue jobs are in Laravel failed_jobs storage. Inspect queue:failed, structured logs, and retry only after the root cause is fixed.
+          runbook: docs/b2b/QUEUE_TOPOLOGY.md
+
       - alert: BBBB2BSchedulerHeartbeatStale
         expr: bbb_b2b_scheduler_heartbeat_fresh == 0
         for: 3m

@@ -8,7 +8,7 @@ namespace VanguardLTE\Http\Requests\Auth
             return [
                 'token' => 'required', 
                 'email' => 'required|email', 
-                'password' => 'required|confirmed|min:6'
+                'password' => \VanguardLTE\Support\Security\PasswordPolicy::requiredConfirmedRules()
             ];
         }
     }

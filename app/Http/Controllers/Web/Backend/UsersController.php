@@ -357,10 +357,10 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
                     $role = \jeremykenedy\LaravelRoles\Models\Role::find(1);
                     for ($i = 0; $i < $request->count; $i++) {
 
-                        $number = rand(111111111, 999999999);
+                        $credential = \VanguardLTE\Support\Security\PasswordPolicy::generateTemporaryCredential();
                         $data = [
-                            'username' => $number,
-                            'password' => $number,
+                            'username' => $credential,
+                            'password' => $credential,
                             'role_id' => $role->id,
                             'status' => \VanguardLTE\Support\Enum\UserStatus::ACTIVE,
                             'parent_id' => auth()->user()->id,
@@ -516,6 +516,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
             if ($validator->fails()) {
                 return redirect()->route('backend.user.edit', $user->id)->withErrors($validator)->withInput();
             }
+            $passwordChanged = !empty($data['password']) && !empty($data['password_confirmation']);
             $count = \VanguardLTE\User::where([
                 'shop_id' => auth()->user()->shop_id,
                 'role_id' => 1
@@ -629,6 +630,9 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
                 }
             }
             event(new \VanguardLTE\Events\User\UpdatedByAdmin($user));
+            if ($passwordChanged) {
+                event(new \VanguardLTE\Events\User\UserCredentialsChanged($user, 'backend_admin_password_change'));
+            }
             if ($this->userIsBanned($user, $request)) {
                 event(new \VanguardLTE\Events\User\Banned($user));
             }
@@ -679,7 +683,6 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
                 $data['type'] = 'add';
             }
             if (auth()->user()->hasRole('admin') && auth()->user()->google2fa_secret != null && auth()->user()->google2fa_enable) {
-                dd('i am an admin with 2fa');
                 if (!$request->google_2fa_code) {
                     return redirect()->back()->withErrors([__('app.wrong_code') . ' ' . __('app.google_2fa')]);
                 }
@@ -766,7 +769,8 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
         public function updateLoginDetails(\VanguardLTE\User $user, \VanguardLTE\Http\Requests\User\UpdateLoginDetailsRequest $request, \VanguardLTE\Repositories\Session\SessionRepository $sessionRepository)
         {
             $data = $request->all();
-            if (trim($data['password']) == '') {
+            $passwordChanged = isset($data['password']) && trim($data['password']) !== '';
+            if (!$passwordChanged) {
                 unset($data['password']);
                 unset($data['password_confirmation']);
             }
@@ -789,6 +793,9 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
             }
             $this->users->update($user->id, $data);
             event(new \VanguardLTE\Events\User\UpdatedByAdmin($user));
+            if ($passwordChanged) {
+                event(new \VanguardLTE\Events\User\UserCredentialsChanged($user, 'backend_admin_login_password_change'));
+            }
             return redirect()->route('backend.user.edit', $user->id)->withSuccess(trans('app.login_updated'));
         }
         public function delete(\VanguardLTE\User $user)

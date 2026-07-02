@@ -10,6 +10,7 @@ B2B_QUEUE_CONNECTION=redis
 B2B_NONCE_CACHE_STORE=redis
 B2B_RATE_LIMIT_CACHE_STORE=redis
 B2B_SCHEDULER_HEARTBEAT_CACHE_STORE=redis
+QUEUE_FAILED_DRIVER=database-uuids
 ```
 
 `config/b2b_queues.php` is the source of truth for queue names and worker defaults.
@@ -39,6 +40,20 @@ Start from `deploy/supervisor/b2b-workers.conf.example` and adjust:
 
 Live wallet workers use short timeout and single try by default. Retry, reporting, settlement, reconciliation, notification, and maintenance workers are separated so slow jobs cannot starve live wallet traffic.
 
+## Failed Jobs
+
+Laravel failed-job storage is part of the production queue contract. Run `php artisan migrate --force` before starting workers so the `failed_jobs` table exists, and keep `QUEUE_FAILED_DRIVER=database-uuids` unless the replacement provider is covered by equivalent monitoring.
+
+Operational flow:
+
+```bash
+php artisan queue:failed
+php artisan queue:retry <uuid-or-id>
+php artisan queue:forget <uuid-or-id>
+```
+
+Only retry a failed B2B job after the root cause is fixed and the affected operator/transaction state has been reviewed. Use `queue:failed` together with structured logs, `request_id`, wallet attempt rows, reconciliation items, and `/backend/b2b/cases` before retrying mutation-related jobs.
+
 ## Scheduled Commands And Jobs
 
 The current codebase exposes retry/reconciliation/session cleanup as artisan commands. In production, run the dispatching form from one scheduler node so the scheduler only enqueues work and B2B workers execute it:
@@ -59,4 +74,4 @@ Production readiness requires a fresh heartbeat by default. Tune the allowed fre
 
 ## Release Checks
 
-`php artisan b2b:release-check --production` must pass before launch. The gate intentionally fails when shared state or the queue driver is not Redis, when sandbox is enabled, or when local secret-bearing artifacts are still present in the release bundle.
+`php artisan b2b:release-check --production` must pass before launch. The gate intentionally fails when shared state or the queue driver is not Redis, when failed-job storage, migration, worker retry limits, or runbook coverage are missing, when sandbox is enabled, or when local secret-bearing artifacts are still present in the release bundle.

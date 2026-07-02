@@ -36,8 +36,12 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
         }
         public function updateDetails(\VanguardLTE\Http\Requests\User\UpdateProfileDetailsRequest $request)
         {
+            $passwordChanged = $request->filled('password');
             $this->users->update($this->theUser->id, $request->except('role_id', 'status'));
             event(new \VanguardLTE\Events\User\UpdatedProfileDetails());
+            if ($passwordChanged) {
+                event(new \VanguardLTE\Events\User\UserCredentialsChanged($this->theUser, 'profile_details_password_change'));
+            }
             return response()->json(['success' => trans('app.profile_updated_successfully')], 200);
             return redirect()->back()->withSuccess(trans('app.profile_updated_successfully'));
         }
@@ -49,6 +53,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
             }
             $this->users->update($this->theUser->id, $request->only('password', 'password_confirmation'));
             event(new \VanguardLTE\Events\User\UpdatedProfileDetails());
+            event(new \VanguardLTE\Events\User\UserCredentialsChanged($this->theUser, 'profile_password_change'));
             return response()->json(['success' => trans('app.profile_updated_successfully')], 200);
         }
         public function updateAvatar(\Illuminate\Http\Request $request, \VanguardLTE\Services\Upload\UserAvatarManager $avatarManager)
@@ -74,11 +79,15 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
         public function updateLoginDetails(\VanguardLTE\Http\Requests\User\UpdateProfileLoginDetailsRequest $request)
         {
             $data = $request->except('role', 'status');
-            if (trim($data['password']) == '') {
+            $passwordChanged = isset($data['password']) && trim($data['password']) !== '';
+            if (!$passwordChanged) {
                 unset($data['password']);
                 unset($data['password_confirmation']);
             }
             $this->users->update($this->theUser->id, $data);
+            if ($passwordChanged) {
+                event(new \VanguardLTE\Events\User\UserCredentialsChanged($this->theUser, 'profile_login_password_change'));
+            }
             return redirect()->route('frontend.profile')->withSuccess(trans('app.login_updated'));
         }
         public function activity(\VanguardLTE\Repositories\Activity\ActivityRepository $activitiesRepo, \Illuminate\Http\Request $request)
@@ -413,7 +422,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                 ], 200);
             }
             $username = rand(111111111, 999999999);
-            $password = rand(111111111, 999999999);
+            $password = \VanguardLTE\Support\Security\PasswordPolicy::generateTemporaryPassword();
             foreach ([
                 'url' => route('frontend.auth.login'),
                 'login' => $username,

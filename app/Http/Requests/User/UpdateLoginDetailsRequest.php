@@ -8,7 +8,7 @@ namespace VanguardLTE\Http\Requests\User
             $user = $this->getUserForUpdate();
             return [
                 'username' => 'regex:/^[A-Za-z0-9]+$/|nullable|unique:users,username,' . $user->id, 
-                'password' => 'nullable|min:6|confirmed'
+                'password' => \VanguardLTE\Support\Security\PasswordPolicy::nullableConfirmedRules()
             ];
         }
         protected function getUserForUpdate()

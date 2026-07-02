@@ -2,38 +2,43 @@
 
 namespace VanguardLTE\Services\Auth\Api;
 
-use Tymon\JWTAuth\Providers\LaravelServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\ServiceProvider;
 
-class JWTServiceProvider extends LaravelServiceProvider
+class JWTServiceProvider extends ServiceProvider
 {
-    /**
-     * Register the bindings for the main JWT class.
-     *
-     * @return void
-     */
-    protected function registerJWT()
+    public function register()
     {
         $this->app->singleton('tymon.jwt', function ($app) {
-            return new JWT(
-                $app['tymon.jwt.manager'],
-                $app['tymon.jwt.parser']
+            return $app['tymon.jwt.auth'];
+        });
+
+        $this->app->singleton('tymon.jwt.auth', function ($app) {
+            return new JWTAuth(
+                $app['request'],
+                $app['config']
             );
+        });
+
+        $this->app->alias('tymon.jwt.auth', JWTAuth::class);
+
+        $this->app->rebinding('request', function ($app, $request) {
+            $app['tymon.jwt.auth']->setRequest($request);
         });
     }
 
-    /**
-     * Register the bindings for the main JWTAuth class.
-     *
-     * @return void
-     */
-    protected function registerJWTAuth()
+    public function boot()
     {
-        $this->app->singleton('tymon.jwt.auth', function ($app) {
-            return new JWTAuth(
-                $app['tymon.jwt.manager'],
-                $app['tymon.jwt.provider.auth'],
-                $app['tymon.jwt.parser']
+        Auth::extend('jwt', function ($app, $name, array $config) {
+            $guard = new JwtGuard(
+                $app['tymon.jwt.auth'],
+                $app['auth']->createUserProvider($config['provider'] ?? null),
+                $app['request']
             );
+
+            $app->refresh('request', $guard, 'setRequest');
+
+            return $guard;
         });
     }
 }

@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use VanguardLTE\Support\Settings\JsonSettingStore;
+use VanguardLTE\Support\TwoFactor\Google2FAService;
 use VanguardLTE\Support\Validation\SecurityHardenedValidator;
 
 
@@ -82,6 +83,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->alias('settings', 'setting');
         $this->app->alias('settings', 'anlutro\LaravelSettings\SettingStore');
         $this->app->alias('settings', JsonSettingStore::class);
+
+        $this->app->singleton('pragmarx.google2fa', function () {
+            return new Google2FAService();
+        });
+        $this->app->alias('pragmarx.google2fa', Google2FAService::class);
 
         $this->app->singleton(UserRepository::class, EloquentUser::class);
         $this->app->singleton(ActivityRepository::class, EloquentActivity::class);

@@ -46,6 +46,9 @@ class B2BMetricsExporter
             $this->queueDepth($lines, $errors);
         });
         $this->collect($errors, function () use (&$lines, &$errors) {
+            $this->failedJobs($lines, $errors);
+        });
+        $this->collect($errors, function () use (&$lines, &$errors) {
             $this->schedulerHeartbeat($lines, $errors);
         });
 
@@ -214,6 +217,33 @@ class B2BMetricsExporter
         }
     }
 
+    private function failedJobs(array &$lines, &$errors)
+    {
+        $table = config('queue.failed.table', 'failed_jobs');
+        $queues = (array) config('b2b_queues.queues', []);
+
+        if (!$table || !$this->hasTable($table, $errors)) {
+            return;
+        }
+
+        foreach (['queue', 'failed_at'] as $column) {
+            if (!Schema::hasColumn($table, $column)) {
+                $errors++;
+                return;
+            }
+        }
+
+        foreach ($queues as $key => $queue) {
+            $base = DB::table($table)->where('queue', $queue);
+            $failed = (clone $base)->count();
+            $oldestFailedAt = (clone $base)->min('failed_at');
+            $oldestAge = $oldestFailedAt ? $this->ageSeconds($oldestFailedAt) : 0;
+
+            $this->metric($lines, 'bbb_b2b_queue_failed_jobs_total', 'gauge', 'Failed Laravel jobs for B2B logical queues.', $failed, ['queue' => $key]);
+            $this->metric($lines, 'bbb_b2b_queue_failed_job_oldest_age_seconds', 'gauge', 'Age in seconds of the oldest failed B2B queue job.', $oldestAge, ['queue' => $key]);
+        }
+    }
+
     private function schedulerHeartbeat(array &$lines, &$errors)
     {
         $status = app(B2BSchedulerHeartbeat::class)->status();
@@ -315,6 +345,21 @@ class B2BMetricsExporter
         }
 
         return (string) $value;
+    }
+
+    private function ageSeconds($value)
+    {
+        if (is_numeric($value)) {
+            $timestamp = (int) $value;
+        } else {
+            $timestamp = strtotime((string) $value);
+        }
+
+        if (!$timestamp) {
+            return 0;
+        }
+
+        return max(0, time() - $timestamp);
     }
 
     private function number($value)

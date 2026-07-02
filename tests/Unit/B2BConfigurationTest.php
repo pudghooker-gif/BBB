@@ -99,6 +99,109 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringNotContainsString('fideloper/proxy', $composer);
     }
 
+    public function testSessionCookieSecurityDefaultsAndProductionEnvDocsArePresent()
+    {
+        $session = file_get_contents(base_path('config/session.php'));
+        $envExample = file_get_contents(base_path('.env.example'));
+        $releaseChecks = file_get_contents(base_path('docs/b2b/RELEASE_CHECKS.md'));
+
+        $this->assertStringContainsString("env('SESSION_SECURE_COOKIE', env('APP_ENV', 'production') === 'production')", $session);
+        $this->assertStringContainsString("env('SESSION_HTTP_ONLY', true)", $session);
+        $this->assertStringContainsString("env('SESSION_SAME_SITE', 'lax')", $session);
+
+        foreach (['SESSION_SECURE_COOKIE', 'SESSION_HTTP_ONLY', 'SESSION_SAME_SITE'] as $key) {
+            $this->assertStringContainsString($key, $envExample);
+            $this->assertStringContainsString($key, $releaseChecks);
+        }
+    }
+
+    public function testLoginThrottleSecurityPolicyAndProductionDocsArePresent()
+    {
+        $security = file_get_contents(base_path('config/security.php'));
+        $backendAuth = file_get_contents(base_path('app/Http/Controllers/Web/Backend/Auth/AuthController.php'));
+        $frontendAuth = file_get_contents(base_path('app/Http/Controllers/Web/Frontend/Auth/AuthController.php'));
+        $envExample = file_get_contents(base_path('.env.example'));
+        $releaseChecks = file_get_contents(base_path('docs/b2b/RELEASE_CHECKS.md'));
+
+        foreach ([
+            'LOGIN_THROTTLE_PRODUCTION_ENFORCED',
+            'LOGIN_THROTTLE_MAX_ATTEMPTS',
+            'LOGIN_THROTTLE_LOCKOUT_MINUTES',
+        ] as $key) {
+            $this->assertStringContainsString($key, $envExample);
+            $this->assertStringContainsString($key, $releaseChecks);
+        }
+
+        $this->assertStringContainsString("'max_attempts' => env('LOGIN_THROTTLE_MAX_ATTEMPTS', 10)", $security);
+        $this->assertStringContainsString("'lockout_minutes' => env('LOGIN_THROTTLE_LOCKOUT_MINUTES', 1)", $security);
+
+        foreach ([$backendAuth, $frontendAuth] as $controller) {
+            $this->assertStringContainsString('loginThrottlingEnabled', $controller);
+            $this->assertStringContainsString('productionLoginThrottleEnforced', $controller);
+            $this->assertStringContainsString('security.login_throttle.max_attempts', $controller);
+            $this->assertStringNotContainsString('lockoutTime() / 60', $controller);
+        }
+    }
+
+    public function testPasswordPolicySecurityAndProductionDocsArePresent()
+    {
+        $security = file_get_contents(base_path('config/security.php'));
+        $policy = file_get_contents(base_path('app/Support/Security/PasswordPolicy.php'));
+        $rule = file_get_contents(base_path('app/Support/Validation/PasswordPolicyRule.php'));
+        $releaseGate = file_get_contents(base_path('app/B2B/Services/B2BReleaseGate.php'));
+        $envExample = file_get_contents(base_path('.env.example'));
+        $releaseChecks = file_get_contents(base_path('docs/b2b/RELEASE_CHECKS.md'));
+
+        foreach ([
+            'PASSWORD_POLICY_MIN_LENGTH',
+            'PASSWORD_POLICY_MAX_LENGTH',
+            'PASSWORD_POLICY_REQUIRE_MIXED_CASE',
+            'PASSWORD_POLICY_REQUIRE_NUMBERS',
+            'PASSWORD_POLICY_REQUIRE_SYMBOLS',
+            'PASSWORD_POLICY_DISALLOW_WHITESPACE',
+            'PASSWORD_POLICY_TEMPORARY_LENGTH',
+        ] as $key) {
+            $this->assertStringContainsString($key, $envExample);
+            $this->assertStringContainsString($key, $releaseChecks);
+        }
+
+        $this->assertStringContainsString("'min_length' => env('PASSWORD_POLICY_MIN_LENGTH', 12)", $security);
+        $this->assertStringContainsString("'max_length' => env('PASSWORD_POLICY_MAX_LENGTH', 72)", $security);
+        $this->assertStringContainsString('PasswordPolicyRule', $policy);
+        $this->assertStringContainsString('generateTemporaryPassword', $policy);
+        $this->assertStringContainsString('generateTemporaryCredential', $policy);
+        $this->assertStringContainsString('require_mixed_case', $rule);
+        $this->assertStringContainsString('password_policy_security', $releaseGate);
+    }
+
+    public function testCredentialSessionRevocationPolicyAndDocsArePresent()
+    {
+        $session = file_get_contents(base_path('config/session.php'));
+        $eventProvider = file_get_contents(base_path('app/Providers/EventServiceProvider.php'));
+        $listener = file_get_contents(base_path('app/Listeners/Users/InvalidateSessionsAndTokens.php'));
+        $migration = file_get_contents(base_path('database/migrations/2026_06_24_000009_create_sessions_runtime_table.php'));
+        $apiTokensMigration = file_get_contents(base_path('database/migrations/2026_06_24_000010_create_api_tokens_runtime_table.php'));
+        $releaseGate = file_get_contents(base_path('app/B2B/Services/B2BReleaseGate.php'));
+        $envExample = file_get_contents(base_path('.env.example'));
+        $releaseChecks = file_get_contents(base_path('docs/b2b/RELEASE_CHECKS.md'));
+
+        $this->assertStringContainsString("env('SESSION_DRIVER', 'database')", $session);
+        $this->assertStringContainsString('SESSION_DRIVER=database', $envExample);
+        $this->assertStringContainsString('SESSION_DRIVER=database', $releaseChecks);
+        $this->assertStringContainsString('UserCredentialsChanged::class', $eventProvider);
+        $this->assertStringContainsString('InvalidateSessionsAndTokens::class', $eventProvider);
+        $this->assertStringContainsString('invalidateAllSessionsForUser', $listener);
+        $this->assertStringContainsString("Token::where('user_id'", $listener);
+        $this->assertStringContainsString("Schema::hasTable('api_tokens')", $listener);
+        $this->assertStringContainsString("Schema::create('sessions'", $migration);
+        $this->assertStringContainsString("\$table->unsignedInteger('user_id')->nullable()->index()", $migration);
+        $this->assertStringContainsString("Schema::create('api_tokens'", $apiTokensMigration);
+        $this->assertStringContainsString("\$table->string('id', 80)->primary()", $apiTokensMigration);
+        $this->assertStringContainsString("\$table->unsignedInteger('user_id')->index()", $apiTokensMigration);
+        $this->assertStringContainsString("\$table->timestamp('expires_at')->nullable()->index()", $apiTokensMigration);
+        $this->assertStringContainsString('credential_session_revocation', $releaseGate);
+    }
+
     public function testReportsKeepMoneyAsDecimalStrings()
     {
         $controller = new ReportsController(

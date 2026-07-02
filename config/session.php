@@ -163,7 +163,7 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE', false),
+    'secure' => env('SESSION_SECURE_COOKIE', env('APP_ENV', 'production') === 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -175,7 +175,7 @@ return [
     | the HTTP protocol. You are free to modify this option if needed.
     |
     */
-    'http_only' => false,
+    'http_only' => env('SESSION_HTTP_ONLY', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -189,6 +189,6 @@ return [
     | Supported: "lax", "strict"
     |
     */
-    'same_site' => null,
+    'same_site' => env('SESSION_SAME_SITE', 'lax'),
 
 ];

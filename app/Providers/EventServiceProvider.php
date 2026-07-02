@@ -5,6 +5,7 @@ namespace VanguardLTE\Providers;
 use VanguardLTE\Events\User\Banned;
 use VanguardLTE\Events\User\LoggedIn;
 use VanguardLTE\Events\User\Registered;
+use VanguardLTE\Events\User\UserCredentialsChanged;
 use VanguardLTE\Listeners\Users\InvalidateSessionsAndTokens;
 use VanguardLTE\Listeners\Login\UpdateLastLoginTimestamp;
 use VanguardLTE\Listeners\Registration\SendConfirmationEmail;
@@ -33,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
             UpdateLastLoginTimestamp::class
         ],
         Banned::class => [
+            InvalidateSessionsAndTokens::class
+        ],
+        UserCredentialsChanged::class => [
             InvalidateSessionsAndTokens::class
         ],
 

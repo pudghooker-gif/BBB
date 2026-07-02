@@ -34,8 +34,8 @@ namespace VanguardLTE\Http\Controllers\Api
             $request->validate([
                 'email' => 'required|unique:users', 
                 'username' => 'required|unique:users', 
-                'password' => 'min:6|required_with:password_confirmation|same:password_confirmation', 
-                'password_confirmation' => 'min:6'
+                'password' => \VanguardLTE\Support\Security\PasswordPolicy::requiredConfirmedRules(),
+                'password_confirmation' => 'required'
             ]);
             $data['role_id'] = $role->id;
             $data['parent_id'] = 1;

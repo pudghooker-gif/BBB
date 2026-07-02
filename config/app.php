@@ -177,7 +177,6 @@ return [
          * Third-Party Service Providers
          */
 
-        Proengsoft\JsValidation\JsValidationServiceProvider::class,
         VanguardLTE\Providers\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
@@ -243,7 +242,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
 
-        'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
+        'JsValidator' => VanguardLTE\Support\Validation\JsValidatorFacade::class,
+        'Google2FA' => VanguardLTE\Support\TwoFactor\Google2FAFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,

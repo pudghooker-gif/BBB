@@ -9,7 +9,7 @@ namespace VanguardLTE\Http\Requests\User
             return [
                 'username' => 'regex:/^[A-Za-z0-9_.]+$/|nullable|unique:users,username,' . $user->id, 
                 'email' => 'nullable|unique:users,email,' . $user->id, 
-                'password' => 'min:6|confirmed', 
+                'password' => \VanguardLTE\Support\Security\PasswordPolicy::nullableConfirmedRules(),
                 'status' => \Illuminate\Validation\Rule::in(array_keys(\VanguardLTE\Support\Enum\UserStatus::lists()))
             ];
         }

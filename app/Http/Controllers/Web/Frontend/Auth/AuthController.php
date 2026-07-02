@@ -53,7 +53,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
         }
         public function postLogin(\VanguardLTE\Http\Requests\Auth\LoginRequest $request, \VanguardLTE\Repositories\Session\SessionRepository $sessionRepository)
         {
-            $throttles = settings('throttle_enabled');
+            $throttles = $this->loginThrottlingEnabled();
             $to = ($request->has('to') ? '?to=' . $request->get('to') : '');
             if( $throttles && $this->hasTooManyLoginAttempts($request) ) 
             {
@@ -120,7 +120,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
         }
         public function postLogin_(\VanguardLTE\Http\Requests\Auth\LoginRequest $request, \VanguardLTE\Repositories\Session\SessionRepository $sessionRepository)
         {
-            $throttles = settings('throttle_enabled');
+            $throttles = $this->loginThrottlingEnabled();
             $to = ($request->has('to') ? '?to=' . $request->get('to') : '');
             if( $throttles && $this->hasTooManyLoginAttempts($request) ) 
             {
@@ -286,13 +286,26 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
         {
             return 'username';
         }
+        protected function loginThrottlingEnabled()
+        {
+            if ($this->productionLoginThrottleEnforced()) {
+                return true;
+            }
+
+            return (bool)settings('throttle_enabled');
+        }
+        protected function productionLoginThrottleEnforced()
+        {
+            return (bool)config('security.login_throttle.production_enforced', true)
+                && app()->environment('production');
+        }
         protected function hasTooManyLoginAttempts(\Illuminate\Http\Request $request)
         {
             return app('Illuminate\Cache\RateLimiter')->tooManyAttempts($request->input($this->loginUsername()) . $request->ip(), $this->maxLoginAttempts());
         }
         protected function incrementLoginAttempts(\Illuminate\Http\Request $request)
         {
-            app('Illuminate\Cache\RateLimiter')->hit($request->input($this->loginUsername()) . $request->ip(), $this->lockoutTime() / 60);
+            app('Illuminate\Cache\RateLimiter')->hit($request->input($this->loginUsername()) . $request->ip(), $this->lockoutTime());
         }
         protected function retriesLeft(\Illuminate\Http\Request $request)
         {
@@ -314,15 +327,22 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
         }
         protected function maxLoginAttempts()
         {
-            return settings('throttle_attempts', 5);
+            $configuredMax = max(1, (int)config('security.login_throttle.max_attempts', 10));
+            $attempts = max(1, (int)settings('throttle_attempts', $configuredMax));
+
+            return $this->productionLoginThrottleEnforced()
+                ? min($attempts, $configuredMax)
+                : $attempts;
         }
         protected function lockoutTime()
         {
-            $lockout = (int)settings('throttle_lockout_time');
-            if( $lockout <= 1 ) 
-            {
-                $lockout = 1;
+            $minimum = max(1, (int)config('security.login_throttle.lockout_minutes', 1));
+            $lockout = max(1, (int)settings('throttle_lockout_time', $minimum));
+
+            if ($this->productionLoginThrottleEnforced()) {
+                $lockout = max($lockout, $minimum);
             }
+
             return 60 * $lockout;
         }
         public function getRegister()

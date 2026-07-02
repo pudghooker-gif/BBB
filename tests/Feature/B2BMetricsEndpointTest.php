@@ -22,6 +22,7 @@ class B2BMetricsEndpointTest extends TestCase
 
         $this->resetB2BTables();
         $this->resetJobsTable();
+        $this->resetFailedJobsTable();
         Cache::flush();
 
         config([
@@ -34,6 +35,7 @@ class B2BMetricsEndpointTest extends TestCase
 
     protected function tearDown(): void
     {
+        Schema::dropIfExists('failed_jobs');
         Schema::dropIfExists('jobs');
 
         parent::tearDown();
@@ -133,6 +135,14 @@ class B2BMetricsEndpointTest extends TestCase
             'available_at' => time() - 60,
             'created_at' => time() - 120,
         ]);
+        DB::table('failed_jobs')->insert([
+            'uuid' => 'failed-metrics-1',
+            'connection' => 'redis',
+            'queue' => 'b2b-wallet-retry',
+            'payload' => '{}',
+            'exception' => 'RuntimeException: failed',
+            'failed_at' => now()->subMinutes(10),
+        ]);
         app(B2BSchedulerHeartbeat::class)->record('phpunit');
 
         $response = $this->get('/api/b2b/v1/metrics');
@@ -153,6 +163,8 @@ class B2BMetricsEndpointTest extends TestCase
         $this->assertStringContainsString('bbb_b2b_reconciliation_items_total{state="open",status="open"} 1', $body);
         $this->assertStringContainsString('bbb_b2b_settlements_total{status="submitted"} 1', $body);
         $this->assertStringContainsString('bbb_b2b_queue_depth{queue="wallet_retry"} 1', $body);
+        $this->assertStringContainsString('bbb_b2b_queue_failed_jobs_total{queue="wallet_retry"} 1', $body);
+        $this->assertStringContainsString('# HELP bbb_b2b_queue_failed_job_oldest_age_seconds', $body);
         $this->assertStringContainsString('# HELP bbb_b2b_scheduler_heartbeat_age_seconds', $body);
         $this->assertStringContainsString('bbb_b2b_scheduler_heartbeat_fresh{cache_store="array"} 1', $body);
         $this->assertStringContainsString('bbb_b2b_scheduler_heartbeat_max_age_seconds{cache_store="array"} 180', $body);
@@ -172,6 +184,20 @@ class B2BMetricsEndpointTest extends TestCase
             $table->unsignedInteger('reserved_at')->nullable();
             $table->unsignedInteger('available_at');
             $table->unsignedInteger('created_at');
+        });
+    }
+
+    private function resetFailedJobsTable()
+    {
+        Schema::dropIfExists('failed_jobs');
+        Schema::create('failed_jobs', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('uuid')->nullable()->unique();
+            $table->text('connection');
+            $table->text('queue');
+            $table->longText('payload');
+            $table->longText('exception');
+            $table->timestamp('failed_at')->useCurrent();
         });
     }
 

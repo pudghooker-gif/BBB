@@ -7,7 +7,7 @@ namespace VanguardLTE\Http\Requests\Auth
         {
             $rules = [
                 'username' => 'required|regex:/^[A-Za-z0-9]+$/|unique:users,username', 
-                'password' => 'required|confirmed|min:6'
+                'password' => \VanguardLTE\Support\Security\PasswordPolicy::requiredConfirmedRules()
             ];
             if( settings('tos') ) 
             {

@@ -21,6 +21,7 @@ Current metric groups:
 - reconciliation item backlog by state/status;
 - settlement counts by status;
 - B2B queue depth and oldest queued job age when the configured queue backend exposes them;
+- B2B failed-job count and oldest failed-job age from Laravel `failed_jobs` storage;
 - scheduler heartbeat age/freshness from the cache store used by Laravel schedule;
 - scrape collection error count.
 
@@ -60,7 +61,7 @@ Prometheus alert rules are shipped in `deploy/prometheus/b2b-alerts.yml`. The ru
 - wallet callback failures;
 - wallet transactions requiring manual review, rollback, or dead-letter handling;
 - open reconciliation backlog;
-- B2B queue depth and stale queued jobs.
+- B2B queue depth, stale queued jobs, and Laravel failed jobs;
 - stale Laravel scheduler heartbeat.
 
 `deploy/prometheus/alertmanager-routes.example.yml` provides a secret-free Alertmanager routing example for `service="bbb-b2b"`, with critical alerts routed to `b2b-pager` and all B2B alerts routed to `b2b-ops`. Replace the placeholder webhook URLs with the production incident-management endpoints from the host secret store.

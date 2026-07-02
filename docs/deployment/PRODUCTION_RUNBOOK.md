@@ -74,8 +74,23 @@ Required production environment values:
 APP_ENV=production
 APP_DEBUG=false
 TRUSTED_PROXIES=10.0.0.10,10.0.0.11
+SESSION_DRIVER=database
+SESSION_SECURE_COOKIE=true
+SESSION_HTTP_ONLY=true
+SESSION_SAME_SITE=lax
+LOGIN_THROTTLE_PRODUCTION_ENFORCED=true
+LOGIN_THROTTLE_MAX_ATTEMPTS=10
+LOGIN_THROTTLE_LOCKOUT_MINUTES=1
+PASSWORD_POLICY_MIN_LENGTH=12
+PASSWORD_POLICY_MAX_LENGTH=72
+PASSWORD_POLICY_REQUIRE_MIXED_CASE=true
+PASSWORD_POLICY_REQUIRE_NUMBERS=true
+PASSWORD_POLICY_REQUIRE_SYMBOLS=false
+PASSWORD_POLICY_DISALLOW_WHITESPACE=true
+PASSWORD_POLICY_TEMPORARY_LENGTH=16
 CACHE_DRIVER=redis
 QUEUE_DRIVER=redis
+QUEUE_FAILED_DRIVER=database-uuids
 B2B_NONCE_CACHE_STORE=redis
 B2B_RATE_LIMIT_CACHE_STORE=redis
 B2B_SCHEDULER_HEARTBEAT_CACHE_STORE=redis
@@ -117,7 +132,21 @@ Prometheus alert rules live at `deploy/prometheus/b2b-alerts.yml`; Alertmanager 
 APP_URL=https://b2b.example.com bash deploy/scripts/healthcheck.sh
 ```
 
-The health check validates the public B2B readiness endpoint, metrics scrape, optional WebSocket TCP reachability, optional WebSocket `/healthz` JSON response, and the production release gate. Readiness checks database connectivity, critical B2B tables and columns, cache runtime, queue configuration, fresh scheduler heartbeat, storage writability, and production-safe configuration. It does not validate real provider credentials or gambling certification.
+The health check validates the public B2B readiness endpoint, metrics scrape, optional WebSocket TCP reachability, optional WebSocket `/healthz` JSON response, and the production release gate. Readiness checks database connectivity, critical B2B tables and columns, cache runtime, queue configuration, failed-job storage, fresh scheduler heartbeat, storage writability, and production-safe configuration. It does not validate real provider credentials or gambling certification.
+
+## Queue Failure Handling
+
+Production workers must write failed jobs into the database-backed `failed_jobs` table. Confirm `QUEUE_FAILED_DRIVER=database-uuids`, run migrations before workers start, and keep the Supervisor worker `--tries`, `--timeout`, and `--max-time` values aligned with `deploy/supervisor/b2b-workers.conf.example`.
+
+Use these commands during incidents:
+
+```bash
+php artisan queue:failed
+php artisan queue:retry <uuid-or-id>
+php artisan queue:forget <uuid-or-id>
+```
+
+Do not retry mutation-related B2B jobs until the root cause is fixed and the affected wallet transaction, reconciliation item, and operator support/case context have been reviewed. The `BBBB2BQueueFailedJobs` alert fires from `bbb_b2b_queue_failed_jobs_total` when any configured B2B queue has failed jobs.
 
 ## Smoke And Load Verification
 

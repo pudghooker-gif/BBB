@@ -432,7 +432,7 @@ namespace VanguardLTE\Http\Controllers\Api
             {
                 $validator = \Illuminate\Support\Facades\Validator::make($request->input($role_name), [
                     'username' => 'required|regex:/^[A-Za-z0-9_]+$/|unique:users,username', 
-                    'password' => 'required|min:6'
+                    'password' => \VanguardLTE\Support\Security\PasswordPolicy::requiredRules()
                 ]);
                 if( $validator->fails() ) 
                 {
@@ -626,10 +626,10 @@ namespace VanguardLTE\Http\Controllers\Api
             for( $i = 0; $i < $users['count']; $i++ ) 
             {
                 $sleep++;
-                $number = rand(111111111, 999999999);
+                $credential = \VanguardLTE\Support\Security\PasswordPolicy::generateTemporaryCredential();
                 $data = [
-                    'username' => $number, 
-                    'password' => $number, 
+                    'username' => $credential,
+                    'password' => $credential,
                     'role_id' => $role->id, 
                     'status' => 'Active', 
                     'shop_id' => $shop->id, 
