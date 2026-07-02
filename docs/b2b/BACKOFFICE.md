@@ -41,4 +41,6 @@ Implemented mutating and sensitive-review screens:
 - `/backend/b2b/cases` lists reconciliation/manual-review cases with redacted context under `b2b.cases.view`. Claim, resolve, and reopen actions require `b2b.cases.manage`, matching `case.*` web step-up actions, and write `case.claimed`, `case.resolved`, or `case.reopened` audit events.
 - `/backend/b2b/audit` lists B2B operator audit events under `b2b.audit.view`, with filters for operator, event, actor, subject, and period. Metadata and free-text reasons are redacted before display.
 
-Production operator portal UX, including staging validation and operator-visible mutating support/case follow-up beyond read-only pages, still needs dedicated work before this becomes a complete production backoffice.
+Signed operator support comments are accepted through `/api/b2b/v1/portal/support/cases/{transaction_uid}/comments`, appended to reconciliation context, redacted before persistence, and visible in `/backend/b2b/cases` context plus `/backend/b2b/audit`.
+
+Production operator portal UX, including staging validation and richer operator support ticket lifecycle beyond signed case comments, still needs dedicated work before this becomes a complete production backoffice.
