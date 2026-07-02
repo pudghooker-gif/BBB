@@ -629,6 +629,7 @@ class B2BReleaseGate
             'api/b2b/v1/portal/cases',
             'api/b2b/v1/portal/callbacks',
             'api/b2b/v1/portal/reports',
+            'api/b2b/v1/portal/support',
             'api/b2b/v1/portal/docs',
         ] as $uri) {
             if (!$this->routeExists('GET', $uri)) {

@@ -207,6 +207,17 @@
           "response": []
         },
         {
+          "name": "Portal Support",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/support?limit=10"
+          },
+          "response": []
+        },
+        {
           "name": "Portal Docs",
           "request": {
             "method": "GET",

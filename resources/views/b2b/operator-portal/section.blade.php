@@ -376,6 +376,67 @@
         </section>
     @endif
 
+    @if($portal_section['key'] === 'support')
+        <section class="grid">
+            @forelse($support['by_status'] as $status => $row)
+                <div class="panel metric">
+                    <div class="value">{{ number_format((int) $row['count']) }}</div>
+                    <div class="label">{{ $status }} events</div>
+                </div>
+            @empty
+                <div class="panel metric">
+                    <div class="value">0</div>
+                    <div class="label">Health Events</div>
+                </div>
+            @endforelse
+            <div class="panel metric">
+                <div class="value">{{ number_format((int) $summary['open_reconciliation_items']) }}</div>
+                <div class="label">Open Cases</div>
+            </div>
+        </section>
+
+        <section class="panel section">
+            <h2>Incidents</h2>
+            <table>
+                <thead><tr><th>Type</th><th>Status</th><th>Failures</th><th>Message</th><th>Created</th></tr></thead>
+                <tbody>
+                @forelse($support['recent_events'] as $event)
+                    <tr>
+                        <td>{{ $event['event_type'] ?: 'n/a' }}</td>
+                        <td><span class="status {{ in_array($event['status'], ['failed', 'degraded', 'open'], true) ? 'bad' : '' }}">{{ $event['status'] ?: 'unknown' }}</span></td>
+                        <td>{{ $event['failure_count'] === null ? 'n/a' : number_format((int) $event['failure_count']) }}</td>
+                        <td>{{ $event['message'] ?: 'n/a' }}</td>
+                        <td>{{ $event['created_at'] ?: 'n/a' }}</td>
+                    </tr>
+                @empty
+                    <tr><td colspan="5" class="muted">No support incidents</td></tr>
+                @endforelse
+                </tbody>
+            </table>
+        </section>
+
+        <section class="panel section">
+            <h2>Open Cases</h2>
+            <table>
+                <thead><tr><th>Transaction</th><th>State</th><th>Status</th><th>Priority</th><th>Reason</th><th>Detected</th></tr></thead>
+                <tbody>
+                @forelse($reconciliation['open_items'] as $item)
+                    <tr>
+                        <td>{{ $item['transaction_uid'] }}</td>
+                        <td>{{ $item['state'] }}</td>
+                        <td>{{ $item['status'] }}</td>
+                        <td><span class="status {{ $item['priority'] === 'high' ? 'bad' : '' }}">{{ $item['priority'] }}</span></td>
+                        <td>{{ $item['reason'] }}</td>
+                        <td>{{ $item['detected_at'] ?: 'n/a' }}</td>
+                    </tr>
+                @empty
+                    <tr><td colspan="6" class="muted">No open cases</td></tr>
+                @endforelse
+                </tbody>
+            </table>
+        </section>
+    @endif
+
     @if($portal_section['key'] === 'docs')
         <section class="panel section">
             <h2>API Links</h2>

@@ -41,6 +41,7 @@ class B2BOperatorPortalQuery
             'settlements' => $this->settlementSummary($operatorId, $limit),
             'reconciliation' => $this->reconciliationSummary($operatorId, $limit),
             'callbacks' => $this->callbackSummary($operatorId, $fromDate, $toDate, $limit),
+            'support' => $this->supportSummary($operatorId, $limit),
             'recent_sessions' => $this->recentSessions($operatorId, $limit),
             'recent_transactions' => $this->recentTransactions($operatorId, $fromDate, $toDate, $limit),
             'links' => [
@@ -53,6 +54,7 @@ class B2BOperatorPortalQuery
                 'portal_cases' => '/api/b2b/v1/portal/cases',
                 'portal_callbacks' => '/api/b2b/v1/portal/callbacks',
                 'portal_reports' => '/api/b2b/v1/portal/reports',
+                'portal_support' => '/api/b2b/v1/portal/support',
                 'portal_docs' => '/api/b2b/v1/portal/docs',
                 'operator_profile' => '/api/b2b/v1/operator/me',
                 'games' => '/api/b2b/v1/games',
@@ -533,6 +535,43 @@ class B2BOperatorPortalQuery
                 'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
             ];
         })->values();
+    }
+
+    private function supportSummary($operatorId, $limit)
+    {
+        if (!Schema::hasTable('b2b_operator_health_events')) {
+            return [
+                'by_status' => [],
+                'by_event_type' => [],
+                'recent_events' => [],
+            ];
+        }
+
+        $rows = DB::table('b2b_operator_health_events')
+            ->where('operator_id', $operatorId)
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get($this->selectExisting('b2b_operator_health_events', [
+                'event_type',
+                'status',
+                'failure_count',
+                'message',
+                'created_at',
+            ]));
+
+        return [
+            'by_status' => $this->groupCounts('b2b_operator_health_events', $operatorId, 'status'),
+            'by_event_type' => $this->groupCounts('b2b_operator_health_events', $operatorId, 'event_type'),
+            'recent_events' => $rows->map(function ($row) {
+                return [
+                    'event_type' => isset($row->event_type) ? $row->event_type : null,
+                    'status' => isset($row->status) ? $row->status : null,
+                    'failure_count' => isset($row->failure_count) ? (int) $row->failure_count : null,
+                    'message' => isset($row->message) ? $this->safeErrorSummary($row->message) : null,
+                    'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
+                ];
+            })->values(),
+        ];
     }
 
     private function countWhere($table, $operatorId, callable $callback = null)

@@ -61,6 +61,8 @@ class B2BOperatorPortalTest extends TestCase
             ->assertJsonPath('data.callbacks.by_result.server_error.count', 1)
             ->assertJsonPath('data.callbacks.recent_logs.0.endpoint', 'https://wallet-a.example/callback')
             ->assertJsonPath('data.callbacks.recent_attempts.0.endpoint', 'https://wallet-a.example/callback')
+            ->assertJsonPath('data.support.by_status.degraded.count', 1)
+            ->assertJsonPath('data.support.recent_events.0.event_type', 'wallet_degraded')
             ->assertJsonPath('data.recent_sessions.0.session_uid', 'sess_portal_a')
             ->assertJsonPath('data.recent_transactions.0.transaction_uid', 'tx_portal_a_win');
     }
@@ -80,7 +82,9 @@ class B2BOperatorPortalTest extends TestCase
         $this->assertStringNotContainsString('super-secret-value', $content);
         $this->assertStringNotContainsString('callback-secret-value', $content);
         $this->assertStringNotContainsString('attempt-secret-value', $content);
+        $this->assertStringNotContainsString('support-secret-value', $content);
         $this->assertStringNotContainsString('wallet-b.example', $content);
+        $this->assertStringNotContainsString('wallet_restored', $content);
     }
 
     public function testPortalOverviewRequiresSignature()
@@ -121,6 +125,7 @@ class B2BOperatorPortalTest extends TestCase
             'cases' => 'tx_portal_a_win',
             'callbacks' => 'server_error',
             'reports' => '/api/b2b/v1/reports/ggr',
+            'support' => 'wallet_degraded',
             'docs' => '/api/b2b/v1/reports/transactions',
         ] as $section => $expected) {
             $response = $this->signedGet('op_portal_a', 'key_portal_a', $this->secretA, '/api/b2b/v1/portal/' . $section . '?limit=10', 'portal-section-' . $section);
@@ -138,7 +143,9 @@ class B2BOperatorPortalTest extends TestCase
             $this->assertStringNotContainsString('super-secret-value', $content);
             $this->assertStringNotContainsString('callback-secret-value', $content);
             $this->assertStringNotContainsString('attempt-secret-value', $content);
+            $this->assertStringNotContainsString('support-secret-value', $content);
             $this->assertStringNotContainsString('wallet-b.example', $content);
+            $this->assertStringNotContainsString('wallet_restored', $content);
         }
     }
 
@@ -378,6 +385,27 @@ class B2BOperatorPortalTest extends TestCase
             'detected_at' => $now,
             'created_at' => $now,
             'updated_at' => $now,
+        ]);
+
+        DB::table('b2b_operator_health_events')->insert([
+            [
+                'operator_id' => $this->operatorA->id,
+                'event_type' => 'wallet_degraded',
+                'status' => 'degraded',
+                'failure_count' => 3,
+                'message' => 'Wallet callback failing token=support-secret-value',
+                'context' => json_encode(['token' => 'support-secret-value']),
+                'created_at' => $now,
+            ],
+            [
+                'operator_id' => $this->operatorB->id,
+                'event_type' => 'wallet_restored',
+                'status' => 'healthy',
+                'failure_count' => 0,
+                'message' => 'Other operator restored.',
+                'context' => null,
+                'created_at' => $now,
+            ],
         ]);
     }
 }

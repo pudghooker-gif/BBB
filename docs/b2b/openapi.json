@@ -145,6 +145,7 @@
     "/portal/cases": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/callbacks": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/reports": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/support": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/docs": { "$ref": "#/components/pathItems/PortalPage" },
     "/games": {
       "get": {

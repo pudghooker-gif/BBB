@@ -18,6 +18,7 @@ class PortalController extends Controller
         'cases' => 'Cases',
         'callbacks' => 'Callbacks',
         'reports' => 'Reports',
+        'support' => 'Support',
         'docs' => 'Docs',
     ];
 
