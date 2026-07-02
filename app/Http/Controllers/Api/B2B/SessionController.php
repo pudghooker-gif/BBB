@@ -14,6 +14,31 @@ use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class SessionController extends Controller
 {
+    private const DEFAULT_LIMIT = 100;
+    private const MAX_LIMIT = 1000;
+    private const DEFAULT_SORT = '-created_at';
+    private const SORT_OPTIONS = [
+        'created_at',
+        '-created_at',
+        'updated_at',
+        '-updated_at',
+        'expires_at',
+        '-expires_at',
+        'status',
+        '-status',
+        'game_id',
+        '-game_id',
+        'session_uid',
+        '-session_uid',
+    ];
+    private const STATUS_OPTIONS = [
+        B2BGameSession::STATUS_ACTIVE,
+        B2BGameSession::STATUS_STALE,
+        B2BGameSession::STATUS_EXPIRED,
+        B2BGameSession::STATUS_CLOSED,
+        B2BGameSession::STATUS_FAILED,
+    ];
+
     protected function operatorId(Request $request)
     {
         $operator = $request->attributes->get('b2b_operator');
@@ -30,35 +55,26 @@ class SessionController extends Controller
             return $this->operatorContextMissing($request);
         }
 
-        $limit = (int) $request->query('limit', 100);
-        if ($limit < 1) {
-            $limit = 100;
-        }
-        if ($limit > 1000) {
-            $limit = 1000;
+        $filters = $this->validatedIndexFilters($request);
+        if (isset($filters['response'])) {
+            return $filters['response'];
         }
 
-        $query = DB::table('b2b_game_sessions')->orderBy('created_at', 'desc')->limit($limit);
+        $query = DB::table('b2b_game_sessions')
+            ->where('operator_id', $operatorId);
 
-        if ($operatorId > 0) {
-            $query->where('operator_id', $operatorId);
-        }
-        if ($request->query('status')) {
-            $query->where('status', $request->query('status'));
-        }
-        if ($request->query('player_id')) {
-            $query->whereIn('operator_player_id', function ($subquery) use ($operatorId, $request) {
-                $subquery->select('id')
-                    ->from('b2b_operator_players')
-                    ->where('operator_id', $operatorId)
-                    ->where('external_player_id', $request->query('player_id'));
-            });
-        }
-        if ($request->query('game_id')) {
-            $query->where($this->sessionGameColumn(), $request->query('game_id'));
-        }
+        $this->applySessionFilters($query, $operatorId, $filters);
+        $matchedCount = (clone $query)->count();
+        $this->applySessionSort($query, $filters['sort']);
+        $rows = $query->limit($filters['limit'])->get();
 
-        return B2BApiResponse::success($request, $query->get(), 200, ['limit' => $limit]);
+        return B2BApiResponse::success($request, $rows, 200, [
+            'limit' => $filters['limit'],
+            'count' => $rows->count(),
+            'matched_count' => $matchedCount,
+            'sort' => $filters['sort'],
+            'filters' => $this->responseFilters($filters),
+        ]);
     }
 
     public function show(Request $request, $sessionUid)
@@ -149,6 +165,106 @@ class SessionController extends Controller
     private function sessionGameColumn()
     {
         return Schema::hasColumn('b2b_game_sessions', 'game_uid') ? 'game_uid' : 'game_id';
+    }
+
+    private function validatedIndexFilters(Request $request)
+    {
+        $validator = Validator::make($request->query(), [
+            'limit' => 'nullable|integer|min:1|max:' . self::MAX_LIMIT,
+            'status' => 'nullable|in:' . implode(',', self::STATUS_OPTIONS),
+            'player_id' => 'nullable|string|max:191',
+            'game_id' => 'nullable|string|max:191',
+            'sort' => 'nullable|in:' . implode(',', self::SORT_OPTIONS),
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'response' => B2BApiResponse::error(
+                    $request,
+                    'VALIDATION_FAILED',
+                    null,
+                    422,
+                    $validator->errors()
+                ),
+            ];
+        }
+
+        $limit = $request->query('limit');
+
+        return [
+            'limit' => $limit === null || $limit === '' ? self::DEFAULT_LIMIT : (int) $limit,
+            'status' => $this->normalizedTextFilter($request, 'status'),
+            'player_id' => $this->normalizedTextFilter($request, 'player_id'),
+            'game_id' => $this->normalizedTextFilter($request, 'game_id'),
+            'sort' => $this->normalizedTextFilter($request, 'sort') ?: self::DEFAULT_SORT,
+        ];
+    }
+
+    private function applySessionFilters($query, $operatorId, array $filters)
+    {
+        if ($filters['status']) {
+            $query->where('status', $filters['status']);
+        }
+
+        if ($filters['player_id']) {
+            $playerId = $filters['player_id'];
+            $query->whereIn('operator_player_id', function ($subquery) use ($operatorId, $playerId) {
+                $subquery->select('id')
+                    ->from('b2b_operator_players')
+                    ->where('operator_id', $operatorId)
+                    ->where('external_player_id', $playerId);
+            });
+        }
+
+        if ($filters['game_id']) {
+            $query->where($this->sessionGameColumn(), $filters['game_id']);
+        }
+    }
+
+    private function applySessionSort($query, $sort)
+    {
+        list($column, $direction) = $this->sortParts($sort);
+
+        if ($column === 'game_id') {
+            $column = $this->sessionGameColumn();
+        }
+
+        $query->orderBy($column, $direction);
+
+        if ($column !== 'session_uid') {
+            $query->orderBy('session_uid');
+        }
+    }
+
+    private function sortParts($sort)
+    {
+        $direction = strpos($sort, '-') === 0 ? 'desc' : 'asc';
+        $column = ltrim($sort, '-');
+
+        return [$column, $direction];
+    }
+
+    private function normalizedTextFilter(Request $request, $key)
+    {
+        $value = $request->query($key);
+        if ($value === null) {
+            return null;
+        }
+
+        $value = trim((string) $value);
+
+        return $value === '' ? null : $value;
+    }
+
+    private function responseFilters(array $filters)
+    {
+        return array_filter([
+            'status' => $filters['status'],
+            'player_id' => $filters['player_id'],
+            'game_id' => $filters['game_id'],
+        ], function ($value) {
+            return $value !== null && $value !== '';
+        });
     }
 
     private function applySessionIdentifier($query, $sessionUid)

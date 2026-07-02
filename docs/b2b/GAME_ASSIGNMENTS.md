@@ -16,7 +16,9 @@ Assignments are scoped by `operator_id`, `provider`, and `game_uid`.
 
 ## Launch And Catalog Rules
 
-`GET /api/b2b/v1/games` and `POST /api/b2b/v1/games/launch` both pass through `B2BGameAvailabilityService`.
+`GET /api/b2b/v1/games`, `GET /api/b2b/v1/games/{game_uid}`, and `POST /api/b2b/v1/games/launch` all pass through `B2BGameAvailabilityService`.
+
+The list endpoint is bounded and filterable. It accepts `limit` (1-500), `provider`, `category`, `search`, `currency`, `country`, `mode`, and a whitelisted `sort` value. `mode` defaults to `real`, so list results match the launch default unless `mode=demo` is requested.
 
 Resolution order:
 

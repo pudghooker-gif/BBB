@@ -55,6 +55,105 @@ class B2BOperatorFlowIsolationTest extends TestCase
             ->assertJsonPath('data.0.game_uid', 'book_flow_a');
     }
 
+    public function testGameDetailReturnsOnlySignedOperatorsLegacyGame()
+    {
+        $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/book_flow_a', 'flow-game-detail-own')
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.game_uid', 'book_flow_a')
+            ->assertJsonPath('data.provider', 'goldsvet_internal')
+            ->assertJsonPath('data.title', 'Book Flow A');
+
+        $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/book_flow_b', 'flow-game-detail-foreign')
+            ->assertStatus(404)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'GAME_NOT_AVAILABLE');
+
+        $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/book_flow_a?mode=practice', 'flow-game-detail-invalid-mode')
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+    }
+
+    public function testGameCatalogSupportsBoundedFiltersAndSorting()
+    {
+        DB::table('b2b_game_catalog')->insert([
+            [
+                'game_uid' => 'catalog_sort_zulu',
+                'provider' => 'external_provider',
+                'title' => 'Zulu Sort',
+                'category' => 'slots',
+                'demo_supported' => true,
+                'real_supported' => true,
+                'supported_currencies' => json_encode(['USD']),
+                'supported_countries' => json_encode(['BR']),
+                'status' => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'game_uid' => 'catalog_sort_alpha',
+                'provider' => 'external_provider',
+                'title' => 'Alpha Sort',
+                'category' => 'slots',
+                'demo_supported' => true,
+                'real_supported' => true,
+                'supported_currencies' => json_encode(['USD']),
+                'supported_countries' => json_encode(['BR']),
+                'status' => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'game_uid' => 'catalog_sort_table',
+                'provider' => 'external_provider',
+                'title' => 'Table Sort',
+                'category' => 'table',
+                'demo_supported' => true,
+                'real_supported' => true,
+                'supported_currencies' => json_encode(['USD']),
+                'supported_countries' => json_encode(['BR']),
+                'status' => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+
+        $this->signedGet(
+            'op_flow_a',
+            'key_flow_a',
+            $this->secretA,
+            '/api/b2b/v1/games?provider=external_provider&category=slots&currency=USD&country=BR&mode=real&sort=title&limit=1',
+            'flow-catalog-filter-sort'
+        )
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.game_uid', 'catalog_sort_alpha')
+            ->assertJsonPath('data.0.title', 'Alpha Sort')
+            ->assertJsonPath('meta.limit', 1)
+            ->assertJsonPath('meta.count', 1)
+            ->assertJsonPath('meta.available_count', 2)
+            ->assertJsonPath('meta.sort', 'title')
+            ->assertJsonPath('meta.filters.provider', 'external_provider')
+            ->assertJsonPath('meta.filters.category', 'slots')
+            ->assertJsonPath('meta.filters.currency', 'USD')
+            ->assertJsonPath('meta.filters.country', 'BR')
+            ->assertJsonPath('meta.filters.mode', 'real')
+            ->assertJsonPath('meta.source', 'b2b_game_catalog');
+
+        $this->signedGet(
+            'op_flow_a',
+            'key_flow_a',
+            $this->secretA,
+            '/api/b2b/v1/games?sort=created_at',
+            'flow-catalog-invalid-sort'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+    }
+
     public function testLaunchRejectsGameFromAnotherOperatorShop()
     {
         $body = json_encode([
@@ -216,6 +315,18 @@ class B2BOperatorFlowIsolationTest extends TestCase
             ->assertJsonPath('success', true)
             ->assertJsonCount(1, 'data')
             ->assertJsonPath('data.0.game_uid', 'catalog_flow_a');
+
+        $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/catalog_flow_a?currency=USD&country=BR', 'flow-catalog-detail-assigned')
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.game_uid', 'catalog_flow_a')
+            ->assertJsonPath('data.provider', 'external_provider')
+            ->assertJsonPath('data.supported_currencies.0', 'USD');
+
+        $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/catalog_flow_b?currency=USD&country=BR', 'flow-catalog-detail-unassigned')
+            ->assertStatus(404)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'GAME_NOT_AVAILABLE');
 
         $body = json_encode([
             'player_id' => 'player_catalog',

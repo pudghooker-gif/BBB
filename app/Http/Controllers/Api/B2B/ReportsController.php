@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use VanguardLTE\B2B\Models\B2BSettlement;
+use VanguardLTE\B2B\Models\B2BWalletTransaction;
 use VanguardLTE\B2B\Services\B2BReconciliationReportQuery;
 use VanguardLTE\B2B\Services\B2BReportQuery;
 use VanguardLTE\B2B\Services\B2BSettlementWorkflowService;
@@ -15,6 +17,70 @@ use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class ReportsController extends Controller
 {
+    private const DEFAULT_LIMIT = 100;
+    private const MAX_LIMIT = 1000;
+    private const DEFAULT_TRANSACTION_SORT = '-created_at';
+    private const TRANSACTION_SORT_OPTIONS = [
+        'created_at',
+        '-created_at',
+        'amount',
+        '-amount',
+        'type',
+        '-type',
+        'status',
+        '-status',
+        'currency',
+        '-currency',
+        'game_id',
+        '-game_id',
+        'transaction_uid',
+        '-transaction_uid',
+    ];
+    private const TRANSACTION_TYPE_OPTIONS = [
+        B2BWalletTransaction::TYPE_BALANCE,
+        B2BWalletTransaction::TYPE_BET,
+        B2BWalletTransaction::TYPE_WIN,
+        B2BWalletTransaction::TYPE_REFUND,
+        B2BWalletTransaction::TYPE_ROLLBACK,
+    ];
+    private const TRANSACTION_STATUS_OPTIONS = [
+        B2BWalletTransaction::STATUS_PENDING,
+        B2BWalletTransaction::STATUS_ACCEPTED,
+        B2BWalletTransaction::STATUS_REJECTED,
+        B2BWalletTransaction::STATUS_SUCCESS,
+        B2BWalletTransaction::STATUS_FAILED,
+        B2BWalletTransaction::STATUS_TIMEOUT,
+        B2BWalletTransaction::STATUS_UNKNOWN,
+        B2BWalletTransaction::STATUS_ROLLBACK_REQUIRED,
+        B2BWalletTransaction::STATUS_REVERSED,
+        B2BWalletTransaction::STATUS_MANUAL_REVIEW,
+        B2BWalletTransaction::STATUS_DEAD_LETTER,
+    ];
+    private const DEFAULT_SETTLEMENT_SORT = '-created_at';
+    private const SETTLEMENT_SORT_OPTIONS = [
+        'created_at',
+        '-created_at',
+        'period_start',
+        '-period_start',
+        'period_end',
+        '-period_end',
+        'status',
+        '-status',
+        'currency',
+        '-currency',
+        'net_amount',
+        '-net_amount',
+        'settlement_uid',
+        '-settlement_uid',
+    ];
+    private const SETTLEMENT_STATUS_OPTIONS = [
+        B2BSettlement::STATUS_DRAFT,
+        B2BSettlement::STATUS_EXPORTED,
+        B2BSettlement::STATUS_SUBMITTED,
+        B2BSettlement::STATUS_APPROVED,
+        B2BSettlement::STATUS_REJECTED,
+    ];
+
     protected $reports;
     protected $reconciliationReports;
     protected $settlementWorkflow;
@@ -86,14 +152,34 @@ class ReportsController extends Controller
             return $this->operatorContextMissing($request);
         }
 
-        $limit = $this->reports->safeLimit($request);
+        $filters = $this->validatedTransactionListFilters($request);
+        if (isset($filters['response'])) {
+            return $filters['response'];
+        }
 
-        $rows = $this->reports->transactionBaseQuery($request)
-            ->orderBy('created_at', 'desc')
-            ->limit($limit)
-            ->get();
+        list($fromDate, $toDate) = $this->reports->dateRange($request);
+        if ($fromDate->gt($toDate)) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, [
+                'period' => ['Report period start must be before or equal to period end.'],
+            ]);
+        }
 
-        return B2BApiResponse::success($request, $rows, 200, ['limit' => $limit]);
+        $query = $this->reports->transactionBaseQuery($request);
+        $matchedCount = (clone $query)->count();
+        $this->applyTransactionSort($query, $filters['sort']);
+        $rows = $query->limit($filters['limit'])->get();
+
+        return B2BApiResponse::success($request, $rows, 200, [
+            'limit' => $filters['limit'],
+            'count' => $rows->count(),
+            'matched_count' => $matchedCount,
+            'sort' => $filters['sort'],
+            'filters' => $this->transactionResponseFilters($filters),
+            'period' => [
+                'from' => $fromDate->toIso8601String(),
+                'to' => $toDate->toIso8601String(),
+            ],
+        ]);
     }
 
     public function transaction(Request $request, $transactionUid)
@@ -148,20 +234,43 @@ class ReportsController extends Controller
 
     public function settlements(Request $request)
     {
-        list($fromDate, $toDate) = $this->reports->dateRange($request);
         $operatorId = $this->reports->operatorId($request);
         if ($operatorId <= 0) {
             return $this->operatorContextMissing($request);
         }
 
+        $filters = $this->validatedSettlementListFilters($request);
+        if (isset($filters['response'])) {
+            return $filters['response'];
+        }
+
+        list($fromDate, $toDate) = $this->reports->dateRange($request);
+        if ($fromDate->gt($toDate)) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, [
+                'period' => ['Settlement report period start must be before or equal to period end.'],
+            ]);
+        }
+
         $query = DB::table('b2b_settlements')
             ->whereBetween('created_at', [$fromDate, $toDate])
-            ->orderBy('created_at', 'desc')
-            ->limit($this->reports->safeLimit($request));
+            ->where('operator_id', $operatorId);
 
-        $query->where('operator_id', $operatorId);
+        $this->applySettlementFilters($query, $filters);
+        $matchedCount = (clone $query)->count();
+        $this->applySettlementSort($query, $filters['sort']);
+        $rows = $query->limit($filters['limit'])->get();
 
-        return B2BApiResponse::success($request, $query->get());
+        return B2BApiResponse::success($request, $rows, 200, [
+            'limit' => $filters['limit'],
+            'count' => $rows->count(),
+            'matched_count' => $matchedCount,
+            'sort' => $filters['sort'],
+            'filters' => $this->settlementResponseFilters($filters),
+            'period' => [
+                'from' => $fromDate->toIso8601String(),
+                'to' => $toDate->toIso8601String(),
+            ],
+        ]);
     }
 
     public function settlement(Request $request, $settlementUid)
@@ -394,6 +503,176 @@ class ReportsController extends Controller
         }
 
         return ltrim(strrev($result), '0') ?: '0';
+    }
+
+    private function validatedTransactionListFilters(Request $request)
+    {
+        $validator = Validator::make($request->query(), [
+            'from' => 'nullable|date',
+            'to' => 'nullable|date',
+            'limit' => 'nullable|integer|min:1|max:' . self::MAX_LIMIT,
+            'status' => 'nullable|in:' . implode(',', self::TRANSACTION_STATUS_OPTIONS),
+            'type' => 'nullable|in:' . implode(',', self::TRANSACTION_TYPE_OPTIONS),
+            'player_id' => 'nullable|string|max:191',
+            'game_id' => 'nullable|string|max:191',
+            'round_id' => 'nullable|string|max:191',
+            'currency' => 'nullable|string|size:3',
+            'sort' => 'nullable|in:' . implode(',', self::TRANSACTION_SORT_OPTIONS),
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'response' => B2BApiResponse::error(
+                    $request,
+                    'VALIDATION_FAILED',
+                    null,
+                    422,
+                    $validator->errors()
+                ),
+            ];
+        }
+
+        $limit = $request->query('limit');
+
+        return [
+            'from' => $this->normalizedTextFilter($request, 'from'),
+            'to' => $this->normalizedTextFilter($request, 'to'),
+            'limit' => $limit === null || $limit === '' ? self::DEFAULT_LIMIT : (int) $limit,
+            'status' => $this->normalizedTextFilter($request, 'status'),
+            'type' => $this->normalizedTextFilter($request, 'type'),
+            'player_id' => $this->normalizedTextFilter($request, 'player_id'),
+            'game_id' => $this->normalizedTextFilter($request, 'game_id'),
+            'round_id' => $this->normalizedTextFilter($request, 'round_id'),
+            'currency' => $this->normalizedUpperFilter($request, 'currency'),
+            'sort' => $this->normalizedTextFilter($request, 'sort') ?: self::DEFAULT_TRANSACTION_SORT,
+        ];
+    }
+
+    private function applyTransactionSort($query, $sort)
+    {
+        list($column, $direction) = $this->sortParts($sort);
+
+        if ($column === 'game_id') {
+            $column = $this->reports->walletGameColumn();
+        }
+
+        $query->orderBy($column, $direction);
+
+        if ($column !== 'transaction_uid') {
+            $query->orderBy('transaction_uid');
+        }
+    }
+
+    private function validatedSettlementListFilters(Request $request)
+    {
+        $validator = Validator::make($request->query(), [
+            'from' => 'nullable|date',
+            'to' => 'nullable|date',
+            'limit' => 'nullable|integer|min:1|max:' . self::MAX_LIMIT,
+            'status' => 'nullable|in:' . implode(',', self::SETTLEMENT_STATUS_OPTIONS),
+            'currency' => 'nullable|string|size:3',
+            'sort' => 'nullable|in:' . implode(',', self::SETTLEMENT_SORT_OPTIONS),
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'response' => B2BApiResponse::error(
+                    $request,
+                    'VALIDATION_FAILED',
+                    null,
+                    422,
+                    $validator->errors()
+                ),
+            ];
+        }
+
+        $limit = $request->query('limit');
+
+        return [
+            'from' => $this->normalizedTextFilter($request, 'from'),
+            'to' => $this->normalizedTextFilter($request, 'to'),
+            'limit' => $limit === null || $limit === '' ? self::DEFAULT_LIMIT : (int) $limit,
+            'status' => $this->normalizedTextFilter($request, 'status'),
+            'currency' => $this->normalizedUpperFilter($request, 'currency'),
+            'sort' => $this->normalizedTextFilter($request, 'sort') ?: self::DEFAULT_SETTLEMENT_SORT,
+        ];
+    }
+
+    private function applySettlementFilters($query, array $filters)
+    {
+        if ($filters['status']) {
+            $query->where('status', $filters['status']);
+        }
+
+        if ($filters['currency']) {
+            $query->where('currency', $filters['currency']);
+        }
+    }
+
+    private function applySettlementSort($query, $sort)
+    {
+        list($column, $direction) = $this->sortParts($sort);
+
+        $query->orderBy($column, $direction);
+
+        if ($column !== 'settlement_uid') {
+            $query->orderBy('settlement_uid');
+        }
+    }
+
+    private function sortParts($sort)
+    {
+        $direction = strpos($sort, '-') === 0 ? 'desc' : 'asc';
+        $column = ltrim($sort, '-');
+
+        return [$column, $direction];
+    }
+
+    private function normalizedTextFilter(Request $request, $key)
+    {
+        $value = $request->query($key);
+        if ($value === null) {
+            return null;
+        }
+
+        $value = trim((string) $value);
+
+        return $value === '' ? null : $value;
+    }
+
+    private function normalizedUpperFilter(Request $request, $key)
+    {
+        $value = $this->normalizedTextFilter($request, $key);
+
+        return $value === null ? null : strtoupper($value);
+    }
+
+    private function transactionResponseFilters(array $filters)
+    {
+        return array_filter([
+            'from' => $filters['from'],
+            'to' => $filters['to'],
+            'status' => $filters['status'],
+            'type' => $filters['type'],
+            'player_id' => $filters['player_id'],
+            'game_id' => $filters['game_id'],
+            'round_id' => $filters['round_id'],
+            'currency' => $filters['currency'],
+        ], function ($value) {
+            return $value !== null && $value !== '';
+        });
+    }
+
+    private function settlementResponseFilters(array $filters)
+    {
+        return array_filter([
+            'from' => $filters['from'],
+            'to' => $filters['to'],
+            'status' => $filters['status'],
+            'currency' => $filters['currency'],
+        ], function ($value) {
+            return $value !== null && $value !== '';
+        });
     }
 
     private function operatorContextMissing(Request $request)

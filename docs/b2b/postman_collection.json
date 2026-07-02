@@ -285,7 +285,15 @@
           "name": "List Games",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/b2b/v1/games?currency={{currency}}"
+            "url": "{{baseUrl}}/api/b2b/v1/games?currency={{currency}}&country=BR&mode=real&limit=50&sort=title"
+          },
+          "response": []
+        },
+        {
+          "name": "Game Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/games/{{gameId}}?currency={{currency}}&mode=real"
           },
           "response": []
         },
@@ -310,7 +318,7 @@
           "name": "List Sessions",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/b2b/v1/sessions?limit=100"
+            "url": "{{baseUrl}}/api/b2b/v1/sessions?limit=100&status=active&sort=-created_at"
           },
           "response": []
         },
@@ -440,7 +448,7 @@
           "name": "Transactions",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/b2b/v1/reports/transactions?limit=100"
+            "url": "{{baseUrl}}/api/b2b/v1/reports/transactions?limit=100&status=success&type=bet&currency={{currency}}&sort=-created_at"
           },
           "response": []
         },
@@ -456,7 +464,7 @@
           "name": "Settlements",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/b2b/v1/reports/settlements?from=2026-06-01&to=2026-06-24"
+            "url": "{{baseUrl}}/api/b2b/v1/reports/settlements?from=2026-06-01&to=2026-06-24&status=exported&currency={{currency}}&sort=-created_at&limit=100"
           },
           "response": []
         },

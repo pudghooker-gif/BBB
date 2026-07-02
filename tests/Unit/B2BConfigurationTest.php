@@ -24,6 +24,7 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("Route::post('portal/support/tickets', [PortalController::class, 'createSupportTicket'])", $b2bRoutes);
         $this->assertStringContainsString("Route::post('portal/support/tickets/{ticket_uid}/comments', [PortalController::class, 'commentSupportTicket'])", $b2bRoutes);
         $this->assertStringContainsString("Route::post('portal/support/tickets/{ticket_uid}/close', [PortalController::class, 'closeSupportTicket'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('games/{game_uid}', [GameCatalogController::class, 'show'])", $b2bRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.dashboard'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BDashboardController@index'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.wallet_manual_actions.index'", $webRoutes);
@@ -260,6 +261,7 @@ class B2BConfigurationTest extends TestCase
             '/portal/support/tickets/{ticket_uid}/close',
             '/portal/docs',
             '/games',
+            '/games/{game_uid}',
             '/games/launch',
             '/sessions',
             '/sessions/{session_uid}',
@@ -286,6 +288,46 @@ class B2BConfigurationTest extends TestCase
             $this->assertArrayHasKey($path, $openapi['paths']);
         }
 
+        $gameListParameters = [];
+        foreach ($openapi['paths']['/games']['get']['parameters'] as $parameter) {
+            if (isset($parameter['name'])) {
+                $gameListParameters[] = $parameter['name'];
+            }
+        }
+        foreach (['limit', 'provider', 'category', 'search', 'currency', 'country', 'mode', 'sort'] as $parameter) {
+            $this->assertContains($parameter, $gameListParameters);
+        }
+
+        $sessionListParameters = [];
+        foreach ($openapi['paths']['/sessions']['get']['parameters'] as $parameter) {
+            if (isset($parameter['name'])) {
+                $sessionListParameters[] = $parameter['name'];
+            }
+        }
+        foreach (['limit', 'status', 'player_id', 'game_id', 'sort'] as $parameter) {
+            $this->assertContains($parameter, $sessionListParameters);
+        }
+
+        $transactionListParameters = [];
+        foreach ($openapi['paths']['/reports/transactions']['get']['parameters'] as $parameter) {
+            if (isset($parameter['name'])) {
+                $transactionListParameters[] = $parameter['name'];
+            }
+        }
+        foreach (['from', 'to', 'limit', 'status', 'type', 'player_id', 'game_id', 'round_id', 'currency', 'sort'] as $parameter) {
+            $this->assertContains($parameter, $transactionListParameters);
+        }
+
+        $settlementListParameters = [];
+        foreach ($openapi['paths']['/reports/settlements']['get']['parameters'] as $parameter) {
+            if (isset($parameter['name'])) {
+                $settlementListParameters[] = $parameter['name'];
+            }
+        }
+        foreach (['from', 'to', 'limit', 'status', 'currency', 'sort'] as $parameter) {
+            $this->assertContains($parameter, $settlementListParameters);
+        }
+
         $urls = $this->collectPostmanUrls($postman['item']);
         foreach ([
             '/api/b2b/v1/health',
@@ -302,12 +344,17 @@ class B2BConfigurationTest extends TestCase
             '/api/b2b/v1/portal/support/tickets',
             '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/comments',
             '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/close',
+            '/api/b2b/v1/games?currency={{currency}}&country=BR&mode=real&limit=50&sort=title',
             '/api/b2b/v1/games/launch',
+            '/api/b2b/v1/games/{{gameId}}',
+            '/api/b2b/v1/sessions?limit=100&status=active&sort=-created_at',
             '/api/b2b/v1/sessions/{{sessionId}}/close',
             '/api/b2b/v1/wallet/bet',
             '/api/b2b/v1/wallet/transactions/{{transactionId}}/status',
             '/api/b2b/v1/reports/settlements/export',
             '/api/b2b/v1/reports/reconciliation',
+            '/api/b2b/v1/reports/transactions?limit=100&status=success&type=bet&currency={{currency}}&sort=-created_at',
+            '/api/b2b/v1/reports/settlements?from=2026-06-01&to=2026-06-24&status=exported&currency={{currency}}&sort=-created_at&limit=100',
             '/api/b2b/v1/reports/transactions/{{transactionId}}',
         ] as $needle) {
             $this->assertTrue(

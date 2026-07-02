@@ -39,6 +39,7 @@ Route::prefix('b2b/v1')->group(function () {
         Route::post('portal/support/tickets/{ticket_uid}/close', [PortalController::class, 'closeSupportTicket']);
 
         Route::get('games', [GameCatalogController::class, 'index']);
+        Route::get('games/{game_uid}', [GameCatalogController::class, 'show']);
         Route::post('games/launch', [GameLaunchController::class, 'store']);
 
         Route::get('sessions', [SessionController::class, 'index']);

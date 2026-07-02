@@ -277,14 +277,42 @@
       "get": {
         "tags": ["games"],
         "summary": "List games available to the signed operator",
+        "description": "Returns a bounded signed-operator game catalog. Results pass through the same assignment, shop, currency, country, and mode availability checks used by launch.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 500, "default": 100 }, "example": 50 },
+          { "name": "provider", "in": "query", "schema": { "type": "string", "maxLength": 80 }, "example": "external_provider" },
+          { "name": "category", "in": "query", "schema": { "type": "string", "maxLength": 80 }, "example": "slots" },
+          { "name": "search", "in": "query", "schema": { "type": "string", "maxLength": 120 }, "example": "book" },
           { "name": "currency", "in": "query", "schema": { "type": "string", "minLength": 3, "maxLength": 3 }, "example": "USD" },
-          { "name": "country", "in": "query", "schema": { "type": "string", "minLength": 2, "maxLength": 2 }, "example": "BR" }
+          { "name": "country", "in": "query", "schema": { "type": "string", "minLength": 2, "maxLength": 2 }, "example": "BR" },
+          { "name": "mode", "in": "query", "schema": { "type": "string", "enum": ["real", "demo"], "default": "real" }, "example": "real" },
+          { "name": "sort", "in": "query", "schema": { "type": "string", "enum": ["title", "-title", "provider", "-provider", "category", "-category", "game_uid", "-game_uid"] }, "example": "title" }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/Success" },
-          "401": { "$ref": "#/components/responses/Error" }
+          "401": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/games/{game_uid}": {
+      "get": {
+        "tags": ["games"],
+        "summary": "Return one game available to the signed operator",
+        "description": "Returns a single active catalog or legacy Goldsvet game after the same operator assignment, shop, currency, country, and mode checks used by launch.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "$ref": "#/components/parameters/GameUid" },
+          { "name": "currency", "in": "query", "schema": { "type": "string", "minLength": 3, "maxLength": 3 }, "example": "USD" },
+          { "name": "country", "in": "query", "schema": { "type": "string", "minLength": 2, "maxLength": 2 }, "example": "BR" },
+          { "name": "mode", "in": "query", "schema": { "type": "string", "enum": ["real", "demo"] }, "example": "real" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
         }
       }
     },
@@ -312,16 +340,19 @@
       "get": {
         "tags": ["sessions"],
         "summary": "List sessions for the signed operator",
+        "description": "Returns a bounded tenant-scoped session list with validated filters and whitelisted sorting.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
-          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 1000 }, "example": 100 },
-          { "name": "status", "in": "query", "schema": { "type": "string" }, "example": "active" },
-          { "name": "player_id", "in": "query", "schema": { "type": "string" }, "example": "player_123" },
-          { "name": "game_id", "in": "query", "schema": { "type": "string" }, "example": "bookofdead" }
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 1000, "default": 100 }, "example": 100 },
+          { "name": "status", "in": "query", "schema": { "type": "string", "enum": ["active", "stale", "expired", "closed", "failed"] }, "example": "active" },
+          { "name": "player_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "player_123" },
+          { "name": "game_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "bookofdead" },
+          { "name": "sort", "in": "query", "schema": { "type": "string", "enum": ["created_at", "-created_at", "updated_at", "-updated_at", "expires_at", "-expires_at", "status", "-status", "game_id", "-game_id", "session_uid", "-session_uid"], "default": "-created_at" }, "example": "-created_at" }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/Success" },
-          "401": { "$ref": "#/components/responses/Error" }
+          "401": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
         }
       }
     },
@@ -427,9 +458,53 @@
       }
     },
     "/reports/summary": { "$ref": "#/components/pathItems/ReportCollection" },
-    "/reports/transactions": { "$ref": "#/components/pathItems/ReportCollection" },
+    "/reports/transactions": {
+      "get": {
+        "tags": ["reports"],
+        "summary": "List wallet transactions for the signed operator",
+        "description": "Returns a bounded tenant-scoped transaction list with validated filters, currency separation, and whitelisted sorting.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
+          { "name": "to", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-24" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 1000, "default": 100 }, "example": 100 },
+          { "name": "status", "in": "query", "schema": { "type": "string", "enum": ["pending", "accepted", "rejected", "success", "failed", "timeout", "unknown", "rollback_required", "reversed", "manual_review", "dead_letter"] }, "example": "success" },
+          { "name": "type", "in": "query", "schema": { "type": "string", "enum": ["balance", "bet", "win", "refund", "rollback"] }, "example": "bet" },
+          { "name": "player_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "player_123" },
+          { "name": "game_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "bookofdead" },
+          { "name": "round_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "round_001" },
+          { "name": "currency", "in": "query", "schema": { "type": "string", "minLength": 3, "maxLength": 3 }, "example": "USD" },
+          { "name": "sort", "in": "query", "schema": { "type": "string", "enum": ["created_at", "-created_at", "amount", "-amount", "type", "-type", "status", "-status", "currency", "-currency", "game_id", "-game_id", "transaction_uid", "-transaction_uid"], "default": "-created_at" }, "example": "-created_at" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/reports/ggr": { "$ref": "#/components/pathItems/ReportCollection" },
-    "/reports/settlements": { "$ref": "#/components/pathItems/ReportCollection" },
+    "/reports/settlements": {
+      "get": {
+        "tags": ["reports"],
+        "summary": "List settlements for the signed operator",
+        "description": "Returns a bounded tenant-scoped settlement list with validated filters and whitelisted sorting.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
+          { "name": "to", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-24" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 1000, "default": 100 }, "example": 100 },
+          { "name": "status", "in": "query", "schema": { "type": "string", "enum": ["draft", "exported", "submitted", "approved", "rejected"] }, "example": "exported" },
+          { "name": "currency", "in": "query", "schema": { "type": "string", "minLength": 3, "maxLength": 3 }, "example": "USD" },
+          { "name": "sort", "in": "query", "schema": { "type": "string", "enum": ["created_at", "-created_at", "period_start", "-period_start", "period_end", "-period_end", "status", "-status", "currency", "-currency", "net_amount", "-net_amount", "settlement_uid", "-settlement_uid"], "default": "-created_at" }, "example": "-created_at" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/reports/settlements/export": {
       "post": {
         "tags": ["reports"],
@@ -496,6 +571,13 @@
         "required": true,
         "schema": { "type": "string", "maxLength": 191 },
         "example": "sess_xxx"
+      },
+      "GameUid": {
+        "name": "game_uid",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string", "maxLength": 191 },
+        "example": "bookofdead"
       },
       "TransactionUid": {
         "name": "transaction_uid",

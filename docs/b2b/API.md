@@ -68,6 +68,7 @@ POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/comments
 POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/close
 GET  /api/b2b/v1/portal/docs
 GET  /api/b2b/v1/games
+GET  /api/b2b/v1/games/{game_uid}
 POST /api/b2b/v1/games/launch
 GET  /api/b2b/v1/sessions
 GET  /api/b2b/v1/sessions/{session_uid}
@@ -169,6 +170,10 @@ Response:
 
 Launch checks the signed operator's game availability before creating a session. Dedicated `b2b_operator_game_assignments` rows are enforced first and can allow, block, or limit games per provider, currency, country, and mode. If an operator has any active `allowed` assignment, unassigned games are denied by default. Without assignments, Goldsvet/internal fallback games must belong to the operator's mapped `shop_id` and be visible; legacy `settings.enabled_games` and `settings.disabled_games` still apply.
 
+`GET /api/b2b/v1/games` returns a bounded signed-operator catalog. It accepts `limit` (1-500, default 100), `provider`, `category`, `search`, `currency`, `country`, `mode` (`real` or `demo`, default `real`), and `sort` (`title`, `-title`, `provider`, `-provider`, `category`, `-category`, `game_uid`, `-game_uid`). The response keeps the game list in `data` and adds `meta.limit`, `meta.count`, `meta.available_count`, `meta.filters`, `meta.sort`, and `meta.source`.
+
+`GET /api/b2b/v1/games/{game_uid}` returns the same redacted catalog shape for one signed-operator-owned game. It accepts optional `currency`, `country`, and `mode` query filters and returns `GAME_NOT_AVAILABLE` for foreign-shop legacy games, blocked assignments, unassigned games when assignments are restrictive, inactive catalog rows, or unsupported currency/country/mode combinations.
+
 ## Session close example
 
 ```json
@@ -177,7 +182,7 @@ Launch checks the signed operator's game availability before creating a session.
 }
 ```
 
-Session list, detail, and close endpoints are scoped to the signed operator. Detail and close accept a `session_uid`; numeric database IDs are accepted only when the ID belongs to the signed operator. Closing a session runs through the provider close contract, stores `close_reason` when the column is present, and is idempotent for already closed sessions.
+Session list, detail, and close endpoints are scoped to the signed operator. `GET /api/b2b/v1/sessions` accepts `limit` (1-1000, default 100), `status`, `player_id`, `game_id`, and `sort` (`created_at`, `-created_at`, `updated_at`, `-updated_at`, `expires_at`, `-expires_at`, `status`, `-status`, `game_id`, `-game_id`, `session_uid`, `-session_uid`). The list response includes `meta.limit`, `meta.count`, `meta.matched_count`, `meta.filters`, and `meta.sort`. Detail and close accept a `session_uid`; numeric database IDs are accepted only when the ID belongs to the signed operator. Closing a session runs through the provider close contract, stores `close_reason` when the column is present, and is idempotent for already closed sessions.
 
 ## Wallet event example
 
@@ -199,6 +204,10 @@ This MVP stores every wallet event in `b2b_wallet_transactions` and forwards the
 Wallet mutation requests with `session_id` must reference an active session owned by the signed operator, matching the requested game and currency. A foreign or stale session is rejected before ledger creation or callback delivery.
 
 Wallet status lookup returns the current status, recent callback attempts, transition history, open reconciliation items, recent manual actions, and suggested operational next actions for the signed operator only.
+
+`GET /api/b2b/v1/reports/transactions` returns a bounded tenant-scoped transaction list. It accepts `from`, `to`, `limit` (1-1000, default 100), `status`, `type`, `player_id`, `game_id`, `round_id`, `currency`, and `sort` (`created_at`, `-created_at`, `amount`, `-amount`, `type`, `-type`, `status`, `-status`, `currency`, `-currency`, `game_id`, `-game_id`, `transaction_uid`, `-transaction_uid`). Invalid filters or inverted periods return `VALIDATION_FAILED` instead of silently falling back to defaults.
+
+`GET /api/b2b/v1/reports/settlements` returns a bounded tenant-scoped settlement list. It accepts `from`, `to`, `limit` (1-1000, default 100), `status`, `currency`, and `sort` (`created_at`, `-created_at`, `period_start`, `-period_start`, `period_end`, `-period_end`, `status`, `-status`, `currency`, `-currency`, `net_amount`, `-net_amount`, `settlement_uid`, `-settlement_uid`). Invalid filters or inverted periods return `VALIDATION_FAILED`.
 
 ## Settlement export example
 

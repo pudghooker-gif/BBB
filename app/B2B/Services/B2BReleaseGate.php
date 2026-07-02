@@ -1111,6 +1111,7 @@ class B2BReleaseGate
             'api/b2b/v1/portal/reports',
             'api/b2b/v1/portal/support',
             'api/b2b/v1/portal/docs',
+            'api/b2b/v1/games/{game_uid}',
         ] as $uri) {
             if (!$this->routeExists('GET', $uri)) {
                 $missing[] = 'route:' . $uri;

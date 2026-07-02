@@ -74,6 +74,10 @@ class B2BReportQuery
             $query->where($this->walletGameColumn(), $request->query('game_id'));
         }
 
+        if ($request->query('currency')) {
+            $query->where('currency', strtoupper((string) $request->query('currency')));
+        }
+
         if ($request->query('round_id')) {
             $query->where('round_id', $request->query('round_id'));
         }
@@ -93,7 +97,7 @@ class B2BReportQuery
         return $limit;
     }
 
-    private function walletGameColumn()
+    public function walletGameColumn()
     {
         return Schema::hasColumn('b2b_wallet_transactions', 'game_uid') ? 'game_uid' : 'game_id';
     }
