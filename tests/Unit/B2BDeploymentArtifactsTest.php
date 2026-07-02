@@ -13,6 +13,29 @@ class B2BDeploymentArtifactsTest extends TestCase
         }
     }
 
+    public function testReadmeDocumentsB2BOperationalEntryPoints()
+    {
+        $readme = file_get_contents(base_path('README.md'));
+
+        foreach ([
+            'BBB B2B Casino Aggregator',
+            '/api/b2b/v1',
+            '/backend/b2b',
+            'docs/b2b/RELEASE_CHECKS.md',
+            'docs/deployment/PRODUCTION_RUNBOOK.md',
+            'php artisan b2b:release-check --production',
+            'composer audit --locked --no-dev',
+            'Current Launch Blockers',
+            'laravel/framework',
+            'swiftmailer/swiftmailer',
+        ] as $needle) {
+            $this->assertStringContainsString($needle, $readme);
+        }
+
+        $this->assertStringNotContainsString('About Laravel', $readme);
+        $this->assertStringNotContainsString('Laravel Sponsors', $readme);
+    }
+
     public function testNginxTemplateProtectsKnownSecretAndLocalArtifactExtensions()
     {
         $template = file_get_contents(base_path('deploy/nginx/bbb-b2b.conf.example'));
