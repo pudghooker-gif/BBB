@@ -157,11 +157,97 @@ class B2BOperatorPortalTest extends TestCase
             ->assertJsonPath('error.code', 'B2B_AUTH_FAILED');
     }
 
+    public function testOperatorPortalSupportCaseCommentIsScopedRedactedAndAudited()
+    {
+        $body = json_encode([
+            'message' => 'Operator confirms provider case token=operator-comment-secret needs follow-up.',
+            'external_reference' => 'OP-CASE-123',
+        ]);
+
+        $response = $this->signedPost(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/support/cases/tx_portal_a_win/comments',
+            $body,
+            'portal-case-comment-a'
+        );
+
+        $response->assertStatus(201)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.transaction_uid', 'tx_portal_a_win')
+            ->assertJsonPath('data.comment_count', 1);
+
+        $context = json_decode(DB::table('b2b_wallet_reconciliation_items')
+            ->where('operator_id', $this->operatorA->id)
+            ->where('transaction_uid', 'tx_portal_a_win')
+            ->value('context'), true);
+
+        $this->assertSame('[REDACTED]', $this->commentTokenValue($context['operator_comments'][0]['message']));
+        $this->assertSame('OP-CASE-123', $context['operator_comments'][0]['external_reference']);
+        $this->assertSame('operator:op_portal_a', $context['operator_comments'][0]['actor']);
+        $this->assertSame(1, $context['operator_follow_up']['comment_count']);
+
+        $event = DB::table('b2b_operator_audit_events')
+            ->where('operator_id', $this->operatorA->id)
+            ->where('event_type', 'case.operator_commented')
+            ->where('subject_type', 'reconciliation_item')
+            ->first();
+
+        $this->assertNotNull($event);
+        $this->assertSame('operator:op_portal_a', $event->actor);
+        $this->assertStringContainsString('[REDACTED]', $event->reason);
+        $this->assertStringNotContainsString('operator-comment-secret', $event->reason);
+
+        $metadata = json_decode($event->metadata, true);
+        $this->assertSame('tx_portal_a_win', $metadata['transaction_uid']);
+        $this->assertSame('operator_portal', $metadata['source']);
+        $this->assertSame('OP-CASE-123', $metadata['external_reference']);
+
+        $this->signedPost(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/support/cases/tx_portal_b_bet/comments',
+            json_encode(['message' => 'Trying to touch another operator case.']),
+            'portal-case-comment-foreign'
+        )
+            ->assertStatus(404)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'CASE_NOT_FOUND');
+    }
+
+    public function testOperatorPortalSupportCaseCommentsRequireSignature()
+    {
+        $this->postJson('/api/b2b/v1/portal/support/cases/tx_portal_a_win/comments', [
+            'message' => 'Unsigned support update.',
+        ])
+            ->assertStatus(401)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'B2B_AUTH_FAILED');
+    }
+
     private function signedGet($operatorUid, $keyId, $secret, $uri, $nonce)
     {
         $headers = $this->signedB2BHeaders($operatorUid, $keyId, $secret, 'GET', $uri, '', $nonce);
 
         return $this->signedB2BRequest('GET', $uri, '', $headers);
+    }
+
+    private function signedPost($operatorUid, $keyId, $secret, $uri, $body, $nonce)
+    {
+        $headers = $this->signedB2BHeaders($operatorUid, $keyId, $secret, 'POST', $uri, $body, $nonce);
+
+        return $this->signedB2BRequest('POST', $uri, $body, $headers);
+    }
+
+    private function commentTokenValue($message)
+    {
+        if (preg_match('/token=([^\\s]+)/', $message, $matches)) {
+            return $matches[1];
+        }
+
+        return null;
     }
 
     private function seedPortalData()
