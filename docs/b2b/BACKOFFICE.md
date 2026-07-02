@@ -39,5 +39,6 @@ Implemented mutating and sensitive-review screens:
 - `/backend/b2b/operators` updates non-secret operator configuration and records suspend/resume decisions with `b2b.operators.update`, `b2b.operators.suspend`, and matching `operator.*` web step-up actions.
 - `/backend/b2b/payloads` lists recent wallet attempts with recursively redacted request/response payloads under `b2b.payloads.view_redacted`. Raw payload reveal uses `POST /backend/b2b/payloads/raw`, requires `b2b.payloads.view_raw` plus `b2b.web_step_up:payload.view_raw`, and writes `payload.raw_viewed` audit events with actor, reason, source, IP, and user-agent context.
 - `/backend/b2b/cases` lists reconciliation/manual-review cases with redacted context under `b2b.cases.view`. Claim, resolve, and reopen actions require `b2b.cases.manage`, matching `case.*` web step-up actions, and write `case.claimed`, `case.resolved`, or `case.reopened` audit events.
+- `/backend/b2b/audit` lists B2B operator audit events under `b2b.audit.view`, with filters for operator, event, actor, subject, and period. Metadata and free-text reasons are redacted before display.
 
 Production operator portal UX, including staging validation and operator-visible support/case follow-up beyond read-only pages, still needs dedicated work before this becomes a complete production backoffice.

@@ -582,6 +582,18 @@ class B2BReleaseGate
             $missing[] = 'view:backend.b2b.cases';
         }
 
+        if (!Route::has('backend.b2b.audit.index')) {
+            $missing[] = 'route:backend.b2b.audit.index';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.audit.index', 'b2b.admin:b2b.audit.view')) {
+            $missing[] = 'route_middleware:backend.b2b.audit.index:b2b.admin';
+        }
+
+        if (!View::exists('backend.b2b.audit')) {
+            $missing[] = 'view:backend.b2b.audit';
+        }
+
         foreach (['backend.b2b.step_up.show', 'backend.b2b.step_up.store'] as $routeName) {
             if (!Route::has($routeName)) {
                 $missing[] = 'route:' . $routeName;

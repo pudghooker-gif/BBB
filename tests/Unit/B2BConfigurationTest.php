@@ -64,6 +64,9 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'b2b.web_step_up:case.claim'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:case.resolve'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:case.reopen'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.audit.index'", $webRoutes);
+        $this->assertStringContainsString("'uses' => 'B2BAuditBackofficeController@index'", $webRoutes);
+        $this->assertStringContainsString("'b2b.admin:b2b.audit.view'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.step_up.show'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BStepUpController@show'", $webRoutes);
         $this->assertStringContainsString("'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view']", $webRoutes);
