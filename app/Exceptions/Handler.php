@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use VanguardLTE\Exceptions\Authorization\AccessDeniedException;
 
 class Handler extends ExceptionHandler
 {
@@ -47,15 +48,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-		$userLevelCheck = $exception instanceof \jeremykenedy\LaravelRoles\App\Exceptions\RoleDeniedException ||
-            $exception instanceof \jeremykenedy\LaravelRoles\App\Exceptions\RoleDeniedException ||
-            $exception instanceof \jeremykenedy\LaravelRoles\App\Exceptions\PermissionDeniedException ||
-            $exception instanceof \jeremykenedy\LaravelRoles\App\Exceptions\LevelDeniedException;
+		$userLevelCheck = $exception instanceof AccessDeniedException;
 
         if ($userLevelCheck) {
 
             if ($request->expectsJson()) {
-                return Response::json(array(
+                return response()->json(array(
                     'error'    =>  403,
                     'message'   =>  'Unauthorized.'
                 ), 403);

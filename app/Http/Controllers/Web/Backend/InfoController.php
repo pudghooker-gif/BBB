@@ -33,7 +33,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
                 $info = $info->where('roles', $request->role);
             }
             $info = $info->get();
-            $roles = \jeremykenedy\LaravelRoles\Models\Role::where('level', '<', auth()->user()->level())->pluck('name')->toArray();
+            $roles = \VanguardLTE\Role::where('level', '<', auth()->user()->level())->pluck('name')->toArray();
             return view('backend.info.list', compact('info', 'roles'));
         }
         public function create()

@@ -99,6 +99,54 @@ class B2BOperatorPortalTest extends TestCase
             ->assertJsonPath('error.code', 'B2B_AUTH_FAILED');
     }
 
+    public function testOperatorPortalValidatesLimitAndPeriodFilters()
+    {
+        $this->signedGet(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/overview?limit=51',
+            'portal-invalid-limit'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $this->signedGet(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/overview?from=not-a-date',
+            'portal-invalid-date'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $badPeriod = '/api/b2b/v1/portal/overview?from=' . now()->addDay()->toDateString() . '&to=' . now()->subDay()->toDateString();
+        $this->signedGet(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            $badPeriod,
+            'portal-invalid-period'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $this->signedGet(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/transactions?limit=0',
+            'portal-section-invalid-limit'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+    }
+
     public function testSignedOperatorPortalPageIsTenantScopedAndRedacted()
     {
         $response = $this->signedGet('op_portal_a', 'key_portal_a', $this->secretA, '/api/b2b/v1/portal?limit=10', 'portal-page-a');
@@ -221,6 +269,19 @@ class B2BOperatorPortalTest extends TestCase
             ->assertStatus(404)
             ->assertJsonPath('success', false)
             ->assertJsonPath('error.code', 'CASE_NOT_FOUND');
+
+        $longTransactionUid = str_repeat('x', 192);
+        $this->signedPost(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/support/cases/' . $longTransactionUid . '/comments',
+            json_encode(['message' => 'Overlong case UID should fail validation.']),
+            'portal-case-comment-invalid-uid'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
     }
 
     public function testOperatorPortalSupportCaseCommentsRequireSignature()
@@ -332,6 +393,31 @@ class B2BOperatorPortalTest extends TestCase
             ->assertStatus(404)
             ->assertJsonPath('success', false)
             ->assertJsonPath('error.code', 'SUPPORT_TICKET_NOT_FOUND');
+
+        $longTicketUid = str_repeat('x', 81);
+        $this->signedPost(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/support/tickets/' . $longTicketUid . '/comments',
+            json_encode(['message' => 'Overlong ticket UID should fail validation.']),
+            'portal-ticket-invalid-comment-uid'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $this->signedPost(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/support/tickets/' . $longTicketUid . '/close',
+            json_encode(['reason' => 'Overlong ticket UID should fail validation.']),
+            'portal-ticket-invalid-close-uid'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
     }
 
     public function testOperatorPortalSupportTicketsRequireSignature()

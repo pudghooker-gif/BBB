@@ -288,6 +288,29 @@ class B2BConfigurationTest extends TestCase
             $this->assertArrayHasKey($path, $openapi['paths']);
         }
 
+        foreach (['/portal', '/portal/overview'] as $portalPath) {
+            $portalParameters = [];
+            foreach ($openapi['paths'][$portalPath]['get']['parameters'] as $parameter) {
+                if (isset($parameter['name'])) {
+                    $portalParameters[] = $parameter['name'];
+                }
+            }
+            foreach (['from', 'to', 'limit'] as $parameter) {
+                $this->assertContains($parameter, $portalParameters);
+            }
+            $this->assertArrayHasKey('422', $openapi['paths'][$portalPath]['get']['responses']);
+        }
+
+        $this->assertArrayHasKey('422', $openapi['components']['pathItems']['PortalPage']['get']['responses']);
+        $this->assertArrayHasKey('422', $openapi['paths']['/wallet/transactions/{transaction_uid}/status']['get']['responses']);
+        $this->assertArrayHasKey('422', $openapi['paths']['/reports/transactions/{transaction_uid}']['get']['responses']);
+        $this->assertArrayHasKey('422', $openapi['paths']['/reports/settlements/{settlement_uid}']['get']['responses']);
+        $this->assertArrayHasKey('422', $openapi['paths']['/sessions/{session_uid}']['get']['responses']);
+        $this->assertArrayHasKey('422', $openapi['paths']['/sessions/{session_uid}/close']['post']['responses']);
+        $this->assertSame(191, $openapi['paths']['/portal/support/cases/{transaction_uid}/comments']['post']['parameters'][0]['schema']['maxLength']);
+        $this->assertSame(80, $openapi['paths']['/portal/support/tickets/{ticket_uid}/comments']['post']['parameters'][0]['schema']['maxLength']);
+        $this->assertSame(80, $openapi['paths']['/portal/support/tickets/{ticket_uid}/close']['post']['parameters'][0]['schema']['maxLength']);
+
         $gameListParameters = [];
         foreach ($openapi['paths']['/games']['get']['parameters'] as $parameter) {
             if (isset($parameter['name'])) {
@@ -328,6 +351,41 @@ class B2BConfigurationTest extends TestCase
             $this->assertContains($parameter, $settlementListParameters);
         }
 
+        foreach (['/reports/summary', '/reports/ggr'] as $aggregatePath) {
+            $aggregateParameters = [];
+            foreach ($openapi['paths'][$aggregatePath]['get']['parameters'] as $parameter) {
+                if (isset($parameter['name'])) {
+                    $aggregateParameters[] = $parameter['name'];
+                }
+            }
+            foreach (['from', 'to', 'status', 'type', 'player_id', 'game_id', 'round_id', 'currency'] as $parameter) {
+                $this->assertContains($parameter, $aggregateParameters);
+            }
+        }
+
+        $reconciliationParameters = [];
+        foreach ($openapi['paths']['/reports/reconciliation']['get']['parameters'] as $parameter) {
+            if (isset($parameter['name'])) {
+                $reconciliationParameters[] = $parameter['name'];
+            }
+        }
+        foreach (['from', 'to', 'limit', 'state', 'reason', 'priority', 'currency', 'game_id', 'round_id'] as $parameter) {
+            $this->assertContains($parameter, $reconciliationParameters);
+        }
+
+        $attemptParameters = [];
+        foreach ($openapi['paths']['/wallet/transactions/{transaction_uid}/attempts']['get']['parameters'] as $parameter) {
+            if (isset($parameter['name'])) {
+                $attemptParameters[] = $parameter['name'];
+            } elseif (isset($parameter['$ref']) && $parameter['$ref'] === '#/components/parameters/TransactionUid') {
+                $attemptParameters[] = 'transaction_uid';
+            }
+        }
+        foreach (['transaction_uid', 'limit'] as $parameter) {
+            $this->assertContains($parameter, $attemptParameters);
+        }
+        $this->assertArrayHasKey('422', $openapi['paths']['/wallet/transactions/{transaction_uid}/attempts']['get']['responses']);
+
         $urls = $this->collectPostmanUrls($postman['item']);
         foreach ([
             '/api/b2b/v1/health',
@@ -351,8 +409,11 @@ class B2BConfigurationTest extends TestCase
             '/api/b2b/v1/sessions/{{sessionId}}/close',
             '/api/b2b/v1/wallet/bet',
             '/api/b2b/v1/wallet/transactions/{{transactionId}}/status',
+            '/api/b2b/v1/wallet/transactions/{{transactionId}}/attempts?limit=100',
             '/api/b2b/v1/reports/settlements/export',
-            '/api/b2b/v1/reports/reconciliation',
+            '/api/b2b/v1/reports/summary?from=2026-06-01&to=2026-06-24&currency={{currency}}',
+            '/api/b2b/v1/reports/ggr?from=2026-06-01&to=2026-06-24&currency={{currency}}',
+            '/api/b2b/v1/reports/reconciliation?from=2026-06-01&to=2026-06-24&state=open&priority=high&currency={{currency}}&limit=20',
             '/api/b2b/v1/reports/transactions?limit=100&status=success&type=bet&currency={{currency}}&sort=-created_at',
             '/api/b2b/v1/reports/settlements?from=2026-06-01&to=2026-06-24&status=exported&currency={{currency}}&sort=-created_at&limit=100',
             '/api/b2b/v1/reports/transactions/{{transactionId}}',

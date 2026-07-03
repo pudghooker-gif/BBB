@@ -193,7 +193,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend\Auth
         public function postRegister(\VanguardLTE\Http\Requests\Auth\RegisterRequest $request, \VanguardLTE\Repositories\Role\RoleRepository $roles)
         {
             $user = $this->users->create(array_merge($request->only('username', 'password'), ['status' => \VanguardLTE\Support\Enum\UserStatus::ACTIVE]));
-            $role = \jeremykenedy\LaravelRoles\Models\Role::where('name', '=', 'User')->first();
+            $role = \VanguardLTE\Role::where('name', '=', 'User')->first();
             $user->attachRole($role);
             event(new \VanguardLTE\Events\User\Registered($user));
             return redirect('/backend/login')->with('success', trans('app.account_created_login'));

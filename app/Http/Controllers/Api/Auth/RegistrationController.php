@@ -42,7 +42,7 @@ namespace VanguardLTE\Http\Controllers\Api\Auth
                 'user_id' => $user->id, 
                 'shop_id' => $cashier->shop_id
             ]);
-            $role = \jeremykenedy\LaravelRoles\Models\Role::where('name', '=', 'User')->first();
+            $role = \VanguardLTE\Role::where('name', '=', 'User')->first();
             $user->attachRole($role);
             event(new \VanguardLTE\Events\User\Registered($user));
             return $this->setStatusCode(201)->respondWithArray(['requires_email_confirmation' => settings('use_email')]);

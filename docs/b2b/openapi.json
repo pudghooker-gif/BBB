@@ -116,7 +116,8 @@
               }
             }
           },
-          "401": { "$ref": "#/components/responses/Error" }
+          "401": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
         }
       }
     },
@@ -133,7 +134,8 @@
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/Success" },
-          "401": { "$ref": "#/components/responses/Error" }
+          "401": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
         }
       }
     },
@@ -153,7 +155,7 @@
         "description": "Appends a signed operator comment to the operator's own open or in-progress reconciliation case. The comment is redacted before persistence, writes a B2B audit event, and never changes wallet state or settlement data.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
-          { "name": "transaction_uid", "in": "path", "required": true, "schema": { "type": "string" }, "example": "tx_123" }
+          { "name": "transaction_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 191 }, "example": "tx_123" }
         ],
         "requestBody": {
           "required": true,
@@ -216,7 +218,7 @@
         "description": "Appends a redacted operator message to the signed operator's own open or in-progress support ticket and writes a support_ticket.operator_commented audit event.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
-          { "name": "ticket_uid", "in": "path", "required": true, "schema": { "type": "string" }, "example": "sup_abc123" }
+          { "name": "ticket_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 80 }, "example": "sup_abc123" }
         ],
         "requestBody": {
           "required": true,
@@ -248,7 +250,7 @@
         "description": "Closes the signed operator's own open or in-progress support ticket, stores the redacted close reason, and writes a support_ticket.closed audit event.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
-          { "name": "ticket_uid", "in": "path", "required": true, "schema": { "type": "string" }, "example": "sup_abc123" }
+          { "name": "ticket_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 80 }, "example": "sup_abc123" }
         ],
         "requestBody": {
           "required": true,
@@ -366,7 +368,8 @@
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/Success" },
-          "404": { "$ref": "#/components/responses/Error" }
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
         }
       }
     },
@@ -439,7 +442,8 @@
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/Success" },
-          "404": { "$ref": "#/components/responses/Error" }
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
         }
       }
     },
@@ -449,15 +453,39 @@
         "summary": "Return recent callback attempts for an operator-scoped transaction UID",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
-          { "$ref": "#/components/parameters/TransactionUid" }
+          { "$ref": "#/components/parameters/TransactionUid" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 100 }, "example": 100 }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/Success" },
+          "422": { "$ref": "#/components/responses/Error" },
           "500": { "$ref": "#/components/responses/Error" }
         }
       }
     },
-    "/reports/summary": { "$ref": "#/components/pathItems/ReportCollection" },
+    "/reports/summary": {
+      "get": {
+        "tags": ["reports"],
+        "summary": "Return operator-scoped transaction summary",
+        "description": "Returns aggregate transaction counts and amounts for the signed operator with validated filters.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
+          { "name": "to", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-24" },
+          { "name": "status", "in": "query", "schema": { "type": "string", "enum": ["pending", "accepted", "rejected", "success", "failed", "timeout", "unknown", "rollback_required", "reversed", "manual_review", "dead_letter"] }, "example": "success" },
+          { "name": "type", "in": "query", "schema": { "type": "string", "enum": ["balance", "bet", "win", "refund", "rollback"] }, "example": "bet" },
+          { "name": "player_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "player_123" },
+          { "name": "game_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "bookofdead" },
+          { "name": "round_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "round_001" },
+          { "name": "currency", "in": "query", "schema": { "type": "string", "minLength": 3, "maxLength": 3 }, "example": "USD" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/reports/transactions": {
       "get": {
         "tags": ["reports"],
@@ -483,7 +511,29 @@
         }
       }
     },
-    "/reports/ggr": { "$ref": "#/components/pathItems/ReportCollection" },
+    "/reports/ggr": {
+      "get": {
+        "tags": ["reports"],
+        "summary": "Return operator-scoped GGR totals",
+        "description": "Returns bet, win, refund, rollback, and GGR totals for the signed operator with validated filters.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
+          { "name": "to", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-24" },
+          { "name": "status", "in": "query", "schema": { "type": "string", "enum": ["pending", "accepted", "rejected", "success", "failed", "timeout", "unknown", "rollback_required", "reversed", "manual_review", "dead_letter"] }, "example": "success" },
+          { "name": "type", "in": "query", "schema": { "type": "string", "enum": ["balance", "bet", "win", "refund", "rollback"] }, "example": "bet" },
+          { "name": "player_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "player_123" },
+          { "name": "game_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "bookofdead" },
+          { "name": "round_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "round_001" },
+          { "name": "currency", "in": "query", "schema": { "type": "string", "minLength": 3, "maxLength": 3 }, "example": "USD" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/reports/settlements": {
       "get": {
         "tags": ["reports"],
@@ -535,11 +585,35 @@
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/Success" },
-          "404": { "$ref": "#/components/responses/Error" }
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
         }
       }
     },
-    "/reports/reconciliation": { "$ref": "#/components/pathItems/ReportCollection" },
+    "/reports/reconciliation": {
+      "get": {
+        "tags": ["reports"],
+        "summary": "Return operator-scoped reconciliation report",
+        "description": "Returns reconciliation totals, buckets, exposure, and oldest open items for the signed operator with validated filters.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
+          { "name": "to", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-24" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 }, "example": 20 },
+          { "name": "state", "in": "query", "schema": { "type": "string", "enum": ["open", "in_progress", "resolved"] }, "example": "open" },
+          { "name": "reason", "in": "query", "schema": { "type": "string", "maxLength": 100 }, "example": "unknown_result" },
+          { "name": "priority", "in": "query", "schema": { "type": "string", "enum": ["low", "normal", "medium", "high", "urgent"] }, "example": "high" },
+          { "name": "currency", "in": "query", "schema": { "type": "string", "minLength": 3, "maxLength": 3 }, "example": "USD" },
+          { "name": "game_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "bookofdead" },
+          { "name": "round_id", "in": "query", "schema": { "type": "string", "maxLength": 191 }, "example": "round_001" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/reports/transactions/{transaction_uid}": {
       "get": {
         "tags": ["reports"],
@@ -550,7 +624,8 @@
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/Success" },
-          "404": { "$ref": "#/components/responses/Error" }
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
         }
       }
     }
@@ -637,7 +712,8 @@
                 }
               }
             },
-            "401": { "$ref": "#/components/responses/Error" }
+            "401": { "$ref": "#/components/responses/Error" },
+            "422": { "$ref": "#/components/responses/Error" }
           }
         }
       },

@@ -7,6 +7,29 @@ DB_NAME="${DB_NAME:-bbb}"
 PHP_BIN="${PHP_BIN:-/usr/bin/php}"
 DB_BACKUP="${1:-}"
 STORAGE_BACKUP="${2:-}"
+RESTORE_ARTIFACT_DIR="${RESTORE_ARTIFACT_DIR:-${APP_DIR}/storage/logs}"
+STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+LOG_FILE="${RESTORE_ARTIFACT_DIR}/b2b-restore-${STAMP}.log"
+RELEASE_CHECK_LOG="${RESTORE_ARTIFACT_DIR}/b2b-restore-release-check-${STAMP}.log"
+
+log() {
+    printf '%s %s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$*" | tee -a "${LOG_FILE}"
+}
+
+sha256_value() {
+    if command -v sha256sum >/dev/null 2>&1; then
+        sha256sum "$1" | awk '{print $1}'
+        return
+    fi
+
+    if command -v shasum >/dev/null 2>&1; then
+        shasum -a 256 "$1" | awk '{print $1}'
+        return
+    fi
+
+    echo "Missing sha256sum or shasum for restore evidence hashing." >&2
+    exit 7
+}
 
 if [ "${CONFIRM_RESTORE:-}" != "RESTORE_BBB" ]; then
     echo "Set CONFIRM_RESTORE=RESTORE_BBB to run a destructive restore." >&2
@@ -41,6 +64,17 @@ if [ -n "${STORAGE_BACKUP}" ] && [ ! -r "${STORAGE_BACKUP}" ]; then
     exit 6
 fi
 
+mkdir -p "${RESTORE_ARTIFACT_DIR}"
+log "Starting BBB B2B restore rehearsal ${STAMP}"
+log "app_dir=${APP_DIR}"
+log "db_name=${DB_NAME}"
+log "db_backup=${DB_BACKUP}"
+log "db_backup_sha256=$(sha256_value "${DB_BACKUP}")"
+if [ -n "${STORAGE_BACKUP}" ]; then
+    log "storage_backup=${STORAGE_BACKUP}"
+    log "storage_backup_sha256=$(sha256_value "${STORAGE_BACKUP}")"
+fi
+
 cd "${APP_DIR}"
 
 "${PHP_BIN}" artisan down --retry=60 --no-interaction || true
@@ -53,12 +87,16 @@ gzip -dc "${DB_BACKUP}" | mysql \
     --defaults-extra-file="${MYSQL_CNF}" \
     --default-character-set=utf8mb4 \
     "${DB_NAME}"
+log "PASS database_restore ${DB_BACKUP}"
 
 if [ -n "${STORAGE_BACKUP}" ]; then
     tar -xzf "${STORAGE_BACKUP}" -C "${APP_DIR}" storage/app public
+    log "PASS storage_restore ${STORAGE_BACKUP}"
 fi
 
 "${PHP_BIN}" artisan optimize:clear --no-interaction
-"${PHP_BIN}" artisan b2b:release-check --production --no-interaction
+"${PHP_BIN}" artisan b2b:release-check --production --no-interaction >"${RELEASE_CHECK_LOG}"
+log "PASS release_check ${RELEASE_CHECK_LOG}"
 
-echo "Restore completed from ${DB_BACKUP}"
+log "Restore completed from ${DB_BACKUP}. Artifact log: ${LOG_FILE}"
+echo "Restore completed from ${DB_BACKUP}. Artifact log: ${LOG_FILE}"

@@ -2,6 +2,7 @@
 
 namespace VanguardLTE\Http\Controllers\Api\B2B;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -29,6 +30,11 @@ class PortalController extends Controller
 
     public function overview(Request $request, B2BOperatorPortalQuery $portal)
     {
+        $validationResponse = $this->validatePortalQuery($request);
+        if ($validationResponse) {
+            return $validationResponse;
+        }
+
         $payload = $portal->overview($request);
         if (!$payload) {
             return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
@@ -39,6 +45,11 @@ class PortalController extends Controller
 
     public function page(Request $request, B2BOperatorPortalQuery $portal)
     {
+        $validationResponse = $this->validatePortalQuery($request);
+        if ($validationResponse) {
+            return $validationResponse;
+        }
+
         $payload = $portal->overview($request);
         if (!$payload) {
             abort(500, 'B2B operator context is missing.');
@@ -54,6 +65,11 @@ class PortalController extends Controller
         $section = strtolower((string) $section);
         if (!isset($this->sections[$section])) {
             abort(404);
+        }
+
+        $validationResponse = $this->validatePortalQuery($request);
+        if ($validationResponse) {
+            return $validationResponse;
         }
 
         $payload = $portal->overview($request);
@@ -79,7 +95,10 @@ class PortalController extends Controller
             return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
         }
 
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make(array_merge($request->all(), [
+            'transaction_uid' => $transactionUid,
+        ]), [
+            'transaction_uid' => 'required|string|min:1|max:191',
             'message' => 'required|string|max:1000',
             'external_reference' => 'nullable|string|max:120',
         ]);
@@ -147,7 +166,10 @@ class PortalController extends Controller
             return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
         }
 
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make(array_merge($request->all(), [
+            'ticket_uid' => $ticketUid,
+        ]), [
+            'ticket_uid' => 'required|string|min:1|max:80',
             'message' => 'required|string|max:2000',
             'external_reference' => 'nullable|string|max:120',
         ]);
@@ -174,7 +196,10 @@ class PortalController extends Controller
             return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
         }
 
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make(array_merge($request->all(), [
+            'ticket_uid' => $ticketUid,
+        ]), [
+            'ticket_uid' => 'required|string|min:1|max:80',
             'reason' => 'required|string|max:1000',
         ]);
 
@@ -201,5 +226,31 @@ class PortalController extends Controller
             'ip_address' => $request->ip(),
             'user_agent' => substr((string) $request->userAgent(), 0, 500),
         ];
+    }
+
+    private function validatePortalQuery(Request $request)
+    {
+        $validator = Validator::make($request->query(), [
+            'from' => 'nullable|date',
+            'to' => 'nullable|date',
+            'limit' => 'nullable|integer|min:1|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        if ($request->query('from') && $request->query('to')) {
+            $from = Carbon::parse($request->query('from'))->startOfDay();
+            $to = Carbon::parse($request->query('to'))->endOfDay();
+
+            if ($from->gt($to)) {
+                return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, [
+                    'period' => ['Portal period start must be before or equal to period end.'],
+                ]);
+            }
+        }
+
+        return null;
     }
 }

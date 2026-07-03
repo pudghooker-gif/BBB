@@ -5,7 +5,7 @@ namespace VanguardLTE\Console\Schedules;
 
 
 use Carbon\Carbon;
-use jeremykenedy\LaravelRoles\Models\Role;
+use VanguardLTE\Role;
 use VanguardLTE\OpenShift;
 use VanguardLTE\Progress;
 use VanguardLTE\QuickShop;

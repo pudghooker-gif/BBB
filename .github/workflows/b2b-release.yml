@@ -38,7 +38,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.3'
           extensions: bcmath, ctype, curl, dom, fileinfo, gd, json, mbstring, openssl, pdo, pdo_sqlite, tokenizer, xml, zip
           coverage: none
           tools: composer:v2
@@ -72,7 +72,6 @@ jobs:
   dependency-audit:
     name: Dependency vulnerability audit
     runs-on: ubuntu-22.04
-    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -80,7 +79,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.3'
           coverage: none
           tools: composer:v2
 
@@ -88,7 +87,7 @@ jobs:
         run: composer install --prefer-dist --no-interaction --no-progress
 
       - name: Run Composer audit
-        run: composer audit --format=plain
+        run: composer audit --locked --no-dev --format=plain --abandoned=fail
 
   websocket-runtime:
     name: Node/WebSocket runtime gates
@@ -118,7 +117,6 @@ jobs:
   production-release-check:
     name: Production release-check command
     runs-on: ubuntu-22.04
-    continue-on-error: true
     services:
       redis:
         image: redis:7-alpine
@@ -135,13 +133,31 @@ jobs:
       APP_KEY: base64:YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE=
       CACHE_DRIVER: redis
       QUEUE_DRIVER: redis
+      QUEUE_FAILED_DRIVER: database-uuids
       B2B_NONCE_CACHE_STORE: redis
       B2B_RATE_LIMIT_CACHE_STORE: redis
+      B2B_SCHEDULER_HEARTBEAT_CACHE_STORE: redis
+      B2B_SCHEDULER_HEARTBEAT_MAX_AGE_SECONDS: '180'
       B2B_SANDBOX_ENABLED: 'false'
       B2B_ALLOW_PRIVATE_WALLET_CALLBACKS: 'false'
+      B2B_STRUCTURED_LOGGING_ENABLED: 'true'
+      B2B_STRUCTURED_LOG_CHANNEL: b2b
       DB_CONNECTION: sqlite_memory
       REDIS_HOST: 127.0.0.1
-      SESSION_DRIVER: array
+      SESSION_DRIVER: database
+      SESSION_SECURE_COOKIE: 'true'
+      SESSION_HTTP_ONLY: 'true'
+      SESSION_SAME_SITE: lax
+      LOGIN_THROTTLE_PRODUCTION_ENFORCED: 'true'
+      LOGIN_THROTTLE_MAX_ATTEMPTS: '10'
+      LOGIN_THROTTLE_LOCKOUT_MINUTES: '1'
+      PASSWORD_POLICY_MIN_LENGTH: '12'
+      PASSWORD_POLICY_MAX_LENGTH: '72'
+      PASSWORD_POLICY_REQUIRE_MIXED_CASE: 'true'
+      PASSWORD_POLICY_REQUIRE_NUMBERS: 'true'
+      PASSWORD_POLICY_REQUIRE_SYMBOLS: 'false'
+      PASSWORD_POLICY_DISALLOW_WHITESPACE: 'true'
+      PASSWORD_POLICY_TEMPORARY_LENGTH: '16'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -149,7 +165,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.3'
           extensions: bcmath, ctype, curl, dom, fileinfo, gd, json, mbstring, openssl, pdo, pdo_sqlite, redis, tokenizer, xml, zip
           coverage: none
           tools: composer:v2

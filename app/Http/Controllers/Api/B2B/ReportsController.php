@@ -80,6 +80,18 @@ class ReportsController extends Controller
         B2BSettlement::STATUS_APPROVED,
         B2BSettlement::STATUS_REJECTED,
     ];
+    private const RECONCILIATION_STATE_OPTIONS = [
+        'open',
+        'in_progress',
+        'resolved',
+    ];
+    private const RECONCILIATION_PRIORITY_OPTIONS = [
+        'low',
+        'normal',
+        'medium',
+        'high',
+        'urgent',
+    ];
 
     protected $reports;
     protected $reconciliationReports;
@@ -103,6 +115,18 @@ class ReportsController extends Controller
     {
         if ($this->reports->operatorId($request) <= 0) {
             return $this->operatorContextMissing($request);
+        }
+
+        $filters = $this->validatedTransactionAggregateFilters($request);
+        if (isset($filters['response'])) {
+            return $filters['response'];
+        }
+
+        list($fromDate, $toDate) = $this->reports->dateRange($request);
+        if ($fromDate->gt($toDate)) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, [
+                'period' => ['Report period start must be before or equal to period end.'],
+            ]);
         }
 
         $base = $this->reports->transactionBaseQuery($request);
@@ -189,11 +213,19 @@ class ReportsController extends Controller
             return $this->operatorContextMissing($request);
         }
 
+        $validationResponse = $this->validatePathIdentifier($request, 'transaction_uid', $transactionUid, 191);
+        if ($validationResponse) {
+            return $validationResponse;
+        }
+
         $query = DB::table('b2b_wallet_transactions')
             ->where(function ($q) use ($transactionUid) {
                 $q->where('transaction_uid', $transactionUid)
-                  ->orWhere('transaction_id', $transactionUid)
-                  ->orWhere('id', $transactionUid);
+                  ->orWhere('transaction_id', $transactionUid);
+
+                if ($this->isUnsignedIntegerString($transactionUid)) {
+                    $q->orWhere('id', (int) $transactionUid);
+                }
             });
 
         $query->where('operator_id', $operatorId);
@@ -214,6 +246,18 @@ class ReportsController extends Controller
     {
         if ($this->reports->operatorId($request) <= 0) {
             return $this->operatorContextMissing($request);
+        }
+
+        $filters = $this->validatedTransactionAggregateFilters($request);
+        if (isset($filters['response'])) {
+            return $filters['response'];
+        }
+
+        list($fromDate, $toDate) = $this->reports->dateRange($request);
+        if ($fromDate->gt($toDate)) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, [
+                'period' => ['Report period start must be before or equal to period end.'],
+            ]);
         }
 
         $base = $this->reports->transactionBaseQuery($request)->where('status', 'success');
@@ -278,6 +322,11 @@ class ReportsController extends Controller
         $operatorId = $this->reports->operatorId($request);
         if ($operatorId <= 0) {
             return $this->operatorContextMissing($request);
+        }
+
+        $validationResponse = $this->validatePathIdentifier($request, 'settlement_uid', $settlementUid, 80);
+        if ($validationResponse) {
+            return $validationResponse;
         }
 
         try {
@@ -345,6 +394,18 @@ class ReportsController extends Controller
     {
         if ($this->reports->operatorId($request) <= 0) {
             return $this->operatorContextMissing($request);
+        }
+
+        $filters = $this->validatedReconciliationFilters($request);
+        if (isset($filters['response'])) {
+            return $filters['response'];
+        }
+
+        list($fromDate, $toDate) = $this->reports->dateRange($request);
+        if ($fromDate->gt($toDate)) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, [
+                'period' => ['Reconciliation report period start must be before or equal to period end.'],
+            ]);
         }
 
         return B2BApiResponse::success($request, $this->reconciliationReports->build($request));
@@ -548,6 +609,43 @@ class ReportsController extends Controller
         ];
     }
 
+    private function validatedTransactionAggregateFilters(Request $request)
+    {
+        $validator = Validator::make($request->query(), [
+            'from' => 'nullable|date',
+            'to' => 'nullable|date',
+            'status' => 'nullable|in:' . implode(',', self::TRANSACTION_STATUS_OPTIONS),
+            'type' => 'nullable|in:' . implode(',', self::TRANSACTION_TYPE_OPTIONS),
+            'player_id' => 'nullable|string|max:191',
+            'game_id' => 'nullable|string|max:191',
+            'round_id' => 'nullable|string|max:191',
+            'currency' => 'nullable|string|size:3',
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'response' => B2BApiResponse::error(
+                    $request,
+                    'VALIDATION_FAILED',
+                    null,
+                    422,
+                    $validator->errors()
+                ),
+            ];
+        }
+
+        return [
+            'from' => $this->normalizedTextFilter($request, 'from'),
+            'to' => $this->normalizedTextFilter($request, 'to'),
+            'status' => $this->normalizedTextFilter($request, 'status'),
+            'type' => $this->normalizedTextFilter($request, 'type'),
+            'player_id' => $this->normalizedTextFilter($request, 'player_id'),
+            'game_id' => $this->normalizedTextFilter($request, 'game_id'),
+            'round_id' => $this->normalizedTextFilter($request, 'round_id'),
+            'currency' => $this->normalizedUpperFilter($request, 'currency'),
+        ];
+    }
+
     private function applyTransactionSort($query, $sort)
     {
         list($column, $direction) = $this->sortParts($sort);
@@ -595,6 +693,45 @@ class ReportsController extends Controller
             'status' => $this->normalizedTextFilter($request, 'status'),
             'currency' => $this->normalizedUpperFilter($request, 'currency'),
             'sort' => $this->normalizedTextFilter($request, 'sort') ?: self::DEFAULT_SETTLEMENT_SORT,
+        ];
+    }
+
+    private function validatedReconciliationFilters(Request $request)
+    {
+        $validator = Validator::make($request->query(), [
+            'from' => 'nullable|date',
+            'to' => 'nullable|date',
+            'limit' => 'nullable|integer|min:1|max:100',
+            'state' => 'nullable|in:' . implode(',', self::RECONCILIATION_STATE_OPTIONS),
+            'reason' => 'nullable|string|max:100',
+            'priority' => 'nullable|in:' . implode(',', self::RECONCILIATION_PRIORITY_OPTIONS),
+            'currency' => 'nullable|string|size:3',
+            'game_id' => 'nullable|string|max:191',
+            'round_id' => 'nullable|string|max:191',
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'response' => B2BApiResponse::error(
+                    $request,
+                    'VALIDATION_FAILED',
+                    null,
+                    422,
+                    $validator->errors()
+                ),
+            ];
+        }
+
+        return [
+            'from' => $this->normalizedTextFilter($request, 'from'),
+            'to' => $this->normalizedTextFilter($request, 'to'),
+            'limit' => $this->normalizedTextFilter($request, 'limit'),
+            'state' => $this->normalizedTextFilter($request, 'state'),
+            'reason' => $this->normalizedTextFilter($request, 'reason'),
+            'priority' => $this->normalizedTextFilter($request, 'priority'),
+            'currency' => $this->normalizedUpperFilter($request, 'currency'),
+            'game_id' => $this->normalizedTextFilter($request, 'game_id'),
+            'round_id' => $this->normalizedTextFilter($request, 'round_id'),
         ];
     }
 
@@ -673,6 +810,28 @@ class ReportsController extends Controller
         ], function ($value) {
             return $value !== null && $value !== '';
         });
+    }
+
+    private function validatePathIdentifier(Request $request, $key, $value, $max)
+    {
+        $validator = Validator::make([$key => $value], [
+            $key => 'required|string|min:1|max:' . (int) $max,
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        return null;
+    }
+
+    private function isUnsignedIntegerString($value)
+    {
+        if (is_int($value)) {
+            return $value >= 0;
+        }
+
+        return is_string($value) && $value !== '' && ctype_digit($value);
     }
 
     private function operatorContextMissing(Request $request)

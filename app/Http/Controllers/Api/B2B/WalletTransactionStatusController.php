@@ -4,6 +4,7 @@ namespace VanguardLTE\Http\Controllers\Api\B2B;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 use VanguardLTE\B2B\Services\B2BContext;
 use VanguardLTE\B2B\Services\WalletTransactionLookupService;
 use VanguardLTE\B2B\Support\B2BApiResponse;
@@ -27,6 +28,14 @@ class WalletTransactionStatusController extends Controller
         $operator = B2BContext::operator($request);
         if (!$operator || !isset($operator->id)) {
             return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING');
+        }
+
+        $validator = Validator::make(['transaction_uid' => $transaction_uid], [
+            'transaction_uid' => 'required|string|min:1|max:191',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
         }
 
         $transaction = $this->lookup->findForOperator($operator->id, $transaction_uid);

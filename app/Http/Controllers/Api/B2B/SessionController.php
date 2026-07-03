@@ -84,6 +84,11 @@ class SessionController extends Controller
             return $this->operatorContextMissing($request);
         }
 
+        $validationResponse = $this->validateSessionUid($request, $sessionUid);
+        if ($validationResponse) {
+            return $validationResponse;
+        }
+
         $query = DB::table('b2b_game_sessions');
         $this->applySessionIdentifier($query, $sessionUid);
 
@@ -121,7 +126,10 @@ class SessionController extends Controller
             return $this->operatorContextMissing($request);
         }
 
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make(array_merge($request->all(), [
+            'session_uid' => $sessionUid,
+        ]), [
+            'session_uid' => 'required|string|min:1|max:191',
             'reason' => 'nullable|string|max:100',
         ]);
 
@@ -265,6 +273,19 @@ class SessionController extends Controller
         ], function ($value) {
             return $value !== null && $value !== '';
         });
+    }
+
+    private function validateSessionUid(Request $request, $sessionUid)
+    {
+        $validator = Validator::make(['session_uid' => $sessionUid], [
+            'session_uid' => 'required|string|min:1|max:191',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        return null;
     }
 
     private function applySessionIdentifier($query, $sessionUid)

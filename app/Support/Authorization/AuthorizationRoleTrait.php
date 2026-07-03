@@ -4,6 +4,9 @@ namespace VanguardLTE\Support\Authorization;
 
 use Cache;
 use Config;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 use VanguardLTE\Permission;
 
 trait AuthorizationRoleTrait
@@ -14,6 +17,10 @@ trait AuthorizationRoleTrait
      */
     public function cachedPermissions()
     {
+        if (!$this->authorizationTableExists($this->permissionTable()) || !$this->authorizationTableExists($this->permissionsRolePivotTable())) {
+            return collect();
+        }
+
         return Cache::remember($this->getCacheKey(), Config::get('cache.ttl'), function () {
             return $this->permissions()->get();
         });
@@ -26,7 +33,8 @@ trait AuthorizationRoleTrait
     public function save(array $options = [])
     {
         $this->flushCache();
-        parent::save($options);
+
+        return parent::save($options);
     }
 
     /**
@@ -36,7 +44,8 @@ trait AuthorizationRoleTrait
     public function delete(array $options = [])
     {
         $this->flushCache();
-        parent::delete($options);
+
+        return parent::delete();
     }
 
     /**
@@ -45,7 +54,12 @@ trait AuthorizationRoleTrait
     public function restore()
     {
         $this->flushCache();
-        parent::restore();
+
+        if (method_exists($this, 'restoreSoftDeleted')) {
+            return $this->restoreSoftDeleted();
+        }
+
+        return parent::restore();
     }
 
     /**
@@ -54,7 +68,7 @@ trait AuthorizationRoleTrait
      */
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class, 'permission_role', 'role_id');
+        return $this->belongsToMany(Permission::class, $this->permissionsRolePivotTable(), 'role_id', 'permission_id')->withTimestamps();
     }
 
     /**
@@ -65,9 +79,11 @@ trait AuthorizationRoleTrait
      */
     public function hasPermission($name)
     {
-        $perms = $this->cachedPermissions()->pluck('name')->toArray();
-
-        return in_array($name, $perms, true);
+        return $this->cachedPermissions()->contains(function ($permission) use ($name) {
+            return (string) $name === (string) $permission->id
+                || Str::is((string) $name, (string) $permission->slug)
+                || Str::is((string) $name, (string) $permission->name);
+        });
     }
 
     /**
@@ -79,6 +95,10 @@ trait AuthorizationRoleTrait
      */
     public function savePermissions($inputPermissions)
     {
+        if (!$this->authorizationTableExists($this->permissionsRolePivotTable())) {
+            return [];
+        }
+
         if (! empty($inputPermissions)) {
             $this->permissions()->sync($inputPermissions);
         } else {
@@ -97,17 +117,22 @@ trait AuthorizationRoleTrait
      */
     public function attachPermission($permission)
     {
-        if (is_object($permission)) {
-            $permission = $permission->getKey();
+        if (!$this->authorizationTableExists($this->permissionsRolePivotTable())) {
+            return false;
         }
 
-        if (is_array($permission)) {
-            $permission = $permission['id'];
+        $permission = $this->modelKey($permission);
+        if (!$permission) {
+            return false;
         }
 
-        $this->permissions()->attach($permission);
+        if (!$this->permissions()->where($this->permissionTable() . '.id', $permission)->exists()) {
+            $this->permissions()->attach($permission);
+        }
 
         $this->flushCache();
+
+        return true;
     }
 
     /**
@@ -119,17 +144,29 @@ trait AuthorizationRoleTrait
      */
     public function detachPermission($permission)
     {
-        if (is_object($permission)) {
-            $permission = $permission->getKey();
+        if (!$this->authorizationTableExists($this->permissionsRolePivotTable())) {
+            return true;
         }
 
-        if (is_array($permission)) {
-            $permission = $permission['id'];
-        }
-
+        $permission = $this->modelKey($permission);
         $this->permissions()->detach($permission);
 
         $this->flushCache();
+
+        return true;
+    }
+
+    public function detachAllPermissions()
+    {
+        if (!$this->authorizationTableExists($this->permissionsRolePivotTable())) {
+            return true;
+        }
+
+        $this->permissions()->detach();
+
+        $this->flushCache();
+
+        return true;
     }
 
     /**
@@ -166,6 +203,10 @@ trait AuthorizationRoleTrait
      */
     public function syncPermissions(array $permissions)
     {
+        if (!$this->authorizationTableExists($this->permissionsRolePivotTable())) {
+            return [];
+        }
+
         $this->permissions()->sync($permissions);
 
         $this->flushCache();
@@ -186,5 +227,29 @@ trait AuthorizationRoleTrait
     private function flushCache()
     {
         Cache::forget($this->getCacheKey());
+    }
+
+    private function modelKey($model)
+    {
+        if (is_array($model)) {
+            return isset($model['id']) ? $model['id'] : null;
+        }
+
+        return $model instanceof Model ? $model->getKey() : $model;
+    }
+
+    private function permissionTable()
+    {
+        return config('roles.permissionsTable', 'permissions');
+    }
+
+    private function permissionsRolePivotTable()
+    {
+        return config('roles.permissionsRoleTable', 'permission_role');
+    }
+
+    private function authorizationTableExists($table)
+    {
+        return Schema::hasTable($table);
     }
 }

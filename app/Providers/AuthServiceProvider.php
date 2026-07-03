@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         \Blade::directive('role', function ($expression) {
-            return "<?php if (\\Auth::user()->hasRole({$expression})) : ?>";
+            return "<?php if (\\Auth::check() && \\Auth::user()->hasRole({$expression})) : ?>";
         });
 
         \Blade::directive('endrole', function ($expression) {
@@ -33,10 +33,28 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         \Blade::directive('permission', function ($expression) {
-            return "<?php if (\\Auth::user()->hasPermission({$expression})) : ?>";
+            return "<?php if (\\Auth::check() && \\Auth::user()->hasPermission({$expression})) : ?>";
         });
         
         \Blade::directive('endpermission', function ($expression) {
+            return "<?php endif; ?>";
+        });
+
+        \Blade::directive('level', function ($expression) {
+            $level = trim($expression, '()');
+
+            return "<?php if (\\Auth::check() && \\Auth::user()->level() >= {$level}) : ?>";
+        });
+
+        \Blade::directive('endlevel', function ($expression) {
+            return "<?php endif; ?>";
+        });
+
+        \Blade::directive('allowed', function ($expression) {
+            return "<?php if (\\Auth::check() && \\Auth::user()->allowed({$expression})) : ?>";
+        });
+
+        \Blade::directive('endallowed', function ($expression) {
             return "<?php endif; ?>";
         });
 

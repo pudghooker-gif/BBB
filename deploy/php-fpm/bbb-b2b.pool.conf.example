@@ -1,10 +1,10 @@
 ; Example PHP-FPM pool for BBB B2B production.
-; Copy to /etc/php/7.4/fpm/pool.d/bbb-b2b.conf and tune for the host size.
+; Copy to /etc/php/8.3/fpm/pool.d/bbb-b2b.conf and tune for the host size.
 
 [bbb-b2b]
 user = www-data
 group = www-data
-listen = /run/php/php7.4-fpm-bbb.sock
+listen = /run/php/php8.3-fpm-bbb.sock
 listen.owner = www-data
 listen.group = www-data
 listen.mode = 0660
@@ -18,11 +18,11 @@ pm.max_requests = 1000
 
 request_terminate_timeout = 65s
 request_slowlog_timeout = 10s
-slowlog = /var/log/php7.4-fpm-bbb-slow.log
+slowlog = /var/log/php8.3-fpm-bbb-slow.log
 catch_workers_output = yes
 decorate_workers_output = no
 
-php_admin_value[error_log] = /var/log/php7.4-fpm-bbb-error.log
+php_admin_value[error_log] = /var/log/php8.3-fpm-bbb-error.log
 php_admin_flag[log_errors] = on
 php_admin_value[memory_limit] = 512M
 php_admin_value[upload_max_filesize] = 10M

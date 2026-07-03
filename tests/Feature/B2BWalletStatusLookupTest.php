@@ -72,6 +72,22 @@ class B2BWalletStatusLookupTest extends TestCase
             ->assertJsonPath('error.code', 'TRANSACTION_NOT_FOUND');
     }
 
+    public function testWalletStatusLookupValidatesTransactionUid()
+    {
+        $longTransactionUid = str_repeat('x', 192);
+
+        $this->signedGet(
+            'op_status_a',
+            'key_status_a',
+            $this->secretA,
+            '/api/b2b/v1/wallet/transactions/' . $longTransactionUid . '/status',
+            'status-lookup-invalid-uid'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+    }
+
     public function testReportTransactionDetailRedactsLegacyRawPayloads()
     {
         $response = $this->signedGet(

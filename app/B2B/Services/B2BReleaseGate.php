@@ -601,6 +601,7 @@ class B2BReleaseGate
             'deploy/scripts/migration-rehearsal.sh',
             'deploy/scripts/b2b-smoke.sh',
             'deploy/k6/b2b-smoke-load.js',
+            'deploy/evidence/release-evidence.example.json',
             'deploy/prometheus/b2b-alerts.yml',
             'deploy/prometheus/alertmanager-routes.example.yml',
             'docs/deployment/PRODUCTION_RUNBOOK.md',
@@ -613,11 +614,106 @@ class B2BReleaseGate
             }
         }
 
+        $console = $this->fileContents(base_path('routes/b2b_console.php'));
+        foreach (['b2b:evidence-template', 'b2b:evidence-check', 'b2b:evidence-hash', 'B2BReleaseEvidenceChecker'] as $needle) {
+            if (strpos($console, $needle) === false) {
+                $missing[] = 'console:' . $needle;
+            }
+        }
+
+        $template = $this->jsonFile(base_path('deploy/evidence/release-evidence.example.json'));
+        if (!$template || empty($template['evidence']) || !is_array($template['evidence'])) {
+            $missing[] = 'evidence_template:release-evidence.example.json';
+        } else {
+            try {
+                foreach (app(B2BReleaseEvidenceChecker::class)->requiredEvidence() as $key => $requirement) {
+                    if (!array_key_exists($key, $template['evidence'])) {
+                        $missing[] = 'evidence_template:' . $key;
+                        continue;
+                    }
+
+                    $entry = is_array($template['evidence'][$key]) ? $template['evidence'][$key] : [];
+                    if (!empty($entry['artifacts']) && is_array($entry['artifacts'])) {
+                        if (empty($entry['artifact_hashes']) || !is_array($entry['artifact_hashes'])) {
+                            $missing[] = 'evidence_template_hashes:' . $key;
+                            continue;
+                        }
+
+                        foreach ($entry['artifacts'] as $artifact) {
+                            if (!is_string($artifact) || !isset($entry['artifact_hashes'][$artifact])) {
+                                $missing[] = 'evidence_template_hash:' . $key . ':' . (string) $artifact;
+                            }
+                        }
+                    } elseif (!empty($entry['artifact']) && empty($entry['sha256'])) {
+                        $missing[] = 'evidence_template_hash:' . $key;
+                    }
+                }
+            } catch (\Throwable $e) {
+                $missing[] = 'evidence_template:checker';
+            }
+        }
+
+        $runbook = $this->fileContents(base_path('docs/deployment/PRODUCTION_RUNBOOK.md'));
+        foreach (['b2b:evidence-template', 'b2b:evidence-check', 'release-evidence.json', 'provider certification', 'legal approval'] as $needle) {
+            if (strpos($runbook, $needle) === false) {
+                $missing[] = 'runbook_evidence:' . $needle;
+            }
+        }
+
+        $migrationRehearsal = $this->fileContents(base_path('deploy/scripts/migration-rehearsal.sh'));
+        foreach (['MIGRATION_REHEARSAL_ARTIFACT_DIR', 'ARTIFACT_DIR', 'b2b-migration-rehearsal-'] as $needle) {
+            if (strpos($migrationRehearsal, $needle) === false) {
+                $missing[] = 'migration_rehearsal_evidence:' . $needle;
+            }
+        }
+
+        $healthcheck = $this->fileContents(base_path('deploy/scripts/healthcheck.sh'));
+        foreach (['HEALTHCHECK_ARTIFACT_DIR', 'b2b-healthcheck-', 'b2b-release-check-'] as $needle) {
+            if (strpos($healthcheck, $needle) === false) {
+                $missing[] = 'healthcheck_evidence:' . $needle;
+            }
+        }
+
+        $smoke = $this->fileContents(base_path('deploy/scripts/b2b-smoke.sh'));
+        foreach (['B2B_SMOKE_ARTIFACT_DIR', 'b2b-smoke-', 'SMOKE_LOG'] as $needle) {
+            if (strpos($smoke, $needle) === false) {
+                $missing[] = 'smoke_evidence:' . $needle;
+            }
+        }
+
+        $backup = $this->fileContents(base_path('deploy/scripts/backup.sh'));
+        foreach (['BACKUP_ARTIFACT_DIR', 'b2b-backup-', '.sha256', 'sha256_value'] as $needle) {
+            if (strpos($backup, $needle) === false) {
+                $missing[] = 'backup_evidence:' . $needle;
+            }
+        }
+
+        $restore = $this->fileContents(base_path('deploy/scripts/restore.sh'));
+        foreach (['RESTORE_ARTIFACT_DIR', 'b2b-restore-', 'b2b-restore-release-check-', 'sha256_value'] as $needle) {
+            if (strpos($restore, $needle) === false) {
+                $missing[] = 'restore_evidence:' . $needle;
+            }
+        }
+
+        $rollback = $this->fileContents(base_path('deploy/scripts/rollback.sh'));
+        foreach (['ROLLBACK_ARTIFACT_DIR', 'b2b-rollback-', 'b2b-rollback-release-check-'] as $needle) {
+            if (strpos($rollback, $needle) === false) {
+                $missing[] = 'rollback_evidence:' . $needle;
+            }
+        }
+
+        $loadTest = $this->fileContents(base_path('deploy/k6/b2b-smoke-load.js'));
+        foreach (['handleSummary', 'K6_SUMMARY_PATH', 'signed_operator_checks_enabled'] as $needle) {
+            if (strpos($loadTest, $needle) === false) {
+                $missing[] = 'load_evidence:' . $needle;
+            }
+        }
+
         return [
             'name' => 'deployment_artifacts',
             'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
             'message' => count($missing) === 0
-                ? 'Production deployment, monitoring, smoke/load, and runbook artifacts are present.'
+                ? 'Production deployment, monitoring, smoke/load, release evidence, and runbook artifacts are present.'
                 : 'Missing production deployment artifacts: ' . implode(', ', $missing),
         ];
     }

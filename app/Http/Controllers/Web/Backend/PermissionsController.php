@@ -20,7 +20,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
         public function index()
         {
             $roles = \VanguardLTE\Role::get();
-            $permissions = \jeremykenedy\LaravelRoles\Models\Permission::orderBy('rank', 'asc')->get();
+            $permissions = \VanguardLTE\Permission::orderBy('rank', 'asc')->get();
             $data = [
                 '1' => [], 
                 '2' => [], 
@@ -70,15 +70,15 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
                 'slug' => 'required|regex:/^[a-zA-Z0-9\-_\.]+$/|unique:permissions', 
                 'name' => 'required'
             ]);
-            \jeremykenedy\LaravelRoles\Models\Permission::create($request->all());
+            \VanguardLTE\Permission::create($request->all());
             return redirect()->route('backend.permission.index')->withSuccess(trans('app.permission_created_successfully'));
         }
-        public function edit(\jeremykenedy\LaravelRoles\Models\Permission $permission)
+        public function edit(\VanguardLTE\Permission $permission)
         {
             $edit = true;
             return view('backend.permission.add-edit', compact('edit', 'permission'));
         }
-        public function update(\jeremykenedy\LaravelRoles\Models\Permission $permission, \Illuminate\Http\Request $request)
+        public function update(\VanguardLTE\Permission $permission, \Illuminate\Http\Request $request)
         {
             $validatedData = $request->validate([
                 'slug' => 'required|regex:/^[a-zA-Z0-9\-_\.]+$/|unique:permissions,slug,' . $permission->id, 
@@ -87,7 +87,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
             $permission->update($request->all());
             return redirect()->route('backend.permission.index')->withSuccess(trans('app.permission_updated_successfully'));
         }
-        public function delete(\jeremykenedy\LaravelRoles\Models\Permission $permission)
+        public function delete(\VanguardLTE\Permission $permission)
         {
             $permission->delete();
             return redirect()->route('backend.permission.index')->withSuccess(trans('app.permission_deleted_successfully'));

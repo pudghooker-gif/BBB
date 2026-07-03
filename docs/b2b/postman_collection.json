@@ -427,7 +427,7 @@
           "name": "Transaction Attempts",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/b2b/v1/wallet/transactions/{{transactionId}}/attempts"
+            "url": "{{baseUrl}}/api/b2b/v1/wallet/transactions/{{transactionId}}/attempts?limit=100"
           },
           "response": []
         }
@@ -440,7 +440,7 @@
           "name": "Summary",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/b2b/v1/reports/summary?from=2026-06-01&to=2026-06-24"
+            "url": "{{baseUrl}}/api/b2b/v1/reports/summary?from=2026-06-01&to=2026-06-24&currency={{currency}}"
           },
           "response": []
         },
@@ -456,7 +456,7 @@
           "name": "GGR",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/b2b/v1/reports/ggr?from=2026-06-01&to=2026-06-24"
+            "url": "{{baseUrl}}/api/b2b/v1/reports/ggr?from=2026-06-01&to=2026-06-24&currency={{currency}}"
           },
           "response": []
         },
@@ -492,7 +492,7 @@
           "name": "Reconciliation",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/b2b/v1/reports/reconciliation?from=2026-06-01&to=2026-06-24&limit=20"
+            "url": "{{baseUrl}}/api/b2b/v1/reports/reconciliation?from=2026-06-01&to=2026-06-24&state=open&priority=high&currency={{currency}}&limit=20"
           },
           "response": []
         },

@@ -106,6 +106,12 @@ class B2BSettlementWorkflowTest extends TestCase
             ->assertStatus(404)
             ->assertJsonPath('success', false)
             ->assertJsonPath('error.code', 'SETTLEMENT_NOT_FOUND');
+
+        $longSettlementUid = str_repeat('x', 81);
+        $this->signedGet('op_settlement_a', 'key_settlement_a', $this->secretA, '/api/b2b/v1/reports/settlements/'.$longSettlementUid, 'settlement-detail-invalid-uid')
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
     }
 
     public function testRepeatedExportKeepsExistingSnapshotFrozen()

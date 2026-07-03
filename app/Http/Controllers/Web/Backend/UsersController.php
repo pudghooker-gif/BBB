@@ -19,7 +19,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
         public function index(\Illuminate\Http\Request $request)
         {
             $statuses = ['' => trans('app.all')] + \VanguardLTE\Support\Enum\UserStatus::lists();
-            $roles = \jeremykenedy\LaravelRoles\Models\Role::where('level', '<', auth()->user()->level())->pluck('name', 'id');
+            $roles = \VanguardLTE\Role::where('level', '<', auth()->user()->level())->pluck('name', 'id');
             $roles->prepend(trans('app.all'), '0');
             $shop = \VanguardLTE\Shop::find(auth()->user()->shop_id);
             $users = \VanguardLTE\User::orderBy('created_at', 'DESC');
@@ -162,7 +162,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
                 }
             }
             $users = $users->where('id', '!=', auth()->user()->id)->get();
-            $role = \jeremykenedy\LaravelRoles\Models\Role::where('id', auth()->user()->role_id - 1)->first();
+            $role = \VanguardLTE\Role::where('id', auth()->user()->role_id - 1)->first();
 
             return view('backend.user.tree', compact('users', 'role'));
         }
@@ -185,7 +185,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
                     'time' => date('G')
                 ])->first();
             }
-            $roles = \jeremykenedy\LaravelRoles\Models\Role::where('level', '<', auth()->user()->level())->pluck('name', 'id');
+            $roles = \VanguardLTE\Role::where('level', '<', auth()->user()->level())->pluck('name', 'id');
             $statuses = \VanguardLTE\Support\Enum\UserStatus::lists();
             //            $shops = auth()->user()->shops();
             $shops = \VanguardLTE\Shop::where('user_id', auth()->user()->id)->pluck('name', 'id');
@@ -287,7 +287,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
             }
             $role_id = (isset($data['role_id']) && $data['role_id'] < auth()->user()->role_id ? $data['role_id'] : auth()->user()->role_id - 1);
             $data['role_id'] = $role_id;
-            $role = \jeremykenedy\LaravelRoles\Models\Role::find($role_id);
+            $role = \VanguardLTE\Role::find($role_id);
             if (auth()->user()->hasRole('distributor') && $role->slug == 'manager' && \VanguardLTE\User::where([
                 'role_id' => $role->id,
                 'shop_id' => $shop_id
@@ -354,7 +354,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
                     }
                 }
                 if (auth()->user()->hasRole('cashier')) {
-                    $role = \jeremykenedy\LaravelRoles\Models\Role::find(1);
+                    $role = \VanguardLTE\Role::find(1);
                     for ($i = 0; $i < $request->count; $i++) {
 
                         $credential = \VanguardLTE\Support\Security\PasswordPolicy::generateTemporaryCredential();
@@ -388,7 +388,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend {
         public function edit(\Illuminate\Http\Request $request, \VanguardLTE\Repositories\Activity\ActivityRepository $activitiesRepo, \VanguardLTE\User $user)
         {
             $edit = true;
-            $roles = \jeremykenedy\LaravelRoles\Models\Role::where('level', '<=', auth()->user()->level())->pluck('name', 'id');
+            $roles = \VanguardLTE\Role::where('level', '<=', auth()->user()->level())->pluck('name', 'id');
             $statuses = \VanguardLTE\Support\Enum\UserStatus::lists();
             $shops = $user->shops();
             $shop = \VanguardLTE\Shop::find(auth()->user()->shop_id);

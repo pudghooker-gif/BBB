@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BOperatorPlayer;
+use VanguardLTE\Role;
 use VanguardLTE\User;
 
 class ShadowUserManager
@@ -154,11 +155,7 @@ class ShadowUserManager
                 return;
             }
 
-            if (!class_exists('jeremykenedy\\LaravelRoles\\Models\\Role')) {
-                return;
-            }
-
-            $role = \jeremykenedy\LaravelRoles\Models\Role::where('name', 'User')
+            $role = Role::where('name', 'User')
                 ->orWhere('slug', 'user')
                 ->first();
 

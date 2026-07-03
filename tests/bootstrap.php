@@ -27,3 +27,5 @@ $console = tap($app->make(Kernel::class))->bootstrap();
 foreach ($commands as $command) {
     $console->call($command);
 }
+
+\Illuminate\Foundation\Bootstrap\HandleExceptions::flushHandlersState();

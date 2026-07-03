@@ -94,6 +94,54 @@ class B2BReconciliationReportTest extends TestCase
         $this->assertStringNotContainsString('tx_recon_a_rollback', json_encode($operatorBResponse->json()));
     }
 
+    public function testReconciliationReportValidatesFiltersAndPeriods()
+    {
+        $this->signedGet(
+            'op_recon_report_a',
+            'key_recon_report_a',
+            $this->secretA,
+            '/api/b2b/v1/reports/reconciliation?limit=101',
+            'reconciliation-invalid-limit'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $this->signedGet(
+            'op_recon_report_a',
+            'key_recon_report_a',
+            $this->secretA,
+            '/api/b2b/v1/reports/reconciliation?state=closed',
+            'reconciliation-invalid-state'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $this->signedGet(
+            'op_recon_report_a',
+            'key_recon_report_a',
+            $this->secretA,
+            '/api/b2b/v1/reports/reconciliation?priority=critical',
+            'reconciliation-invalid-priority'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $badPeriod = '/api/b2b/v1/reports/reconciliation?from=' . now()->addDay()->toDateString() . '&to=' . now()->subDay()->toDateString();
+        $this->signedGet(
+            'op_recon_report_a',
+            'key_recon_report_a',
+            $this->secretA,
+            $badPeriod,
+            'reconciliation-invalid-period'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+    }
+
     private function signedGet($operatorUid, $keyId, $secret, $uri, $nonce)
     {
         $headers = $this->signedB2BHeaders($operatorUid, $keyId, $secret, 'GET', $uri, '', $nonce);

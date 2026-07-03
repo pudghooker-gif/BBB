@@ -12,6 +12,7 @@ use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Models\B2BWalletTransaction;
 use VanguardLTE\B2B\Services\B2BOperatorAuditLogger;
 use VanguardLTE\B2B\Services\B2BPrivilegedActionGuard;
+use VanguardLTE\B2B\Services\B2BReleaseEvidenceChecker;
 use VanguardLTE\B2B\Services\B2BReleaseGate;
 use VanguardLTE\B2B\Services\B2BSchedulerHeartbeat;
 use VanguardLTE\B2B\Services\B2BSettlementWorkflowService;
@@ -466,3 +467,79 @@ Artisan::command('b2b:release-check {--production : Enforce production release g
 
     return $result['ok'] ? 0 : 1;
 })->describe('Run B2B production release configuration checks.');
+
+Artisan::command('b2b:evidence-check {path : Directory containing release-evidence.json} {--production : Enforce production launch evidence requirements}', function (B2BReleaseEvidenceChecker $checker) {
+    $result = $checker->check($this->argument('path'), (bool) $this->option('production'));
+
+    $this->line('B2B release evidence checks');
+    foreach ($result['checks'] as $check) {
+        $line = strtoupper($check['status']) . ' ' . $check['name'] . ': ' . $check['message'];
+        if ($check['status'] === 'fail') {
+            $this->error($line);
+        } elseif ($check['status'] === 'warn') {
+            $this->comment($line);
+        } else {
+            $this->info($line);
+        }
+    }
+
+    return $result['ok'] ? 0 : 1;
+})->describe('Validate an external B2B production release evidence package.');
+
+Artisan::command('b2b:evidence-hash {path : Directory containing release-evidence.json} {--write : Write calculated hashes back to release-evidence.json}', function (B2BReleaseEvidenceChecker $checker) {
+    $result = $checker->hashManifest($this->argument('path'), (bool) $this->option('write'));
+
+    $this->line('B2B release evidence hash calculation');
+    foreach ($result['checks'] as $check) {
+        $line = strtoupper($check['status']) . ' ' . $check['name'] . ': ' . $check['message'];
+        if ($check['status'] === 'fail') {
+            $this->error($line);
+        } else {
+            $this->info($line);
+        }
+    }
+
+    foreach ($result['hashes'] as $entry => $hashes) {
+        foreach ($hashes as $artifact => $sha256) {
+            $this->line($entry . ' ' . $artifact . ' ' . $sha256);
+        }
+    }
+
+    if (!empty($result['written'])) {
+        $this->info('Wrote calculated hashes to release-evidence.json.');
+    }
+
+    return $result['ok'] ? 0 : 1;
+})->describe('Calculate SHA-256 hashes for B2B release evidence artifacts.');
+
+Artisan::command('b2b:evidence-template {path : Directory where release-evidence.json should be created} {--release-id=} {--environment=production-canary} {--commit=} {--generated-at=} {--force : Overwrite an existing release-evidence.json}', function (B2BReleaseEvidenceChecker $checker) {
+    $directory = (string) $this->argument('path');
+    if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
+        $this->error('Unable to create release evidence directory: ' . $directory);
+        return 1;
+    }
+
+    $manifestPath = rtrim($directory, DIRECTORY_SEPARATOR . '/\\') . DIRECTORY_SEPARATOR . 'release-evidence.json';
+    if (file_exists($manifestPath) && !(bool) $this->option('force')) {
+        $this->error('release-evidence.json already exists. Use --force to overwrite it.');
+        return 1;
+    }
+
+    $manifest = $checker->templateManifest(
+        $this->option('release-id'),
+        $this->option('environment') ?: 'production-canary',
+        $this->option('commit'),
+        $this->option('generated-at')
+    );
+
+    file_put_contents(
+        $manifestPath,
+        json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL
+    );
+
+    $this->info('Created B2B release evidence template.');
+    $this->line('manifest: ' . $manifestPath);
+    $this->line('next: add redacted artifacts, run b2b:evidence-hash --write, then b2b:evidence-check --production');
+
+    return 0;
+})->describe('Create a redacted B2B release evidence manifest skeleton.');

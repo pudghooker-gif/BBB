@@ -91,7 +91,7 @@ namespace VanguardLTE\Http\Controllers\Api\Users
                 'username', 
                 'password'
             ]);
-            $role = \jeremykenedy\LaravelRoles\Models\Role::find(auth()->user()->role_id - 1);
+            $role = \VanguardLTE\Role::find(auth()->user()->role_id - 1);
             $data += ['status' => \VanguardLTE\Support\Enum\UserStatus::ACTIVE];
             $data += ['parent_id' => auth()->user()->id];
             $data += ['role_id' => $role->id];
@@ -182,7 +182,7 @@ namespace VanguardLTE\Http\Controllers\Api\Users
                 }
                 if( auth()->user()->hasRole('cashier') ) 
                 {
-                    $role = \jeremykenedy\LaravelRoles\Models\Role::find(1);
+                    $role = \VanguardLTE\Role::find(1);
                     for( $i = 0; $i < $request->count; $i++ ) 
                     {
                         $credential = \VanguardLTE\Support\Security\PasswordPolicy::generateTemporaryCredential();

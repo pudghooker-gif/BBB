@@ -2,35 +2,20 @@
 
 namespace VanguardLTE\Providers;
 
-use Collective\Html\FormBuilder;
-use Collective\Html\HtmlBuilder;
-use Collective\Html\HtmlServiceProvider as BaseHtmlServiceProvider;
+use Illuminate\Support\ServiceProvider;
+use VanguardLTE\Support\Html\FormBuilder;
+use VanguardLTE\Support\Html\HtmlBuilder;
 
-class HtmlServiceProvider extends BaseHtmlServiceProvider
+class HtmlServiceProvider extends ServiceProvider
 {
-    protected function registerHtmlBuilder()
+    public function register()
     {
-        $this->app->singleton('html', function($app) {
-
-   /*          if (env('FORCE_SSL')) {
-                $app['url']->forceScheme('https');
-            }
-
-  */           return new HtmlBuilder($app['url'], $app['view']);
+        $this->app->singleton('html', function ($app) {
+            return new HtmlBuilder($app['url']);
         });
-    }
 
-    protected function registerFormBuilder()
-    {
-        $this->app->singleton('form', function($app) {
-
-/*             if (env('FORCE_SSL')) {
-                $app['url']->forceScheme('https');
-            } */
-
-            $form = new FormBuilder($app['html'], $app['url'], $app['view'], $app['session.store']->token());
-
-            return $form->setSessionStore($app['session.store']);
+        $this->app->singleton('form', function ($app) {
+            return new FormBuilder($app['html'], $app['url'], $app['session.store']);
         });
     }
 }

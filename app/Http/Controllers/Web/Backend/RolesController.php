@@ -33,16 +33,16 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
                 'slug' => 'required|regex:/^[a-zA-Z0-9\-_\.]+$/|unique:roles', 
                 'name' => 'required'
             ]);
-            \jeremykenedy\LaravelRoles\Models\Role::create($request->all());
+            \VanguardLTE\Role::create($request->all());
             return redirect()->route('backend.role.index')->withSuccess(trans('app.role_created'));
         }
-        public function edit(\jeremykenedy\LaravelRoles\Models\Role $role)
+        public function edit(\VanguardLTE\Role $role)
         {
             $edit = true;
             return redirect()->route('backend.dashboard');
             return view('backend.role.add-edit', compact('edit', 'role'));
         }
-        public function update(\jeremykenedy\LaravelRoles\Models\Role $role, \Illuminate\Http\Request $request)
+        public function update(\VanguardLTE\Role $role, \Illuminate\Http\Request $request)
         {
             $validatedData = $request->validate([
                 'slug' => 'required|regex:/^[a-zA-Z0-9\-_\.]+$/|unique:roles,slug,' . $permission->id, 
@@ -51,7 +51,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
             $role->update($request->all());
             return redirect()->route('backend.role.index')->withSuccess(trans('app.role_updated'));
         }
-        public function delete(\jeremykenedy\LaravelRoles\Models\Role $role)
+        public function delete(\VanguardLTE\Role $role)
         {
             return redirect()->route('backend.dashboard');
             $role->detachAllPermissions();

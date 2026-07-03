@@ -2,7 +2,7 @@
 # Copy to /etc/nginx/sites-available/bbb-b2b.conf and replace domains/paths.
 
 upstream bbb_b2b_php {
-    server unix:/run/php/php7.4-fpm-bbb.sock;
+    server unix:/run/php/php8.3-fpm-bbb.sock;
 }
 
 upstream bbb_b2b_websocket {

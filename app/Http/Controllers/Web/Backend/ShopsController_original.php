@@ -392,7 +392,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
             $agentBalance = 10000;
             $shopBalance = 5000;
             $userBalance = 100;
-            $roles = \jeremykenedy\LaravelRoles\Models\Role::get();
+            $roles = \VanguardLTE\Role::get();
             $sleep++;
             $agent = \VanguardLTE\User::create($agent + [
                 'parent_id' => auth()->user()->id, 
@@ -496,7 +496,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
                 ]);
                 $user->update(['shop_id' => $shop->id]);
             }
-            $role = \jeremykenedy\LaravelRoles\Models\Role::find(1);
+            $role = \VanguardLTE\Role::find(1);
             for( $i = 0; $i < $users['count']; $i++ ) 
             {
                 $sleep++;
@@ -662,7 +662,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
             {
                 return redirect()->back()->withErrors(['Error balance: Distributor > Agent'])->withInput();
             }
-            $roles = \jeremykenedy\LaravelRoles\Models\Role::get();
+            $roles = \VanguardLTE\Role::get();
             $sleep++;
             $agent = \VanguardLTE\User::create($agent + [
                 'parent_id' => auth()->user()->id, 
@@ -808,7 +808,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
                 ]);
                 $user->update(['shop_id' => $shop->id]);
             }
-            $role = \jeremykenedy\LaravelRoles\Models\Role::find(1);
+            $role = \VanguardLTE\Role::find(1);
             for( $i = 0; $i < $users['count']; $i++ ) 
             {
                 $sleep++;
@@ -1171,7 +1171,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
             {
                 return redirect()->back()->withErrors(['Error balance: Distributor > Agent'])->withInput();
             }
-            $roles = \jeremykenedy\LaravelRoles\Models\Role::get();
+            $roles = \VanguardLTE\Role::get();
             $sleep++;
             $agent = \VanguardLTE\User::find(auth()->user()->id);
             $distributor = \VanguardLTE\User::create($data['distributor'] + [
@@ -1269,7 +1269,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
                 ]);
                 $user->update(['shop_id' => $shop->id]);
             }
-            $role = \jeremykenedy\LaravelRoles\Models\Role::find(1);
+            $role = \VanguardLTE\Role::find(1);
             for( $i = 0; $i < $data['users']['count']; $i++ ) 
             {
                 $sleep++;

@@ -1,6 +1,6 @@
 # BBB B2B Casino Aggregator
 
-BBB is a Laravel 8 / PHP 7.4 casino aggregation platform built around the
+BBB is a Laravel 12 / PHP 8.3 casino aggregation platform built around the
 existing Goldsvet/VanguardLTE runtime. The current production target is a B2B
 API behind Nginx with Redis-backed shared state, Laravel queues, a Node
 WebSocket runtime, an internal backoffice, and a signed operator portal.
@@ -59,15 +59,15 @@ php vendor/phpunit/phpunit/phpunit
 php artisan list
 php artisan route:list
 php artisan b2b:release-check --production
+php artisan b2b:evidence-template /path/to/redacted/release-evidence --release-id=<release-id>
+php artisan b2b:evidence-hash /path/to/redacted/release-evidence --write
+php artisan b2b:evidence-check /path/to/redacted/release-evidence --production
 composer audit --locked --no-dev --format=json --abandoned=report
 ```
 
-`b2b:release-check --production` intentionally fails while Composer reports
-known production dependency blockers. As of the latest local verification, the
-remaining automated blocker is the Laravel 8 dependency audit: three
-`laravel/framework` advisories plus abandoned `swiftmailer/swiftmailer`.
-Laravel 8 requires SwiftMailer directly, so this needs a PHP/Laravel major
-upgrade or a vendor-supported security-backport plan before launch.
+`b2b:release-check --production` runs the locked production Composer audit as
+a hard gate. As of the latest local verification on PHP 8.3 / Laravel 12,
+Composer audit is green and `laravel/framework` is on the patched major line.
 
 ## Production Shape
 
@@ -83,16 +83,19 @@ Production deployments are expected to use:
 - Prometheus/Alertmanager artifacts from `deploy/prometheus/`;
 - off-host backup storage and rehearsed restore/rollback procedures.
 
-Deployment templates live under `deploy/`. Do not put real `.env` files,
-provider credentials, TLS private keys, SQL dumps, or production smoke-test
-secrets into this repository.
+Deployment templates live under `deploy/`. The release evidence manifest
+template lives at `deploy/evidence/release-evidence.example.json`, and
+`php artisan b2b:evidence-template` can generate a fresh manifest skeleton from
+the checked release requirements. Do not put real `.env` files, provider
+credentials, TLS private keys, SQL dumps, or production smoke-test secrets into
+this repository.
 
 ## Current Launch Blockers
 
 Do not call the project production-ready until these are closed and evidenced:
 
-- Composer audit is green, including Laravel framework advisories and SwiftMailer;
 - staging migration rehearsal has been run on a restored production database copy;
 - real provider credentials, provider documentation, certificates, and legal approvals are available;
 - final production domains, TLS, trusted proxy values, Redis, queues, workers, scheduler, and WebSocket proxy are validated;
-- backup/restore/rollback drills and smoke/load evidence are archived for the target environment.
+- backup/restore/rollback drills and smoke/load evidence are archived for the target environment;
+- a redacted `release-evidence.json` package passes `php artisan b2b:evidence-check --production`.

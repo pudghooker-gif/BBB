@@ -5,7 +5,7 @@ namespace VanguardLTE
     {
         use \VanguardLTE\Support\Presenter\PresentableTrait,
             \Illuminate\Notifications\Notifiable, 
-            \jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
+            \VanguardLTE\Support\Authorization\AuthorizationUserTrait;
         protected $presenter = 'VanguardLTE\Presenters\UserPresenter';
         protected $table = 'users';
         protected $dates = [
@@ -300,7 +300,7 @@ namespace VanguardLTE
             {
                 return [];
             }
-            $role = \jeremykenedy\LaravelRoles\Models\Role::where('slug', $roleName)->first();
+            $role = \VanguardLTE\Role::where('slug', $roleName)->first();
             return User::where('role_id', $role->id)->whereIn('id', $users)->pluck('id')->toArray();
         }
         public function availableShops($showZero = false)
@@ -332,7 +332,7 @@ namespace VanguardLTE
         }
         public function getInnerUsers()
         {
-            $role = \jeremykenedy\LaravelRoles\Models\Role::where('id', $this->role_id - 1)->first();
+            $role = \VanguardLTE\Role::where('id', $this->role_id - 1)->first();
             $_obf_0D06103B293F142A1D3023302D022E332B0408101E3E01 = $this->availableUsersByRole($role->slug);
             if( count($_obf_0D06103B293F142A1D3023302D022E332B0408101E3E01) ) 
             {
@@ -342,7 +342,7 @@ namespace VanguardLTE
         }
         public function getInnerUsersMinusTwo()
         {
-             $role = \jeremykenedy\LaravelRoles\Models\Role::where('id', $this->role_id - 2)->first();
+             $role = \VanguardLTE\Role::where('id', $this->role_id - 2)->first();
             $_obf_0D06103B293F142A1D3023302D022E332B0408101E3E01 = $this->availableUsersByRole($role->slug);
             if( count($_obf_0D06103B293F142A1D3023302D022E332B0408101E3E01) ) 
             {
@@ -397,7 +397,7 @@ namespace VanguardLTE
         }
         public function role()
         {
-            return $this->belongsTo('jeremykenedy\LaravelRoles\Models\Role', 'role_id');
+            return $this->belongsTo('VanguardLTE\Role', 'role_id');
         }
         public function badge()
         {
@@ -595,7 +595,7 @@ namespace VanguardLTE
             }
             if( count($roles[$this->level()]) ) 
             {
-                return \jeremykenedy\LaravelRoles\Models\Role::whereIn('id', $roles[$this->level()])->pluck('name', 'id');
+                return \VanguardLTE\Role::whereIn('id', $roles[$this->level()])->pluck('name', 'id');
             }
             return [];
         }

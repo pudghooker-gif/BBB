@@ -6,6 +6,18 @@ Run before packaging or deploying B2B production artifacts:
 php artisan b2b:release-check --production
 ```
 
+Before broad production traffic, validate the external launch evidence package:
+
+```bash
+php artisan b2b:evidence-template /var/www/bbb/release-evidence/<release-id> --release-id=<release-id>
+php artisan b2b:evidence-hash /var/www/bbb/release-evidence/<release-id> --write
+php artisan b2b:evidence-check /var/www/bbb/release-evidence/<release-id> --production
+```
+
+The `B2B Release Verification` GitHub Actions workflow runs the same production
+gate and a locked production Composer audit as hard failures. A red workflow is
+a release blocker, not an advisory signal.
+
 The command fails production mode when:
 
 - nonce replay cache is not Redis;
@@ -27,9 +39,11 @@ The command fails production mode when:
 - Laravel advisory mitigations for CRLF email validation, PHP upload extensions, or disabled framework signed routes are missing;
 - B2B readiness, metrics, backend dashboard, operator portal page/overview, or web step-up surfaces are not registered;
 - Node/WebSocket manifest, lockfile, proxy template, health probe, origin guard, heartbeat, safe logging, or production config controls are missing;
-- deployment, staging migration rehearsal, smoke/load verification, Prometheus alert, Alertmanager routing, or production runbook artifacts are missing;
+- deployment, staging migration rehearsal, smoke/load verification, release evidence template/checker, Prometheus alert, Alertmanager routing, or production runbook artifacts are missing;
 - B2B admin RBAC/privileged step-up configuration is missing;
 - known local/secret-bearing files are present in the release artifact.
+
+`b2b:evidence-template` creates a fresh `release-evidence.json` skeleton from the same required evidence list used by the production checker. `b2b:evidence-hash --write` calculates SHA-256 hashes for every artifact referenced by `release-evidence.json` and writes `sha256` or `artifact_hashes` back into the manifest. `b2b:evidence-check --production` fails when the external evidence directory is missing `release-evidence.json`, when required evidence entries or non-empty artifacts are missing, when provider/legal approvals lack an `approved_by` owner, when any artifact lacks a SHA-256 hash, when artifact hashes do not match, or when the manifest or artifact files appear to contain inline secrets. The command expects redacted logs or references for staging migration rehearsal, production release gate output, healthcheck, smoke, smoke-load, WebSocket public proxy validation, backup, restore rehearsal, rollback rehearsal, Prometheus, Alertmanager, log shipping, provider credentials/certification, legal approval, and final domains/TLS/proxy/shared-state validation. Use `sha256` for a single `artifact` entry and `artifact_hashes` for entries with multiple `artifacts`. Run migration rehearsal with `MIGRATION_REHEARSAL_ARTIFACT_DIR`, `deploy/scripts/healthcheck.sh` with `HEALTHCHECK_ARTIFACT_DIR`, the smoke script with `B2B_SMOKE_ARTIFACT_DIR`, the k6 scenario with `K6_SUMMARY_PATH`, backup with `BACKUP_ARTIFACT_DIR`, restore with `RESTORE_ARTIFACT_DIR`, and rollback with `ROLLBACK_ARTIFACT_DIR` so those checks write evidence-ready artifacts directly into the release evidence directory.
 
 Required production environment values:
 
@@ -64,4 +78,4 @@ PASSWORD_POLICY_TEMPORARY_LENGTH=16
 
 Local development may run `php artisan b2b:release-check` without `--production`; local secret-bearing files are reported as warnings, not release failures.
 
-Production deployment templates live under `deploy/` and the runbook lives in `docs/deployment/PRODUCTION_RUNBOOK.md`.
+Production deployment templates live under `deploy/`; the release evidence template lives at `deploy/evidence/release-evidence.example.json`; and the runbook lives in `docs/deployment/PRODUCTION_RUNBOOK.md`.

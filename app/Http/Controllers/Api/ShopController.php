@@ -471,7 +471,7 @@ namespace VanguardLTE\Http\Controllers\Api
             {
                 return $this->errorWrongArgs('Error balance: Distributor > Agent');
             }
-            $roles = \jeremykenedy\LaravelRoles\Models\Role::get();
+            $roles = \VanguardLTE\Role::get();
             $agent = \VanguardLTE\User::create($agent + [
                 'parent_id' => auth()->user()->id, 
                 'role_id' => 5, 
@@ -622,7 +622,7 @@ namespace VanguardLTE\Http\Controllers\Api
                 ]);
                 $user->update(['shop_id' => $shop->id]);
             }
-            $role = \jeremykenedy\LaravelRoles\Models\Role::find(1);
+            $role = \VanguardLTE\Role::find(1);
             for( $i = 0; $i < $users['count']; $i++ ) 
             {
                 $sleep++;

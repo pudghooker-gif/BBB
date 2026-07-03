@@ -16,6 +16,10 @@ class DependencyHygieneTest extends TestCase
             'barryvdh/laravel-debugbar',
             'fideloper/proxy',
             'intergo/sms.to-laravel-lumen',
+            'jeremykenedy/laravel-roles',
+            'eklundkristoffer/seedster',
+            'laravelcollective/html',
+            'laravel/helpers',
             'laracasts/presenter',
             'laravel/legacy-factories',
             'laravel/ui',
@@ -44,7 +48,7 @@ class DependencyHygieneTest extends TestCase
 
     public function testUnusedServerSideDataTablesPackageConfigIsRemoved()
     {
-        $this->assertFileNotExists(base_path('config/datatables.php'));
+        $this->assertFileDoesNotExist(base_path('config/datatables.php'));
     }
 
     public function testLaravelJsValidationPackageIsReplacedByLocalCompatibilityFacade()
@@ -54,8 +58,8 @@ class DependencyHygieneTest extends TestCase
         $this->assertStringNotContainsString('Proengsoft\JsValidation', $appConfig);
         $this->assertStringContainsString('VanguardLTE\Support\Validation\JsValidatorFacade', $appConfig);
         $this->assertFileExists(base_path('app/Support/Validation/JsValidator.php'));
-        $this->assertFileNotExists(base_path('config/jsvalidation.php'));
-        $this->assertDirectoryNotExists(base_path('resources/views/vendor/jsvalidation'));
+        $this->assertFileDoesNotExist(base_path('config/jsvalidation.php'));
+        $this->assertDirectoryDoesNotExist(base_path('resources/views/vendor/jsvalidation'));
     }
 
     public function testGoogle2faLaravelWrapperIsReplacedByLocalMiddlewareAndFacade()
@@ -88,6 +92,57 @@ class DependencyHygieneTest extends TestCase
         $this->assertFileExists(base_path('app/Support/Jwt/Tymon/Contracts/JWTSubject.php'));
     }
 
+    public function testLaravelRolesRuntimeModelsUseLocalCompatibilityLayer()
+    {
+        $appConfig = file_get_contents(base_path('config/app.php'));
+        $kernel = file_get_contents(base_path('app/Http/Kernel.php'));
+        $rolesConfig = file_get_contents(base_path('config/roles.php'));
+        $userModel = file_get_contents(base_path('app/User.php'));
+        $roleModel = file_get_contents(base_path('app/Role.php'));
+        $permissionModel = file_get_contents(base_path('app/Permission.php'));
+
+        $this->assertStringNotContainsString('jeremykenedy\LaravelRoles\RolesServiceProvider', $appConfig);
+        $this->assertStringNotContainsString('jeremykenedy\LaravelRoles\App\Http\Middleware', $kernel);
+        $this->assertStringContainsString('VanguardLTE\Http\Middleware\VerifyRole', $kernel);
+        $this->assertStringContainsString('VanguardLTE\Http\Middleware\VerifyWebPermission', $kernel);
+        $this->assertStringContainsString('VanguardLTE\Http\Middleware\VerifyLevel', $kernel);
+        $this->assertStringContainsString('VanguardLTE\Role::class', $rolesConfig);
+        $this->assertStringContainsString('VanguardLTE\Permission::class', $rolesConfig);
+        $this->assertStringContainsString('VanguardLTE\Support\Authorization\AuthorizationUserTrait', $userModel);
+        $this->assertStringContainsString('VanguardLTE\Support\Authorization\AuthorizationRoleTrait', $roleModel);
+        $this->assertStringContainsString('class Permission extends Model', $permissionModel);
+        $this->assertStringNotContainsString('HasRoleAndPermission', $userModel);
+        $this->assertStringNotContainsString('jeremykenedy\LaravelRoles\Models\Role::class', $rolesConfig);
+        $this->assertStringNotContainsString('jeremykenedy\LaravelRoles\Models\Permission::class', $rolesConfig);
+    }
+
+    public function testLaravelCollectiveHtmlPackageIsReplacedByLocalCompatibilityLayer()
+    {
+        $appConfig = file_get_contents(base_path('config/app.php'));
+        $htmlProvider = file_get_contents(base_path('app/Providers/HtmlServiceProvider.php'));
+
+        $this->assertStringNotContainsString('Collective\Html', $appConfig);
+        $this->assertStringNotContainsString('Collective\Html', $htmlProvider);
+        $this->assertStringContainsString('VanguardLTE\Support\Html\FormFacade', $appConfig);
+        $this->assertStringContainsString('VanguardLTE\Support\Html\HtmlFacade', $appConfig);
+        $this->assertStringContainsString('VanguardLTE\Support\Html\FormBuilder', $htmlProvider);
+        $this->assertStringContainsString('VanguardLTE\Support\Html\HtmlBuilder', $htmlProvider);
+        $this->assertFileExists(base_path('app/Support/Html/FormBuilder.php'));
+        $this->assertFileExists(base_path('app/Support/Html/HtmlBuilder.php'));
+    }
+
+    public function testRemovedLaravelHelpersPackageIsReplacedByLocalCompatibilityHelpers()
+    {
+        $helpers = file_get_contents(base_path('app/Support/helpers.php'));
+
+        $this->assertTrue(function_exists('array_get'));
+        $this->assertTrue(function_exists('str_slug'));
+        $this->assertTrue(function_exists('str_random'));
+        $this->assertStringContainsString('function array_get', $helpers);
+        $this->assertStringContainsString('function str_slug', $helpers);
+        $this->assertStringContainsString('function str_random', $helpers);
+    }
+
     public function testLocalGoogle2faServiceVerifiesOtpAndGeneratesInlineQrCode()
     {
         config(['google2fa.qrcode_image_backend' => 'svg']);
@@ -109,7 +164,7 @@ class DependencyHygieneTest extends TestCase
         $composer = json_decode(file_get_contents(base_path('composer.json')), true);
 
         $this->assertNotContains('database/factories', $composer['autoload']['classmap']);
-        $this->assertFileNotExists(base_path('database/factories/UserFactory.php'));
+        $this->assertFileDoesNotExist(base_path('database/factories/UserFactory.php'));
     }
 
     public function testLocalPresenterKeepsUserPresentationBehavior()

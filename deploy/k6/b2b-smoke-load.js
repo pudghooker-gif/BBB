@@ -27,6 +27,7 @@ const baseUrl = (__ENV.BASE_URL || 'https://b2b.example.com').replace(/\/$/, '')
 const operatorId = __ENV.B2B_OPERATOR_ID || '';
 const apiKey = __ENV.B2B_API_KEY || '';
 const apiSecret = __ENV.B2B_API_SECRET || '';
+const summaryPath = __ENV.K6_SUMMARY_PATH || 'k6-b2b-smoke-load-summary.json';
 
 export function publicReadiness() {
   const readiness = http.get(`${baseUrl}/api/b2b/v1/readiness`, {
@@ -91,4 +92,25 @@ function signedGet(path, query) {
     },
     tags: { endpoint: query ? `${path}?${query}` : path },
   });
+}
+
+export function handleSummary(data) {
+  const summary = {
+    generated_at: new Date().toISOString(),
+    base_url: baseUrl,
+    signed_operator_checks_enabled: Boolean(operatorId && apiKey && apiSecret),
+    thresholds: data.thresholds || {},
+    metrics: {
+      http_req_failed: data.metrics.http_req_failed || null,
+      http_req_duration: data.metrics.http_req_duration || null,
+      checks: data.metrics.checks || null,
+      vus: data.metrics.vus || null,
+      iterations: data.metrics.iterations || null,
+    },
+  };
+
+  return {
+    [summaryPath]: JSON.stringify(summary, null, 2),
+    stdout: `B2B smoke-load summary written to ${summaryPath}\n`,
+  };
 }

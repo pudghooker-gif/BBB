@@ -1,0 +1,132 @@
+{
+  "release_id": "2026.07.03-001",
+  "environment": "production-canary",
+  "commit": "replace-with-release-git-sha",
+  "generated_at": "2026-07-03T00:00:00Z",
+  "redaction_note": "Store only redacted logs and approval references. Replace zero SHA-256 placeholders with real artifact hashes. Do not place API secrets, provider tokens, TLS keys, .env values, SQL dumps, or private certificates in this manifest.",
+  "evidence": {
+    "staging_migration_rehearsal": {
+      "status": "passed",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "release-engineering",
+      "artifact": "migration/b2b-migration-rehearsal-20260703T000000Z.log",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "production_release_gate": {
+      "status": "passed",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "release-engineering",
+      "artifact": "preflight/b2b-release-check-20260703T000000Z.log",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "healthcheck": {
+      "status": "passed",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "release-engineering",
+      "artifacts": [
+        "preflight/b2b-healthcheck-20260703T000000Z.log",
+        "preflight/readiness-20260703T000000Z.json",
+        "preflight/metrics-20260703T000000Z.txt"
+      ],
+      "artifact_hashes": {
+        "preflight/b2b-healthcheck-20260703T000000Z.log": "0000000000000000000000000000000000000000000000000000000000000000",
+        "preflight/readiness-20260703T000000Z.json": "0000000000000000000000000000000000000000000000000000000000000000",
+        "preflight/metrics-20260703T000000Z.txt": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "smoke": {
+      "status": "passed",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "qa",
+      "artifact": "smoke/b2b-smoke-20260703T000000Z.log",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "smoke_load": {
+      "status": "passed",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "qa",
+      "artifact": "load/k6-b2b-smoke-load-summary.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "websocket_public_proxy": {
+      "status": "verified",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "platform",
+      "artifact": "network/websocket-public-proxy-healthz.log",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "backup": {
+      "status": "passed",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "database-operations",
+      "artifact": "backup/backup-and-offhost-storage-verification.log",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "restore_rehearsal": {
+      "status": "passed",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "database-operations",
+      "artifact": "restore/staging-restore-drill.log",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "rollback_rehearsal": {
+      "status": "passed",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "release-engineering",
+      "artifact": "rollback/staging-rollback-drill.log",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "prometheus_scrape": {
+      "status": "verified",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "observability",
+      "artifact": "observability/prometheus-scrape-and-rule-test.log",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "alertmanager_notification": {
+      "status": "verified",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "observability",
+      "artifact": "observability/alertmanager-delivery-test.log",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "log_shipping": {
+      "status": "verified",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "observability",
+      "artifact": "observability/b2b-log-shipping-validation.log",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "provider_credentials": {
+      "status": "approved",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "integrations",
+      "approved_by": "provider-owner",
+      "artifact": "provider/provider-credential-approval-redacted.txt",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "provider_certification": {
+      "status": "approved",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "integrations",
+      "approved_by": "provider-owner",
+      "artifact": "provider/provider-wallet-contract-certification-redacted.txt",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "legal_approval": {
+      "status": "approved",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "compliance",
+      "approved_by": "legal-owner",
+      "artifact": "compliance/legal-launch-approval-redacted.txt",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "final_domains_tls": {
+      "status": "verified",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "platform",
+      "artifact": "network/final-domains-tls-proxy-redis-queue-scheduler-validation.log",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  }
+}

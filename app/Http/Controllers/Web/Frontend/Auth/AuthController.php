@@ -357,7 +357,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
                 'role_id' => 1, 
                 'status' => (settings('use_email') ? \VanguardLTE\Support\Enum\UserStatus::UNCONFIRMED : \VanguardLTE\Support\Enum\UserStatus::ACTIVE)
             ]));
-            $role = \jeremykenedy\LaravelRoles\Models\Role::where('name', '=', 'User')->first();
+            $role = \VanguardLTE\Role::where('name', '=', 'User')->first();
             $user->attachRole($role);
             event(new \VanguardLTE\Events\User\Registered($user));
             $message = (settings('use_email') ? trans('app.account_create_confirm_email') : trans('app.account_created_login'));
@@ -378,7 +378,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend\Auth
                 'role_id' => 1, 
                 'status' => (settings('use_email') ? \VanguardLTE\Support\Enum\UserStatus::UNCONFIRMED : \VanguardLTE\Support\Enum\UserStatus::ACTIVE)
             ]));
-            $role = \jeremykenedy\LaravelRoles\Models\Role::where('name', '=', 'User')->first();
+            $role = \VanguardLTE\Role::where('name', '=', 'User')->first();
             $user->attachRole($role);
             event(new \VanguardLTE\Events\User\Registered($user));
             $message = (settings('use_email') ? trans('app.account_create_confirm_email') : trans('app.account_created_login'));

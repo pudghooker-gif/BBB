@@ -81,7 +81,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
             $shops = \VanguardLTE\Shop::orderBy('id', 'desc')->whereIn('id', $availableShops)->take(5)->get();
             $summ = \VanguardLTE\User::where(['shop_id' => \Auth::user()->shop_id, 'role_id' => 1])->sum('balance');
             $statuses = ['' => trans('app.all') ] + \VanguardLTE\Support\Enum\UserStatus::lists();
-            $roles = \jeremykenedy\LaravelRoles\Models\Role::where('level', '<', \Illuminate\Support\Facades\Auth::user()->level())->pluck('name', 'id');
+            $roles = \VanguardLTE\Role::where('level', '<', \Illuminate\Support\Facades\Auth::user()->level())->pluck('name', 'id');
             $roles->prepend(trans('app.all') , '0');
             $users = \VanguardLTE\User::orderBy('created_at', 'DESC');
             if (!auth()->user()->shop_id)
@@ -212,7 +212,7 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
                 $statistics = $statistics->whereNotIn('system', ['jpg', 'bank']);
             }
             $systems = ['' => '---', 'pincode' => 'PIN', 'refund' => 'Refund', 'happyhour' => 'HH', 'handpay' => 'HP', 'invite' => 'IF', 'progress' => 'PB', 'tournament' => 'TB', 'daily_entry' => 'DE', 'interkassa' => 'IK', 'coinbase' => 'CB', 'btcpayserver' => 'BP', 'welcome_bonus' => 'WB', 'sms_bonus' => 'SB', 'wheelfortune' => 'WH'];
-            $roles = \jeremykenedy\LaravelRoles\Models\Role::where('id', '<=', auth()->user()->role_id)->pluck('name', 'id')->toArray();
+            $roles = \VanguardLTE\Role::where('id', '<=', auth()->user()->role_id)->pluck('name', 'id')->toArray();
             if (auth()->user()->hasRole('admin'))
             {
                 $systems = $systems + ['bank' => 'Bank', 'jpg' => 'JPG'];
@@ -1077,4 +1077,3 @@ namespace VanguardLTE\Http\Controllers\Web\Backend
     }
 
 }
-

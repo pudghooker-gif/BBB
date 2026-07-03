@@ -15,6 +15,16 @@ return [
 
     'connection' => null,
 
+    'rolesTable' => env('ROLES_DATABASE_TABLE', 'roles'),
+
+    'roleUserTable' => env('ROLES_ROLE_USER_DATABASE_TABLE', 'role_user'),
+
+    'permissionsTable' => env('ROLES_PERMISSIONS_DATABASE_TABLE', 'permissions'),
+
+    'permissionsRoleTable' => env('ROLES_PERMISSION_ROLE_DATABASE_TABLE', 'permission_role'),
+
+    'permissionsUserTable' => env('ROLES_PERMISSION_USER_DATABASE_TABLE', 'permission_user'),
+
     /*
     |--------------------------------------------------------------------------
     | Slug Separator
@@ -33,15 +43,15 @@ return [
     | Models
     |--------------------------------------------------------------------------
     |
-    | If you want, you can replace default models from this package by models
-    | you created. Have a look at `jeremykenedy\LaravelRoles\Models\Role` model and
-    | `jeremykenedy\LaravelRoles\Models\Permission` model.
+    | The application uses local role and permission models here so runtime
+    | authorization can evolve independently from the legacy roles package.
     |
     */
 
     'models' => [
-        'role' => jeremykenedy\LaravelRoles\Models\Role::class,
-        'permission' => jeremykenedy\LaravelRoles\Models\Permission::class,
+        'role' => VanguardLTE\Role::class,
+        'permission' => VanguardLTE\Permission::class,
+        'defaultUser' => env('ROLES_DEFAULT_USER_MODEL', VanguardLTE\User::class),
     ],
 
     /*

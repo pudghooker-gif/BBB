@@ -3,8 +3,7 @@
 namespace VanguardLTE\Transformers;
 
 use League\Fractal\TransformerAbstract;
-// VanguardLTE\Role;
-use jeremykenedy\LaravelRoles\Models\Role;
+use VanguardLTE\Role;
 
 class RoleTransformer extends TransformerAbstract
 {

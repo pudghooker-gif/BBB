@@ -1,6 +1,29 @@
 <?php
 
 use Illuminate\Support\Str;						   
+use Illuminate\Support\Arr;
+
+if (! function_exists('array_get')) {
+    function array_get($array, $key, $default = null)
+    {
+        return Arr::get($array, $key, $default);
+    }
+}
+
+if (! function_exists('str_slug')) {
+    function str_slug($title, $separator = '-', $language = 'en')
+    {
+        return Str::slug($title, $separator, $language);
+    }
+}
+
+if (! function_exists('str_random')) {
+    function str_random($length = 16)
+    {
+        return Str::random($length);
+    }
+}
+
 if (! function_exists('settings')) {
     /**
      * Get / set the specified settings value.

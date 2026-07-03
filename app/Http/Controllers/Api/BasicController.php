@@ -23,7 +23,7 @@ namespace VanguardLTE\Http\Controllers\Api
         }
         public function agent(\Illuminate\Http\Request $request)
         {
-            $role = \jeremykenedy\LaravelRoles\Models\Role::where('slug', 'agent')->first();
+            $role = \VanguardLTE\Role::where('slug', 'agent')->first();
             $token = str_random(60);
             $data = $request->only([
                 'username', 

@@ -15,9 +15,9 @@ This runbook documents the production deployment shape. It intentionally uses pl
 
 ## Preflight
 
-GitHub Actions workflow `B2B Release Verification` runs Composer validation, dependency install, PHP syntax lint, Laravel route boot/cache, PHPUnit, dependency audit, and the B2B production release-check. The dependency audit and production release-check jobs are currently allowed to report known blockers without hiding them; production launch still requires those blockers to be closed.
+GitHub Actions workflow `B2B Release Verification` runs Composer validation, dependency install, PHP syntax lint, Laravel route boot/cache, PHPUnit, dependency audit, and the B2B production release-check. The dependency audit and production release-check jobs are hard release gates; production launch requires those blockers to be closed.
 
-`php artisan b2b:release-check --production` also runs a locked Composer dependency audit and verifies the local Laravel advisory mitigations used by this PHP 7.4/Laravel 8 branch. In production mode it still fails when `composer.lock` has known advisories or abandoned packages, so dependency security must be green before a release can be promoted.
+`php artisan b2b:release-check --production` also runs a locked Composer dependency audit and verifies the Laravel security mitigation surface used by this PHP 8.3/Laravel 12 branch. In production mode it fails when `composer.lock` has known advisories or abandoned packages, so dependency security must stay green before a release can be promoted.
 
 ```bash
 cd /var/www/bbb/current
@@ -63,10 +63,11 @@ Before production deployment, restore the latest production backup into staging 
 CONFIRM_STAGING_MIGRATION=STAGING_MIGRATION_REHEARSAL \
 APP_DIR=/var/www/bbb/current \
 PHP_BIN=/usr/bin/php \
+MIGRATION_REHEARSAL_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/migration \
 bash deploy/scripts/migration-rehearsal.sh
 ```
 
-The script refuses to run when Laravel reports `APP_ENV=production`, clears caches, records migration status before/after, captures `migrate --pretend --force` SQL preview, applies `migrate --force`, verifies route/config cache boot, clears caches again, and writes an artifact log named `storage/logs/b2b-migration-rehearsal-<timestamp>.log`. Archive that log with the release evidence before promoting the build. Review the SQL preview for the B2B production index migration because it adds operator-scoped lookup/reporting indexes and the wallet `transaction_id` column required by status lookup and rollback recovery.
+The script refuses to run when Laravel reports `APP_ENV=production`, clears caches, records migration status before/after, captures `migrate --pretend --force` SQL preview, applies `migrate --force`, verifies route/config cache boot, clears caches again, and writes an artifact log named `b2b-migration-rehearsal-<timestamp>.log` under `MIGRATION_REHEARSAL_ARTIFACT_DIR` (or the legacy `ARTIFACT_DIR` fallback). Archive that log with the release evidence before promoting the build. Review the SQL preview for the B2B production index migration because it adds operator-scoped lookup/reporting indexes and the wallet `transaction_id` column required by status lookup and rollback recovery.
 
 Required production environment values:
 
@@ -108,13 +109,14 @@ B2B_LOG_LEVEL=info
 2. Install Composer dependencies with `--no-dev`.
 3. Copy a production `.env` from the deployment secret store, not from the repository.
 4. Run `php artisan migrate --force` after taking a database backup.
-5. Confirm the staging migration rehearsal artifact exists for the same release.
+5. Confirm the staging migration rehearsal artifact exists for the same release under `MIGRATION_REHEARSAL_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/migration`.
 6. Run `php artisan b2b:release-check --production`.
 7. Switch `/var/www/bbb/current` to the new release with an atomic symlink update.
 8. Reload PHP-FPM, restart B2B workers, and restart the WebSocket service.
 9. Enable or restart `bbb-scheduler.timer`, then confirm `php artisan b2b:scheduler-heartbeat --source=deploy-check` records successfully.
-10. Run `WEBSOCKET_TCP_HOST=127.0.0.1 WEBSOCKET_TCP_PORT=12097 WEBSOCKET_HEALTH_URL=http://127.0.0.1:12097/healthz bash deploy/scripts/healthcheck.sh`.
-11. Run the B2B smoke script with staging or production-canary credentials from the secret store, then archive the generated `b2b-smoke-*.log` artifact.
+10. Run `HEALTHCHECK_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/preflight WEBSOCKET_TCP_HOST=127.0.0.1 WEBSOCKET_TCP_PORT=12097 WEBSOCKET_HEALTH_URL=http://127.0.0.1:12097/healthz bash deploy/scripts/healthcheck.sh`.
+11. Run the B2B smoke script with staging or production-canary credentials from the secret store and `B2B_SMOKE_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/smoke`, then archive the generated `b2b-smoke-*.log` artifact.
+12. Assemble the redacted release evidence package from `php artisan b2b:evidence-template /var/www/bbb/release-evidence/<release-id> --release-id=<release-id>`, run `php artisan b2b:evidence-hash /var/www/bbb/release-evidence/<release-id> --write`, then run `php artisan b2b:evidence-check /var/www/bbb/release-evidence/<release-id> --production` before broad traffic.
 
 ## Health Checks
 
@@ -129,10 +131,12 @@ B2B structured logs write JSON records to the configured `B2B_STRUCTURED_LOG_CHA
 Prometheus alert rules live at `deploy/prometheus/b2b-alerts.yml`; Alertmanager routing example lives at `deploy/prometheus/alertmanager-routes.example.yml`. Production release checks verify both files are present, but staging must still confirm final scrape labels and notification delivery.
 
 ```bash
-APP_URL=https://b2b.example.com bash deploy/scripts/healthcheck.sh
+HEALTHCHECK_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/preflight \
+APP_URL=https://b2b.example.com \
+bash deploy/scripts/healthcheck.sh
 ```
 
-The health check validates the public B2B readiness endpoint, metrics scrape, optional WebSocket TCP reachability, optional WebSocket `/healthz` JSON response, and the production release gate. Readiness checks database connectivity, critical B2B tables and columns, cache runtime, queue configuration, failed-job storage, fresh scheduler heartbeat, storage writability, and production-safe configuration. It does not validate real provider credentials or gambling certification.
+The health check validates the public B2B readiness endpoint, metrics scrape, optional WebSocket TCP reachability, optional WebSocket `/healthz` JSON response, and the production release gate. It writes a timestamped `b2b-healthcheck-*.log`, readiness/metrics snapshots, optional WebSocket health snapshot, and `b2b-release-check-*.log` under `HEALTHCHECK_ARTIFACT_DIR` for the release evidence package. Readiness checks database connectivity, critical B2B tables and columns, cache runtime, queue configuration, failed-job storage, fresh scheduler heartbeat, storage writability, and production-safe configuration. It does not validate real provider credentials or gambling certification.
 
 ## Queue Failure Handling
 
@@ -157,10 +161,11 @@ APP_URL=https://b2b.example.com \
 B2B_SMOKE_OPERATOR_ID=op_canary \
 B2B_SMOKE_API_KEY=key_canary \
 B2B_SMOKE_API_SECRET="$B2B_CANARY_SECRET" \
+B2B_SMOKE_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/smoke \
 bash deploy/scripts/b2b-smoke.sh
 ```
 
-The script does not print the API secret. It writes request evidence under `storage/logs/b2b-smoke-<timestamp>.log` plus response snapshots in the same artifact directory. Archive those artifacts with the release evidence.
+The script does not print the API secret. It writes request evidence under `B2B_SMOKE_ARTIFACT_DIR` as `b2b-smoke-<timestamp>.log` plus response snapshots in the same artifact directory. Archive those artifacts with the release evidence.
 
 Run the k6 smoke-load scenario on staging or a production canary window after the release gate and smoke script pass:
 
@@ -169,10 +174,23 @@ BASE_URL=https://b2b-staging.example.com \
 B2B_OPERATOR_ID=op_canary \
 B2B_API_KEY=key_canary \
 B2B_API_SECRET="$B2B_CANARY_SECRET" \
+K6_SUMMARY_PATH=/var/www/bbb/release-evidence/<release-id>/load/k6-b2b-smoke-load-summary.json \
 k6 run deploy/k6/b2b-smoke-load.js
 ```
 
-The default scenario checks public readiness/metrics and signed read-only operator/portal requests with conservative thresholds. Increase `K6_PUBLIC_VUS`, `K6_SIGNED_VUS`, and duration variables only in a dedicated load-test environment with agreed traffic limits.
+The default scenario checks public readiness/metrics and signed read-only operator/portal requests with conservative thresholds, then writes a redacted JSON summary to `K6_SUMMARY_PATH`. Increase `K6_PUBLIC_VUS`, `K6_SIGNED_VUS`, and duration variables only in a dedicated load-test environment with agreed traffic limits.
+
+## Release Evidence Package
+
+Every production promotion must have a redacted evidence directory containing `release-evidence.json`. Generate the manifest from the current checked requirements or start from `deploy/evidence/release-evidence.example.json`, copy the logs or approval references into subdirectories under the evidence directory, and validate it with:
+
+```bash
+php artisan b2b:evidence-template /var/www/bbb/release-evidence/<release-id> --release-id=<release-id>
+php artisan b2b:evidence-hash /var/www/bbb/release-evidence/<release-id> --write
+php artisan b2b:evidence-check /var/www/bbb/release-evidence/<release-id> --production
+```
+
+The evidence template command writes placeholder artifact paths and zero SHA-256 values from the same required evidence list used by the checker; rerun it with `--force` only when you intentionally want to replace an existing manifest. The evidence checker requires non-empty artifacts for staging migration rehearsal, the production release gate, healthcheck, smoke, smoke-load, public WebSocket proxy validation, backup, restore rehearsal, rollback rehearsal, Prometheus scrape/rule validation, Alertmanager notification delivery, B2B log shipping, final domains/TLS/proxy/Redis/queue/scheduler validation, provider credentials, provider certification, and legal approval. Approval items must include an `approved_by` owner. Every production artifact must have a SHA-256 hash; `b2b:evidence-hash --write` calculates and fills `sha256` for single `artifact` entries and `artifact_hashes` for entries with multiple `artifacts`. The checker scans the manifest and artifact files for common inline secret patterns. Keep real credentials, provider tokens, TLS keys, private certificates, `.env` values, and SQL dumps outside the evidence directory; store only redacted logs or references.
 
 ## Backup
 
@@ -188,10 +206,14 @@ host=127.0.0.1
 Run:
 
 ```bash
-DB_NAME=bbb BACKUP_DIR=/var/backups/bbb MYSQL_CNF=/etc/bbb/mysql-backup.cnf bash deploy/scripts/backup.sh
+DB_NAME=bbb \
+BACKUP_DIR=/var/backups/bbb \
+BACKUP_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/backup \
+MYSQL_CNF=/etc/bbb/mysql-backup.cnf \
+bash deploy/scripts/backup.sh
 ```
 
-Backups must be copied to verified off-host storage. Do not store `.env`, local TLS keys, SQL dumps, or private provider documents in the release artifact.
+The backup script writes `b2b-backup-*.log` and `b2b-backup-*.sha256` under `BACKUP_ARTIFACT_DIR`. Backups must be copied to verified off-host storage. Do not store `.env`, local TLS keys, SQL dumps, or private provider documents in the release artifact; store only the redacted backup log, SHA-256 manifest, and off-host storage verification note.
 
 ## Restore
 
@@ -200,24 +222,26 @@ Restore is destructive and must be rehearsed on staging before production use. C
 ```bash
 CONFIRM_RESTORE=RESTORE_BBB \
 DB_NAME=bbb \
+RESTORE_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/restore \
 MYSQL_CNF=/etc/bbb/mysql-backup.cnf \
 bash deploy/scripts/restore.sh \
     /var/backups/bbb/database/bbb-<timestamp>.sql.gz \
     /var/backups/bbb/storage/bbb-storage-<timestamp>.tar.gz
 ```
 
-The restore script puts Laravel into maintenance mode, restores the gzip-compressed SQL dump with the external MySQL defaults file, optionally restores `storage/app` and `public`, clears Laravel caches, runs the production release gate, and brings the app back up through a trap. If only code rollback is required, use rollback instead of restoring the database. Never silently edit wallet ledger rows to simulate a restore.
+The restore script puts Laravel into maintenance mode, records SHA-256 hashes for the selected input backups, restores the gzip-compressed SQL dump with the external MySQL defaults file, optionally restores `storage/app` and `public`, clears Laravel caches, runs the production release gate, and brings the app back up through a trap. It writes `b2b-restore-*.log` and `b2b-restore-release-check-*.log` under `RESTORE_ARTIFACT_DIR`. If only code rollback is required, use rollback instead of restoring the database. Never silently edit wallet ledger rows to simulate a restore.
 
 ## Rollback
 
 Rollback switches the `current` symlink to a known previous release and clears Laravel caches:
 
 ```bash
+ROLLBACK_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/rollback \
 bash deploy/scripts/rollback.sh /var/www/bbb/releases/<previous-release-id>
 ```
 
-Before rollback, confirm whether the new release ran irreversible migrations. If a database rollback is needed, restore from a tested backup or run a reviewed corrective migration. Do not silently edit wallet ledger rows.
+Before rollback, confirm whether the new release ran irreversible migrations. The rollback script writes `b2b-rollback-*.log` and `b2b-rollback-release-check-*.log` under `ROLLBACK_ARTIFACT_DIR`. If a database rollback is needed, restore from a tested backup or run a reviewed corrective migration. Do not silently edit wallet ledger rows.
 
 ## External Launch Blockers
 
-Production readiness still requires real provider credentials and documentation, production domains and TLS, WebSocket proxy validation through the final public domain, legal/certification approval, verified backup storage, executed smoke/load evidence from the target environment, and a completed staging migration rehearsal artifact from a production-copy database.
+Production readiness still requires real provider credentials and documentation, production domains and TLS, WebSocket proxy validation through the final public domain, provider certification, legal approval, verified backup storage, executed smoke/load evidence from the target environment, a completed staging migration rehearsal artifact from a production-copy database, and a redacted `release-evidence.json` package that passes `b2b:evidence-check --production`.

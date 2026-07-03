@@ -41,6 +41,12 @@ class B2BTenantIsolationTest extends TestCase
             ->assertStatus(404)
             ->assertJsonPath('success', false)
             ->assertJsonPath('error.code', 'SESSION_NOT_FOUND');
+
+        $longSessionUid = str_repeat('x', 192);
+        $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/sessions/' . $longSessionUid, 'tenant-sessions-invalid-uid')
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
     }
 
     public function testSessionListSupportsBoundedFiltersAndSorting()
@@ -115,6 +121,12 @@ class B2BTenantIsolationTest extends TestCase
             ->assertStatus(404)
             ->assertJsonPath('success', false)
             ->assertJsonPath('error.code', 'TRANSACTION_NOT_FOUND');
+
+        $longTransactionUid = str_repeat('x', 192);
+        $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/reports/transactions/' . $longTransactionUid, 'tenant-report-invalid-detail-uid')
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
 
         $settlements = $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/reports/settlements', 'tenant-settlements');
 
@@ -308,13 +320,32 @@ class B2BTenantIsolationTest extends TestCase
             ->assertJsonPath('error.code', 'VALIDATION_FAILED');
     }
 
+    public function testAggregateReportsValidateFiltersAndPeriods()
+    {
+        $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/reports/summary?status=void', 'tenant-summary-invalid-status')
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/reports/summary?currency=US', 'tenant-summary-invalid-currency')
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $badPeriod = '/api/b2b/v1/reports/ggr?from=' . now()->addDay()->toDateString() . '&to=' . now()->subDay()->toDateString();
+        $this->signedGet('op_a', 'key_a', $this->secretA, $badPeriod, 'tenant-ggr-invalid-period')
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+    }
+
     public function testWalletAttemptsAreScopedToSignedOperator()
     {
         $response = $this->signedGet(
             'op_a',
             'key_a',
             $this->secretA,
-            '/api/b2b/v1/wallet/transactions/shared_tx/attempts',
+            '/api/b2b/v1/wallet/transactions/shared_tx/attempts?limit=1',
             'tenant-attempts'
         );
 
@@ -322,9 +353,35 @@ class B2BTenantIsolationTest extends TestCase
             ->assertJsonPath('success', true)
             ->assertJsonPath('status', 'success')
             ->assertJsonCount(1, 'data')
-            ->assertJsonPath('data.0.result', 'success');
+            ->assertJsonPath('data.0.result', 'success')
+            ->assertJsonPath('meta.transaction_uid', 'shared_tx')
+            ->assertJsonPath('meta.limit', 1)
+            ->assertJsonPath('meta.count', 1);
 
         $this->assertEquals((string) $this->operatorA->id, (string) $response->json('data.0.operator_id'));
+
+        $this->signedGet(
+            'op_a',
+            'key_a',
+            $this->secretA,
+            '/api/b2b/v1/wallet/transactions/shared_tx/attempts?limit=101',
+            'tenant-attempts-invalid-limit'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $longTransactionUid = str_repeat('x', 192);
+        $this->signedGet(
+            'op_a',
+            'key_a',
+            $this->secretA,
+            '/api/b2b/v1/wallet/transactions/' . $longTransactionUid . '/attempts',
+            'tenant-attempts-invalid-uid'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
     }
 
     private function signedGet($operatorUid, $keyId, $secret, $uri, $nonce)

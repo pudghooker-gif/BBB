@@ -190,7 +190,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         VanguardLTE\Providers\EventServiceProvider::class,
         VanguardLTE\Providers\RouteServiceProvider::class,
-		jeremykenedy\LaravelRoles\RolesServiceProvider::class,
 		
     ],
 
@@ -222,7 +221,6 @@ return [
         'File'      => Illuminate\Support\Facades\File::class,
         'Gate'      => Illuminate\Support\Facades\Gate::class,
         'Hash'      => Illuminate\Support\Facades\Hash::class,
-        'Input'     => Illuminate\Support\Facades\Input::class,
         'Inspiring' => Illuminate\Foundation\Inspiring::class,
         'Lang'      => Illuminate\Support\Facades\Lang::class,
         'Log'       => Illuminate\Support\Facades\Log::class,
@@ -245,8 +243,8 @@ return [
         'JsValidator' => VanguardLTE\Support\Validation\JsValidatorFacade::class,
         'Google2FA' => VanguardLTE\Support\TwoFactor\Google2FAFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Form' => Collective\Html\FormFacade::class,
-        'HTML' => Collective\Html\HtmlFacade::class,
+        'Form' => VanguardLTE\Support\Html\FormFacade::class,
+        'HTML' => VanguardLTE\Support\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Settings' => VanguardLTE\Support\Settings\SettingsFacade::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,

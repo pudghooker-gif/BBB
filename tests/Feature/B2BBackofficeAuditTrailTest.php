@@ -115,7 +115,7 @@ class B2BBackofficeAuditTrailTest extends TestCase
             public $username = 'b2b_auditor';
             public $email = 'b2b_auditor@example.test';
 
-            public function __construct($canViewAudit)
+            public function __construct($canViewAudit = true)
             {
                 parent::__construct();
                 $this->canViewAudit = $canViewAudit;

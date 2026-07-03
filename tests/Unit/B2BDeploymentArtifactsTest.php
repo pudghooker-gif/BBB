@@ -24,10 +24,12 @@ class B2BDeploymentArtifactsTest extends TestCase
             'docs/b2b/RELEASE_CHECKS.md',
             'docs/deployment/PRODUCTION_RUNBOOK.md',
             'php artisan b2b:release-check --production',
+            'php artisan b2b:evidence-template',
+            'php artisan b2b:evidence-hash',
             'composer audit --locked --no-dev',
             'Current Launch Blockers',
-            'laravel/framework',
-            'swiftmailer/swiftmailer',
+            'Laravel 12 / PHP 8.3',
+            'Composer audit is green',
         ] as $needle) {
             $this->assertStringContainsString($needle, $readme);
         }
@@ -126,6 +128,15 @@ class B2BDeploymentArtifactsTest extends TestCase
         $this->assertStringContainsString('/api/b2b/v1/metrics', $healthcheck);
         $this->assertStringContainsString('"status":"ready"', $healthcheck);
         $this->assertStringContainsString('bbb_b2b_info', $healthcheck);
+        $this->assertStringContainsString('HEALTHCHECK_ARTIFACT_DIR', $healthcheck);
+        $this->assertStringContainsString('b2b-healthcheck-', $healthcheck);
+        $this->assertStringContainsString('b2b-release-check-', $healthcheck);
+
+        $backup = file_get_contents(base_path('deploy/scripts/backup.sh'));
+        $this->assertStringContainsString('BACKUP_ARTIFACT_DIR', $backup);
+        $this->assertStringContainsString('b2b-backup-', $backup);
+        $this->assertStringContainsString('.sha256', $backup);
+        $this->assertStringContainsString('sha256_value', $backup);
 
         $restore = file_get_contents(base_path('deploy/scripts/restore.sh'));
         $this->assertStringContainsString('CONFIRM_RESTORE', $restore);
@@ -133,8 +144,19 @@ class B2BDeploymentArtifactsTest extends TestCase
         $this->assertStringContainsString('mysql', $restore);
         $this->assertStringContainsString('trap restore_up EXIT', $restore);
         $this->assertStringContainsString('b2b:release-check --production', $restore);
+        $this->assertStringContainsString('RESTORE_ARTIFACT_DIR', $restore);
+        $this->assertStringContainsString('b2b-restore-', $restore);
+        $this->assertStringContainsString('b2b-restore-release-check-', $restore);
+        $this->assertStringContainsString('sha256_value', $restore);
+
+        $rollback = file_get_contents(base_path('deploy/scripts/rollback.sh'));
+        $this->assertStringContainsString('ROLLBACK_ARTIFACT_DIR', $rollback);
+        $this->assertStringContainsString('b2b-rollback-', $rollback);
+        $this->assertStringContainsString('b2b-rollback-release-check-', $rollback);
 
         $migrationRehearsal = file_get_contents(base_path('deploy/scripts/migration-rehearsal.sh'));
+        $this->assertStringContainsString('MIGRATION_REHEARSAL_ARTIFACT_DIR', $migrationRehearsal);
+        $this->assertStringContainsString('ARTIFACT_DIR', $migrationRehearsal);
         $this->assertStringContainsString('CONFIRM_STAGING_MIGRATION=STAGING_MIGRATION_REHEARSAL', $migrationRehearsal);
         $this->assertStringContainsString('Refusing to run migration rehearsal against APP_ENV=production', $migrationRehearsal);
         $this->assertStringContainsString('trap cleanup_boot_cache EXIT', $migrationRehearsal);
@@ -143,6 +165,8 @@ class B2BDeploymentArtifactsTest extends TestCase
         $this->assertStringContainsString('b2b-migration-rehearsal-', $migrationRehearsal);
 
         $smoke = file_get_contents(base_path('deploy/scripts/b2b-smoke.sh'));
+        $this->assertStringContainsString('B2B_SMOKE_ARTIFACT_DIR', $smoke);
+        $this->assertStringContainsString('b2b-smoke-', $smoke);
         $this->assertStringContainsString('/api/b2b/v1/health', $smoke);
         $this->assertStringContainsString('/api/b2b/v1/readiness', $smoke);
         $this->assertStringContainsString('/api/b2b/v1/metrics', $smoke);
@@ -170,6 +194,9 @@ class B2BDeploymentArtifactsTest extends TestCase
             'B2B_OPERATOR_ID',
             'B2B_API_KEY',
             'B2B_API_SECRET',
+            'K6_SUMMARY_PATH',
+            'handleSummary',
+            'signed_operator_checks_enabled',
             "crypto.hmac('sha256'",
             'http_req_failed',
             'http_req_duration',
@@ -178,6 +205,60 @@ class B2BDeploymentArtifactsTest extends TestCase
         }
 
         $this->assertStringContainsString('deploy/k6/b2b-smoke-load.js', $releaseGate);
+    }
+
+    public function testReleaseEvidenceArtifactsAreDefinedAndReleaseChecked()
+    {
+        $template = json_decode(file_get_contents(base_path('deploy/evidence/release-evidence.example.json')), true);
+        $releaseGate = file_get_contents(base_path('app/B2B/Services/B2BReleaseGate.php'));
+        $console = file_get_contents(base_path('routes/b2b_console.php'));
+        $runbook = file_get_contents(base_path('docs/deployment/PRODUCTION_RUNBOOK.md'));
+        $checks = file_get_contents(base_path('docs/b2b/RELEASE_CHECKS.md'));
+
+        $this->assertArrayHasKey('evidence', $template);
+
+        foreach ([
+            'staging_migration_rehearsal',
+            'production_release_gate',
+            'healthcheck',
+            'smoke',
+            'smoke_load',
+            'websocket_public_proxy',
+            'backup',
+            'restore_rehearsal',
+            'rollback_rehearsal',
+            'prometheus_scrape',
+            'alertmanager_notification',
+            'log_shipping',
+            'provider_credentials',
+            'provider_certification',
+            'legal_approval',
+            'final_domains_tls',
+        ] as $key) {
+            $this->assertArrayHasKey($key, $template['evidence']);
+            $entry = $template['evidence'][$key];
+            if (isset($entry['artifacts'])) {
+                $this->assertArrayHasKey('artifact_hashes', $entry, $key);
+                foreach ($entry['artifacts'] as $artifact) {
+                    $this->assertArrayHasKey($artifact, $entry['artifact_hashes'], $key . ':' . $artifact);
+                }
+            } else {
+                $this->assertArrayHasKey('sha256', $entry, $key);
+            }
+        }
+
+        $this->assertStringContainsString('deploy/evidence/release-evidence.example.json', $releaseGate);
+        $this->assertStringContainsString('B2BReleaseEvidenceChecker', $releaseGate);
+        $this->assertStringContainsString('b2b:evidence-template', $console);
+        $this->assertStringContainsString('b2b:evidence-check', $console);
+        $this->assertStringContainsString('b2b:evidence-hash', $console);
+        $this->assertStringContainsString('release-evidence.json', $runbook);
+        $this->assertStringContainsString('b2b:evidence-template', $runbook);
+        $this->assertStringContainsString('b2b:evidence-check', $runbook);
+        $this->assertStringContainsString('b2b:evidence-hash', $runbook);
+        $this->assertStringContainsString('b2b:evidence-template', $checks);
+        $this->assertStringContainsString('b2b:evidence-check', $checks);
+        $this->assertStringContainsString('b2b:evidence-hash', $checks);
     }
 
     public function testPrometheusAlertArtifactsCoverB2BMetricsAndRoutes()
@@ -239,6 +320,13 @@ class B2BDeploymentArtifactsTest extends TestCase
             'deploy/scripts/migration-rehearsal.sh',
             'deploy/scripts/b2b-smoke.sh',
             'deploy/k6/b2b-smoke-load.js',
+            'MIGRATION_REHEARSAL_ARTIFACT_DIR',
+            'HEALTHCHECK_ARTIFACT_DIR',
+            'B2B_SMOKE_ARTIFACT_DIR',
+            'K6_SUMMARY_PATH',
+            'BACKUP_ARTIFACT_DIR',
+            'RESTORE_ARTIFACT_DIR',
+            'ROLLBACK_ARTIFACT_DIR',
             'deploy/prometheus/b2b-alerts.yml',
             'CONFIRM_RESTORE=RESTORE_BBB',
             'External Launch Blockers',
@@ -260,13 +348,17 @@ class B2BDeploymentArtifactsTest extends TestCase
             'php artisan route:list --json',
             'php artisan route:cache',
             'php vendor/phpunit/phpunit/phpunit --testdox --colors=never',
-            'composer audit --format=plain',
+            'composer audit --locked --no-dev --format=plain --abandoned=fail',
             'php artisan b2b:release-check --production',
-            'continue-on-error: true',
+            'SESSION_DRIVER: database',
+            'QUEUE_FAILED_DRIVER: database-uuids',
+            'B2B_STRUCTURED_LOG_CHANNEL: b2b',
             'redis:7-alpine',
         ] as $needle) {
             $this->assertStringContainsString($needle, $workflow);
         }
+
+        $this->assertStringNotContainsString('continue-on-error: true', $workflow);
     }
 
     private function requiredArtifacts()
@@ -288,6 +380,7 @@ class B2BDeploymentArtifactsTest extends TestCase
             'deploy/scripts/migration-rehearsal.sh',
             'deploy/scripts/b2b-smoke.sh',
             'deploy/k6/b2b-smoke-load.js',
+            'deploy/evidence/release-evidence.example.json',
             'deploy/prometheus/b2b-alerts.yml',
             'deploy/prometheus/alertmanager-routes.example.yml',
             'docs/deployment/PRODUCTION_RUNBOOK.md',

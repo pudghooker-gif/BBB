@@ -465,7 +465,7 @@ namespace VanguardLTE\Http\Controllers\Web\Frontend {
                 'shop_id' => auth()->user()->shop_id,
                 'status' => \VanguardLTE\Support\Enum\UserStatus::UNCONFIRMED
             ]);
-            $role = \jeremykenedy\LaravelRoles\Models\Role::where('name', '=', 'User')->first();
+            $role = \VanguardLTE\Role::where('name', '=', 'User')->first();
             $user->attachRole($role);
             \VanguardLTE\ShopUser::create([
                 'shop_id' => auth()->user()->shop_id,
