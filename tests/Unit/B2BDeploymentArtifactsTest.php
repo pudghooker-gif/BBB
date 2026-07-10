@@ -62,18 +62,29 @@ class B2BDeploymentArtifactsTest extends TestCase
         $releaseGate = file_get_contents(base_path('app/B2B/Services/B2BReleaseGate.php'));
         $workflow = file_get_contents(base_path('.github/workflows/b2b-release.yml'));
         $server = file_get_contents(base_path('PTWebSocket/Server.js'));
+        $lock = file_get_contents(base_path('PTWebSocket/pnpm-lock.yaml'));
         $socketConfig = json_decode(file_get_contents(base_path('deploy/websocket/socket_config2.production.example.json')), true);
         $healthcheck = file_get_contents(base_path('deploy/scripts/healthcheck.sh'));
 
         $this->assertSame('node Server.js', $package['scripts']['start']);
         $this->assertArrayHasKey('check:syntax', $package['scripts']);
 
-        foreach (['ws', 'request', 'mysql2', 'ioredis', 'moment-timezone'] as $dependency) {
+        foreach (['ws', 'mysql2', 'ioredis', 'moment-timezone'] as $dependency) {
             $this->assertArrayHasKey($dependency, $package['dependencies']);
         }
+        $this->assertSame('3.22.6', $package['dependencies']['mysql2']);
+        $this->assertSame('0.6.2', $package['dependencies']['moment-timezone']);
+        $this->assertSame('7.5.11', $package['dependencies']['ws']);
+        $this->assertArrayNotHasKey('request', $package['dependencies']);
+        $this->assertStringNotContainsString('request@', $lock);
+        $this->assertStringNotContainsString('deprecated: request', $lock);
+        $this->assertStringNotContainsString('mysql2@2.', $lock);
+        $this->assertStringNotContainsString('ws@7.1.2', $lock);
+        $this->assertStringNotContainsString('moment-timezone@0.5.32', $lock);
 
         $this->assertStringContainsString('serverConfig.listen_port', $server);
         $this->assertStringContainsString('serverConfig.listen_host', $server);
+        $this->assertStringContainsString("require('./httpClient')", $server);
         $this->assertStringContainsString('verifyClient: verifyClient', $server);
         $this->assertStringContainsString('function allowedOrigin', $server);
         $this->assertStringContainsString('function tokenAllowed', $server);
@@ -100,7 +111,9 @@ class B2BDeploymentArtifactsTest extends TestCase
         $this->assertTrue($socketConfig['log_json']);
 
         $this->assertStringContainsString('websocket_runtime', $releaseGate);
+        $this->assertStringContainsString('websocket_dependency_audit', $releaseGate);
         $this->assertStringContainsString('pnpm install --frozen-lockfile --ignore-scripts', $workflow);
+        $this->assertStringContainsString('pnpm audit --prod', $workflow);
         $this->assertStringContainsString('pnpm run check:syntax', $workflow);
         $this->assertStringContainsString('WEBSOCKET_TCP_HOST', $healthcheck);
         $this->assertStringContainsString('WEBSOCKET_HEALTH_URL', $healthcheck);
@@ -220,6 +233,7 @@ class B2BDeploymentArtifactsTest extends TestCase
         foreach ([
             'staging_migration_rehearsal',
             'production_release_gate',
+            'payload_redaction_audit',
             'healthcheck',
             'smoke',
             'smoke_load',

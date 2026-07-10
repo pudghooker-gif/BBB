@@ -54,6 +54,21 @@ class B2BSignatureTest extends TestCase
         $this->assertArrayNotHasKey('signature', $metadata);
     }
 
+    public function testSignedRequestRequiresRouteApiKeyScope()
+    {
+        DB::table('b2b_operator_api_keys')
+            ->where('key_id', $this->keyId)
+            ->update(['scopes' => json_encode(['portal.read'])]);
+
+        $headers = $this->signedHeaders('GET', '/api/b2b/v1/operator/me', '', 'nonce-missing-operator-scope');
+
+        $this->signedB2BRequest('GET', '/api/b2b/v1/operator/me', '', $headers)
+            ->assertStatus(403)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'B2B_SCOPE_DENIED')
+            ->assertJsonPath('meta.required_scopes.0', 'operator.read');
+    }
+
     public function testReplayNonceIsRejected()
     {
         $headers = $this->signedHeaders('GET', '/api/b2b/v1/operator/me', '', 'nonce-replay');

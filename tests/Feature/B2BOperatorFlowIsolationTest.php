@@ -171,6 +171,23 @@ class B2BOperatorFlowIsolationTest extends TestCase
         $this->assertSame(2, DB::table('b2b_game_sessions')->count());
     }
 
+    public function testLaunchRejectsReturnUrlOutsideOperatorAllowlistBeforeSessionCreation()
+    {
+        $body = json_encode([
+            'player_id' => 'player_a',
+            'game_id' => 'book_flow_a',
+            'currency' => 'USD',
+            'return_url' => 'https://evil.example/casino',
+        ]);
+
+        $this->signedPost('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/launch', $body, 'flow-launch-bad-return-url')
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'RETURN_URL_NOT_ALLOWED');
+
+        $this->assertSame(2, DB::table('b2b_game_sessions')->count());
+    }
+
     public function testLaunchCreatesSessionOnlyForOperatorsOwnGame()
     {
         $body = json_encode([
@@ -178,6 +195,13 @@ class B2BOperatorFlowIsolationTest extends TestCase
             'game_id' => 'book_flow_a',
             'currency' => 'USD',
             'return_url' => 'https://operator-a.example/casino',
+            'metadata' => [
+                'safe_note' => 'operator launch metadata',
+                'token' => 'metadata-token-secret',
+                'nested' => [
+                    'api_secret' => 'metadata-api-secret',
+                ],
+            ],
         ]);
 
         $response = $this->signedPost('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/launch', $body, 'flow-launch-own');
@@ -186,6 +210,10 @@ class B2BOperatorFlowIsolationTest extends TestCase
             ->assertJsonPath('success', true)
             ->assertJsonPath('data.game_id', 'book_flow_a');
 
+        $launchUrl = $response->json('data.launch_url');
+        $launchToken = basename((string) parse_url($launchUrl, PHP_URL_PATH));
+        $this->assertSame(64, strlen($launchToken));
+
         $session = DB::table('b2b_game_sessions')
             ->where('session_uid', $response->json('data.session_id'))
             ->first();
@@ -193,6 +221,37 @@ class B2BOperatorFlowIsolationTest extends TestCase
         $this->assertNotNull($session);
         $this->assertEquals((string) $this->operatorA->id, (string) $session->operator_id);
         $this->assertSame('book_flow_a', $session->game_uid);
+        $this->assertSame(hash('sha256', $launchToken), $session->token_hash);
+        $this->assertNull($session->launch_url);
+        $this->assertSame('https://operator-a.example/casino', $session->return_url);
+        $this->assertNotNull($session->expires_at);
+
+        $detail = $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/sessions/' . $session->session_uid, 'flow-launch-detail-no-token');
+        $detail->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.session.session_uid', $session->session_uid);
+
+        $sessionPayload = $detail->json('data.session');
+        $this->assertArrayNotHasKey('token_hash', $sessionPayload);
+        $this->assertArrayNotHasKey('launch_url', $sessionPayload);
+        $this->assertArrayNotHasKey('legacy_launch_token', $sessionPayload);
+        $this->assertArrayNotHasKey('legacy_launch_url', $sessionPayload);
+        $this->assertSame('[REDACTED]', $sessionPayload['metadata']['token']);
+        $this->assertSame('[REDACTED]', $sessionPayload['metadata']['nested']['api_secret']);
+        $this->assertSame('operator launch metadata', $sessionPayload['metadata']['safe_note']);
+
+        $list = $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/sessions?limit=10', 'flow-launch-list-no-token');
+        $list->assertStatus(200)
+            ->assertJsonPath('success', true);
+
+        $listedSession = collect($list->json('data'))->firstWhere('session_uid', $session->session_uid);
+        $this->assertNotNull($listedSession);
+        $this->assertArrayNotHasKey('token_hash', $listedSession);
+        $this->assertArrayNotHasKey('launch_url', $listedSession);
+        $this->assertArrayNotHasKey('legacy_launch_token', $listedSession);
+        $this->assertArrayNotHasKey('legacy_launch_url', $listedSession);
+        $this->assertSame('[REDACTED]', $listedSession['metadata']['token']);
+        $this->assertSame('[REDACTED]', $listedSession['metadata']['nested']['api_secret']);
     }
 
     public function testPerApiKeyRateLimitBlocksLaunchBeforeSecondSessionCreation()

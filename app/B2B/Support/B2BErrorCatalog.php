@@ -10,6 +10,7 @@ class B2BErrorCatalog
         'B2B_AUTH_FAILED' => [401, 'B2B authentication failed.'],
         'B2B_BODY_HASH_MISMATCH' => [401, 'Invalid request body hash.'],
         'B2B_REPLAY_DETECTED' => [409, 'Replay detected.'],
+        'B2B_SCOPE_DENIED' => [403, 'B2B API key scope denied.'],
         'B2B_WALLET_TABLE_MISSING' => [500, 'B2B wallet transaction table is missing.'],
         'CASE_NOT_FOUND' => [404, 'Support case was not found.'],
         'CURRENCY_NOT_ALLOWED' => [422, 'Currency is not allowed for this operator.'],

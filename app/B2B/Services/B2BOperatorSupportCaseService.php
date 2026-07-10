@@ -23,14 +23,8 @@ class B2BOperatorSupportCaseService
     {
         $this->assertTablesReady();
 
-        if (!$operator || !isset($operator->id) || !isset($operator->operator_uid)) {
-            throw new InvalidArgumentException('B2B operator context is missing.');
-        }
-
-        $transactionUid = trim((string) $transactionUid);
-        if ($transactionUid === '') {
-            throw new InvalidArgumentException('Support case transaction UID is required.');
-        }
+        $this->assertOperator($operator);
+        $transactionUid = $this->requiredTransactionUid($transactionUid);
 
         $message = $this->safeText($message);
         if ($message === '') {
@@ -40,16 +34,7 @@ class B2BOperatorSupportCaseService
         $externalReference = $this->safeText(isset($context['external_reference']) ? $context['external_reference'] : null);
 
         return DB::transaction(function () use ($operator, $transactionUid, $message, $externalReference, $context) {
-            $case = DB::table('b2b_wallet_reconciliation_items')
-                ->where('operator_id', (int) $operator->id)
-                ->where('transaction_uid', $transactionUid)
-                ->whereIn('state', ['open', 'in_progress'])
-                ->orderBy('id', 'desc')
-                ->first();
-
-            if (!$case) {
-                throw new InvalidArgumentException('Support case was not found for this operator.');
-            }
+            $case = $this->ownedCase((int) $operator->id, $transactionUid, true);
 
             $now = Carbon::now();
             $caseContext = $this->decodeContext(isset($case->context) ? $case->context : null);
@@ -115,6 +100,32 @@ class B2BOperatorSupportCaseService
         });
     }
 
+    public function show($operator, $transactionUid, $limit = 50)
+    {
+        $this->assertTablesReady();
+        $this->assertOperator($operator);
+
+        $case = $this->ownedCase((int) $operator->id, $this->requiredTransactionUid($transactionUid), false);
+        $context = $this->decodeContext(isset($case->context) ? $case->context : null);
+        $comments = $this->operatorComments($context, $limit);
+
+        return [
+            'case_id' => (int) $case->id,
+            'transaction_uid' => isset($case->transaction_uid) ? $this->safeText($case->transaction_uid, 191) : null,
+            'status' => isset($case->status) ? $this->safeText($case->status, 60) : null,
+            'reason' => isset($case->reason) ? $this->safeText($case->reason, 160) : null,
+            'priority' => isset($case->priority) ? $this->safeText($case->priority, 40) : null,
+            'state' => isset($case->state) ? $this->safeText($case->state, 40) : null,
+            'comment_count' => $this->operatorCommentCount($context),
+            'latest_comment' => $this->latestOperatorComment($context),
+            'comments' => $comments,
+            'detected_at' => isset($case->detected_at) ? $this->isoTime($case->detected_at) : null,
+            'resolved_at' => isset($case->resolved_at) ? $this->isoTime($case->resolved_at) : null,
+            'created_at' => isset($case->created_at) ? $this->isoTime($case->created_at) : null,
+            'updated_at' => isset($case->updated_at) ? $this->isoTime($case->updated_at) : null,
+        ];
+    }
+
     private function assertTablesReady()
     {
         foreach (['b2b_wallet_reconciliation_items', 'b2b_operator_audit_events'] as $table) {
@@ -122,6 +133,41 @@ class B2BOperatorSupportCaseService
                 throw new RuntimeException('B2B support case tables are missing. Run: php artisan migrate');
             }
         }
+    }
+
+    private function assertOperator($operator)
+    {
+        if (!$operator || !isset($operator->id) || !isset($operator->operator_uid)) {
+            throw new InvalidArgumentException('B2B operator context is missing.');
+        }
+    }
+
+    private function requiredTransactionUid($transactionUid)
+    {
+        $transactionUid = trim((string) $transactionUid);
+        if ($transactionUid === '') {
+            throw new InvalidArgumentException('Support case transaction UID is required.');
+        }
+
+        return $transactionUid;
+    }
+
+    private function ownedCase($operatorId, $transactionUid, $openOnly)
+    {
+        $query = DB::table('b2b_wallet_reconciliation_items')
+            ->where('operator_id', (int) $operatorId)
+            ->where('transaction_uid', $transactionUid);
+
+        if ($openOnly) {
+            $query->whereIn('state', ['open', 'in_progress']);
+        }
+
+        $case = $query->orderBy('id', 'desc')->first();
+        if (!$case) {
+            throw new InvalidArgumentException('Support case was not found for this operator.');
+        }
+
+        return $case;
     }
 
     private function decodeContext($context)
@@ -139,7 +185,65 @@ class B2BOperatorSupportCaseService
         return json_last_error() === JSON_ERROR_NONE && is_array($decoded) ? $decoded : ['raw_context' => $this->safeText($context)];
     }
 
-    private function safeText($value)
+    private function operatorComments(array $context, $limit)
+    {
+        $comments = $this->rawOperatorComments($context);
+        if (!$comments) {
+            return [];
+        }
+
+        $limit = max(1, min((int) $limit, 100));
+
+        return array_values(array_map(function ($comment) {
+            return $this->operatorCommentPayload($comment);
+        }, array_slice($comments, 0, $limit)));
+    }
+
+    private function latestOperatorComment(array $context)
+    {
+        $comments = $this->rawOperatorComments($context);
+        if (!$comments) {
+            return null;
+        }
+
+        return $this->operatorCommentPayload($comments[count($comments) - 1]);
+    }
+
+    private function operatorCommentCount(array $context)
+    {
+        return count($this->rawOperatorComments($context));
+    }
+
+    private function rawOperatorComments(array $context)
+    {
+        if (!isset($context['operator_comments']) || !is_array($context['operator_comments'])) {
+            return [];
+        }
+
+        return array_values(array_filter($context['operator_comments'], function ($comment) {
+            return is_array($comment);
+        }));
+    }
+
+    private function operatorCommentPayload(array $comment)
+    {
+        return [
+            'actor' => isset($comment['actor']) ? $this->safeNullableText($comment['actor'], 100) : null,
+            'source' => isset($comment['source']) ? $this->safeNullableText($comment['source'], 40) : null,
+            'message' => isset($comment['message']) ? $this->safeText($comment['message'], 1000) : '',
+            'external_reference' => isset($comment['external_reference']) ? $this->safeNullableText($comment['external_reference'], 120) : null,
+            'created_at' => isset($comment['at']) ? $this->isoTime($comment['at']) : null,
+        ];
+    }
+
+    private function safeNullableText($value, $limit)
+    {
+        $value = $this->safeText($value, $limit);
+
+        return $value === '' ? null : $value;
+    }
+
+    private function safeText($value, $limit = 1000)
     {
         if ($value === null) {
             return '';
@@ -150,7 +254,22 @@ class B2BOperatorSupportCaseService
             return '';
         }
 
-        return substr($this->redactor->storageValue($value), 0, 1000);
+        return substr($this->redactor->storageValue($value), 0, $limit);
+    }
+
+    private function isoTime($value)
+    {
+        if (!$value) {
+            return null;
+        }
+
+        try {
+            return $value instanceof Carbon
+                ? $value->toIso8601String()
+                : Carbon::parse($value)->toIso8601String();
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     private function filterColumns($table, array $values)

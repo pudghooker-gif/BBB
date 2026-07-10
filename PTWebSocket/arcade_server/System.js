@@ -1568,7 +1568,7 @@ _self.sessionId=sessionId;
 let param={
 command:"CheckAuth"
 };
-let request = require('request');
+let request = require('../httpClient');
 let paramStr=JSON.stringify(param);
 
 

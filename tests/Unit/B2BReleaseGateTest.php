@@ -42,6 +42,8 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckPassed($result, 'scheduler_config');
         $this->assertCheckPassed($result, 'provider_wallet_contracts');
         $this->assertCheckPassed($result, 'database_schema');
+        $this->assertCheckPassed($result, 'payload_redaction_audit');
+        $this->assertCheckPassed($result, 'api_key_scopes');
         $this->assertCheckPassed($result, 'deployment_artifacts');
         $this->assertCheckPassed($result, 'websocket_runtime');
         $this->assertCheckPassed($result, 'admin_rbac_config');
@@ -89,6 +91,8 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckPassed($result, 'structured_logging');
         $this->assertCheckPassed($result, 'provider_wallet_contracts');
         $this->assertCheckPassed($result, 'database_schema');
+        $this->assertCheckPassed($result, 'payload_redaction_audit');
+        $this->assertCheckPassed($result, 'api_key_scopes');
         $this->assertCheckPassed($result, 'deployment_artifacts');
         $this->assertCheckPassed($result, 'websocket_runtime');
         $this->assertCheckPassed($result, 'admin_rbac_config');
@@ -179,6 +183,28 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckFailed($result, 'credential_session_revocation');
     }
 
+    public function testProductionGateFailsWhenWebStepUpPasswordVerificationIsDisabled()
+    {
+        $this->configureSafeProductionSettings();
+        config(['b2b_admin.web_step_up_requires_password' => false]);
+
+        $result = app(B2BReleaseGate::class)->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'admin_rbac_config');
+    }
+
+    public function testProductionGateFailsWhenDefaultApiKeyScopesIncludeSettlementExport()
+    {
+        $this->configureSafeProductionSettings();
+        config(['b2b.api_key_default_scopes' => ['operator.read', 'reports.read', 'reports.export']]);
+
+        $result = app(B2BReleaseGate::class)->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'api_key_scopes');
+    }
+
     public function testProductionGateFailsWhenStructuredLoggingChannelIsNotJsonFormatted()
     {
         $this->configureSafeProductionSettings();
@@ -235,6 +261,26 @@ class B2BReleaseGateTest extends TestCase
                     'error' => '',
                 ];
             }
+
+            protected function runWebSocketDependencyAuditCommand()
+            {
+                return [
+                    'exit_code' => 0,
+                    'output' => json_encode([
+                        'advisories' => [],
+                        'metadata' => [
+                            'vulnerabilities' => [
+                                'info' => 0,
+                                'low' => 0,
+                                'moderate' => 0,
+                                'high' => 0,
+                                'critical' => 0,
+                            ],
+                        ],
+                    ]),
+                    'error' => '',
+                ];
+            }
         };
 
         $result = $gate->run(true, false, true);
@@ -259,12 +305,82 @@ class B2BReleaseGateTest extends TestCase
                     'error' => '',
                 ];
             }
+
+            protected function runWebSocketDependencyAuditCommand()
+            {
+                return [
+                    'exit_code' => 0,
+                    'output' => json_encode([
+                        'advisories' => [],
+                        'metadata' => [
+                            'vulnerabilities' => [
+                                'info' => 0,
+                                'low' => 0,
+                                'moderate' => 0,
+                                'high' => 0,
+                                'critical' => 0,
+                            ],
+                        ],
+                    ]),
+                    'error' => '',
+                ];
+            }
         };
 
         $result = $gate->run(true, false, true);
 
         $this->assertTrue($result['ok']);
         $this->assertCheckPassed($result, 'dependency_audit');
+        $this->assertCheckPassed($result, 'websocket_dependency_audit');
+    }
+
+    public function testProductionGateFailsWhenWebSocketDependencyAuditFindsVulnerabilities()
+    {
+        $this->configureSafeProductionSettings();
+
+        $gate = new class extends B2BReleaseGate {
+            protected function runDependencyAuditCommand()
+            {
+                return [
+                    'exit_code' => 0,
+                    'output' => json_encode([
+                        'advisories' => [],
+                        'abandoned' => [],
+                    ]),
+                    'error' => '',
+                ];
+            }
+
+            protected function runWebSocketDependencyAuditCommand()
+            {
+                return [
+                    'exit_code' => 1,
+                    'output' => json_encode([
+                        'advisories' => [
+                            'mysql2' => [
+                                ['title' => 'mysql2 critical advisory'],
+                            ],
+                        ],
+                        'metadata' => [
+                            'vulnerabilities' => [
+                                'info' => 0,
+                                'low' => 0,
+                                'moderate' => 1,
+                                'high' => 2,
+                                'critical' => 1,
+                            ],
+                        ],
+                    ]),
+                    'error' => '',
+                ];
+            }
+        };
+
+        $result = $gate->run(true, false, true);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckPassed($result, 'dependency_audit');
+        $this->assertCheckFailed($result, 'websocket_dependency_audit');
     }
 
     public function testProductionGateFailsWhenProviderWalletContractIsIncomplete()
@@ -406,6 +522,7 @@ class B2BReleaseGateTest extends TestCase
             'b2b.sandbox_enabled' => false,
             'b2b.structured_logging_enabled' => true,
             'b2b.structured_log_channel' => 'b2b',
+            'b2b.api_key_default_scopes' => ['operator.read', 'portal.read', 'reports.read'],
             'cache.default' => 'redis',
             'queue.default' => 'redis',
             'session.secure' => true,
@@ -416,6 +533,8 @@ class B2BReleaseGateTest extends TestCase
             'security.login_throttle.production_enforced' => true,
             'security.login_throttle.max_attempts' => 10,
             'security.login_throttle.lockout_minutes' => 1,
+            'b2b_admin.web_step_up_requires_password' => true,
+            'b2b_admin.web_step_up_ttl_seconds' => 300,
             'security.password_policy.min_length' => 12,
             'security.password_policy.max_length' => 72,
             'security.password_policy.require_mixed_case' => true,

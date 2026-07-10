@@ -15,9 +15,9 @@ This runbook documents the production deployment shape. It intentionally uses pl
 
 ## Preflight
 
-GitHub Actions workflow `B2B Release Verification` runs Composer validation, dependency install, PHP syntax lint, Laravel route boot/cache, PHPUnit, dependency audit, and the B2B production release-check. The dependency audit and production release-check jobs are hard release gates; production launch requires those blockers to be closed.
+GitHub Actions workflow `B2B Release Verification` runs Composer validation, dependency install, PHP syntax lint, Laravel route boot/cache, PHPUnit, Composer audit, WebSocket `pnpm audit --prod`, and the B2B production release-check. The dependency audit and production release-check jobs are hard release gates; production launch requires those blockers to be closed.
 
-`php artisan b2b:release-check --production` also runs a locked Composer dependency audit and verifies the Laravel security mitigation surface used by this PHP 8.3/Laravel 12 branch. In production mode it fails when `composer.lock` has known advisories or abandoned packages, so dependency security must stay green before a release can be promoted.
+`php artisan b2b:release-check --production` also runs a locked Composer dependency audit, runs `pnpm audit --prod` for `PTWebSocket`, and verifies the Laravel security mitigation surface used by this PHP 8.3/Laravel 12 branch. In production mode it fails when `composer.lock` has known advisories/abandoned packages or the WebSocket lockfile has known vulnerabilities, so dependency security must stay green before a release can be promoted. Ensure Node.js and pnpm are available before running the release-check.
 
 ```bash
 cd /var/www/bbb/current
@@ -37,6 +37,7 @@ cd /var/www/bbb/current/PTWebSocket
 corepack enable
 corepack prepare pnpm@11.7.0 --activate
 pnpm install --frozen-lockfile --ignore-scripts
+pnpm audit --prod
 pnpm run check:syntax
 cp ../deploy/websocket/socket_config2.production.example.json ../public/socket_config2.json
 ```
@@ -82,6 +83,9 @@ SESSION_SAME_SITE=lax
 LOGIN_THROTTLE_PRODUCTION_ENFORCED=true
 LOGIN_THROTTLE_MAX_ATTEMPTS=10
 LOGIN_THROTTLE_LOCKOUT_MINUTES=1
+B2B_WEB_STEP_UP_REQUIRES_PASSWORD=true
+B2B_WEB_STEP_UP_TTL_SECONDS=300
+B2B_API_KEY_DEFAULT_SCOPES=operator.read,portal.read,games.read,games.launch,sessions.read,sessions.close,wallet.balance,wallet.status,wallet.mutate,reports.read,support.write
 PASSWORD_POLICY_MIN_LENGTH=12
 PASSWORD_POLICY_MAX_LENGTH=72
 PASSWORD_POLICY_REQUIRE_MIXED_CASE=true
@@ -116,17 +120,28 @@ B2B_LOG_LEVEL=info
 9. Enable or restart `bbb-scheduler.timer`, then confirm `php artisan b2b:scheduler-heartbeat --source=deploy-check` records successfully.
 10. Run `HEALTHCHECK_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/preflight WEBSOCKET_TCP_HOST=127.0.0.1 WEBSOCKET_TCP_PORT=12097 WEBSOCKET_HEALTH_URL=http://127.0.0.1:12097/healthz bash deploy/scripts/healthcheck.sh`.
 11. Run the B2B smoke script with staging or production-canary credentials from the secret store and `B2B_SMOKE_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/smoke`, then archive the generated `b2b-smoke-*.log` artifact.
-12. Assemble the redacted release evidence package from `php artisan b2b:evidence-template /var/www/bbb/release-evidence/<release-id> --release-id=<release-id>`, run `php artisan b2b:evidence-hash /var/www/bbb/release-evidence/<release-id> --write`, then run `php artisan b2b:evidence-check /var/www/bbb/release-evidence/<release-id> --production` before broad traffic.
+12. Assemble the redacted release evidence package from `php artisan b2b:evidence-template /var/www/bbb/release-evidence/<release-id> --release-id=<release-id>`, add the final clean `payload-redaction-final.json` artifact, run `php artisan b2b:evidence-hash /var/www/bbb/release-evidence/<release-id> --write`, then run `php artisan b2b:evidence-check /var/www/bbb/release-evidence/<release-id> --production` before broad traffic.
 
 ## Health Checks
 
 Nginx exposes `/healthz`, which rewrites to `/api/b2b/v1/health`, `/readyz`, which rewrites to `/api/b2b/v1/readiness`, and `/metrics`, which rewrites to `/api/b2b/v1/metrics` for Prometheus-compatible aggregate scraping.
 
-The read-only B2B operations dashboard is available to backend admins at `/backend/b2b` and requires the `b2b.reports.view` permission through B2B web RBAC middleware. The B2B audit trail is available at `/backend/b2b/audit` under `b2b.audit.view`. Mutating B2B backend routes must be protected with `b2b.admin:{permission}` plus `b2b.web_step_up:{action}` and use `/backend/b2b/step-up/{action}` for session-bound confirmation.
+The read-only B2B operations dashboard is available to backend admins at `/backend/b2b` and requires the `b2b.reports.view` permission through B2B web RBAC middleware. The B2B audit trail is available at `/backend/b2b/audit` under `b2b.audit.view`. Mutating B2B backend routes must be protected with `b2b.admin:{permission}` plus `b2b.web_step_up:{action}` and use `/backend/b2b/step-up/{action}` for session-bound confirmation plus current-password verification.
 
 The signed operator portal is available at `/api/b2b/v1/portal`, with the same HMAC headers as other operator API calls. Its JSON source remains available at `/api/b2b/v1/portal/overview`, workflow pages are available under `/api/b2b/v1/portal/*` for credentials, games, sessions, transactions, settlements, cases, callbacks, reports, support, and docs, and signed support case comments can be posted to `/api/b2b/v1/portal/support/cases/{transaction_uid}/comments`.
 
+Operator API keys are scoped. The default production scope list must omit `reports.export`; settlement export at `/api/b2b/v1/reports/settlements/export` requires a deliberately issued key containing `reports.export`, plus the normal HMAC headers.
+
 B2B structured logs write JSON records to the configured `B2B_STRUCTURED_LOG_CHANNEL` (`b2b` by default, `storage/logs/b2b.log` for the template). Ship this log alongside Laravel application logs and preserve the `request_id`, `operator_uid`, `key_id`, `event`, and `status_code` fields for incident triage. Outbound wallet callbacks receive the same `request_id` as `X-Request-Id` plus `X-B2B-Transaction-Uid`, so operator-side logs can be joined to BBB wallet attempts.
+
+Before enabling broad raw-payload backoffice access, run the legacy payload redaction audit on staging and production. Store the final clean dry-run artifact in the release-evidence package:
+
+```bash
+PAYLOAD_REDACTION_ARTIFACT=/var/www/bbb/release-evidence/<release-id>/payload-redaction-final.json
+php artisan b2b:payload-redaction-audit --artifact="$PAYLOAD_REDACTION_ARTIFACT"
+```
+
+If the dry-run reports findings, schedule an approved maintenance window and run `php artisan b2b:payload-redaction-audit --write --artifact=/var/www/bbb/release-evidence/<release-id>/payload-redaction-write.json`, then rerun the dry-run. The command prints and stores counts only; it does not print payload values. The final clean artifact is required as the `payload_redaction_audit` entry in `release-evidence.json`.
 
 Prometheus alert rules live at `deploy/prometheus/b2b-alerts.yml`; Alertmanager routing example lives at `deploy/prometheus/alertmanager-routes.example.yml`. Production release checks verify both files are present, but staging must still confirm final scrape labels and notification delivery.
 
@@ -190,7 +205,7 @@ php artisan b2b:evidence-hash /var/www/bbb/release-evidence/<release-id> --write
 php artisan b2b:evidence-check /var/www/bbb/release-evidence/<release-id> --production
 ```
 
-The evidence template command writes placeholder artifact paths and zero SHA-256 values from the same required evidence list used by the checker; rerun it with `--force` only when you intentionally want to replace an existing manifest. The evidence checker requires non-empty artifacts for staging migration rehearsal, the production release gate, healthcheck, smoke, smoke-load, public WebSocket proxy validation, backup, restore rehearsal, rollback rehearsal, Prometheus scrape/rule validation, Alertmanager notification delivery, B2B log shipping, final domains/TLS/proxy/Redis/queue/scheduler validation, provider credentials, provider certification, and legal approval. Approval items must include an `approved_by` owner. Every production artifact must have a SHA-256 hash; `b2b:evidence-hash --write` calculates and fills `sha256` for single `artifact` entries and `artifact_hashes` for entries with multiple `artifacts`. The checker scans the manifest and artifact files for common inline secret patterns. Keep real credentials, provider tokens, TLS keys, private certificates, `.env` values, and SQL dumps outside the evidence directory; store only redacted logs or references.
+The evidence template command writes placeholder artifact paths and zero SHA-256 values from the same required evidence list used by the checker; rerun it with `--force` only when you intentionally want to replace an existing manifest. The evidence checker requires non-empty artifacts for staging migration rehearsal, the production release gate, final clean payload redaction audit, healthcheck, smoke, smoke-load, public WebSocket proxy validation, backup, restore rehearsal, rollback rehearsal, Prometheus scrape/rule validation, Alertmanager notification delivery, B2B log shipping, final domains/TLS/proxy/Redis/queue/scheduler validation, provider credentials, provider certification, and legal approval. Approval items must include an `approved_by` owner. Every production artifact must have a SHA-256 hash; `b2b:evidence-hash --write` calculates and fills `sha256` for single `artifact` entries and `artifact_hashes` for entries with multiple `artifacts`. The checker scans the manifest and artifact files for common inline secret patterns. Keep real credentials, provider tokens, TLS keys, private certificates, `.env` values, and SQL dumps outside the evidence directory; store only redacted logs or references.
 
 ## Backup
 

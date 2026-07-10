@@ -26,6 +26,7 @@ class B2BStepUpController extends Controller
             'required_permission' => $result['permission'],
             'required_confirmation' => $result['confirm'],
             'ttl_seconds' => $guard->ttlSeconds(),
+            'password_required' => $guard->passwordRequired(),
             'redirect_to' => $this->safeRedirect($request->query('redirect_to')),
         ]);
     }
@@ -34,10 +35,11 @@ class B2BStepUpController extends Controller
     {
         $this->validate($request, [
             'confirm' => 'required|string|max:128',
+            'current_password' => ($guard->passwordRequired() ? 'required' : 'nullable') . '|string|max:255',
             'redirect_to' => 'nullable|string|max:2048',
         ]);
 
-        $result = $guard->confirm($request, $action, $request->input('confirm'));
+        $result = $guard->confirm($request, $action, $request->input('confirm'), $request->input('current_password'));
         if (!$result['ok']) {
             return redirect()
                 ->route('backend.b2b.step_up.show', ['action' => $action, 'redirect_to' => $this->safeRedirect($request->input('redirect_to'))])

@@ -62,6 +62,7 @@ class B2BBackofficeOperatorConfigurationTest extends TestCase
                 $guard->sessionKey('operator.update') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/operators/update', $this->operatorUpdatePayload([
@@ -106,6 +107,7 @@ class B2BBackofficeOperatorConfigurationTest extends TestCase
                 $guard->sessionKey('operator.suspend') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/operators/suspend', [
@@ -129,6 +131,7 @@ class B2BBackofficeOperatorConfigurationTest extends TestCase
                 $guard->sessionKey('operator.resume') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/operators/resume', [

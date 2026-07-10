@@ -23,9 +23,40 @@ class B2BSettlementWorkflowTest extends TestCase
 
         Cache::flush();
         $this->resetB2BTables();
-        $this->operatorA = $this->createB2BOperator('op_settlement_a', 'key_settlement_a', $this->secretA);
+        $this->operatorA = $this->createB2BOperator('op_settlement_a', 'key_settlement_a', $this->secretA, [], [
+            'scopes' => ['reports.read', 'reports.export'],
+        ]);
         $this->operatorB = $this->createB2BOperator('op_settlement_b', 'key_settlement_b', $this->secretB);
         $this->seedWalletTransactions();
+    }
+
+    public function testSettlementExportRequiresDedicatedApiKeyScope()
+    {
+        DB::table('b2b_operator_api_keys')
+            ->where('key_id', 'key_settlement_a')
+            ->update(['scopes' => json_encode(['reports.read'])]);
+
+        $response = $this->signedPost(
+            'op_settlement_a',
+            'key_settlement_a',
+            $this->secretA,
+            '/api/b2b/v1/reports/settlements/export',
+            [
+                'from' => now()->subDays(2)->toDateString(),
+                'to' => now()->toDateString(),
+                'currency' => 'USD',
+                'format' => 'csv',
+            ],
+            'settlement-export-missing-scope'
+        );
+
+        $response->assertStatus(403)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'B2B_SCOPE_DENIED')
+            ->assertJsonPath('meta.required_scopes.0', 'reports.export');
+
+        $this->assertSame(0, DB::table('b2b_settlements')->count());
+        $this->assertSame(0, DB::table('b2b_operator_audit_events')->where('event_type', 'settlement.exported')->count());
     }
 
     public function testSignedOperatorCanExportTenantScopedSettlementSnapshot()

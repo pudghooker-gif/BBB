@@ -69,6 +69,7 @@ class B2BBackofficeSettlementWorkflowTest extends TestCase
                 $guard->sessionKey('settlement.submit') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/settlements/submit', [
@@ -103,6 +104,7 @@ class B2BBackofficeSettlementWorkflowTest extends TestCase
                 $guard->sessionKey('settlement.approve') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/settlements/approve', [
@@ -137,6 +139,7 @@ class B2BBackofficeSettlementWorkflowTest extends TestCase
                 $guard->sessionKey('settlement.reject') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/settlements/reject', [

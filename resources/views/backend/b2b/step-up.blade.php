@@ -44,6 +44,20 @@
                                     required
                                 >
                             </div>
+
+                            @if (!empty($password_required))
+                                <div class="form-group">
+                                    <label for="b2b-step-up-current-password">Current Password</label>
+                                    <input
+                                        id="b2b-step-up-current-password"
+                                        type="password"
+                                        name="current_password"
+                                        class="form-control"
+                                        autocomplete="current-password"
+                                        required
+                                    >
+                                </div>
+                            @endif
                         </div>
 
                         <div class="box-footer">

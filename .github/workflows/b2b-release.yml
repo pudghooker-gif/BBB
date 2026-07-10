@@ -110,6 +110,10 @@ jobs:
         working-directory: PTWebSocket
         run: pnpm install --frozen-lockfile --ignore-scripts
 
+      - name: Audit WebSocket dependencies
+        working-directory: PTWebSocket
+        run: pnpm audit --prod
+
       - name: Syntax check WebSocket runtime
         working-directory: PTWebSocket
         run: pnpm run check:syntax
@@ -170,8 +174,22 @@ jobs:
           coverage: none
           tools: composer:v2
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.7.0 --activate
+
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Install WebSocket dependencies
+        working-directory: PTWebSocket
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Run B2B production release-check
         run: php artisan b2b:release-check --production

@@ -13,13 +13,15 @@ use VanguardLTE\B2B\Models\B2BOperatorApiKey;
 class B2BApiCredentialLifecycleService
 {
     private $audit;
+    private $scopes;
 
-    public function __construct(B2BOperatorAuditLogger $audit)
+    public function __construct(B2BOperatorAuditLogger $audit, B2BApiKeyScopePolicy $scopes)
     {
         $this->audit = $audit;
+        $this->scopes = $scopes;
     }
 
-    public function rotate($operatorUid, $actor, $reason, array $context, $keyId = null, $maxRps = null, $revokeExisting = false)
+    public function rotate($operatorUid, $actor, $reason, array $context, $keyId = null, $maxRps = null, $revokeExisting = false, $scopes = null)
     {
         $this->assertTablesReady();
         $operator = $this->operatorByUid($operatorUid);
@@ -46,6 +48,9 @@ class B2BApiCredentialLifecycleService
         if (Schema::hasColumn('b2b_operator_api_keys', 'max_rps') && $maxRps !== null && $maxRps !== '') {
             $apiKeyData['max_rps'] = (int) $maxRps;
         }
+        if (Schema::hasColumn('b2b_operator_api_keys', 'scopes')) {
+            $apiKeyData['scopes'] = $this->normalizeScopes($scopes);
+        }
 
         $apiKey = B2BOperatorApiKey::create($apiKeyData);
 
@@ -64,6 +69,7 @@ class B2BApiCredentialLifecycleService
                     'replacement_key_id' => $apiKey->key_id,
                     'previous_status' => B2BOperatorApiKey::STATUS_ACTIVE,
                     'new_status' => B2BOperatorApiKey::STATUS_DISABLED,
+                    'replacement_scopes' => isset($apiKeyData['scopes']) ? $apiKeyData['scopes'] : null,
                 ]));
             }
         }
@@ -71,6 +77,7 @@ class B2BApiCredentialLifecycleService
         $this->audit->record($operator, 'api_key.rotated', 'api_key', $apiKey->key_id, $actor, $reason, $this->metadata($context, [
             'key_id' => $apiKey->key_id,
             'max_rps' => isset($apiKeyData['max_rps']) ? $apiKeyData['max_rps'] : null,
+            'scopes' => isset($apiKeyData['scopes']) ? $apiKeyData['scopes'] : null,
             'revoke_existing' => (bool) $revokeExisting,
             'disabled_existing' => $disabledExisting,
         ]));
@@ -79,8 +86,14 @@ class B2BApiCredentialLifecycleService
             'operator_uid' => $operator->operator_uid,
             'key_id' => $apiKey->key_id,
             'secret' => $secret,
+            'scopes' => isset($apiKeyData['scopes']) ? $apiKeyData['scopes'] : [],
             'disabled_existing' => $disabledExisting,
         ];
+    }
+
+    public function normalizeScopes($scopes)
+    {
+        return $this->scopes->normalize($scopes);
     }
 
     public function revoke($operatorUid, $keyId, $actor, $reason, array $context)

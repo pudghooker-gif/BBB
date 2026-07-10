@@ -123,6 +123,77 @@ class PortalController extends Controller
         return B2BApiResponse::success($request, $payload, 201);
     }
 
+    public function showCase(Request $request, B2BOperatorSupportCaseService $supportCases, $transactionUid)
+    {
+        $operator = $request->attributes->get('b2b_operator');
+        if (!$operator || !isset($operator->id)) {
+            return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
+        }
+
+        $validator = Validator::make(array_merge($request->query(), [
+            'transaction_uid' => $transactionUid,
+        ]), [
+            'transaction_uid' => 'required|string|min:1|max:191',
+            'limit' => 'nullable|integer|min:1|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        try {
+            $payload = $supportCases->show($operator, $transactionUid, (int) $request->query('limit', 50));
+        } catch (InvalidArgumentException $e) {
+            return B2BApiResponse::error($request, 'CASE_NOT_FOUND', $e->getMessage(), 404);
+        } catch (RuntimeException $e) {
+            return B2BApiResponse::error($request, 'SERVICE_NOT_READY', $e->getMessage(), 503);
+        }
+
+        return B2BApiResponse::success($request, $payload);
+    }
+
+    public function showCaseThread(Request $request, B2BOperatorSupportCaseService $supportCases, $transactionUid)
+    {
+        $operator = $request->attributes->get('b2b_operator');
+        if (!$operator || !isset($operator->id)) {
+            return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
+        }
+
+        $validator = Validator::make(array_merge($request->query(), [
+            'transaction_uid' => $transactionUid,
+        ]), [
+            'transaction_uid' => 'required|string|min:1|max:191',
+            'limit' => 'nullable|integer|min:1|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        try {
+            $payload = $supportCases->show($operator, $transactionUid, (int) $request->query('limit', 50));
+        } catch (InvalidArgumentException $e) {
+            return B2BApiResponse::error($request, 'CASE_NOT_FOUND', $e->getMessage(), 404);
+        } catch (RuntimeException $e) {
+            return B2BApiResponse::error($request, 'SERVICE_NOT_READY', $e->getMessage(), 503);
+        }
+
+        return response()
+            ->view('b2b.operator-portal.thread', [
+                'operator' => $this->operatorViewProfile($operator),
+                'portal_section' => [
+                    'key' => 'support',
+                    'title' => 'Support Case Thread',
+                ],
+                'portal_sections' => $this->sections,
+                'links' => $this->portalLinks(),
+                'thread_type' => 'case',
+                'thread' => $payload,
+                'detail_endpoint' => '/api/b2b/v1/portal/support/cases/' . rawurlencode($payload['transaction_uid']),
+            ])
+            ->header('Cache-Control', 'no-store, private');
+    }
+
     public function createSupportTicket(Request $request, B2BOperatorSupportTicketService $tickets)
     {
         $operator = $request->attributes->get('b2b_operator');
@@ -189,6 +260,77 @@ class PortalController extends Controller
         return B2BApiResponse::success($request, $payload, 201);
     }
 
+    public function showSupportTicket(Request $request, B2BOperatorSupportTicketService $tickets, $ticketUid)
+    {
+        $operator = $request->attributes->get('b2b_operator');
+        if (!$operator || !isset($operator->id)) {
+            return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
+        }
+
+        $validator = Validator::make(array_merge($request->query(), [
+            'ticket_uid' => $ticketUid,
+        ]), [
+            'ticket_uid' => 'required|string|min:1|max:80',
+            'limit' => 'nullable|integer|min:1|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        try {
+            $payload = $tickets->show($operator, $ticketUid, (int) $request->query('limit', 50));
+        } catch (InvalidArgumentException $e) {
+            return B2BApiResponse::error($request, 'SUPPORT_TICKET_NOT_FOUND', $e->getMessage(), 404);
+        } catch (RuntimeException $e) {
+            return B2BApiResponse::error($request, 'SERVICE_NOT_READY', $e->getMessage(), 503);
+        }
+
+        return B2BApiResponse::success($request, $payload);
+    }
+
+    public function showSupportTicketThread(Request $request, B2BOperatorSupportTicketService $tickets, $ticketUid)
+    {
+        $operator = $request->attributes->get('b2b_operator');
+        if (!$operator || !isset($operator->id)) {
+            return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
+        }
+
+        $validator = Validator::make(array_merge($request->query(), [
+            'ticket_uid' => $ticketUid,
+        ]), [
+            'ticket_uid' => 'required|string|min:1|max:80',
+            'limit' => 'nullable|integer|min:1|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        try {
+            $payload = $tickets->show($operator, $ticketUid, (int) $request->query('limit', 50));
+        } catch (InvalidArgumentException $e) {
+            return B2BApiResponse::error($request, 'SUPPORT_TICKET_NOT_FOUND', $e->getMessage(), 404);
+        } catch (RuntimeException $e) {
+            return B2BApiResponse::error($request, 'SERVICE_NOT_READY', $e->getMessage(), 503);
+        }
+
+        return response()
+            ->view('b2b.operator-portal.thread', [
+                'operator' => $this->operatorViewProfile($operator),
+                'portal_section' => [
+                    'key' => 'support',
+                    'title' => 'Support Ticket Thread',
+                ],
+                'portal_sections' => $this->sections,
+                'links' => $this->portalLinks(),
+                'thread_type' => 'ticket',
+                'thread' => $payload,
+                'detail_endpoint' => '/api/b2b/v1/portal/support/tickets/' . rawurlencode($payload['ticket_uid']),
+            ])
+            ->header('Cache-Control', 'no-store, private');
+    }
+
     public function closeSupportTicket(Request $request, B2BOperatorSupportTicketService $tickets, $ticketUid)
     {
         $operator = $request->attributes->get('b2b_operator');
@@ -252,5 +394,32 @@ class PortalController extends Controller
         }
 
         return null;
+    }
+
+    private function operatorViewProfile($operator)
+    {
+        return [
+            'id' => $operator->operator_uid,
+            'name' => $operator->name,
+            'status' => $operator->status,
+            'default_currency' => $operator->default_currency,
+        ];
+    }
+
+    private function portalLinks()
+    {
+        return [
+            'portal_overview' => '/api/b2b/v1/portal',
+            'portal_credentials' => '/api/b2b/v1/portal/credentials',
+            'portal_games' => '/api/b2b/v1/portal/games',
+            'portal_sessions' => '/api/b2b/v1/portal/sessions',
+            'portal_transactions' => '/api/b2b/v1/portal/transactions',
+            'portal_settlements' => '/api/b2b/v1/portal/settlements',
+            'portal_cases' => '/api/b2b/v1/portal/cases',
+            'portal_callbacks' => '/api/b2b/v1/portal/callbacks',
+            'portal_reports' => '/api/b2b/v1/portal/reports',
+            'portal_support' => '/api/b2b/v1/portal/support',
+            'portal_docs' => '/api/b2b/v1/portal/docs',
+        ];
     }
 }

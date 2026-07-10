@@ -70,6 +70,7 @@ class B2BBackofficePayloadReviewTest extends TestCase
                 $guard->sessionKey('payload.view_raw') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/payloads/raw', [

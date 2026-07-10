@@ -21,6 +21,8 @@ return [
 
     'api_key_default_max_rps' => env('B2B_API_KEY_DEFAULT_MAX_RPS', null),
 
+    'api_key_default_scopes' => array_filter(array_map('trim', explode(',', env('B2B_API_KEY_DEFAULT_SCOPES', 'operator.read,portal.read,games.read,games.launch,sessions.read,sessions.close,wallet.balance,wallet.status,wallet.mutate,reports.read,support.write')))),
+
     'api_key_usage_audit_sample_seconds' => env('B2B_API_KEY_USAGE_AUDIT_SAMPLE_SECONDS', 60),
 
     'structured_logging_enabled' => env('B2B_STRUCTURED_LOGGING_ENABLED', true),

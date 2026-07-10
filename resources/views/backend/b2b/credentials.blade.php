@@ -15,6 +15,7 @@
                 <p><strong>Operator:</strong> {{ $rotatedCredential['operator_uid'] }}</p>
                 <p><strong>API Key:</strong> {{ $rotatedCredential['key_id'] }}</p>
                 <p><strong>Secret:</strong> {{ $rotatedCredential['secret'] }}</p>
+                <p><strong>Scopes:</strong> {{ implode(', ', $rotatedCredential['scopes']) ?: 'none' }}</p>
                 <p><strong>Disabled existing keys:</strong> {{ $rotatedCredential['disabled_existing'] }}</p>
             </div>
         @endif
@@ -41,6 +42,10 @@
                             <div class="form-group">
                                 <label for="b2b-credential-rps">Max RPS</label>
                                 <input id="b2b-credential-rps" type="number" min="1" name="max_rps" value="{{ old('max_rps') }}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="b2b-credential-scopes">Scopes</label>
+                                <textarea id="b2b-credential-scopes" name="scopes" rows="3" class="form-control" placeholder="operator.read, reports.read">{{ old('scopes') }}</textarea>
                             </div>
                             <div class="checkbox">
                                 <label>
@@ -141,6 +146,7 @@
                                 <th>Key ID</th>
                                 <th>Status</th>
                                 <th>Max RPS</th>
+                                <th>Scopes</th>
                                 <th>Last Used</th>
                             </tr>
                             </thead>
@@ -151,10 +157,11 @@
                                     <td>{{ $apiKey->key_id }}</td>
                                     <td>{{ $apiKey->status }}</td>
                                     <td>{{ $apiKey->max_rps ?: 'default' }}</td>
+                                    <td>{{ $apiKey->scope_list }}</td>
                                     <td>{{ $apiKey->last_used_at ?: 'never' }}</td>
                                 </tr>
                             @empty
-                                <tr><td colspan="5">No B2B API keys</td></tr>
+                                <tr><td colspan="6">No B2B API keys</td></tr>
                             @endforelse
                             </tbody>
                         </table>

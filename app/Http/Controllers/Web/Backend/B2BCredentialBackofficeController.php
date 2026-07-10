@@ -35,6 +35,7 @@ class B2BCredentialBackofficeController extends Controller
             'operator_uid' => 'required|string|max:80',
             'key_id' => 'nullable|string|max:80',
             'max_rps' => 'nullable|integer|min:1',
+            'scopes' => 'nullable|string|max:1000',
             'reason' => 'required|string|max:1000',
             'revoke_existing' => 'nullable|boolean',
         ]);
@@ -47,7 +48,8 @@ class B2BCredentialBackofficeController extends Controller
                 $this->context($request, 'b2b.credentials.rotate'),
                 $request->input('key_id'),
                 $request->input('max_rps'),
-                (bool) $request->input('revoke_existing')
+                (bool) $request->input('revoke_existing'),
+                $request->input('scopes')
             );
         } catch (InvalidArgumentException $e) {
             return $this->failed($e->getMessage());
@@ -129,11 +131,38 @@ class B2BCredentialBackofficeController extends Controller
             return collect();
         }
 
-        return DB::table('b2b_operator_api_keys')
+        $query = DB::table('b2b_operator_api_keys')
             ->select('operator_id', 'key_id', 'status', 'max_rps', 'last_used_at', 'created_at')
             ->orderBy('id', 'desc')
-            ->limit(100)
-            ->get();
+            ->limit(100);
+
+        if (Schema::hasColumn('b2b_operator_api_keys', 'scopes')) {
+            $query->addSelect('scopes');
+        }
+
+        return $query->get()->map(function ($apiKey) {
+            $apiKey->scope_list = $this->formatScopes(isset($apiKey->scopes) ? $apiKey->scopes : null);
+
+            return $apiKey;
+        });
+    }
+
+    private function formatScopes($scopes)
+    {
+        if ($scopes === null || $scopes === '') {
+            return 'none';
+        }
+
+        if (is_string($scopes)) {
+            $decoded = json_decode($scopes, true);
+            $scopes = is_array($decoded) ? $decoded : preg_split('/[\s,]+/', $scopes);
+        }
+
+        if (!is_array($scopes) || count($scopes) === 0) {
+            return 'none';
+        }
+
+        return implode(', ', array_filter(array_map('strval', $scopes)));
     }
 
     private function context(Request $request, $permission)

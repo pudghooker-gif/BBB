@@ -63,6 +63,7 @@ class B2BApiKeyLifecycleCommandTest extends TestCase
         $this->assertSame(0, $exitCode);
         $this->assertStringContainsString('X-Operator-Id:', $output);
         $this->assertStringContainsString('Secret:', $output);
+        $this->assertStringContainsString('Scopes:', $output);
         $this->assertSame(2, DB::table('b2b_operators')->count());
         $this->assertSame(2, DB::table('b2b_operator_api_keys')->count());
 
@@ -76,6 +77,9 @@ class B2BApiKeyLifecycleCommandTest extends TestCase
         $this->assertSame('EUR', $metadata['currency']);
         $this->assertSame('b2b.operators.create', $metadata['permission']);
         $this->assertTrue($metadata['step_up']);
+        $keyScopes = json_decode(DB::table('b2b_operator_api_keys')->orderBy('id', 'desc')->value('scopes'), true);
+        $this->assertContains('reports.read', $keyScopes);
+        $this->assertNotContains('reports.export', $keyScopes);
     }
 
     public function testRotateApiKeyRequiresActorAndReason()
@@ -95,6 +99,7 @@ class B2BApiKeyLifecycleCommandTest extends TestCase
             'operator_uid' => 'op_keys',
             '--key-id' => 'key_rotated',
             '--max-rps' => 5,
+            '--scopes' => 'reports.read,reports.export',
             '--actor' => 'security_user',
             '--reason' => 'Quarterly API key rotation.',
             '--permission' => 'b2b.credentials.rotate',
@@ -107,6 +112,7 @@ class B2BApiKeyLifecycleCommandTest extends TestCase
         $this->assertSame(0, $exitCode);
         $this->assertStringContainsString('X-Api-Key:     key_rotated', $output);
         $this->assertStringContainsString('Secret:', $output);
+        $this->assertStringContainsString('Scopes:        reports.read, reports.export', $output);
 
         $this->assertSame(
             B2BOperatorApiKey::STATUS_DISABLED,
@@ -117,6 +123,7 @@ class B2BApiKeyLifecycleCommandTest extends TestCase
             DB::table('b2b_operator_api_keys')->where('key_id', 'key_rotated')->value('status')
         );
         $this->assertSame(5, (int) DB::table('b2b_operator_api_keys')->where('key_id', 'key_rotated')->value('max_rps'));
+        $this->assertSame(['reports.read', 'reports.export'], json_decode(DB::table('b2b_operator_api_keys')->where('key_id', 'key_rotated')->value('scopes'), true));
 
         $revoked = DB::table('b2b_operator_audit_events')
             ->where('event_type', 'api_key.revoked')
@@ -139,6 +146,7 @@ class B2BApiKeyLifecycleCommandTest extends TestCase
         $this->assertTrue($rotatedMetadata['revoke_existing']);
         $this->assertSame(1, $rotatedMetadata['disabled_existing']);
         $this->assertSame(5, $rotatedMetadata['max_rps']);
+        $this->assertSame(['reports.read', 'reports.export'], $rotatedMetadata['scopes']);
         $this->assertSame('b2b.credentials.rotate', $rotatedMetadata['permission']);
         $this->assertTrue($rotatedMetadata['step_up']);
     }

@@ -320,6 +320,83 @@ class B2BTenantIsolationTest extends TestCase
             ->assertJsonPath('error.code', 'VALIDATION_FAILED');
     }
 
+    public function testAggregateReportsAreTenantScopedAndUseSuccessfulDecimalTotals()
+    {
+        $now = now();
+
+        DB::table('b2b_wallet_transactions')->insert([
+            [
+                'operator_id' => $this->operatorA->id,
+                'session_id' => 'sess_report_win',
+                'transaction_uid' => 'tx_report_win',
+                'transaction_id' => 'tx_report_win',
+                'idempotency_key' => 'idem_report_win',
+                'type' => 'win',
+                'amount' => '3.50000000',
+                'currency' => 'USD',
+                'status' => 'success',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'operator_id' => $this->operatorA->id,
+                'session_id' => 'sess_report_refund',
+                'transaction_uid' => 'tx_report_refund',
+                'transaction_id' => 'tx_report_refund',
+                'idempotency_key' => 'idem_report_refund',
+                'type' => 'refund',
+                'amount' => '1.25000000',
+                'currency' => 'USD',
+                'status' => 'success',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'operator_id' => $this->operatorA->id,
+                'session_id' => 'sess_report_failed',
+                'transaction_uid' => 'tx_report_failed',
+                'transaction_id' => 'tx_report_failed',
+                'idempotency_key' => 'idem_report_failed',
+                'type' => 'bet',
+                'amount' => '99.00000000',
+                'currency' => 'USD',
+                'status' => 'failed',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'operator_id' => $this->operatorB->id,
+                'session_id' => 'sess_report_foreign_aggregate',
+                'transaction_uid' => 'tx_report_foreign_aggregate',
+                'transaction_id' => 'tx_report_foreign_aggregate',
+                'idempotency_key' => 'idem_report_foreign_aggregate',
+                'type' => 'bet',
+                'amount' => '50.00000000',
+                'currency' => 'USD',
+                'status' => 'success',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+        ]);
+
+        $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/reports/summary?status=success&currency=USD', 'tenant-summary-success-totals')
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.totals.bets', '10.00000000')
+            ->assertJsonPath('data.totals.wins', '3.50000000')
+            ->assertJsonPath('data.totals.refunds', '1.25000000')
+            ->assertJsonPath('data.totals.ggr', '5.25000000')
+            ->assertJsonPath('data.totals.transactions', 3);
+
+        $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/reports/ggr?currency=USD', 'tenant-ggr-success-totals')
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.bets', '10.00000000')
+            ->assertJsonPath('data.wins', '3.50000000')
+            ->assertJsonPath('data.refunds', '1.25000000')
+            ->assertJsonPath('data.ggr', '5.25000000');
+    }
+
     public function testAggregateReportsValidateFiltersAndPeriods()
     {
         $this->signedGet('op_a', 'key_a', $this->secretA, '/api/b2b/v1/reports/summary?status=void', 'tenant-summary-invalid-status')

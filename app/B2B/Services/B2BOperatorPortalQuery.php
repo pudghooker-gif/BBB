@@ -56,6 +56,10 @@ class B2BOperatorPortalQuery
                 'portal_reports' => '/api/b2b/v1/portal/reports',
                 'portal_support' => '/api/b2b/v1/portal/support',
                 'portal_docs' => '/api/b2b/v1/portal/docs',
+                'support_case_detail_template' => '/api/b2b/v1/portal/support/cases/{transaction_uid}',
+                'support_case_thread_template' => '/api/b2b/v1/portal/support/cases/{transaction_uid}/thread',
+                'support_ticket_detail_template' => '/api/b2b/v1/portal/support/tickets/{ticket_uid}',
+                'support_ticket_thread_template' => '/api/b2b/v1/portal/support/tickets/{ticket_uid}/thread',
                 'operator_profile' => '/api/b2b/v1/operator/me',
                 'games' => '/api/b2b/v1/games',
                 'sessions' => '/api/b2b/v1/sessions',
@@ -77,7 +81,7 @@ class B2BOperatorPortalQuery
             'default_currency' => $operator->default_currency,
             'allowed_currencies' => $this->arrayValue($operator->allowed_currencies),
             'allowed_countries' => $this->arrayValue($operator->allowed_countries),
-            'base_url' => $operator->base_url,
+            'base_url' => $this->safeEndpoint($operator->base_url),
             'wallet_callback_url' => $this->safeEndpoint($operator->wallet_callback_url),
             'wallet_callback_configured' => !empty($operator->wallet_callback_url),
             'max_rps' => isset($operator->max_rps) ? (int) $operator->max_rps : null,
@@ -94,9 +98,13 @@ class B2BOperatorPortalQuery
             return null;
         }
 
+        $scopes = $this->scopeList(isset($apiKey->scopes) ? $apiKey->scopes : null);
+
         return [
             'key_id' => $apiKey->key_id,
             'status' => $apiKey->status,
+            'scopes' => $scopes,
+            'scopes_count' => count($scopes),
             'max_rps' => isset($apiKey->max_rps) ? (int) $apiKey->max_rps : null,
             'last_used_at' => $this->isoTime($apiKey->last_used_at),
             'expires_at' => $this->isoTime($apiKey->expires_at),
@@ -185,6 +193,7 @@ class B2BOperatorPortalQuery
             ->get($this->selectExisting('b2b_operator_api_keys', [
                 'key_id',
                 'status',
+                'scopes',
                 'max_rps',
                 'last_used_at',
                 'expires_at',
@@ -194,9 +203,13 @@ class B2BOperatorPortalQuery
         return [
             'by_status' => $this->groupCounts('b2b_operator_api_keys', $operatorId, 'status'),
             'recent_keys' => $rows->map(function ($row) {
+                $scopes = $this->scopeList(isset($row->scopes) ? $row->scopes : null);
+
                 return [
                     'key_id' => $row->key_id,
                     'status' => $row->status,
+                    'scopes' => $scopes,
+                    'scopes_count' => count($scopes),
                     'max_rps' => isset($row->max_rps) ? (int) $row->max_rps : null,
                     'last_used_at' => $this->isoTime($row->last_used_at),
                     'expires_at' => $this->isoTime($row->expires_at),
@@ -286,6 +299,7 @@ class B2BOperatorPortalQuery
                 'by_state' => [],
                 'by_priority' => [],
                 'open_items' => [],
+                'recent_cases' => [],
             ];
         }
 
@@ -294,20 +308,45 @@ class B2BOperatorPortalQuery
             ->whereIn('state', ['open', 'in_progress'])
             ->orderBy('detected_at')
             ->limit($limit)
-            ->get(['transaction_uid', 'status', 'reason', 'priority', 'state', 'detected_at']);
+            ->get($this->selectExisting('b2b_wallet_reconciliation_items', [
+                'transaction_uid',
+                'status',
+                'reason',
+                'priority',
+                'state',
+                'detected_at',
+                'resolved_at',
+                'updated_at',
+            ]));
+
+        $recentOrderColumn = Schema::hasColumn('b2b_wallet_reconciliation_items', 'updated_at')
+            ? 'updated_at'
+            : 'detected_at';
+
+        $recentRows = DB::table('b2b_wallet_reconciliation_items')
+            ->where('operator_id', $operatorId)
+            ->orderBy($recentOrderColumn, 'desc')
+            ->orderBy('id', 'desc')
+            ->limit($limit)
+            ->get($this->selectExisting('b2b_wallet_reconciliation_items', [
+                'transaction_uid',
+                'status',
+                'reason',
+                'priority',
+                'state',
+                'detected_at',
+                'resolved_at',
+                'updated_at',
+            ]));
 
         return [
             'by_state' => $this->groupCounts('b2b_wallet_reconciliation_items', $operatorId, 'state'),
             'by_priority' => $this->groupCounts('b2b_wallet_reconciliation_items', $operatorId, 'priority'),
             'open_items' => $rows->map(function ($row) {
-                return [
-                    'transaction_uid' => $row->transaction_uid,
-                    'status' => $row->status,
-                    'reason' => $row->reason,
-                    'priority' => $row->priority,
-                    'state' => $row->state,
-                    'detected_at' => $this->isoTime($row->detected_at),
-                ];
+                return $this->caseSummaryPayload($row);
+            })->values(),
+            'recent_cases' => $recentRows->map(function ($row) {
+                return $this->caseSummaryPayload($row);
             })->values(),
         ];
     }
@@ -581,6 +620,7 @@ class B2BOperatorPortalQuery
                 ->orderBy('created_at', 'desc')
                 ->limit($limit)
                 ->get($this->selectExisting('b2b_operator_support_tickets', [
+                    'id',
                     'ticket_uid',
                     'subject',
                     'status',
@@ -592,9 +632,17 @@ class B2BOperatorPortalQuery
                     'created_at',
                 ]));
 
+            $ticketIds = $ticketRows->pluck('id')->filter()->map(function ($id) {
+                return (int) $id;
+            })->values()->all();
+            $messageCounts = $this->supportTicketMessageCounts($operatorId, $ticketIds);
+            $latestMessages = $this->latestSupportTicketMessages($operatorId, $ticketIds);
+
             $summary['tickets_by_status'] = $this->groupCounts('b2b_operator_support_tickets', $operatorId, 'status');
             $summary['tickets_by_priority'] = $this->groupCounts('b2b_operator_support_tickets', $operatorId, 'priority');
-            $summary['recent_tickets'] = $ticketRows->map(function ($row) {
+            $summary['recent_tickets'] = $ticketRows->map(function ($row) use ($messageCounts, $latestMessages) {
+                $ticketId = isset($row->id) ? (int) $row->id : 0;
+
                 return [
                     'ticket_uid' => isset($row->ticket_uid) ? $row->ticket_uid : null,
                     'subject' => isset($row->subject) ? $this->safeErrorSummary($row->subject) : null,
@@ -602,6 +650,10 @@ class B2BOperatorPortalQuery
                     'priority' => isset($row->priority) ? $row->priority : null,
                     'category' => isset($row->category) ? $row->category : null,
                     'external_reference' => isset($row->external_reference) ? $this->safeErrorSummary($row->external_reference) : null,
+                    'message_count' => isset($messageCounts[$ticketId]) ? (int) $messageCounts[$ticketId] : 0,
+                    'latest_message' => isset($latestMessages[$ticketId]) ? $latestMessages[$ticketId] : null,
+                    'detail_endpoint' => isset($row->ticket_uid) ? $this->supportTicketDetailEndpoint($row->ticket_uid) : null,
+                    'thread_endpoint' => isset($row->ticket_uid) ? $this->supportTicketThreadEndpoint($row->ticket_uid) : null,
                     'last_message_at' => isset($row->last_message_at) ? $this->isoTime($row->last_message_at) : null,
                     'closed_at' => isset($row->closed_at) ? $this->isoTime($row->closed_at) : null,
                     'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
@@ -610,6 +662,94 @@ class B2BOperatorPortalQuery
         }
 
         return $summary;
+    }
+
+    private function supportTicketMessageCounts($operatorId, array $ticketIds)
+    {
+        $ticketIds = array_values(array_filter(array_map('intval', $ticketIds)));
+        if (!$ticketIds || !Schema::hasTable('b2b_operator_support_ticket_messages')) {
+            return [];
+        }
+
+        foreach (['ticket_id', 'operator_id'] as $column) {
+            if (!Schema::hasColumn('b2b_operator_support_ticket_messages', $column)) {
+                return [];
+            }
+        }
+
+        $rows = DB::table('b2b_operator_support_ticket_messages')
+            ->where('operator_id', $operatorId)
+            ->whereIn('ticket_id', $ticketIds)
+            ->select('ticket_id', DB::raw('COUNT(*) as count'))
+            ->groupBy('ticket_id')
+            ->get();
+
+        $counts = [];
+        foreach ($rows as $row) {
+            $counts[(int) $row->ticket_id] = (int) $row->count;
+        }
+
+        return $counts;
+    }
+
+    private function latestSupportTicketMessages($operatorId, array $ticketIds)
+    {
+        $ticketIds = array_values(array_filter(array_map('intval', $ticketIds)));
+        if (!$ticketIds || !Schema::hasTable('b2b_operator_support_ticket_messages')) {
+            return [];
+        }
+
+        foreach (['id', 'ticket_id', 'operator_id'] as $column) {
+            if (!Schema::hasColumn('b2b_operator_support_ticket_messages', $column)) {
+                return [];
+            }
+        }
+
+        $latestIdRows = DB::table('b2b_operator_support_ticket_messages')
+            ->where('operator_id', $operatorId)
+            ->whereIn('ticket_id', $ticketIds)
+            ->select('ticket_id', DB::raw('MAX(id) as latest_id'))
+            ->groupBy('ticket_id')
+            ->get();
+
+        $latestIds = [];
+        foreach ($latestIdRows as $row) {
+            if (isset($row->latest_id) && $row->latest_id !== null) {
+                $latestIds[] = (int) $row->latest_id;
+            }
+        }
+
+        if (!$latestIds) {
+            return [];
+        }
+
+        $rows = DB::table('b2b_operator_support_ticket_messages')
+            ->where('operator_id', $operatorId)
+            ->whereIn('id', $latestIds)
+            ->get($this->selectExisting('b2b_operator_support_ticket_messages', [
+                'ticket_id',
+                'actor',
+                'source',
+                'message',
+                'created_at',
+            ]));
+
+        $messages = [];
+        foreach ($rows as $row) {
+            $ticketId = isset($row->ticket_id) ? (int) $row->ticket_id : 0;
+            if (!$ticketId) {
+                continue;
+            }
+
+            $messages[$ticketId] = [
+                'actor' => isset($row->actor) ? $this->safeErrorSummary($row->actor) : null,
+                'source' => isset($row->source) ? $this->safeErrorSummary($row->source) : null,
+                'message' => isset($row->message) ? $this->safeErrorSummary($row->message) : null,
+                'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
+            ];
+        }
+
+        return $messages;
     }
 
     private function countWhere($table, $operatorId, callable $callback = null)
@@ -710,6 +850,24 @@ class B2BOperatorPortalQuery
         return [];
     }
 
+    private function scopeList($value)
+    {
+        if (is_string($value)) {
+            $decoded = json_decode($value, true);
+            $scopes = json_last_error() === JSON_ERROR_NONE && is_array($decoded)
+                ? $decoded
+                : preg_split('/[\s,]+/', $value);
+        } else {
+            $scopes = $this->arrayValue($value);
+        }
+
+        return array_values(array_filter(array_map(function ($scope) {
+            return trim((string) $scope);
+        }, $scopes), function ($scope) {
+            return $scope !== '';
+        }));
+    }
+
     private function isoTime($value)
     {
         if (!$value) {
@@ -735,7 +893,21 @@ class B2BOperatorPortalQuery
             return bcadd('0', (string) $value, $scale);
         }
 
-        return number_format((float) $value, $scale, '.', '');
+        $value = trim((string) $value);
+        if ($value === '') {
+            $value = '0';
+        }
+
+        $negative = strpos($value, '-') === 0;
+        $value = ltrim($value, '+-');
+        $parts = explode('.', $value, 2);
+        $major = preg_replace('/[^0-9]/', '', $parts[0]);
+        $minor = isset($parts[1]) ? preg_replace('/[^0-9]/', '', $parts[1]) : '';
+        $minor = substr(str_pad($minor, $scale, '0'), 0, $scale);
+        $major = ltrim($major, '0') ?: '0';
+        $isZero = $major === '0' && trim($minor, '0') === '';
+
+        return ($negative && !$isZero ? '-' : '') . $major . '.' . $minor;
     }
 
     private function callbackStatusBucket($status)
@@ -793,6 +965,54 @@ class B2BOperatorPortalQuery
         $summary = $this->redactor->storageValue((string) $value);
 
         return strlen($summary) > 160 ? substr($summary, 0, 157) . '...' : $summary;
+    }
+
+    private function caseSummaryPayload($row)
+    {
+        return [
+            'transaction_uid' => isset($row->transaction_uid) ? $row->transaction_uid : null,
+            'status' => isset($row->status) ? $row->status : null,
+            'reason' => isset($row->reason) ? $this->safeErrorSummary($row->reason) : null,
+            'priority' => isset($row->priority) ? $row->priority : null,
+            'state' => isset($row->state) ? $row->state : null,
+            'support_case_detail_endpoint' => isset($row->transaction_uid) ? $this->supportCaseDetailEndpoint($row->transaction_uid) : null,
+            'support_case_thread_endpoint' => isset($row->transaction_uid) ? $this->supportCaseThreadEndpoint($row->transaction_uid) : null,
+            'detected_at' => isset($row->detected_at) ? $this->isoTime($row->detected_at) : null,
+            'resolved_at' => isset($row->resolved_at) ? $this->isoTime($row->resolved_at) : null,
+            'updated_at' => isset($row->updated_at) ? $this->isoTime($row->updated_at) : null,
+        ];
+    }
+
+    private function supportCaseDetailEndpoint($transactionUid)
+    {
+        $transactionUid = trim((string) $transactionUid);
+
+        return $transactionUid === ''
+            ? null
+            : '/api/b2b/v1/portal/support/cases/' . rawurlencode($transactionUid);
+    }
+
+    private function supportCaseThreadEndpoint($transactionUid)
+    {
+        $detailEndpoint = $this->supportCaseDetailEndpoint($transactionUid);
+
+        return $detailEndpoint === null ? null : $detailEndpoint . '/thread';
+    }
+
+    private function supportTicketDetailEndpoint($ticketUid)
+    {
+        $ticketUid = trim((string) $ticketUid);
+
+        return $ticketUid === ''
+            ? null
+            : '/api/b2b/v1/portal/support/tickets/' . rawurlencode($ticketUid);
+    }
+
+    private function supportTicketThreadEndpoint($ticketUid)
+    {
+        $detailEndpoint = $this->supportTicketDetailEndpoint($ticketUid);
+
+        return $detailEndpoint === null ? null : $detailEndpoint . '/thread';
     }
 
 }

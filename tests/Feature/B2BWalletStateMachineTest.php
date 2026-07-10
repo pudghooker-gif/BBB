@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use InvalidArgumentException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Tests\Concerns\B2BApiTestHelpers;
 use Tests\TestCase;
+use VanguardLTE\B2B\Services\WalletTransactionStateMachine;
 use VanguardLTE\B2B\Services\WalletTransactionService;
 
 class B2BWalletStateMachineTest extends TestCase
@@ -133,6 +135,41 @@ class B2BWalletStateMachineTest extends TestCase
         $this->assertSame('dead_letter', $transition->to_status);
         $this->assertSame('wallet_retry_budget_exhausted', $transition->reason);
         Http::assertSentCount(0);
+    }
+
+    public function testIllegalStateTransitionDoesNotMutateTransactionOrAppendTransition()
+    {
+        $transactionId = $this->insertWalletTransaction('tx_illegal_transition', 'round_illegal_transition', 'success', 1);
+        $transaction = DB::table('b2b_wallet_transactions')->where('id', $transactionId)->first();
+        $transitionCount = DB::table('b2b_wallet_transaction_transitions')
+            ->where('wallet_transaction_id', $transactionId)
+            ->count();
+
+        try {
+            app(WalletTransactionStateMachine::class)->transition($transaction, 'failed', 'illegal_test_transition');
+            $this->fail('Illegal wallet transition should throw.');
+        } catch (InvalidArgumentException $e) {
+            $this->assertStringContainsString('Illegal wallet transaction transition from success to failed', $e->getMessage());
+        }
+
+        $fresh = DB::table('b2b_wallet_transactions')->where('id', $transactionId)->first();
+        $this->assertSame('success', $fresh->status);
+        $this->assertSame(
+            $transitionCount,
+            DB::table('b2b_wallet_transaction_transitions')->where('wallet_transaction_id', $transactionId)->count()
+        );
+    }
+
+    public function testTerminalStateTransitionRulesPreventSilentFinancialRewrites()
+    {
+        $machine = app(WalletTransactionStateMachine::class);
+
+        $this->assertFalse($machine->canTransition('success', 'failed'));
+        $this->assertFalse($machine->canTransition('reversed', 'success'));
+        $this->assertFalse($machine->canTransition('dead_letter', 'success'));
+        $this->assertTrue($machine->canTransition('success', 'rollback_required'));
+        $this->assertTrue($machine->canTransition('rollback_required', 'reversed'));
+        $this->assertTrue($machine->canTransition('dead_letter', 'manual_review'));
     }
 
     private function signedPost($uri, $body, $nonce, $requestId = null)

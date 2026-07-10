@@ -47,4 +47,23 @@ class B2BPayloadRedactorTest extends TestCase
         $this->assertStringContainsString(B2BPayloadRedactor::REDACTED, $text);
         $this->assertStringNotContainsString('abc.def.ghi', $text);
     }
+
+    public function testRedactsKnownTextPatternsInsideJsonValues()
+    {
+        $redactor = new B2BPayloadRedactor();
+
+        $json = $redactor->storageValue(json_encode([
+            'status' => 'failed',
+            'error' => 'callback failed token=legacy-secret-value',
+            'nested' => [
+                'message' => 'authorization: Bearer abc.def.ghi',
+            ],
+        ]));
+        $decoded = json_decode($json, true);
+
+        $this->assertStringContainsString(B2BPayloadRedactor::REDACTED, $decoded['error']);
+        $this->assertStringContainsString(B2BPayloadRedactor::REDACTED, $decoded['nested']['message']);
+        $this->assertStringNotContainsString('legacy-secret-value', $json);
+        $this->assertStringNotContainsString('abc.def.ghi', $json);
+    }
 }

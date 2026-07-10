@@ -30,6 +30,8 @@ class B2BReleaseGate
             $this->structuredLoggingCheck($production),
             $this->providerWalletContractsCheck($production),
             $this->databaseSchemaCheck($production),
+            $this->payloadRedactionAuditCheck($production),
+            $this->apiKeyScopeCheck($production),
             $this->deploymentArtifactsCheck($production),
             $this->websocketRuntimeCheck($production),
             $this->adminRbacCheck($production),
@@ -43,6 +45,7 @@ class B2BReleaseGate
 
         if ($checkDependencyAudit) {
             $checks[] = $this->dependencyAuditCheck($production);
+            $checks[] = $this->webSocketDependencyAuditCheck($production);
         }
 
         $ok = true;
@@ -762,6 +765,7 @@ class B2BReleaseGate
         $missing = [];
         $paths = [
             'PTWebSocket/Server.js',
+            'PTWebSocket/httpClient.js',
             'PTWebSocket/package.json',
             'PTWebSocket/pnpm-lock.yaml',
             'deploy/websocket/socket_config2.production.example.json',
@@ -778,10 +782,14 @@ class B2BReleaseGate
         if (!$package) {
             $missing[] = 'json:PTWebSocket/package.json';
         } else {
-            foreach (['ws', 'request', 'mysql2', 'ioredis', 'moment-timezone'] as $dependency) {
+            foreach (['ws', 'mysql2', 'ioredis', 'moment-timezone'] as $dependency) {
                 if (empty($package['dependencies'][$dependency])) {
                     $missing[] = 'package_dependency:' . $dependency;
                 }
+            }
+
+            if (!empty($package['dependencies']['request'])) {
+                $missing[] = 'package_dependency:deprecated_request';
             }
 
             if (empty($package['scripts']['start']) || strpos($package['scripts']['start'], 'node Server.js') === false) {
@@ -790,6 +798,13 @@ class B2BReleaseGate
 
             if (empty($package['scripts']['check:syntax'])) {
                 $missing[] = 'package_script:check:syntax';
+            }
+        }
+
+        $lock = $this->fileContents(base_path('PTWebSocket/pnpm-lock.yaml'));
+        foreach (['request@', 'deprecated: request'] as $needle) {
+            if (strpos($lock, $needle) !== false) {
+                $missing[] = 'pnpm_lock:deprecated_request';
             }
         }
 
@@ -841,6 +856,7 @@ class B2BReleaseGate
             'function tokenAllowed',
             'function healthResponse',
             'function validHandshakeMessage',
+            "require('./httpClient')",
             'structuredLog',
             'ws.ping()',
             'websocket.handshake_invalid',
@@ -877,6 +893,182 @@ class B2BReleaseGate
                 ? 'Node/WebSocket manifest, lockfile, proxy template, health probe, origin guard, heartbeat, and safe logging are present.'
                 : 'Missing Node/WebSocket runtime release coverage: ' . implode(', ', $missing),
         ];
+    }
+
+    private function apiKeyScopeCheck($production)
+    {
+        $missing = [];
+        $scopePolicy = app(B2BApiKeyScopePolicy::class);
+        $defaultScopes = $scopePolicy->defaultScopes();
+
+        if (in_array(B2BApiKeyScopePolicy::WILDCARD_SCOPE, $defaultScopes, true)) {
+            $missing[] = 'default_scopes:wildcard';
+        }
+
+        if (in_array('reports.export', $defaultScopes, true)) {
+            $missing[] = 'default_scopes:reports.export';
+        }
+
+        $migration = $this->fileContents(base_path('database/migrations/2026_06_24_000011_add_scopes_to_b2b_operator_api_keys_table.php'));
+        foreach (["'scopes'", "json('scopes')", "dropColumn('scopes')"] as $needle) {
+            if (strpos($migration, $needle) === false) {
+                $missing[] = 'api_key_scopes_migration:' . $needle;
+            }
+        }
+
+        $model = $this->fileContents(base_path('app/B2B/Models/B2BOperatorApiKey.php'));
+        foreach (["'scopes'", "'scopes' => 'array'"] as $needle) {
+            if (strpos($model, $needle) === false) {
+                $missing[] = 'api_key_model:' . $needle;
+            }
+        }
+
+        $kernel = $this->fileContents(base_path('app/Http/Kernel.php'));
+        foreach (["'b2b.scope'", 'RequireB2BApiScope'] as $needle) {
+            if (strpos($kernel, $needle) === false) {
+                $missing[] = 'kernel:' . $needle;
+            }
+        }
+
+        foreach ($this->requiredApiScopedRoutes() as $route) {
+            if (!$this->routeUsesMiddlewareByUri($route['method'], $route['uri'], $route['middleware'])) {
+                $missing[] = 'route_scope:' . $route['uri'] . ':' . $route['middleware'];
+            }
+        }
+
+        $middleware = $this->fileContents(base_path('app/Http/Middleware/RequireB2BApiScope.php'));
+        foreach (['B2B_SCOPE_DENIED', 'required_scopes', 'B2BApiKeyScopePolicy'] as $needle) {
+            if (strpos($middleware, $needle) === false) {
+                $missing[] = 'scope_middleware:' . $needle;
+            }
+        }
+
+        $credentialLifecycle = $this->fileContents(base_path('app/B2B/Services/B2BApiCredentialLifecycleService.php'));
+        foreach (['normalizeScopes', "'scopes'", 'B2BApiKeyScopePolicy'] as $needle) {
+            if (strpos($credentialLifecycle, $needle) === false) {
+                $missing[] = 'credential_lifecycle:' . $needle;
+            }
+        }
+
+        $envExample = $this->fileContents(base_path('.env.example'));
+        if (strpos($envExample, 'B2B_API_KEY_DEFAULT_SCOPES=') === false) {
+            $missing[] = 'env:B2B_API_KEY_DEFAULT_SCOPES';
+        }
+
+        $releaseChecks = $this->fileContents(base_path('docs/b2b/RELEASE_CHECKS.md'));
+        foreach (['B2B_API_KEY_DEFAULT_SCOPES', 'reports.export'] as $needle) {
+            if (strpos($releaseChecks, $needle) === false) {
+                $missing[] = 'release_checks:' . $needle;
+            }
+        }
+
+        return [
+            'name' => 'api_key_scopes',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'B2B API keys have explicit scopes and settlement export requires reports.export outside the default key scope set.'
+                : 'Missing B2B API-key scope isolation: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function payloadRedactionAuditCheck($production)
+    {
+        $missing = [];
+
+        $service = $this->fileContents(base_path('app/B2B/Services/B2BPayloadRedactionAuditor.php'));
+        foreach (['B2BPayloadRedactor', 'b2b_wallet_transactions', 'b2b_wallet_transaction_attempts', 'needsRedaction'] as $needle) {
+            if (strpos($service, $needle) === false) {
+                $missing[] = 'payload_auditor:' . $needle;
+            }
+        }
+
+        $redactor = $this->fileContents(base_path('app/B2B/Services/B2BPayloadRedactor.php'));
+        foreach (['redactText($value)', 'return $this->redactText($value);'] as $needle) {
+            if (strpos($redactor, $needle) === false) {
+                $missing[] = 'payload_redactor:' . $needle;
+            }
+        }
+
+        $console = $this->fileContents(base_path('routes/b2b_console.php'));
+        foreach (['b2b:payload-redaction-audit', '--write', '--artifact', 'B2BPayloadRedactionAuditor'] as $needle) {
+            if (strpos($console, $needle) === false) {
+                $missing[] = 'console:' . $needle;
+            }
+        }
+
+        $releaseChecks = $this->fileContents(base_path('docs/b2b/RELEASE_CHECKS.md'));
+        foreach (['b2b:payload-redaction-audit', '--write', 'payload redaction'] as $needle) {
+            if (strpos($releaseChecks, $needle) === false) {
+                $missing[] = 'release_checks:' . $needle;
+            }
+        }
+
+        $runbook = $this->fileContents(base_path('docs/deployment/PRODUCTION_RUNBOOK.md'));
+        foreach (['b2b:payload-redaction-audit', 'PAYLOAD_REDACTION_ARTIFACT', 'release-evidence'] as $needle) {
+            if (strpos($runbook, $needle) === false) {
+                $missing[] = 'runbook:' . $needle;
+            }
+        }
+
+        return [
+            'name' => 'payload_redaction_audit',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Legacy B2B wallet payload redaction audit/remediation tooling and release docs are present.'
+                : 'Missing legacy B2B payload redaction audit coverage: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function requiredApiScopedRoutes()
+    {
+        $routes = [
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/operator/me', 'middleware' => 'b2b.scope:operator.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/portal', 'middleware' => 'b2b.scope:portal.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/portal/overview', 'middleware' => 'b2b.scope:portal.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/portal/support/cases/{transaction_uid}', 'middleware' => 'b2b.scope:portal.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/portal/support/tickets/{ticket_uid}', 'middleware' => 'b2b.scope:portal.read'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/portal/support/cases/{transaction_uid}/comments', 'middleware' => 'b2b.scope:support.write'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/portal/support/tickets', 'middleware' => 'b2b.scope:support.write'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/portal/support/tickets/{ticket_uid}/comments', 'middleware' => 'b2b.scope:support.write'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/portal/support/tickets/{ticket_uid}/close', 'middleware' => 'b2b.scope:support.write'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/games', 'middleware' => 'b2b.scope:games.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/games/{game_uid}', 'middleware' => 'b2b.scope:games.read'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/games/launch', 'middleware' => 'b2b.scope:games.launch'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/sessions', 'middleware' => 'b2b.scope:sessions.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/sessions/{session_uid}', 'middleware' => 'b2b.scope:sessions.read'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/sessions/{session_uid}/close', 'middleware' => 'b2b.scope:sessions.close'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/wallet/balance', 'middleware' => 'b2b.scope:wallet.balance'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/wallet/bet', 'middleware' => 'b2b.scope:wallet.mutate'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/wallet/win', 'middleware' => 'b2b.scope:wallet.mutate'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/wallet/refund', 'middleware' => 'b2b.scope:wallet.mutate'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/wallet/rollback', 'middleware' => 'b2b.scope:wallet.mutate'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/wallet/health', 'middleware' => 'b2b.scope:wallet.status'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/wallet/transactions/{transaction_uid}/status', 'middleware' => 'b2b.scope:wallet.status'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/wallet/transactions/{transaction_uid}/attempts', 'middleware' => 'b2b.scope:wallet.status'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/reports/summary', 'middleware' => 'b2b.scope:reports.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/reports/transactions', 'middleware' => 'b2b.scope:reports.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/reports/ggr', 'middleware' => 'b2b.scope:reports.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/reports/settlements', 'middleware' => 'b2b.scope:reports.read'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/reports/settlements/export', 'middleware' => 'b2b.scope:reports.read'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/reports/settlements/export', 'middleware' => 'b2b.scope:reports.export'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/reports/settlements/{settlement_uid}', 'middleware' => 'b2b.scope:reports.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/reports/reconciliation', 'middleware' => 'b2b.scope:reports.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/reports/transactions/{transaction_uid}', 'middleware' => 'b2b.scope:reports.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/sandbox/wallet/{player_id}', 'middleware' => 'b2b.scope:sandbox.wallet.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/sandbox/wallet/{player_id}/entries', 'middleware' => 'b2b.scope:sandbox.wallet.read'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/sandbox/wallet/{player_id}/credit', 'middleware' => 'b2b.scope:sandbox.wallet.mutate'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/sandbox/wallet/{player_id}/debit', 'middleware' => 'b2b.scope:sandbox.wallet.mutate'],
+        ];
+
+        foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'docs'] as $portalSection) {
+            $routes[] = [
+                'method' => 'GET',
+                'uri' => 'api/b2b/v1/portal/' . $portalSection,
+                'middleware' => 'b2b.scope:portal.read',
+            ];
+        }
+
+        return $routes;
     }
 
     private function adminRbacCheck($production)
@@ -919,6 +1111,31 @@ class B2BReleaseGate
         $permissions = config('b2b_admin.permissions', []);
         $actions = config('b2b_admin.privileged_actions', []);
         $missing = [];
+
+        if ($production && !(bool) config('b2b_admin.web_step_up_requires_password', true)) {
+            $missing[] = 'web_step_up_requires_password';
+        }
+
+        $stepUpGuard = $this->fileContents(base_path('app/B2B/Services/B2BWebStepUpGuard.php'));
+        foreach (['Hash::check', 'password_verified_at', 'current_password_required'] as $needle) {
+            if (strpos($stepUpGuard, $needle) === false) {
+                $missing[] = 'web_step_up_guard:' . $needle;
+            }
+        }
+
+        $stepUpController = $this->fileContents(base_path('app/Http/Controllers/Web/Backend/B2BStepUpController.php'));
+        foreach (['current_password', 'passwordRequired()', "'2fa'"] as $needle) {
+            if (strpos($stepUpController, $needle) === false) {
+                $missing[] = 'web_step_up_controller:' . $needle;
+            }
+        }
+
+        $stepUpView = $this->fileContents(base_path('resources/views/backend/b2b/step-up.blade.php'));
+        foreach (['current_password', 'autocomplete="current-password"'] as $needle) {
+            if (strpos($stepUpView, $needle) === false) {
+                $missing[] = 'web_step_up_view:' . $needle;
+            }
+        }
 
         foreach ($requiredPermissions as $permission) {
             if (!array_key_exists($permission, $permissions)) {
@@ -1188,6 +1405,66 @@ class B2BReleaseGate
             $missing[] = 'view:b2b.operator-portal.section';
         }
 
+        if (!View::exists('b2b.operator-portal.thread')) {
+            $missing[] = 'view:b2b.operator-portal.thread';
+        }
+
+        $portalQuery = $this->fileContents(base_path('app/B2B/Services/B2BOperatorPortalQuery.php'));
+        foreach (["'scopes'", 'scopeList(', "'scopes_count'"] as $needle) {
+            if (strpos($portalQuery, $needle) === false) {
+                $missing[] = 'portal_query_scope_visibility:' . $needle;
+            }
+        }
+        foreach ([
+            'support_case_detail_template',
+            'support_case_thread_template',
+            'support_ticket_detail_template',
+            'support_ticket_thread_template',
+            'support_case_detail_endpoint',
+            'support_case_thread_endpoint',
+            'recent_cases',
+            'detail_endpoint',
+            'thread_endpoint',
+        ] as $needle) {
+            if (strpos($portalQuery, $needle) === false) {
+                $missing[] = 'portal_query_detail_endpoint:' . $needle;
+            }
+        }
+
+        foreach ([
+            'resources/views/b2b/operator-portal/overview.blade.php',
+            'resources/views/b2b/operator-portal/section.blade.php',
+        ] as $viewPath) {
+            $view = $this->fileContents(base_path($viewPath));
+            if (strpos($view, "\$key['scopes']") === false) {
+                $missing[] = 'portal_view_scope_visibility:' . $viewPath;
+            }
+            foreach (['Detail Endpoint', 'support_case_detail_endpoint', 'detail_endpoint'] as $needle) {
+                if (strpos($view, $needle) === false) {
+                    $missing[] = 'portal_view_detail_endpoint:' . $viewPath . ':' . $needle;
+                }
+            }
+            foreach (['Thread Page', 'support_case_thread_endpoint', 'thread_endpoint'] as $needle) {
+                if (strpos($view, $needle) === false) {
+                    $missing[] = 'portal_view_thread_endpoint:' . $viewPath . ':' . $needle;
+                }
+            }
+            if ($viewPath === 'resources/views/b2b/operator-portal/section.blade.php') {
+                foreach (['Recent Cases', 'recent_cases'] as $needle) {
+                    if (strpos($view, $needle) === false) {
+                        $missing[] = 'portal_view_recent_cases:' . $needle;
+                    }
+                }
+            }
+        }
+
+        $portalThreadView = $this->fileContents(base_path('resources/views/b2b/operator-portal/thread.blade.php'));
+        foreach (["\$thread_type === 'case'", 'Case Summary', 'Ticket Summary', 'API Detail Endpoint'] as $needle) {
+            if (strpos($portalThreadView, $needle) === false) {
+                $missing[] = 'portal_thread_view:' . $needle;
+            }
+        }
+
         if ($this->routeMiddlewareClass('b2b.web_step_up') !== 'VanguardLTE\Http\Middleware\RequireB2BWebStepUp') {
             $missing[] = 'middleware:b2b.web_step_up';
         }
@@ -1207,6 +1484,10 @@ class B2BReleaseGate
             'api/b2b/v1/portal/reports',
             'api/b2b/v1/portal/support',
             'api/b2b/v1/portal/docs',
+            'api/b2b/v1/portal/support/cases/{transaction_uid}',
+            'api/b2b/v1/portal/support/cases/{transaction_uid}/thread',
+            'api/b2b/v1/portal/support/tickets/{ticket_uid}',
+            'api/b2b/v1/portal/support/tickets/{ticket_uid}/thread',
             'api/b2b/v1/games/{game_uid}',
         ] as $uri) {
             if (!$this->routeExists('GET', $uri)) {
@@ -1469,6 +1750,17 @@ class B2BReleaseGate
         return in_array($middleware, $route->gatherMiddleware(), true);
     }
 
+    private function routeUsesMiddlewareByUri($method, $uri, $middleware)
+    {
+        foreach (Route::getRoutes() as $route) {
+            if ($route->uri() === $uri && in_array($method, $route->methods(), true)) {
+                return in_array($middleware, $route->gatherMiddleware(), true);
+            }
+        }
+
+        return false;
+    }
+
     private function dependencyAuditCheck($production)
     {
         if (!file_exists(base_path('composer.lock'))) {
@@ -1529,6 +1821,71 @@ class B2BReleaseGate
     protected function runDependencyAuditCommand()
     {
         $process = Process::fromShellCommandline('composer audit --locked --no-dev --format=json --abandoned=report', base_path());
+        $process->setTimeout(120);
+        $process->run();
+
+        return [
+            'exit_code' => $process->getExitCode(),
+            'output' => $process->getOutput(),
+            'error' => $process->getErrorOutput(),
+        ];
+    }
+
+    private function webSocketDependencyAuditCheck($production)
+    {
+        if (!file_exists(base_path('PTWebSocket/pnpm-lock.yaml'))) {
+            return [
+                'name' => 'websocket_dependency_audit',
+                'status' => $production ? 'fail' : 'warn',
+                'message' => 'PTWebSocket/pnpm-lock.yaml is missing; WebSocket dependency advisories cannot be verified.',
+            ];
+        }
+
+        $result = $this->runWebSocketDependencyAuditCommand();
+        $payload = json_decode($result['output'], true);
+
+        if (!is_array($payload)) {
+            return [
+                'name' => 'websocket_dependency_audit',
+                'status' => $production ? 'fail' : 'warn',
+                'message' => 'WebSocket pnpm audit could not be parsed: ' . trim($result['error'] ?: $result['output']),
+            ];
+        }
+
+        $vulnerabilities = isset($payload['metadata']['vulnerabilities']) && is_array($payload['metadata']['vulnerabilities'])
+            ? $payload['metadata']['vulnerabilities']
+            : [];
+        $total = 0;
+        foreach (['info', 'low', 'moderate', 'high', 'critical'] as $severity) {
+            $total += isset($vulnerabilities[$severity]) ? (int) $vulnerabilities[$severity] : 0;
+        }
+
+        if ($total === 0) {
+            return [
+                'name' => 'websocket_dependency_audit',
+                'status' => 'pass',
+                'message' => 'WebSocket pnpm production dependency audit has no known vulnerabilities.',
+            ];
+        }
+
+        $parts = [];
+        foreach (['critical', 'high', 'moderate', 'low', 'info'] as $severity) {
+            $count = isset($vulnerabilities[$severity]) ? (int) $vulnerabilities[$severity] : 0;
+            if ($count > 0) {
+                $parts[] = $count . ' ' . $severity;
+            }
+        }
+
+        return [
+            'name' => 'websocket_dependency_audit',
+            'status' => $production ? 'fail' : 'warn',
+            'message' => 'WebSocket pnpm production dependency audit found ' . implode(', ', $parts) . ' vulnerabilities.',
+        ];
+    }
+
+    protected function runWebSocketDependencyAuditCommand()
+    {
+        $process = Process::fromShellCommandline('pnpm audit --prod --json', base_path('PTWebSocket'));
         $process->setTimeout(120);
         $process->run();
 

@@ -249,7 +249,7 @@ function SendMessageToPHP(ws,params,ab){
 	
  
  /*------------------------*/
-var request = require('request');
+var request = require('./httpClient');
 var gameName='';
 var ck=ws.cookie;
 var sessionId=ws.sessionId;

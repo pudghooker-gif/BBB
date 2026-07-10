@@ -21,6 +21,7 @@ class B2BReleaseEvidenceCheckerTest extends TestCase
         $this->assertCheckPassed($result, 'manifest_metadata');
         $this->assertCheckPassed($result, 'manifest_secret_hygiene');
         $this->assertCheckPassed($result, 'evidence_staging_migration_rehearsal');
+        $this->assertCheckPassed($result, 'evidence_payload_redaction_audit');
         $this->assertCheckPassed($result, 'evidence_provider_certification');
         $this->assertCheckPassed($result, 'evidence_legal_approval');
     }
@@ -35,6 +36,19 @@ class B2BReleaseEvidenceCheckerTest extends TestCase
 
         $this->assertFalse($result['ok']);
         $this->assertCheckFailed($result, 'evidence_smoke');
+    }
+
+    public function testProductionEvidencePackageFailsWhenPayloadRedactionAuditEvidenceIsMissing()
+    {
+        $checker = new B2BReleaseEvidenceChecker();
+        $dir = $this->createEvidencePackage($checker, function (&$manifest) {
+            unset($manifest['evidence']['payload_redaction_audit']);
+        });
+
+        $result = $checker->check($dir, true);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'evidence_payload_redaction_audit');
     }
 
     public function testProductionEvidencePackageFailsWhenArtifactHashIsMissing()
@@ -162,6 +176,10 @@ class B2BReleaseEvidenceCheckerTest extends TestCase
             'migration/b2b-migration-rehearsal-20260703T010203Z.log',
             $manifest['evidence']['staging_migration_rehearsal']['artifact']
         );
+        $this->assertSame(
+            'payload-redaction-final.json',
+            $manifest['evidence']['payload_redaction_audit']['artifact']
+        );
 
         foreach ($checker->requiredEvidence() as $key => $requirement) {
             $entry = $manifest['evidence'][$key];
@@ -202,6 +220,7 @@ class B2BReleaseEvidenceCheckerTest extends TestCase
 
         $manifest = json_decode(file_get_contents($manifestPath), true);
         $this->assertSame('2026.07.03-command', $manifest['release_id']);
+        $this->assertArrayHasKey('payload_redaction_audit', $manifest['evidence']);
         $this->assertArrayHasKey('legal_approval', $manifest['evidence']);
 
         $protected = Artisan::call('b2b:evidence-template', [

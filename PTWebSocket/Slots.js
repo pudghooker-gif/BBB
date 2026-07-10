@@ -163,7 +163,7 @@ wss1.on('connection', function connection(ws) {
   
     
   
-var request = require('request');
+var request = require('./httpClient');
 
 var gameName='';
 
@@ -312,5 +312,4 @@ server.on('upgrade', function upgrade(request, socket, head) {
 });
 
 server.listen(serverConfig.port.split("/")[0]);
-
 

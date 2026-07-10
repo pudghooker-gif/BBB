@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Services\B2BLaunchBridge;
+use VanguardLTE\B2B\Services\B2BPayloadRedactor;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 
 class SessionController extends Controller
@@ -39,6 +40,13 @@ class SessionController extends Controller
         B2BGameSession::STATUS_FAILED,
     ];
 
+    protected $redactor;
+
+    public function __construct(B2BPayloadRedactor $redactor)
+    {
+        $this->redactor = $redactor;
+    }
+
     protected function operatorId(Request $request)
     {
         $operator = $request->attributes->get('b2b_operator');
@@ -66,7 +74,9 @@ class SessionController extends Controller
         $this->applySessionFilters($query, $operatorId, $filters);
         $matchedCount = (clone $query)->count();
         $this->applySessionSort($query, $filters['sort']);
-        $rows = $query->limit($filters['limit'])->get();
+        $rows = $query->limit($filters['limit'])->get()->map(function ($session) {
+            return $this->publicSessionPayload($session);
+        });
 
         return B2BApiResponse::success($request, $rows, 200, [
             'limit' => $filters['limit'],
@@ -114,7 +124,7 @@ class SessionController extends Controller
             ->get();
 
         return B2BApiResponse::success($request, [
-            'session' => $session,
+            'session' => $this->publicSessionPayload($session),
             'transactions' => $transactions,
         ]);
     }
@@ -273,6 +283,27 @@ class SessionController extends Controller
         ], function ($value) {
             return $value !== null && $value !== '';
         });
+    }
+
+    private function publicSessionPayload($session)
+    {
+        if (is_array($session)) {
+            $payload = $session;
+        } elseif (is_object($session) && method_exists($session, 'getAttributes')) {
+            $payload = $session->getAttributes();
+        } else {
+            $payload = (array) $session;
+        }
+
+        foreach (['token_hash', 'launch_url', 'legacy_launch_token', 'legacy_launch_url'] as $secretField) {
+            unset($payload[$secretField]);
+        }
+
+        if (array_key_exists('metadata', $payload)) {
+            $payload['metadata'] = $this->redactor->redact($payload['metadata']);
+        }
+
+        return $payload;
     }
 
     private function validateSessionUid(Request $request, $sessionUid)

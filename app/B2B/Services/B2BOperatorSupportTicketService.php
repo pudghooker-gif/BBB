@@ -196,6 +196,19 @@ class B2BOperatorSupportTicketService
         });
     }
 
+    public function show($operator, $ticketUid, $limit = 50)
+    {
+        $this->assertTablesReady();
+        $this->assertOperator($operator);
+
+        $ticket = $this->ownedTicket((int) $operator->id, $ticketUid, true);
+        $payload = $this->ticketPayload($ticket);
+        $payload['latest_message'] = $this->latestTicketMessage($ticket->id, (int) $operator->id);
+        $payload['messages'] = $this->ticketMessages($ticket->id, (int) $operator->id, $limit);
+
+        return $payload;
+    }
+
     public function backofficeTickets($limit = 50)
     {
         if (!Schema::hasTable('b2b_operator_support_tickets')) {
@@ -431,11 +444,11 @@ class B2BOperatorSupportTicketService
 
         return [
             'ticket_uid' => $ticket->ticket_uid,
-            'subject' => $ticket->subject,
+            'subject' => $this->safeText(isset($ticket->subject) ? $ticket->subject : null, 160),
             'status' => $ticket->status,
             'priority' => $ticket->priority,
-            'category' => isset($ticket->category) ? $ticket->category : null,
-            'external_reference' => isset($ticket->external_reference) ? $ticket->external_reference : null,
+            'category' => isset($ticket->category) ? $this->safeNullableText($ticket->category, 80) : null,
+            'external_reference' => isset($ticket->external_reference) ? $this->safeNullableText($ticket->external_reference, 120) : null,
             'message_count' => $this->messageCount($ticket->id),
             'last_message_at' => $this->isoTime(isset($ticket->last_message_at) ? $ticket->last_message_at : null),
             'closed_at' => $this->isoTime(isset($ticket->closed_at) ? $ticket->closed_at : null),
@@ -675,6 +688,77 @@ class B2BOperatorSupportTicketService
             ->count();
     }
 
+    private function ticketMessages($ticketId, $operatorId, $limit)
+    {
+        if (!Schema::hasTable('b2b_operator_support_ticket_messages')) {
+            return [];
+        }
+
+        $limit = max(1, min((int) $limit, 100));
+
+        return DB::table('b2b_operator_support_ticket_messages')
+            ->where('ticket_id', (int) $ticketId)
+            ->where('operator_id', (int) $operatorId)
+            ->orderBy('created_at')
+            ->orderBy('id')
+            ->limit($limit)
+            ->get($this->selectExisting('b2b_operator_support_ticket_messages', [
+                'actor',
+                'source',
+                'message',
+                'metadata',
+                'created_at',
+            ]))
+            ->map(function ($row) {
+                return $this->ticketMessagePayload($row);
+            })->values()->all();
+    }
+
+    private function latestTicketMessage($ticketId, $operatorId)
+    {
+        if (!Schema::hasTable('b2b_operator_support_ticket_messages')) {
+            return null;
+        }
+
+        $row = DB::table('b2b_operator_support_ticket_messages')
+            ->where('ticket_id', (int) $ticketId)
+            ->where('operator_id', (int) $operatorId)
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ->first($this->selectExisting('b2b_operator_support_ticket_messages', [
+                'actor',
+                'source',
+                'message',
+                'metadata',
+                'created_at',
+            ]));
+
+        return $row ? $this->ticketMessagePayload($row) : null;
+    }
+
+    private function ticketMessagePayload($row)
+    {
+        return [
+            'actor' => isset($row->actor) ? $this->safeNullableText($row->actor, 100) : null,
+            'source' => isset($row->source) ? $this->safeNullableText($row->source, 40) : null,
+            'message' => isset($row->message) ? $this->safeText($row->message, 2000) : '',
+            'metadata' => isset($row->metadata) ? $this->safeMetadata($row->metadata) : null,
+            'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
+        ];
+    }
+
+    private function safeMetadata($value)
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        $redacted = $this->redactor->storageValue((string) $value);
+        $decoded = json_decode((string) $redacted, true);
+
+        return json_last_error() === JSON_ERROR_NONE ? $decoded : null;
+    }
+
     private function isoTime($value)
     {
         if (!$value) {
@@ -693,6 +777,20 @@ class B2BOperatorSupportTicketService
     private function contextValue(array $context, $key)
     {
         return isset($context[$key]) ? $context[$key] : null;
+    }
+
+    private function selectExisting($table, array $columns)
+    {
+        $select = [];
+        foreach ($columns as $column) {
+            if (Schema::hasColumn($table, $column)) {
+                $select[] = $column;
+            } else {
+                $select[] = DB::raw('NULL as ' . $column);
+            }
+        }
+
+        return $select;
     }
 
     private function filterColumns($table, array $values)

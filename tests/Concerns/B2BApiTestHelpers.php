@@ -45,7 +45,7 @@ trait B2BApiTestHelpers
         ];
     }
 
-    protected function createB2BOperator($operatorUid, $keyId, $secret, array $overrides = [])
+    protected function createB2BOperator($operatorUid, $keyId, $secret, array $overrides = [], array $apiKeyOverrides = [])
     {
         $operator = B2BOperator::create(array_merge([
             'operator_uid' => $operatorUid,
@@ -60,12 +60,13 @@ trait B2BApiTestHelpers
             'connect_timeout_ms' => 1500,
         ], $overrides));
 
-        B2BOperatorApiKey::create([
+        B2BOperatorApiKey::create(array_merge([
             'operator_id' => $operator->id,
             'key_id' => $keyId,
             'secret_encrypted' => Crypt::encryptString($secret),
             'status' => B2BOperatorApiKey::STATUS_ACTIVE,
-        ]);
+            'scopes' => config('b2b.api_key_default_scopes', []),
+        ], $apiKeyOverrides));
 
         return $operator;
     }
@@ -128,6 +129,7 @@ trait B2BApiTestHelpers
             $table->text('secret_encrypted');
             $table->string('status')->default('active');
             $table->integer('max_rps')->nullable();
+            $table->json('scopes')->nullable();
             $table->timestamp('last_used_at')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();

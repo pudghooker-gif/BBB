@@ -15,6 +15,10 @@ class B2BReleaseEvidenceChecker
                 'label' => 'php artisan b2b:release-check --production output',
                 'statuses' => ['passed', 'verified'],
             ],
+            'payload_redaction_audit' => [
+                'label' => 'Final clean legacy B2B payload redaction audit artifact',
+                'statuses' => ['passed', 'verified'],
+            ],
             'healthcheck' => [
                 'label' => 'deploy/scripts/healthcheck.sh output from the target topology',
                 'statuses' => ['passed', 'verified'],
@@ -510,6 +514,7 @@ class B2BReleaseEvidenceChecker
         $paths = [
             'staging_migration_rehearsal' => ['migration/b2b-migration-rehearsal-{stamp}.log'],
             'production_release_gate' => ['preflight/b2b-release-check-{stamp}.log'],
+            'payload_redaction_audit' => ['payload-redaction-final.json'],
             'healthcheck' => [
                 'preflight/b2b-healthcheck-{stamp}.log',
                 'preflight/readiness-{stamp}.json',
@@ -542,6 +547,7 @@ class B2BReleaseEvidenceChecker
         $owners = [
             'smoke' => 'qa',
             'smoke_load' => 'qa',
+            'payload_redaction_audit' => 'security',
             'websocket_public_proxy' => 'platform',
             'backup' => 'database-operations',
             'restore_rehearsal' => 'database-operations',

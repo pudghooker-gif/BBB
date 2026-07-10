@@ -55,6 +55,7 @@
     { "key": "sessionId", "value": "sess_xxx" },
     { "key": "transactionId", "value": "bet_001" },
     { "key": "settlementId", "value": "stl_xxx" },
+    { "key": "supportTicketId", "value": "sup_xxx" },
     { "key": "roundId", "value": "round_001" },
     { "key": "currency", "value": "USD" }
   ],
@@ -218,6 +219,25 @@
           "response": []
         },
         {
+          "name": "Portal Support Case Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/portal/support/cases/{{transactionId}}?limit=50"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Support Case Thread Page",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/support/cases/{{transactionId}}/thread?limit=50"
+          },
+          "response": []
+        },
+        {
           "name": "Portal Support Case Comment",
           "request": {
             "method": "POST",
@@ -238,6 +258,25 @@
               "mode": "raw",
               "raw": "{\n  \"subject\": \"Wallet callback follow-up\",\n  \"message\": \"Please investigate this operator-visible issue.\",\n  \"priority\": \"high\",\n  \"category\": \"wallet\",\n  \"external_reference\": \"OP-TICKET-123\"\n}"
             }
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Support Ticket Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/b2b/v1/portal/support/tickets/{{supportTicketId}}?limit=50"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Support Ticket Thread Page",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/thread?limit=50"
           },
           "response": []
         },

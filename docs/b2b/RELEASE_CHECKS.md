@@ -14,9 +14,19 @@ php artisan b2b:evidence-hash /var/www/bbb/release-evidence/<release-id> --write
 php artisan b2b:evidence-check /var/www/bbb/release-evidence/<release-id> --production
 ```
 
+Before broad backoffice payload exposure, run the legacy wallet payload redaction audit and store the final clean dry-run artifact with release evidence:
+
+```bash
+php artisan b2b:payload-redaction-audit --artifact=/var/www/bbb/release-evidence/<release-id>/payload-redaction-dry-run.json
+php artisan b2b:payload-redaction-audit --write --artifact=/var/www/bbb/release-evidence/<release-id>/payload-redaction-write.json
+php artisan b2b:payload-redaction-audit --artifact=/var/www/bbb/release-evidence/<release-id>/payload-redaction-final.json
+```
+
+The dry-run exits non-zero when legacy unredacted payload fields are found. The JSON artifact contains counts by table/column only and must not contain payload values. The final clean dry-run artifact must be referenced by `payload_redaction_audit` in `release-evidence.json` before `b2b:evidence-hash --write` and `b2b:evidence-check --production` are run.
+
 The `B2B Release Verification` GitHub Actions workflow runs the same production
-gate and a locked production Composer audit as hard failures. A red workflow is
-a release blocker, not an advisory signal.
+gate, a locked production Composer audit, and a WebSocket `pnpm audit --prod`
+as hard failures. A red workflow is a release blocker, not an advisory signal.
 
 The command fails production mode when:
 
@@ -29,6 +39,9 @@ The command fails production mode when:
 - `APP_DEBUG` is enabled;
 - session cookies are not secure, HTTP-only, and SameSite protected;
 - production login throttling is disabled or configured above the maximum attempt budget;
+- B2B web step-up does not require a current-password check for privileged backend actions;
+- legacy B2B payload redaction audit/remediation tooling or payload redaction release evidence documentation is missing;
+- B2B API keys do not have explicit scopes, settlement export is not protected by `reports.export`, or `B2B_API_KEY_DEFAULT_SCOPES` grants `reports.export`/`*` by default;
 - password policy is below the production floor, allows whitespace, or active credential flows bypass the centralized policy;
 - credential changes cannot revoke sessions/tokens because database sessions, the `sessions`/`api_tokens` runtime migrations, or credential-change listener wiring are missing;
 - private wallet callback targets are enabled;
@@ -36,6 +49,7 @@ The command fails production mode when:
 - B2B structured logging is disabled or points to a non-JSON-formatted channel;
 - B2B wallet `transaction_id` storage or production lookup/reporting database index migrations are missing;
 - production Composer dependencies (`composer audit --locked --no-dev`) have security advisories or abandoned packages;
+- WebSocket production dependencies (`pnpm audit --prod` under `PTWebSocket/`) have known vulnerabilities;
 - Laravel advisory mitigations for CRLF email validation, PHP upload extensions, or disabled framework signed routes are missing;
 - B2B readiness, metrics, backend dashboard, operator portal page/overview, or web step-up surfaces are not registered;
 - Node/WebSocket manifest, lockfile, proxy template, health probe, origin guard, heartbeat, safe logging, or production config controls are missing;
@@ -43,7 +57,7 @@ The command fails production mode when:
 - B2B admin RBAC/privileged step-up configuration is missing;
 - known local/secret-bearing files are present in the release artifact.
 
-`b2b:evidence-template` creates a fresh `release-evidence.json` skeleton from the same required evidence list used by the production checker. `b2b:evidence-hash --write` calculates SHA-256 hashes for every artifact referenced by `release-evidence.json` and writes `sha256` or `artifact_hashes` back into the manifest. `b2b:evidence-check --production` fails when the external evidence directory is missing `release-evidence.json`, when required evidence entries or non-empty artifacts are missing, when provider/legal approvals lack an `approved_by` owner, when any artifact lacks a SHA-256 hash, when artifact hashes do not match, or when the manifest or artifact files appear to contain inline secrets. The command expects redacted logs or references for staging migration rehearsal, production release gate output, healthcheck, smoke, smoke-load, WebSocket public proxy validation, backup, restore rehearsal, rollback rehearsal, Prometheus, Alertmanager, log shipping, provider credentials/certification, legal approval, and final domains/TLS/proxy/shared-state validation. Use `sha256` for a single `artifact` entry and `artifact_hashes` for entries with multiple `artifacts`. Run migration rehearsal with `MIGRATION_REHEARSAL_ARTIFACT_DIR`, `deploy/scripts/healthcheck.sh` with `HEALTHCHECK_ARTIFACT_DIR`, the smoke script with `B2B_SMOKE_ARTIFACT_DIR`, the k6 scenario with `K6_SUMMARY_PATH`, backup with `BACKUP_ARTIFACT_DIR`, restore with `RESTORE_ARTIFACT_DIR`, and rollback with `ROLLBACK_ARTIFACT_DIR` so those checks write evidence-ready artifacts directly into the release evidence directory.
+`b2b:evidence-template` creates a fresh `release-evidence.json` skeleton from the same required evidence list used by the production checker. `b2b:evidence-hash --write` calculates SHA-256 hashes for every artifact referenced by `release-evidence.json` and writes `sha256` or `artifact_hashes` back into the manifest. `b2b:evidence-check --production` fails when the external evidence directory is missing `release-evidence.json`, when required evidence entries or non-empty artifacts are missing, when provider/legal approvals lack an `approved_by` owner, when any artifact lacks a SHA-256 hash, when artifact hashes do not match, or when the manifest or artifact files appear to contain inline secrets. The command expects redacted logs or references for staging migration rehearsal, production release gate output, final clean payload redaction audit, healthcheck, smoke, smoke-load, WebSocket public proxy validation, backup, restore rehearsal, rollback rehearsal, Prometheus, Alertmanager, log shipping, provider credentials/certification, legal approval, and final domains/TLS/proxy/shared-state validation. Use `sha256` for a single `artifact` entry and `artifact_hashes` for entries with multiple `artifacts`. Run migration rehearsal with `MIGRATION_REHEARSAL_ARTIFACT_DIR`, `deploy/scripts/healthcheck.sh` with `HEALTHCHECK_ARTIFACT_DIR`, the smoke script with `B2B_SMOKE_ARTIFACT_DIR`, the k6 scenario with `K6_SUMMARY_PATH`, backup with `BACKUP_ARTIFACT_DIR`, restore with `RESTORE_ARTIFACT_DIR`, and rollback with `ROLLBACK_ARTIFACT_DIR` so those checks write evidence-ready artifacts directly into the release evidence directory.
 
 Required production environment values:
 
@@ -67,6 +81,9 @@ SESSION_SAME_SITE=lax
 LOGIN_THROTTLE_PRODUCTION_ENFORCED=true
 LOGIN_THROTTLE_MAX_ATTEMPTS=10
 LOGIN_THROTTLE_LOCKOUT_MINUTES=1
+B2B_WEB_STEP_UP_REQUIRES_PASSWORD=true
+B2B_WEB_STEP_UP_TTL_SECONDS=300
+B2B_API_KEY_DEFAULT_SCOPES=operator.read,portal.read,games.read,games.launch,sessions.read,sessions.close,wallet.balance,wallet.status,wallet.mutate,reports.read,support.write
 PASSWORD_POLICY_MIN_LENGTH=12
 PASSWORD_POLICY_MAX_LENGTH=72
 PASSWORD_POLICY_REQUIRE_MIXED_CASE=true

@@ -48,6 +48,8 @@ class B2BPayloadRedactor
             if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
                 return $this->redactArray($decoded);
             }
+
+            return $this->redactText($value);
         }
 
         return $value;

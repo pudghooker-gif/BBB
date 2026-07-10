@@ -10,7 +10,9 @@ use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BOperatorApiKey;
 use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Models\B2BWalletTransaction;
+use VanguardLTE\B2B\Services\B2BApiCredentialLifecycleService;
 use VanguardLTE\B2B\Services\B2BOperatorAuditLogger;
+use VanguardLTE\B2B\Services\B2BPayloadRedactionAuditor;
 use VanguardLTE\B2B\Services\B2BPrivilegedActionGuard;
 use VanguardLTE\B2B\Services\B2BReleaseEvidenceChecker;
 use VanguardLTE\B2B\Services\B2BReleaseGate;
@@ -18,7 +20,7 @@ use VanguardLTE\B2B\Services\B2BSchedulerHeartbeat;
 use VanguardLTE\B2B\Services\B2BSettlementWorkflowService;
 use VanguardLTE\B2B\Services\B2BSignature;
 
-Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_callback_url=} {--currency=USD} {--max_rps=50} {--api_key_max_rps=} {--wallet_timeout_ms=3000} {--actor=} {--reason=} {--permission=} {--confirm=}', function (B2BOperatorAuditLogger $audit, B2BPrivilegedActionGuard $guard) {
+Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_callback_url=} {--currency=USD} {--max_rps=50} {--api_key_max_rps=} {--scopes=} {--wallet_timeout_ms=3000} {--actor=} {--reason=} {--permission=} {--confirm=}', function (B2BOperatorAuditLogger $audit, B2BPrivilegedActionGuard $guard) {
     if (!Schema::hasTable('b2b_operators') || !Schema::hasTable('b2b_operator_api_keys')) {
         $this->error('B2B tables are missing. Run: php artisan migrate');
         return 1;
@@ -72,6 +74,9 @@ Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_
     if (Schema::hasColumn('b2b_operator_api_keys', 'max_rps') && $this->option('api_key_max_rps') !== null && $this->option('api_key_max_rps') !== '') {
         $apiKeyData['max_rps'] = (int) $this->option('api_key_max_rps');
     }
+    if (Schema::hasColumn('b2b_operator_api_keys', 'scopes')) {
+        $apiKeyData['scopes'] = app(B2BApiCredentialLifecycleService::class)->normalizeScopes($this->option('scopes'));
+    }
 
     $apiKey = B2BOperatorApiKey::create($apiKeyData);
 
@@ -85,6 +90,7 @@ Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_
     $audit->record($operator, 'api_key.created', 'api_key', $apiKey->key_id, $this->option('actor') ?: 'b2b:make-operator', $this->option('reason') ?: 'Initial B2B API key provisioning.', [
         'key_id' => $apiKey->key_id,
         'max_rps' => isset($apiKeyData['max_rps']) ? $apiKeyData['max_rps'] : null,
+        'scopes' => isset($apiKeyData['scopes']) ? $apiKeyData['scopes'] : null,
         'permission' => isset($privilege['permission']) ? $privilege['permission'] : null,
         'step_up' => !empty($privilege['step_up']),
     ]);
@@ -94,13 +100,14 @@ Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_
     $this->line('X-Operator-Id: ' . $operatorUid);
     $this->line('X-Api-Key:     ' . $keyId);
     $this->line('Secret:        ' . $secret);
+    $this->line('Scopes:        ' . (isset($apiKeyData['scopes']) ? implode(', ', $apiKeyData['scopes']) : 'none'));
     $this->line('');
     $this->line('Next: php artisan b2b:show-hmac ' . $operatorUid . ' ' . $keyId . ' ' . $secret . ' GET /api/b2b/v1/operator/me');
 
     return 0;
 });
 
-Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--actor=} {--reason=} {--permission=} {--confirm=} {--revoke-existing}', function (B2BOperatorAuditLogger $audit, B2BPrivilegedActionGuard $guard) {
+Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--scopes=} {--actor=} {--reason=} {--permission=} {--confirm=} {--revoke-existing}', function (B2BOperatorAuditLogger $audit, B2BPrivilegedActionGuard $guard) {
     if (!Schema::hasTable('b2b_operators') || !Schema::hasTable('b2b_operator_api_keys') || !Schema::hasTable('b2b_operator_audit_events')) {
         $this->error('B2B credential/audit tables are missing. Run: php artisan migrate');
         return 1;
@@ -146,6 +153,9 @@ Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--
     if (Schema::hasColumn('b2b_operator_api_keys', 'max_rps') && $this->option('max-rps') !== null && $this->option('max-rps') !== '') {
         $apiKeyData['max_rps'] = (int) $this->option('max-rps');
     }
+    if (Schema::hasColumn('b2b_operator_api_keys', 'scopes')) {
+        $apiKeyData['scopes'] = app(B2BApiCredentialLifecycleService::class)->normalizeScopes($this->option('scopes'));
+    }
 
     $apiKey = B2BOperatorApiKey::create($apiKeyData);
 
@@ -162,6 +172,7 @@ Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--
 
             $audit->record($operator, 'api_key.revoked', 'api_key', $existingKey->key_id, $actor, $reason, [
                 'replacement_key_id' => $apiKey->key_id,
+                'replacement_scopes' => isset($apiKeyData['scopes']) ? $apiKeyData['scopes'] : null,
                 'previous_status' => B2BOperatorApiKey::STATUS_ACTIVE,
                 'new_status' => B2BOperatorApiKey::STATUS_DISABLED,
                 'permission' => isset($privilege['permission']) ? $privilege['permission'] : null,
@@ -173,6 +184,7 @@ Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--
     $audit->record($operator, 'api_key.rotated', 'api_key', $apiKey->key_id, $actor, $reason, [
         'key_id' => $apiKey->key_id,
         'max_rps' => isset($apiKeyData['max_rps']) ? $apiKeyData['max_rps'] : null,
+        'scopes' => isset($apiKeyData['scopes']) ? $apiKeyData['scopes'] : null,
         'revoke_existing' => (bool) $this->option('revoke-existing'),
         'disabled_existing' => $disabledExisting,
         'permission' => isset($privilege['permission']) ? $privilege['permission'] : null,
@@ -184,6 +196,7 @@ Artisan::command('b2b:rotate-api-key {operator_uid} {--key-id=} {--max-rps=} {--
     $this->line('X-Operator-Id: ' . $operator->operator_uid);
     $this->line('X-Api-Key:     ' . $apiKey->key_id);
     $this->line('Secret:        ' . $secret);
+    $this->line('Scopes:        ' . (isset($apiKeyData['scopes']) ? implode(', ', $apiKeyData['scopes']) : 'none'));
     $this->line('Disabled existing keys: ' . $disabledExisting);
 
     return 0;
@@ -449,6 +462,48 @@ Artisan::command('b2b:health', function () {
     $this->line('wallet transactions: ' . (Schema::hasTable('b2b_wallet_transactions') ? B2BWalletTransaction::count() : 'missing table'));
     return 0;
 });
+
+Artisan::command('b2b:payload-redaction-audit {--write : Rewrite legacy payload fields with redacted values} {--limit=0 : Maximum rows per table, 0 scans all rows} {--batch=500 : Rows per query batch} {--artifact= : Optional JSON artifact path for release evidence}', function (B2BPayloadRedactionAuditor $auditor) {
+    $report = $auditor->run(
+        (bool) $this->option('write'),
+        (int) $this->option('limit'),
+        (int) $this->option('batch')
+    );
+
+    if ($this->option('artifact')) {
+        $artifact = (string) $this->option('artifact');
+        $directory = dirname($artifact);
+        if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
+            $this->error('Unable to create artifact directory: ' . $directory);
+            return 1;
+        }
+
+        file_put_contents($artifact, json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL);
+        $this->line('artifact: ' . $artifact);
+    }
+
+    $this->line('B2B payload redaction audit');
+    $this->line('mode: ' . $report['mode']);
+    $this->line('scanned_rows: ' . $report['scanned_rows']);
+    $this->line('scanned_fields: ' . $report['scanned_fields']);
+    $this->line('findings: ' . $report['findings']);
+    $this->line('updated_fields: ' . $report['updated_fields']);
+
+    foreach ($report['tables'] as $table => $tableReport) {
+        $this->line($table . ': rows=' . $tableReport['scanned_rows'] . ' findings=' . $tableReport['findings'] . ' updated=' . $tableReport['updated_fields']);
+    }
+
+    if (!empty($report['missing_targets'])) {
+        $this->comment('missing_targets: ' . implode(', ', $report['missing_targets']));
+    }
+
+    if (!$this->option('write') && (int) $report['findings'] > 0) {
+        $this->error('Unredacted legacy payload fields were found. Rerun with --write after approval, then rerun dry-run for evidence.');
+        return 1;
+    }
+
+    return 0;
+})->describe('Audit and optionally redact legacy B2B wallet payload fields without printing payload values.');
 
 Artisan::command('b2b:release-check {--production : Enforce production release gates}', function (B2BReleaseGate $gate) {
     $result = $gate->run((bool) $this->option('production'), true, true);

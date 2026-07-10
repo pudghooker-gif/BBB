@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use ReflectionClass;
 use Tests\TestCase;
+use VanguardLTE\B2B\Services\B2BOperatorPortalQuery;
 use VanguardLTE\Http\Controllers\Api\B2B\ReportsController;
 use VanguardLTE\B2B\Services\OperatorWalletClient;
 
@@ -13,6 +14,8 @@ class B2BConfigurationTest extends TestCase
     {
         $apiRoutes = file_get_contents(base_path('routes/api.php'));
         $b2bRoutes = file_get_contents(base_path('routes/b2b.php'));
+        $b2bWalletRoutes = file_get_contents(base_path('routes/b2b_wallet_v7.php'));
+        $b2bSandboxRoutes = file_get_contents(base_path('routes/b2b_sandbox_v8.php'));
         $webRoutes = file_get_contents(base_path('routes/web.php'));
         $kernel = file_get_contents(base_path('app/Http/Kernel.php'));
 
@@ -20,11 +23,34 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("[GameLaunchController::class, 'store']", $b2bRoutes);
         $this->assertStringContainsString("foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'docs'] as \$portalSection)", $b2bRoutes);
         $this->assertStringContainsString("Route::get('portal/' . \$portalSection, [PortalController::class, 'section'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('portal/support/cases/{transaction_uid}', [PortalController::class, 'showCase'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('portal/support/cases/{transaction_uid}/thread', [PortalController::class, 'showCaseThread'])", $b2bRoutes);
         $this->assertStringContainsString("Route::post('portal/support/cases/{transaction_uid}/comments', [PortalController::class, 'commentCase'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('portal/support/tickets/{ticket_uid}', [PortalController::class, 'showSupportTicket'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('portal/support/tickets/{ticket_uid}/thread', [PortalController::class, 'showSupportTicketThread'])", $b2bRoutes);
         $this->assertStringContainsString("Route::post('portal/support/tickets', [PortalController::class, 'createSupportTicket'])", $b2bRoutes);
         $this->assertStringContainsString("Route::post('portal/support/tickets/{ticket_uid}/comments', [PortalController::class, 'commentSupportTicket'])", $b2bRoutes);
         $this->assertStringContainsString("Route::post('portal/support/tickets/{ticket_uid}/close', [PortalController::class, 'closeSupportTicket'])", $b2bRoutes);
         $this->assertStringContainsString("Route::get('games/{game_uid}', [GameCatalogController::class, 'show'])", $b2bRoutes);
+        foreach ([
+            'b2b.scope:operator.read',
+            'b2b.scope:portal.read',
+            'b2b.scope:support.write',
+            'b2b.scope:games.read',
+            'b2b.scope:games.launch',
+            'b2b.scope:sessions.read',
+            'b2b.scope:sessions.close',
+            'b2b.scope:wallet.balance',
+            'b2b.scope:wallet.status',
+            'b2b.scope:wallet.mutate',
+            'b2b.scope:reports.read',
+            'b2b.scope:reports.export',
+        ] as $scopeMiddleware) {
+            $this->assertStringContainsString($scopeMiddleware, $b2bRoutes . $b2bWalletRoutes);
+        }
+        $this->assertStringContainsString('b2b.scope:sandbox.wallet.read', $b2bSandboxRoutes);
+        $this->assertStringContainsString('b2b.scope:sandbox.wallet.mutate', $b2bSandboxRoutes);
+        $this->assertStringContainsString("middleware('b2b.scope:reports.export')", $b2bRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.dashboard'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BDashboardController@index'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.wallet_manual_actions.index'", $webRoutes);
@@ -82,8 +108,52 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'uses' => 'B2BStepUpController@show'", $webRoutes);
         $this->assertStringContainsString("'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view']", $webRoutes);
         $this->assertStringContainsString("'b2b.signature'", $kernel);
+        $this->assertStringContainsString("'b2b.scope'", $kernel);
         $this->assertStringContainsString("'b2b.admin'", $kernel);
         $this->assertStringContainsString("'b2b.web_step_up'", $kernel);
+    }
+
+    public function testB2BApiKeyScopesProtectSettlementExport()
+    {
+        $config = file_get_contents(base_path('config/b2b.php'));
+        $migration = file_get_contents(base_path('database/migrations/2026_06_24_000011_add_scopes_to_b2b_operator_api_keys_table.php'));
+        $model = file_get_contents(base_path('app/B2B/Models/B2BOperatorApiKey.php'));
+        $middleware = file_get_contents(base_path('app/Http/Middleware/RequireB2BApiScope.php'));
+        $routes = file_get_contents(base_path('routes/b2b.php'));
+        $releaseGate = file_get_contents(base_path('app/B2B/Services/B2BReleaseGate.php'));
+        $envExample = file_get_contents(base_path('.env.example'));
+        $releaseChecks = file_get_contents(base_path('docs/b2b/RELEASE_CHECKS.md'));
+        $apiDocs = file_get_contents(base_path('docs/b2b/API.md'));
+
+        $this->assertStringContainsString("'api_key_default_scopes'", $config);
+        $this->assertNotContains('reports.export', config('b2b.api_key_default_scopes'));
+        $this->assertNotContains('*', config('b2b.api_key_default_scopes'));
+        $this->assertStringContainsString("json('scopes')", $migration);
+        $this->assertStringContainsString("'scopes' => 'array'", $model);
+        $this->assertStringContainsString('B2B_SCOPE_DENIED', $middleware);
+        $this->assertStringContainsString("middleware('b2b.scope:reports.export')", $routes);
+        $this->assertStringContainsString('api_key_scopes', $releaseGate);
+        $this->assertStringContainsString('B2B_API_KEY_DEFAULT_SCOPES=', $envExample);
+        $this->assertStringContainsString('reports.export', $releaseChecks);
+        $this->assertStringContainsString('dedicated `reports.export` scope', $apiDocs);
+    }
+
+    public function testB2BPayloadRedactionAuditCommandAndDocsArePresent()
+    {
+        $redactor = file_get_contents(base_path('app/B2B/Services/B2BPayloadRedactor.php'));
+        $auditor = file_get_contents(base_path('app/B2B/Services/B2BPayloadRedactionAuditor.php'));
+        $console = file_get_contents(base_path('routes/b2b_console.php'));
+        $releaseGate = file_get_contents(base_path('app/B2B/Services/B2BReleaseGate.php'));
+        $releaseChecks = file_get_contents(base_path('docs/b2b/RELEASE_CHECKS.md'));
+        $runbook = file_get_contents(base_path('docs/deployment/PRODUCTION_RUNBOOK.md'));
+
+        $this->assertStringContainsString('return $this->redactText($value);', $redactor);
+        $this->assertStringContainsString('b2b_wallet_transaction_attempts', $auditor);
+        $this->assertStringContainsString('needsRedaction', $auditor);
+        $this->assertStringContainsString('b2b:payload-redaction-audit', $console);
+        $this->assertStringContainsString('payload_redaction_audit', $releaseGate);
+        $this->assertStringContainsString('b2b:payload-redaction-audit', $releaseChecks);
+        $this->assertStringContainsString('PAYLOAD_REDACTION_ARTIFACT', $runbook);
     }
 
     public function testTrustedProxyConfigurationUsesLaravelMiddlewareAndEnvironment()
@@ -175,6 +245,27 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString('password_policy_security', $releaseGate);
     }
 
+    public function testB2BWebStepUpRequiresCurrentPasswordInProductionDocs()
+    {
+        $adminConfig = file_get_contents(base_path('config/b2b_admin.php'));
+        $guard = file_get_contents(base_path('app/B2B/Services/B2BWebStepUpGuard.php'));
+        $controller = file_get_contents(base_path('app/Http/Controllers/Web/Backend/B2BStepUpController.php'));
+        $view = file_get_contents(base_path('resources/views/backend/b2b/step-up.blade.php'));
+        $releaseGate = file_get_contents(base_path('app/B2B/Services/B2BReleaseGate.php'));
+        $envExample = file_get_contents(base_path('.env.example'));
+        $releaseChecks = file_get_contents(base_path('docs/b2b/RELEASE_CHECKS.md'));
+
+        $this->assertStringContainsString("'web_step_up_requires_password' => env('B2B_WEB_STEP_UP_REQUIRES_PASSWORD', true)", $adminConfig);
+        $this->assertStringContainsString('B2B_WEB_STEP_UP_REQUIRES_PASSWORD=true', $envExample);
+        $this->assertStringContainsString('B2B_WEB_STEP_UP_REQUIRES_PASSWORD=true', $releaseChecks);
+        $this->assertStringContainsString('Hash::check', $guard);
+        $this->assertStringContainsString('password_verified_at', $guard);
+        $this->assertStringContainsString('current_password', $controller);
+        $this->assertStringContainsString("'2fa'", $controller);
+        $this->assertStringContainsString('current_password', $view);
+        $this->assertStringContainsString('web_step_up_requires_password', $releaseGate);
+    }
+
     public function testCredentialSessionRevocationPolicyAndDocsArePresent()
     {
         $session = file_get_contents(base_path('config/session.php'));
@@ -220,6 +311,14 @@ class B2BConfigurationTest extends TestCase
 
         $this->assertSame('0.30000000', $add->invoke($controller, '0.10000000', '0.20000000'));
         $this->assertSame('999999999999.99999999', $sub->invoke($controller, '1000000000000.00000000', '0.00000001'));
+
+        $portalQuery = app(B2BOperatorPortalQuery::class);
+        $portalReflection = new ReflectionClass($portalQuery);
+        $normalize = $portalReflection->getMethod('decimalNormalize');
+        $normalize->setAccessible(true);
+
+        $this->assertSame('999999999999.99999999', $normalize->invoke($portalQuery, '999999999999.99999999'));
+        $this->assertSame('0.30000000', $normalize->invoke($portalQuery, '0.30000000'));
     }
 
     public function testWalletCallbackUrlRejectsNonHttpSchemes()
@@ -232,6 +331,27 @@ class B2BConfigurationTest extends TestCase
         $result = $method->invoke($client, 'file:///etc/passwd');
 
         $this->assertSame('WALLET_CALLBACK_URL_INVALID', $result['code']);
+    }
+
+    public function testB2BHmacDocumentationIncludesRunnableSigningExamples()
+    {
+        $hmacDocs = file_get_contents(base_path('docs/api/HMAC_AUTHENTICATION.md'));
+        $apiDocs = file_get_contents(base_path('docs/b2b/API.md'));
+
+        foreach ([
+            '## PHP Example',
+            "hash_hmac('sha256'",
+            '## Node.js Example',
+            'createHmac("sha256", secret)',
+            'await fetch(`https://api.example.com${path}`',
+            '## cURL Example',
+            'openssl dgst -sha256 -hmac "$secret"',
+            'curl --request "$method"',
+        ] as $needle) {
+            $this->assertStringContainsString($needle, $hmacDocs);
+        }
+
+        $this->assertStringContainsString('PHP, Node.js, and cURL signing examples', $apiDocs);
     }
 
     public function testB2BApiArtifactsAreValidAndCoverVerifiedRoutes()
@@ -255,8 +375,12 @@ class B2BConfigurationTest extends TestCase
             '/portal/callbacks',
             '/portal/reports',
             '/portal/support',
+            '/portal/support/cases/{transaction_uid}',
+            '/portal/support/cases/{transaction_uid}/thread',
             '/portal/support/cases/{transaction_uid}/comments',
             '/portal/support/tickets',
+            '/portal/support/tickets/{ticket_uid}',
+            '/portal/support/tickets/{ticket_uid}/thread',
             '/portal/support/tickets/{ticket_uid}/comments',
             '/portal/support/tickets/{ticket_uid}/close',
             '/portal/docs',
@@ -301,13 +425,78 @@ class B2BConfigurationTest extends TestCase
             $this->assertArrayHasKey('422', $openapi['paths'][$portalPath]['get']['responses']);
         }
 
+        $this->assertSame(
+            '#/components/schemas/PortalOverviewSuccess',
+            $openapi['paths']['/portal/overview']['get']['responses']['200']['content']['application/json']['schema']['$ref']
+        );
+        $this->assertStringContainsString(
+            'support-ticket message counts',
+            $openapi['components']['pathItems']['PortalPage']['get']['description']
+        );
+        $portalTicketProperties = $openapi['components']['schemas']['PortalSupportTicketSummary']['properties'];
+        foreach (['message_count', 'latest_message', 'detail_endpoint', 'thread_endpoint', 'last_message_at'] as $property) {
+            $this->assertArrayHasKey($property, $portalTicketProperties);
+        }
+        $portalQuery = file_get_contents(base_path('app/B2B/Services/B2BOperatorPortalQuery.php'));
+        foreach (['support_case_detail_template', 'support_case_thread_template', 'support_ticket_detail_template', 'support_ticket_thread_template', 'support_case_detail_endpoint', 'support_case_thread_endpoint', 'recent_cases', 'detail_endpoint', 'thread_endpoint'] as $needle) {
+            $this->assertStringContainsString($needle, $portalQuery);
+        }
+        foreach ([
+            base_path('resources/views/b2b/operator-portal/overview.blade.php'),
+            base_path('resources/views/b2b/operator-portal/section.blade.php'),
+            base_path('resources/views/b2b/operator-portal/thread.blade.php'),
+        ] as $portalView) {
+            $portalViewContents = file_get_contents($portalView);
+            if (strpos($portalView, 'thread.blade.php') === false) {
+                $this->assertStringContainsString('Detail Endpoint', $portalViewContents);
+                $this->assertStringContainsString('Thread Page', $portalViewContents);
+                $this->assertStringContainsString('support_case_detail_endpoint', $portalViewContents);
+                $this->assertStringContainsString('support_case_thread_endpoint', $portalViewContents);
+                $this->assertStringContainsString('detail_endpoint', $portalViewContents);
+                $this->assertStringContainsString('thread_endpoint', $portalViewContents);
+            } else {
+                $this->assertStringContainsString("\$thread_type === 'case'", $portalViewContents);
+                $this->assertStringContainsString('Case Summary', $portalViewContents);
+                $this->assertStringContainsString('Ticket Summary', $portalViewContents);
+                $this->assertStringContainsString('API Detail Endpoint', $portalViewContents);
+            }
+            if (strpos($portalView, 'section.blade.php') !== false) {
+                $this->assertStringContainsString('Recent Cases', $portalViewContents);
+                $this->assertStringContainsString('recent_cases', $portalViewContents);
+            }
+        }
+        $latestMessageProperties = $openapi['components']['schemas']['PortalSupportTicketMessageSummary']['properties'];
+        foreach (['actor', 'source', 'message', 'metadata', 'created_at'] as $property) {
+            $this->assertArrayHasKey($property, $latestMessageProperties);
+        }
+
         $this->assertArrayHasKey('422', $openapi['components']['pathItems']['PortalPage']['get']['responses']);
         $this->assertArrayHasKey('422', $openapi['paths']['/wallet/transactions/{transaction_uid}/status']['get']['responses']);
         $this->assertArrayHasKey('422', $openapi['paths']['/reports/transactions/{transaction_uid}']['get']['responses']);
         $this->assertArrayHasKey('422', $openapi['paths']['/reports/settlements/{settlement_uid}']['get']['responses']);
         $this->assertArrayHasKey('422', $openapi['paths']['/sessions/{session_uid}']['get']['responses']);
         $this->assertArrayHasKey('422', $openapi['paths']['/sessions/{session_uid}/close']['post']['responses']);
+        $this->assertSame(191, $openapi['paths']['/portal/support/cases/{transaction_uid}']['get']['parameters'][0]['schema']['maxLength']);
+        $this->assertSame(100, $openapi['paths']['/portal/support/cases/{transaction_uid}']['get']['parameters'][1]['schema']['maximum']);
+        $this->assertSame(191, $openapi['paths']['/portal/support/cases/{transaction_uid}/thread']['get']['parameters'][0]['schema']['maxLength']);
+        $this->assertSame(100, $openapi['paths']['/portal/support/cases/{transaction_uid}/thread']['get']['parameters'][1]['schema']['maximum']);
+        $this->assertSame(
+            '#/components/schemas/PortalSupportCaseDetailSuccess',
+            $openapi['paths']['/portal/support/cases/{transaction_uid}']['get']['responses']['200']['content']['application/json']['schema']['$ref']
+        );
+        $caseCommentProperties = $openapi['components']['schemas']['PortalSupportCaseComment']['properties'];
+        foreach (['actor', 'source', 'message', 'external_reference', 'created_at'] as $property) {
+            $this->assertArrayHasKey($property, $caseCommentProperties);
+        }
         $this->assertSame(191, $openapi['paths']['/portal/support/cases/{transaction_uid}/comments']['post']['parameters'][0]['schema']['maxLength']);
+        $this->assertSame(80, $openapi['paths']['/portal/support/tickets/{ticket_uid}']['get']['parameters'][0]['schema']['maxLength']);
+        $this->assertSame(100, $openapi['paths']['/portal/support/tickets/{ticket_uid}']['get']['parameters'][1]['schema']['maximum']);
+        $this->assertSame(80, $openapi['paths']['/portal/support/tickets/{ticket_uid}/thread']['get']['parameters'][0]['schema']['maxLength']);
+        $this->assertSame(100, $openapi['paths']['/portal/support/tickets/{ticket_uid}/thread']['get']['parameters'][1]['schema']['maximum']);
+        $this->assertSame(
+            '#/components/schemas/PortalSupportTicketThreadSuccess',
+            $openapi['paths']['/portal/support/tickets/{ticket_uid}']['get']['responses']['200']['content']['application/json']['schema']['$ref']
+        );
         $this->assertSame(80, $openapi['paths']['/portal/support/tickets/{ticket_uid}/comments']['post']['parameters'][0]['schema']['maxLength']);
         $this->assertSame(80, $openapi['paths']['/portal/support/tickets/{ticket_uid}/close']['post']['parameters'][0]['schema']['maxLength']);
 
@@ -398,8 +587,12 @@ class B2BConfigurationTest extends TestCase
             '/api/b2b/v1/portal/callbacks?limit=10',
             '/api/b2b/v1/portal/reports?limit=10',
             '/api/b2b/v1/portal/support?limit=10',
+            '/api/b2b/v1/portal/support/cases/{{transactionId}}?limit=50',
+            '/api/b2b/v1/portal/support/cases/{{transactionId}}/thread?limit=50',
             '/api/b2b/v1/portal/support/cases/{{transactionId}}/comments',
             '/api/b2b/v1/portal/support/tickets',
+            '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}?limit=50',
+            '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/thread?limit=50',
             '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/comments',
             '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/close',
             '/api/b2b/v1/games?currency={{currency}}&country=BR&mode=real&limit=50&sort=title',

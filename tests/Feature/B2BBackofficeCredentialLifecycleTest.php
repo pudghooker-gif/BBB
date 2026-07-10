@@ -37,7 +37,8 @@ class B2BBackofficeCredentialLifecycleTest extends TestCase
             ->assertStatus(200)
             ->assertSee('B2B Credentials')
             ->assertSee('op_web_credentials')
-            ->assertSee('key_initial');
+            ->assertSee('key_initial')
+            ->assertSee('Scopes');
     }
 
     public function testRotateRequiresWebStepUp()
@@ -66,6 +67,7 @@ class B2BBackofficeCredentialLifecycleTest extends TestCase
                 $guard->sessionKey('api_key.rotate') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/credentials/rotate', [
@@ -73,6 +75,7 @@ class B2BBackofficeCredentialLifecycleTest extends TestCase
                 'operator_uid' => 'op_web_credentials',
                 'key_id' => 'key_rotated_web',
                 'max_rps' => 7,
+                'scopes' => 'reports.read, reports.export',
                 'revoke_existing' => '1',
                 'reason' => 'Quarterly key rotation.',
             ]);
@@ -86,12 +89,14 @@ class B2BBackofficeCredentialLifecycleTest extends TestCase
         $this->assertSame(B2BOperatorApiKey::STATUS_DISABLED, DB::table('b2b_operator_api_keys')->where('key_id', 'key_initial')->value('status'));
         $this->assertSame(B2BOperatorApiKey::STATUS_ACTIVE, DB::table('b2b_operator_api_keys')->where('key_id', 'key_rotated_web')->value('status'));
         $this->assertSame(7, (int) DB::table('b2b_operator_api_keys')->where('key_id', 'key_rotated_web')->value('max_rps'));
+        $this->assertSame(['reports.read', 'reports.export'], json_decode(DB::table('b2b_operator_api_keys')->where('key_id', 'key_rotated_web')->value('scopes'), true));
 
         $rotatedMetadata = $this->auditMetadata('api_key.rotated', 'key_rotated_web');
         $this->assertSame('b2b.credentials.rotate', $rotatedMetadata['permission']);
         $this->assertTrue($rotatedMetadata['step_up']);
         $this->assertSame('web_backoffice', $rotatedMetadata['source']);
         $this->assertSame(1, $rotatedMetadata['disabled_existing']);
+        $this->assertSame(['reports.read', 'reports.export'], $rotatedMetadata['scopes']);
 
         $revokedMetadata = $this->auditMetadata('api_key.revoked', 'key_initial');
         $this->assertSame('key_rotated_web', $revokedMetadata['replacement_key_id']);
@@ -124,6 +129,7 @@ class B2BBackofficeCredentialLifecycleTest extends TestCase
                 $guard->sessionKey('api_key.revoke') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/credentials/revoke', [

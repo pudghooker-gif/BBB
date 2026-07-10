@@ -99,7 +99,7 @@ class GameLaunchController extends Controller
             'language' => $request->input('language', 'en'),
             'country' => strtoupper((string) $request->input('country')),
             'return_url' => $request->input('return_url'),
-            'launch_url' => $launchUrl,
+            'launch_url' => null,
             'status' => B2BGameSession::STATUS_ACTIVE,
             'expires_at' => now()->addMinutes(30),
             'last_seen_at' => now(),
@@ -111,7 +111,7 @@ class GameLaunchController extends Controller
             'session_id' => $session->session_uid,
             'game_id' => $session->game_uid,
             'provider' => $session->provider,
-            'launch_url' => $session->launch_url,
+            'launch_url' => $launchUrl,
             'expires_at' => $session->expires_at ? $session->expires_at->toIso8601String() : null,
         ], 201);
     }

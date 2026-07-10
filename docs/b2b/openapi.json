@@ -125,7 +125,7 @@
       "get": {
         "tags": ["portal"],
         "summary": "Return a tenant-scoped read-only operator portal overview",
-        "description": "Aggregates signed-operator profile, API key status, wallet/session/reporting summaries, recent sessions, recent transactions, settlements, reconciliation items, and safe navigation links. Secret material and raw wallet payloads are never returned.",
+        "description": "Aggregates signed-operator profile, API key status and public scope names, wallet/session/reporting summaries, recent sessions, recent transactions, settlements, reconciliation items, recent support tickets with message counts and latest redacted message context, and safe navigation links. Operator URL fields are returned without query strings. Secret material and raw wallet payloads are never returned.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
           { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
@@ -133,7 +133,14 @@
           { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 50 }, "example": 10 }
         ],
         "responses": {
-          "200": { "$ref": "#/components/responses/Success" },
+          "200": {
+            "description": "Tenant-scoped operator portal overview envelope",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PortalOverviewSuccess" }
+              }
+            }
+          },
           "401": { "$ref": "#/components/responses/Error" },
           "422": { "$ref": "#/components/responses/Error" }
         }
@@ -148,6 +155,56 @@
     "/portal/callbacks": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/reports": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/support": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/support/cases/{transaction_uid}": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Return one operator support case detail",
+        "description": "Returns the signed operator's own reconciliation support case with a bounded chronological list of redacted operator-visible comments. Foreign operator cases, raw wallet payloads, and internal backoffice step-up fields are never returned.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "transaction_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 191 }, "example": "tx_123" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 50 }, "example": 50 }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped support case detail",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PortalSupportCaseDetailSuccess" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/portal/support/cases/{transaction_uid}/thread": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Render one operator support case thread page",
+        "description": "Returns a signed text/html support case thread page backed by the same tenant-scoped, redacted support case detail payload.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "transaction_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 191 }, "example": "tx_123" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 50 }, "example": 50 }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped support case thread HTML",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/portal/support/cases/{transaction_uid}/comments": {
       "post": {
         "tags": ["portal"],
@@ -207,6 +264,56 @@
         "responses": {
           "201": { "$ref": "#/components/responses/Success" },
           "401": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/portal/support/tickets/{ticket_uid}": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Return one operator support ticket thread",
+        "description": "Returns the signed operator's own support ticket summary and a bounded chronological list of redacted operator/staff messages. Secret material, foreign operator tickets, and raw payload bodies are never returned.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "ticket_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 80 }, "example": "sup_abc123" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 50 }, "example": 50 }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped support ticket thread",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PortalSupportTicketThreadSuccess" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/portal/support/tickets/{ticket_uid}/thread": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Render one operator support ticket thread page",
+        "description": "Returns a signed text/html support ticket thread page backed by the same tenant-scoped, redacted support ticket thread payload.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "ticket_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 80 }, "example": "sup_abc123" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 50 }, "example": 50 }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped support ticket thread HTML",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
           "422": { "$ref": "#/components/responses/Error" }
         }
       }
@@ -322,6 +429,7 @@
       "post": {
         "tags": ["games"],
         "summary": "Create a B2B game session and return a public launch URL",
+        "description": "Returns the public launch URL only in this create response. Persisted sessions store only the token hash, and session list/detail responses omit token-bearing launch fields.",
         "security": [{ "B2BHmac": [] }],
         "requestBody": {
           "required": true,
@@ -342,7 +450,7 @@
       "get": {
         "tags": ["sessions"],
         "summary": "List sessions for the signed operator",
-        "description": "Returns a bounded tenant-scoped session list with validated filters and whitelisted sorting.",
+        "description": "Returns a bounded tenant-scoped session list with validated filters, whitelisted sorting, redacted metadata, and no token-bearing launch fields.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
           { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 1000, "default": 100 }, "example": 100 },
@@ -362,6 +470,7 @@
       "get": {
         "tags": ["sessions"],
         "summary": "Return one operator-owned session and recent wallet transactions",
+        "description": "Returns an operator-owned session with redacted metadata. The response omits token_hash, launch_url, legacy_launch_token, and legacy_launch_url.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
           { "$ref": "#/components/parameters/SessionUid" }
@@ -696,7 +805,7 @@
         "get": {
           "tags": ["portal"],
           "summary": "Render a signed read-only operator portal workflow page",
-          "description": "Returns tenant-scoped HTML for credentials, games, sessions, transactions, settlements, cases, or docs without secret material or raw wallet payloads.",
+          "description": "Returns tenant-scoped HTML for credentials, games, sessions, transactions, settlements, cases, callbacks, reports, support, or docs. The credentials page may show public API-key scope names, the support page may show support-ticket message counts and latest redacted message context, and operator URL fields are shown without query strings, but secret material and raw wallet payloads are never returned.",
           "security": [{ "B2BHmac": [] }],
           "parameters": [
             { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
@@ -765,6 +874,160 @@
           "data": { "type": "object", "additionalProperties": true },
           "meta": { "type": "object", "additionalProperties": true }
         }
+      },
+      "PortalOverviewSuccess": {
+        "type": "object",
+        "required": ["success", "status", "request_id", "data"],
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "status": { "type": "string", "example": "success" },
+          "request_id": { "type": "string", "example": "uuid-or-client-request-id" },
+          "data": { "$ref": "#/components/schemas/PortalOverview" },
+          "meta": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "PortalOverview": {
+        "type": "object",
+        "properties": {
+          "operator": { "type": "object", "additionalProperties": true },
+          "api_key": { "type": ["object", "null"], "additionalProperties": true },
+          "summary": { "type": "object", "additionalProperties": true },
+          "wallet": { "type": "object", "additionalProperties": true },
+          "sessions": { "type": "object", "additionalProperties": true },
+          "credentials": { "type": "object", "additionalProperties": true },
+          "game_assignments": { "type": "object", "additionalProperties": true },
+          "settlements": { "type": "object", "additionalProperties": true },
+          "reconciliation": { "type": "object", "additionalProperties": true },
+          "callbacks": { "type": "object", "additionalProperties": true },
+          "support": { "$ref": "#/components/schemas/PortalSupportSummary" },
+          "recent_sessions": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+          "recent_transactions": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+          "links": { "type": "object", "additionalProperties": { "type": "string" } }
+        },
+        "additionalProperties": true
+      },
+      "PortalSupportSummary": {
+        "type": "object",
+        "properties": {
+          "by_status": { "type": "object", "additionalProperties": true },
+          "by_event_type": { "type": "object", "additionalProperties": true },
+          "recent_events": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+          "tickets_by_status": { "type": "object", "additionalProperties": true },
+          "tickets_by_priority": { "type": "object", "additionalProperties": true },
+          "recent_tickets": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PortalSupportTicketSummary" }
+          }
+        },
+        "additionalProperties": true
+      },
+      "PortalSupportTicketSummary": {
+        "type": "object",
+        "properties": {
+          "ticket_uid": { "type": ["string", "null"], "example": "sup_abc123" },
+          "subject": { "type": ["string", "null"], "example": "Wallet callback follow-up" },
+          "status": { "type": ["string", "null"], "example": "open" },
+          "priority": { "type": ["string", "null"], "example": "high" },
+          "category": { "type": ["string", "null"], "example": "wallet" },
+          "external_reference": { "type": ["string", "null"], "example": "OP-TICKET-123" },
+          "message_count": { "type": "integer", "minimum": 0, "example": 2 },
+          "latest_message": { "$ref": "#/components/schemas/PortalSupportTicketMessageSummary" },
+          "detail_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123" },
+          "thread_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123/thread" },
+          "last_message_at": { "type": ["string", "null"], "format": "date-time" },
+          "closed_at": { "type": ["string", "null"], "format": "date-time" },
+          "created_at": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
+      },
+      "PortalSupportCaseDetailSuccess": {
+        "type": "object",
+        "required": ["success", "status", "request_id", "data"],
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "status": { "type": "string", "example": "success" },
+          "request_id": { "type": "string", "example": "uuid-or-client-request-id" },
+          "data": { "$ref": "#/components/schemas/PortalSupportCaseDetail" },
+          "meta": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "PortalSupportCaseDetail": {
+        "type": "object",
+        "required": ["comments"],
+        "properties": {
+          "case_id": { "type": "integer", "example": 123 },
+          "transaction_uid": { "type": ["string", "null"], "example": "tx_123" },
+          "status": { "type": ["string", "null"], "example": "pending" },
+          "reason": { "type": ["string", "null"], "example": "provider_pending" },
+          "priority": { "type": ["string", "null"], "example": "high" },
+          "state": { "type": ["string", "null"], "example": "open" },
+          "comment_count": { "type": "integer", "minimum": 0, "example": 2 },
+          "latest_comment": { "$ref": "#/components/schemas/PortalSupportCaseComment" },
+          "comments": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PortalSupportCaseComment" }
+          },
+          "detected_at": { "type": ["string", "null"], "format": "date-time" },
+          "resolved_at": { "type": ["string", "null"], "format": "date-time" },
+          "created_at": { "type": ["string", "null"], "format": "date-time" },
+          "updated_at": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
+      },
+      "PortalSupportCaseComment": {
+        "type": ["object", "null"],
+        "properties": {
+          "actor": { "type": ["string", "null"], "example": "operator:op_demo" },
+          "source": { "type": ["string", "null"], "example": "operator_portal" },
+          "message": { "type": ["string", "null"], "example": "Operator follow-up with [REDACTED]." },
+          "external_reference": { "type": ["string", "null"], "example": "OP-CASE-123" },
+          "created_at": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
+      },
+      "PortalSupportTicketThreadSuccess": {
+        "type": "object",
+        "required": ["success", "status", "request_id", "data"],
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "status": { "type": "string", "example": "success" },
+          "request_id": { "type": "string", "example": "uuid-or-client-request-id" },
+          "data": { "$ref": "#/components/schemas/PortalSupportTicketThread" },
+          "meta": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "PortalSupportTicketThread": {
+        "type": "object",
+        "required": ["messages"],
+        "properties": {
+          "ticket_uid": { "type": ["string", "null"], "example": "sup_abc123" },
+          "subject": { "type": ["string", "null"], "example": "Wallet callback follow-up" },
+          "status": { "type": ["string", "null"], "example": "open" },
+          "priority": { "type": ["string", "null"], "example": "high" },
+          "category": { "type": ["string", "null"], "example": "wallet" },
+          "external_reference": { "type": ["string", "null"], "example": "OP-TICKET-123" },
+          "message_count": { "type": "integer", "minimum": 0, "example": 2 },
+          "latest_message": { "$ref": "#/components/schemas/PortalSupportTicketMessageSummary" },
+          "last_message_at": { "type": ["string", "null"], "format": "date-time" },
+          "closed_at": { "type": ["string", "null"], "format": "date-time" },
+          "created_at": { "type": ["string", "null"], "format": "date-time" },
+          "messages": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PortalSupportTicketMessageSummary" }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortalSupportTicketMessageSummary": {
+        "type": ["object", "null"],
+        "properties": {
+          "actor": { "type": ["string", "null"], "example": "operator:op_demo" },
+          "source": { "type": ["string", "null"], "example": "operator_portal" },
+          "message": { "type": ["string", "null"], "example": "Please investigate [REDACTED]." },
+          "metadata": { "type": ["object", "null"], "additionalProperties": true },
+          "created_at": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
       },
       "ApiError": {
         "type": "object",

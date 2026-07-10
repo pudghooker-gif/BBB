@@ -78,17 +78,18 @@
         <div class="panel">
             <h2>Credentials</h2>
             <table>
-                <thead><tr><th>Key</th><th>Status</th><th>Max RPS</th><th>Last Used</th></tr></thead>
+                <thead><tr><th>Key</th><th>Status</th><th>Scopes</th><th>Max RPS</th><th>Last Used</th></tr></thead>
                 <tbody>
                 @forelse($credentials['recent_keys'] as $key)
                     <tr>
                         <td>{{ $key['key_id'] }}</td>
                         <td><span class="status">{{ $key['status'] }}</span></td>
+                        <td>{{ !empty($key['scopes']) ? implode(', ', $key['scopes']) : 'none' }}</td>
                         <td>{{ $key['max_rps'] ?: 'n/a' }}</td>
                         <td>{{ $key['last_used_at'] ?: 'never' }}</td>
                     </tr>
                 @empty
-                    <tr><td colspan="4" class="muted">No credentials</td></tr>
+                    <tr><td colspan="5" class="muted">No credentials</td></tr>
                 @endforelse
                 </tbody>
             </table>
@@ -159,7 +160,7 @@
     <section class="panel section">
         <h2>Reconciliation</h2>
         <table>
-            <thead><tr><th>Transaction</th><th>State</th><th>Status</th><th>Priority</th><th>Reason</th><th>Detected</th></tr></thead>
+            <thead><tr><th>Transaction</th><th>State</th><th>Status</th><th>Priority</th><th>Reason</th><th>Detail Endpoint</th><th>Thread Page</th><th>Detected</th></tr></thead>
             <tbody>
             @forelse($reconciliation['open_items'] as $item)
                 <tr>
@@ -168,10 +169,42 @@
                     <td>{{ $item['status'] }}</td>
                     <td><span class="status {{ $item['priority'] === 'high' ? 'bad' : '' }}">{{ $item['priority'] }}</span></td>
                     <td>{{ $item['reason'] }}</td>
+                    <td>{{ isset($item['support_case_detail_endpoint']) ? $item['support_case_detail_endpoint'] : 'n/a' }}</td>
+                    <td>{{ isset($item['support_case_thread_endpoint']) ? $item['support_case_thread_endpoint'] : 'n/a' }}</td>
                     <td>{{ $item['detected_at'] ?: 'n/a' }}</td>
                 </tr>
             @empty
-                <tr><td colspan="6" class="muted">No open reconciliation items</td></tr>
+                <tr><td colspan="8" class="muted">No open reconciliation items</td></tr>
+            @endforelse
+            </tbody>
+        </table>
+    </section>
+
+    <section class="panel section">
+        <h2>Support Tickets</h2>
+        <table>
+            <thead><tr><th>Ticket</th><th>Status</th><th>Priority</th><th>Subject</th><th>Messages</th><th>Latest Message</th><th>Detail Endpoint</th><th>Thread Page</th></tr></thead>
+            <tbody>
+            @forelse(isset($support['recent_tickets']) ? $support['recent_tickets'] : [] as $ticket)
+                <tr>
+                    <td>{{ $ticket['ticket_uid'] ?: 'n/a' }}</td>
+                    <td><span class="status {{ in_array($ticket['status'], ['open', 'in_progress'], true) ? 'warn' : '' }}">{{ $ticket['status'] ?: 'unknown' }}</span></td>
+                    <td><span class="status {{ in_array($ticket['priority'], ['high', 'urgent'], true) ? 'bad' : '' }}">{{ $ticket['priority'] ?: 'normal' }}</span></td>
+                    <td>{{ $ticket['subject'] ?: 'n/a' }}</td>
+                    <td>{{ number_format((int) (isset($ticket['message_count']) ? $ticket['message_count'] : 0)) }}</td>
+                    <td>
+                        @if(isset($ticket['latest_message']) && $ticket['latest_message'])
+                            {{ $ticket['latest_message']['message'] ?: 'n/a' }}
+                            <br><span class="muted">{{ $ticket['latest_message']['actor'] ?: 'unknown' }} / {{ $ticket['latest_message']['source'] ?: 'unknown' }}</span>
+                        @else
+                            <span class="muted">n/a</span>
+                        @endif
+                    </td>
+                    <td>{{ isset($ticket['detail_endpoint']) ? $ticket['detail_endpoint'] : 'n/a' }}</td>
+                    <td>{{ isset($ticket['thread_endpoint']) ? $ticket['thread_endpoint'] : 'n/a' }}</td>
+                </tr>
+            @empty
+                <tr><td colspan="8" class="muted">No support tickets</td></tr>
             @endforelse
             </tbody>
         </table>

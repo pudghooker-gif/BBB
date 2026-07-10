@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use VanguardLTE\Http\Middleware\VerifyB2BSignature;
 use VanguardLTE\Http\Controllers\Api\B2B\SandboxController;
 use VanguardLTE\Http\Controllers\Api\B2B\SandboxWalletController;
 
@@ -15,10 +14,14 @@ Route::prefix('b2b/sandbox')->group(function () {
 
 // Protected sandbox operator tools. These use the normal B2B HMAC middleware.
 Route::prefix('b2b/v1')
-    ->middleware([VerifyB2BSignature::class])
+    ->middleware(['b2b.signature'])
     ->group(function () {
-        Route::get('sandbox/wallet/{player_id}', [SandboxController::class, 'wallet']);
-        Route::get('sandbox/wallet/{player_id}/entries', [SandboxController::class, 'entries']);
-        Route::post('sandbox/wallet/{player_id}/credit', [SandboxController::class, 'credit']);
-        Route::post('sandbox/wallet/{player_id}/debit', [SandboxController::class, 'debit']);
+        Route::middleware('b2b.scope:sandbox.wallet.read')->group(function () {
+            Route::get('sandbox/wallet/{player_id}', [SandboxController::class, 'wallet']);
+            Route::get('sandbox/wallet/{player_id}/entries', [SandboxController::class, 'entries']);
+        });
+        Route::middleware('b2b.scope:sandbox.wallet.mutate')->group(function () {
+            Route::post('sandbox/wallet/{player_id}/credit', [SandboxController::class, 'credit']);
+            Route::post('sandbox/wallet/{player_id}/debit', [SandboxController::class, 'debit']);
+        });
     });

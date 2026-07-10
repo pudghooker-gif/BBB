@@ -3,6 +3,7 @@
 namespace VanguardLTE\B2B\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class B2BWebStepUpGuard
 {
@@ -18,7 +19,7 @@ class B2BWebStepUpGuard
         return $this->baseAuthorization($request->user(), $action);
     }
 
-    public function confirm(Request $request, $action, $confirmation)
+    public function confirm(Request $request, $action, $confirmation, $currentPassword = null)
     {
         $result = $this->baseAuthorization($request->user(), $action);
         if (!$result['ok']) {
@@ -38,6 +39,13 @@ class B2BWebStepUpGuard
             ]);
         }
 
+        if ($this->passwordRequired() && !$this->passwordMatches($request->user(), $currentPassword)) {
+            return $this->deny('current_password_required', 'B2B web step-up requires the current account password.', [
+                'required_confirmation' => $requiredConfirmation,
+                'required_permission' => $result['permission'],
+            ]);
+        }
+
         $session = $this->session($request);
         if (!$session) {
             return $this->deny('session_required', 'B2B web step-up requires an authenticated session.');
@@ -49,13 +57,19 @@ class B2BWebStepUpGuard
         }
 
         $verifiedAt = time();
-        $session->put($this->sessionKey($action), [
+        $payload = [
             'user_id' => $userId,
             'verified_at' => $verifiedAt,
-        ]);
+        ];
+        if ($this->passwordRequired()) {
+            $payload['password_verified_at'] = $verifiedAt;
+        }
+
+        $session->put($this->sessionKey($action), $payload);
 
         return array_merge($result, [
             'verified_at' => $verifiedAt,
+            'password_verified_at' => isset($payload['password_verified_at']) ? $payload['password_verified_at'] : null,
             'expires_at' => $verifiedAt + $this->ttlSeconds(),
         ]);
     }
@@ -90,6 +104,15 @@ class B2BWebStepUpGuard
             return $this->deny('step_up_user_mismatch', 'B2B web step-up confirmation belongs to another user.');
         }
 
+        if ($this->passwordRequired() && empty($payload['password_verified_at'])) {
+            $session->forget($this->sessionKey($action));
+
+            return $this->deny('step_up_password_required', 'B2B web step-up requires a current-password verification.', [
+                'required_confirmation' => $result['confirm'],
+                'required_permission' => $result['permission'],
+            ]);
+        }
+
         $verifiedAt = (int) $payload['verified_at'];
         $expiresAt = $verifiedAt + $this->ttlSeconds();
         if ($expiresAt < time()) {
@@ -103,6 +126,7 @@ class B2BWebStepUpGuard
 
         return array_merge($result, [
             'verified_at' => $verifiedAt,
+            'password_verified_at' => isset($payload['password_verified_at']) ? (int) $payload['password_verified_at'] : null,
             'expires_at' => $expiresAt,
         ]);
     }
@@ -132,6 +156,11 @@ class B2BWebStepUpGuard
         $ttl = (int) config('b2b_admin.web_step_up_ttl_seconds', 300);
 
         return $ttl > 0 ? $ttl : 300;
+    }
+
+    public function passwordRequired()
+    {
+        return (bool) config('b2b_admin.web_step_up_requires_password', true);
     }
 
     private function baseAuthorization($user, $action)
@@ -184,6 +213,27 @@ class B2BWebStepUpGuard
         }
 
         return null;
+    }
+
+    private function passwordMatches($user, $currentPassword)
+    {
+        $currentPassword = (string) $currentPassword;
+        if (!$user || $currentPassword === '') {
+            return false;
+        }
+
+        $hash = null;
+        if (method_exists($user, 'getAuthPassword')) {
+            $hash = $user->getAuthPassword();
+        } elseif (isset($user->password)) {
+            $hash = $user->password;
+        }
+
+        if (!is_string($hash) || $hash === '') {
+            return false;
+        }
+
+        return Hash::check($currentPassword, $hash);
     }
 
     private function deny($code, $message, array $meta = [])

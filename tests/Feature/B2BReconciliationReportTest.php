@@ -94,6 +94,45 @@ class B2BReconciliationReportTest extends TestCase
         $this->assertStringNotContainsString('tx_recon_a_rollback', json_encode($operatorBResponse->json()));
     }
 
+    public function testReconciliationReportSupportsTransactionDimensionFilters()
+    {
+        $uri = '/api/b2b/v1/reports/reconciliation'
+            . '?from='.now()->subDays(2)->toDateString()
+            . '&to='.now()->addDay()->toDateString()
+            . '&state=in_progress'
+            . '&reason=unknown_result'
+            . '&priority=medium'
+            . '&game_id=book_recon'
+            . '&round_id=round_tx_recon_a_unknown'
+            . '&limit=1';
+
+        $response = $this->signedGet(
+            'op_recon_report_a',
+            'key_recon_report_a',
+            $this->secretA,
+            $uri,
+            'reconciliation-report-dimension-filters'
+        );
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.totals.items', 1)
+            ->assertJsonPath('data.totals.open', 0)
+            ->assertJsonPath('data.totals.in_progress', 1)
+            ->assertJsonPath('data.totals.unresolved_items', 1)
+            ->assertJsonPath('data.totals.unresolved_transactions', 1)
+            ->assertJsonPath('data.by_state.in_progress.count', 1)
+            ->assertJsonPath('data.by_reason.unknown_result.count', 1)
+            ->assertJsonPath('data.by_priority.medium.count', 1)
+            ->assertJsonPath('data.open_exposure.USD.amount', '5.00000000')
+            ->assertJsonPath('data.open_exposure.USD.transactions', 1)
+            ->assertJsonCount(1, 'data.oldest_open_items')
+            ->assertJsonPath('data.oldest_open_items.0.transaction_uid', 'tx_recon_a_unknown')
+            ->assertJsonPath('data.oldest_open_items.0.round_id', 'round_tx_recon_a_unknown');
+
+        $this->assertStringNotContainsString('tx_recon_a_rollback', json_encode($response->json()));
+    }
+
     public function testReconciliationReportValidatesFiltersAndPeriods()
     {
         $this->signedGet(

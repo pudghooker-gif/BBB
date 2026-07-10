@@ -39,6 +39,21 @@ Configured B2B roles:
 
 Unknown roles and unknown actions are denied.
 
+## API Key Scopes
+
+B2B HMAC keys also carry explicit API scopes in `b2b_operator_api_keys.scopes`. New keys use `B2B_API_KEY_DEFAULT_SCOPES`, which must not include `reports.export` or `*` in production. Scope-protected surfaces include `operator.read`, `portal.read`, `support.write`, `games.read`, `games.launch`, `sessions.read`, `sessions.close`, `wallet.balance`, `wallet.status`, `wallet.mutate`, `reports.read`, `reports.export`, `sandbox.wallet.read`, and `sandbox.wallet.mutate`. Settlement export requires a key with the dedicated `reports.export` scope:
+
+The signed operator portal exposes key IDs, statuses, rate limits, and public scope names for the current/recent keys so operators can self-check integration permissions. It does not expose encrypted secrets or plaintext API secrets.
+
+```bash
+php artisan b2b:rotate-api-key op_xxx \
+  --scopes=operator.read,portal.read,reports.read,reports.export \
+  --actor=security_user \
+  --reason="Finance export key" \
+  --permission=b2b.credentials.rotate \
+  --confirm=ROTATE_API_KEY
+```
+
 ## Privileged CLI Actions
 
 Dangerous B2B CLI actions require all of:
@@ -59,6 +74,7 @@ php artisan b2b:make-operator "Operator" \
   --confirm=CREATE_OPERATOR
 
 php artisan b2b:rotate-api-key op_xxx \
+  --scopes=operator.read,portal.read,reports.read \
   --actor=security_user \
   --reason="Quarterly rotation" \
   --permission=b2b.credentials.rotate \
@@ -101,7 +117,7 @@ Denied privileged attempts write `privileged_action.denied` to `b2b_operator_aud
 
 ## Web Step-Up
 
-The backend now has a session-bound step-up guard for mutating B2B web actions.
+The backend now has a session-bound step-up guard for mutating B2B web actions. The step-up route is behind the existing backend `auth` and `2fa` middleware and, by default, requires both the configured confirmation phrase and the current account password before the session marker is written.
 
 Routes:
 
@@ -144,4 +160,4 @@ The guard requires the authenticated backend user to have the configured B2B per
 
 ## Remaining Production Work
 
-The web guard is only the confirmation/session foundation. Production B2B mutation and sensitive-review screens still need stronger re-authentication such as TOTP/WebAuthn for high-risk actions, session revocation hooks, provider-specific forms, and operator-visible portal case workflow.
+The web guard now combines backend 2FA, exact action confirmation, current-password verification, session binding, and a short TTL. Remaining production work is provider-specific form polish, operator-visible portal case workflow validation, and optional WebAuthn/hardware-key policy if the launch jurisdiction or operator policy requires it.

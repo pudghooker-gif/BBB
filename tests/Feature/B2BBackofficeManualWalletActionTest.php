@@ -71,6 +71,7 @@ class B2BBackofficeManualWalletActionTest extends TestCase
                 $guard->sessionKey('wallet.manual_action') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/wallet/manual-actions', [

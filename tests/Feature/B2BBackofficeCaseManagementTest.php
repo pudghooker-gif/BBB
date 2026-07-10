@@ -77,6 +77,7 @@ class B2BBackofficeCaseManagementTest extends TestCase
                 $guard->sessionKey('case.claim') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/cases/claim', [
@@ -105,6 +106,7 @@ class B2BBackofficeCaseManagementTest extends TestCase
                 $guard->sessionKey('case.resolve') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/cases/resolve', [
@@ -131,6 +133,7 @@ class B2BBackofficeCaseManagementTest extends TestCase
                 $guard->sessionKey('case.reopen') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/cases/reopen', [
@@ -179,6 +182,7 @@ class B2BBackofficeCaseManagementTest extends TestCase
                 $guard->sessionKey('support_ticket.comment') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/cases/support-ticket/comment', [
@@ -211,6 +215,7 @@ class B2BBackofficeCaseManagementTest extends TestCase
                 $guard->sessionKey('support_ticket.close') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/cases/support-ticket/close', [
@@ -235,6 +240,7 @@ class B2BBackofficeCaseManagementTest extends TestCase
                 $guard->sessionKey('support_ticket.reopen') => [
                     'user_id' => (string) $admin->getAuthIdentifier(),
                     'verified_at' => time(),
+                    'password_verified_at' => time(),
                 ],
             ])
             ->post('/backend/b2b/cases/support-ticket/reopen', [

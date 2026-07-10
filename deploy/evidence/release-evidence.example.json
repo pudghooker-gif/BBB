@@ -19,6 +19,13 @@
       "artifact": "preflight/b2b-release-check-20260703T000000Z.log",
       "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
     },
+    "payload_redaction_audit": {
+      "status": "passed",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "security",
+      "artifact": "payload-redaction-final.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
     "healthcheck": {
       "status": "passed",
       "executed_at": "2026-07-03T00:00:00Z",

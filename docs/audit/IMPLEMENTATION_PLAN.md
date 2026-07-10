@@ -30,12 +30,12 @@ Date: 2026-06-24
 - Expand the explicit wallet state machine beyond the current transition-log foundation.
 - Extend provider-specific status/rollback contracts beyond the current operator `transaction_status` lookup and bounded rollback recovery, then expand the authenticated web step-up UI beyond the current manual-action and settlement workflow screens.
 - Keep the wallet ledger append-oriented with status transition history and maintain payload redaction on every new wallet persistence/output path.
-- Add duplicate bet/win/refund/rollback tests.
+- Keep duplicate bet/win/refund/rollback idempotency regression tests green across every wallet mutation endpoint.
 
 ## Stage 4: Admin And Operator Portal
 
 - Keep extending the B2B-RBAC-protected `/backend/b2b` operations dashboard, operator configuration screen, credential lifecycle screen, manual wallet action screen, settlement workflow screen, raw payload review screen, case-management/support-ticket screen, and audit trail screen into a cohesive production backoffice.
-- Keep expanding the tenant-facing signed `/api/b2b/v1/portal` UI beyond the current credentials, game assignments, sessions, transactions, settlements, cases, callback settings/errors, report drilldowns, support incidents, docs workflow pages, audited support case comments, and audited support ticket create/comment/close lifecycle into a richer production operator experience.
+- Keep expanding the tenant-facing signed `/api/b2b/v1/portal` UI beyond the current credentials, game assignments, sessions, transactions, settlements, cases, callback settings/errors, report drilldowns, support incidents, docs workflow pages, audited support case comments/detail/thread readback, and audited support ticket create/comment/close/detail/thread readback lifecycle into a richer production operator experience.
 - Build the portal UX over the current audited credential rotation/revocation, successful-use audit, per-key rate-limit, and deny-by-default privileged-action guard foundation, then validate it in staging behind the final signing/proxy topology.
 - Keep unified operator audit coverage for exports and dangerous admin actions; settlement export/submission/approval, credential lifecycle actions, denied privileged actions, manual wallet actions, case actions, and support-ticket lifecycle actions now write operator audit events.
 
