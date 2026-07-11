@@ -66,6 +66,41 @@ class B2BCaseManagementService
             });
     }
 
+    public function backofficeCaseThread($caseId, $limit = 50)
+    {
+        $this->assertCaseTableReady();
+
+        $case = $this->backofficeCase($caseId);
+        $context = $this->decodeContext(isset($case->context) ? $case->context : null);
+
+        return [
+            'id' => isset($case->id) ? (int) $case->id : null,
+            'wallet_transaction_id' => isset($case->wallet_transaction_id) ? (int) $case->wallet_transaction_id : null,
+            'operator_id' => isset($case->operator_id) ? (int) $case->operator_id : null,
+            'operator_uid' => isset($case->operator_uid) ? $this->safeNullableText($case->operator_uid, 100) : null,
+            'operator_name' => isset($case->operator_name) ? $this->safeNullableText($case->operator_name, 160) : null,
+            'transaction_uid' => isset($case->transaction_uid) ? $this->safeNullableText($case->transaction_uid, 191) : null,
+            'status' => isset($case->status) ? $this->safeNullableText($case->status, 60) : null,
+            'reason' => isset($case->reason) ? $this->safeNullableText($case->reason, 160) : null,
+            'priority' => isset($case->priority) ? $this->safeNullableText($case->priority, 40) : null,
+            'state' => isset($case->state) ? $this->safeNullableText($case->state, 40) : null,
+            'transaction_type' => isset($case->transaction_type) ? $this->safeNullableText($case->transaction_type, 40) : null,
+            'transaction_status' => isset($case->transaction_status) ? $this->safeNullableText($case->transaction_status, 60) : null,
+            'transaction_amount' => isset($case->transaction_amount) ? (string) $case->transaction_amount : null,
+            'transaction_currency' => isset($case->transaction_currency) ? $this->safeNullableText($case->transaction_currency, 3) : null,
+            'transaction_attempts' => isset($case->transaction_attempts) ? (int) $case->transaction_attempts : null,
+            'transaction_last_error' => isset($case->transaction_last_error) ? $this->safeNullableText($case->transaction_last_error, 500) : null,
+            'context_display' => $this->formatContext(isset($case->context) ? $case->context : null),
+            'operator_comment_count' => count($this->rawOperatorComments($context)),
+            'operator_comments' => $this->operatorComments($context, $limit),
+            'case_events' => $this->caseEvents($context, $limit),
+            'detected_at' => isset($case->detected_at) ? $this->isoTime($case->detected_at) : null,
+            'resolved_at' => isset($case->resolved_at) ? $this->isoTime($case->resolved_at) : null,
+            'created_at' => isset($case->created_at) ? $this->isoTime($case->created_at) : null,
+            'updated_at' => isset($case->updated_at) ? $this->isoTime($case->updated_at) : null,
+        ];
+    }
+
     public function claim($caseId, $actor, $reason, array $context)
     {
         return $this->transition($caseId, 'claim', 'case.claimed', 'in_progress', $actor, $reason, $context);
@@ -128,6 +163,52 @@ class B2BCaseManagementService
                 throw new RuntimeException('B2B case/audit tables are missing. Run: php artisan migrate');
             }
         }
+    }
+
+    private function assertCaseTableReady()
+    {
+        if (!Schema::hasTable('b2b_wallet_reconciliation_items')) {
+            throw new RuntimeException('B2B case table is missing. Run: php artisan migrate');
+        }
+    }
+
+    private function backofficeCase($caseId)
+    {
+        $caseId = (int) $caseId;
+        if ($caseId < 1) {
+            throw new InvalidArgumentException('B2B case ID is required.');
+        }
+
+        $query = DB::table('b2b_wallet_reconciliation_items as ri')
+            ->where('ri.id', $caseId)
+            ->select('ri.*');
+
+        if (Schema::hasTable('b2b_wallet_transactions')) {
+            $query->leftJoin('b2b_wallet_transactions as tx', 'tx.id', '=', 'ri.wallet_transaction_id')
+                ->addSelect($this->existingColumnSelect('b2b_wallet_transactions', 'tx', [
+                    'transaction_type' => 'type',
+                    'transaction_status' => 'status',
+                    'transaction_amount' => 'amount',
+                    'transaction_currency' => 'currency',
+                    'transaction_attempts' => 'attempts',
+                    'transaction_last_error' => 'last_error',
+                ]));
+        }
+
+        if (Schema::hasTable('b2b_operators')) {
+            $query->leftJoin('b2b_operators as op', 'op.id', '=', 'ri.operator_id')
+                ->addSelect($this->existingColumnSelect('b2b_operators', 'op', [
+                    'operator_uid' => 'operator_uid',
+                    'operator_name' => 'name',
+                ]));
+        }
+
+        $case = $query->first();
+        if (!$case) {
+            throw new InvalidArgumentException('B2B case was not found.');
+        }
+
+        return $case;
     }
 
     private function assertAllowedTransition($action, $state)
@@ -237,6 +318,67 @@ class B2BCaseManagementService
         return (string) $redacted;
     }
 
+    private function operatorComments(array $context, $limit)
+    {
+        $limit = max(1, min((int) $limit, 100));
+
+        return array_values(array_map(function ($comment) {
+            return $this->operatorCommentPayload($comment);
+        }, array_slice($this->rawOperatorComments($context), 0, $limit)));
+    }
+
+    private function rawOperatorComments(array $context)
+    {
+        if (!isset($context['operator_comments']) || !is_array($context['operator_comments'])) {
+            return [];
+        }
+
+        return array_values(array_filter($context['operator_comments'], function ($comment) {
+            return is_array($comment);
+        }));
+    }
+
+    private function operatorCommentPayload(array $comment)
+    {
+        return [
+            'actor' => isset($comment['actor']) ? $this->safeNullableText($comment['actor'], 100) : null,
+            'source' => isset($comment['source']) ? $this->safeNullableText($comment['source'], 40) : null,
+            'message' => isset($comment['message']) ? $this->safeText($comment['message'], 1000) : '',
+            'external_reference' => isset($comment['external_reference']) ? $this->safeNullableText($comment['external_reference'], 120) : null,
+            'created_at' => isset($comment['at']) ? $this->isoTime($comment['at']) : null,
+        ];
+    }
+
+    private function caseEvents(array $context, $limit)
+    {
+        if (!isset($context['case_events']) || !is_array($context['case_events'])) {
+            return [];
+        }
+
+        $limit = max(1, min((int) $limit, 100));
+        $events = array_values(array_filter($context['case_events'], function ($event) {
+            return is_array($event);
+        }));
+
+        return array_values(array_map(function ($event) {
+            return $this->caseEventPayload($event);
+        }, array_slice($events, 0, $limit)));
+    }
+
+    private function caseEventPayload(array $event)
+    {
+        return [
+            'action' => isset($event['action']) ? $this->safeNullableText($event['action'], 80) : null,
+            'state' => isset($event['state']) ? $this->safeNullableText($event['state'], 40) : null,
+            'actor' => isset($event['actor']) ? $this->safeNullableText($event['actor'], 100) : null,
+            'source' => isset($event['source']) ? $this->safeNullableText($event['source'], 40) : null,
+            'reason' => isset($event['reason']) ? $this->safeText($event['reason'], 1000) : '',
+            'permission' => isset($event['permission']) ? $this->safeNullableText($event['permission'], 100) : null,
+            'step_up' => !empty($event['step_up']),
+            'created_at' => isset($event['at']) ? $this->isoTime($event['at']) : null,
+        ];
+    }
+
     private function recordAudit($case, $eventType, $action, $previousState, $newState, $actor, $reason, array $context)
     {
         $this->audit->record(
@@ -276,6 +418,29 @@ class B2BCaseManagementService
         return $value;
     }
 
+    private function safeNullableText($value, $limit)
+    {
+        $value = $this->safeText($value, $limit);
+
+        return $value === '' ? null : $value;
+    }
+
+    private function safeText($value, $limit = 1000)
+    {
+        if ($value === null) {
+            return '';
+        }
+
+        $value = trim((string) $value);
+        if ($value === '') {
+            return '';
+        }
+
+        $value = $this->redactor->storageValue($value);
+
+        return strlen($value) > $limit ? substr($value, 0, $limit) : $value;
+    }
+
     private function filterColumns($table, array $data)
     {
         $filtered = [];
@@ -286,5 +451,30 @@ class B2BCaseManagementService
         }
 
         return $filtered;
+    }
+
+    private function existingColumnSelect($table, $alias, array $columns)
+    {
+        $select = [];
+        foreach ($columns as $selectAlias => $column) {
+            if (Schema::hasColumn($table, $column)) {
+                $select[] = $alias . '.' . $column . ' as ' . $selectAlias;
+            }
+        }
+
+        return $select;
+    }
+
+    private function isoTime($value)
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        try {
+            return Carbon::parse($value)->toIso8601String();
+        } catch (\Exception $e) {
+            return (string) $value;
+        }
     }
 }

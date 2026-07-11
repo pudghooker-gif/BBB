@@ -28,6 +28,44 @@ class B2BCaseBackofficeController extends Controller
         return redirect()->route('backend.b2b.cases.index');
     }
 
+    public function showCase(Request $request, B2BCaseManagementService $cases, $caseId)
+    {
+        $this->validate($request, [
+            'limit' => 'nullable|integer|min:1|max:100',
+        ]);
+
+        try {
+            $case = $cases->backofficeCaseThread($caseId, (int) $request->query('limit', 50));
+        } catch (InvalidArgumentException $e) {
+            return $this->failed($e->getMessage());
+        } catch (RuntimeException $e) {
+            return $this->failed($e->getMessage());
+        }
+
+        return view('backend.b2b.case', [
+            'case' => $case,
+        ]);
+    }
+
+    public function showSupportTicket(Request $request, B2BOperatorSupportTicketService $tickets, $ticketUid)
+    {
+        $this->validate($request, [
+            'limit' => 'nullable|integer|min:1|max:100',
+        ]);
+
+        try {
+            $ticket = $tickets->backofficeTicketThread($ticketUid, (int) $request->query('limit', 50));
+        } catch (InvalidArgumentException $e) {
+            return $this->failed($e->getMessage());
+        } catch (RuntimeException $e) {
+            return $this->failed($e->getMessage());
+        }
+
+        return view('backend.b2b.support-ticket', [
+            'ticket' => $ticket,
+        ]);
+    }
+
     public function claim(Request $request, B2BCaseManagementService $cases, B2BWebStepUpGuard $stepUp)
     {
         return $this->mutate($request, $cases, $stepUp, 'claim', 'case.claim');
@@ -63,6 +101,7 @@ class B2BCaseBackofficeController extends Controller
         $this->validate($request, [
             'case_id' => 'required|integer|min:1',
             'reason' => 'required|string|max:1000',
+            'redirect_to' => 'nullable|string|max:2048',
         ]);
 
         try {
@@ -73,15 +112,14 @@ class B2BCaseBackofficeController extends Controller
                 $this->context($request)
             );
         } catch (InvalidArgumentException $e) {
-            return $this->failed($e->getMessage());
+            return $this->failed($e->getMessage(), $request);
         } catch (RuntimeException $e) {
-            return $this->failed($e->getMessage());
+            return $this->failed($e->getMessage(), $request);
         }
 
         $stepUp->forget($request, $stepUpAction);
 
-        return redirect()
-            ->route('backend.b2b.cases.index')
+        return redirect($this->safeRedirect($request->input('redirect_to'), route('backend.b2b.cases.index')))
             ->with('success', 'B2B case #' . $case->id . ' updated.');
     }
 
@@ -91,6 +129,7 @@ class B2BCaseBackofficeController extends Controller
         $this->validate($request, [
             'ticket_uid' => 'required|string|max:80',
             $messageField => 'required|string|max:2000',
+            'redirect_to' => 'nullable|string|max:2048',
         ]);
 
         try {
@@ -101,15 +140,14 @@ class B2BCaseBackofficeController extends Controller
                 $this->supportTicketContext($request)
             );
         } catch (InvalidArgumentException $e) {
-            return $this->failed($e->getMessage());
+            return $this->failed($e->getMessage(), $request);
         } catch (RuntimeException $e) {
-            return $this->failed($e->getMessage());
+            return $this->failed($e->getMessage(), $request);
         }
 
         $stepUp->forget($request, $stepUpAction);
 
-        return redirect()
-            ->route('backend.b2b.cases.index')
+        return redirect($this->safeRedirect($request->input('redirect_to'), route('backend.b2b.cases.index')))
             ->with('success', 'B2B support ticket ' . $ticket->ticket_uid . ' updated.');
     }
 
@@ -121,12 +159,25 @@ class B2BCaseBackofficeController extends Controller
         ]);
     }
 
-    private function failed($message)
+    private function failed($message, Request $request = null)
     {
-        return redirect()
-            ->route('backend.b2b.cases.index')
+        $redirectTo = $request
+            ? $this->safeRedirect($request->input('redirect_to'), route('backend.b2b.cases.index'))
+            : route('backend.b2b.cases.index');
+
+        return redirect($redirectTo)
             ->withErrors(['b2b_case' => $message])
             ->withInput();
+    }
+
+    private function safeRedirect($target, $fallback)
+    {
+        $target = trim((string) $target);
+        if ($target !== '' && strpos($target, '/') === 0 && strpos($target, '//') !== 0) {
+            return $target;
+        }
+
+        return $fallback;
     }
 
     private function context(Request $request)

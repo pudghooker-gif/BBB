@@ -34,10 +34,10 @@ Date: 2026-06-24
 
 ## Stage 4: Admin And Operator Portal
 
-- Keep extending the B2B-RBAC-protected `/backend/b2b` operations dashboard, operator configuration screen, credential lifecycle screen, manual wallet action screen, settlement workflow screen, raw payload review screen, case-management/support-ticket screen, and audit trail screen into a cohesive production backoffice.
-- Keep expanding the tenant-facing signed `/api/b2b/v1/portal` UI beyond the current credentials, game assignments, sessions, transactions, settlements, cases, callback settings/errors, report drilldowns, support incidents, docs workflow pages, audited support case comments/detail/thread readback, and audited support ticket create/comment/close/detail/thread readback lifecycle into a richer production operator experience.
+- Keep extending the B2B-RBAC-protected `/backend/b2b` operations dashboard, operator configuration screen, credential lifecycle screen, manual wallet action screen, settlement workflow list/detail/scoped-action screens, raw payload review screen, case-management list/detail/timeline/staff-action screens, support-ticket list/thread/staff-action screens, and audit trail screen into a cohesive production backoffice.
+- Keep expanding the tenant-facing signed `/api/b2b/v1/portal` UI beyond the current credentials, game assignments, sessions, transactions with tenant-scoped HTML drilldown, settlements, cases, callback settings/errors, report drilldowns, support incidents, redacted API/audit logs, docs workflow pages, audited support case comments/detail/thread readback, and audited support ticket create/comment/close/detail/thread readback lifecycle into a richer production operator experience.
 - Build the portal UX over the current audited credential rotation/revocation, successful-use audit, per-key rate-limit, and deny-by-default privileged-action guard foundation, then validate it in staging behind the final signing/proxy topology.
-- Keep unified operator audit coverage for exports and dangerous admin actions; settlement export/submission/approval, credential lifecycle actions, denied privileged actions, manual wallet actions, case actions, and support-ticket lifecycle actions now write operator audit events.
+- Keep unified operator audit coverage for exports and dangerous admin actions; settlement export/submission/approval with redacted persisted reasons, credential lifecycle actions, denied privileged actions, manual wallet actions, case actions, and support-ticket lifecycle actions now write operator audit events.
 
 ## Stage 5: Deployment And Observability
 

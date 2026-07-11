@@ -11,11 +11,17 @@ class B2BOperatorPortalQuery
 {
     private $reports;
     private $redactor;
+    private $walletLookup;
 
-    public function __construct(B2BReportQuery $reports, B2BPayloadRedactor $redactor)
+    public function __construct(
+        B2BReportQuery $reports,
+        B2BPayloadRedactor $redactor,
+        WalletTransactionLookupService $walletLookup
+    )
     {
         $this->reports = $reports;
         $this->redactor = $redactor;
+        $this->walletLookup = $walletLookup;
     }
 
     public function overview(Request $request)
@@ -42,6 +48,7 @@ class B2BOperatorPortalQuery
             'reconciliation' => $this->reconciliationSummary($operatorId, $limit),
             'callbacks' => $this->callbackSummary($operatorId, $fromDate, $toDate, $limit),
             'support' => $this->supportSummary($operatorId, $limit),
+            'audit' => $this->auditSummary($operatorId, $limit),
             'recent_sessions' => $this->recentSessions($operatorId, $limit),
             'recent_transactions' => $this->recentTransactions($operatorId, $fromDate, $toDate, $limit),
             'links' => [
@@ -55,7 +62,9 @@ class B2BOperatorPortalQuery
                 'portal_callbacks' => '/api/b2b/v1/portal/callbacks',
                 'portal_reports' => '/api/b2b/v1/portal/reports',
                 'portal_support' => '/api/b2b/v1/portal/support',
+                'portal_logs' => '/api/b2b/v1/portal/logs',
                 'portal_docs' => '/api/b2b/v1/portal/docs',
+                'portal_transaction_detail_template' => '/api/b2b/v1/portal/transactions/{transaction_uid}',
                 'support_case_detail_template' => '/api/b2b/v1/portal/support/cases/{transaction_uid}',
                 'support_case_thread_template' => '/api/b2b/v1/portal/support/cases/{transaction_uid}/thread',
                 'support_ticket_detail_template' => '/api/b2b/v1/portal/support/tickets/{ticket_uid}',
@@ -571,9 +580,40 @@ class B2BOperatorPortalQuery
                 'game_uid' => isset($row->game_uid) ? $row->game_uid : null,
                 'round_id' => isset($row->round_id) ? $row->round_id : null,
                 'attempts' => isset($row->attempts) ? (int) $row->attempts : null,
+                'detail_endpoint' => isset($row->transaction_uid) ? $this->transactionDetailEndpoint($row->transaction_uid) : null,
                 'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
             ];
         })->values();
+    }
+
+    public function transactionDetail(Request $request, $transactionUid, $limit = 20)
+    {
+        $operator = $request->attributes->get('b2b_operator');
+        if (!$operator || !isset($operator->id)) {
+            return null;
+        }
+
+        $transaction = $this->walletLookup->findForOperator((int) $operator->id, $transactionUid);
+        if (!$transaction) {
+            return null;
+        }
+
+        $limit = max(1, min(50, (int) $limit));
+        $summary = $this->portalTransactionSummary($transaction);
+        $canonicalUid = $summary['transaction_uid'] ?: (string) $transactionUid;
+
+        return [
+            'transaction' => $summary,
+            'next_actions' => $this->portalNextActions(isset($transaction->status) ? $transaction->status : null),
+            'transitions' => $this->portalTransitionSummaries($this->walletLookup->transitions($transaction, $limit)),
+            'attempts' => $this->portalAttemptSummaries($this->walletLookup->attempts($transaction, $limit)),
+            'callback_logs' => $this->portalCallbackLogSummaries($this->walletLookup->callbackLogs($transaction, $limit)),
+            'reconciliation_items' => $this->portalReconciliationSummaries($this->walletLookup->reconciliationItems($transaction, $limit)),
+            'manual_actions' => $this->portalManualActionSummaries($this->walletLookup->manualActions($transaction, $limit)),
+            'detail_endpoint' => $this->transactionDetailEndpoint($canonicalUid),
+            'report_detail_endpoint' => '/api/b2b/v1/reports/transactions/' . rawurlencode($canonicalUid),
+            'limit' => $limit,
+        ];
     }
 
     private function supportSummary($operatorId, $limit)
@@ -662,6 +702,46 @@ class B2BOperatorPortalQuery
         }
 
         return $summary;
+    }
+
+    private function auditSummary($operatorId, $limit)
+    {
+        if (!Schema::hasTable('b2b_operator_audit_events')) {
+            return [
+                'by_event_type' => [],
+                'recent_events' => [],
+            ];
+        }
+
+        $rows = DB::table('b2b_operator_audit_events')
+            ->where('operator_id', $operatorId)
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ->limit($limit)
+            ->get($this->selectExisting('b2b_operator_audit_events', [
+                'event_type',
+                'subject_type',
+                'subject_id',
+                'actor',
+                'reason',
+                'metadata',
+                'created_at',
+            ]));
+
+        return [
+            'by_event_type' => $this->groupCounts('b2b_operator_audit_events', $operatorId, 'event_type'),
+            'recent_events' => $rows->map(function ($row) {
+                return [
+                    'event_type' => isset($row->event_type) ? $row->event_type : null,
+                    'subject_type' => isset($row->subject_type) ? $row->subject_type : null,
+                    'subject_id' => isset($row->subject_id) ? $this->safeErrorSummary($row->subject_id) : null,
+                    'actor' => isset($row->actor) ? $this->safeErrorSummary($row->actor) : null,
+                    'reason' => isset($row->reason) ? $this->safeErrorSummary($row->reason) : null,
+                    'metadata_summary' => isset($row->metadata) ? $this->safeMetadataSummary($row->metadata) : null,
+                    'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
+                ];
+            })->values(),
+        ];
     }
 
     private function supportTicketMessageCounts($operatorId, array $ticketIds)
@@ -967,6 +1047,35 @@ class B2BOperatorPortalQuery
         return strlen($summary) > 160 ? substr($summary, 0, 157) . '...' : $summary;
     }
 
+    private function safeMetadataSummary($value)
+    {
+        if (!$value) {
+            return null;
+        }
+
+        $decoded = null;
+        if (is_string($value)) {
+            $decoded = json_decode($value, true);
+            if (json_last_error() !== JSON_ERROR_NONE || !is_array($decoded)) {
+                return $this->safeErrorSummary($value);
+            }
+        } elseif (is_array($value)) {
+            $decoded = $value;
+        }
+
+        if (!is_array($decoded)) {
+            return null;
+        }
+
+        $redacted = $this->redactor->redact($decoded);
+        $summary = json_encode($redacted, JSON_UNESCAPED_SLASHES);
+        if ($summary === false) {
+            return null;
+        }
+
+        return strlen($summary) > 240 ? substr($summary, 0, 237) . '...' : $summary;
+    }
+
     private function caseSummaryPayload($row)
     {
         return [
@@ -981,6 +1090,136 @@ class B2BOperatorPortalQuery
             'resolved_at' => isset($row->resolved_at) ? $this->isoTime($row->resolved_at) : null,
             'updated_at' => isset($row->updated_at) ? $this->isoTime($row->updated_at) : null,
         ];
+    }
+
+    private function portalTransactionSummary($transaction)
+    {
+        return [
+            'transaction_uid' => isset($transaction->transaction_uid) ? $transaction->transaction_uid : null,
+            'transaction_id' => isset($transaction->transaction_id) ? $transaction->transaction_id : null,
+            'player_id' => isset($transaction->player_id) ? $this->safeErrorSummary($transaction->player_id) : null,
+            'session_id' => isset($transaction->session_id) ? $transaction->session_id : null,
+            'game_uid' => isset($transaction->game_uid) ? $transaction->game_uid : (isset($transaction->game_id) ? $transaction->game_id : null),
+            'round_id' => isset($transaction->round_id) ? $transaction->round_id : null,
+            'type' => isset($transaction->type) ? $transaction->type : null,
+            'amount' => isset($transaction->amount) ? $this->decimalNormalize($transaction->amount) : null,
+            'currency' => isset($transaction->currency) ? $transaction->currency : null,
+            'status' => isset($transaction->status) ? $transaction->status : null,
+            'attempts' => isset($transaction->attempts) ? (int) $transaction->attempts : null,
+            'last_error_summary' => isset($transaction->last_error) ? $this->safeErrorSummary($transaction->last_error) : null,
+            'processed_at' => isset($transaction->processed_at) ? $this->isoTime($transaction->processed_at) : null,
+            'created_at' => isset($transaction->created_at) ? $this->isoTime($transaction->created_at) : null,
+            'updated_at' => isset($transaction->updated_at) ? $this->isoTime($transaction->updated_at) : null,
+        ];
+    }
+
+    private function portalNextActions($status)
+    {
+        if (in_array($status, ['failed', 'timeout', 'unknown'], true)) {
+            return ['retry_wallet', 'reconcile_wallet', 'manual_review'];
+        }
+
+        if (in_array($status, ['dead_letter', 'manual_review', 'rollback_required'], true)) {
+            return ['manual_review', 'reconcile_wallet'];
+        }
+
+        if ($status === 'pending') {
+            return ['wait_for_callback', 'reconcile_if_stale'];
+        }
+
+        if (in_array($status, ['success', 'reversed'], true)) {
+            return [];
+        }
+
+        return ['inspect_transaction'];
+    }
+
+    private function portalTransitionSummaries($rows)
+    {
+        return collect($rows)->map(function ($row) {
+            return [
+                'from_status' => isset($row->from_status) ? $row->from_status : null,
+                'to_status' => isset($row->to_status) ? $row->to_status : null,
+                'reason' => isset($row->reason) ? $this->safeErrorSummary($row->reason) : null,
+                'actor' => isset($row->actor) ? $this->safeErrorSummary($row->actor) : null,
+                'context_summary' => isset($row->context) ? $this->safeMetadataSummary($row->context) : null,
+                'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
+            ];
+        })->values();
+    }
+
+    private function portalAttemptSummaries($rows)
+    {
+        return collect($rows)->map(function ($row) {
+            return [
+                'attempt_no' => isset($row->attempt_no) ? (int) $row->attempt_no : null,
+                'type' => isset($row->type) ? $row->type : null,
+                'endpoint' => isset($row->url) ? $this->safeEndpoint($row->url) : null,
+                'http_status' => isset($row->http_status) ? (int) $row->http_status : null,
+                'result' => isset($row->result) ? $row->result : null,
+                'duration_ms' => isset($row->duration_ms) ? (int) $row->duration_ms : null,
+                'error_summary' => isset($row->error) ? $this->safeErrorSummary($row->error) : null,
+                'started_at' => isset($row->started_at) ? $this->isoTime($row->started_at) : null,
+                'finished_at' => isset($row->finished_at) ? $this->isoTime($row->finished_at) : null,
+                'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
+            ];
+        })->values();
+    }
+
+    private function portalCallbackLogSummaries($rows)
+    {
+        return collect($rows)->map(function ($row) {
+            return [
+                'direction' => isset($row->direction) ? $row->direction : null,
+                'endpoint' => isset($row->endpoint) ? $this->safeEndpoint($row->endpoint) : null,
+                'http_status' => isset($row->http_status) ? (int) $row->http_status : null,
+                'result' => isset($row->http_status) ? $this->callbackStatusBucket($row->http_status) : 'unknown',
+                'duration_ms' => isset($row->duration_ms) ? (int) $row->duration_ms : null,
+                'error_summary' => isset($row->error_message) ? $this->safeErrorSummary($row->error_message) : null,
+                'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
+            ];
+        })->values();
+    }
+
+    private function portalReconciliationSummaries($rows)
+    {
+        return collect($rows)->map(function ($row) {
+            return [
+                'transaction_uid' => isset($row->transaction_uid) ? $row->transaction_uid : null,
+                'status' => isset($row->status) ? $row->status : null,
+                'reason' => isset($row->reason) ? $this->safeErrorSummary($row->reason) : null,
+                'priority' => isset($row->priority) ? $row->priority : null,
+                'state' => isset($row->state) ? $row->state : null,
+                'detected_at' => isset($row->detected_at) ? $this->isoTime($row->detected_at) : null,
+                'resolved_at' => isset($row->resolved_at) ? $this->isoTime($row->resolved_at) : null,
+                'updated_at' => isset($row->updated_at) ? $this->isoTime($row->updated_at) : null,
+            ];
+        })->values();
+    }
+
+    private function portalManualActionSummaries($rows)
+    {
+        return collect($rows)->map(function ($row) {
+            return [
+                'action' => isset($row->action) ? $row->action : null,
+                'from_status' => isset($row->from_status) ? $row->from_status : null,
+                'to_status' => isset($row->to_status) ? $row->to_status : null,
+                'actor' => isset($row->actor) ? $this->safeErrorSummary($row->actor) : null,
+                'reason' => isset($row->reason) ? $this->safeErrorSummary($row->reason) : null,
+                'context_summary' => isset($row->context) ? $this->safeMetadataSummary($row->context) : null,
+                'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
+                'updated_at' => isset($row->updated_at) ? $this->isoTime($row->updated_at) : null,
+            ];
+        })->values();
+    }
+
+    private function transactionDetailEndpoint($transactionUid)
+    {
+        $transactionUid = trim((string) $transactionUid);
+
+        return $transactionUid === ''
+            ? null
+            : '/api/b2b/v1/portal/transactions/' . rawurlencode($transactionUid);
     }
 
     private function supportCaseDetailEndpoint($transactionUid)

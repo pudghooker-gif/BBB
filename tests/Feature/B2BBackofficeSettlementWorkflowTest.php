@@ -37,7 +37,65 @@ class B2BBackofficeSettlementWorkflowTest extends TestCase
             ->get('/backend/b2b/settlements')
             ->assertStatus(200)
             ->assertSee('B2B Settlements')
+            ->assertSee('View Settlement')
+            ->assertSee('/backend/b2b/settlements/detail/stl_web_screen')
             ->assertSee('stl_web_screen');
+    }
+
+    public function testSettlementDetailPageShowsRedactedSnapshotAndScopedActions()
+    {
+        $this->insertSettlement('stl_web_detail', 'submitted', [
+            'submitted_by' => 'web:b2b_finance',
+            'submitted_at' => now(),
+            'metadata' => json_encode([
+                'totals' => [
+                    'transactions' => 3,
+                    'bets' => '100.00000000',
+                    'wins' => '40.00000000',
+                    'refunds' => '5.00000000',
+                    'ggr' => '55.00000000',
+                    'net' => '55.00000000',
+                ],
+                'by_type' => [
+                    'bet' => ['count' => 2, 'amount' => '100.00000000'],
+                    'win' => ['count' => 1, 'amount' => '40.00000000'],
+                ],
+                'approval' => [
+                    'decision' => 'approved',
+                    'actor' => 'web:finance_lead',
+                    'reason' => 'Approved after review token=settlement-detail-secret.',
+                    'decided_at' => now()->toIso8601String(),
+                ],
+                'export' => [
+                    'format' => 'csv',
+                    'sha256' => hash('sha256', 'stl_web_detail'),
+                    'secret' => 'settlement-detail-secret',
+                ],
+            ]),
+        ]);
+
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/settlements/detail/stl_web_detail')
+            ->assertStatus(200)
+            ->assertSee('B2B Settlement Detail')
+            ->assertSee('Settlement Actions')
+            ->assertSee('Settlement Totals')
+            ->assertSee('Transaction Breakdown')
+            ->assertSee('Approval Trail')
+            ->assertSee('Snapshot Metadata')
+            ->assertSee('stl_web_detail')
+            ->assertSee('Approve Step-Up')
+            ->assertSee('/backend/b2b/settlements/approve', false)
+            ->assertSee('[REDACTED]')
+            ->assertDontSee('settlement-detail-secret');
+    }
+
+    public function testSettlementDetailPageRedirectsMissingSettlement()
+    {
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/settlements/detail/missing-settlement')
+            ->assertRedirect(route('backend.b2b.settlements.index'))
+            ->assertSessionHasErrors('settlement_workflow');
     }
 
     public function testSettlementSubmitRequiresWebStepUp()
@@ -50,11 +108,51 @@ class B2BBackofficeSettlementWorkflowTest extends TestCase
                 '_token' => 'test-token',
                 'settlement_uid' => 'stl_web_submit_step_up',
                 'reason' => 'Monthly settlement close.',
+                'redirect_to' => '/backend/b2b/settlements/detail/stl_web_submit_step_up',
             ]);
 
         $this->assertStringContainsString('/backend/b2b/step-up/settlement.submit', $response->headers->get('Location'));
+        $this->assertStringContainsString(
+            'redirect_to=/backend/b2b/settlements/detail/stl_web_submit_step_up',
+            urldecode($response->headers->get('Location'))
+        );
         $this->assertSame('exported', DB::table('b2b_settlements')->where('settlement_uid', 'stl_web_submit_step_up')->value('status'));
         $this->assertSame(0, DB::table('b2b_operator_audit_events')->where('event_type', 'settlement.submitted')->count());
+    }
+
+    public function testSettlementDetailActionReturnsToDetailAfterFreshWebStepUpAndRedactsReason()
+    {
+        $admin = $this->adminUser();
+        $guard = app(B2BWebStepUpGuard::class);
+        $detailPath = '/backend/b2b/settlements/detail/stl_web_detail_submit';
+        $this->insertSettlement('stl_web_detail_submit', 'exported');
+
+        $submit = $this->actingAs($admin)
+            ->withSession([
+                '_token' => 'test-token',
+                $guard->sessionKey('settlement.submit') => [
+                    'user_id' => (string) $admin->getAuthIdentifier(),
+                    'verified_at' => time(),
+                    'password_verified_at' => time(),
+                ],
+            ])
+            ->post('/backend/b2b/settlements/submit', [
+                '_token' => 'test-token',
+                'settlement_uid' => 'stl_web_detail_submit',
+                'reason' => 'Detail settlement close token=settlement-action-secret.',
+                'redirect_to' => $detailPath,
+            ]);
+
+        $submit->assertRedirect($detailPath);
+        $submit->assertSessionMissing($guard->sessionKey('settlement.submit'));
+        $this->assertSame('submitted', DB::table('b2b_settlements')->where('settlement_uid', 'stl_web_detail_submit')->value('status'));
+
+        $reason = DB::table('b2b_operator_audit_events')
+            ->where('event_type', 'settlement.submitted')
+            ->where('subject_id', 'stl_web_detail_submit')
+            ->value('reason');
+        $this->assertStringContainsString('[REDACTED]', $reason);
+        $this->assertStringNotContainsString('settlement-action-secret', $reason);
     }
 
     public function testSettlementSubmitAppliesWithFreshWebStepUp()
@@ -110,7 +208,7 @@ class B2BBackofficeSettlementWorkflowTest extends TestCase
             ->post('/backend/b2b/settlements/approve', [
                 '_token' => 'test-token',
                 'settlement_uid' => 'stl_web_approve_apply',
-                'reason' => 'Settlement totals match finance reconciliation.',
+                'reason' => 'Settlement totals match finance reconciliation token=settlement-approve-secret.',
             ]);
 
         $response->assertRedirect(route('backend.b2b.settlements.index'));
@@ -122,6 +220,17 @@ class B2BBackofficeSettlementWorkflowTest extends TestCase
         $this->assertSame('b2b.settlements.approve', $metadata['permission']);
         $this->assertTrue($metadata['step_up']);
         $this->assertSame('web_backoffice', $metadata['source']);
+
+        $settlementMetadata = json_decode(DB::table('b2b_settlements')->where('settlement_uid', 'stl_web_approve_apply')->value('metadata'), true);
+        $this->assertStringContainsString('[REDACTED]', $settlementMetadata['approval']['reason']);
+        $this->assertStringNotContainsString('settlement-approve-secret', json_encode($settlementMetadata));
+
+        $reason = DB::table('b2b_operator_audit_events')
+            ->where('event_type', 'settlement.approved')
+            ->where('subject_id', 'stl_web_approve_apply')
+            ->value('reason');
+        $this->assertStringContainsString('[REDACTED]', $reason);
+        $this->assertStringNotContainsString('settlement-approve-secret', $reason);
     }
 
     public function testSettlementRejectAppliesWithFreshWebStepUp()

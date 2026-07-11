@@ -34,8 +34,20 @@ class RequireB2BWebStepUp
             ], 403);
         }
 
+        $redirectTo = $this->safeRedirect($request->input('redirect_to'), $request->getRequestUri());
+
         return redirect()
-            ->route('backend.b2b.step_up.show', ['action' => $action, 'redirect_to' => $request->getRequestUri()])
+            ->route('backend.b2b.step_up.show', ['action' => $action, 'redirect_to' => $redirectTo])
             ->withErrors(['b2b_step_up' => $result['message']]);
+    }
+
+    private function safeRedirect($target, $fallback)
+    {
+        $target = trim((string) $target);
+        if ($target !== '' && strpos($target, '/') === 0 && strpos($target, '//') !== 0) {
+            return $target;
+        }
+
+        return $fallback;
     }
 }

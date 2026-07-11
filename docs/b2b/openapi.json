@@ -125,7 +125,7 @@
       "get": {
         "tags": ["portal"],
         "summary": "Return a tenant-scoped read-only operator portal overview",
-        "description": "Aggregates signed-operator profile, API key status and public scope names, wallet/session/reporting summaries, recent sessions, recent transactions, settlements, reconciliation items, recent support tickets with message counts and latest redacted message context, and safe navigation links. Operator URL fields are returned without query strings. Secret material and raw wallet payloads are never returned.",
+        "description": "Aggregates signed-operator profile, API key status and public scope names, wallet/session/reporting summaries, recent sessions, recent transactions with portal detail endpoints, settlements, reconciliation items, recent support tickets with message counts and latest redacted message context, redacted API/audit logs, and safe navigation links. Operator URL fields are returned without query strings. Secret material and raw wallet payloads are never returned.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
           { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
@@ -150,11 +150,37 @@
     "/portal/games": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/sessions": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/transactions": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/transactions/{transaction_uid}": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Render one operator transaction detail page",
+        "description": "Returns a signed text/html transaction drilldown page for the signed operator only. The page shows transaction summary, state transitions, callback attempts, callback logs, reconciliation items, and manual actions without raw request or response payload bodies.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "transaction_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 191 }, "example": "tx_123" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 50, "default": 20 }, "example": 20 }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped transaction detail HTML page",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/portal/settlements": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/cases": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/callbacks": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/reports": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/support": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/logs": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/support/cases/{transaction_uid}": {
       "get": {
         "tags": ["portal"],
@@ -805,7 +831,7 @@
         "get": {
           "tags": ["portal"],
           "summary": "Render a signed read-only operator portal workflow page",
-          "description": "Returns tenant-scoped HTML for credentials, games, sessions, transactions, settlements, cases, callbacks, reports, support, or docs. The credentials page may show public API-key scope names, the support page may show support-ticket message counts and latest redacted message context, and operator URL fields are shown without query strings, but secret material and raw wallet payloads are never returned.",
+          "description": "Returns tenant-scoped HTML for credentials, games, sessions, transactions, settlements, cases, callbacks, reports, support, logs, or docs. The credentials page may show public API-key scope names, the support page may show support-ticket message counts and latest redacted message context, the logs page shows redacted operator-owned audit/API events, and operator URL fields are shown without query strings, but secret material and raw wallet payloads are never returned.",
           "security": [{ "B2BHmac": [] }],
           "parameters": [
             { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
@@ -900,11 +926,30 @@
           "reconciliation": { "type": "object", "additionalProperties": true },
           "callbacks": { "type": "object", "additionalProperties": true },
           "support": { "$ref": "#/components/schemas/PortalSupportSummary" },
+          "audit": { "$ref": "#/components/schemas/PortalAuditSummary" },
           "recent_sessions": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
-          "recent_transactions": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+          "recent_transactions": { "type": "array", "items": { "$ref": "#/components/schemas/PortalRecentTransaction" } },
           "links": { "type": "object", "additionalProperties": { "type": "string" } }
         },
         "additionalProperties": true
+      },
+      "PortalRecentTransaction": {
+        "type": "object",
+        "properties": {
+          "transaction_uid": { "type": ["string", "null"], "example": "tx_123" },
+          "transaction_id": { "type": ["string", "null"], "example": "operator_tx_123" },
+          "type": { "type": ["string", "null"], "example": "bet" },
+          "status": { "type": ["string", "null"], "example": "success" },
+          "amount": { "type": ["string", "null"], "example": "10.00000000" },
+          "currency": { "type": ["string", "null"], "example": "USD" },
+          "session_id": { "type": ["string", "null"], "example": "sess_123" },
+          "game_uid": { "type": ["string", "null"], "example": "book_123" },
+          "round_id": { "type": ["string", "null"], "example": "round_123" },
+          "attempts": { "type": ["integer", "null"], "example": 1 },
+          "detail_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/transactions/tx_123" },
+          "created_at": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
       },
       "PortalSupportSummary": {
         "type": "object",
@@ -920,6 +965,30 @@
           }
         },
         "additionalProperties": true
+      },
+      "PortalAuditSummary": {
+        "type": "object",
+        "properties": {
+          "by_event_type": { "type": "object", "additionalProperties": true },
+          "recent_events": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PortalAuditEventSummary" }
+          }
+        },
+        "additionalProperties": true
+      },
+      "PortalAuditEventSummary": {
+        "type": "object",
+        "properties": {
+          "event_type": { "type": ["string", "null"], "example": "api_key.used" },
+          "subject_type": { "type": ["string", "null"], "example": "api_key" },
+          "subject_id": { "type": ["string", "null"], "example": "key_abc123" },
+          "actor": { "type": ["string", "null"], "example": "api:op_abc" },
+          "reason": { "type": ["string", "null"], "example": "Signed portal request token=[REDACTED]." },
+          "metadata_summary": { "type": ["string", "null"], "example": "{\"path\":\"/api/b2b/v1/portal/overview\",\"api_key\":\"[REDACTED]\"}" },
+          "created_at": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
       },
       "PortalSupportTicketSummary": {
         "type": "object",

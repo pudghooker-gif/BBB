@@ -44,10 +44,105 @@ class B2BBackofficeCaseManagementTest extends TestCase
             ->assertStatus(200)
             ->assertSee('B2B Case Management')
             ->assertSee('tx_case_review')
+            ->assertSee('View Case')
+            ->assertSee('/backend/b2b/cases/reconciliation/' . $this->caseId)
             ->assertSee('sup_case_review')
+            ->assertSee('View Thread')
+            ->assertSee('/backend/b2b/cases/support-ticket/thread/sup_case_review')
             ->assertSee('[REDACTED]')
             ->assertDontSee('case-secret-token')
             ->assertDontSee('ticket-secret-token');
+    }
+
+    public function testCaseDetailPageShowsRedactedTimelineAndScopedActions()
+    {
+        DB::table('b2b_wallet_reconciliation_items')->where('id', $this->caseId)->update([
+            'context' => json_encode([
+                'provider_case' => 'CASE-1',
+                'token' => 'case-secret-token',
+                'operator_comments' => [[
+                    'actor' => 'operator:op_case_review',
+                    'source' => 'operator_portal',
+                    'message' => 'Operator comment token=case-thread-secret',
+                    'external_reference' => 'OP-CASE-token=case-thread-secret',
+                    'at' => now()->toIso8601String(),
+                ]],
+                'case_events' => [[
+                    'action' => 'claim',
+                    'state' => 'in_progress',
+                    'actor' => 'web:b2b_case_ops',
+                    'reason' => 'Staff claim token=case-event-secret',
+                    'source' => 'web_backoffice',
+                    'permission' => 'b2b.cases.manage',
+                    'step_up' => true,
+                    'at' => now()->toIso8601String(),
+                ]],
+            ]),
+        ]);
+
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/cases/reconciliation/' . $this->caseId . '?limit=1')
+            ->assertStatus(200)
+            ->assertSee('B2B Case Detail')
+            ->assertSee('Case Summary')
+            ->assertSee('Case Actions')
+            ->assertSee('Operator Comments')
+            ->assertSee('Case Events')
+            ->assertSee('tx_case_review')
+            ->assertSee('op_case_review')
+            ->assertSee('Claim Step-Up')
+            ->assertSee('/backend/b2b/cases/claim', false)
+            ->assertSee('[REDACTED]')
+            ->assertDontSee('case-secret-token')
+            ->assertDontSee('case-thread-secret')
+            ->assertDontSee('case-event-secret');
+    }
+
+    public function testCaseDetailPageRedirectsMissingCase()
+    {
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/cases/reconciliation/999999')
+            ->assertRedirect(route('backend.b2b.cases.index'))
+            ->assertSessionHasErrors('b2b_case');
+    }
+
+    public function testSupportTicketThreadPageShowsRedactedBoundedMessages()
+    {
+        DB::table('b2b_operator_support_ticket_messages')->insert([
+            'ticket_id' => $this->supportTicketId,
+            'operator_id' => $this->operator->id,
+            'actor' => 'staff:second-message',
+            'source' => 'web_backoffice',
+            'message' => 'Second support message token=ticket-thread-secret',
+            'metadata' => json_encode(['token' => 'ticket-thread-secret']),
+            'created_at' => now()->addMinute(),
+            'updated_at' => now()->addMinute(),
+        ]);
+
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/cases/support-ticket/thread/sup_case_review?limit=1')
+            ->assertStatus(200)
+            ->assertSee('B2B Support Ticket')
+            ->assertSee('Ticket Summary')
+            ->assertSee('Ticket Actions')
+            ->assertSee('Message Thread')
+            ->assertSee('sup_case_review')
+            ->assertSee('op_case_review')
+            ->assertSee('operator_portal')
+            ->assertSee('Comment Step-Up')
+            ->assertSee('/backend/b2b/cases/support-ticket/comment', false)
+            ->assertSee('[REDACTED]')
+            ->assertDontSee('ticket-secret-token')
+            ->assertDontSee('ticket-thread-secret')
+            ->assertDontSee('staff:second-message');
+    }
+
+    public function testSupportTicketThreadPageRedirectsMissingTicket()
+    {
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/cases/support-ticket/thread/missing_ticket')
+            ->assertRedirect(route('backend.b2b.cases.index'))
+            ->assertSessionHasErrors('b2b_case');
     }
 
     public function testCaseClaimRequiresWebStepUp()
@@ -58,11 +153,48 @@ class B2BBackofficeCaseManagementTest extends TestCase
                 '_token' => 'test-token',
                 'case_id' => $this->caseId,
                 'reason' => 'Taking ownership of provider case CASE-1.',
+                'redirect_to' => '/backend/b2b/cases/reconciliation/' . $this->caseId,
             ]);
 
         $this->assertStringContainsString('/backend/b2b/step-up/case.claim', $response->headers->get('Location'));
+        $this->assertStringContainsString(
+            'redirect_to=/backend/b2b/cases/reconciliation/' . $this->caseId,
+            urldecode($response->headers->get('Location'))
+        );
         $this->assertSame('open', DB::table('b2b_wallet_reconciliation_items')->where('id', $this->caseId)->value('state'));
         $this->assertSame(0, DB::table('b2b_operator_audit_events')->where('event_type', 'case.claimed')->count());
+    }
+
+    public function testCaseDetailActionReturnsToDetailAfterFreshWebStepUp()
+    {
+        $admin = $this->adminUser();
+        $guard = app(B2BWebStepUpGuard::class);
+        $detailPath = '/backend/b2b/cases/reconciliation/' . $this->caseId;
+
+        $claim = $this->actingAs($admin)
+            ->withSession([
+                '_token' => 'test-token',
+                $guard->sessionKey('case.claim') => [
+                    'user_id' => (string) $admin->getAuthIdentifier(),
+                    'verified_at' => time(),
+                    'password_verified_at' => time(),
+                ],
+            ])
+            ->post('/backend/b2b/cases/claim', [
+                '_token' => 'test-token',
+                'case_id' => $this->caseId,
+                'reason' => 'Detail page claim token=case-detail-action-secret.',
+                'redirect_to' => $detailPath,
+            ]);
+
+        $claim->assertRedirect($detailPath);
+        $claim->assertSessionMissing($guard->sessionKey('case.claim'));
+        $this->assertSame('in_progress', DB::table('b2b_wallet_reconciliation_items')->where('id', $this->caseId)->value('state'));
+
+        $context = $this->caseContext();
+        $this->assertSame('web:b2b_case_ops', $context['case_assignment']['assigned_to']);
+        $this->assertStringContainsString('[REDACTED]', $context['case_assignment']['assigned_to'] . json_encode($context));
+        $this->assertStringNotContainsString('case-detail-action-secret', json_encode($context));
     }
 
     public function testCaseClaimResolveAndReopenApplyWithFreshWebStepUp()
@@ -163,11 +295,51 @@ class B2BBackofficeCaseManagementTest extends TestCase
                 '_token' => 'test-token',
                 'ticket_uid' => $this->supportTicketUid,
                 'message' => 'Staff asks operator for callback logs.',
+                'redirect_to' => '/backend/b2b/cases/support-ticket/thread/' . $this->supportTicketUid,
             ]);
 
         $this->assertStringContainsString('/backend/b2b/step-up/support_ticket.comment', $response->headers->get('Location'));
+        $this->assertStringContainsString(
+            'redirect_to=/backend/b2b/cases/support-ticket/thread/' . $this->supportTicketUid,
+            urldecode($response->headers->get('Location'))
+        );
         $this->assertSame(0, DB::table('b2b_operator_audit_events')->where('event_type', 'support_ticket.staff_commented')->count());
         $this->assertSame(1, DB::table('b2b_operator_support_ticket_messages')->where('ticket_id', $this->supportTicketId)->count());
+    }
+
+    public function testSupportTicketThreadActionReturnsToThreadAfterFreshWebStepUp()
+    {
+        $admin = $this->adminUser();
+        $guard = app(B2BWebStepUpGuard::class);
+        $threadPath = '/backend/b2b/cases/support-ticket/thread/' . $this->supportTicketUid;
+
+        $comment = $this->actingAs($admin)
+            ->withSession([
+                '_token' => 'test-token',
+                $guard->sessionKey('support_ticket.comment') => [
+                    'user_id' => (string) $admin->getAuthIdentifier(),
+                    'verified_at' => time(),
+                    'password_verified_at' => time(),
+                ],
+            ])
+            ->post('/backend/b2b/cases/support-ticket/comment', [
+                '_token' => 'test-token',
+                'ticket_uid' => $this->supportTicketUid,
+                'message' => 'Thread detail staff response token=detail-action-secret.',
+                'redirect_to' => $threadPath,
+            ]);
+
+        $comment->assertRedirect($threadPath);
+        $comment->assertSessionMissing($guard->sessionKey('support_ticket.comment'));
+        $this->assertSame('in_progress', DB::table('b2b_operator_support_tickets')->where('id', $this->supportTicketId)->value('status'));
+
+        $commentMessage = DB::table('b2b_operator_support_ticket_messages')
+            ->where('ticket_id', $this->supportTicketId)
+            ->orderBy('id', 'desc')
+            ->first();
+        $this->assertSame('web_backoffice', $commentMessage->source);
+        $this->assertStringContainsString('[REDACTED]', $commentMessage->message);
+        $this->assertStringNotContainsString('detail-action-secret', $commentMessage->message);
     }
 
     public function testSupportTicketStaffCommentCloseAndReopenApplyWithFreshWebStepUp()

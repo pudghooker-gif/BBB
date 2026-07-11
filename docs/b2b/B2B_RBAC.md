@@ -132,6 +132,7 @@ Protected backoffice workflows:
 GET  /backend/b2b/wallet/manual-actions
 POST /backend/b2b/wallet/manual-actions
 GET  /backend/b2b/settlements
+GET  /backend/b2b/settlements/detail/{settlement_uid}
 POST /backend/b2b/settlements/submit
 POST /backend/b2b/settlements/approve
 POST /backend/b2b/settlements/reject
@@ -145,9 +146,14 @@ POST /backend/b2b/operators/resume
 GET  /backend/b2b/payloads
 POST /backend/b2b/payloads/raw
 GET  /backend/b2b/cases
+GET  /backend/b2b/cases/reconciliation/{case_id}
+GET  /backend/b2b/cases/support-ticket/thread/{ticket_uid}
 POST /backend/b2b/cases/claim
 POST /backend/b2b/cases/resolve
 POST /backend/b2b/cases/reopen
+POST /backend/b2b/cases/support-ticket/comment
+POST /backend/b2b/cases/support-ticket/close
+POST /backend/b2b/cases/support-ticket/reopen
 ```
 
 Middleware for dangerous web routes:

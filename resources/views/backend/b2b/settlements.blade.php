@@ -92,6 +92,7 @@
                                 <tr>
                                     <td>
                                         <strong>{{ $settlement->settlement_uid }}</strong>
+                                        <br><a href="{{ route('backend.b2b.settlements.show', ['settlement_uid' => $settlement->settlement_uid]) }}">View Settlement</a>
                                         @if($settlement->export_hash)
                                             <br><small class="text-muted">{{ $settlement->export_hash }}</small>
                                         @endif

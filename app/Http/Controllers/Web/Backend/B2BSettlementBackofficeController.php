@@ -26,6 +26,21 @@ class B2BSettlementBackofficeController extends Controller
         ]);
     }
 
+    public function show(B2BSettlementWorkflowService $settlements, $settlementUid)
+    {
+        try {
+            $settlement = $settlements->backofficeSettlement($settlementUid);
+        } catch (InvalidArgumentException $e) {
+            return $this->failed($e->getMessage());
+        } catch (RuntimeException $e) {
+            return $this->failed($e->getMessage());
+        }
+
+        return view('backend.b2b.settlement', [
+            'settlement' => $settlement,
+        ]);
+    }
+
     public function redirectToIndex()
     {
         return redirect()->route('backend.b2b.settlements.index');
@@ -51,6 +66,7 @@ class B2BSettlementBackofficeController extends Controller
         $this->validate($request, [
             'settlement_uid' => 'required|string|max:80',
             'reason' => 'required|string|max:1000',
+            'redirect_to' => 'nullable|string|max:2048',
         ]);
 
         $settlementUid = $request->input('settlement_uid');
@@ -73,24 +89,36 @@ class B2BSettlementBackofficeController extends Controller
                 $settlement = $settlements->reject($settlementUid, $actor, $reason, $context);
             }
         } catch (InvalidArgumentException $e) {
-            return $this->failed($e->getMessage());
+            return $this->failed($e->getMessage(), $request);
         } catch (RuntimeException $e) {
-            return $this->failed($e->getMessage());
+            return $this->failed($e->getMessage(), $request);
         }
 
         $stepUp->forget($request, $stepUpAction);
 
-        return redirect()
-            ->route('backend.b2b.settlements.index')
+        return redirect($this->safeRedirect($request->input('redirect_to'), route('backend.b2b.settlements.index')))
             ->with('success', 'Settlement ' . $settlement->settlement_uid . ' ' . $decision . ' recorded.');
     }
 
-    private function failed($message)
+    private function failed($message, Request $request = null)
     {
-        return redirect()
-            ->route('backend.b2b.settlements.index')
+        $redirectTo = $request
+            ? $this->safeRedirect($request->input('redirect_to'), route('backend.b2b.settlements.index'))
+            : route('backend.b2b.settlements.index');
+
+        return redirect($redirectTo)
             ->withErrors(['settlement_workflow' => $message])
             ->withInput();
+    }
+
+    private function safeRedirect($target, $fallback)
+    {
+        $target = trim((string) $target);
+        if ($target !== '' && strpos($target, '/') === 0 && strpos($target, '//') !== 0) {
+            return $target;
+        }
+
+        return $fallback;
     }
 
     private function settlements()

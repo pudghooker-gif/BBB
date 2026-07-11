@@ -164,6 +164,17 @@
           "response": []
         },
         {
+          "name": "Portal Transaction Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/transactions/{{transactionId}}?limit=20"
+          },
+          "response": []
+        },
+        {
           "name": "Portal Settlements",
           "request": {
             "method": "GET",
@@ -215,6 +226,17 @@
               { "key": "Accept", "value": "text/html" }
             ],
             "url": "{{baseUrl}}/api/b2b/v1/portal/support?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/logs?limit=10"
           },
           "response": []
         },

@@ -1060,13 +1060,18 @@ class B2BReleaseGate
             ['method' => 'POST', 'uri' => 'api/b2b/v1/sandbox/wallet/{player_id}/debit', 'middleware' => 'b2b.scope:sandbox.wallet.mutate'],
         ];
 
-        foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'docs'] as $portalSection) {
+        foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'logs', 'docs'] as $portalSection) {
             $routes[] = [
                 'method' => 'GET',
                 'uri' => 'api/b2b/v1/portal/' . $portalSection,
                 'middleware' => 'b2b.scope:portal.read',
             ];
         }
+        $routes[] = [
+            'method' => 'GET',
+            'uri' => 'api/b2b/v1/portal/transactions/{transaction_uid}',
+            'middleware' => 'b2b.scope:portal.read',
+        ];
 
         return $routes;
     }
@@ -1208,7 +1213,7 @@ class B2BReleaseGate
             $missing[] = 'view:backend.b2b.wallet-manual-actions';
         }
 
-        foreach (['backend.b2b.settlements.index', 'backend.b2b.settlements.submit', 'backend.b2b.settlements.approve', 'backend.b2b.settlements.reject'] as $routeName) {
+        foreach (['backend.b2b.settlements.index', 'backend.b2b.settlements.show', 'backend.b2b.settlements.submit', 'backend.b2b.settlements.approve', 'backend.b2b.settlements.reject'] as $routeName) {
             if (!Route::has($routeName)) {
                 $missing[] = 'route:' . $routeName;
             }
@@ -1216,6 +1221,10 @@ class B2BReleaseGate
 
         if (!$this->routeUsesMiddleware('backend.b2b.settlements.index', 'b2b.admin:b2b.reports.view')) {
             $missing[] = 'route_middleware:backend.b2b.settlements.index:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.settlements.show', 'b2b.admin:b2b.reports.view')) {
+            $missing[] = 'route_middleware:backend.b2b.settlements.show:b2b.admin';
         }
 
         if (!$this->routeUsesMiddleware('backend.b2b.settlements.submit', 'b2b.admin:b2b.settlements.submit')) {
@@ -1244,6 +1253,35 @@ class B2BReleaseGate
 
         if (!View::exists('backend.b2b.settlements')) {
             $missing[] = 'view:backend.b2b.settlements';
+        }
+
+        if (!View::exists('backend.b2b.settlement')) {
+            $missing[] = 'view:backend.b2b.settlement';
+        }
+
+        $backendSettlementsView = $this->fileContents(base_path('resources/views/backend/b2b/settlements.blade.php'));
+        foreach (['backend.b2b.settlements.show', 'View Settlement'] as $needle) {
+            if (strpos($backendSettlementsView, $needle) === false) {
+                $missing[] = 'backend_settlements_view_drilldown:' . $needle;
+            }
+        }
+
+        $backendSettlementView = $this->fileContents(base_path('resources/views/backend/b2b/settlement.blade.php'));
+        foreach ([
+            'B2B Settlement Detail',
+            'Settlement Actions',
+            'Settlement Totals',
+            'Transaction Breakdown',
+            'Approval Trail',
+            'Snapshot Metadata',
+            'name="redirect_to"',
+            'backend.b2b.settlements.submit',
+            'backend.b2b.settlements.approve',
+            'backend.b2b.settlements.reject',
+        ] as $needle) {
+            if (strpos($backendSettlementView, $needle) === false) {
+                $missing[] = 'backend_settlement_view:' . $needle;
+            }
         }
 
         foreach (['backend.b2b.credentials.index', 'backend.b2b.credentials.rotate', 'backend.b2b.credentials.revoke'] as $routeName) {
@@ -1338,6 +1376,8 @@ class B2BReleaseGate
 
         foreach ([
             'backend.b2b.cases.index',
+            'backend.b2b.cases.show',
+            'backend.b2b.cases.support_ticket.show',
             'backend.b2b.cases.claim',
             'backend.b2b.cases.resolve',
             'backend.b2b.cases.reopen',
@@ -1352,6 +1392,14 @@ class B2BReleaseGate
 
         if (!$this->routeUsesMiddleware('backend.b2b.cases.index', 'b2b.admin:b2b.cases.view')) {
             $missing[] = 'route_middleware:backend.b2b.cases.index:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.cases.show', 'b2b.admin:b2b.cases.view')) {
+            $missing[] = 'route_middleware:backend.b2b.cases.show:b2b.admin';
+        }
+
+        if (!$this->routeUsesMiddleware('backend.b2b.cases.support_ticket.show', 'b2b.admin:b2b.cases.view')) {
+            $missing[] = 'route_middleware:backend.b2b.cases.support_ticket.show:b2b.admin';
         }
 
         foreach ([
@@ -1373,6 +1421,54 @@ class B2BReleaseGate
 
         if (!View::exists('backend.b2b.cases')) {
             $missing[] = 'view:backend.b2b.cases';
+        }
+
+        if (!View::exists('backend.b2b.case')) {
+            $missing[] = 'view:backend.b2b.case';
+        }
+
+        if (!View::exists('backend.b2b.support-ticket')) {
+            $missing[] = 'view:backend.b2b.support-ticket';
+        }
+
+        $backendCasesView = $this->fileContents(base_path('resources/views/backend/b2b/cases.blade.php'));
+        foreach (['backend.b2b.cases.show', 'View Case', 'backend.b2b.cases.support_ticket.show', 'View Thread'] as $needle) {
+            if (strpos($backendCasesView, $needle) === false) {
+                $missing[] = 'backend_cases_view_drilldown:' . $needle;
+            }
+        }
+
+        $backendCaseView = $this->fileContents(base_path('resources/views/backend/b2b/case.blade.php'));
+        foreach ([
+            'B2B Case Detail',
+            'Case Actions',
+            'Operator Comments',
+            'Case Events',
+            'name="redirect_to"',
+            'backend.b2b.cases.claim',
+            'backend.b2b.cases.resolve',
+            'backend.b2b.cases.reopen',
+        ] as $needle) {
+            if (strpos($backendCaseView, $needle) === false) {
+                $missing[] = 'backend_case_view:' . $needle;
+            }
+        }
+
+        $backendSupportTicketView = $this->fileContents(base_path('resources/views/backend/b2b/support-ticket.blade.php'));
+        foreach ([
+            'B2B Support Ticket',
+            'Ticket Actions',
+            'Message Thread',
+            "\$ticket['context_display']",
+            "\$ticket['messages']",
+            'name="redirect_to"',
+            'backend.b2b.cases.support_ticket.comment',
+            'backend.b2b.cases.support_ticket.close',
+            'backend.b2b.cases.support_ticket.reopen',
+        ] as $needle) {
+            if (strpos($backendSupportTicketView, $needle) === false) {
+                $missing[] = 'backend_support_ticket_view:' . $needle;
+            }
         }
 
         if (!Route::has('backend.b2b.audit.index')) {
@@ -1409,6 +1505,10 @@ class B2BReleaseGate
             $missing[] = 'view:b2b.operator-portal.thread';
         }
 
+        if (!View::exists('b2b.operator-portal.transaction')) {
+            $missing[] = 'view:b2b.operator-portal.transaction';
+        }
+
         $portalQuery = $this->fileContents(base_path('app/B2B/Services/B2BOperatorPortalQuery.php'));
         foreach (["'scopes'", 'scopeList(', "'scopes_count'"] as $needle) {
             if (strpos($portalQuery, $needle) === false) {
@@ -1425,6 +1525,12 @@ class B2BReleaseGate
             'recent_cases',
             'detail_endpoint',
             'thread_endpoint',
+            'portal_logs',
+            'auditSummary',
+            'metadata_summary',
+            'portal_transaction_detail_template',
+            'transactionDetail',
+            'transactionDetailEndpoint',
         ] as $needle) {
             if (strpos($portalQuery, $needle) === false) {
                 $missing[] = 'portal_query_detail_endpoint:' . $needle;
@@ -1449,11 +1555,17 @@ class B2BReleaseGate
                     $missing[] = 'portal_view_thread_endpoint:' . $viewPath . ':' . $needle;
                 }
             }
+            if (strpos($view, 'API Logs') === false) {
+                $missing[] = 'portal_view_api_logs:' . $viewPath;
+            }
             if ($viewPath === 'resources/views/b2b/operator-portal/section.blade.php') {
                 foreach (['Recent Cases', 'recent_cases'] as $needle) {
                     if (strpos($view, $needle) === false) {
                         $missing[] = 'portal_view_recent_cases:' . $needle;
                     }
+                }
+                if (strpos($view, "\$audit['recent_events']") === false) {
+                    $missing[] = 'portal_view_api_logs:recent_events';
                 }
             }
         }
@@ -1462,6 +1574,19 @@ class B2BReleaseGate
         foreach (["\$thread_type === 'case'", 'Case Summary', 'Ticket Summary', 'API Detail Endpoint'] as $needle) {
             if (strpos($portalThreadView, $needle) === false) {
                 $missing[] = 'portal_thread_view:' . $needle;
+            }
+        }
+
+        $portalTransactionView = $this->fileContents(base_path('resources/views/b2b/operator-portal/transaction.blade.php'));
+        foreach (['Transaction Summary', 'Callback Attempts', 'Callback Logs', 'Portal Detail Endpoint', 'request_body'] as $needle) {
+            if ($needle === 'request_body') {
+                if (strpos($portalTransactionView, $needle) !== false) {
+                    $missing[] = 'portal_transaction_view_raw_payload:' . $needle;
+                }
+                continue;
+            }
+            if (strpos($portalTransactionView, $needle) === false) {
+                $missing[] = 'portal_transaction_view:' . $needle;
             }
         }
 
@@ -1483,7 +1608,9 @@ class B2BReleaseGate
             'api/b2b/v1/portal/callbacks',
             'api/b2b/v1/portal/reports',
             'api/b2b/v1/portal/support',
+            'api/b2b/v1/portal/logs',
             'api/b2b/v1/portal/docs',
+            'api/b2b/v1/portal/transactions/{transaction_uid}',
             'api/b2b/v1/portal/support/cases/{transaction_uid}',
             'api/b2b/v1/portal/support/cases/{transaction_uid}/thread',
             'api/b2b/v1/portal/support/tickets/{ticket_uid}',

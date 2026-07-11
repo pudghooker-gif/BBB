@@ -257,6 +257,22 @@ class B2BOperatorSupportTicketService
             });
     }
 
+    public function backofficeTicketThread($ticketUid, $limit = 50)
+    {
+        $this->assertTablesReady();
+
+        $ticket = $this->backofficeTicket($ticketUid);
+        $payload = $this->ticketPayload($ticket);
+        $payload['operator_id'] = isset($ticket->operator_id) ? (int) $ticket->operator_id : null;
+        $payload['operator_uid'] = isset($ticket->operator_uid) ? $this->safeNullableText($ticket->operator_uid, 100) : null;
+        $payload['operator_name'] = isset($ticket->operator_name) ? $this->safeNullableText($ticket->operator_name, 160) : null;
+        $payload['context_display'] = $this->formatContext(isset($ticket->context) ? $ticket->context : null);
+        $payload['latest_message'] = $this->latestTicketMessage($ticket->id, (int) $ticket->operator_id);
+        $payload['messages'] = $this->ticketMessages($ticket->id, (int) $ticket->operator_id, $limit);
+
+        return $payload;
+    }
+
     public function staffComment($ticketUid, $actor, $message, array $context = [])
     {
         $this->assertTablesReady();
@@ -431,6 +447,30 @@ class B2BOperatorSupportTicketService
 
         if (!$ticket) {
             throw new InvalidArgumentException('Support ticket was not found or is not in an allowed state.');
+        }
+
+        return $ticket;
+    }
+
+    private function backofficeTicket($ticketUid)
+    {
+        $ticketUid = trim((string) $ticketUid);
+        if ($ticketUid === '') {
+            throw new InvalidArgumentException('Support ticket UID is required.');
+        }
+
+        $query = DB::table('b2b_operator_support_tickets as st')
+            ->where('st.ticket_uid', $ticketUid)
+            ->select('st.*');
+
+        if (Schema::hasTable('b2b_operators')) {
+            $query->leftJoin('b2b_operators as op', 'op.id', '=', 'st.operator_id')
+                ->addSelect('op.operator_uid as operator_uid', 'op.name as operator_name');
+        }
+
+        $ticket = $query->first();
+        if (!$ticket) {
+            throw new InvalidArgumentException('Support ticket was not found.');
         }
 
         return $ticket;

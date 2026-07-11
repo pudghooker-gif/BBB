@@ -32,10 +32,11 @@ Route::prefix('b2b/v1')->group(function () {
         Route::middleware('b2b.scope:portal.read')->group(function () {
             Route::get('portal', [PortalController::class, 'page']);
             Route::get('portal/overview', [PortalController::class, 'overview']);
-            foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'docs'] as $portalSection) {
+            foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'logs', 'docs'] as $portalSection) {
                 Route::get('portal/' . $portalSection, [PortalController::class, 'section'])
                     ->defaults('section', $portalSection);
             }
+            Route::get('portal/transactions/{transaction_uid}', [PortalController::class, 'showTransaction']);
             Route::get('portal/support/cases/{transaction_uid}', [PortalController::class, 'showCase']);
             Route::get('portal/support/cases/{transaction_uid}/thread', [PortalController::class, 'showCaseThread']);
             Route::get('portal/support/tickets/{ticket_uid}', [PortalController::class, 'showSupportTicket']);

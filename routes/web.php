@@ -685,6 +685,12 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
             'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view'],
         ]);
 
+        Route::get('/b2b/settlements/detail/{settlement_uid}', [
+            'as' => 'backend.b2b.settlements.show',
+            'uses' => 'B2BSettlementBackofficeController@show',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view'],
+        ]);
+
         Route::get('/b2b/settlements/submit', [
             'uses' => 'B2BSettlementBackofficeController@redirectToIndex',
             'middleware' => ['only_for_admin', 'b2b.admin:b2b.settlements.submit'],
@@ -805,6 +811,18 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
         Route::get('/b2b/cases', [
             'as' => 'backend.b2b.cases.index',
             'uses' => 'B2BCaseBackofficeController@index',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.view'],
+        ]);
+
+        Route::get('/b2b/cases/reconciliation/{case_id}', [
+            'as' => 'backend.b2b.cases.show',
+            'uses' => 'B2BCaseBackofficeController@showCase',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.view'],
+        ]);
+
+        Route::get('/b2b/cases/support-ticket/thread/{ticket_uid}', [
+            'as' => 'backend.b2b.cases.support_ticket.show',
+            'uses' => 'B2BCaseBackofficeController@showSupportTicket',
             'middleware' => ['only_for_admin', 'b2b.admin:b2b.cases.view'],
         ]);
 

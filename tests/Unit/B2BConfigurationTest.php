@@ -18,11 +18,17 @@ class B2BConfigurationTest extends TestCase
         $b2bSandboxRoutes = file_get_contents(base_path('routes/b2b_sandbox_v8.php'));
         $webRoutes = file_get_contents(base_path('routes/web.php'));
         $kernel = file_get_contents(base_path('app/Http/Kernel.php'));
+        $backendSettlementsView = file_get_contents(base_path('resources/views/backend/b2b/settlements.blade.php'));
+        $backendSettlementView = file_get_contents(base_path('resources/views/backend/b2b/settlement.blade.php'));
+        $backendCasesView = file_get_contents(base_path('resources/views/backend/b2b/cases.blade.php'));
+        $backendCaseView = file_get_contents(base_path('resources/views/backend/b2b/case.blade.php'));
+        $backendSupportTicketView = file_get_contents(base_path('resources/views/backend/b2b/support-ticket.blade.php'));
 
         $this->assertSame(1, substr_count($apiRoutes, "require base_path('routes/b2b.php')"));
         $this->assertStringContainsString("[GameLaunchController::class, 'store']", $b2bRoutes);
-        $this->assertStringContainsString("foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'docs'] as \$portalSection)", $b2bRoutes);
+        $this->assertStringContainsString("foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'logs', 'docs'] as \$portalSection)", $b2bRoutes);
         $this->assertStringContainsString("Route::get('portal/' . \$portalSection, [PortalController::class, 'section'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('portal/transactions/{transaction_uid}', [PortalController::class, 'showTransaction'])", $b2bRoutes);
         $this->assertStringContainsString("Route::get('portal/support/cases/{transaction_uid}', [PortalController::class, 'showCase'])", $b2bRoutes);
         $this->assertStringContainsString("Route::get('portal/support/cases/{transaction_uid}/thread', [PortalController::class, 'showCaseThread'])", $b2bRoutes);
         $this->assertStringContainsString("Route::post('portal/support/cases/{transaction_uid}/comments', [PortalController::class, 'commentCase'])", $b2bRoutes);
@@ -59,6 +65,8 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'b2b.web_step_up:wallet.manual_action'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.settlements.index'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BSettlementBackofficeController@index'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.settlements.show'", $webRoutes);
+        $this->assertStringContainsString("'uses' => 'B2BSettlementBackofficeController@show'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.settlements.submit'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:settlement.submit'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.settlements.approve'", $webRoutes);
@@ -87,6 +95,10 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'b2b.web_step_up:payload.view_raw'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.cases.index'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BCaseBackofficeController@index'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.cases.show'", $webRoutes);
+        $this->assertStringContainsString("'uses' => 'B2BCaseBackofficeController@showCase'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.cases.support_ticket.show'", $webRoutes);
+        $this->assertStringContainsString("'uses' => 'B2BCaseBackofficeController@showSupportTicket'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.cases.claim'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.cases.resolve'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.cases.reopen'", $webRoutes);
@@ -101,6 +113,39 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'b2b.web_step_up:support_ticket.comment'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:support_ticket.close'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:support_ticket.reopen'", $webRoutes);
+        $this->assertStringContainsString('backend.b2b.settlements.show', $backendSettlementsView);
+        $this->assertStringContainsString('View Settlement', $backendSettlementsView);
+        $this->assertStringContainsString('B2B Settlement Detail', $backendSettlementView);
+        $this->assertStringContainsString('Settlement Actions', $backendSettlementView);
+        $this->assertStringContainsString('Settlement Totals', $backendSettlementView);
+        $this->assertStringContainsString('Transaction Breakdown', $backendSettlementView);
+        $this->assertStringContainsString('Approval Trail', $backendSettlementView);
+        $this->assertStringContainsString('Snapshot Metadata', $backendSettlementView);
+        $this->assertStringContainsString("name=\"redirect_to\"", $backendSettlementView);
+        $this->assertStringContainsString('backend.b2b.settlements.submit', $backendSettlementView);
+        $this->assertStringContainsString('backend.b2b.settlements.approve', $backendSettlementView);
+        $this->assertStringContainsString('backend.b2b.settlements.reject', $backendSettlementView);
+        $this->assertStringContainsString('backend.b2b.cases.show', $backendCasesView);
+        $this->assertStringContainsString('View Case', $backendCasesView);
+        $this->assertStringContainsString('B2B Case Detail', $backendCaseView);
+        $this->assertStringContainsString('Case Actions', $backendCaseView);
+        $this->assertStringContainsString('Operator Comments', $backendCaseView);
+        $this->assertStringContainsString('Case Events', $backendCaseView);
+        $this->assertStringContainsString("name=\"redirect_to\"", $backendCaseView);
+        $this->assertStringContainsString('backend.b2b.cases.claim', $backendCaseView);
+        $this->assertStringContainsString('backend.b2b.cases.resolve', $backendCaseView);
+        $this->assertStringContainsString('backend.b2b.cases.reopen', $backendCaseView);
+        $this->assertStringContainsString('backend.b2b.cases.support_ticket.show', $backendCasesView);
+        $this->assertStringContainsString('View Thread', $backendCasesView);
+        $this->assertStringContainsString('B2B Support Ticket', $backendSupportTicketView);
+        $this->assertStringContainsString('Ticket Actions', $backendSupportTicketView);
+        $this->assertStringContainsString('Message Thread', $backendSupportTicketView);
+        $this->assertStringContainsString("\$ticket['context_display']", $backendSupportTicketView);
+        $this->assertStringContainsString("\$ticket['messages']", $backendSupportTicketView);
+        $this->assertStringContainsString("name=\"redirect_to\"", $backendSupportTicketView);
+        $this->assertStringContainsString('backend.b2b.cases.support_ticket.comment', $backendSupportTicketView);
+        $this->assertStringContainsString('backend.b2b.cases.support_ticket.close', $backendSupportTicketView);
+        $this->assertStringContainsString('backend.b2b.cases.support_ticket.reopen', $backendSupportTicketView);
         $this->assertStringContainsString("'as' => 'backend.b2b.audit.index'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BAuditBackofficeController@index'", $webRoutes);
         $this->assertStringContainsString("'b2b.admin:b2b.audit.view'", $webRoutes);
@@ -375,6 +420,8 @@ class B2BConfigurationTest extends TestCase
             '/portal/callbacks',
             '/portal/reports',
             '/portal/support',
+            '/portal/logs',
+            '/portal/transactions/{transaction_uid}',
             '/portal/support/cases/{transaction_uid}',
             '/portal/support/cases/{transaction_uid}/thread',
             '/portal/support/cases/{transaction_uid}/comments',
@@ -437,8 +484,18 @@ class B2BConfigurationTest extends TestCase
         foreach (['message_count', 'latest_message', 'detail_endpoint', 'thread_endpoint', 'last_message_at'] as $property) {
             $this->assertArrayHasKey($property, $portalTicketProperties);
         }
+        $this->assertArrayHasKey('audit', $openapi['components']['schemas']['PortalOverview']['properties']);
+        $this->assertSame(
+            '#/components/schemas/PortalRecentTransaction',
+            $openapi['components']['schemas']['PortalOverview']['properties']['recent_transactions']['items']['$ref']
+        );
+        $this->assertArrayHasKey('detail_endpoint', $openapi['components']['schemas']['PortalRecentTransaction']['properties']);
+        $portalAuditProperties = $openapi['components']['schemas']['PortalAuditEventSummary']['properties'];
+        foreach (['event_type', 'actor', 'reason', 'metadata_summary', 'created_at'] as $property) {
+            $this->assertArrayHasKey($property, $portalAuditProperties);
+        }
         $portalQuery = file_get_contents(base_path('app/B2B/Services/B2BOperatorPortalQuery.php'));
-        foreach (['support_case_detail_template', 'support_case_thread_template', 'support_ticket_detail_template', 'support_ticket_thread_template', 'support_case_detail_endpoint', 'support_case_thread_endpoint', 'recent_cases', 'detail_endpoint', 'thread_endpoint'] as $needle) {
+        foreach (['support_case_detail_template', 'support_case_thread_template', 'support_ticket_detail_template', 'support_ticket_thread_template', 'support_case_detail_endpoint', 'support_case_thread_endpoint', 'recent_cases', 'detail_endpoint', 'thread_endpoint', 'portal_logs', 'auditSummary', 'metadata_summary', 'portal_transaction_detail_template', 'transactionDetail', 'transactionDetailEndpoint'] as $needle) {
             $this->assertStringContainsString($needle, $portalQuery);
         }
         foreach ([
@@ -454,6 +511,7 @@ class B2BConfigurationTest extends TestCase
                 $this->assertStringContainsString('support_case_thread_endpoint', $portalViewContents);
                 $this->assertStringContainsString('detail_endpoint', $portalViewContents);
                 $this->assertStringContainsString('thread_endpoint', $portalViewContents);
+                $this->assertStringContainsString('API Logs', $portalViewContents);
             } else {
                 $this->assertStringContainsString("\$thread_type === 'case'", $portalViewContents);
                 $this->assertStringContainsString('Case Summary', $portalViewContents);
@@ -463,7 +521,15 @@ class B2BConfigurationTest extends TestCase
             if (strpos($portalView, 'section.blade.php') !== false) {
                 $this->assertStringContainsString('Recent Cases', $portalViewContents);
                 $this->assertStringContainsString('recent_cases', $portalViewContents);
+                $this->assertStringContainsString("\$audit['recent_events']", $portalViewContents);
             }
+        }
+        $portalTransactionView = file_get_contents(base_path('resources/views/b2b/operator-portal/transaction.blade.php'));
+        foreach (['Transaction Summary', 'Callback Attempts', 'Callback Logs', 'Portal Detail Endpoint'] as $needle) {
+            $this->assertStringContainsString($needle, $portalTransactionView);
+        }
+        foreach (['request_body', 'response_body', 'raw_request', 'raw_response'] as $needle) {
+            $this->assertStringNotContainsString($needle, $portalTransactionView);
         }
         $latestMessageProperties = $openapi['components']['schemas']['PortalSupportTicketMessageSummary']['properties'];
         foreach (['actor', 'source', 'message', 'metadata', 'created_at'] as $property) {
@@ -583,10 +649,12 @@ class B2BConfigurationTest extends TestCase
             '/api/b2b/v1/portal?limit=10',
             '/api/b2b/v1/portal/overview',
             '/api/b2b/v1/portal/transactions?limit=10',
+            '/api/b2b/v1/portal/transactions/{{transactionId}}?limit=20',
             '/api/b2b/v1/portal/cases?limit=10',
             '/api/b2b/v1/portal/callbacks?limit=10',
             '/api/b2b/v1/portal/reports?limit=10',
             '/api/b2b/v1/portal/support?limit=10',
+            '/api/b2b/v1/portal/logs?limit=10',
             '/api/b2b/v1/portal/support/cases/{{transactionId}}?limit=50',
             '/api/b2b/v1/portal/support/cases/{{transactionId}}/thread?limit=50',
             '/api/b2b/v1/portal/support/cases/{{transactionId}}/comments',

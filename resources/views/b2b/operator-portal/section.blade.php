@@ -161,7 +161,7 @@
         <section class="panel section">
             <h2>Transactions</h2>
             <table>
-                <thead><tr><th>Transaction</th><th>Type</th><th>Status</th><th>Amount</th><th>Session</th><th>Game</th><th>Created</th></tr></thead>
+                <thead><tr><th>Transaction</th><th>Type</th><th>Status</th><th>Amount</th><th>Session</th><th>Game</th><th>Detail Endpoint</th><th>Created</th></tr></thead>
                 <tbody>
                 @forelse($recent_transactions as $transaction)
                     <tr>
@@ -171,10 +171,11 @@
                         <td>{{ $transaction['amount'] }} {{ $transaction['currency'] }}</td>
                         <td>{{ $transaction['session_id'] }}</td>
                         <td>{{ $transaction['game_uid'] }}</td>
+                        <td>{{ isset($transaction['detail_endpoint']) ? $transaction['detail_endpoint'] : 'n/a' }}</td>
                         <td>{{ $transaction['created_at'] ?: 'n/a' }}</td>
                     </tr>
                 @empty
-                    <tr><td colspan="7" class="muted">No transactions</td></tr>
+                    <tr><td colspan="8" class="muted">No transactions</td></tr>
                 @endforelse
                 </tbody>
             </table>
@@ -525,6 +526,43 @@
                     </tr>
                 @empty
                     <tr><td colspan="8" class="muted">No recent cases</td></tr>
+                @endforelse
+                </tbody>
+            </table>
+        </section>
+    @endif
+
+    @if($portal_section['key'] === 'logs')
+        <section class="grid">
+            @forelse($audit['by_event_type'] as $eventType => $row)
+                <div class="panel metric">
+                    <div class="value">{{ number_format((int) $row['count']) }}</div>
+                    <div class="label">{{ $eventType }} events</div>
+                </div>
+            @empty
+                <div class="panel metric">
+                    <div class="value">0</div>
+                    <div class="label">API Logs</div>
+                </div>
+            @endforelse
+        </section>
+
+        <section class="panel section">
+            <h2>API Logs</h2>
+            <table>
+                <thead><tr><th>Event</th><th>Actor</th><th>Subject</th><th>Reason</th><th>Metadata</th><th>Created</th></tr></thead>
+                <tbody>
+                @forelse($audit['recent_events'] as $event)
+                    <tr>
+                        <td>{{ $event['event_type'] ?: 'n/a' }}</td>
+                        <td>{{ $event['actor'] ?: 'n/a' }}</td>
+                        <td>{{ ($event['subject_type'] ?: 'n/a') }} / {{ $event['subject_id'] ?: 'n/a' }}</td>
+                        <td>{{ $event['reason'] ?: 'n/a' }}</td>
+                        <td>{{ $event['metadata_summary'] ?: 'n/a' }}</td>
+                        <td>{{ $event['created_at'] ?: 'n/a' }}</td>
+                    </tr>
+                @empty
+                    <tr><td colspan="6" class="muted">No API logs</td></tr>
                 @endforelse
                 </tbody>
             </table>

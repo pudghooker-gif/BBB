@@ -73,20 +73,29 @@ class B2BOperatorPortalTest extends TestCase
             ->assertJsonPath('data.support.recent_tickets.0.latest_message.source', 'web_backoffice')
             ->assertJsonPath('data.support.recent_tickets.0.detail_endpoint', '/api/b2b/v1/portal/support/tickets/sup_portal_a')
             ->assertJsonPath('data.support.recent_tickets.0.thread_endpoint', '/api/b2b/v1/portal/support/tickets/sup_portal_a/thread')
+            ->assertJsonPath('data.audit.recent_events.0.event_type', 'api_key.used')
+            ->assertJsonPath('data.audit.recent_events.0.actor', 'api:op_portal_a')
+            ->assertJsonPath('data.audit.recent_events.0.subject_type', 'api_key')
+            ->assertJsonPath('data.audit.recent_events.0.subject_id', 'key_portal_a')
             ->assertJsonPath('data.reconciliation.open_items.0.support_case_detail_endpoint', '/api/b2b/v1/portal/support/cases/tx_portal_a_win')
             ->assertJsonPath('data.reconciliation.open_items.0.support_case_thread_endpoint', '/api/b2b/v1/portal/support/cases/tx_portal_a_win/thread')
             ->assertJsonPath('data.reconciliation.recent_cases.0.transaction_uid', 'tx_portal_a_case_thread')
             ->assertJsonPath('data.reconciliation.recent_cases.0.state', 'resolved')
             ->assertJsonPath('data.reconciliation.recent_cases.0.support_case_detail_endpoint', '/api/b2b/v1/portal/support/cases/tx_portal_a_case_thread')
             ->assertJsonPath('data.reconciliation.recent_cases.0.support_case_thread_endpoint', '/api/b2b/v1/portal/support/cases/tx_portal_a_case_thread/thread')
+            ->assertJsonPath('data.links.portal_transaction_detail_template', '/api/b2b/v1/portal/transactions/{transaction_uid}')
             ->assertJsonPath('data.links.support_case_detail_template', '/api/b2b/v1/portal/support/cases/{transaction_uid}')
             ->assertJsonPath('data.links.support_case_thread_template', '/api/b2b/v1/portal/support/cases/{transaction_uid}/thread')
             ->assertJsonPath('data.links.support_ticket_detail_template', '/api/b2b/v1/portal/support/tickets/{ticket_uid}')
             ->assertJsonPath('data.links.support_ticket_thread_template', '/api/b2b/v1/portal/support/tickets/{ticket_uid}/thread')
+            ->assertJsonPath('data.links.portal_logs', '/api/b2b/v1/portal/logs')
             ->assertJsonPath('data.recent_sessions.0.session_uid', 'sess_portal_a')
-            ->assertJsonPath('data.recent_transactions.0.transaction_uid', 'tx_portal_a_win');
+            ->assertJsonPath('data.recent_transactions.0.transaction_uid', 'tx_portal_a_win')
+            ->assertJsonPath('data.recent_transactions.0.detail_endpoint', '/api/b2b/v1/portal/transactions/tx_portal_a_win');
 
         $this->assertStringContainsString('[REDACTED]', $response->json('data.support.recent_tickets.0.latest_message.message'));
+        $this->assertStringContainsString('[REDACTED]', $response->json('data.audit.recent_events.0.reason'));
+        $this->assertStringContainsString('[REDACTED]', $response->json('data.audit.recent_events.0.metadata_summary'));
         $this->assertContains('portal.read', $response->json('data.api_key.scopes'));
         $this->assertContains('support.write', $response->json('data.api_key.scopes'));
         $this->assertContains('portal.read', $response->json('data.credentials.recent_keys.0.scopes'));
@@ -113,9 +122,12 @@ class B2BOperatorPortalTest extends TestCase
         $this->assertStringNotContainsString('attempt-secret-value', $content);
         $this->assertStringNotContainsString('support-secret-value', $content);
         $this->assertStringNotContainsString('support-ticket-secret', $content);
+        $this->assertStringNotContainsString('audit-secret-value', $content);
+        $this->assertStringNotContainsString('audit-foreign-secret', $content);
         $this->assertStringNotContainsString('base-url-secret', $content);
         $this->assertStringNotContainsString('operator-callback-secret', $content);
         $this->assertStringNotContainsString('sup_portal_b', $content);
+        $this->assertStringNotContainsString('api:op_portal_b', $content);
         $this->assertStringNotContainsString('wallet-b.example', $content);
         $this->assertStringNotContainsString('wallet_restored', $content);
     }
@@ -189,6 +201,7 @@ class B2BOperatorPortalTest extends TestCase
         $this->assertStringContainsString('tx_portal_a_bet', $content);
         $this->assertStringContainsString('settlement_portal_a', $content);
         $this->assertStringContainsString('sup_portal_a', $content);
+        $this->assertStringContainsString('api_key.used', $content);
         $this->assertStringContainsString('/api/b2b/v1/portal/support/cases/tx_portal_a_win', $content);
         $this->assertStringContainsString('/api/b2b/v1/portal/support/cases/tx_portal_a_win/thread', $content);
         $this->assertStringContainsString('/api/b2b/v1/portal/support/tickets/sup_portal_a', $content);
@@ -200,6 +213,8 @@ class B2BOperatorPortalTest extends TestCase
         $this->assertStringNotContainsString('sess_portal_b', $content);
         $this->assertStringNotContainsString('secret_encrypted', $content);
         $this->assertStringNotContainsString('super-secret-value', $content);
+        $this->assertStringNotContainsString('audit-secret-value', $content);
+        $this->assertStringNotContainsString('audit-foreign-secret', $content);
         $this->assertStringNotContainsString('base-url-secret', $content);
         $this->assertStringNotContainsString('operator-callback-secret', $content);
     }
@@ -216,6 +231,7 @@ class B2BOperatorPortalTest extends TestCase
             'callbacks' => 'server_error',
             'reports' => '/api/b2b/v1/reports/ggr',
             'support' => 'wallet_degraded',
+            'logs' => 'api_key.used',
             'docs' => '/api/b2b/v1/reports/transactions',
         ] as $section => $expected) {
             $response = $this->signedGet('op_portal_a', 'key_portal_a', $this->secretA, '/api/b2b/v1/portal/' . $section . '?limit=10', 'portal-section-' . $section);
@@ -226,6 +242,9 @@ class B2BOperatorPortalTest extends TestCase
             $this->assertStringContainsString($expected, $content);
             if ($section === 'credentials') {
                 $this->assertStringContainsString('portal.read', $content);
+            }
+            if ($section === 'transactions') {
+                $this->assertStringContainsString('/api/b2b/v1/portal/transactions/tx_portal_a_bet', $content);
             }
             if ($section === 'support') {
                 $this->assertStringContainsString('sup_portal_a', $content);
@@ -246,6 +265,11 @@ class B2BOperatorPortalTest extends TestCase
                 $this->assertStringContainsString('/api/b2b/v1/portal/support/cases/tx_portal_a_case_thread', $content);
                 $this->assertStringContainsString('/api/b2b/v1/portal/support/cases/tx_portal_a_case_thread/thread', $content);
             }
+            if ($section === 'logs') {
+                $this->assertStringContainsString('API Logs', $content);
+                $this->assertStringContainsString('api:op_portal_a', $content);
+                $this->assertStringContainsString('[REDACTED]', $content);
+            }
             $this->assertStringNotContainsString('Portal Operator B', $content);
             $this->assertStringNotContainsString('tx_portal_b_bet', $content);
             $this->assertStringNotContainsString('sess_portal_b', $content);
@@ -257,12 +281,15 @@ class B2BOperatorPortalTest extends TestCase
             $this->assertStringNotContainsString('attempt-secret-value', $content);
             $this->assertStringNotContainsString('support-secret-value', $content);
             $this->assertStringNotContainsString('support-ticket-secret', $content);
+            $this->assertStringNotContainsString('audit-secret-value', $content);
+            $this->assertStringNotContainsString('audit-foreign-secret', $content);
             $this->assertStringNotContainsString('case-thread-secret', $content);
             $this->assertStringNotContainsString('case-thread-latest-secret', $content);
             $this->assertStringNotContainsString('case-internal-secret', $content);
             $this->assertStringNotContainsString('base-url-secret', $content);
             $this->assertStringNotContainsString('operator-callback-secret', $content);
             $this->assertStringNotContainsString('sup_portal_b', $content);
+            $this->assertStringNotContainsString('api:op_portal_b', $content);
             $this->assertStringNotContainsString('wallet-b.example', $content);
             $this->assertStringNotContainsString('wallet_restored', $content);
         }
@@ -271,6 +298,81 @@ class B2BOperatorPortalTest extends TestCase
     public function testOperatorPortalWorkflowPagesRequireSignature()
     {
         $this->get('/api/b2b/v1/portal/transactions')
+            ->assertStatus(401)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'B2B_AUTH_FAILED');
+    }
+
+    public function testOperatorPortalTransactionDetailPageIsScopedRedactedAndBounded()
+    {
+        $response = $this->signedGet(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/transactions/tx_portal_a_bet?limit=1',
+            'portal-transaction-detail-a'
+        );
+
+        $response->assertStatus(200);
+
+        $content = $response->getContent();
+        $this->assertStringContainsString('<html', $content);
+        $this->assertStringContainsString('Transaction Detail', $content);
+        $this->assertStringContainsString('Transaction Summary', $content);
+        $this->assertStringContainsString('Callback Attempts', $content);
+        $this->assertStringContainsString('Callback Logs', $content);
+        $this->assertStringContainsString('tx_portal_a_bet', $content);
+        $this->assertStringContainsString('operator_tx_portal_a_bet', $content);
+        $this->assertStringContainsString('/api/b2b/v1/reports/transactions/tx_portal_a_bet', $content);
+        $this->assertStringContainsString('https://wallet-a.example/callback', $content);
+        $this->assertStringContainsString('timeout', $content);
+        $this->assertStringContainsString('server_error', $content);
+        $this->assertStringContainsString('[REDACTED]', $content);
+        $this->assertStringNotContainsString('raw_request', $content);
+        $this->assertStringNotContainsString('raw_response', $content);
+        $this->assertStringNotContainsString('request_body', $content);
+        $this->assertStringNotContainsString('response_body', $content);
+        $this->assertStringNotContainsString('super-secret-value', $content);
+        $this->assertStringNotContainsString('callback-secret-value', $content);
+        $this->assertStringNotContainsString('attempt-secret-value', $content);
+        $this->assertStringNotContainsString('tx_portal_b_bet', $content);
+        $this->assertStringNotContainsString('wallet-b.example', $content);
+
+        $this->signedGet(
+            'op_portal_b',
+            'key_portal_b',
+            $this->secretB,
+            '/api/b2b/v1/portal/transactions/tx_portal_a_bet',
+            'portal-transaction-detail-foreign'
+        )
+            ->assertStatus(404)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'TRANSACTION_NOT_FOUND');
+
+        $longTransactionUid = str_repeat('x', 192);
+        $this->signedGet(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/transactions/' . $longTransactionUid,
+            'portal-transaction-detail-invalid-uid'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $this->signedGet(
+            'op_portal_a',
+            'key_portal_a',
+            $this->secretA,
+            '/api/b2b/v1/portal/transactions/tx_portal_a_bet?limit=51',
+            'portal-transaction-detail-invalid-limit'
+        )
+            ->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+
+        $this->get('/api/b2b/v1/portal/transactions/tx_portal_a_bet')
             ->assertStatus(401)
             ->assertJsonPath('success', false)
             ->assertJsonPath('error.code', 'B2B_AUTH_FAILED');
@@ -1101,6 +1203,38 @@ class B2BOperatorPortalTest extends TestCase
             'expires_at' => null,
             'created_at' => $now->copy()->subDay(),
             'updated_at' => $now->copy()->subDay(),
+        ]);
+
+        DB::table('b2b_operator_audit_events')->insert([
+            [
+                'operator_id' => $this->operatorA->id,
+                'event_type' => 'api_key.used',
+                'subject_type' => 'api_key',
+                'subject_id' => 'key_portal_a',
+                'actor' => 'api:op_portal_a',
+                'reason' => 'Signed portal request token=audit-secret-value.',
+                'metadata' => json_encode([
+                    'path' => '/api/b2b/v1/portal/overview',
+                    'api_key' => 'audit-secret-value',
+                    'request_id' => 'audit-portal-a',
+                ]),
+                'created_at' => $now->copy()->addSeconds(2),
+                'updated_at' => $now->copy()->addSeconds(2),
+            ],
+            [
+                'operator_id' => $this->operatorB->id,
+                'event_type' => 'api_key.used',
+                'subject_type' => 'api_key',
+                'subject_id' => 'key_portal_b',
+                'actor' => 'api:op_portal_b',
+                'reason' => 'Foreign portal request token=audit-foreign-secret.',
+                'metadata' => json_encode([
+                    'path' => '/api/b2b/v1/portal/overview',
+                    'api_key' => 'audit-foreign-secret',
+                ]),
+                'created_at' => $now->copy()->addSeconds(3),
+                'updated_at' => $now->copy()->addSeconds(3),
+            ],
         ]);
     }
 }

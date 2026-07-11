@@ -120,6 +120,7 @@
                                     <td>
                                         #{{ $case->id }}
                                         <br><small class="text-muted">{{ $case->detected_at ?: $case->created_at ?: 'n/a' }}</small>
+                                        <br><a href="{{ route('backend.b2b.cases.show', ['case_id' => $case->id]) }}">View Case</a>
                                     </td>
                                     <td>
                                         <strong>{{ $case->transaction_uid ?: $case->wallet_transaction_id ?: 'n/a' }}</strong>
@@ -180,6 +181,7 @@
                                     <td>
                                         <strong>{{ $ticket->ticket_uid }}</strong>
                                         <br><small class="text-muted">{{ $ticket->created_at ?: 'n/a' }}</small>
+                                        <br><a href="{{ route('backend.b2b.cases.support_ticket.show', ['ticket_uid' => $ticket->ticket_uid]) }}">View Thread</a>
                                     </td>
                                     <td>
                                         {{ isset($ticket->operator_uid) && $ticket->operator_uid ? $ticket->operator_uid : ('operator ' . ($ticket->operator_id ?: 'n/a')) }}

@@ -139,7 +139,7 @@
     <section class="panel section">
         <h2>Recent Transactions</h2>
         <table>
-            <thead><tr><th>Transaction</th><th>Type</th><th>Status</th><th>Amount</th><th>Session</th><th>Created</th></tr></thead>
+            <thead><tr><th>Transaction</th><th>Type</th><th>Status</th><th>Amount</th><th>Session</th><th>Detail Endpoint</th><th>Created</th></tr></thead>
             <tbody>
             @forelse($recent_transactions as $transaction)
                 <tr>
@@ -148,10 +148,11 @@
                     <td><span class="status {{ in_array($transaction['status'], ['failed', 'timeout', 'unknown'], true) ? 'bad' : '' }}">{{ $transaction['status'] }}</span></td>
                     <td>{{ $transaction['amount'] }} {{ $transaction['currency'] }}</td>
                     <td>{{ $transaction['session_id'] }}</td>
+                    <td>{{ isset($transaction['detail_endpoint']) ? $transaction['detail_endpoint'] : 'n/a' }}</td>
                     <td>{{ $transaction['created_at'] ?: 'n/a' }}</td>
                 </tr>
             @empty
-                <tr><td colspan="6" class="muted">No transactions</td></tr>
+                <tr><td colspan="7" class="muted">No transactions</td></tr>
             @endforelse
             </tbody>
         </table>
@@ -205,6 +206,26 @@
                 </tr>
             @empty
                 <tr><td colspan="8" class="muted">No support tickets</td></tr>
+            @endforelse
+            </tbody>
+        </table>
+    </section>
+
+    <section class="panel section">
+        <h2>API Logs</h2>
+        <table>
+            <thead><tr><th>Event</th><th>Actor</th><th>Subject</th><th>Reason</th><th>Created</th></tr></thead>
+            <tbody>
+            @forelse(isset($audit['recent_events']) ? $audit['recent_events'] : [] as $event)
+                <tr>
+                    <td>{{ $event['event_type'] ?: 'n/a' }}</td>
+                    <td>{{ $event['actor'] ?: 'n/a' }}</td>
+                    <td>{{ ($event['subject_type'] ?: 'n/a') }} / {{ $event['subject_id'] ?: 'n/a' }}</td>
+                    <td>{{ $event['reason'] ?: ($event['metadata_summary'] ?: 'n/a') }}</td>
+                    <td>{{ $event['created_at'] ?: 'n/a' }}</td>
+                </tr>
+            @empty
+                <tr><td colspan="5" class="muted">No API logs</td></tr>
             @endforelse
             </tbody>
         </table>

@@ -14,9 +14,12 @@ class B2BSettlementWorkflowService
 {
     private $audit;
 
-    public function __construct(B2BOperatorAuditLogger $audit)
+    private $redactor;
+
+    public function __construct(B2BOperatorAuditLogger $audit, B2BPayloadRedactor $redactor)
     {
         $this->audit = $audit;
+        $this->redactor = $redactor;
     }
 
     public function exportForOperator(B2BOperator $operator, Carbon $from, Carbon $to, $currency, $format = 'csv', $actor = null, $reason = null)
@@ -77,7 +80,7 @@ class B2BSettlementWorkflowService
         $settlement->metadata = $metadata;
         $settlement->save();
 
-        $this->audit->record($operator, 'settlement.exported', 'settlement', $settlementUid, $actor ?: 'api:' . $operator->operator_uid, $reason ?: 'Settlement export generated.', [
+        $this->audit->record($operator, 'settlement.exported', 'settlement', $settlementUid, $actor ?: 'api:' . $operator->operator_uid, $this->safeText($reason ?: 'Settlement export generated.'), [
             'settlement_uid' => $settlementUid,
             'period_start' => $from->toIso8601String(),
             'period_end' => $to->toIso8601String(),
@@ -88,6 +91,29 @@ class B2BSettlementWorkflowService
         ]);
 
         return $this->payload($settlement, $content);
+    }
+
+    public function backofficeSettlement($settlementUid)
+    {
+        $this->assertSettlementTableReady();
+
+        $settlement = $this->settlementByUid($settlementUid);
+        $payload = $this->payload($settlement);
+
+        $snapshot = isset($payload['snapshot']) && is_array($payload['snapshot']) ? $payload['snapshot'] : [];
+        $redactedSnapshot = $this->redactor->redact($snapshot);
+        $snapshotDisplay = json_encode($redactedSnapshot, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+        return array_merge($payload['settlement'], [
+            'snapshot_display' => $snapshotDisplay === false ? '' : $snapshotDisplay,
+            'totals' => isset($redactedSnapshot['totals']) && is_array($redactedSnapshot['totals']) ? $redactedSnapshot['totals'] : [],
+            'by_type' => isset($redactedSnapshot['by_type']) && is_array($redactedSnapshot['by_type']) ? $redactedSnapshot['by_type'] : [],
+            'approval' => isset($redactedSnapshot['approval']) && is_array($redactedSnapshot['approval']) ? $redactedSnapshot['approval'] : [],
+            'export' => [
+                'format' => isset($payload['export']['format']) ? $payload['export']['format'] : null,
+                'sha256' => isset($payload['export']['sha256']) ? $payload['export']['sha256'] : null,
+            ],
+        ]);
     }
 
     public function settlementForOperator($settlementUid, $operatorId)
@@ -108,6 +134,7 @@ class B2BSettlementWorkflowService
         $settlement = $this->settlementByUid($settlementUid);
         $this->requireStatus($settlement, [B2BSettlement::STATUS_EXPORTED], 'Only exported settlements can be submitted for approval.');
 
+        $reason = $this->safeText($reason);
         $settlement->status = B2BSettlement::STATUS_SUBMITTED;
         $settlement->submitted_at = Carbon::now();
         $settlement->submitted_by = $actor;
@@ -123,6 +150,7 @@ class B2BSettlementWorkflowService
         $settlement = $this->settlementByUid($settlementUid);
         $this->requireStatus($settlement, [B2BSettlement::STATUS_SUBMITTED], 'Only submitted settlements can be approved.');
 
+        $reason = $this->safeText($reason);
         $settlement->status = B2BSettlement::STATUS_APPROVED;
         $settlement->approved_at = Carbon::now();
         $settlement->approved_by = $actor;
@@ -139,6 +167,7 @@ class B2BSettlementWorkflowService
         $settlement = $this->settlementByUid($settlementUid);
         $this->requireStatus($settlement, [B2BSettlement::STATUS_SUBMITTED], 'Only submitted settlements can be rejected.');
 
+        $reason = $this->safeText($reason);
         $settlement->status = B2BSettlement::STATUS_REJECTED;
         $settlement->rejected_at = Carbon::now();
         $settlement->rejected_by = $actor;
@@ -198,6 +227,13 @@ class B2BSettlementWorkflowService
             if (!Schema::hasColumn('b2b_settlements', $column)) {
                 throw new RuntimeException('Settlement lifecycle columns are missing. Run migrations.');
             }
+        }
+    }
+
+    private function assertSettlementTableReady()
+    {
+        if (!Schema::hasTable('b2b_settlements')) {
+            throw new RuntimeException('Settlement table is missing. Run migrations.');
         }
     }
 
@@ -402,6 +438,18 @@ class B2BSettlementWorkflowService
         } catch (\Exception $e) {
             return (string) $value;
         }
+    }
+
+    private function safeText($value, $limit = 1000)
+    {
+        $value = trim((string) $value);
+        if ($value === '') {
+            return '';
+        }
+
+        $value = $this->redactor->storageValue($value);
+
+        return strlen($value) > $limit ? substr($value, 0, $limit) : $value;
     }
 
     private function decimalAdd($left, $right, $scale = 8)

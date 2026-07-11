@@ -25,6 +25,7 @@ class PortalController extends Controller
         'callbacks' => 'Callbacks',
         'reports' => 'Reports',
         'support' => 'Support',
+        'logs' => 'API Logs',
         'docs' => 'Docs',
     ];
 
@@ -85,6 +86,43 @@ class PortalController extends Controller
 
         return response()
             ->view('b2b.operator-portal.section', $payload)
+            ->header('Cache-Control', 'no-store, private');
+    }
+
+    public function showTransaction(Request $request, B2BOperatorPortalQuery $portal, $transactionUid)
+    {
+        $operator = $request->attributes->get('b2b_operator');
+        if (!$operator || !isset($operator->id)) {
+            return B2BApiResponse::error($request, 'OPERATOR_CONTEXT_MISSING', null, 500);
+        }
+
+        $validator = Validator::make(array_merge($request->query(), [
+            'transaction_uid' => $transactionUid,
+        ]), [
+            'transaction_uid' => 'required|string|min:1|max:191',
+            'limit' => 'nullable|integer|min:1|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            return B2BApiResponse::error($request, 'VALIDATION_FAILED', null, 422, $validator->errors());
+        }
+
+        $payload = $portal->transactionDetail($request, $transactionUid, (int) $request->query('limit', 20));
+        if (!$payload) {
+            return B2BApiResponse::error($request, 'TRANSACTION_NOT_FOUND');
+        }
+
+        return response()
+            ->view('b2b.operator-portal.transaction', [
+                'operator' => $this->operatorViewProfile($operator),
+                'portal_section' => [
+                    'key' => 'transactions',
+                    'title' => 'Transaction Detail',
+                ],
+                'portal_sections' => $this->sections,
+                'links' => $this->portalLinks(),
+                'detail' => $payload,
+            ])
             ->header('Cache-Control', 'no-store, private');
     }
 
@@ -419,7 +457,9 @@ class PortalController extends Controller
             'portal_callbacks' => '/api/b2b/v1/portal/callbacks',
             'portal_reports' => '/api/b2b/v1/portal/reports',
             'portal_support' => '/api/b2b/v1/portal/support',
+            'portal_logs' => '/api/b2b/v1/portal/logs',
             'portal_docs' => '/api/b2b/v1/portal/docs',
+            'portal_transaction_detail_template' => '/api/b2b/v1/portal/transactions/{transaction_uid}',
         ];
     }
 }
