@@ -18,6 +18,7 @@ Current metric groups:
 - wallet transaction counts by status and type;
 - wallet callback success/failure counts and average callback latency;
 - provider request counts and average provider latency where duration data exists;
+- provider adapter health gauges by provider/status;
 - reconciliation item backlog by state/status;
 - settlement counts by status;
 - B2B queue depth and oldest queued job age when the configured queue backend exposes them;
@@ -41,7 +42,11 @@ Every B2B structured log includes `component=b2b`, `event`, `level`, and, when a
 
 Signed wallet API requests propagate the same `request_id` into outbound wallet callbacks through `X-Request-Id`. Wallet callbacks also receive `X-B2B-Transaction-Uid` after the internal transaction row is created, and callback attempt logs store correlation fields under `_context` next to the redacted payload for incident triage.
 
+For release evidence after a canary wallet/provider flow, run `php artisan b2b:correlation-evidence --artifact=/var/www/bbb/release-evidence/<release-id>/observability/b2b-correlation-validation.json`. The command inspects recent wallet attempt/callback rows and provider diagnostics, verifies correlation fields are present, scans the sampled sources for common secret markers, and writes counts plus SHA-256 hashes of sample IDs instead of raw request IDs, transaction IDs, provider request IDs, or payloads.
+
 The Node/WebSocket runtime writes JSON logs when `log_json=true` in `socket_config2.json`. These events include connection lifecycle, denied upgrades, handshake success/failure, PHP bridge request/response status, and idle heartbeat closures. They intentionally do not log session cookies, raw WebSocket frames, or PHP response bodies.
+
+For release evidence, run `php artisan b2b:log-shipping-check --artifact=/var/www/bbb/release-evidence/<release-id>/observability/b2b-log-shipping-validation.log --marker=<release-marker>` on the target host after the log shipper is configured. The command writes a synthetic `observability.log_shipping_check` marker to the B2B JSON channel, verifies the marker can be read back as redacted JSON, and leaves a secret-free local artifact. Then run `deploy/scripts/log-shipping-external-check.sh` with the same `LOG_SHIPPING_MARKER` plus either `LOG_SHIPPING_EXPORT_FILE` pointing at a redacted external log export or `LOG_SHIPPING_QUERY_URL` pointing at the external log platform search endpoint. The script writes `b2b-log-shipping-external-delivery.log` without archiving raw external log lines.
 
 Production release checks require structured logging to remain enabled and pointed at a JSON-formatted channel. Override only when the replacement channel preserves JSON records:
 
@@ -58,6 +63,7 @@ Prometheus alert rules are shipped in `deploy/prometheus/b2b-alerts.yml`. The ru
 
 - metric collector failures;
 - open operator circuit breakers;
+- failed provider adapter health;
 - wallet callback failures;
 - wallet transactions requiring manual review, rollback, or dead-letter handling;
 - open reconciliation backlog;
@@ -66,4 +72,8 @@ Prometheus alert rules are shipped in `deploy/prometheus/b2b-alerts.yml`. The ru
 
 `deploy/prometheus/alertmanager-routes.example.yml` provides a secret-free Alertmanager routing example for `service="bbb-b2b"`, with critical alerts routed to `b2b-pager` and all B2B alerts routed to `b2b-ops`. Replace the placeholder webhook URLs with the production incident-management endpoints from the host secret store.
 
-Production release checks verify that both monitoring artifacts are present. Staging still must validate scrape labels, Alertmanager routing, and notification delivery against the final Prometheus/Alertmanager topology.
+`deploy/scripts/alertmanager-smoke.sh` posts a synthetic `BBBB2BSmokeNotification` alert to the target Alertmanager API and writes `alertmanager-delivery-test.log` for release evidence. Set `ALERTMANAGER_URL` to the final Alertmanager endpoint and set `ALERTMANAGER_BEARER_TOKEN` from the host secret store only when required. After the incident-management receiver shows the synthetic alert, run `deploy/scripts/alertmanager-receiver-check.sh` with either `ALERTMANAGER_RECEIVER_EXPORT_FILE` or `ALERTMANAGER_RECEIVER_QUERY_URL`; it verifies the downstream receiver/export contains the smoke alert and writes `alertmanager-receiver-delivery-confirmation.log` without archiving raw receiver data.
+
+`deploy/scripts/prometheus-smoke.sh` fetches the target metrics endpoint, verifies the B2B metric families used by shipped alert rules, scans the scrape snapshot for common secret markers, and validates `deploy/prometheus/b2b-alerts.yml` with `promtool check rules` when `promtool` is available. Run it with `PROMETHEUS_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/observability` so `prometheus-scrape-and-rule-test.log` lands directly in the release evidence package.
+
+Production release checks verify that monitoring artifacts and smoke tooling are present. Staging still must validate scrape labels, Prometheus rule loading, Alertmanager routing, and notification delivery against the final Prometheus/Alertmanager topology.

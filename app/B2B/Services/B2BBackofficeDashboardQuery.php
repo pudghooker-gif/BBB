@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Schema;
 
 class B2BBackofficeDashboardQuery
 {
+    private $providerHealth;
+
+    public function __construct(B2BProviderHealthService $providerHealth)
+    {
+        $this->providerHealth = $providerHealth;
+    }
+
     public function snapshot()
     {
         return [
@@ -27,6 +34,7 @@ class B2BBackofficeDashboardQuery
             'wallet_statuses' => $this->groupCounts('b2b_wallet_transactions', 'status'),
             'session_statuses' => $this->groupCounts('b2b_game_sessions', 'status'),
             'settlement_statuses' => $this->groupCounts('b2b_settlements', 'status'),
+            'provider_health' => $this->providerHealth->summary(),
             'recent_wallet_transactions' => $this->recentWalletTransactions(),
             'recent_reconciliation_items' => $this->recentReconciliationItems(),
         ];

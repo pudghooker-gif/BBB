@@ -148,20 +148,51 @@
                                 <th>Max RPS</th>
                                 <th>Scopes</th>
                                 <th>Last Used</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             @forelse($apiKeys as $apiKey)
+                                @php
+                                    $operatorUid = isset($apiKey->operator_uid) && $apiKey->operator_uid ? $apiKey->operator_uid : null;
+                                    $canRevokeKey = $operatorUid && isset($apiKey->status) && $apiKey->status === 'active';
+                                @endphp
                                 <tr>
-                                    <td>{{ $apiKey->operator_id }}</td>
+                                    <td>
+                                        {{ $operatorUid ?: ('operator ' . $apiKey->operator_id) }}
+                                        @if($operatorUid)
+                                            <br><small class="text-muted">operator {{ $apiKey->operator_id }}</small>
+                                        @endif
+                                    </td>
                                     <td>{{ $apiKey->key_id }}</td>
                                     <td>{{ $apiKey->status }}</td>
                                     <td>{{ $apiKey->max_rps ?: 'default' }}</td>
                                     <td>{{ $apiKey->scope_list }}</td>
                                     <td>{{ $apiKey->last_used_at ?: 'never' }}</td>
+                                    <td style="min-width: 220px;">
+                                        @if($canRevokeKey)
+                                            <form method="post" action="{{ route('backend.b2b.credentials.revoke') }}">
+                                                @csrf
+                                                <input type="hidden" name="operator_uid" value="{{ $operatorUid }}">
+                                                <input type="hidden" name="key_id" value="{{ $apiKey->key_id }}">
+                                                <div class="form-group">
+                                                    <label for="b2b-revoke-row-reason-{{ $loop->iteration }}" class="sr-only">Revoke Reason</label>
+                                                    <textarea id="b2b-revoke-row-reason-{{ $loop->iteration }}" name="reason" rows="2" class="form-control" placeholder="Reason" required>{{ old('reason') }}</textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-xs btn-danger">
+                                                    <i class="fa fa-ban"></i> Revoke Active Key
+                                                </button>
+                                                <a href="{{ route('backend.b2b.step_up.show', ['action' => 'api_key.revoke', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-xs btn-default">
+                                                    <i class="fa fa-shield"></i> Revoke Step-Up
+                                                </a>
+                                            </form>
+                                        @else
+                                            <span class="text-muted">No revoke action available for disabled key.</span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
-                                <tr><td colspan="6">No B2B API keys</td></tr>
+                                <tr><td colspan="7">No B2B API keys</td></tr>
                             @endforelse
                             </tbody>
                         </table>

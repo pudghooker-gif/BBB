@@ -1,0 +1,16 @@
+BBB B2B Legal Launch Approval - Redacted Evidence
+
+release_id: replace-with-release-id
+environment: production-canary
+jurisdictions: replace-with-approved-jurisdiction-summary
+approved_by: replace-with-legal-owner
+approved_at_utc: 2026-07-03T00:00:00Z
+
+approval_reference: replace-with-legal-ticket-or-document-id
+product_scope: replace-with-redacted-product-scope
+operator_scope: replace-with-redacted-operator-scope
+launch_conditions: replace-with-approved-conditions-or-none
+expiry_or_review_date: replace-with-review-date
+
+Do not include full contracts, regulator correspondence, personal data, provider credentials, private certificates, payment details, or privileged legal advice in this artifact.
+Store only a redacted approval summary and references to the controlled legal system of record.

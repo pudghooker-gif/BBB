@@ -18,17 +18,26 @@ class B2BConfigurationTest extends TestCase
         $b2bSandboxRoutes = file_get_contents(base_path('routes/b2b_sandbox_v8.php'));
         $webRoutes = file_get_contents(base_path('routes/web.php'));
         $kernel = file_get_contents(base_path('app/Http/Kernel.php'));
+        $backendDashboardView = file_get_contents(base_path('resources/views/backend/b2b/dashboard.blade.php'));
+        $backendWalletView = file_get_contents(base_path('resources/views/backend/b2b/wallet-manual-actions.blade.php'));
+        $backendCredentialView = file_get_contents(base_path('resources/views/backend/b2b/credentials.blade.php'));
         $backendSettlementsView = file_get_contents(base_path('resources/views/backend/b2b/settlements.blade.php'));
         $backendSettlementView = file_get_contents(base_path('resources/views/backend/b2b/settlement.blade.php'));
         $backendCasesView = file_get_contents(base_path('resources/views/backend/b2b/cases.blade.php'));
         $backendCaseView = file_get_contents(base_path('resources/views/backend/b2b/case.blade.php'));
         $backendSupportTicketView = file_get_contents(base_path('resources/views/backend/b2b/support-ticket.blade.php'));
+        $backendAuditView = file_get_contents(base_path('resources/views/backend/b2b/audit.blade.php'));
 
         $this->assertSame(1, substr_count($apiRoutes, "require base_path('routes/b2b.php')"));
         $this->assertStringContainsString("[GameLaunchController::class, 'store']", $b2bRoutes);
-        $this->assertStringContainsString("foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'logs', 'docs'] as \$portalSection)", $b2bRoutes);
+        $this->assertStringContainsString("foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'diagnostics', 'reports', 'support', 'logs', 'docs'] as \$portalSection)", $b2bRoutes);
         $this->assertStringContainsString("Route::get('portal/' . \$portalSection, [PortalController::class, 'section'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('portal/diagnostics/{request_uid}', [PortalController::class, 'showDiagnostic'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('portal/docs/openapi.json', [PortalController::class, 'downloadOpenApi'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('portal/docs/postman_collection.json', [PortalController::class, 'downloadPostman'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('portal/sessions/{session_uid}', [PortalController::class, 'showSession'])", $b2bRoutes);
         $this->assertStringContainsString("Route::get('portal/transactions/{transaction_uid}', [PortalController::class, 'showTransaction'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::get('portal/settlements/{settlement_uid}', [PortalController::class, 'showSettlement'])", $b2bRoutes);
         $this->assertStringContainsString("Route::get('portal/support/cases/{transaction_uid}', [PortalController::class, 'showCase'])", $b2bRoutes);
         $this->assertStringContainsString("Route::get('portal/support/cases/{transaction_uid}/thread', [PortalController::class, 'showCaseThread'])", $b2bRoutes);
         $this->assertStringContainsString("Route::post('portal/support/cases/{transaction_uid}/comments', [PortalController::class, 'commentCase'])", $b2bRoutes);
@@ -37,6 +46,7 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("Route::post('portal/support/tickets', [PortalController::class, 'createSupportTicket'])", $b2bRoutes);
         $this->assertStringContainsString("Route::post('portal/support/tickets/{ticket_uid}/comments', [PortalController::class, 'commentSupportTicket'])", $b2bRoutes);
         $this->assertStringContainsString("Route::post('portal/support/tickets/{ticket_uid}/close', [PortalController::class, 'closeSupportTicket'])", $b2bRoutes);
+        $this->assertStringContainsString("Route::post('portal/support/tickets/{ticket_uid}/reopen', [PortalController::class, 'reopenSupportTicket'])", $b2bRoutes);
         $this->assertStringContainsString("Route::get('games/{game_uid}', [GameCatalogController::class, 'show'])", $b2bRoutes);
         foreach ([
             'b2b.scope:operator.read',
@@ -57,8 +67,14 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString('b2b.scope:sandbox.wallet.read', $b2bSandboxRoutes);
         $this->assertStringContainsString('b2b.scope:sandbox.wallet.mutate', $b2bSandboxRoutes);
         $this->assertStringContainsString("middleware('b2b.scope:reports.export')", $b2bRoutes);
+        $b2bConsole = file_get_contents(base_path('routes/b2b_console.php'));
+        $this->assertStringContainsString('{--soft-disable-missing}', $b2bConsole);
+        $this->assertStringContainsString('missing_from_games_source', $b2bConsole);
         $this->assertStringContainsString("'as' => 'backend.b2b.dashboard'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BDashboardController@index'", $webRoutes);
+        $this->assertStringContainsString('Provider Health', $backendDashboardView);
+        $this->assertStringContainsString('provider_health', $backendDashboardView);
+        $this->assertStringContainsString('games_table_available', $backendDashboardView);
         $this->assertStringContainsString("'as' => 'backend.b2b.wallet_manual_actions.index'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BWalletManualActionController@index'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.wallet_manual_actions.store'", $webRoutes);
@@ -79,6 +95,10 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString("'b2b.web_step_up:api_key.rotate'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.credentials.revoke'", $webRoutes);
         $this->assertStringContainsString("'b2b.web_step_up:api_key.revoke'", $webRoutes);
+        $this->assertStringContainsString('Revoke Active Key', $backendCredentialView);
+        $this->assertStringContainsString('Revoke Step-Up', $backendCredentialView);
+        $this->assertStringContainsString('$canRevokeKey', $backendCredentialView);
+        $this->assertStringContainsString('operator_uid', $backendCredentialView);
         $this->assertStringContainsString("'as' => 'backend.b2b.operators.index'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BOperatorBackofficeController@index'", $webRoutes);
         $this->assertStringContainsString("'as' => 'backend.b2b.operators.update'", $webRoutes);
@@ -122,6 +142,9 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString('Approval Trail', $backendSettlementView);
         $this->assertStringContainsString('Snapshot Metadata', $backendSettlementView);
         $this->assertStringContainsString("name=\"redirect_to\"", $backendSettlementView);
+        $this->assertStringContainsString('$canSubmit', $backendSettlementView);
+        $this->assertStringContainsString('$canApprove', $backendSettlementView);
+        $this->assertStringContainsString('$canReject', $backendSettlementView);
         $this->assertStringContainsString('backend.b2b.settlements.submit', $backendSettlementView);
         $this->assertStringContainsString('backend.b2b.settlements.approve', $backendSettlementView);
         $this->assertStringContainsString('backend.b2b.settlements.reject', $backendSettlementView);
@@ -132,14 +155,26 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString('Operator Comments', $backendCaseView);
         $this->assertStringContainsString('Case Events', $backendCaseView);
         $this->assertStringContainsString("name=\"redirect_to\"", $backendCaseView);
+        $this->assertStringContainsString('$canClaim', $backendCaseView);
+        $this->assertStringContainsString('$canResolve', $backendCaseView);
+        $this->assertStringContainsString('$canReopen', $backendCaseView);
+        $this->assertStringContainsString('Reopen Reason', $backendCaseView);
         $this->assertStringContainsString('backend.b2b.cases.claim', $backendCaseView);
         $this->assertStringContainsString('backend.b2b.cases.resolve', $backendCaseView);
         $this->assertStringContainsString('backend.b2b.cases.reopen', $backendCaseView);
+        $this->assertStringContainsString('Manual Wallet Action', $backendCaseView);
+        $this->assertStringContainsString('backend.b2b.wallet_manual_actions.index', $backendCaseView);
+        $this->assertStringContainsString("old('redirect_to', \$form['redirect_to'])", $backendWalletView);
+        $this->assertStringContainsString("old('transaction_uid', \$form['transaction_uid'])", $backendWalletView);
         $this->assertStringContainsString('backend.b2b.cases.support_ticket.show', $backendCasesView);
         $this->assertStringContainsString('View Thread', $backendCasesView);
         $this->assertStringContainsString('B2B Support Ticket', $backendSupportTicketView);
         $this->assertStringContainsString('Ticket Actions', $backendSupportTicketView);
         $this->assertStringContainsString('Message Thread', $backendSupportTicketView);
+        $this->assertStringContainsString('$canComment', $backendSupportTicketView);
+        $this->assertStringContainsString('$canClose', $backendSupportTicketView);
+        $this->assertStringContainsString('$canReopen', $backendSupportTicketView);
+        $this->assertStringContainsString('Reopen Reason', $backendSupportTicketView);
         $this->assertStringContainsString("\$ticket['context_display']", $backendSupportTicketView);
         $this->assertStringContainsString("\$ticket['messages']", $backendSupportTicketView);
         $this->assertStringContainsString("name=\"redirect_to\"", $backendSupportTicketView);
@@ -148,7 +183,11 @@ class B2BConfigurationTest extends TestCase
         $this->assertStringContainsString('backend.b2b.cases.support_ticket.reopen', $backendSupportTicketView);
         $this->assertStringContainsString("'as' => 'backend.b2b.audit.index'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BAuditBackofficeController@index'", $webRoutes);
+        $this->assertStringContainsString("'as' => 'backend.b2b.audit.export'", $webRoutes);
+        $this->assertStringContainsString("'uses' => 'B2BAuditBackofficeController@export'", $webRoutes);
         $this->assertStringContainsString("'b2b.admin:b2b.audit.view'", $webRoutes);
+        $this->assertStringContainsString('Export CSV', $backendAuditView);
+        $this->assertStringContainsString('backend.b2b.audit.export', $backendAuditView);
         $this->assertStringContainsString("'as' => 'backend.b2b.step_up.show'", $webRoutes);
         $this->assertStringContainsString("'uses' => 'B2BStepUpController@show'", $webRoutes);
         $this->assertStringContainsString("'middleware' => ['only_for_admin', 'b2b.admin:b2b.reports.view']", $webRoutes);
@@ -413,11 +452,16 @@ class B2BConfigurationTest extends TestCase
             '/portal/overview',
             '/portal/credentials',
             '/portal/games',
+            '/portal/games/{game_uid}',
             '/portal/sessions',
+            '/portal/sessions/{session_uid}',
             '/portal/transactions',
             '/portal/settlements',
+            '/portal/settlements/{settlement_uid}',
             '/portal/cases',
             '/portal/callbacks',
+            '/portal/diagnostics',
+            '/portal/diagnostics/{request_uid}',
             '/portal/reports',
             '/portal/support',
             '/portal/logs',
@@ -430,7 +474,10 @@ class B2BConfigurationTest extends TestCase
             '/portal/support/tickets/{ticket_uid}/thread',
             '/portal/support/tickets/{ticket_uid}/comments',
             '/portal/support/tickets/{ticket_uid}/close',
+            '/portal/support/tickets/{ticket_uid}/reopen',
             '/portal/docs',
+            '/portal/docs/openapi.json',
+            '/portal/docs/postman_collection.json',
             '/games',
             '/games/{game_uid}',
             '/games/launch',
@@ -481,10 +528,34 @@ class B2BConfigurationTest extends TestCase
             $openapi['components']['pathItems']['PortalPage']['get']['description']
         );
         $portalTicketProperties = $openapi['components']['schemas']['PortalSupportTicketSummary']['properties'];
-        foreach (['message_count', 'latest_message', 'detail_endpoint', 'thread_endpoint', 'last_message_at'] as $property) {
+        foreach (['message_count', 'latest_message', 'detail_endpoint', 'thread_endpoint', 'comment_endpoint', 'close_endpoint', 'reopen_endpoint', 'last_message_at'] as $property) {
             $this->assertArrayHasKey($property, $portalTicketProperties);
         }
         $this->assertArrayHasKey('audit', $openapi['components']['schemas']['PortalOverview']['properties']);
+        $this->assertSame(
+            '#/components/schemas/PortalLaunchDiagnosticsSummary',
+            $openapi['components']['schemas']['PortalOverview']['properties']['launch_diagnostics']['$ref']
+        );
+        $this->assertSame(
+            '#/components/schemas/PortalProviderHealthSummary',
+            $openapi['components']['schemas']['PortalOverview']['properties']['provider_health']['$ref']
+        );
+        $this->assertArrayHasKey('PortalProviderHealthEntry', $openapi['components']['schemas']);
+        $this->assertArrayHasKey('games_table_available', $openapi['components']['schemas']['PortalProviderHealthDetail']['properties']);
+        $this->assertSame(
+            '#/components/schemas/PortalProviderCapabilitySummary',
+            $openapi['components']['schemas']['PortalProviderHealthEntry']['properties']['capabilities']['$ref']
+        );
+        $this->assertSame(
+            '#/components/schemas/PortalGameAssignmentSummary',
+            $openapi['components']['schemas']['PortalOverview']['properties']['game_assignments']['$ref']
+        );
+        $this->assertArrayHasKey('detail_endpoint', $openapi['components']['schemas']['PortalRecentGameAssignment']['properties']);
+        $this->assertSame(
+            '#/components/schemas/PortalRecentSession',
+            $openapi['components']['schemas']['PortalOverview']['properties']['recent_sessions']['items']['$ref']
+        );
+        $this->assertArrayHasKey('detail_endpoint', $openapi['components']['schemas']['PortalRecentSession']['properties']);
         $this->assertSame(
             '#/components/schemas/PortalRecentTransaction',
             $openapi['components']['schemas']['PortalOverview']['properties']['recent_transactions']['items']['$ref']
@@ -494,8 +565,13 @@ class B2BConfigurationTest extends TestCase
         foreach (['event_type', 'actor', 'reason', 'metadata_summary', 'created_at'] as $property) {
             $this->assertArrayHasKey($property, $portalAuditProperties);
         }
+        $providerRequestProperties = $openapi['components']['schemas']['PortalRecentProviderRequest']['properties'];
+        foreach (['request_uid', 'provider', 'game_uid', 'session_id', 'action', 'status', 'error_summary', 'duration_ms', 'detail_endpoint', 'session_detail_endpoint', 'created_at'] as $property) {
+            $this->assertArrayHasKey($property, $providerRequestProperties);
+        }
         $portalQuery = file_get_contents(base_path('app/B2B/Services/B2BOperatorPortalQuery.php'));
-        foreach (['support_case_detail_template', 'support_case_thread_template', 'support_ticket_detail_template', 'support_ticket_thread_template', 'support_case_detail_endpoint', 'support_case_thread_endpoint', 'recent_cases', 'detail_endpoint', 'thread_endpoint', 'portal_logs', 'auditSummary', 'metadata_summary', 'portal_transaction_detail_template', 'transactionDetail', 'transactionDetailEndpoint'] as $needle) {
+        $this->assertArrayHasKey('detail_endpoint', $openapi['components']['schemas']['PortalRecentSettlement']['properties']);
+        foreach (['support_case_detail_template', 'support_case_thread_template', 'support_ticket_detail_template', 'support_ticket_thread_template', 'support_case_detail_endpoint', 'support_case_thread_endpoint', 'support_case_comment_endpoint', 'recent_cases', 'detail_endpoint', 'thread_endpoint', 'portal_logs', 'portal_openapi_download', 'portal_postman_download', 'auditSummary', 'metadata_summary', 'launch_diagnostics', 'provider_health', 'B2BProviderHealthService', 'portal_diagnostics', 'portal_diagnostic_detail_template', 'providerRequestDetail', 'providerRequestDetailEndpoint', 'portal_game_detail_template', 'gameDetail', 'gameDetailEndpoint', 'portal_session_detail_template', 'sessionDetail', 'sessionDetailEndpoint', 'portal_transaction_detail_template', 'transactionDetail', 'transactionDetailEndpoint', 'portal_settlement_detail_template', 'settlementDetail', 'settlementDetailEndpoint'] as $needle) {
             $this->assertStringContainsString($needle, $portalQuery);
         }
         foreach ([
@@ -507,29 +583,78 @@ class B2BConfigurationTest extends TestCase
             if (strpos($portalView, 'thread.blade.php') === false) {
                 $this->assertStringContainsString('Detail Endpoint', $portalViewContents);
                 $this->assertStringContainsString('Thread Page', $portalViewContents);
+                $this->assertStringContainsString('Action Endpoints', $portalViewContents);
+                $this->assertStringContainsString('Comment Endpoint', $portalViewContents);
                 $this->assertStringContainsString('support_case_detail_endpoint', $portalViewContents);
                 $this->assertStringContainsString('support_case_thread_endpoint', $portalViewContents);
+                $this->assertStringContainsString('support_case_comment_endpoint', $portalViewContents);
                 $this->assertStringContainsString('detail_endpoint', $portalViewContents);
                 $this->assertStringContainsString('thread_endpoint', $portalViewContents);
+                $this->assertStringContainsString('comment_endpoint', $portalViewContents);
+                $this->assertStringContainsString('close_endpoint', $portalViewContents);
+                $this->assertStringContainsString('reopen_endpoint', $portalViewContents);
                 $this->assertStringContainsString('API Logs', $portalViewContents);
             } else {
                 $this->assertStringContainsString("\$thread_type === 'case'", $portalViewContents);
                 $this->assertStringContainsString('Case Summary', $portalViewContents);
                 $this->assertStringContainsString('Ticket Summary', $portalViewContents);
                 $this->assertStringContainsString('API Detail Endpoint', $portalViewContents);
+                $this->assertStringContainsString('Comment Endpoint', $portalViewContents);
+                $this->assertStringContainsString('Close Endpoint', $portalViewContents);
+                $this->assertStringContainsString('Reopen Endpoint', $portalViewContents);
             }
             if (strpos($portalView, 'section.blade.php') !== false) {
                 $this->assertStringContainsString('Recent Cases', $portalViewContents);
                 $this->assertStringContainsString('recent_cases', $portalViewContents);
                 $this->assertStringContainsString("\$audit['recent_events']", $portalViewContents);
+                $this->assertStringContainsString('launch_diagnostics', $portalViewContents);
+                $this->assertStringContainsString('Provider Requests', $portalViewContents);
+                $this->assertStringContainsString('Failed Launch Sessions', $portalViewContents);
+                $this->assertStringContainsString('Downloadable Artifacts', $portalViewContents);
+                $this->assertStringContainsString('portal_openapi_download', $portalViewContents);
+                $this->assertStringContainsString('portal_postman_download', $portalViewContents);
             }
         }
+        $portalOverviewView = file_get_contents(base_path('resources/views/b2b/operator-portal/overview.blade.php'));
+        $this->assertStringContainsString('Provider Health', $portalOverviewView);
+        $this->assertStringContainsString('provider_health', $portalOverviewView);
+        $portalSectionView = file_get_contents(base_path('resources/views/b2b/operator-portal/section.blade.php'));
+        $this->assertStringContainsString('Provider Health', $portalSectionView);
+        $this->assertStringContainsString('provider_health', $portalSectionView);
         $portalTransactionView = file_get_contents(base_path('resources/views/b2b/operator-portal/transaction.blade.php'));
         foreach (['Transaction Summary', 'Callback Attempts', 'Callback Logs', 'Portal Detail Endpoint'] as $needle) {
             $this->assertStringContainsString($needle, $portalTransactionView);
         }
         foreach (['request_body', 'response_body', 'raw_request', 'raw_response'] as $needle) {
             $this->assertStringNotContainsString($needle, $portalTransactionView);
+        }
+        $portalSessionView = file_get_contents(base_path('resources/views/b2b/operator-portal/session.blade.php'));
+        foreach (['Session Summary', 'Session Transactions', 'Portal Detail Endpoint'] as $needle) {
+            $this->assertStringContainsString($needle, $portalSessionView);
+        }
+        foreach (['request_body', 'response_body', 'raw_request', 'raw_response'] as $needle) {
+            $this->assertStringNotContainsString($needle, $portalSessionView);
+        }
+        $portalSettlementView = file_get_contents(base_path('resources/views/b2b/operator-portal/settlement.blade.php'));
+        foreach (['Settlement Summary', 'Settlement Totals', 'Transaction Breakdown', 'Approval Trail', 'Export Metadata', 'Portal Detail Endpoint'] as $needle) {
+            $this->assertStringContainsString($needle, $portalSettlementView);
+        }
+        foreach (['request_body', 'response_body', 'raw_request', 'raw_response', 'export_content'] as $needle) {
+            $this->assertStringNotContainsString($needle, $portalSettlementView);
+        }
+        $portalGameView = file_get_contents(base_path('resources/views/b2b/operator-portal/game.blade.php'));
+        foreach (['Game Summary', 'Assignment', 'Availability', 'Recent Sessions', 'Recent Transactions', 'Portal Detail Endpoint'] as $needle) {
+            $this->assertStringContainsString($needle, $portalGameView);
+        }
+        foreach (['request_body', 'response_body', 'raw_request', 'raw_response', 'launch_url', 'legacy_launch_token', 'token_hash'] as $needle) {
+            $this->assertStringNotContainsString($needle, $portalGameView);
+        }
+        $portalDiagnosticView = file_get_contents(base_path('resources/views/b2b/operator-portal/diagnostic.blade.php'));
+        foreach (['Provider Request Summary', 'Request Summary', 'Response Summary', 'Portal Detail Endpoint'] as $needle) {
+            $this->assertStringContainsString($needle, $portalDiagnosticView);
+        }
+        foreach (['request_payload', 'response_payload', 'raw_request', 'raw_response', 'launch_url', 'legacy_launch_token', 'token_hash'] as $needle) {
+            $this->assertStringNotContainsString($needle, $portalDiagnosticView);
         }
         $latestMessageProperties = $openapi['components']['schemas']['PortalSupportTicketMessageSummary']['properties'];
         foreach (['actor', 'source', 'message', 'metadata', 'created_at'] as $property) {
@@ -540,6 +665,13 @@ class B2BConfigurationTest extends TestCase
         $this->assertArrayHasKey('422', $openapi['paths']['/wallet/transactions/{transaction_uid}/status']['get']['responses']);
         $this->assertArrayHasKey('422', $openapi['paths']['/reports/transactions/{transaction_uid}']['get']['responses']);
         $this->assertArrayHasKey('422', $openapi['paths']['/reports/settlements/{settlement_uid}']['get']['responses']);
+        $this->assertArrayHasKey('422', $openapi['paths']['/portal/settlements/{settlement_uid}']['get']['responses']);
+        $this->assertSame(80, $openapi['paths']['/portal/settlements/{settlement_uid}']['get']['parameters'][0]['schema']['maxLength']);
+        $this->assertArrayHasKey('422', $openapi['paths']['/portal/games/{game_uid}']['get']['responses']);
+        $this->assertSame(191, $openapi['paths']['/portal/games/{game_uid}']['get']['parameters'][0]['schema']['maxLength']);
+        $this->assertSame(50, $openapi['paths']['/portal/games/{game_uid}']['get']['parameters'][1]['schema']['maximum']);
+        $this->assertArrayHasKey('422', $openapi['paths']['/portal/diagnostics/{request_uid}']['get']['responses']);
+        $this->assertSame(191, $openapi['paths']['/portal/diagnostics/{request_uid}']['get']['parameters'][0]['schema']['maxLength']);
         $this->assertArrayHasKey('422', $openapi['paths']['/sessions/{session_uid}']['get']['responses']);
         $this->assertArrayHasKey('422', $openapi['paths']['/sessions/{session_uid}/close']['post']['responses']);
         $this->assertSame(191, $openapi['paths']['/portal/support/cases/{transaction_uid}']['get']['parameters'][0]['schema']['maxLength']);
@@ -554,6 +686,10 @@ class B2BConfigurationTest extends TestCase
         foreach (['actor', 'source', 'message', 'external_reference', 'created_at'] as $property) {
             $this->assertArrayHasKey($property, $caseCommentProperties);
         }
+        $caseDetailProperties = $openapi['components']['schemas']['PortalSupportCaseDetail']['properties'];
+        foreach (['detail_endpoint', 'thread_endpoint', 'comment_endpoint'] as $property) {
+            $this->assertArrayHasKey($property, $caseDetailProperties);
+        }
         $this->assertSame(191, $openapi['paths']['/portal/support/cases/{transaction_uid}/comments']['post']['parameters'][0]['schema']['maxLength']);
         $this->assertSame(80, $openapi['paths']['/portal/support/tickets/{ticket_uid}']['get']['parameters'][0]['schema']['maxLength']);
         $this->assertSame(100, $openapi['paths']['/portal/support/tickets/{ticket_uid}']['get']['parameters'][1]['schema']['maximum']);
@@ -565,6 +701,7 @@ class B2BConfigurationTest extends TestCase
         );
         $this->assertSame(80, $openapi['paths']['/portal/support/tickets/{ticket_uid}/comments']['post']['parameters'][0]['schema']['maxLength']);
         $this->assertSame(80, $openapi['paths']['/portal/support/tickets/{ticket_uid}/close']['post']['parameters'][0]['schema']['maxLength']);
+        $this->assertSame(80, $openapi['paths']['/portal/support/tickets/{ticket_uid}/reopen']['post']['parameters'][0]['schema']['maxLength']);
 
         $gameListParameters = [];
         foreach ($openapi['paths']['/games']['get']['parameters'] as $parameter) {
@@ -572,7 +709,7 @@ class B2BConfigurationTest extends TestCase
                 $gameListParameters[] = $parameter['name'];
             }
         }
-        foreach (['limit', 'provider', 'category', 'search', 'currency', 'country', 'mode', 'sort'] as $parameter) {
+        foreach (['limit', 'provider', 'category', 'platform', 'search', 'currency', 'country', 'mode', 'sort'] as $parameter) {
             $this->assertContains($parameter, $gameListParameters);
         }
 
@@ -648,10 +785,15 @@ class B2BConfigurationTest extends TestCase
             '/api/b2b/v1/metrics',
             '/api/b2b/v1/portal?limit=10',
             '/api/b2b/v1/portal/overview',
+            '/api/b2b/v1/portal/games/{{gameId}}?limit=20',
+            '/api/b2b/v1/portal/sessions/{{sessionId}}?limit=20',
             '/api/b2b/v1/portal/transactions?limit=10',
             '/api/b2b/v1/portal/transactions/{{transactionId}}?limit=20',
+            '/api/b2b/v1/portal/settlements/{{settlementId}}',
             '/api/b2b/v1/portal/cases?limit=10',
             '/api/b2b/v1/portal/callbacks?limit=10',
+            '/api/b2b/v1/portal/diagnostics?limit=10',
+            '/api/b2b/v1/portal/diagnostics/{{providerRequestId}}',
             '/api/b2b/v1/portal/reports?limit=10',
             '/api/b2b/v1/portal/support?limit=10',
             '/api/b2b/v1/portal/logs?limit=10',
@@ -663,7 +805,10 @@ class B2BConfigurationTest extends TestCase
             '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/thread?limit=50',
             '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/comments',
             '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/close',
-            '/api/b2b/v1/games?currency={{currency}}&country=BR&mode=real&limit=50&sort=title',
+            '/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/reopen',
+            '/api/b2b/v1/portal/docs/openapi.json',
+            '/api/b2b/v1/portal/docs/postman_collection.json',
+            '/api/b2b/v1/games?currency={{currency}}&country=BR&platform=web&mode=real&limit=50&sort=title',
             '/api/b2b/v1/games/launch',
             '/api/b2b/v1/games/{{gameId}}',
             '/api/b2b/v1/sessions?limit=100&status=active&sort=-created_at',

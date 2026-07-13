@@ -38,7 +38,27 @@ class B2BBackofficeCredentialLifecycleTest extends TestCase
             ->assertSee('B2B Credentials')
             ->assertSee('op_web_credentials')
             ->assertSee('key_initial')
-            ->assertSee('Scopes');
+            ->assertSee('Scopes')
+            ->assertSee('Revoke Active Key')
+            ->assertSee('Revoke Step-Up')
+            ->assertSee('/backend/b2b/credentials/revoke', false)
+            ->assertSee('operator ' . $this->operator->id);
+    }
+
+    public function testCredentialScreenDoesNotShowRowRevokeActionForDisabledKeys()
+    {
+        DB::table('b2b_operator_api_keys')->where('key_id', 'key_initial')->update([
+            'status' => B2BOperatorApiKey::STATUS_DISABLED,
+            'updated_at' => now(),
+        ]);
+
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/credentials')
+            ->assertStatus(200)
+            ->assertSee('key_initial')
+            ->assertSee('No revoke action available for disabled key.')
+            ->assertDontSee('Revoke Active Key')
+            ->assertDontSee('Revoke Step-Up');
     }
 
     public function testRotateRequiresWebStepUp()

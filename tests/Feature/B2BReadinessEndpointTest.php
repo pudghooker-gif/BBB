@@ -34,6 +34,7 @@ class B2BReadinessEndpointTest extends TestCase
         $this->assertReadinessCheck($response->json('data.checks'), 'b2b_columns', 'pass');
         $this->assertReadinessCheck($response->json('data.checks'), 'failed_job_storage', 'pass');
         $this->assertReadinessCheck($response->json('data.checks'), 'scheduler_heartbeat', 'pass');
+        $this->assertReadinessCheck($response->json('data.checks'), 'provider_health', 'pass');
     }
 
     public function testReadinessEndpointFailsWhenCriticalB2BTableIsMissing()
@@ -48,6 +49,20 @@ class B2BReadinessEndpointTest extends TestCase
             ->assertJsonPath('error.details.status', 'not_ready');
 
         $this->assertReadinessCheck($response->json('error.details.checks'), 'b2b_tables', 'fail');
+    }
+
+    public function testReadinessEndpointFailsWhenProviderHealthFails()
+    {
+        Schema::dropIfExists('games');
+
+        $response = $this->getJson('/api/b2b/v1/readiness');
+
+        $response->assertStatus(503)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'SERVICE_NOT_READY')
+            ->assertJsonPath('error.details.status', 'not_ready');
+
+        $this->assertReadinessCheck($response->json('error.details.checks'), 'provider_health', 'fail');
     }
 
     public function testReadinessEndpointFailsUnsafeProductionRuntimeConfiguration()

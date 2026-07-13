@@ -37,6 +37,9 @@ class B2BMetricsExporter
             $this->providerRequests($lines, $errors);
         });
         $this->collect($errors, function () use (&$lines, &$errors) {
+            $this->providerHealth($lines, $errors);
+        });
+        $this->collect($errors, function () use (&$lines, &$errors) {
             $this->reconciliation($lines, $errors);
         });
         $this->collect($errors, function () use (&$lines, &$errors) {
@@ -147,6 +150,17 @@ class B2BMetricsExporter
                     'action' => $this->labelValue($row->action),
                 ]);
             }
+        }
+    }
+
+    private function providerHealth(array &$lines, &$errors)
+    {
+        $summary = app(B2BProviderHealthService::class)->summary();
+        foreach ($summary['providers'] as $provider) {
+            $this->metric($lines, 'bbb_b2b_provider_health_up', 'gauge', 'Provider health by provider adapter.', $provider['ok'] ? 1 : 0, [
+                'provider' => $this->labelValue($provider['provider']),
+                'status' => $this->labelValue($provider['status']),
+            ]);
         }
     }
 

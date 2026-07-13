@@ -19,11 +19,12 @@ class B2BWalletManualActionController extends Controller
         $this->middleware('permission:access.admin.panel');
     }
 
-    public function index(WalletManualActionService $manualActions)
+    public function index(Request $request, WalletManualActionService $manualActions)
     {
         return view('backend.b2b.wallet-manual-actions', [
             'actions' => $manualActions->supportedActions(),
             'transactions' => $this->candidateTransactions(),
+            'form' => $this->formDefaults($request),
         ]);
     }
 
@@ -34,6 +35,7 @@ class B2BWalletManualActionController extends Controller
             'operator_id' => 'nullable|integer|min:1',
             'action' => 'required|string|max:80',
             'reason' => 'required|string|max:1000',
+            'redirect_to' => 'nullable|string|max:2048',
         ]);
 
         $operatorId = $request->input('operator_id');
@@ -60,8 +62,7 @@ class B2BWalletManualActionController extends Controller
 
         $stepUp->forget($request, 'wallet.manual_action');
 
-        return redirect()
-            ->route('backend.b2b.wallet_manual_actions.index')
+        return redirect($this->safeRedirect($request->input('redirect_to'), route('backend.b2b.wallet_manual_actions.index')))
             ->with('success', 'Manual wallet action applied to ' . ($result['transaction_uid'] ?: $request->input('transaction_uid')) . '.');
     }
 
@@ -85,6 +86,31 @@ class B2BWalletManualActionController extends Controller
             ->orderBy('id', 'desc')
             ->limit(25)
             ->get();
+    }
+
+    private function formDefaults(Request $request)
+    {
+        return [
+            'transaction_uid' => substr(trim((string) $request->query('transaction_uid', '')), 0, 191),
+            'operator_id' => substr(trim((string) $request->query('operator_id', '')), 0, 20),
+            'action' => substr(trim((string) $request->query('action', 'mark-review')), 0, 80),
+            'reason' => substr(trim((string) $request->query('reason', '')), 0, 1000),
+            'redirect_to' => $this->safeRedirect($request->query('redirect_to', ''), ''),
+        ];
+    }
+
+    private function safeRedirect($target, $fallback)
+    {
+        $target = trim((string) $target);
+        if ($target !== ''
+            && strpos($target, '/backend/b2b') === 0
+            && strpos($target, '//') !== 0
+            && strpos($target, "\n") === false
+            && strpos($target, "\r") === false) {
+            return $target;
+        }
+
+        return $fallback;
     }
 
     private function actor(Request $request)

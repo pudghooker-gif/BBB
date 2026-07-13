@@ -4,6 +4,12 @@
 @section('page-heading', 'B2B Support Ticket')
 
 @section('content')
+    @php
+        $ticketStatus = isset($ticket['status']) ? $ticket['status'] : 'open';
+        $canComment = in_array($ticketStatus, ['open', 'in_progress'], true);
+        $canClose = in_array($ticketStatus, ['open', 'in_progress'], true);
+        $canReopen = $ticketStatus === 'closed';
+    @endphp
     <section class="content-header">
         <h1>B2B Support Ticket</h1>
         @include('backend.partials.messages')
@@ -87,35 +93,51 @@
                         <input type="hidden" name="ticket_uid" value="{{ $ticket['ticket_uid'] }}">
                         <input type="hidden" name="redirect_to" value="{{ request()->getRequestUri() }}">
                         <div class="box-body">
-                            <div class="form-group">
-                                <label for="b2b-support-ticket-detail-message">Message</label>
-                                <textarea id="b2b-support-ticket-detail-message" name="message" rows="4" class="form-control">{{ old('message') }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="b2b-support-ticket-detail-reason">Reason</label>
-                                <textarea id="b2b-support-ticket-detail-reason" name="reason" rows="4" class="form-control">{{ old('reason') }}</textarea>
-                            </div>
+                            @if($canComment)
+                                <div class="form-group">
+                                    <label for="b2b-support-ticket-detail-message">Message</label>
+                                    <textarea id="b2b-support-ticket-detail-message" name="message" rows="4" class="form-control">{{ old('message') }}</textarea>
+                                </div>
+                            @endif
+                            @if($canClose || $canReopen)
+                                <div class="form-group">
+                                    <label for="b2b-support-ticket-detail-reason">{{ $canReopen ? 'Reopen Reason' : 'Close Reason' }}</label>
+                                    <textarea id="b2b-support-ticket-detail-reason" name="reason" rows="4" class="form-control">{{ old('reason') }}</textarea>
+                                </div>
+                            @endif
                         </div>
                         <div class="box-footer">
-                            <button type="submit" formaction="{{ route('backend.b2b.cases.support_ticket.comment') }}" class="btn btn-primary">
-                                <i class="fa fa-comment"></i> Comment
-                            </button>
-                            <button type="submit" formaction="{{ route('backend.b2b.cases.support_ticket.close') }}" class="btn btn-success">
-                                <i class="fa fa-check"></i> Close
-                            </button>
-                            <button type="submit" formaction="{{ route('backend.b2b.cases.support_ticket.reopen') }}" class="btn btn-default">
-                                <i class="fa fa-undo"></i> Reopen
-                            </button>
+                            @if($canComment)
+                                <button type="submit" formaction="{{ route('backend.b2b.cases.support_ticket.comment') }}" class="btn btn-primary">
+                                    <i class="fa fa-comment"></i> Comment
+                                </button>
+                            @endif
+                            @if($canClose)
+                                <button type="submit" formaction="{{ route('backend.b2b.cases.support_ticket.close') }}" class="btn btn-success">
+                                    <i class="fa fa-check"></i> Close
+                                </button>
+                            @endif
+                            @if($canReopen)
+                                <button type="submit" formaction="{{ route('backend.b2b.cases.support_ticket.reopen') }}" class="btn btn-default">
+                                    <i class="fa fa-undo"></i> Reopen
+                                </button>
+                            @endif
                             <hr>
-                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'support_ticket.comment', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
-                                <i class="fa fa-shield"></i> Comment Step-Up
-                            </a>
-                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'support_ticket.close', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
-                                <i class="fa fa-shield"></i> Close Step-Up
-                            </a>
-                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'support_ticket.reopen', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
-                                <i class="fa fa-shield"></i> Reopen Step-Up
-                            </a>
+                            @if($canComment)
+                                <a href="{{ route('backend.b2b.step_up.show', ['action' => 'support_ticket.comment', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                    <i class="fa fa-shield"></i> Comment Step-Up
+                                </a>
+                            @endif
+                            @if($canClose)
+                                <a href="{{ route('backend.b2b.step_up.show', ['action' => 'support_ticket.close', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                    <i class="fa fa-shield"></i> Close Step-Up
+                                </a>
+                            @endif
+                            @if($canReopen)
+                                <a href="{{ route('backend.b2b.step_up.show', ['action' => 'support_ticket.reopen', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                    <i class="fa fa-shield"></i> Reopen Step-Up
+                                </a>
+                            @endif
                         </div>
                     </form>
                 </div>

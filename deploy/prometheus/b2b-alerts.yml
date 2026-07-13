@@ -25,6 +25,18 @@ groups:
           description: At least one operator circuit breaker is open. Inspect provider health events, callback failures, and affected operator traffic.
           runbook: docs/b2b/OBSERVABILITY.md
 
+      - alert: BBBB2BProviderHealthDown
+        expr: bbb_b2b_provider_health_up == 0
+        for: 2m
+        labels:
+          service: bbb-b2b
+          severity: critical
+          route: b2b-pager
+        annotations:
+          summary: B2B provider adapter health check is failing
+          description: One or more B2B provider adapters report failed health. Inspect readiness, provider diagnostics, and catalog/source availability before enabling launch traffic.
+          runbook: docs/b2b/OBSERVABILITY.md
+
       - alert: BBBB2BWalletCallbackFailures
         expr: bbb_b2b_wallet_callbacks_total{outcome="failed"} > 0
         for: 10m

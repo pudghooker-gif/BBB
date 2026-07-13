@@ -3,6 +3,7 @@
 namespace VanguardLTE\B2B\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use VanguardLTE\B2B\Services\B2BGameCatalogCache;
 
 class B2BOperatorGameAssignment extends Model
 {
@@ -45,5 +46,16 @@ class B2BOperatorGameAssignment extends Model
     public function isBlocked()
     {
         return $this->status === self::STATUS_BLOCKED;
+    }
+
+    protected static function booted()
+    {
+        static::saved(function () {
+            app(B2BGameCatalogCache::class)->invalidate();
+        });
+
+        static::deleted(function () {
+            app(B2BGameCatalogCache::class)->invalidate();
+        });
     }
 }

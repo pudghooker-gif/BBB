@@ -125,7 +125,7 @@
       "get": {
         "tags": ["portal"],
         "summary": "Return a tenant-scoped read-only operator portal overview",
-        "description": "Aggregates signed-operator profile, API key status and public scope names, wallet/session/reporting summaries, recent sessions, recent transactions with portal detail endpoints, settlements, reconciliation items, recent support tickets with message counts and latest redacted message context, redacted API/audit logs, and safe navigation links. Operator URL fields are returned without query strings. Secret material and raw wallet payloads are never returned.",
+        "description": "Aggregates signed-operator profile, API key status and public scope names, wallet/session/reporting summaries, recent sessions with portal detail endpoints, recent transactions with portal detail endpoints, settlements, reconciliation items with support-case comment endpoint paths, recent support tickets with message counts, latest redacted message context, and state-aware action endpoint paths, redacted API/audit logs, and safe navigation links. Operator URL fields are returned without query strings. Secret material and raw wallet payloads are never returned.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
           { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
@@ -148,7 +148,57 @@
     },
     "/portal/credentials": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/games": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/games/{game_uid}": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Render one operator game detail page",
+        "description": "Returns a signed text/html game drilldown page for the signed operator only. The page shows game catalog summary, operator assignment, launch availability, successful wallet amounts, and related session and transaction links without launch tokens, raw wallet payloads, or foreign operator records.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "game_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 191 }, "example": "book_123" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 50, "default": 20 }, "example": 20 }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped game detail HTML page",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/portal/sessions": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/sessions/{session_uid}": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Render one operator session detail page",
+        "description": "Returns a signed text/html session drilldown page for the signed operator only. The page shows session summary, successful wallet amounts, and related transaction links without launch tokens, launch URLs, raw wallet payloads, or foreign operator records.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "session_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 191 }, "example": "sess_123" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 50, "default": 20 }, "example": 20 }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped session detail HTML page",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/portal/transactions": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/transactions/{transaction_uid}": {
       "get": {
@@ -176,8 +226,57 @@
       }
     },
     "/portal/settlements": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/settlements/{settlement_uid}": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Render one operator settlement detail page",
+        "description": "Returns a signed text/html settlement drilldown page for the signed operator only. The page shows settlement summary, totals, transaction breakdown, approval trail, export metadata, and report detail links without export content, raw payload bodies, or foreign operator records.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "settlement_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 80 }, "example": "settlement_123" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped settlement detail HTML page",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/portal/cases": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/callbacks": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/diagnostics": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/diagnostics/{request_uid}": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Render one operator provider launch diagnostic page",
+        "description": "Returns a signed text/html provider request diagnostic page for the signed operator only. The page shows provider request status, action, duration, session links, and redacted request/response summaries without launch URLs, launch tokens, raw payload bodies, or foreign operator records.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "request_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 191 }, "example": "pr_123" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant-scoped provider request diagnostic HTML page",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/portal/reports": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/support": { "$ref": "#/components/pathItems/PortalPage" },
     "/portal/logs": { "$ref": "#/components/pathItems/PortalPage" },
@@ -407,17 +506,89 @@
         }
       }
     },
+    "/portal/support/tickets/{ticket_uid}/reopen": {
+      "post": {
+        "tags": ["portal"],
+        "summary": "Reopen an operator support ticket",
+        "description": "Reopens the signed operator's own closed support ticket, stores the redacted reopen reason, clears closed_at, returns the ticket to open, and writes a support_ticket.reopened audit event.",
+        "security": [{ "B2BHmac": [] }],
+        "parameters": [
+          { "name": "ticket_uid", "in": "path", "required": true, "schema": { "type": "string", "maxLength": 80 }, "example": "sup_abc123" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["reason"],
+                "properties": {
+                  "reason": { "type": "string", "maxLength": 1000 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/components/responses/Success" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "422": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/portal/docs": { "$ref": "#/components/pathItems/PortalPage" },
+    "/portal/docs/openapi.json": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Download the signed OpenAPI JSON artifact",
+        "description": "Returns the static OpenAPI contract through the same HMAC and portal.read scope used by the operator portal docs page.",
+        "security": [{ "B2BHmac": [] }],
+        "responses": {
+          "200": {
+            "description": "OpenAPI JSON artifact",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "503": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/portal/docs/postman_collection.json": {
+      "get": {
+        "tags": ["portal"],
+        "summary": "Download the signed Postman collection artifact",
+        "description": "Returns the static Postman collection through the same HMAC and portal.read scope used by the operator portal docs page.",
+        "security": [{ "B2BHmac": [] }],
+        "responses": {
+          "200": {
+            "description": "Postman collection JSON artifact",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "503": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/games": {
       "get": {
         "tags": ["games"],
         "summary": "List games available to the signed operator",
-        "description": "Returns a bounded signed-operator game catalog. Results pass through the same assignment, shop, currency, country, and mode availability checks used by launch.",
+        "description": "Returns a bounded signed-operator game catalog. Results pass through the same assignment, shop, currency, country, and mode availability checks used by launch. Items include provider_game_id, canonical_game_id, slug, platform, thumbnail_url, launch_config, support limits, status, and metadata.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
           { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 500, "default": 100 }, "example": 50 },
           { "name": "provider", "in": "query", "schema": { "type": "string", "maxLength": 80 }, "example": "external_provider" },
           { "name": "category", "in": "query", "schema": { "type": "string", "maxLength": 80 }, "example": "slots" },
+          { "name": "platform", "in": "query", "schema": { "type": "string", "maxLength": 30 }, "example": "web" },
           { "name": "search", "in": "query", "schema": { "type": "string", "maxLength": 120 }, "example": "book" },
           { "name": "currency", "in": "query", "schema": { "type": "string", "minLength": 3, "maxLength": 3 }, "example": "USD" },
           { "name": "country", "in": "query", "schema": { "type": "string", "minLength": 2, "maxLength": 2 }, "example": "BR" },
@@ -435,7 +606,7 @@
       "get": {
         "tags": ["games"],
         "summary": "Return one game available to the signed operator",
-        "description": "Returns a single active catalog or legacy Goldsvet game after the same operator assignment, shop, currency, country, and mode checks used by launch.",
+        "description": "Returns a single active catalog or legacy Goldsvet game after the same operator assignment, shop, currency, country, and mode checks used by launch. Catalog maintenance returns GAME_UNDER_MAINTENANCE with HTTP 503.",
         "security": [{ "B2BHmac": [] }],
         "parameters": [
           { "$ref": "#/components/parameters/GameUid" },
@@ -447,6 +618,7 @@
           "200": { "$ref": "#/components/responses/Success" },
           "401": { "$ref": "#/components/responses/Error" },
           "404": { "$ref": "#/components/responses/Error" },
+          "503": { "$ref": "#/components/responses/Error" },
           "422": { "$ref": "#/components/responses/Error" }
         }
       }
@@ -468,6 +640,7 @@
         "responses": {
           "201": { "$ref": "#/components/responses/Success" },
           "404": { "$ref": "#/components/responses/Error" },
+          "503": { "$ref": "#/components/responses/Error" },
           "422": { "$ref": "#/components/responses/Error" }
         }
       }
@@ -831,7 +1004,7 @@
         "get": {
           "tags": ["portal"],
           "summary": "Render a signed read-only operator portal workflow page",
-          "description": "Returns tenant-scoped HTML for credentials, games, sessions, transactions, settlements, cases, callbacks, reports, support, logs, or docs. The credentials page may show public API-key scope names, the support page may show support-ticket message counts and latest redacted message context, the logs page shows redacted operator-owned audit/API events, and operator URL fields are shown without query strings, but secret material and raw wallet payloads are never returned.",
+          "description": "Returns tenant-scoped HTML for credentials, games, sessions, transactions, settlements, cases, callbacks, diagnostics, reports, support, logs, or docs. The credentials page may show public API-key scope names, sessions, transactions, settlements, and provider diagnostics may show portal detail endpoint paths, the support page may show support-ticket message counts and latest redacted message context, the logs page shows redacted operator-owned audit/API events, and operator URL fields are shown without query strings, but secret material and raw wallet/provider payloads are never returned.",
           "security": [{ "B2BHmac": [] }],
           "parameters": [
             { "name": "from", "in": "query", "schema": { "type": "string", "format": "date" }, "example": "2026-06-01" },
@@ -921,17 +1094,61 @@
           "wallet": { "type": "object", "additionalProperties": true },
           "sessions": { "type": "object", "additionalProperties": true },
           "credentials": { "type": "object", "additionalProperties": true },
-          "game_assignments": { "type": "object", "additionalProperties": true },
-          "settlements": { "type": "object", "additionalProperties": true },
+          "game_assignments": { "$ref": "#/components/schemas/PortalGameAssignmentSummary" },
+          "settlements": { "$ref": "#/components/schemas/PortalSettlementSummary" },
           "reconciliation": { "type": "object", "additionalProperties": true },
           "callbacks": { "type": "object", "additionalProperties": true },
+          "launch_diagnostics": { "$ref": "#/components/schemas/PortalLaunchDiagnosticsSummary" },
+          "provider_health": { "$ref": "#/components/schemas/PortalProviderHealthSummary" },
           "support": { "$ref": "#/components/schemas/PortalSupportSummary" },
           "audit": { "$ref": "#/components/schemas/PortalAuditSummary" },
-          "recent_sessions": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+          "recent_sessions": { "type": "array", "items": { "$ref": "#/components/schemas/PortalRecentSession" } },
           "recent_transactions": { "type": "array", "items": { "$ref": "#/components/schemas/PortalRecentTransaction" } },
           "links": { "type": "object", "additionalProperties": { "type": "string" } }
         },
         "additionalProperties": true
+      },
+      "PortalGameAssignmentSummary": {
+        "type": "object",
+        "properties": {
+          "by_status": { "type": "object", "additionalProperties": true },
+          "by_provider": { "type": "object", "additionalProperties": true },
+          "recent_assignments": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PortalRecentGameAssignment" }
+          }
+        },
+        "additionalProperties": true
+      },
+      "PortalRecentGameAssignment": {
+        "type": "object",
+        "properties": {
+          "game_uid": { "type": ["string", "null"], "example": "book_123" },
+          "provider": { "type": ["string", "null"], "example": "goldsvet_internal" },
+          "status": { "type": ["string", "null"], "example": "allowed" },
+          "demo_enabled": { "type": "boolean", "example": true },
+          "real_enabled": { "type": "boolean", "example": true },
+          "detail_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/games/book_123" },
+          "updated_at": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
+      },
+      "PortalRecentSession": {
+        "type": "object",
+        "properties": {
+          "session_uid": { "type": ["string", "null"], "example": "sess_123" },
+          "external_player_id": { "type": ["string", "null"], "example": "player_123" },
+          "game_uid": { "type": ["string", "null"], "example": "book_123" },
+          "provider": { "type": ["string", "null"], "example": "goldsvet_internal" },
+          "mode": { "type": ["string", "null"], "example": "real" },
+          "status": { "type": ["string", "null"], "example": "active" },
+          "currency": { "type": ["string", "null"], "example": "USD" },
+          "detail_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/sessions/sess_123" },
+          "created_at": { "type": ["string", "null"], "format": "date-time" },
+          "expires_at": { "type": ["string", "null"], "format": "date-time" },
+          "closed_at": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
       },
       "PortalRecentTransaction": {
         "type": "object",
@@ -948,6 +1165,115 @@
           "attempts": { "type": ["integer", "null"], "example": 1 },
           "detail_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/transactions/tx_123" },
           "created_at": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
+      },
+      "PortalSettlementSummary": {
+        "type": "object",
+        "properties": {
+          "by_status": { "type": "object", "additionalProperties": true },
+          "recent_settlements": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PortalRecentSettlement" }
+          }
+        },
+        "additionalProperties": true
+      },
+      "PortalRecentSettlement": {
+        "type": "object",
+        "properties": {
+          "settlement_uid": { "type": ["string", "null"], "example": "settlement_123" },
+          "currency": { "type": ["string", "null"], "example": "USD" },
+          "status": { "type": ["string", "null"], "example": "submitted" },
+          "ggr_amount": { "type": ["string", "null"], "example": "6.00000000" },
+          "net_amount": { "type": ["string", "null"], "example": "6.00000000" },
+          "detail_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/settlements/settlement_123" },
+          "period_start": { "type": ["string", "null"], "format": "date-time" },
+          "period_end": { "type": ["string", "null"], "format": "date-time" },
+          "created_at": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
+      },
+      "PortalLaunchDiagnosticsSummary": {
+        "type": "object",
+        "properties": {
+          "by_status": { "type": "object", "additionalProperties": true },
+          "by_action": { "type": "object", "additionalProperties": true },
+          "by_provider": { "type": "object", "additionalProperties": true },
+          "recent_requests": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PortalRecentProviderRequest" }
+          },
+          "failed_sessions": {
+            "type": "array",
+            "items": { "type": "object", "additionalProperties": true }
+          }
+        },
+        "additionalProperties": true
+      },
+      "PortalRecentProviderRequest": {
+        "type": "object",
+        "properties": {
+          "request_uid": { "type": ["string", "null"], "example": "pr_123" },
+          "provider": { "type": ["string", "null"], "example": "goldsvet_internal" },
+          "game_uid": { "type": ["string", "null"], "example": "book_123" },
+          "session_id": { "type": ["string", "null"], "example": "sess_123" },
+          "action": { "type": ["string", "null"], "example": "launch" },
+          "status": { "type": ["string", "null"], "example": "failed" },
+          "error_summary": { "type": ["string", "null"], "example": "Provider launch failed token=[REDACTED]" },
+          "duration_ms": { "type": ["integer", "null"], "example": 345 },
+          "detail_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/diagnostics/pr_123" },
+          "session_detail_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/sessions/sess_123" },
+          "created_at": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
+      },
+      "PortalProviderHealthSummary": {
+        "type": "object",
+        "properties": {
+          "ok": { "type": "boolean", "example": true },
+          "checked_at": { "type": "string", "format": "date-time" },
+          "counts": {
+            "type": "object",
+            "additionalProperties": { "type": "integer" },
+            "example": { "ok": 1, "degraded": 0, "failed": 0 }
+          },
+          "providers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PortalProviderHealthEntry" }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortalProviderHealthEntry": {
+        "type": "object",
+        "properties": {
+          "provider": { "type": "string", "example": "goldsvet_internal" },
+          "ok": { "type": "boolean", "example": true },
+          "status": { "type": "string", "enum": ["ok", "degraded", "failed"], "example": "ok" },
+          "capabilities": { "$ref": "#/components/schemas/PortalProviderCapabilitySummary" },
+          "health": { "$ref": "#/components/schemas/PortalProviderHealthDetail" },
+          "error": { "type": ["string", "null"], "example": null }
+        },
+        "additionalProperties": false
+      },
+      "PortalProviderCapabilitySummary": {
+        "type": "object",
+        "properties": {
+          "supported": { "type": "integer", "minimum": 0, "example": 13 },
+          "unsupported": { "type": "integer", "minimum": 0, "example": 0 },
+          "not_applicable": { "type": "integer", "minimum": 0, "example": 1 },
+          "degraded": { "type": "integer", "minimum": 0, "example": 0 }
+        },
+        "additionalProperties": false
+      },
+      "PortalProviderHealthDetail": {
+        "type": "object",
+        "properties": {
+          "ok": { "type": "boolean", "example": true },
+          "status": { "type": "string", "enum": ["ok", "degraded", "failed"], "example": "ok" },
+          "games_table_available": { "type": "boolean", "example": true },
+          "checked_at": { "type": "string", "format": "date-time" }
         },
         "additionalProperties": false
       },
@@ -1003,6 +1329,9 @@
           "latest_message": { "$ref": "#/components/schemas/PortalSupportTicketMessageSummary" },
           "detail_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123" },
           "thread_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123/thread" },
+          "comment_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123/comments" },
+          "close_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123/close" },
+          "reopen_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123/reopen" },
           "last_message_at": { "type": ["string", "null"], "format": "date-time" },
           "closed_at": { "type": ["string", "null"], "format": "date-time" },
           "created_at": { "type": ["string", "null"], "format": "date-time" }
@@ -1031,6 +1360,9 @@
           "priority": { "type": ["string", "null"], "example": "high" },
           "state": { "type": ["string", "null"], "example": "open" },
           "comment_count": { "type": "integer", "minimum": 0, "example": 2 },
+          "detail_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/cases/tx_123" },
+          "thread_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/cases/tx_123/thread" },
+          "comment_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/cases/tx_123/comments" },
           "latest_comment": { "$ref": "#/components/schemas/PortalSupportCaseComment" },
           "comments": {
             "type": "array",
@@ -1076,6 +1408,11 @@
           "category": { "type": ["string", "null"], "example": "wallet" },
           "external_reference": { "type": ["string", "null"], "example": "OP-TICKET-123" },
           "message_count": { "type": "integer", "minimum": 0, "example": 2 },
+          "detail_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123" },
+          "thread_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123/thread" },
+          "comment_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123/comments" },
+          "close_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123/close" },
+          "reopen_endpoint": { "type": ["string", "null"], "example": "/api/b2b/v1/portal/support/tickets/sup_abc123/reopen" },
           "latest_message": { "$ref": "#/components/schemas/PortalSupportTicketMessageSummary" },
           "last_message_at": { "type": ["string", "null"], "format": "date-time" },
           "closed_at": { "type": ["string", "null"], "format": "date-time" },

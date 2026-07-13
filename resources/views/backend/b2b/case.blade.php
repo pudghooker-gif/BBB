@@ -89,6 +89,13 @@
                     </div>
                 </div>
 
+                @php
+                    $caseState = isset($case['state']) && $case['state'] ? $case['state'] : 'open';
+                    $canClaim = in_array($caseState, ['open', 'in_progress'], true);
+                    $canResolve = in_array($caseState, ['open', 'in_progress'], true);
+                    $canReopen = $caseState === 'resolved';
+                @endphp
+
                 <div class="box box-warning">
                     <div class="box-header with-border">
                         <h3 class="box-title">Case Actions</h3>
@@ -98,31 +105,58 @@
                         <input type="hidden" name="case_id" value="{{ $case['id'] }}">
                         <input type="hidden" name="redirect_to" value="{{ request()->getRequestUri() }}">
                         <div class="box-body">
-                            <div class="form-group">
-                                <label for="b2b-case-detail-reason">Reason</label>
-                                <textarea id="b2b-case-detail-reason" name="reason" rows="4" class="form-control" required>{{ old('reason') }}</textarea>
-                            </div>
+                            @if($canClaim || $canResolve || $canReopen)
+                                <div class="form-group">
+                                    <label for="b2b-case-detail-reason">{{ $canReopen ? 'Reopen Reason' : 'Reason' }}</label>
+                                    <textarea id="b2b-case-detail-reason" name="reason" rows="4" class="form-control" required>{{ old('reason') }}</textarea>
+                                </div>
+                            @else
+                                <p class="text-muted">No lifecycle staff actions are available for this case state.</p>
+                            @endif
                         </div>
                         <div class="box-footer">
-                            <button type="submit" formaction="{{ route('backend.b2b.cases.claim') }}" class="btn btn-warning">
-                                <i class="fa fa-user-plus"></i> Claim
-                            </button>
-                            <button type="submit" formaction="{{ route('backend.b2b.cases.resolve') }}" class="btn btn-success">
-                                <i class="fa fa-check-circle"></i> Resolve
-                            </button>
-                            <button type="submit" formaction="{{ route('backend.b2b.cases.reopen') }}" class="btn btn-default">
-                                <i class="fa fa-undo"></i> Reopen
-                            </button>
+                            @if($canClaim)
+                                <button type="submit" formaction="{{ route('backend.b2b.cases.claim') }}" class="btn btn-warning">
+                                    <i class="fa fa-user-plus"></i> Claim
+                                </button>
+                            @endif
+                            @if($canResolve)
+                                <button type="submit" formaction="{{ route('backend.b2b.cases.resolve') }}" class="btn btn-success">
+                                    <i class="fa fa-check-circle"></i> Resolve
+                                </button>
+                            @endif
+                            @if($canReopen)
+                                <button type="submit" formaction="{{ route('backend.b2b.cases.reopen') }}" class="btn btn-default">
+                                    <i class="fa fa-undo"></i> Reopen
+                                </button>
+                            @endif
+                            @if($case['transaction_uid'])
+                                <a href="{{ route('backend.b2b.wallet_manual_actions.index', [
+                                    'transaction_uid' => $case['transaction_uid'],
+                                    'operator_id' => $case['operator_id'],
+                                    'action' => 'mark-review',
+                                    'reason' => 'Manual review follow-up for B2B case #' . $case['id'] . '.',
+                                    'redirect_to' => request()->getRequestUri(),
+                                ]) }}" class="btn btn-danger">
+                                    <i class="fa fa-gavel"></i> Manual Wallet Action
+                                </a>
+                            @endif
                             <hr>
-                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'case.claim', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
-                                <i class="fa fa-shield"></i> Claim Step-Up
-                            </a>
-                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'case.resolve', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
-                                <i class="fa fa-shield"></i> Resolve Step-Up
-                            </a>
-                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'case.reopen', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
-                                <i class="fa fa-shield"></i> Reopen Step-Up
-                            </a>
+                            @if($canClaim)
+                                <a href="{{ route('backend.b2b.step_up.show', ['action' => 'case.claim', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                    <i class="fa fa-shield"></i> Claim Step-Up
+                                </a>
+                            @endif
+                            @if($canResolve)
+                                <a href="{{ route('backend.b2b.step_up.show', ['action' => 'case.resolve', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                    <i class="fa fa-shield"></i> Resolve Step-Up
+                                </a>
+                            @endif
+                            @if($canReopen)
+                                <a href="{{ route('backend.b2b.step_up.show', ['action' => 'case.reopen', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                    <i class="fa fa-shield"></i> Reopen Step-Up
+                                </a>
+                            @endif
                         </div>
                     </form>
                 </div>

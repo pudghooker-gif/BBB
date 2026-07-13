@@ -898,6 +898,12 @@ Route::prefix('backend')->middleware(['auth', 'checker'])->group(function () {
             'middleware' => ['only_for_admin', 'b2b.admin:b2b.audit.view'],
         ]);
 
+        Route::get('/b2b/audit/export', [
+            'as' => 'backend.b2b.audit.export',
+            'uses' => 'B2BAuditBackofficeController@export',
+            'middleware' => ['only_for_admin', 'b2b.admin:b2b.audit.view'],
+        ]);
+
         Route::get('/b2b/step-up/{action}', [
             'as' => 'backend.b2b.step_up.show',
             'uses' => 'B2BStepUpController@show',

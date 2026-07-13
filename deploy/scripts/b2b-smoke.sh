@@ -30,6 +30,40 @@ assert_contains() {
     fi
 }
 
+assert_not_contains() {
+    local file="$1"
+    local needle="$2"
+    local label="$3"
+
+    if [ -n "$needle" ] && grep -Fq "$needle" "$file"; then
+        log "FAIL $label contains a forbidden marker"
+        return 1
+    fi
+}
+
+assert_readiness_check_pass() {
+    local file="$1"
+    local check_name="$2"
+
+    READINESS_FILE="$file" CHECK_NAME="$check_name" "$PHP_BIN" -r '
+        $payload = json_decode(file_get_contents(getenv("READINESS_FILE")), true);
+        if (!is_array($payload)) {
+            fwrite(STDERR, "readiness JSON could not be parsed\n");
+            exit(1);
+        }
+
+        $checks = $payload["data"]["checks"] ?? $payload["error"]["details"]["checks"] ?? [];
+        foreach ($checks as $check) {
+            if (($check["name"] ?? null) === getenv("CHECK_NAME") && ($check["status"] ?? null) === "pass") {
+                exit(0);
+            }
+        }
+
+        fwrite(STDERR, "readiness check missing or not passing: " . getenv("CHECK_NAME") . "\n");
+        exit(1);
+    '
+}
+
 curl_get() {
     local label="$1"
     local path="$2"
@@ -79,6 +113,8 @@ assert_contains "$health_file" '"success":true' health
 
 readiness_file="$(curl_get readiness /api/b2b/v1/readiness)"
 assert_contains "$readiness_file" '"status":"ready"' readiness
+assert_readiness_check_pass "$readiness_file" provider_health
+log "PASS readiness_provider_health"
 
 metrics_file="$B2B_SMOKE_ARTIFACT_DIR/metrics.txt"
 log "GET /api/b2b/v1/metrics"
@@ -86,6 +122,7 @@ log "GET /api/b2b/v1/metrics"
     --header 'Accept: text/plain' \
     "$(url /api/b2b/v1/metrics)" > "$metrics_file"
 assert_contains "$metrics_file" 'bbb_b2b_info' metrics
+assert_contains "$metrics_file" 'bbb_b2b_provider_health_up' metrics-provider-health
 
 if [ -n "${B2B_SMOKE_OPERATOR_ID:-}" ] && [ -n "${B2B_SMOKE_API_KEY:-}" ] && [ -n "${B2B_SMOKE_API_SECRET:-}" ]; then
     operator_file="$(signed_get operator-me /api/b2b/v1/operator/me)"
@@ -93,6 +130,19 @@ if [ -n "${B2B_SMOKE_OPERATOR_ID:-}" ] && [ -n "${B2B_SMOKE_API_KEY:-}" ] && [ -
 
     portal_file="$(signed_get portal-overview /api/b2b/v1/portal/overview limit=1)"
     assert_contains "$portal_file" '"success":true' portal-overview
+    assert_contains "$portal_file" '"provider_health"' portal-overview-provider-health
+    assert_contains "$portal_file" 'goldsvet_internal' portal-overview-provider-health
+    assert_not_contains "$portal_file" "$B2B_SMOKE_API_SECRET" portal-overview-secret
+
+    openapi_file="$(signed_get portal-openapi /api/b2b/v1/portal/docs/openapi.json)"
+    assert_contains "$openapi_file" '"openapi"' portal-openapi
+    assert_contains "$openapi_file" '"/portal/docs/postman_collection.json"' portal-openapi
+    assert_not_contains "$openapi_file" "$B2B_SMOKE_API_SECRET" portal-openapi-secret
+
+    postman_file="$(signed_get portal-postman /api/b2b/v1/portal/docs/postman_collection.json)"
+    assert_contains "$postman_file" '"item"' portal-postman
+    assert_contains "$postman_file" '/api/b2b/v1/portal/docs/openapi.json' portal-postman
+    assert_not_contains "$postman_file" "$B2B_SMOKE_API_SECRET" portal-postman-secret
 else
     log "Skipping signed operator smoke checks; B2B_SMOKE_OPERATOR_ID, B2B_SMOKE_API_KEY, and B2B_SMOKE_API_SECRET were not all provided."
 fi

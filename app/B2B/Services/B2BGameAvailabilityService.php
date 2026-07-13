@@ -28,6 +28,11 @@ class B2BGameAvailabilityService
         }
 
         if ($catalogGame) {
+            $status = $this->catalogStatusDecision($catalogGame);
+            if (!$status['ok']) {
+                return $status;
+            }
+
             if (!$this->catalogSupports($catalogGame, $currency, $country, $mode)) {
                 return $this->unavailable('GAME_NOT_AVAILABLE', 'Game is not available for the requested currency, country, or mode.');
             }
@@ -44,6 +49,24 @@ class B2BGameAvailabilityService
         }
 
         return $this->unavailable('GAME_NOT_AVAILABLE', 'Game was not found in the B2B catalog.');
+    }
+
+    public function catalogStatusDecision($catalogGame)
+    {
+        if (!$catalogGame) {
+            return $this->unavailable('GAME_NOT_AVAILABLE', 'Game was not found in the B2B catalog.');
+        }
+
+        $status = isset($catalogGame->status) ? (string) $catalogGame->status : B2BGameCatalog::STATUS_ACTIVE;
+        if ($status === B2BGameCatalog::STATUS_MAINTENANCE) {
+            return $this->unavailable('GAME_UNDER_MAINTENANCE', 'Game is temporarily under maintenance.');
+        }
+
+        if ($status !== B2BGameCatalog::STATUS_ACTIVE) {
+            return $this->unavailable('GAME_NOT_AVAILABLE', 'Game is disabled in the B2B catalog.');
+        }
+
+        return ['ok' => true];
     }
 
     public function operatorAllowsGame($operator, $gameUid, $provider = null)
@@ -189,7 +212,6 @@ class B2BGameAvailabilityService
 
         return B2BGameCatalog::query()
             ->where('game_uid', $gameUid)
-            ->where('status', 'active')
             ->first();
     }
 

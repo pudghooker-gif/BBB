@@ -59,12 +59,40 @@ jobs:
             ':!:bootstrap/cache/*' \
             | xargs -r -n 1 php -l
 
+      - name: Syntax lint deployment shell scripts
+        run: |
+          find deploy/scripts -maxdepth 1 -type f -name '*.sh' -print0 \
+            | xargs -0 -r -n 1 bash -n
+
       - name: Laravel route boot and cache
         run: |
           php artisan config:clear
           php artisan route:list --json > /tmp/b2b-routes.json
           php artisan route:cache
           php artisan route:clear
+
+      - name: Verify clean and repeatable migrations
+        run: |
+          tmp="$(mktemp -d)"
+          touch "$tmp/database.sqlite"
+          DB_CONNECTION=sqlite DB_DATABASE="$tmp/database.sqlite" php artisan migrate:fresh --force --no-interaction
+          DB_CONNECTION=sqlite DB_DATABASE="$tmp/database.sqlite" php artisan migrate --force --no-interaction | tee "$tmp/migrate-repeat.log"
+          grep -q 'Nothing to migrate' "$tmp/migrate-repeat.log"
+
+      - name: Verify release evidence template generation
+        run: |
+          tmp="$(mktemp -d)"
+          php artisan b2b:evidence-template "$tmp" --release-id=ci-template --environment=staging --commit="${GITHUB_SHA:-ci}"
+          php -r '
+              $manifest = json_decode(file_get_contents($argv[1] . "/release-evidence.json"), true);
+              foreach (["queue_runtime_drill", "prometheus_scrape", "alertmanager_notification", "log_shipping", "correlation_validation"] as $key) {
+                  if (!isset($manifest["evidence"][$key])) {
+                      fwrite(STDERR, "Missing evidence entry: " . $key . PHP_EOL);
+                      exit(1);
+                  }
+              }
+              echo "release evidence template ok" . PHP_EOL;
+          ' "$tmp"
 
       - name: Run PHPUnit
         run: php vendor/phpunit/phpunit/phpunit --testdox --colors=never
@@ -117,6 +145,10 @@ jobs:
       - name: Syntax check WebSocket runtime
         working-directory: PTWebSocket
         run: pnpm run check:syntax
+
+      - name: Validate WebSocket production config
+        working-directory: PTWebSocket
+        run: pnpm run check:production-config
 
   production-release-check:
     name: Production release-check command

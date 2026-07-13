@@ -57,10 +57,37 @@ class B2BBackofficeAuditTrailTest extends TestCase
             ->assertDontSee('op_audit_b');
     }
 
+    public function testAuditTrailExportsRedactedFilteredCsv()
+    {
+        $response = $this->actingAs($this->adminUser(true))
+            ->get('/backend/b2b/audit/export?operator_uid=op_audit_a&event_type=operator.updated&limit=500');
+
+        $response->assertStatus(200);
+        $this->assertStringContainsString('text/csv', $response->headers->get('Content-Type'));
+        $this->assertStringContainsString('attachment; filename="b2b-audit-trail-', $response->headers->get('Content-Disposition'));
+
+        $csv = $response->getContent();
+        $this->assertStringContainsString('id,created_at,operator_uid,operator_name,operator_id,event_type,subject_type,subject_id,actor,reason,ip_address,user_agent,metadata', $csv);
+        $this->assertStringContainsString('operator.updated', $csv);
+        $this->assertStringContainsString('op_audit_a', $csv);
+        $this->assertStringContainsString('[REDACTED]', $csv);
+        $this->assertStringNotContainsString('settlement.approved', $csv);
+        $this->assertStringNotContainsString('op_audit_b', $csv);
+        $this->assertStringNotContainsString('audit-secret-value', $csv);
+        $this->assertStringNotContainsString('api-key-secret', $csv);
+    }
+
     public function testAuditScreenRequiresAuditPermission()
     {
         $this->actingAs($this->adminUser(false))
             ->get('/backend/b2b/audit')
+            ->assertStatus(403);
+    }
+
+    public function testAuditExportRequiresAuditPermission()
+    {
+        $this->actingAs($this->adminUser(false))
+            ->get('/backend/b2b/audit/export')
             ->assertStatus(403);
     }
 

@@ -109,6 +109,9 @@ class B2BOperatorSupportCaseService
         $context = $this->decodeContext(isset($case->context) ? $case->context : null);
         $comments = $this->operatorComments($context, $limit);
 
+        $detailEndpoint = isset($case->transaction_uid) ? $this->supportCaseDetailEndpoint($case->transaction_uid) : null;
+        $isCommentable = in_array(isset($case->state) ? $case->state : null, ['open', 'in_progress'], true);
+
         return [
             'case_id' => (int) $case->id,
             'transaction_uid' => isset($case->transaction_uid) ? $this->safeText($case->transaction_uid, 191) : null,
@@ -117,6 +120,9 @@ class B2BOperatorSupportCaseService
             'priority' => isset($case->priority) ? $this->safeText($case->priority, 40) : null,
             'state' => isset($case->state) ? $this->safeText($case->state, 40) : null,
             'comment_count' => $this->operatorCommentCount($context),
+            'detail_endpoint' => $detailEndpoint,
+            'thread_endpoint' => $detailEndpoint === null ? null : $detailEndpoint . '/thread',
+            'comment_endpoint' => $isCommentable && $detailEndpoint !== null ? $detailEndpoint . '/comments' : null,
             'latest_comment' => $this->latestOperatorComment($context),
             'comments' => $comments,
             'detected_at' => isset($case->detected_at) ? $this->isoTime($case->detected_at) : null,
@@ -234,6 +240,15 @@ class B2BOperatorSupportCaseService
             'external_reference' => isset($comment['external_reference']) ? $this->safeNullableText($comment['external_reference'], 120) : null,
             'created_at' => isset($comment['at']) ? $this->isoTime($comment['at']) : null,
         ];
+    }
+
+    private function supportCaseDetailEndpoint($transactionUid)
+    {
+        $transactionUid = trim((string) $transactionUid);
+
+        return $transactionUid === ''
+            ? null
+            : '/api/b2b/v1/portal/support/cases/' . rawurlencode($transactionUid);
     }
 
     private function safeNullableText($value, $limit)

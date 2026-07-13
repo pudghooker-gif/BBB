@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use VanguardLTE\B2B\Models\B2BGameCatalog;
 use VanguardLTE\B2B\Services\B2BGameAvailabilityService;
+use VanguardLTE\B2B\Services\B2BGameCatalogCache;
 use VanguardLTE\B2B\Support\B2BApiResponse;
 use VanguardLTE\Game;
 
@@ -22,7 +24,7 @@ class GameCatalogController extends Controller
         'game_uid' => 'game_uid',
     ];
 
-    public function index(Request $request, B2BGameAvailabilityService $availability)
+    public function index(Request $request, B2BGameAvailabilityService $availability, B2BGameCatalogCache $cache)
     {
         $operator = $request->attributes->get('b2b_operator');
         $filters = $this->validatedIndexFilters($request);
@@ -31,7 +33,16 @@ class GameCatalogController extends Controller
             return $filters['response'];
         }
 
-        $query = B2BGameCatalog::query()->where('status', 'active');
+        $payload = $cache->rememberIndex($operator, $filters, function () use ($operator, $availability, $filters) {
+            return $this->indexPayload($operator, $availability, $filters);
+        });
+
+        return B2BApiResponse::success($request, $payload['data'], 200, $payload['meta']);
+    }
+
+    private function indexPayload($operator, B2BGameAvailabilityService $availability, array $filters)
+    {
+        $query = B2BGameCatalog::query()->where('status', B2BGameCatalog::STATUS_ACTIVE);
 
         $this->applyCatalogFilters($query, $filters);
         $this->applyCatalogSort($query, $filters['sort']);
@@ -62,14 +73,17 @@ class GameCatalogController extends Controller
         $availableCount = $games->count();
         $limited = $games->take($filters['limit'])->values();
 
-        return B2BApiResponse::success($request, $limited, 200, [
-            'limit' => $filters['limit'],
-            'count' => $limited->count(),
-            'available_count' => $availableCount,
-            'sort' => $filters['sort'] ?: 'provider,title',
-            'filters' => $this->responseFilters($filters),
-            'source' => $source,
-        ]);
+        return [
+            'data' => $limited->all(),
+            'meta' => [
+                'limit' => $filters['limit'],
+                'count' => $limited->count(),
+                'available_count' => $availableCount,
+                'sort' => $filters['sort'] ?: 'provider,title',
+                'filters' => $this->responseFilters($filters),
+                'source' => $source,
+            ],
+        ];
     }
 
     public function show(Request $request, B2BGameAvailabilityService $availability, $gameUid)
@@ -100,7 +114,7 @@ class GameCatalogController extends Controller
 
         $game = B2BGameCatalog::query()
             ->where('game_uid', (string) $gameUid)
-            ->where('status', 'active')
+            ->where('status', B2BGameCatalog::STATUS_ACTIVE)
             ->first();
 
         if ($game) {
@@ -170,6 +184,7 @@ class GameCatalogController extends Controller
             'limit' => 'nullable|integer|min:1|max:' . self::MAX_LIMIT,
             'provider' => 'nullable|string|max:80',
             'category' => 'nullable|string|max:80',
+            'platform' => 'nullable|string|max:30',
             'search' => 'nullable|string|max:120',
             'currency' => 'nullable|string|size:3',
             'country' => 'nullable|string|size:2',
@@ -195,6 +210,7 @@ class GameCatalogController extends Controller
             'limit' => $limit === null || $limit === '' ? self::DEFAULT_LIMIT : (int) $limit,
             'provider' => $this->normalizedTextFilter($request, 'provider'),
             'category' => $this->normalizedTextFilter($request, 'category'),
+            'platform' => $this->normalizedTextFilter($request, 'platform'),
             'search' => $this->normalizedTextFilter($request, 'search'),
             'currency' => $this->normalizedUpperFilter($request, 'currency'),
             'country' => $this->normalizedUpperFilter($request, 'country'),
@@ -213,10 +229,17 @@ class GameCatalogController extends Controller
             $query->where('category', $filters['category']);
         }
 
+        if ($filters['platform']) {
+            $query->where('platform', $filters['platform']);
+        }
+
         if ($filters['search']) {
             $needle = '%' . $filters['search'] . '%';
             $query->where(function ($q) use ($needle) {
                 $q->where('game_uid', 'like', $needle)
+                    ->orWhere('provider_game_id', 'like', $needle)
+                    ->orWhere('canonical_game_id', 'like', $needle)
+                    ->orWhere('slug', 'like', $needle)
                     ->orWhere('title', 'like', $needle);
             });
         }
@@ -314,6 +337,7 @@ class GameCatalogController extends Controller
         return array_filter([
             'provider' => $filters['provider'],
             'category' => $filters['category'],
+            'platform' => $filters['platform'],
             'search' => $filters['search'],
             'currency' => $filters['currency'],
             'country' => $filters['country'],
@@ -327,12 +351,17 @@ class GameCatalogController extends Controller
     {
         return [
             'game_uid' => $game->game_uid,
+            'provider_game_id' => $game->provider_game_id,
+            'canonical_game_id' => $game->canonical_game_id,
             'provider' => $game->provider,
+            'slug' => $game->slug,
             'title' => $game->title,
             'category' => $game->category,
+            'platform' => $game->platform,
             'rtp' => $game->rtp,
             'volatility' => $game->volatility,
             'thumbnail_url' => $game->thumbnail_url,
+            'launch_config' => $game->launch_config ?: [],
             'demo_supported' => (bool) $game->demo_supported,
             'real_supported' => (bool) $game->real_supported,
             'supported_currencies' => $game->supported_currencies ?: [],
@@ -346,9 +375,16 @@ class GameCatalogController extends Controller
     {
         return [
             'game_uid' => $game->name,
+            'provider_game_id' => $game->name,
+            'canonical_game_id' => $game->name,
             'provider' => 'goldsvet_internal',
+            'slug' => Str::slug($game->title ?: $game->name) ?: $game->name,
             'title' => $game->title ?: $game->name,
             'category' => isset($game->category) ? $game->category : 'slots',
+            'platform' => 'web',
+            'launch_config' => [
+                'launch_mode' => 'legacy_launcher',
+            ],
             'demo_supported' => true,
             'real_supported' => true,
             'supported_currencies' => [],

@@ -9,6 +9,8 @@ QUEUE_DRIVER=redis
 B2B_QUEUE_CONNECTION=redis
 B2B_NONCE_CACHE_STORE=redis
 B2B_RATE_LIMIT_CACHE_STORE=redis
+B2B_GAME_CATALOG_CACHE_ENABLED=true
+B2B_GAME_CATALOG_CACHE_STORE=redis
 B2B_SCHEDULER_HEARTBEAT_CACHE_STORE=redis
 QUEUE_FAILED_DRIVER=database-uuids
 ```
@@ -71,6 +73,17 @@ b2b:close-stale-sessions --minutes=30 --dispatch
 `app/Console/Kernel.php` reads `config/b2b_queues.scheduled_commands` and registers the dispatching commands with `withoutOverlapping()`. Keep only one scheduler node active, or use Laravel's standard scheduler locking on shared cache.
 
 Production readiness requires a fresh heartbeat by default. Tune the allowed freshness window with `B2B_SCHEDULER_HEARTBEAT_MAX_AGE_SECONDS` only when the scheduler interval is intentionally changed.
+
+## Runtime Evidence Drill
+
+Run the target-host drill after Supervisor workers and the scheduler are active:
+
+```bash
+QUEUE_RUNTIME_ARTIFACT_DIR=/var/www/bbb/release-evidence/<release-id>/operations \
+bash deploy/scripts/queue-runtime-drill.sh
+```
+
+The script captures `supervisorctl status 'bbb-b2b-*'`, records `b2b:scheduler-heartbeat`, and runs `php artisan b2b:queue-runtime-evidence --production`. The JSON artifact checks configured worker process counts, scheduler heartbeat/locking coverage, and B2B failed-job counts against `QUEUE_RUNTIME_MAX_FAILED` before launch. Store `b2b-queue-runtime-drill.log` and `b2b-queue-runtime-evidence.json` in the `queue_runtime_drill` release evidence entry.
 
 ## Release Checks
 

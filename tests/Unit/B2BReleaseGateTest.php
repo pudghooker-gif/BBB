@@ -16,6 +16,7 @@ class B2BReleaseGateTest extends TestCase
             'b2b.allow_private_wallet_callbacks' => true,
             'b2b.nonce_cache_store' => null,
             'b2b.rate_limit_cache_store' => null,
+            'b2b.game_catalog_cache_store' => null,
             'b2b.sandbox_enabled' => true,
             'cache.default' => 'file',
             'queue.default' => 'sync',
@@ -28,6 +29,7 @@ class B2BReleaseGateTest extends TestCase
         $this->assertFalse($result['ok']);
         $this->assertCheckFailed($result, 'nonce_cache');
         $this->assertCheckFailed($result, 'rate_limit_cache');
+        $this->assertCheckFailed($result, 'game_catalog_cache');
         $this->assertCheckFailed($result, 'scheduler_heartbeat_cache');
         $this->assertCheckFailed($result, 'queue_driver');
         $this->assertCheckPassed($result, 'failed_job_storage');
@@ -41,7 +43,10 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckPassed($result, 'structured_logging');
         $this->assertCheckPassed($result, 'scheduler_config');
         $this->assertCheckPassed($result, 'provider_wallet_contracts');
+        $this->assertCheckPassed($result, 'provider_health_surfaces');
         $this->assertCheckPassed($result, 'database_schema');
+        $this->assertCheckPassed($result, 'game_catalog_sync');
+        $this->assertCheckPassed($result, 'launcher_integration');
         $this->assertCheckPassed($result, 'payload_redaction_audit');
         $this->assertCheckPassed($result, 'api_key_scopes');
         $this->assertCheckPassed($result, 'deployment_artifacts');
@@ -58,6 +63,8 @@ class B2BReleaseGateTest extends TestCase
             'b2b.allow_private_wallet_callbacks' => false,
             'b2b.nonce_cache_store' => 'redis',
             'b2b.rate_limit_cache_store' => 'redis',
+            'b2b.game_catalog_cache_enabled' => true,
+            'b2b.game_catalog_cache_store' => 'redis',
             'b2b.scheduler_heartbeat_cache_store' => 'redis',
             'b2b.sandbox_enabled' => false,
             'cache.default' => 'redis',
@@ -81,6 +88,8 @@ class B2BReleaseGateTest extends TestCase
         $result = app(B2BReleaseGate::class)->run(true, false);
 
         $this->assertTrue($result['ok']);
+        $this->assertCheckPassed($result, 'game_catalog_cache');
+        $this->assertCheckPassed($result, 'game_catalog_cache_enabled');
         $this->assertCheckPassed($result, 'scheduler_heartbeat_cache');
         $this->assertCheckPassed($result, 'failed_job_storage');
         $this->assertCheckPassed($result, 'scheduler_config');
@@ -90,7 +99,10 @@ class B2BReleaseGateTest extends TestCase
         $this->assertCheckPassed($result, 'credential_session_revocation');
         $this->assertCheckPassed($result, 'structured_logging');
         $this->assertCheckPassed($result, 'provider_wallet_contracts');
+        $this->assertCheckPassed($result, 'provider_health_surfaces');
         $this->assertCheckPassed($result, 'database_schema');
+        $this->assertCheckPassed($result, 'game_catalog_sync');
+        $this->assertCheckPassed($result, 'launcher_integration');
         $this->assertCheckPassed($result, 'payload_redaction_audit');
         $this->assertCheckPassed($result, 'api_key_scopes');
         $this->assertCheckPassed($result, 'deployment_artifacts');
@@ -119,6 +131,17 @@ class B2BReleaseGateTest extends TestCase
 
         $this->assertFalse($result['ok']);
         $this->assertCheckFailed($result, 'structured_logging');
+    }
+
+    public function testProductionGateFailsWhenGameCatalogCacheIsDisabled()
+    {
+        $this->configureSafeProductionSettings();
+        config(['b2b.game_catalog_cache_enabled' => false]);
+
+        $result = app(B2BReleaseGate::class)->run(true, false);
+
+        $this->assertFalse($result['ok']);
+        $this->assertCheckFailed($result, 'game_catalog_cache_enabled');
     }
 
     public function testProductionGateFailsWhenSessionCookiesAreNotHardened()
@@ -402,6 +425,35 @@ class B2BReleaseGateTest extends TestCase
                             return ['ok' => true];
                         }
 
+                        public function capabilities()
+                        {
+                            return ['bet' => GameProviderInterface::CAPABILITY_SUPPORTED];
+                        }
+
+                        public function capability($capability)
+                        {
+                            $capabilities = $this->capabilities();
+
+                            return isset($capabilities[$capability])
+                                ? $capabilities[$capability]
+                                : GameProviderInterface::CAPABILITY_UNSUPPORTED;
+                        }
+
+                        public function listGames(array $filters = [])
+                        {
+                            return [];
+                        }
+
+                        public function validateIncomingRequest($action, array $payload)
+                        {
+                            return ['ok' => false];
+                        }
+
+                        public function normalizeTransaction(array $payload)
+                        {
+                            return [];
+                        }
+
                         public function supportsWalletAction($action)
                         {
                             return $action === 'bet';
@@ -435,6 +487,11 @@ class B2BReleaseGateTest extends TestCase
                         }
 
                         public function closeSession(B2BGameSession $session, $reason = null)
+                        {
+                            return ['ok' => false];
+                        }
+
+                        public function closeRound(B2BGameSession $session, $roundId = null, $reason = null)
                         {
                             return ['ok' => false];
                         }
@@ -518,6 +575,8 @@ class B2BReleaseGateTest extends TestCase
             'b2b.allow_private_wallet_callbacks' => false,
             'b2b.nonce_cache_store' => 'redis',
             'b2b.rate_limit_cache_store' => 'redis',
+            'b2b.game_catalog_cache_enabled' => true,
+            'b2b.game_catalog_cache_store' => 'redis',
             'b2b.scheduler_heartbeat_cache_store' => 'redis',
             'b2b.sandbox_enabled' => false,
             'b2b.structured_logging_enabled' => true,

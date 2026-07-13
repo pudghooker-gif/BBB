@@ -10,7 +10,9 @@ use VanguardLTE\B2B\Models\B2BOperator;
 use VanguardLTE\B2B\Models\B2BOperatorApiKey;
 use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Models\B2BWalletTransaction;
+use VanguardLTE\B2B\Providers\GoldsvetInternalProvider;
 use VanguardLTE\B2B\Services\B2BApiCredentialLifecycleService;
+use VanguardLTE\B2B\Services\B2BGameCatalogCache;
 use VanguardLTE\B2B\Services\B2BOperatorAuditLogger;
 use VanguardLTE\B2B\Services\B2BPayloadRedactionAuditor;
 use VanguardLTE\B2B\Services\B2BPrivilegedActionGuard;
@@ -19,6 +21,7 @@ use VanguardLTE\B2B\Services\B2BReleaseGate;
 use VanguardLTE\B2B\Services\B2BSchedulerHeartbeat;
 use VanguardLTE\B2B\Services\B2BSettlementWorkflowService;
 use VanguardLTE\B2B\Services\B2BSignature;
+use VanguardLTE\B2B\Services\B2BStructuredEventLogger;
 
 Artisan::command('b2b:make-operator {name} {--shop_id=} {--base_url=} {--wallet_callback_url=} {--currency=USD} {--max_rps=50} {--api_key_max_rps=} {--scopes=} {--wallet_timeout_ms=3000} {--actor=} {--reason=} {--permission=} {--confirm=}', function (B2BOperatorAuditLogger $audit, B2BPrivilegedActionGuard $guard) {
     if (!Schema::hasTable('b2b_operators') || !Schema::hasTable('b2b_operator_api_keys')) {
@@ -330,7 +333,7 @@ Artisan::command('b2b:approve-settlement {settlement_uid} {decision=approve} {--
     return 0;
 })->describe('Approve or reject a submitted B2B settlement with privileged step-up.');
 
-Artisan::command('b2b:sync-games {--shop_id=} {--limit=0}', function () {
+Artisan::command('b2b:sync-games {--shop_id=} {--limit=0} {--soft-disable-missing}', function () {
     if (!Schema::hasTable('b2b_game_catalog')) {
         $this->error('b2b_game_catalog table is missing. Run: php artisan migrate');
         return 1;
@@ -342,62 +345,102 @@ Artisan::command('b2b:sync-games {--shop_id=} {--limit=0}', function () {
     }
 
     $columns = Schema::getColumnListing('games');
-    $query = DB::table('games');
-
-    if ($this->option('shop_id') !== null && $this->option('shop_id') !== '' && in_array('shop_id', $columns, true)) {
-        $query->where('shop_id', (int) $this->option('shop_id'));
-    }
-
-    if (in_array('view', $columns, true)) {
-        $query->where('view', 1);
-    }
-
+    $shopId = null;
+    $shopIdOption = $this->option('shop_id');
+    $softDisableMissing = (bool) $this->option('soft-disable-missing');
     $limit = (int) $this->option('limit');
-    if ($limit > 0) {
-        $query->limit($limit);
+
+    if ($softDisableMissing && $limit > 0) {
+        $this->error('--soft-disable-missing cannot be combined with --limit because partial syncs cannot prove a game is absent.');
+        return 1;
     }
 
-    $rows = $query->get();
+    if ($shopIdOption !== null && $shopIdOption !== '') {
+        if (!in_array('shop_id', $columns, true)) {
+            $this->error('--shop_id requires games.shop_id to exist.');
+            return 1;
+        }
+
+        $shopId = (int) $shopIdOption;
+    }
+
+    $rows = app(GoldsvetInternalProvider::class)->listGames([
+        'shop_id' => $shopId,
+        'limit' => $limit,
+    ]);
     $created = 0;
     $updated = 0;
+    $disabled = 0;
+    $seenGameUids = [];
 
-    foreach ($rows as $row) {
-        $gameUid = null;
-        foreach (['name', 'game_uid', 'id'] as $candidate) {
-            if (isset($row->{$candidate}) && $row->{$candidate} !== '') {
-                $gameUid = (string) $row->{$candidate};
-                break;
-            }
-        }
+    foreach ($rows as $game) {
+        $gameUid = isset($game['game_uid']) ? (string) $game['game_uid'] : null;
 
         if (!$gameUid) {
             continue;
         }
 
-        $title = isset($row->title) && $row->title ? $row->title : $gameUid;
-        $category = isset($row->category) && $row->category ? $row->category : 'slots';
+        $seenGameUids[$gameUid] = true;
+        $metadata = isset($game['metadata']) && is_array($game['metadata']) ? $game['metadata'] : [];
+        $metadata['synced_at'] = now()->toIso8601String();
 
         $model = B2BGameCatalog::firstOrNew(['game_uid' => $gameUid]);
         $model->fill([
-            'provider' => 'goldsvet_internal',
-            'title' => $title,
-            'category' => $category,
-            'demo_supported' => true,
-            'real_supported' => true,
-            'status' => 'active',
-            'metadata' => [
-                'synced_from' => 'games',
-                'source_id' => isset($row->id) ? $row->id : null,
-                'shop_id' => isset($row->shop_id) ? $row->shop_id : null,
-                'synced_at' => now()->toIso8601String(),
-            ],
+            'provider_game_id' => isset($game['provider_game_id']) ? $game['provider_game_id'] : $gameUid,
+            'canonical_game_id' => isset($game['canonical_game_id']) ? $game['canonical_game_id'] : $gameUid,
+            'provider' => isset($game['provider']) ? $game['provider'] : 'goldsvet_internal',
+            'slug' => isset($game['slug']) ? $game['slug'] : null,
+            'title' => isset($game['title']) ? $game['title'] : $gameUid,
+            'category' => isset($game['category']) ? $game['category'] : 'slots',
+            'platform' => isset($game['platform']) ? $game['platform'] : null,
+            'thumbnail_url' => isset($game['thumbnail_url']) ? $game['thumbnail_url'] : null,
+            'launch_config' => isset($game['launch_config']) ? $game['launch_config'] : [],
+            'demo_supported' => !empty($game['demo_supported']),
+            'real_supported' => !empty($game['real_supported']),
+            'supported_currencies' => isset($game['supported_currencies']) ? $game['supported_currencies'] : [],
+            'supported_countries' => isset($game['supported_countries']) ? $game['supported_countries'] : [],
+            'status' => isset($game['status']) ? $game['status'] : 'active',
+            'metadata' => $metadata,
         ]);
 
         $model->exists ? $updated++ : $created++;
         $model->save();
     }
 
-    $this->info('B2B game catalog synced. Created: ' . $created . ', updated: ' . $updated . ', scanned: ' . count($rows));
+    if ($softDisableMissing) {
+        B2BGameCatalog::where('provider', 'goldsvet_internal')
+            ->where('status', 'active')
+            ->get()
+            ->each(function ($catalogGame) use (&$disabled, $seenGameUids, $shopId) {
+                $metadata = $catalogGame->metadata ?: [];
+                $syncedFrom = isset($metadata['synced_from']) ? $metadata['synced_from'] : null;
+                $metadataShopId = isset($metadata['shop_id']) ? (string) $metadata['shop_id'] : null;
+
+                if ($syncedFrom !== 'games') {
+                    return;
+                }
+
+                if ($shopId !== null && $metadataShopId !== (string) $shopId) {
+                    return;
+                }
+
+                if (isset($seenGameUids[$catalogGame->game_uid])) {
+                    return;
+                }
+
+                $metadata['disabled_by_sync_at'] = now()->toIso8601String();
+                $metadata['disabled_by_sync_reason'] = 'missing_from_games_source';
+                $catalogGame->status = 'disabled';
+                $catalogGame->metadata = $metadata;
+                $catalogGame->save();
+                $disabled++;
+            });
+    }
+
+    $invalidated = app(B2BGameCatalogCache::class)->invalidate();
+
+    $this->info('B2B game catalog synced. Created: ' . $created . ', updated: ' . $updated . ', soft-disabled: ' . $disabled . ', scanned: ' . count($rows));
+    $this->line($invalidated ? 'B2B game catalog cache invalidated.' : 'B2B game catalog cache invalidation skipped or failed.');
     return 0;
 });
 
@@ -454,6 +497,192 @@ Artisan::command('b2b:scheduler-heartbeat {--source=scheduler : Source label for
     return 0;
 })->describe('Record B2B scheduler heartbeat for readiness and metrics.');
 
+Artisan::command('b2b:queue-runtime-evidence {--artifact= : Optional JSON artifact path for release evidence} {--supervisor-status-file= : supervisorctl status output for bbb-b2b-* workers} {--production : Enforce production runtime evidence requirements} {--max-failed=0 : Maximum allowed failed B2B jobs} {--allow-missing-supervisor : Do not fail when supervisor status is absent}', function () {
+    $production = (bool) $this->option('production');
+    $maxFailed = max(0, (int) $this->option('max-failed'));
+    $allowMissingSupervisor = (bool) $this->option('allow-missing-supervisor');
+    $workers = (array) config('b2b_queues.workers', []);
+    $queues = (array) config('b2b_queues.queues', []);
+    $scheduled = (array) config('b2b_queues.scheduled_commands', []);
+    $supervisorFile = $this->option('supervisor-status-file') ? (string) $this->option('supervisor-status-file') : null;
+    $supervisorText = null;
+    $failures = [];
+
+    if ($supervisorFile !== null) {
+        if (is_readable($supervisorFile)) {
+            $supervisorText = (string) file_get_contents($supervisorFile);
+        } else {
+            $failures[] = 'supervisor_status_file_unreadable';
+        }
+    } elseif ($production && !$allowMissingSupervisor) {
+        $failures[] = 'supervisor_status_file_missing';
+    }
+
+    $programName = function ($queueName) {
+        return 'bbb-b2b-' . str_replace('_', '-', (string) $queueName);
+    };
+
+    $runningCount = function ($program) use ($supervisorText) {
+        if ($supervisorText === null) {
+            return null;
+        }
+
+        $count = 0;
+        foreach (preg_split('/\r\n|\r|\n/', $supervisorText) as $line) {
+            if (strpos($line, $program) !== false && preg_match('/\bRUNNING\b/', $line)) {
+                $count++;
+            }
+        }
+
+        return $count;
+    };
+
+    $workerSummary = [];
+    foreach ($workers as $key => $worker) {
+        $queue = isset($worker['queue']) ? (string) $worker['queue'] : null;
+        $processes = isset($worker['processes']) ? (int) $worker['processes'] : 0;
+        $timeout = isset($worker['timeout']) ? (int) $worker['timeout'] : 0;
+        $program = $programName($key);
+        $running = $runningCount($program);
+        $ok = $queue !== null && $processes > 0 && $timeout > 0;
+
+        if ($running !== null && $running < $processes) {
+            $ok = false;
+            $failures[] = 'worker_running_count:' . $key . ':' . $running . '<' . $processes;
+        }
+
+        if (!$ok && ($queue === null || $processes <= 0)) {
+            $failures[] = 'worker_config:' . $key;
+        }
+        if ($timeout <= 0) {
+            $failures[] = 'worker_timeout:' . $key;
+        }
+
+        $workerSummary[$key] = [
+            'program' => $program,
+            'queue' => $queue,
+            'expected_processes' => $processes,
+            'running_processes' => $running,
+            'tries' => isset($worker['tries']) ? (int) $worker['tries'] : null,
+            'timeout' => $timeout > 0 ? $timeout : null,
+            'max_time' => isset($worker['max_time']) ? (int) $worker['max_time'] : null,
+            'status' => $ok ? 'passed' : 'failed',
+        ];
+    }
+
+    $queueSummary = [];
+    foreach ($queues as $key => $queue) {
+        $queueSummary[$key] = [
+            'queue' => (string) $queue,
+            'worker_defined' => isset($workers[$key]),
+        ];
+
+        if (!isset($workers[$key])) {
+            $failures[] = 'queue_without_worker:' . $key;
+        }
+    }
+
+    $failedDriver = config('queue.failed.driver');
+    $failedTable = config('queue.failed.table', 'failed_jobs');
+    $failedJobs = [
+        'driver' => $failedDriver,
+        'table' => $failedTable,
+        'table_exists' => Schema::hasTable($failedTable),
+        'max_failed' => $maxFailed,
+        'total_b2b_failed' => 0,
+        'by_queue' => [],
+    ];
+
+    if (!in_array($failedDriver, ['database', 'database-uuids'], true)) {
+        $failures[] = 'failed_job_driver:' . ($failedDriver ?: 'missing');
+    }
+
+    if (!$failedJobs['table_exists']) {
+        $failures[] = 'failed_job_table_missing:' . $failedTable;
+    } else {
+        $configuredQueues = array_values(array_filter(array_map('strval', $queues)));
+        foreach ($configuredQueues as $queue) {
+            $count = DB::table($failedTable)->where('queue', $queue)->count();
+            $failedJobs['by_queue'][$queue] = $count;
+            $failedJobs['total_b2b_failed'] += $count;
+        }
+
+        if ($failedJobs['total_b2b_failed'] > $maxFailed) {
+            $failures[] = 'failed_jobs_exceed_threshold:' . $failedJobs['total_b2b_failed'] . '>' . $maxFailed;
+        }
+    }
+
+    $kernel = (string) @file_get_contents(base_path('app/Console/Kernel.php'));
+    $scheduler = [
+        'commands_configured' => count($scheduled),
+        'heartbeat_configured' => isset($scheduled['scheduler_heartbeat']['command'])
+            && strpos((string) $scheduled['scheduler_heartbeat']['command'], 'b2b:scheduler-heartbeat') === 0,
+        'without_overlapping_configured' => strpos($kernel, 'withoutOverlapping()') !== false,
+        'scheduled_queues' => [],
+    ];
+
+    foreach ($scheduled as $key => $definition) {
+        $scheduler['scheduled_queues'][$key] = [
+            'command' => isset($definition['command']) ? (string) $definition['command'] : null,
+            'queue' => isset($definition['queue']) ? (string) $definition['queue'] : null,
+            'frequency' => isset($definition['frequency']) ? (string) $definition['frequency'] : null,
+        ];
+    }
+
+    if (!$scheduler['heartbeat_configured']) {
+        $failures[] = 'scheduler_heartbeat_missing';
+    }
+    if (!$scheduler['without_overlapping_configured']) {
+        $failures[] = 'scheduler_without_overlapping_missing';
+    }
+
+    $artifact = [
+        'status' => count($failures) === 0 ? 'passed' : 'failed',
+        'generated_at' => now()->toIso8601String(),
+        'production_mode' => $production,
+        'queue_connection' => config('b2b_queues.connection'),
+        'laravel_queue_default' => config('queue.default'),
+        'supervisor' => [
+            'status_file_supplied' => $supervisorFile !== null,
+            'status_file_readable' => $supervisorText !== null,
+            'status_file_basename' => $supervisorFile ? basename($supervisorFile) : null,
+        ],
+        'queues' => $queueSummary,
+        'workers' => $workerSummary,
+        'scheduler' => $scheduler,
+        'failed_jobs' => $failedJobs,
+        'failures' => array_values(array_unique($failures)),
+    ];
+
+    if ($this->option('artifact')) {
+        $artifactPath = (string) $this->option('artifact');
+        $directory = dirname($artifactPath);
+        if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
+            $this->error('Unable to create artifact directory: ' . $directory);
+            return 1;
+        }
+
+        file_put_contents($artifactPath, json_encode($artifact, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL);
+        $this->line('artifact: ' . $artifactPath);
+    }
+
+    if ($artifact['status'] !== 'passed') {
+        $this->error('B2B queue runtime evidence failed.');
+        foreach ($artifact['failures'] as $failure) {
+            $this->line('- ' . $failure);
+        }
+
+        return 1;
+    }
+
+    $this->info('B2B queue runtime evidence verified.');
+    $this->line('workers: ' . count($workerSummary));
+    $this->line('scheduled_commands: ' . $scheduler['commands_configured']);
+    $this->line('b2b_failed_jobs: ' . $failedJobs['total_b2b_failed']);
+
+    return 0;
+})->describe('Validate B2B queue worker, scheduler, and failed-job runtime evidence.');
+
 Artisan::command('b2b:health', function () {
     $this->line('B2B health summary');
     $this->line('operators: ' . (Schema::hasTable('b2b_operators') ? B2BOperator::count() : 'missing table'));
@@ -462,6 +691,392 @@ Artisan::command('b2b:health', function () {
     $this->line('wallet transactions: ' . (Schema::hasTable('b2b_wallet_transactions') ? B2BWalletTransaction::count() : 'missing table'));
     return 0;
 });
+
+Artisan::command('b2b:log-shipping-check {--artifact= : Optional JSON artifact path for release evidence} {--marker= : Optional correlation marker} {--log-file= : Explicit B2B JSON log file to scan}', function (B2BStructuredEventLogger $logger) {
+    $marker = (string) ($this->option('marker') ?: ('b2b-log-shipping-' . (string) Str::uuid()));
+    $marker = preg_replace('/[^A-Za-z0-9_.:-]/', '_', $marker) ?: ('b2b-log-shipping-' . (string) Str::uuid());
+    $channel = config('b2b.structured_log_channel') ?: config('logging.default', 'stack');
+    $channelConfig = (array) config('logging.channels.' . $channel, []);
+    $logFiles = [];
+
+    if ($this->option('log-file')) {
+        $logFiles[] = (string) $this->option('log-file');
+    }
+
+    if (!empty($channelConfig['path'])) {
+        $configuredPath = (string) $channelConfig['path'];
+        $logFiles[] = $configuredPath;
+
+        if (($channelConfig['driver'] ?? null) === 'daily') {
+            $info = pathinfo($configuredPath);
+            $extension = isset($info['extension']) && $info['extension'] !== '' ? '.' . $info['extension'] : '';
+            $logFiles[] = ($info['dirname'] ?? storage_path('logs')) . DIRECTORY_SEPARATOR . ($info['filename'] ?? 'b2b') . '-' . date('Y-m-d') . $extension;
+        }
+    }
+
+    $logFiles = array_values(array_unique(array_filter($logFiles)));
+
+    $logger->info('observability.log_shipping_check', [
+        'request_id' => $marker,
+        'marker' => $marker,
+        'metadata' => [
+            'probe' => 'log_shipping_check',
+            'token' => 'log-shipping-secret-probe',
+            'authorization' => 'Bearer log.shipping.secret',
+        ],
+    ]);
+
+    usleep(100000);
+
+    $foundLine = null;
+    $foundFile = null;
+    foreach ($logFiles as $logFile) {
+        if (!is_readable($logFile)) {
+            continue;
+        }
+
+        $lines = file($logFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
+        for ($i = count($lines) - 1; $i >= 0; $i--) {
+            if (strpos($lines[$i], $marker) !== false) {
+                $foundLine = $lines[$i];
+                $foundFile = $logFile;
+                break 2;
+            }
+        }
+    }
+
+    $decoded = $foundLine ? json_decode($foundLine, true) : null;
+    $context = is_array($decoded) && isset($decoded['context']) && is_array($decoded['context'])
+        ? $decoded['context']
+        : [];
+    $secretLeak = $foundLine && (
+        strpos($foundLine, 'log-shipping-secret-probe') !== false
+        || strpos($foundLine, 'Bearer log.shipping.secret') !== false
+    );
+    $ok = $foundLine
+        && is_array($decoded)
+        && ($context['component'] ?? null) === 'b2b'
+        && ($context['event'] ?? null) === 'observability.log_shipping_check'
+        && ($context['marker'] ?? null) === $marker
+        && !$secretLeak;
+
+    $artifact = [
+        'status' => $ok ? 'passed' : 'failed',
+        'generated_at' => now()->toIso8601String(),
+        'channel' => $channel,
+        'marker' => $marker,
+        'log_files_checked' => $logFiles,
+        'matched_log_file' => $foundFile,
+        'event_found' => (bool) $foundLine,
+        'json_parsed' => is_array($decoded),
+        'redaction_verified' => !$secretLeak,
+        'expected_event' => 'observability.log_shipping_check',
+    ];
+
+    if ($this->option('artifact')) {
+        $artifactPath = (string) $this->option('artifact');
+        $directory = dirname($artifactPath);
+        if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
+            $this->error('Unable to create artifact directory: ' . $directory);
+            return 1;
+        }
+
+        file_put_contents($artifactPath, json_encode($artifact, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL);
+        $this->line('artifact: ' . $artifactPath);
+    }
+
+    if (!$ok) {
+        $this->error('B2B structured log shipping marker was not found as redacted JSON.');
+        $this->line('marker: ' . $marker);
+        $this->line('channel: ' . $channel);
+        $this->line('checked: ' . implode(', ', $logFiles));
+        return 1;
+    }
+
+    $this->info('B2B structured log shipping marker verified.');
+    $this->line('marker: ' . $marker);
+    $this->line('channel: ' . $channel);
+    $this->line('matched_log_file: ' . $foundFile);
+
+    return 0;
+})->describe('Write and verify a redacted B2B structured log marker for release evidence.');
+
+Artisan::command('b2b:correlation-evidence {--artifact= : Optional JSON artifact path for release evidence} {--limit=50 : Maximum recent rows per source to inspect} {--from= : Optional created_at lower bound} {--allow-empty : Do not fail when no samples exist}', function () {
+    $limit = max(1, min(500, (int) $this->option('limit')));
+    $from = $this->option('from') ? (string) $this->option('from') : null;
+    $allowEmpty = (bool) $this->option('allow-empty');
+    $secretMarkers = [
+        'log-shipping-secret-probe',
+        'Bearer log.shipping.secret',
+        'BEGIN PRIVATE KEY',
+        'api_secret=',
+        'password=',
+        'authorization: Bearer ',
+    ];
+
+    $decode = function ($value) {
+        if (is_array($value)) {
+            return $value;
+        }
+
+        if ($value === null || $value === '') {
+            return [];
+        }
+
+        $decoded = json_decode((string) $value, true);
+        return json_last_error() === JSON_ERROR_NONE && is_array($decoded) ? $decoded : [];
+    };
+
+    $containsSecret = function ($value) use (&$containsSecret, $secretMarkers) {
+        if (is_array($value)) {
+            foreach ($value as $child) {
+                if ($containsSecret($child)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        if (is_object($value)) {
+            return $containsSecret((array) $value);
+        }
+
+        $text = strtolower((string) $value);
+        foreach ($secretMarkers as $marker) {
+            if ($marker !== '' && strpos($text, strtolower($marker)) !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+
+    $hashValue = function ($value) {
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        return hash('sha256', (string) $value);
+    };
+
+    $headerValue = function (array $headers, $name) {
+        $expected = strtolower((string) $name);
+        foreach ($headers as $key => $value) {
+            if (strtolower((string) $key) !== $expected) {
+                continue;
+            }
+
+            if (is_array($value)) {
+                return isset($value[0]) ? (string) $value[0] : null;
+            }
+
+            return $value !== null ? (string) $value : null;
+        }
+
+        return null;
+    };
+
+    $summary = [
+        'status' => 'failed',
+        'generated_at' => now()->toIso8601String(),
+        'limit' => $limit,
+        'from' => $from,
+        'allow_empty' => $allowEmpty,
+        'wallet' => [
+            'transaction_attempts_checked' => 0,
+            'transaction_attempts_with_request_id' => 0,
+            'transaction_attempts_with_transaction_uid' => 0,
+            'transaction_attempts_complete_context' => 0,
+            'callback_logs_checked' => 0,
+            'callback_logs_with_request_id' => 0,
+            'callback_logs_with_transaction_uid' => 0,
+            'callback_logs_complete_context' => 0,
+        ],
+        'provider' => [
+            'requests_checked' => 0,
+            'requests_with_request_uid' => 0,
+            'requests_with_session_id' => 0,
+            'requests_complete_context' => 0,
+        ],
+        'sample_hashes' => [],
+        'secret_scan' => [
+            'checked' => true,
+            'leaks_found' => 0,
+            'locations' => [],
+        ],
+        'failures' => [],
+    ];
+
+    $scanValue = function ($source, $id, $field, $value) use (&$summary, $containsSecret) {
+        if ($containsSecret($value)) {
+            $summary['secret_scan']['locations'][] = $source . ':' . $id . ':' . $field;
+        }
+    };
+
+    if (Schema::hasTable('b2b_wallet_transaction_attempts')) {
+        $query = DB::table('b2b_wallet_transaction_attempts')->orderByDesc('id')->limit($limit);
+        if ($from !== null && Schema::hasColumn('b2b_wallet_transaction_attempts', 'created_at')) {
+            $query->where('created_at', '>=', $from);
+        }
+
+        $rows = $query->get(['id', 'transaction_uid', 'request_body', 'response_body', 'error']);
+        foreach ($rows as $row) {
+            $summary['wallet']['transaction_attempts_checked']++;
+            $requestBody = $decode($row->request_body ?? null);
+            $context = isset($requestBody['_context']) && is_array($requestBody['_context']) ? $requestBody['_context'] : [];
+            $requestId = isset($context['request_id']) ? (string) $context['request_id'] : null;
+            $transactionUid = isset($context['transaction_uid'])
+                ? (string) $context['transaction_uid']
+                : (isset($row->transaction_uid) ? (string) $row->transaction_uid : null);
+
+            if ($requestId) {
+                $summary['wallet']['transaction_attempts_with_request_id']++;
+            }
+            if ($transactionUid) {
+                $summary['wallet']['transaction_attempts_with_transaction_uid']++;
+            }
+            if ($requestId && $transactionUid) {
+                $summary['wallet']['transaction_attempts_complete_context']++;
+                if (count($summary['sample_hashes']) < 5) {
+                    $summary['sample_hashes'][] = [
+                        'source' => 'wallet_transaction_attempts',
+                        'request_id_sha256' => $hashValue($requestId),
+                        'transaction_uid_sha256' => $hashValue($transactionUid),
+                    ];
+                }
+            }
+
+            $scanValue('wallet_transaction_attempts', $row->id, 'request_body', $requestBody);
+            $scanValue('wallet_transaction_attempts', $row->id, 'response_body', $decode($row->response_body ?? null));
+            $scanValue('wallet_transaction_attempts', $row->id, 'error', $row->error ?? null);
+        }
+    }
+
+    if (Schema::hasTable('b2b_wallet_callback_logs')) {
+        $columns = ['id', 'request_body', 'response_body'];
+        foreach (['request_headers', 'error_message', 'created_at'] as $column) {
+            if (Schema::hasColumn('b2b_wallet_callback_logs', $column)) {
+                $columns[] = $column;
+            }
+        }
+
+        $query = DB::table('b2b_wallet_callback_logs')->orderByDesc('id')->limit($limit);
+        if ($from !== null && Schema::hasColumn('b2b_wallet_callback_logs', 'created_at')) {
+            $query->where('created_at', '>=', $from);
+        }
+
+        $rows = $query->get(array_values(array_unique($columns)));
+        foreach ($rows as $row) {
+            $summary['wallet']['callback_logs_checked']++;
+            $requestBody = $decode($row->request_body ?? null);
+            $headers = $decode($row->request_headers ?? null);
+            $context = isset($requestBody['_context']) && is_array($requestBody['_context']) ? $requestBody['_context'] : [];
+            $requestId = $headerValue($headers, 'X-Request-Id') ?: (isset($context['request_id']) ? (string) $context['request_id'] : null);
+            $transactionUid = $headerValue($headers, 'X-B2B-Transaction-Uid') ?: (isset($context['transaction_uid']) ? (string) $context['transaction_uid'] : null);
+
+            if ($requestId) {
+                $summary['wallet']['callback_logs_with_request_id']++;
+            }
+            if ($transactionUid) {
+                $summary['wallet']['callback_logs_with_transaction_uid']++;
+            }
+            if ($requestId && $transactionUid) {
+                $summary['wallet']['callback_logs_complete_context']++;
+                if (count($summary['sample_hashes']) < 5) {
+                    $summary['sample_hashes'][] = [
+                        'source' => 'wallet_callback_logs',
+                        'request_id_sha256' => $hashValue($requestId),
+                        'transaction_uid_sha256' => $hashValue($transactionUid),
+                    ];
+                }
+            }
+
+            $scanValue('wallet_callback_logs', $row->id, 'request_headers', $headers);
+            $scanValue('wallet_callback_logs', $row->id, 'request_body', $requestBody);
+            $scanValue('wallet_callback_logs', $row->id, 'response_body', $decode($row->response_body ?? null));
+            $scanValue('wallet_callback_logs', $row->id, 'error_message', $row->error_message ?? null);
+        }
+    }
+
+    if (Schema::hasTable('b2b_provider_requests')) {
+        $query = DB::table('b2b_provider_requests')->orderByDesc('id')->limit($limit);
+        if ($from !== null && Schema::hasColumn('b2b_provider_requests', 'created_at')) {
+            $query->where('created_at', '>=', $from);
+        }
+
+        $rows = $query->get(['id', 'request_uid', 'session_id', 'request_payload', 'response_payload', 'error_message']);
+        foreach ($rows as $row) {
+            $summary['provider']['requests_checked']++;
+            $requestUid = isset($row->request_uid) ? (string) $row->request_uid : null;
+            $sessionId = isset($row->session_id) ? (string) $row->session_id : null;
+
+            if ($requestUid) {
+                $summary['provider']['requests_with_request_uid']++;
+            }
+            if ($sessionId) {
+                $summary['provider']['requests_with_session_id']++;
+            }
+            if ($requestUid && $sessionId) {
+                $summary['provider']['requests_complete_context']++;
+                if (count($summary['sample_hashes']) < 5) {
+                    $summary['sample_hashes'][] = [
+                        'source' => 'provider_requests',
+                        'request_uid_sha256' => $hashValue($requestUid),
+                        'session_id_sha256' => $hashValue($sessionId),
+                    ];
+                }
+            }
+
+            $scanValue('provider_requests', $row->id, 'request_payload', $decode($row->request_payload ?? null));
+            $scanValue('provider_requests', $row->id, 'response_payload', $decode($row->response_payload ?? null));
+            $scanValue('provider_requests', $row->id, 'error_message', $row->error_message ?? null);
+        }
+    }
+
+    $walletComplete = $summary['wallet']['transaction_attempts_complete_context'] + $summary['wallet']['callback_logs_complete_context'];
+    if (!$allowEmpty && $walletComplete < 1) {
+        $summary['failures'][] = 'No wallet callback/attempt sample had both request_id and transaction_uid correlation.';
+    }
+
+    if (!$allowEmpty && $summary['provider']['requests_complete_context'] < 1) {
+        $summary['failures'][] = 'No provider request diagnostic sample had both request_uid and session_id.';
+    }
+
+    $summary['secret_scan']['leaks_found'] = count($summary['secret_scan']['locations']);
+    if ($summary['secret_scan']['leaks_found'] > 0) {
+        $summary['failures'][] = 'Secret-like markers were found in correlation sources.';
+    }
+
+    $summary['status'] = count($summary['failures']) === 0 ? 'passed' : 'failed';
+
+    if ($this->option('artifact')) {
+        $artifactPath = (string) $this->option('artifact');
+        $directory = dirname($artifactPath);
+        if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
+            $this->error('Unable to create artifact directory: ' . $directory);
+            return 1;
+        }
+
+        file_put_contents($artifactPath, json_encode($summary, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL);
+        $this->line('artifact: ' . $artifactPath);
+    }
+
+    if ($summary['status'] !== 'passed') {
+        $this->error('B2B correlation evidence failed.');
+        foreach ($summary['failures'] as $failure) {
+            $this->line('- ' . $failure);
+        }
+        return 1;
+    }
+
+    $this->info('B2B correlation evidence verified.');
+    $this->line('wallet_complete_context: ' . $walletComplete);
+    $this->line('provider_complete_context: ' . $summary['provider']['requests_complete_context']);
+    $this->line('secret_scan_leaks: ' . $summary['secret_scan']['leaks_found']);
+
+    return 0;
+})->describe('Validate redacted request/transaction/provider correlation evidence without storing raw payloads.');
 
 Artisan::command('b2b:payload-redaction-audit {--write : Rewrite legacy payload fields with redacted values} {--limit=0 : Maximum rows per table, 0 scans all rows} {--batch=500 : Rows per query batch} {--artifact= : Optional JSON artifact path for release evidence}', function (B2BPayloadRedactionAuditor $auditor) {
     $report = $auditor->run(

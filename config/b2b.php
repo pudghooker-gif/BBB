@@ -19,6 +19,12 @@ return [
 
     'rate_limit_cache_store' => env('B2B_RATE_LIMIT_CACHE_STORE', 'redis'),
 
+    'game_catalog_cache_enabled' => env('B2B_GAME_CATALOG_CACHE_ENABLED', true),
+
+    'game_catalog_cache_store' => env('B2B_GAME_CATALOG_CACHE_STORE', env('B2B_RATE_LIMIT_CACHE_STORE', 'redis')),
+
+    'game_catalog_cache_ttl_seconds' => env('B2B_GAME_CATALOG_CACHE_TTL_SECONDS', 300),
+
     'api_key_default_max_rps' => env('B2B_API_KEY_DEFAULT_MAX_RPS', null),
 
     'api_key_default_scopes' => array_filter(array_map('trim', explode(',', env('B2B_API_KEY_DEFAULT_SCOPES', 'operator.read,portal.read,games.read,games.launch,sessions.read,sessions.close,wallet.balance,wallet.status,wallet.mutate,reports.read,support.write')))),

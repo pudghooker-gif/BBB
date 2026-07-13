@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Schema;
 class B2BReadinessService
 {
     private $releaseGate;
+    private $providerHealth;
 
-    public function __construct(B2BReleaseGate $releaseGate)
+    public function __construct(B2BReleaseGate $releaseGate, B2BProviderHealthService $providerHealth)
     {
         $this->releaseGate = $releaseGate;
+        $this->providerHealth = $providerHealth;
     }
 
     public function check($production = null)
@@ -29,6 +31,7 @@ class B2BReadinessService
             $this->queueConfigCheck($production),
             $this->failedJobStorageCheck($production),
             $this->schedulerHeartbeatCheck($production),
+            $this->providerHealthCheck(),
             $this->storageCheck(),
         ];
 
@@ -114,6 +117,7 @@ class B2BReadinessService
             config('cache.default'),
             config('b2b.nonce_cache_store') ?: config('cache.default'),
             config('b2b.rate_limit_cache_store') ?: config('cache.default'),
+            config('b2b.game_catalog_cache_store') ?: config('cache.default'),
             config('b2b.scheduler_heartbeat_cache_store') ?: config('cache.default'),
         ])));
 
@@ -238,6 +242,28 @@ class B2BReadinessService
         return $this->checkResult('scheduler_heartbeat', 'pass', 'B2B scheduler heartbeat is fresh: '.$status['age_seconds'].' seconds old.');
     }
 
+    private function providerHealthCheck()
+    {
+        try {
+            $summary = $this->providerHealth->summary();
+        } catch (\Exception $e) {
+            return $this->checkResult('provider_health', 'fail', 'B2B provider health checks failed.');
+        }
+
+        if (!$summary['ok']) {
+            $failed = [];
+            foreach ($summary['providers'] as $provider) {
+                if (!$provider['ok']) {
+                    $failed[] = $provider['provider'];
+                }
+            }
+
+            return $this->checkResult('provider_health', 'fail', 'Provider health checks failed: '.implode(', ', $failed).'.');
+        }
+
+        return $this->checkResult('provider_health', 'pass', 'Provider health checks pass for '.count($summary['providers']).' provider(s).');
+    }
+
     private function storageCheck()
     {
         foreach ([storage_path('framework'), storage_path('logs')] as $path) {
@@ -306,6 +332,15 @@ class B2BReadinessService
                 'heartbeat_at',
                 'stale_at',
                 'close_reason',
+            ],
+            'b2b_game_catalog' => [
+                'game_uid',
+                'provider_game_id',
+                'canonical_game_id',
+                'slug',
+                'platform',
+                'launch_config',
+                'status',
             ],
             'b2b_wallet_reconciliation_items' => [
                 'wallet_transaction_id',

@@ -37,6 +37,7 @@ export function publicReadiness() {
   check(readiness, {
     'readiness status is 200': (r) => r.status === 200,
     'readiness body is ready': (r) => r.body.indexOf('"status":"ready"') !== -1,
+    'readiness provider health passes': (r) => r.body.indexOf('"name":"provider_health","status":"pass"') !== -1,
   });
 
   const metrics = http.get(`${baseUrl}/api/b2b/v1/metrics`, {
@@ -46,6 +47,7 @@ export function publicReadiness() {
   check(metrics, {
     'metrics status is 200': (r) => r.status === 200,
     'metrics exposes b2b info': (r) => r.body.indexOf('bbb_b2b_info') !== -1,
+    'metrics exposes provider health': (r) => r.body.indexOf('bbb_b2b_provider_health_up') !== -1,
   });
 
   sleep(1);
@@ -67,6 +69,22 @@ export function signedOperatorReads() {
   check(portal, {
     'portal overview status is 200': (r) => r.status === 200,
     'portal overview success envelope': (r) => r.body.indexOf('"success":true') !== -1,
+    'portal overview provider health': (r) => r.body.indexOf('"provider_health"') !== -1 && r.body.indexOf('goldsvet_internal') !== -1,
+    'portal overview omits canary secret': (r) => r.body.indexOf(apiSecret) === -1,
+  });
+
+  const openapi = signedGet('/api/b2b/v1/portal/docs/openapi.json', '');
+  check(openapi, {
+    'portal openapi status is 200': (r) => r.status === 200,
+    'portal openapi marker is present': (r) => r.body.indexOf('"openapi"') !== -1,
+    'portal openapi omits canary secret': (r) => r.body.indexOf(apiSecret) === -1,
+  });
+
+  const postman = signedGet('/api/b2b/v1/portal/docs/postman_collection.json', '');
+  check(postman, {
+    'portal postman status is 200': (r) => r.status === 200,
+    'portal postman marker is present': (r) => r.body.indexOf('"item"') !== -1,
+    'portal postman omits canary secret': (r) => r.body.indexOf(apiSecret) === -1,
   });
 
   sleep(1);
@@ -74,7 +92,7 @@ export function signedOperatorReads() {
 
 function signedGet(path, query) {
   const timestamp = Math.floor(Date.now() / 1000).toString();
-  const nonce = `k6-${__VU}-${__ITER}-${timestamp}`;
+  const nonce = `k6-${__VU}-${__ITER}-${timestamp}-${Math.random().toString(36).slice(2, 10)}`;
   const bodyHash = crypto.sha256('', 'hex');
   const canonical = ['GET', path, query, bodyHash.toLowerCase(), timestamp, nonce].join('\n');
   const signature = crypto.hmac('sha256', apiSecret, canonical, 'hex');

@@ -16,17 +16,44 @@ log() {
   printf '%s %s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$*" | tee -a "${LOG_FILE}"
 }
 
+assert_readiness_check_pass() {
+  local file="$1"
+  local check_name="$2"
+
+  READINESS_FILE="$file" CHECK_NAME="$check_name" "$PHP_BIN" -r '
+    $payload = json_decode(file_get_contents(getenv("READINESS_FILE")), true);
+    if (!is_array($payload)) {
+        fwrite(STDERR, "readiness JSON could not be parsed\n");
+        exit(1);
+    }
+
+    $checks = $payload["data"]["checks"] ?? $payload["error"]["details"]["checks"] ?? [];
+    foreach ($checks as $check) {
+        if (($check["name"] ?? null) === getenv("CHECK_NAME") && ($check["status"] ?? null) === "pass") {
+            exit(0);
+        }
+    }
+
+    fwrite(STDERR, "readiness check missing or not passing: " . getenv("CHECK_NAME") . "\n");
+    exit(1);
+  '
+}
+
 log "Starting B2B healthcheck for ${APP_URL}"
 
 READINESS_RESPONSE="${HEALTHCHECK_ARTIFACT_DIR}/readiness-${STAMP}.json"
 METRICS_RESPONSE="${HEALTHCHECK_ARTIFACT_DIR}/metrics-${STAMP}.txt"
 curl -fsS --max-time "${TIMEOUT}" "${APP_URL%/}/api/b2b/v1/readiness" > "${READINESS_RESPONSE}"
 grep -q '"status":"ready"' "${READINESS_RESPONSE}"
+assert_readiness_check_pass "${READINESS_RESPONSE}" "provider_health"
 log "PASS readiness ${READINESS_RESPONSE}"
+log "PASS readiness_provider_health"
 
 curl -fsS --max-time "${TIMEOUT}" "${APP_URL%/}/api/b2b/v1/metrics" > "${METRICS_RESPONSE}"
 grep -q 'bbb_b2b_info' "${METRICS_RESPONSE}"
+grep -q 'bbb_b2b_provider_health_up' "${METRICS_RESPONSE}"
 log "PASS metrics ${METRICS_RESPONSE}"
+log "PASS metrics_provider_health"
 
 if [[ -n "${WEBSOCKET_TCP_HOST:-}" && -n "${WEBSOCKET_TCP_PORT:-}" ]]; then
   timeout "${TIMEOUT}" bash -c "</dev/tcp/${WEBSOCKET_TCP_HOST}/${WEBSOCKET_TCP_PORT}"

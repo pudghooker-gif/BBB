@@ -12,7 +12,9 @@
     "start": "node Server.js",
     "start:slots": "node Slots.js",
     "start:arcade": "node Arcade.js",
-    "check:syntax": "node --check Server.js && node --check Slots.js && node --check Arcade.js && node --check arcade_server/System.js && node --check arcade_server/Queue.js"
+    "check:syntax": "node --check Server.js && node --check Slots.js && node --check Arcade.js && node --check arcade_server/System.js && node --check arcade_server/Queue.js && node --check scripts/validate-production-config.js && node --check scripts/public-proxy-smoke.js",
+    "check:production-config": "node scripts/validate-production-config.js",
+    "smoke:public-proxy": "node scripts/public-proxy-smoke.js"
   },
   "dependencies": {
     "ioredis": "4.14.1",

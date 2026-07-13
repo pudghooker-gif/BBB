@@ -4,6 +4,7 @@ namespace VanguardLTE\B2B\Providers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 use VanguardLTE\B2B\Contracts\GameProviderInterface;
 use VanguardLTE\B2B\Models\B2BGameSession;
 use VanguardLTE\B2B\Services\ShadowUserManager;
@@ -11,6 +12,22 @@ use VanguardLTE\B2B\Services\ShadowUserManager;
 class GoldsvetInternalProvider implements GameProviderInterface
 {
     protected $shadowUsers;
+    protected $capabilities = [
+        'list_games' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'sync_games' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'launch' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'validate_incoming_request' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'normalize_transaction' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'balance' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'bet' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'win' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'refund' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'rollback' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'transaction_status' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'close_session' => GameProviderInterface::CAPABILITY_SUPPORTED,
+        'close_round' => GameProviderInterface::CAPABILITY_NOT_APPLICABLE,
+        'health' => GameProviderInterface::CAPABILITY_SUPPORTED,
+    ];
     protected $walletActionContracts = [
         'balance' => [
             'request_fields' => ['player_id', 'currency'],
@@ -59,11 +76,114 @@ class GoldsvetInternalProvider implements GameProviderInterface
 
     public function health()
     {
+        $gamesTableAvailable = Schema::hasTable('games');
+
         return [
-            'ok' => true,
+            'ok' => $gamesTableAvailable,
+            'status' => $gamesTableAvailable ? 'ok' : 'failed',
             'provider' => $this->providerCode(),
-            'games_table_available' => Schema::hasTable('games'),
+            'capabilities' => $this->capabilities(),
+            'games_table_available' => $gamesTableAvailable,
             'checked_at' => now()->toIso8601String(),
+        ];
+    }
+
+    public function capabilities()
+    {
+        return $this->capabilities;
+    }
+
+    public function capability($capability)
+    {
+        $capability = (string) $capability;
+
+        return isset($this->capabilities[$capability])
+            ? $this->capabilities[$capability]
+            : GameProviderInterface::CAPABILITY_UNSUPPORTED;
+    }
+
+    public function listGames(array $filters = [])
+    {
+        if (!Schema::hasTable('games')) {
+            return [];
+        }
+
+        $columns = Schema::getColumnListing('games');
+        $query = DB::table('games');
+
+        if (isset($filters['shop_id']) && $filters['shop_id'] !== null && in_array('shop_id', $columns, true)) {
+            $query->where('shop_id', (int) $filters['shop_id']);
+        }
+
+        if (empty($filters['include_disabled']) && in_array('view', $columns, true)) {
+            $query->where('view', 1);
+        }
+
+        if (in_array('name', $columns, true)) {
+            $query->orderBy('name');
+        } elseif (in_array('title', $columns, true)) {
+            $query->orderBy('title');
+        }
+
+        $limit = isset($filters['limit']) ? (int) $filters['limit'] : 0;
+        if ($limit > 0) {
+            $query->limit($limit);
+        }
+
+        return $query->get()
+            ->map(function ($row) {
+                return $this->normalizeCatalogRow($row);
+            })
+            ->filter(function ($game) {
+                return !empty($game['game_uid']);
+            })
+            ->values()
+            ->all();
+    }
+
+    public function validateIncomingRequest($action, array $payload)
+    {
+        $contract = $this->walletActionContract($action);
+        if (!is_array($contract)) {
+            return [
+                'ok' => false,
+                'provider' => $this->providerCode(),
+                'action' => (string) $action,
+                'error_code' => 'PROVIDER_ACTION_UNSUPPORTED',
+                'missing_fields' => [],
+            ];
+        }
+
+        $missing = [];
+        foreach (isset($contract['request_fields']) ? $contract['request_fields'] : [] as $field) {
+            if (!array_key_exists($field, $payload) || $payload[$field] === null || $payload[$field] === '') {
+                $missing[] = $field;
+            }
+        }
+
+        return [
+            'ok' => count($missing) === 0,
+            'provider' => $this->providerCode(),
+            'action' => (string) $action,
+            'error_code' => count($missing) === 0 ? null : 'PROVIDER_REQUEST_INVALID',
+            'missing_fields' => $missing,
+        ];
+    }
+
+    public function normalizeTransaction(array $payload)
+    {
+        $currency = isset($payload['currency']) ? strtoupper((string) $payload['currency']) : null;
+
+        return [
+            'transaction_id' => isset($payload['transaction_id']) ? (string) $payload['transaction_id'] : null,
+            'original_transaction_id' => isset($payload['original_transaction_id']) ? (string) $payload['original_transaction_id'] : null,
+            'round_id' => isset($payload['round_id']) ? (string) $payload['round_id'] : null,
+            'session_id' => isset($payload['session_id']) ? (string) $payload['session_id'] : null,
+            'game_id' => isset($payload['game_id']) ? (string) $payload['game_id'] : (isset($payload['game_uid']) ? (string) $payload['game_uid'] : null),
+            'player_id' => isset($payload['player_id']) ? (string) $payload['player_id'] : null,
+            'type' => isset($payload['type']) ? (string) $payload['type'] : (isset($payload['action']) ? (string) $payload['action'] : null),
+            'amount' => array_key_exists('amount', $payload) ? (string) $payload['amount'] : null,
+            'currency' => $currency,
         ];
     }
 
@@ -185,6 +305,58 @@ class GoldsvetInternalProvider implements GameProviderInterface
             'session_uid' => $session->session_uid,
             'status' => $session->status,
             'closed_at' => $session->closed_at ? $session->closed_at->toIso8601String() : null,
+        ];
+    }
+
+    public function closeRound(B2BGameSession $session, $roundId = null, $reason = null)
+    {
+        return [
+            'ok' => false,
+            'provider' => $this->providerCode(),
+            'capability' => 'close_round',
+            'state' => GameProviderInterface::CAPABILITY_NOT_APPLICABLE,
+            'error_code' => 'ROUND_CLOSE_NOT_APPLICABLE',
+            'error_message' => 'Goldsvet internal provider closes sessions instead of provider rounds.',
+        ];
+    }
+
+    private function normalizeCatalogRow($row)
+    {
+        $gameUid = null;
+        foreach (['name', 'game_uid', 'id'] as $candidate) {
+            if (isset($row->{$candidate}) && $row->{$candidate} !== '') {
+                $gameUid = (string) $row->{$candidate};
+                break;
+            }
+        }
+
+        $view = isset($row->view) ? (int) $row->view : 1;
+        $title = isset($row->title) && $row->title ? (string) $row->title : $gameUid;
+
+        return [
+            'game_uid' => $gameUid,
+            'provider_game_id' => $gameUid,
+            'canonical_game_id' => $gameUid,
+            'provider' => $this->providerCode(),
+            'slug' => Str::slug($title ?: $gameUid) ?: $gameUid,
+            'title' => $title,
+            'category' => isset($row->category) && $row->category ? (string) $row->category : 'slots',
+            'platform' => 'web',
+            'thumbnail_url' => isset($row->thumbnail_url) ? $row->thumbnail_url : null,
+            'launch_config' => [
+                'launch_mode' => 'legacy_launcher',
+            ],
+            'demo_supported' => true,
+            'real_supported' => true,
+            'supported_currencies' => [],
+            'supported_countries' => [],
+            'status' => $view === 1 ? 'active' : 'disabled',
+            'metadata' => [
+                'synced_from' => 'games',
+                'source_id' => isset($row->id) ? $row->id : null,
+                'shop_id' => isset($row->shop_id) ? $row->shop_id : null,
+                'provider_capability' => 'list_games',
+            ],
         ];
     }
 

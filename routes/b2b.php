@@ -32,11 +32,17 @@ Route::prefix('b2b/v1')->group(function () {
         Route::middleware('b2b.scope:portal.read')->group(function () {
             Route::get('portal', [PortalController::class, 'page']);
             Route::get('portal/overview', [PortalController::class, 'overview']);
-            foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'logs', 'docs'] as $portalSection) {
+            Route::get('portal/docs/openapi.json', [PortalController::class, 'downloadOpenApi']);
+            Route::get('portal/docs/postman_collection.json', [PortalController::class, 'downloadPostman']);
+            foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'diagnostics', 'reports', 'support', 'logs', 'docs'] as $portalSection) {
                 Route::get('portal/' . $portalSection, [PortalController::class, 'section'])
                     ->defaults('section', $portalSection);
             }
+            Route::get('portal/games/{game_uid}', [PortalController::class, 'showGame']);
+            Route::get('portal/diagnostics/{request_uid}', [PortalController::class, 'showDiagnostic']);
+            Route::get('portal/sessions/{session_uid}', [PortalController::class, 'showSession']);
             Route::get('portal/transactions/{transaction_uid}', [PortalController::class, 'showTransaction']);
+            Route::get('portal/settlements/{settlement_uid}', [PortalController::class, 'showSettlement']);
             Route::get('portal/support/cases/{transaction_uid}', [PortalController::class, 'showCase']);
             Route::get('portal/support/cases/{transaction_uid}/thread', [PortalController::class, 'showCaseThread']);
             Route::get('portal/support/tickets/{ticket_uid}', [PortalController::class, 'showSupportTicket']);
@@ -48,6 +54,7 @@ Route::prefix('b2b/v1')->group(function () {
             Route::post('portal/support/tickets', [PortalController::class, 'createSupportTicket']);
             Route::post('portal/support/tickets/{ticket_uid}/comments', [PortalController::class, 'commentSupportTicket']);
             Route::post('portal/support/tickets/{ticket_uid}/close', [PortalController::class, 'closeSupportTicket']);
+            Route::post('portal/support/tickets/{ticket_uid}/reopen', [PortalController::class, 'reopenSupportTicket']);
         });
 
         Route::middleware('b2b.scope:games.read')->group(function () {

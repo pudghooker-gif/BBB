@@ -35,6 +35,7 @@ Sync games from the existing `games` table into the B2B catalog:
 
 ```bash
 php artisan b2b:sync-games --shop_id=1
+php artisan b2b:sync-games --shop_id=1 --soft-disable-missing
 ```
 
 Generate HMAC headers and a curl example:

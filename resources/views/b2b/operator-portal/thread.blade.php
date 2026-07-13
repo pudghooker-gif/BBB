@@ -77,6 +77,8 @@
                 <tr><th>Status</th><td><span class="status {{ in_array($thread['state'], ['open', 'in_progress'], true) ? 'warn' : '' }}">{{ $thread['status'] ?: 'unknown' }}</span></td></tr>
                 <tr><th>Reason</th><td>{{ $thread['reason'] ?: 'n/a' }}</td></tr>
                 <tr><th>API Detail Endpoint</th><td>{{ $detail_endpoint }}</td></tr>
+                <tr><th>Thread Page</th><td>{{ isset($thread['thread_endpoint']) ? ($thread['thread_endpoint'] ?: 'n/a') : 'n/a' }}</td></tr>
+                <tr><th>Comment Endpoint</th><td>{{ isset($thread['comment_endpoint']) ? ($thread['comment_endpoint'] ?: 'n/a') : 'n/a' }}</td></tr>
                 <tr><th>Detected</th><td>{{ $thread['detected_at'] ?: 'n/a' }}</td></tr>
                 <tr><th>Resolved</th><td>{{ $thread['resolved_at'] ?: 'n/a' }}</td></tr>
                 <tr><th>Updated</th><td>{{ $thread['updated_at'] ?: 'n/a' }}</td></tr>
@@ -131,6 +133,9 @@
                 <tr><th>Category</th><td>{{ $thread['category'] ?: 'n/a' }}</td></tr>
                 <tr><th>Reference</th><td>{{ $thread['external_reference'] ?: 'n/a' }}</td></tr>
                 <tr><th>API Detail Endpoint</th><td>{{ $detail_endpoint }}</td></tr>
+                <tr><th>Comment Endpoint</th><td>{{ isset($thread['comment_endpoint']) ? ($thread['comment_endpoint'] ?: 'n/a') : 'n/a' }}</td></tr>
+                <tr><th>Close Endpoint</th><td>{{ isset($thread['close_endpoint']) ? ($thread['close_endpoint'] ?: 'n/a') : 'n/a' }}</td></tr>
+                <tr><th>Reopen Endpoint</th><td>{{ isset($thread['reopen_endpoint']) ? ($thread['reopen_endpoint'] ?: 'n/a') : 'n/a' }}</td></tr>
                 <tr><th>Last Message</th><td>{{ $thread['last_message_at'] ?: 'n/a' }}</td></tr>
                 <tr><th>Closed</th><td>{{ $thread['closed_at'] ?: 'n/a' }}</td></tr>
                 <tr><th>Created</th><td>{{ $thread['created_at'] ?: 'n/a' }}</td></tr>

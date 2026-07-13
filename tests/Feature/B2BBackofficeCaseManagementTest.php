@@ -90,12 +90,41 @@ class B2BBackofficeCaseManagementTest extends TestCase
             ->assertSee('Case Events')
             ->assertSee('tx_case_review')
             ->assertSee('op_case_review')
+            ->assertSee('Manual Wallet Action')
+            ->assertSee('/backend/b2b/wallet/manual-actions', false)
             ->assertSee('Claim Step-Up')
+            ->assertSee('Resolve Step-Up')
+            ->assertDontSee('Reopen Step-Up')
             ->assertSee('/backend/b2b/cases/claim', false)
+            ->assertSee('/backend/b2b/cases/resolve', false)
+            ->assertDontSee('/backend/b2b/cases/reopen', false)
             ->assertSee('[REDACTED]')
             ->assertDontSee('case-secret-token')
             ->assertDontSee('case-thread-secret')
             ->assertDontSee('case-event-secret');
+    }
+
+    public function testResolvedCaseDetailPageShowsOnlyReopenAction()
+    {
+        DB::table('b2b_wallet_reconciliation_items')->where('id', $this->caseId)->update([
+            'state' => 'resolved',
+            'resolved_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/cases/reconciliation/' . $this->caseId)
+            ->assertStatus(200)
+            ->assertSee('B2B Case Detail')
+            ->assertSee('Case Actions')
+            ->assertSee('Reopen Step-Up')
+            ->assertSee('/backend/b2b/cases/reopen', false)
+            ->assertSee('Reopen Reason')
+            ->assertDontSee('Claim Step-Up')
+            ->assertDontSee('Resolve Step-Up')
+            ->assertDontSee('/backend/b2b/cases/claim', false)
+            ->assertDontSee('/backend/b2b/cases/resolve', false)
+            ->assertDontSee('case-secret-token');
     }
 
     public function testCaseDetailPageRedirectsMissingCase()
@@ -130,11 +159,37 @@ class B2BBackofficeCaseManagementTest extends TestCase
             ->assertSee('op_case_review')
             ->assertSee('operator_portal')
             ->assertSee('Comment Step-Up')
+            ->assertSee('Close Step-Up')
+            ->assertDontSee('Reopen Step-Up')
             ->assertSee('/backend/b2b/cases/support-ticket/comment', false)
+            ->assertSee('/backend/b2b/cases/support-ticket/close', false)
+            ->assertDontSee('/backend/b2b/cases/support-ticket/reopen', false)
             ->assertSee('[REDACTED]')
             ->assertDontSee('ticket-secret-token')
             ->assertDontSee('ticket-thread-secret')
             ->assertDontSee('staff:second-message');
+    }
+
+    public function testClosedSupportTicketThreadShowsOnlyReopenAction()
+    {
+        DB::table('b2b_operator_support_tickets')->where('id', $this->supportTicketId)->update([
+            'status' => 'closed',
+            'closed_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/cases/support-ticket/thread/sup_case_review')
+            ->assertStatus(200)
+            ->assertSee('B2B Support Ticket')
+            ->assertSee('Reopen Step-Up')
+            ->assertSee('/backend/b2b/cases/support-ticket/reopen', false)
+            ->assertSee('Reopen Reason')
+            ->assertDontSee('Comment Step-Up')
+            ->assertDontSee('Close Step-Up')
+            ->assertDontSee('/backend/b2b/cases/support-ticket/comment', false)
+            ->assertDontSee('/backend/b2b/cases/support-ticket/close', false)
+            ->assertDontSee('ticket-secret-token');
     }
 
     public function testSupportTicketThreadPageRedirectsMissingTicket()

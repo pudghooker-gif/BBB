@@ -2,6 +2,10 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 class B2BQueueTopologyTest extends TestCase
@@ -83,5 +87,85 @@ class B2BQueueTopologyTest extends TestCase
         $this->assertStringContainsString('scheduleB2BCommands($schedule)', $kernel);
         $this->assertStringContainsString("config('b2b_queues.scheduled_commands'", $kernel);
         $this->assertStringContainsString('withoutOverlapping()', $kernel);
+    }
+
+    public function testQueueRuntimeEvidenceCommandVerifiesWorkersSchedulerAndFailedJobs()
+    {
+        $directory = storage_path('framework/testing');
+        if (!is_dir($directory)) {
+            mkdir($directory, 0777, true);
+        }
+
+        $artifact = $directory . DIRECTORY_SEPARATOR . 'b2b-queue-runtime-evidence.json';
+        $statusFile = $directory . DIRECTORY_SEPARATOR . 'b2b-supervisor-status.txt';
+        $failedTable = config('queue.failed.table', 'failed_jobs');
+        $createdFailedJobsTable = false;
+        $queueNames = array_values(config('b2b_queues.queues'));
+
+        if (!Schema::hasTable($failedTable)) {
+            Schema::create($failedTable, function (Blueprint $table) {
+                $table->id();
+                $table->string('uuid')->nullable();
+                $table->text('connection');
+                $table->text('queue');
+                $table->longText('payload');
+                $table->longText('exception');
+                $table->timestamp('failed_at')->nullable();
+            });
+            $createdFailedJobsTable = true;
+        }
+
+        if (Schema::hasColumn($failedTable, 'queue')) {
+            DB::table($failedTable)->whereIn('queue', $queueNames)->delete();
+        }
+
+        $lines = [];
+        foreach (config('b2b_queues.workers') as $key => $worker) {
+            $program = 'bbb-b2b-' . str_replace('_', '-', $key);
+            for ($index = 0; $index < (int) $worker['processes']; $index++) {
+                $lines[] = sprintf(
+                    '%s:%s_%02d RUNNING pid %d, uptime 0:01:00',
+                    $program,
+                    $program,
+                    $index,
+                    4000 + $index
+                );
+            }
+        }
+
+        file_put_contents($statusFile, implode(PHP_EOL, $lines) . PHP_EOL);
+        @unlink($artifact);
+
+        try {
+            $exitCode = Artisan::call('b2b:queue-runtime-evidence', [
+                '--artifact' => $artifact,
+                '--supervisor-status-file' => $statusFile,
+                '--production' => true,
+            ]);
+
+            $this->assertSame(0, $exitCode, Artisan::output());
+            $this->assertFileExists($artifact);
+
+            $payload = json_decode(file_get_contents($artifact), true);
+            $this->assertSame('passed', $payload['status']);
+            $this->assertTrue($payload['supervisor']['status_file_supplied']);
+            $this->assertTrue($payload['scheduler']['heartbeat_configured']);
+            $this->assertTrue($payload['scheduler']['without_overlapping_configured']);
+            $this->assertSame(0, $payload['failed_jobs']['total_b2b_failed']);
+
+            foreach (config('b2b_queues.workers') as $key => $worker) {
+                $this->assertSame((int) $worker['processes'], $payload['workers'][$key]['running_processes']);
+                $this->assertSame('passed', $payload['workers'][$key]['status']);
+            }
+        } finally {
+            @unlink($artifact);
+            @unlink($statusFile);
+            if (Schema::hasTable($failedTable) && Schema::hasColumn($failedTable, 'queue')) {
+                DB::table($failedTable)->whereIn('queue', $queueNames)->delete();
+            }
+            if ($createdFailedJobsTable && Schema::hasTable($failedTable)) {
+                Schema::drop($failedTable);
+            }
+        }
     }
 }

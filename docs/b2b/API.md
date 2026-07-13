@@ -14,6 +14,11 @@ Machine-readable artifacts:
 - `docs/b2b/postman_collection.json`
 - `docs/b2b/GAME_ASSIGNMENTS.md`
 
+Signed operators can also download the current JSON artifacts from the portal docs surface:
+
+- `GET /api/b2b/v1/portal/docs/openapi.json`
+- `GET /api/b2b/v1/portal/docs/postman_collection.json`
+
 Every protected request must include:
 
 ```text
@@ -57,12 +62,17 @@ GET  /api/b2b/v1/portal
 GET  /api/b2b/v1/portal/overview
 GET  /api/b2b/v1/portal/credentials
 GET  /api/b2b/v1/portal/games
+GET  /api/b2b/v1/portal/games/{game_uid}
 GET  /api/b2b/v1/portal/sessions
+GET  /api/b2b/v1/portal/sessions/{session_uid}
 GET  /api/b2b/v1/portal/transactions
 GET  /api/b2b/v1/portal/transactions/{transaction_uid}
 GET  /api/b2b/v1/portal/settlements
+GET  /api/b2b/v1/portal/settlements/{settlement_uid}
 GET  /api/b2b/v1/portal/cases
 GET  /api/b2b/v1/portal/callbacks
+GET  /api/b2b/v1/portal/diagnostics
+GET  /api/b2b/v1/portal/diagnostics/{request_uid}
 GET  /api/b2b/v1/portal/reports
 GET  /api/b2b/v1/portal/support
 GET  /api/b2b/v1/portal/logs
@@ -74,7 +84,10 @@ GET  /api/b2b/v1/portal/support/tickets/{ticket_uid}
 GET  /api/b2b/v1/portal/support/tickets/{ticket_uid}/thread
 POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/comments
 POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/close
+POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/reopen
 GET  /api/b2b/v1/portal/docs
+GET  /api/b2b/v1/portal/docs/openapi.json
+GET  /api/b2b/v1/portal/docs/postman_collection.json
 GET  /api/b2b/v1/games
 GET  /api/b2b/v1/games/{game_uid}
 POST /api/b2b/v1/games/launch
@@ -129,19 +142,31 @@ Error JSON responses use:
 
 `meta` and `error.details` are present only when relevant. Every B2B JSON response also returns `X-Request-Id`.
 
-`GET /api/b2b/v1/metrics` returns Prometheus text format instead of the JSON envelope. It contains aggregate counts and latency gauges only, without operator identifiers, raw payloads, or secrets. Restrict scraping at the edge in production.
+`GET /api/b2b/v1/readiness` checks database connectivity, critical B2B tables/columns, cache stores including the game-catalog cache, queue configuration, failed-job storage, scheduler heartbeat freshness, provider adapter health, storage writability, and production release configuration when running in production mode. Provider health verifies the local adapter/source surface, but it does not replace real provider credentials, wallet-contract certification, or legal approval evidence.
+
+`GET /api/b2b/v1/metrics` returns Prometheus text format instead of the JSON envelope. It contains aggregate counts, latency gauges, scheduler/queue health, and `bbb_b2b_provider_health_up` provider-adapter health gauges only, without operator identifiers, raw payloads, or secrets. Restrict scraping at the edge in production.
 
 ## Operator portal
 
 `GET /api/b2b/v1/portal` is a signed, read-only HTML operator portal page. It uses the same tenant-scoped data as the overview endpoint, including public API-key scope names for the current/recent keys, and intentionally omits API key secrets, raw wallet request/response payloads, URL query strings, and foreign-operator records. It accepts `from`, `to`, and `limit` (1-50) for the period-scoped summaries; invalid filters or inverted periods return `VALIDATION_FAILED`.
 
-`GET /api/b2b/v1/portal/overview` is a signed, read-only bootstrap endpoint for an operator-facing portal. It returns tenant-scoped operator/API-key profile data, current/recent API-key scope names, wallet and session counters, credential/game-assignment/settlement/reconciliation summaries, open and recent reconciliation cases, recent sessions, recent wallet transactions with portal detail endpoint paths, recent support tickets with message counts, latest redacted message summaries, JSON detail endpoint paths, HTML thread page paths for support case/ticket drilldown, and recent redacted API/audit events. Operator base/callback URLs are returned as scheme/host/port/path only, without query strings. It accepts `from`, `to`, and `limit` (1-50) and intentionally omits API key secrets, raw wallet request/response payloads, and foreign-operator records.
+`GET /api/b2b/v1/portal/overview` is a signed, read-only bootstrap endpoint for an operator-facing portal. It returns tenant-scoped operator/API-key profile data, current/recent API-key scope names, wallet and session counters, credential/game-assignment/settlement/reconciliation summaries, provider launch diagnostics summaries, sanitized provider health summary, open and recent reconciliation cases with state-aware support-case comment endpoint paths, recent sessions with portal detail endpoint paths, recent wallet transactions with portal detail endpoint paths, recent settlements with portal detail endpoint paths, recent support tickets with message counts, latest redacted message summaries, JSON detail endpoint paths, HTML thread page paths, state-aware comment/close/reopen endpoint paths for support tickets, and recent redacted API/audit events. Operator base/callback URLs are returned as scheme/host/port/path only, without query strings. It accepts `from`, `to`, and `limit` (1-50) and intentionally omits API key secrets, raw wallet/provider request/response payloads, and foreign-operator records.
 
-Signed read-only HTML workflow pages are available at `/portal/credentials`, `/portal/games`, `/portal/sessions`, `/portal/transactions`, `/portal/settlements`, `/portal/cases`, `/portal/callbacks`, `/portal/reports`, `/portal/support`, `/portal/logs`, and `/portal/docs`. They use the same HMAC authentication, `from`/`to`/`limit` validation, and tenant-scoped redacted data as `/portal/overview`. The credentials page shows key IDs, statuses, rate limits, and public scope names only. The transactions page includes tenant-scoped transaction detail endpoint paths. The callbacks page shows sanitized callback settings, status buckets, and recent callback attempts without query strings or raw payload bodies. The reports page links to the signed reporting endpoints and summarizes successful wallet amounts for the selected period. The cases/support pages show open and recent support cases plus tenant-scoped support case/ticket JSON detail endpoint paths and HTML thread page paths for signed drilldown, without exposing foreign operators or raw payloads. The logs page shows the signed operator's own recent audit/API events with redacted reason and metadata summaries.
+Signed read-only HTML workflow pages are available at `/portal/credentials`, `/portal/games`, `/portal/sessions`, `/portal/transactions`, `/portal/settlements`, `/portal/cases`, `/portal/callbacks`, `/portal/diagnostics`, `/portal/reports`, `/portal/support`, `/portal/logs`, and `/portal/docs`. They use the same HMAC authentication, `from`/`to`/`limit` validation, and tenant-scoped redacted data as `/portal/overview`. The credentials page shows key IDs, statuses, rate limits, and public scope names only. The games, sessions, transactions, settlements, and diagnostics pages include tenant-scoped detail endpoint paths. The callbacks page shows sanitized callback settings, status buckets, and recent callback attempts without query strings or raw payload bodies. The diagnostics page shows provider request status/action/provider buckets, recent provider launch/close attempts, and failed launch sessions without launch tokens, provider URLs, or raw payload bodies. The reports page links to the signed reporting endpoints and summarizes successful wallet amounts for the selected period. The cases/support pages show open and recent support cases plus tenant-scoped support case/ticket JSON detail endpoint paths, HTML thread page paths, and comment endpoint paths for commentable cases, without exposing foreign operators or raw payloads. The logs page shows the signed operator's own recent audit/API events with redacted reason and metadata summaries. The docs page links to signed downloadable OpenAPI and Postman JSON artifacts.
+
+`GET /api/b2b/v1/portal/docs/openapi.json` and `GET /api/b2b/v1/portal/docs/postman_collection.json` download the static OpenAPI and Postman JSON artifacts through the same HMAC authentication and `portal.read` scope as `/portal/docs`.
+
+`GET /api/b2b/v1/portal/games/{game_uid}` renders a signed, tenant-scoped game drilldown page. It accepts `limit` (1-50) for recent rows and shows catalog summary, operator assignment, real/demo availability, successful wallet amounts, recent sessions, and recent transaction links. It does not expose launch tokens, raw wallet payload bodies, URL query secrets, or foreign-operator rows.
+
+`GET /api/b2b/v1/portal/sessions/{session_uid}` renders the signed operator's own session drilldown as HTML. It accepts `limit` (1-50, default 20), validates `session_uid` up to 191 characters, returns `SESSION_NOT_FOUND` for foreign or missing sessions, and shows session summary, successful wallet amounts, and related transaction links without launch tokens, launch URLs, raw wallet payloads, or foreign-operator records.
 
 `GET /api/b2b/v1/portal/transactions/{transaction_uid}` renders the signed operator's own transaction drilldown as HTML. It accepts `limit` (1-50, default 20), validates `transaction_uid` up to 191 characters, returns `TRANSACTION_NOT_FOUND` for foreign or missing transactions, and shows transaction summary, status transitions, callback attempts/logs, reconciliation items, and manual actions without raw request/response bodies.
 
-`GET /api/b2b/v1/portal/support/cases/{transaction_uid}` returns the signed operator's own reconciliation support case with a bounded chronological `comments` list and separate `latest_comment`. It accepts `limit` (1-100, default 50), validates `transaction_uid` up to 191 characters, redacts comment text and external references before output, and returns `CASE_NOT_FOUND` for foreign or missing cases. Internal backoffice step-up and permission metadata is not returned.
+`GET /api/b2b/v1/portal/settlements/{settlement_uid}` renders the signed operator's own settlement drilldown as HTML. It validates `settlement_uid` up to 80 characters, returns `SETTLEMENT_NOT_FOUND` for foreign or missing settlements, and shows settlement summary, totals, transaction breakdown, approval trail, export metadata, and the JSON report detail path without export content, raw payload bodies, or foreign-operator records.
+
+`GET /api/b2b/v1/portal/diagnostics/{request_uid}` renders the signed operator's own provider request diagnostic as HTML. It validates `request_uid` up to 191 characters, returns `PROVIDER_REQUEST_NOT_FOUND` for foreign or missing provider requests, and shows provider, game, session, action, status, duration, redacted error summary, redacted request/response summaries, and related portal session links without launch URLs, launch tokens, raw provider payloads, or foreign-operator records.
+
+`GET /api/b2b/v1/portal/support/cases/{transaction_uid}` returns the signed operator's own reconciliation support case with a bounded chronological `comments` list, separate `latest_comment`, JSON detail/thread endpoint paths, and a `comment_endpoint` only while the case is `open` or `in_progress`. It accepts `limit` (1-100, default 50), validates `transaction_uid` up to 191 characters, redacts comment text and external references before output, and returns `CASE_NOT_FOUND` for foreign or missing cases. Internal backoffice step-up and permission metadata is not returned.
 
 `GET /api/b2b/v1/portal/support/cases/{transaction_uid}/thread` renders the same signed, tenant-scoped, redacted support case readback as an HTML thread page for operator portal workflows. It accepts the same `limit` and `transaction_uid` validation as the JSON detail endpoint.
 
@@ -156,6 +181,8 @@ Signed read-only HTML workflow pages are available at `/portal/credentials`, `/p
 `POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/comments` appends a redacted operator comment to the signed operator's own open or in-progress support ticket, moves it to `in_progress`, and writes `support_ticket.operator_commented`. The `ticket_uid` path value is validated up to 80 characters.
 
 `POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/close` closes the signed operator's own open or in-progress support ticket with a required redacted `reason` and writes `support_ticket.closed`. The `ticket_uid` path value is validated up to 80 characters.
+
+`POST /api/b2b/v1/portal/support/tickets/{ticket_uid}/reopen` reopens the signed operator's own closed support ticket with a required redacted `reason`, clears `closed_at`, returns it to `open`, and writes `support_ticket.reopened`. The `ticket_uid` path value is validated up to 80 characters.
 
 ## Launch example
 
@@ -188,9 +215,9 @@ Response:
 
 Launch checks the signed operator's game availability before creating a session. Dedicated `b2b_operator_game_assignments` rows are enforced first and can allow, block, or limit games per provider, currency, country, and mode. If an operator has any active `allowed` assignment, unassigned games are denied by default. Without assignments, Goldsvet/internal fallback games must belong to the operator's mapped `shop_id` and be visible; legacy `settings.enabled_games` and `settings.disabled_games` still apply. The public launch URL is returned only in the create response; stored sessions keep only the launch token hash and session list/detail responses omit `token_hash`, `launch_url`, `legacy_launch_token`, and `legacy_launch_url`.
 
-`GET /api/b2b/v1/games` returns a bounded signed-operator catalog. It accepts `limit` (1-500, default 100), `provider`, `category`, `search`, `currency`, `country`, `mode` (`real` or `demo`, default `real`), and `sort` (`title`, `-title`, `provider`, `-provider`, `category`, `-category`, `game_uid`, `-game_uid`). The response keeps the game list in `data` and adds `meta.limit`, `meta.count`, `meta.available_count`, `meta.filters`, `meta.sort`, and `meta.source`.
+`GET /api/b2b/v1/games` returns a bounded signed-operator catalog. It accepts `limit` (1-500, default 100), `provider`, `category`, `platform`, `search`, `currency`, `country`, `mode` (`real` or `demo`, default `real`), and `sort` (`title`, `-title`, `provider`, `-provider`, `category`, `-category`, `game_uid`, `-game_uid`). Catalog rows include `game_uid`, `provider_game_id`, `canonical_game_id`, `provider`, `slug`, `title`, `category`, `platform`, image URL, launch config, mode/currency/country support, status, and metadata. The response keeps the game list in `data` and adds `meta.limit`, `meta.count`, `meta.available_count`, `meta.filters`, `meta.sort`, and `meta.source`. Only `active` catalog games are listed. The index response is cached per operator/filter set via `B2B_GAME_CATALOG_CACHE_STORE`; production release checks require the cache to be enabled on Redis, and catalog sync or assignment changes invalidate the catalog cache version.
 
-`GET /api/b2b/v1/games/{game_uid}` returns the same redacted catalog shape for one signed-operator-owned game. It accepts optional `currency`, `country`, and `mode` query filters and returns `GAME_NOT_AVAILABLE` for foreign-shop legacy games, blocked assignments, unassigned games when assignments are restrictive, inactive catalog rows, or unsupported currency/country/mode combinations.
+`GET /api/b2b/v1/games/{game_uid}` returns the same redacted catalog shape for one signed-operator-owned game. It accepts optional `currency`, `country`, and `mode` query filters and returns `GAME_NOT_AVAILABLE` for foreign-shop legacy games, blocked assignments, unassigned games when assignments are restrictive, disabled catalog rows, or unsupported currency/country/mode combinations. Catalog rows with `status=maintenance` return `GAME_UNDER_MAINTENANCE` with HTTP 503; launch uses the same availability decision and does not create a session while maintenance is active.
 
 ## Session close example
 

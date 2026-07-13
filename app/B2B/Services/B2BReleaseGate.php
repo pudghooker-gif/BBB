@@ -16,6 +16,8 @@ class B2BReleaseGate
         $checks = [
             $this->cacheStoreCheck('nonce_cache', config('b2b.nonce_cache_store') ?: config('cache.default'), $production),
             $this->cacheStoreCheck('rate_limit_cache', config('b2b.rate_limit_cache_store') ?: config('cache.default'), $production),
+            $this->cacheStoreCheck('game_catalog_cache', config('b2b.game_catalog_cache_store') ?: config('cache.default'), $production),
+            $this->booleanCheck('game_catalog_cache_enabled', (bool) config('b2b.game_catalog_cache_enabled', true), $production, 'B2B game catalog cache must be enabled in production.'),
             $this->cacheStoreCheck('scheduler_heartbeat_cache', config('b2b.scheduler_heartbeat_cache_store') ?: config('cache.default'), $production),
             $this->queueCheck($production),
             $this->failedJobStorageCheck($production),
@@ -29,7 +31,10 @@ class B2BReleaseGate
             $this->booleanCheck('sandbox_disabled', !(bool) config('b2b.sandbox_enabled'), $production, 'B2B sandbox must be disabled in production.'),
             $this->structuredLoggingCheck($production),
             $this->providerWalletContractsCheck($production),
+            $this->providerHealthSurfaceCheck($production),
             $this->databaseSchemaCheck($production),
+            $this->gameCatalogSyncCheck($production),
+            $this->launcherIntegrationCheck($production),
             $this->payloadRedactionAuditCheck($production),
             $this->apiKeyScopeCheck($production),
             $this->deploymentArtifactsCheck($production),
@@ -498,6 +503,18 @@ class B2BReleaseGate
                     continue;
                 }
 
+                $capabilities = $provider->capabilities();
+                if (!is_array($capabilities) || count($capabilities) === 0) {
+                    $missing[] = 'capabilities:' . $label;
+                }
+
+                foreach ($this->requiredProviderCapabilities() as $capability => $allowedStates) {
+                    $state = $provider->capability($capability);
+                    if (!in_array($state, $allowedStates, true)) {
+                        $missing[] = 'capability:' . $label . ':' . $capability . ':' . $state;
+                    }
+                }
+
                 $contracts = $provider->walletActionContracts();
                 if (!is_array($contracts) || count($contracts) === 0) {
                     $missing[] = 'contracts:' . $label;
@@ -552,8 +569,8 @@ class B2BReleaseGate
             'name' => 'provider_wallet_contracts',
             'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
             'message' => count($missing) === 0
-                ? 'Provider wallet action contracts are explicit for mutation, status lookup, and rollback recovery flows.'
-                : 'Missing provider wallet action contract coverage: ' . implode(', ', $missing),
+                ? 'Provider capabilities and wallet action contracts are explicit for catalog, launch, mutation, status lookup, and rollback recovery flows.'
+                : 'Missing provider adapter contract coverage: ' . implode(', ', $missing),
         ];
     }
 
@@ -564,9 +581,156 @@ class B2BReleaseGate
         ];
     }
 
+    private function providerHealthSurfaceCheck($production)
+    {
+        $missing = [];
+
+        $service = $this->fileContents(base_path('app/B2B/Services/B2BProviderHealthService.php'));
+        foreach (['summary', 'providers', 'safeHealth', 'GoldsvetInternalProvider'] as $needle) {
+            if (strpos($service, $needle) === false) {
+                $missing[] = 'provider_health_service:' . $needle;
+            }
+        }
+
+        $readiness = $this->fileContents(base_path('app/B2B/Services/B2BReadinessService.php'));
+        foreach (['providerHealthCheck', 'provider_health', 'B2BProviderHealthService', 'game_catalog_cache_store'] as $needle) {
+            if (strpos($readiness, $needle) === false) {
+                $missing[] = 'readiness:' . $needle;
+            }
+        }
+
+        $metrics = $this->fileContents(base_path('app/B2B/Services/B2BMetricsExporter.php'));
+        foreach (['providerHealth', 'bbb_b2b_provider_health_up', 'B2BProviderHealthService'] as $needle) {
+            if (strpos($metrics, $needle) === false) {
+                $missing[] = 'metrics:' . $needle;
+            }
+        }
+
+        $portal = $this->fileContents(base_path('app/B2B/Services/B2BOperatorPortalQuery.php'));
+        foreach (['provider_health', 'B2BProviderHealthService'] as $needle) {
+            if (strpos($portal, $needle) === false) {
+                $missing[] = 'portal:' . $needle;
+            }
+        }
+
+        foreach ([
+            'resources/views/b2b/operator-portal/overview.blade.php',
+            'resources/views/b2b/operator-portal/section.blade.php',
+        ] as $path) {
+            $view = $this->fileContents(base_path($path));
+            foreach (['Provider Health', 'provider_health', 'games_table_available'] as $needle) {
+                if (strpos($view, $needle) === false) {
+                    $missing[] = $path . ':' . $needle;
+                }
+            }
+        }
+
+        $backofficeQuery = $this->fileContents(base_path('app/B2B/Services/B2BBackofficeDashboardQuery.php'));
+        foreach (['provider_health', 'B2BProviderHealthService'] as $needle) {
+            if (strpos($backofficeQuery, $needle) === false) {
+                $missing[] = 'backoffice_dashboard_query:' . $needle;
+            }
+        }
+
+        $backofficeView = $this->fileContents(base_path('resources/views/backend/b2b/dashboard.blade.php'));
+        foreach (['Provider Health', 'provider_health', 'games_table_available'] as $needle) {
+            if (strpos($backofficeView, $needle) === false) {
+                $missing[] = 'backoffice_dashboard_view:' . $needle;
+            }
+        }
+
+        foreach ([
+            'deploy/scripts/healthcheck.sh' => [
+                'assert_readiness_check_pass',
+                'provider_health',
+                'bbb_b2b_provider_health_up',
+                'readiness_provider_health',
+                'metrics_provider_health',
+            ],
+            'deploy/scripts/b2b-smoke.sh' => [
+                'assert_readiness_check_pass',
+                'provider_health',
+                'bbb_b2b_provider_health_up',
+                'portal-overview-provider-health',
+                'goldsvet_internal',
+            ],
+            'deploy/k6/b2b-smoke-load.js' => [
+                'readiness provider health passes',
+                'metrics exposes provider health',
+                'portal overview provider health',
+                'bbb_b2b_provider_health_up',
+            ],
+            'deploy/scripts/prometheus-smoke.sh' => [
+                'bbb_b2b_provider_health_up',
+                'BBBB2BProviderHealthDown',
+            ],
+        ] as $path => $needles) {
+            $contents = $this->fileContents(base_path($path));
+            foreach ($needles as $needle) {
+                if (strpos($contents, $needle) === false) {
+                    $missing[] = 'provider_health_evidence:' . $path . ':' . $needle;
+                }
+            }
+        }
+
+        foreach ([
+            'tests/Feature/B2BReadinessEndpointTest.php' => ['provider_health', 'testReadinessEndpointFailsWhenProviderHealthFails'],
+            'tests/Feature/B2BMetricsEndpointTest.php' => ['bbb_b2b_provider_health_up'],
+            'tests/Feature/B2BOperatorPortalTest.php' => ['data.provider_health.ok'],
+            'tests/Feature/B2BBackofficeRouteTest.php' => ['Provider Health', 'goldsvet_internal'],
+            'tests/Unit/B2BDeploymentArtifactsTest.php' => [
+                'readiness_provider_health',
+                'metrics-provider-health',
+                'portal-overview-provider-health',
+                'readiness provider health passes',
+            ],
+        ] as $path => $needles) {
+            $contents = $this->fileContents(base_path($path));
+            foreach ($needles as $needle) {
+                if (strpos($contents, $needle) === false) {
+                    $missing[] = $path . ':' . $needle;
+                }
+            }
+        }
+
+        return [
+            'name' => 'provider_health_surfaces',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Provider health is surfaced through readiness, metrics, signed operator portal, backend dashboard, and release evidence tooling without secrets.'
+                : 'Missing provider health surface coverage: ' . implode(', ', $missing),
+        ];
+    }
+
     private function requiredWalletActions()
     {
         return ['balance', 'bet', 'win', 'refund', 'rollback', 'transaction_status'];
+    }
+
+    private function requiredProviderCapabilities()
+    {
+        return [
+            'list_games' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'sync_games' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'launch' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'validate_incoming_request' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'normalize_transaction' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'balance' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'bet' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'win' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'refund' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'rollback' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'transaction_status' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'close_session' => [GameProviderInterface::CAPABILITY_SUPPORTED],
+            'close_round' => [
+                GameProviderInterface::CAPABILITY_SUPPORTED,
+                GameProviderInterface::CAPABILITY_NOT_APPLICABLE,
+            ],
+            'health' => [
+                GameProviderInterface::CAPABILITY_SUPPORTED,
+                GameProviderInterface::CAPABILITY_DEGRADED,
+            ],
+        ];
     }
 
     private function requiredWalletActionContracts()
@@ -598,13 +762,24 @@ class B2BReleaseGate
             'deploy/systemd/bbb-websocket.service',
             'deploy/cron/bbb-maintenance.cron.example',
             'deploy/scripts/backup.sh',
+            'deploy/scripts/backup-offhost-verify.sh',
             'deploy/scripts/restore.sh',
             'deploy/scripts/rollback.sh',
             'deploy/scripts/healthcheck.sh',
+            'deploy/scripts/final-topology-check.sh',
+            'deploy/scripts/queue-runtime-drill.sh',
             'deploy/scripts/migration-rehearsal.sh',
             'deploy/scripts/b2b-smoke.sh',
+            'deploy/scripts/alertmanager-smoke.sh',
+            'deploy/scripts/alertmanager-receiver-check.sh',
+            'deploy/scripts/prometheus-smoke.sh',
+            'deploy/scripts/log-shipping-external-check.sh',
+            'PTWebSocket/scripts/public-proxy-smoke.js',
             'deploy/k6/b2b-smoke-load.js',
             'deploy/evidence/release-evidence.example.json',
+            'deploy/evidence/provider-credential-approval-redacted.example.txt',
+            'deploy/evidence/provider-wallet-contract-certification-redacted.example.txt',
+            'deploy/evidence/legal-launch-approval-redacted.example.txt',
             'deploy/prometheus/b2b-alerts.yml',
             'deploy/prometheus/alertmanager-routes.example.yml',
             'docs/deployment/PRODUCTION_RUNBOOK.md',
@@ -618,9 +793,15 @@ class B2BReleaseGate
         }
 
         $console = $this->fileContents(base_path('routes/b2b_console.php'));
-        foreach (['b2b:evidence-template', 'b2b:evidence-check', 'b2b:evidence-hash', 'B2BReleaseEvidenceChecker'] as $needle) {
+        foreach (['b2b:evidence-template', 'b2b:evidence-check', 'b2b:evidence-hash', 'b2b:queue-runtime-evidence', 'b2b:log-shipping-check', 'b2b:correlation-evidence', 'B2BReleaseEvidenceChecker'] as $needle) {
             if (strpos($console, $needle) === false) {
                 $missing[] = 'console:' . $needle;
+            }
+        }
+
+        foreach (['b2b_wallet_transaction_attempts', 'b2b_wallet_callback_logs', 'b2b_provider_requests'] as $needle) {
+            if (strpos($console, $needle) === false) {
+                $missing[] = 'correlation_evidence:' . $needle;
             }
         }
 
@@ -656,8 +837,28 @@ class B2BReleaseGate
             }
         }
 
+        $workflow = $this->fileContents(base_path('.github/workflows/b2b-release.yml'));
+        foreach (['Syntax lint deployment shell scripts', 'bash -n', 'Verify clean and repeatable migrations', 'migrate:fresh --force --no-interaction', 'Nothing to migrate', 'Verify release evidence template generation', 'b2b:evidence-template', 'queue_runtime_drill'] as $needle) {
+            if (strpos($workflow, $needle) === false) {
+                $missing[] = 'workflow_release_verification:' . $needle;
+            }
+        }
+
+        foreach ([
+            'deploy/evidence/provider-credential-approval-redacted.example.txt' => ['approved_by:', 'credential_storage_reference:', 'Do not include API keys'],
+            'deploy/evidence/provider-wallet-contract-certification-redacted.example.txt' => ['approved_by:', 'wallet_actions_certified:', 'Do not include provider API secrets'],
+            'deploy/evidence/legal-launch-approval-redacted.example.txt' => ['approved_by:', 'approval_reference:', 'Do not include full contracts'],
+        ] as $path => $needles) {
+            $approvalTemplate = $this->fileContents(base_path($path));
+            foreach ($needles as $needle) {
+                if (strpos($approvalTemplate, $needle) === false) {
+                    $missing[] = 'approval_template:' . $path . ':' . $needle;
+                }
+            }
+        }
+
         $runbook = $this->fileContents(base_path('docs/deployment/PRODUCTION_RUNBOOK.md'));
-        foreach (['b2b:evidence-template', 'b2b:evidence-check', 'release-evidence.json', 'provider certification', 'legal approval'] as $needle) {
+        foreach (['b2b:evidence-template', 'b2b:evidence-check', 'b2b:queue-runtime-evidence', 'b2b:log-shipping-check', 'b2b:correlation-evidence', 'release-evidence.json', 'b2b-queue-runtime-evidence.json', 'b2b-correlation-validation.json', 'provider certification', 'legal approval'] as $needle) {
             if (strpos($runbook, $needle) === false) {
                 $missing[] = 'runbook_evidence:' . $needle;
             }
@@ -677,10 +878,59 @@ class B2BReleaseGate
             }
         }
 
+        $finalTopology = $this->fileContents(base_path('deploy/scripts/final-topology-check.sh'));
+        foreach (['FINAL_TOPOLOGY_ARTIFACT_DIR', 'final-domains-tls-proxy-redis-queue-scheduler-validation.log', 'trustedproxy.proxies', 'b2b:scheduler-heartbeat', 'b2b:release-check --production', 'WEBSOCKET_PUBLIC_URL'] as $needle) {
+            if (strpos($finalTopology, $needle) === false) {
+                $missing[] = 'final_topology_evidence:' . $needle;
+            }
+        }
+
+        $queueRuntimeDrill = $this->fileContents(base_path('deploy/scripts/queue-runtime-drill.sh'));
+        foreach (['set -euo pipefail', 'QUEUE_RUNTIME_ARTIFACT_DIR', 'b2b-queue-runtime-drill.log', 'b2b-queue-runtime-evidence.json', 'b2b:queue-runtime-evidence', 'supervisorctl', 'b2b:scheduler-heartbeat'] as $needle) {
+            if (strpos($queueRuntimeDrill, $needle) === false) {
+                $missing[] = 'queue_runtime_drill:' . $needle;
+            }
+        }
+
         $smoke = $this->fileContents(base_path('deploy/scripts/b2b-smoke.sh'));
-        foreach (['B2B_SMOKE_ARTIFACT_DIR', 'b2b-smoke-', 'SMOKE_LOG'] as $needle) {
+        foreach (['B2B_SMOKE_ARTIFACT_DIR', 'b2b-smoke-', 'SMOKE_LOG', '/api/b2b/v1/portal/docs/openapi.json', '/api/b2b/v1/portal/docs/postman_collection.json', 'assert_not_contains'] as $needle) {
             if (strpos($smoke, $needle) === false) {
                 $missing[] = 'smoke_evidence:' . $needle;
+            }
+        }
+
+        $webSocketSmoke = $this->fileContents(base_path('PTWebSocket/scripts/public-proxy-smoke.js'));
+        foreach (['WEBSOCKET_SMOKE_ARTIFACT_DIR', 'websocket-public-proxy-healthz.log', 'WEBSOCKET_PUBLIC_URL', 'WEBSOCKET_PUBLIC_ORIGIN', 'expectDenied'] as $needle) {
+            if (strpos($webSocketSmoke, $needle) === false) {
+                $missing[] = 'websocket_public_proxy_smoke:' . $needle;
+            }
+        }
+
+        $alertmanagerSmoke = $this->fileContents(base_path('deploy/scripts/alertmanager-smoke.sh'));
+        foreach (['set -euo pipefail', 'ALERTMANAGER_ARTIFACT_DIR', 'alertmanager-delivery-test.log', 'ALERTMANAGER_BEARER_TOKEN', '/api/v2/alerts', 'BBBB2BSmokeNotification'] as $needle) {
+            if (strpos($alertmanagerSmoke, $needle) === false) {
+                $missing[] = 'alertmanager_smoke:' . $needle;
+            }
+        }
+
+        $alertmanagerReceiver = $this->fileContents(base_path('deploy/scripts/alertmanager-receiver-check.sh'));
+        foreach (['set -euo pipefail', 'ALERTMANAGER_RECEIVER_EXPORT_FILE', 'ALERTMANAGER_RECEIVER_QUERY_URL', 'alertmanager-receiver-delivery-confirmation.log', 'BBBB2BSmokeNotification', 'receiver_delivery_verified'] as $needle) {
+            if (strpos($alertmanagerReceiver, $needle) === false) {
+                $missing[] = 'alertmanager_receiver:' . $needle;
+            }
+        }
+
+        $prometheusSmoke = $this->fileContents(base_path('deploy/scripts/prometheus-smoke.sh'));
+        foreach (['set -euo pipefail', 'PROMETHEUS_ARTIFACT_DIR', 'prometheus-scrape-and-rule-test.log', 'PROMETHEUS_RULES_FILE', 'METRICS_FILE', 'promtool', 'bbb_b2b_info'] as $needle) {
+            if (strpos($prometheusSmoke, $needle) === false) {
+                $missing[] = 'prometheus_smoke:' . $needle;
+            }
+        }
+
+        $logShippingExternal = $this->fileContents(base_path('deploy/scripts/log-shipping-external-check.sh'));
+        foreach (['set -euo pipefail', 'LOG_SHIPPING_MARKER', 'LOG_SHIPPING_EXPORT_FILE', 'LOG_SHIPPING_QUERY_URL', 'b2b-log-shipping-external-delivery.log', 'observability.log_shipping_check', 'log-shipping-secret-probe'] as $needle) {
+            if (strpos($logShippingExternal, $needle) === false) {
+                $missing[] = 'log_shipping_external:' . $needle;
             }
         }
 
@@ -688,6 +938,13 @@ class B2BReleaseGate
         foreach (['BACKUP_ARTIFACT_DIR', 'b2b-backup-', '.sha256', 'sha256_value'] as $needle) {
             if (strpos($backup, $needle) === false) {
                 $missing[] = 'backup_evidence:' . $needle;
+            }
+        }
+
+        $backupOffhost = $this->fileContents(base_path('deploy/scripts/backup-offhost-verify.sh'));
+        foreach (['OFFHOST_BACKUP_DIR', 'BACKUP_HASH_FILE', 'backup-and-offhost-storage-verification.log', 'sha256_value', 'offhost_backup_storage'] as $needle) {
+            if (strpos($backupOffhost, $needle) === false) {
+                $missing[] = 'backup_offhost_evidence:' . $needle;
             }
         }
 
@@ -706,7 +963,7 @@ class B2BReleaseGate
         }
 
         $loadTest = $this->fileContents(base_path('deploy/k6/b2b-smoke-load.js'));
-        foreach (['handleSummary', 'K6_SUMMARY_PATH', 'signed_operator_checks_enabled'] as $needle) {
+        foreach (['handleSummary', 'K6_SUMMARY_PATH', 'signed_operator_checks_enabled', '/api/b2b/v1/portal/docs/openapi.json', '/api/b2b/v1/portal/docs/postman_collection.json', 'omits canary secret'] as $needle) {
             if (strpos($loadTest, $needle) === false) {
                 $missing[] = 'load_evidence:' . $needle;
             }
@@ -760,12 +1017,181 @@ class B2BReleaseGate
         ];
     }
 
+    private function gameCatalogSyncCheck($production)
+    {
+        $missing = [];
+        $console = $this->fileContents(base_path('routes/b2b_console.php'));
+        foreach ([
+            "b2b:sync-games",
+            "{--soft-disable-missing}",
+            "--soft-disable-missing cannot be combined with --limit",
+            "missing_from_games_source",
+            "B2BGameCatalogCache::class",
+            "soft-disabled:",
+        ] as $needle) {
+            if (strpos($console, $needle) === false) {
+                $missing[] = 'console:' . $needle;
+            }
+        }
+
+        $syncTest = $this->fileContents(base_path('tests/Feature/B2BGameCatalogSyncCommandTest.php'));
+        foreach ([
+            'testSyncGamesCanSoftDisableMissingShopGames',
+            'testSoftDisableMissingCannotRunWithPartialLimit',
+            'sync_missing_other_shop',
+            'sync_external_provider',
+        ] as $needle) {
+            if (strpos($syncTest, $needle) === false) {
+                $missing[] = 'test:' . $needle;
+            }
+        }
+
+        $availability = $this->fileContents(base_path('app/B2B/Services/B2BGameAvailabilityService.php'));
+        foreach ([
+            'catalogStatusDecision',
+            'GAME_UNDER_MAINTENANCE',
+            'STATUS_MAINTENANCE',
+        ] as $needle) {
+            if (strpos($availability, $needle) === false) {
+                $missing[] = 'availability:' . $needle;
+            }
+        }
+
+        $flowTest = $this->fileContents(base_path('tests/Feature/B2BOperatorFlowIsolationTest.php'));
+        foreach ([
+            'testMaintenanceCatalogGameIsHiddenAndLaunchRejected',
+            'GAME_UNDER_MAINTENANCE',
+            'catalog_maintenance_a',
+            'provider_game_id',
+            'canonical_game_id',
+            'launch_config.launch_mode',
+            'meta.filters.platform',
+        ] as $needle) {
+            if (strpos($flowTest, $needle) === false) {
+                $missing[] = 'flow_test:' . $needle;
+            }
+        }
+
+        $catalogMigration = $this->fileContents(base_path('database/migrations/2026_07_13_155853_add_catalog_runtime_fields_to_b2b_game_catalog_table.php'));
+        $catalogModel = $this->fileContents(base_path('app/B2B/Models/B2BGameCatalog.php'));
+        $catalogController = $this->fileContents(base_path('app/Http/Controllers/Api/B2B/GameCatalogController.php'));
+        $provider = $this->fileContents(base_path('app/B2B/Providers/GoldsvetInternalProvider.php'));
+        foreach (['provider_game_id', 'canonical_game_id', 'slug', 'platform', 'launch_config'] as $field) {
+            if (strpos($catalogMigration, $field) === false) {
+                $missing[] = 'catalog_runtime_migration:' . $field;
+            }
+
+            if (strpos($catalogModel, "'" . $field . "'") === false) {
+                $missing[] = 'catalog_model:' . $field;
+            }
+
+            if (strpos($catalogController, "'" . $field . "'") === false) {
+                $missing[] = 'catalog_api_payload:' . $field;
+            }
+
+            if (strpos($provider, "'" . $field . "'") === false) {
+                $missing[] = 'provider_catalog_payload:' . $field;
+            }
+        }
+
+        $openapi = $this->fileContents(base_path('docs/b2b/openapi.json'));
+        foreach (['"platform"', 'GAME_UNDER_MAINTENANCE', 'provider_game_id', 'launch_config'] as $needle) {
+            if (strpos($openapi, $needle) === false) {
+                $missing[] = 'openapi:' . $needle;
+            }
+        }
+
+        return [
+            'name' => 'game_catalog_sync',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'Game catalog sync supports cache invalidation, safe soft-disable of missing synced games, and explicit maintenance-state launch rejection.'
+                : 'Missing B2B game catalog sync coverage: ' . implode(', ', $missing),
+        ];
+    }
+
+    private function launcherIntegrationCheck($production)
+    {
+        $missing = [];
+        $route = Route::getRoutes()->getByName('b2b.launcher');
+        if (!$route) {
+            $missing[] = 'route:b2b.launcher';
+        } else {
+            if ($route->uri() !== 'b2b/launcher/{game}/{token}' || !in_array('GET', $route->methods(), true)) {
+                $missing[] = 'route_shape:b2b.launcher';
+            }
+
+            $action = $route->getActionName();
+            if (strpos($action, 'B2BLauncherController') === false || strpos($action, 'launch') === false) {
+                $missing[] = 'route_action:b2b.launcher';
+            }
+        }
+
+        foreach ([
+            'app/Http/Controllers/Api/B2B/GameLaunchController.php' => [
+                'Str::random(64)',
+                "hash('sha256', \$token)",
+                'publicLaunchUrl($gameId, $token)',
+                "'launch_url' => null",
+                "'launch_url' => \$launchUrl",
+            ],
+            'app/Http/Controllers/Api/B2B/B2BLauncherController.php' => [
+                'findSessionByPlainToken($game, $token)',
+                'prepareProviderLaunch($session)',
+                "redirect()->to(\$prepared['redirect_url'])",
+                'SESSION_EXPIRED',
+            ],
+            'app/B2B/Services/B2BLaunchBridge.php' => [
+                "url('/b2b/launcher/'",
+                "hash('sha256', \$plainToken)",
+                'prepareProviderLaunch',
+                'recordProviderRequest',
+                "'redirect_prepared'",
+            ],
+            'app/B2B/Providers/GoldsvetInternalProvider.php' => [
+                'ensureShadowUser',
+                'refreshApiToken',
+                "url('/launcher/'",
+                "'legacy_launch_token'",
+                "'legacy_launch_url'",
+                "'launched_at'",
+                'launch_attempts',
+            ],
+            'tests/Feature/B2BOperatorFlowIsolationTest.php' => [
+                'testLaunchCreatesSessionOnlyForOperatorsOwnGame',
+                "assertStringStartsWith('/b2b/launcher/book_flow_a/'",
+                'assertSame(64, strlen($launchToken))',
+                "hash('sha256', \$launchToken)",
+                'assertNull($session->launch_url)',
+                "assertArrayNotHasKey('legacy_launch_token'",
+                'assertStringNotContainsString($launchToken',
+            ],
+        ] as $path => $needles) {
+            $contents = $this->fileContents(base_path($path));
+            foreach ($needles as $needle) {
+                if (strpos($contents, $needle) === false) {
+                    $missing[] = 'launcher_integration:' . $path . ':' . $needle;
+                }
+            }
+        }
+
+        return [
+            'name' => 'launcher_integration',
+            'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
+            'message' => count($missing) === 0
+                ? 'B2B launch sessions use one-time hashed bridge tokens before provider-prepared legacy launcher redirects without exposing launch secrets.'
+                : 'Missing B2B launcher integration coverage: ' . implode(', ', $missing),
+        ];
+    }
+
     private function websocketRuntimeCheck($production)
     {
         $missing = [];
         $paths = [
             'PTWebSocket/Server.js',
             'PTWebSocket/httpClient.js',
+            'PTWebSocket/scripts/validate-production-config.js',
+            'PTWebSocket/scripts/public-proxy-smoke.js',
             'PTWebSocket/package.json',
             'PTWebSocket/pnpm-lock.yaml',
             'deploy/websocket/socket_config2.production.example.json',
@@ -799,6 +1225,16 @@ class B2BReleaseGate
             if (empty($package['scripts']['check:syntax'])) {
                 $missing[] = 'package_script:check:syntax';
             }
+
+            if (empty($package['scripts']['check:production-config'])
+                || strpos($package['scripts']['check:production-config'], 'validate-production-config.js') === false) {
+                $missing[] = 'package_script:check:production-config';
+            }
+
+            if (empty($package['scripts']['smoke:public-proxy'])
+                || strpos($package['scripts']['smoke:public-proxy'], 'public-proxy-smoke.js') === false) {
+                $missing[] = 'package_script:smoke:public-proxy';
+            }
         }
 
         $lock = $this->fileContents(base_path('PTWebSocket/pnpm-lock.yaml'));
@@ -828,6 +1264,35 @@ class B2BReleaseGate
 
             if (empty($socketConfig['allowed_origins']) || !is_array($socketConfig['allowed_origins'])) {
                 $missing[] = 'socket_config:allowed_origins';
+            } else {
+                $seenOrigins = [];
+                foreach ($socketConfig['allowed_origins'] as $origin) {
+                    $originKey = is_string($origin) ? $origin : 'non_string';
+                    $parts = is_string($origin) ? parse_url($origin) : false;
+                    $path = is_array($parts) && isset($parts['path']) ? (string) $parts['path'] : '';
+
+                    if (!is_string($origin)
+                        || trim($origin) !== $origin
+                        || $origin === '*'
+                        || strpos($origin, 'https://') !== 0
+                        || !is_array($parts)
+                        || ($parts['scheme'] ?? null) !== 'https'
+                        || empty($parts['host'])
+                        || $path !== ''
+                        || isset($parts['query'])
+                        || isset($parts['fragment'])
+                        || isset($parts['user'])
+                        || isset($parts['pass'])) {
+                        $missing[] = 'socket_config:allowed_origin:' . $originKey;
+                        continue;
+                    }
+
+                    if (isset($seenOrigins[$origin])) {
+                        $missing[] = 'socket_config:duplicate_allowed_origin:' . $origin;
+                    }
+
+                    $seenOrigins[$origin] = true;
+                }
             }
 
             if (empty($socketConfig['auth_tokens_env'])) {
@@ -872,6 +1337,39 @@ class B2BReleaseGate
             }
         }
 
+        $validator = $this->fileContents(base_path('PTWebSocket/scripts/validate-production-config.js'));
+        foreach ([
+            'validateOrigins',
+            'listen_host',
+            'require_session_cookie',
+            'auth_tokens',
+            'BBB_WEBSOCKET_CONFIG_STRICT',
+            'public/socket_config2.json',
+            'heartbeat_interval_ms',
+            'log_json',
+        ] as $needle) {
+            if (strpos($validator, $needle) === false) {
+                $missing[] = 'websocket_config_validator:' . $needle;
+            }
+        }
+
+        $publicProxySmoke = $this->fileContents(base_path('PTWebSocket/scripts/public-proxy-smoke.js'));
+        foreach ([
+            "require('ws')",
+            'WEBSOCKET_PUBLIC_URL',
+            'WEBSOCKET_PUBLIC_ORIGIN',
+            'WEBSOCKET_SMOKE_ARTIFACT_DIR',
+            'websocket-public-proxy-healthz.log',
+            'public_healthz',
+            'websocket_upgrade_allowed_origin',
+            'websocket_upgrade_denied_origin',
+            'auth_token_supplied',
+        ] as $needle) {
+            if (strpos($publicProxySmoke, $needle) === false) {
+                $missing[] = 'websocket_public_proxy_smoke:' . $needle;
+            }
+        }
+
         $nginx = $this->fileContents(base_path('deploy/nginx/bbb-b2b.conf.example'));
         foreach (['bbb_b2b_websocket', 'listen 12096 ssl', 'proxy_set_header Upgrade', 'proxy_set_header Origin', 'proxy_buffering off'] as $needle) {
             if (strpos($nginx, $needle) === false) {
@@ -886,11 +1384,21 @@ class B2BReleaseGate
             }
         }
 
+        $workflow = $this->fileContents(base_path('.github/workflows/b2b-release.yml'));
+        if (strpos($workflow, 'pnpm run check:production-config') === false) {
+            $missing[] = 'workflow_websocket:check:production-config';
+        }
+
+        $runbook = $this->fileContents(base_path('docs/deployment/PRODUCTION_RUNBOOK.md'));
+        if (strpos($runbook, 'pnpm run check:production-config') === false) {
+            $missing[] = 'runbook_websocket:check:production-config';
+        }
+
         return [
             'name' => 'websocket_runtime',
             'status' => count($missing) === 0 ? 'pass' : ($production ? 'fail' : 'warn'),
             'message' => count($missing) === 0
-                ? 'Node/WebSocket manifest, lockfile, proxy template, health probe, origin guard, heartbeat, and safe logging are present.'
+                ? 'Node/WebSocket manifest, lockfile, proxy template, health probe, origin guard, heartbeat, production config validator, public proxy smoke, and safe logging are present.'
                 : 'Missing Node/WebSocket runtime release coverage: ' . implode(', ', $missing),
         ];
     }
@@ -1025,12 +1533,14 @@ class B2BReleaseGate
             ['method' => 'GET', 'uri' => 'api/b2b/v1/operator/me', 'middleware' => 'b2b.scope:operator.read'],
             ['method' => 'GET', 'uri' => 'api/b2b/v1/portal', 'middleware' => 'b2b.scope:portal.read'],
             ['method' => 'GET', 'uri' => 'api/b2b/v1/portal/overview', 'middleware' => 'b2b.scope:portal.read'],
+            ['method' => 'GET', 'uri' => 'api/b2b/v1/portal/diagnostics/{request_uid}', 'middleware' => 'b2b.scope:portal.read'],
             ['method' => 'GET', 'uri' => 'api/b2b/v1/portal/support/cases/{transaction_uid}', 'middleware' => 'b2b.scope:portal.read'],
             ['method' => 'GET', 'uri' => 'api/b2b/v1/portal/support/tickets/{ticket_uid}', 'middleware' => 'b2b.scope:portal.read'],
             ['method' => 'POST', 'uri' => 'api/b2b/v1/portal/support/cases/{transaction_uid}/comments', 'middleware' => 'b2b.scope:support.write'],
             ['method' => 'POST', 'uri' => 'api/b2b/v1/portal/support/tickets', 'middleware' => 'b2b.scope:support.write'],
             ['method' => 'POST', 'uri' => 'api/b2b/v1/portal/support/tickets/{ticket_uid}/comments', 'middleware' => 'b2b.scope:support.write'],
             ['method' => 'POST', 'uri' => 'api/b2b/v1/portal/support/tickets/{ticket_uid}/close', 'middleware' => 'b2b.scope:support.write'],
+            ['method' => 'POST', 'uri' => 'api/b2b/v1/portal/support/tickets/{ticket_uid}/reopen', 'middleware' => 'b2b.scope:support.write'],
             ['method' => 'GET', 'uri' => 'api/b2b/v1/games', 'middleware' => 'b2b.scope:games.read'],
             ['method' => 'GET', 'uri' => 'api/b2b/v1/games/{game_uid}', 'middleware' => 'b2b.scope:games.read'],
             ['method' => 'POST', 'uri' => 'api/b2b/v1/games/launch', 'middleware' => 'b2b.scope:games.launch'],
@@ -1060,7 +1570,7 @@ class B2BReleaseGate
             ['method' => 'POST', 'uri' => 'api/b2b/v1/sandbox/wallet/{player_id}/debit', 'middleware' => 'b2b.scope:sandbox.wallet.mutate'],
         ];
 
-        foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'reports', 'support', 'logs', 'docs'] as $portalSection) {
+        foreach (['credentials', 'games', 'sessions', 'transactions', 'settlements', 'cases', 'callbacks', 'diagnostics', 'reports', 'support', 'logs', 'docs'] as $portalSection) {
             $routes[] = [
                 'method' => 'GET',
                 'uri' => 'api/b2b/v1/portal/' . $portalSection,
@@ -1069,7 +1579,22 @@ class B2BReleaseGate
         }
         $routes[] = [
             'method' => 'GET',
+            'uri' => 'api/b2b/v1/portal/games/{game_uid}',
+            'middleware' => 'b2b.scope:portal.read',
+        ];
+        $routes[] = [
+            'method' => 'GET',
+            'uri' => 'api/b2b/v1/portal/sessions/{session_uid}',
+            'middleware' => 'b2b.scope:portal.read',
+        ];
+        $routes[] = [
+            'method' => 'GET',
             'uri' => 'api/b2b/v1/portal/transactions/{transaction_uid}',
+            'middleware' => 'b2b.scope:portal.read',
+        ];
+        $routes[] = [
+            'method' => 'GET',
+            'uri' => 'api/b2b/v1/portal/settlements/{settlement_uid}',
             'middleware' => 'b2b.scope:portal.read',
         ];
 
@@ -1213,6 +1738,20 @@ class B2BReleaseGate
             $missing[] = 'view:backend.b2b.wallet-manual-actions';
         }
 
+        $walletManualController = $this->fileContents(base_path('app/Http/Controllers/Web/Backend/B2BWalletManualActionController.php'));
+        foreach (['formDefaults', 'safeRedirect', "'redirect_to' => 'nullable|string|max:2048'", "redirect(\$this->safeRedirect"] as $needle) {
+            if (strpos($walletManualController, $needle) === false) {
+                $missing[] = 'backend_wallet_manual_controller:' . $needle;
+            }
+        }
+
+        $backendWalletManualView = $this->fileContents(base_path('resources/views/backend/b2b/wallet-manual-actions.blade.php'));
+        foreach (["name=\"redirect_to\"", "\$form['redirect_to']", "\$form['transaction_uid']", "\$form['operator_id']", "\$form['reason']"] as $needle) {
+            if (strpos($backendWalletManualView, $needle) === false) {
+                $missing[] = 'backend_wallet_manual_view:' . $needle;
+            }
+        }
+
         foreach (['backend.b2b.settlements.index', 'backend.b2b.settlements.show', 'backend.b2b.settlements.submit', 'backend.b2b.settlements.approve', 'backend.b2b.settlements.reject'] as $routeName) {
             if (!Route::has($routeName)) {
                 $missing[] = 'route:' . $routeName;
@@ -1275,6 +1814,9 @@ class B2BReleaseGate
             'Approval Trail',
             'Snapshot Metadata',
             'name="redirect_to"',
+            '$canSubmit',
+            '$canApprove',
+            '$canReject',
             'backend.b2b.settlements.submit',
             'backend.b2b.settlements.approve',
             'backend.b2b.settlements.reject',
@@ -1312,6 +1854,13 @@ class B2BReleaseGate
 
         if (!View::exists('backend.b2b.credentials')) {
             $missing[] = 'view:backend.b2b.credentials';
+        }
+
+        $backendCredentialView = $this->fileContents(base_path('resources/views/backend/b2b/credentials.blade.php'));
+        foreach (['Revoke Active Key', 'Revoke Step-Up', '$canRevokeKey', 'operator_uid'] as $needle) {
+            if (strpos($backendCredentialView, $needle) === false) {
+                $missing[] = 'backend_credentials_view:' . $needle;
+            }
         }
 
         foreach (['backend.b2b.operators.index', 'backend.b2b.operators.update', 'backend.b2b.operators.suspend', 'backend.b2b.operators.resume'] as $routeName) {
@@ -1445,9 +1994,15 @@ class B2BReleaseGate
             'Operator Comments',
             'Case Events',
             'name="redirect_to"',
+            '$canClaim',
+            '$canResolve',
+            '$canReopen',
+            'Reopen Reason',
             'backend.b2b.cases.claim',
             'backend.b2b.cases.resolve',
             'backend.b2b.cases.reopen',
+            'Manual Wallet Action',
+            'backend.b2b.wallet_manual_actions.index',
         ] as $needle) {
             if (strpos($backendCaseView, $needle) === false) {
                 $missing[] = 'backend_case_view:' . $needle;
@@ -1459,6 +2014,10 @@ class B2BReleaseGate
             'B2B Support Ticket',
             'Ticket Actions',
             'Message Thread',
+            '$canComment',
+            '$canClose',
+            '$canReopen',
+            'Reopen Reason',
             "\$ticket['context_display']",
             "\$ticket['messages']",
             'name="redirect_to"',
@@ -1475,12 +2034,48 @@ class B2BReleaseGate
             $missing[] = 'route:backend.b2b.audit.index';
         }
 
+        if (!Route::has('backend.b2b.audit.export')) {
+            $missing[] = 'route:backend.b2b.audit.export';
+        }
+
         if (!$this->routeUsesMiddleware('backend.b2b.audit.index', 'b2b.admin:b2b.audit.view')) {
             $missing[] = 'route_middleware:backend.b2b.audit.index:b2b.admin';
         }
 
+        if (!$this->routeUsesMiddleware('backend.b2b.audit.export', 'b2b.admin:b2b.audit.view')) {
+            $missing[] = 'route_middleware:backend.b2b.audit.export:b2b.admin';
+        }
+
         if (!View::exists('backend.b2b.audit')) {
             $missing[] = 'view:backend.b2b.audit';
+        }
+
+        $auditController = $this->fileContents(base_path('app/Http/Controllers/Web/Backend/B2BAuditBackofficeController.php'));
+        foreach (['function export', 'text/csv', 'Content-Disposition', 'X-Content-Type-Options', 'fputcsv', 'metadata_display', 'reason_display'] as $needle) {
+            if (strpos($auditController, $needle) === false) {
+                $missing[] = 'backend_audit_export_controller:' . $needle;
+            }
+        }
+
+        $auditView = $this->fileContents(base_path('resources/views/backend/b2b/audit.blade.php'));
+        foreach (['Export CSV', 'backend.b2b.audit.export', 'fa-download'] as $needle) {
+            if (strpos($auditView, $needle) === false) {
+                $missing[] = 'backend_audit_export_view:' . $needle;
+            }
+        }
+
+        $auditTest = $this->fileContents(base_path('tests/Feature/B2BBackofficeAuditTrailTest.php'));
+        foreach (['testAuditTrailExportsRedactedFilteredCsv', 'text/csv', 'assertStringNotContainsString', 'audit-secret-value', 'testAuditExportRequiresAuditPermission'] as $needle) {
+            if (strpos($auditTest, $needle) === false) {
+                $missing[] = 'backend_audit_export_test:' . $needle;
+            }
+        }
+
+        $manualWalletTest = $this->fileContents(base_path('tests/Feature/B2BBackofficeManualWalletActionTest.php'));
+        foreach (['testManualWalletActionScreenPrefillsCaseWorkflow', 'testManualWalletActionReturnsToCaseDetailAfterFreshWebStepUp', 'redirect_to', 'tx_web_manual_case_return'] as $needle) {
+            if (strpos($manualWalletTest, $needle) === false) {
+                $missing[] = 'backend_manual_wallet_workflow_test:' . $needle;
+            }
         }
 
         foreach (['backend.b2b.step_up.show', 'backend.b2b.step_up.store'] as $routeName) {
@@ -1501,12 +2096,28 @@ class B2BReleaseGate
             $missing[] = 'view:b2b.operator-portal.section';
         }
 
+        if (!View::exists('b2b.operator-portal.game')) {
+            $missing[] = 'view:b2b.operator-portal.game';
+        }
+
         if (!View::exists('b2b.operator-portal.thread')) {
             $missing[] = 'view:b2b.operator-portal.thread';
         }
 
+        if (!View::exists('b2b.operator-portal.session')) {
+            $missing[] = 'view:b2b.operator-portal.session';
+        }
+
         if (!View::exists('b2b.operator-portal.transaction')) {
             $missing[] = 'view:b2b.operator-portal.transaction';
+        }
+
+        if (!View::exists('b2b.operator-portal.settlement')) {
+            $missing[] = 'view:b2b.operator-portal.settlement';
+        }
+
+        if (!View::exists('b2b.operator-portal.diagnostic')) {
+            $missing[] = 'view:b2b.operator-portal.diagnostic';
         }
 
         $portalQuery = $this->fileContents(base_path('app/B2B/Services/B2BOperatorPortalQuery.php'));
@@ -1522,15 +2133,32 @@ class B2BReleaseGate
             'support_ticket_thread_template',
             'support_case_detail_endpoint',
             'support_case_thread_endpoint',
+            'support_case_comment_endpoint',
             'recent_cases',
             'detail_endpoint',
             'thread_endpoint',
             'portal_logs',
+            'portal_openapi_download',
+            'portal_postman_download',
             'auditSummary',
             'metadata_summary',
+            'launch_diagnostics',
+            'portal_diagnostics',
+            'portal_diagnostic_detail_template',
+            'providerRequestDetail',
+            'providerRequestDetailEndpoint',
+            'portal_game_detail_template',
+            'gameDetail',
+            'gameDetailEndpoint',
+            'portal_session_detail_template',
+            'sessionDetail',
+            'sessionDetailEndpoint',
             'portal_transaction_detail_template',
             'transactionDetail',
             'transactionDetailEndpoint',
+            'portal_settlement_detail_template',
+            'settlementDetail',
+            'settlementDetailEndpoint',
         ] as $needle) {
             if (strpos($portalQuery, $needle) === false) {
                 $missing[] = 'portal_query_detail_endpoint:' . $needle;
@@ -1555,6 +2183,16 @@ class B2BReleaseGate
                     $missing[] = 'portal_view_thread_endpoint:' . $viewPath . ':' . $needle;
                 }
             }
+            foreach (['Comment Endpoint', 'support_case_comment_endpoint'] as $needle) {
+                if (strpos($view, $needle) === false) {
+                    $missing[] = 'portal_view_case_comment_endpoint:' . $viewPath . ':' . $needle;
+                }
+            }
+            foreach (['Action Endpoints', 'comment_endpoint', 'close_endpoint', 'reopen_endpoint'] as $needle) {
+                if (strpos($view, $needle) === false) {
+                    $missing[] = 'portal_view_ticket_action_endpoint:' . $viewPath . ':' . $needle;
+                }
+            }
             if (strpos($view, 'API Logs') === false) {
                 $missing[] = 'portal_view_api_logs:' . $viewPath;
             }
@@ -1564,16 +2202,63 @@ class B2BReleaseGate
                         $missing[] = 'portal_view_recent_cases:' . $needle;
                     }
                 }
+                foreach (['launch_diagnostics', 'Provider Requests', 'Failed Launch Sessions'] as $needle) {
+                    if (strpos($view, $needle) === false) {
+                        $missing[] = 'portal_view_diagnostics:' . $needle;
+                    }
+                }
                 if (strpos($view, "\$audit['recent_events']") === false) {
                     $missing[] = 'portal_view_api_logs:recent_events';
+                }
+                foreach (['Downloadable Artifacts', 'portal_openapi_download', 'portal_postman_download'] as $needle) {
+                    if (strpos($view, $needle) === false) {
+                        $missing[] = 'portal_view_docs_download:' . $needle;
+                    }
                 }
             }
         }
 
+        $portalGameView = $this->fileContents(base_path('resources/views/b2b/operator-portal/game.blade.php'));
+        foreach (['Game Summary', 'Assignment', 'Availability', 'Recent Sessions', 'Recent Transactions', 'Portal Detail Endpoint'] as $needle) {
+            if (strpos($portalGameView, $needle) === false) {
+                $missing[] = 'portal_game_view:' . $needle;
+            }
+        }
+        foreach (['request_body', 'response_body', 'raw_request', 'raw_response', 'launch_url', 'legacy_launch_token', 'token_hash'] as $needle) {
+            if (strpos($portalGameView, $needle) !== false) {
+                $missing[] = 'portal_game_view_raw_payload:' . $needle;
+            }
+        }
+
+        $portalDiagnosticView = $this->fileContents(base_path('resources/views/b2b/operator-portal/diagnostic.blade.php'));
+        foreach (['Provider Request Summary', 'Request Summary', 'Response Summary', 'Portal Detail Endpoint'] as $needle) {
+            if (strpos($portalDiagnosticView, $needle) === false) {
+                $missing[] = 'portal_diagnostic_view:' . $needle;
+            }
+        }
+        foreach (['request_payload', 'response_payload', 'raw_request', 'raw_response', 'launch_url', 'legacy_launch_token', 'token_hash'] as $needle) {
+            if (strpos($portalDiagnosticView, $needle) !== false) {
+                $missing[] = 'portal_diagnostic_view_raw_payload:' . $needle;
+            }
+        }
+
         $portalThreadView = $this->fileContents(base_path('resources/views/b2b/operator-portal/thread.blade.php'));
-        foreach (["\$thread_type === 'case'", 'Case Summary', 'Ticket Summary', 'API Detail Endpoint'] as $needle) {
+        foreach (["\$thread_type === 'case'", 'Case Summary', 'Ticket Summary', 'API Detail Endpoint', 'Comment Endpoint', 'Close Endpoint', 'Reopen Endpoint'] as $needle) {
             if (strpos($portalThreadView, $needle) === false) {
                 $missing[] = 'portal_thread_view:' . $needle;
+            }
+        }
+
+        $portalSessionView = $this->fileContents(base_path('resources/views/b2b/operator-portal/session.blade.php'));
+        foreach (['Session Summary', 'Session Transactions', 'Portal Detail Endpoint', 'request_body'] as $needle) {
+            if ($needle === 'request_body') {
+                if (strpos($portalSessionView, $needle) !== false) {
+                    $missing[] = 'portal_session_view_raw_payload:' . $needle;
+                }
+                continue;
+            }
+            if (strpos($portalSessionView, $needle) === false) {
+                $missing[] = 'portal_session_view:' . $needle;
             }
         }
 
@@ -1587,6 +2272,19 @@ class B2BReleaseGate
             }
             if (strpos($portalTransactionView, $needle) === false) {
                 $missing[] = 'portal_transaction_view:' . $needle;
+            }
+        }
+
+        $portalSettlementView = $this->fileContents(base_path('resources/views/b2b/operator-portal/settlement.blade.php'));
+        foreach (['Settlement Summary', 'Settlement Totals', 'Transaction Breakdown', 'Approval Trail', 'Export Metadata', 'Portal Detail Endpoint', 'request_body', 'export_content'] as $needle) {
+            if (in_array($needle, ['request_body', 'export_content'], true)) {
+                if (strpos($portalSettlementView, $needle) !== false) {
+                    $missing[] = 'portal_settlement_view_raw_payload:' . $needle;
+                }
+                continue;
+            }
+            if (strpos($portalSettlementView, $needle) === false) {
+                $missing[] = 'portal_settlement_view:' . $needle;
             }
         }
 
@@ -1606,11 +2304,18 @@ class B2BReleaseGate
             'api/b2b/v1/portal/settlements',
             'api/b2b/v1/portal/cases',
             'api/b2b/v1/portal/callbacks',
+            'api/b2b/v1/portal/diagnostics',
             'api/b2b/v1/portal/reports',
             'api/b2b/v1/portal/support',
             'api/b2b/v1/portal/logs',
             'api/b2b/v1/portal/docs',
+            'api/b2b/v1/portal/docs/openapi.json',
+            'api/b2b/v1/portal/docs/postman_collection.json',
+            'api/b2b/v1/portal/games/{game_uid}',
+            'api/b2b/v1/portal/diagnostics/{request_uid}',
+            'api/b2b/v1/portal/sessions/{session_uid}',
             'api/b2b/v1/portal/transactions/{transaction_uid}',
+            'api/b2b/v1/portal/settlements/{settlement_uid}',
             'api/b2b/v1/portal/support/cases/{transaction_uid}',
             'api/b2b/v1/portal/support/cases/{transaction_uid}/thread',
             'api/b2b/v1/portal/support/tickets/{ticket_uid}',
@@ -1630,6 +2335,7 @@ class B2BReleaseGate
             'api/b2b/v1/portal/support/tickets',
             'api/b2b/v1/portal/support/tickets/{ticket_uid}/comments',
             'api/b2b/v1/portal/support/tickets/{ticket_uid}/close',
+            'api/b2b/v1/portal/support/tickets/{ticket_uid}/reopen',
         ] as $uri) {
             if (!$this->routeExists('POST', $uri)) {
                 $missing[] = 'route:' . $uri;

@@ -20,6 +20,8 @@ Assignments are scoped by `operator_id`, `provider`, and `game_uid`.
 
 The list endpoint is bounded and filterable. It accepts `limit` (1-500), `provider`, `category`, `search`, `currency`, `country`, `mode`, and a whitelisted `sort` value. `mode` defaults to `real`, so list results match the launch default unless `mode=demo` is requested.
 
+The list response is cached per signed operator and filter set through `B2BGameCatalogCache`. Production should keep `B2B_GAME_CATALOG_CACHE_ENABLED=true` and `B2B_GAME_CATALOG_CACHE_STORE=redis`; `b2b:sync-games` and Eloquent writes to catalog or assignment rows invalidate the catalog cache version. Run a full sync with `php artisan b2b:sync-games --shop_id=<id> --soft-disable-missing` to mark previously synced Goldsvet/internal games as `disabled` when they disappear from that shop's `games` source. The command rejects `--soft-disable-missing` with `--limit` so partial test syncs cannot disable live games.
+
 Resolution order:
 
 1. A matching `blocked` assignment denies the game.
@@ -27,7 +29,7 @@ Resolution order:
 3. If the operator has any active `allowed` assignment, any unassigned game is denied.
 4. If no assignment policy is active for the operator, legacy `settings.enabled_games`, `settings.disabled_games`, and Goldsvet `shop_id` visibility rules apply.
 
-For legacy Goldsvet fallback games, the provider key is `goldsvet_internal`. Catalog games use their catalog `provider` value.
+For legacy Goldsvet fallback games, the provider key is `goldsvet_internal`. Catalog games use their catalog `provider` value. Catalog rows carry provider/canonical IDs, slug, platform, image URL, launch config, support limits, status, and metadata. Catalog rows must be `active` to list or launch. Rows marked `maintenance` are hidden from the list and return `GAME_UNDER_MAINTENANCE` with HTTP 503 for detail and launch attempts; rows marked `disabled` return the normal unavailable response.
 
 ## Assignment Limits
 

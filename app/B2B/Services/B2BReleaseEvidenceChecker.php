@@ -47,6 +47,10 @@ class B2BReleaseEvidenceChecker
                 'label' => 'Rollback drill output from staging or canary',
                 'statuses' => ['passed', 'verified'],
             ],
+            'queue_runtime_drill' => [
+                'label' => 'B2B queue worker, scheduler, and failed-job runtime drill',
+                'statuses' => ['passed', 'verified'],
+            ],
             'prometheus_scrape' => [
                 'label' => 'Prometheus scrape/rule validation',
                 'statuses' => ['passed', 'verified'],
@@ -57,6 +61,10 @@ class B2BReleaseEvidenceChecker
             ],
             'log_shipping' => [
                 'label' => 'B2B structured log shipping validation',
+                'statuses' => ['passed', 'verified'],
+            ],
+            'correlation_validation' => [
+                'label' => 'B2B wallet/provider correlation validation',
                 'statuses' => ['passed', 'verified'],
             ],
             'provider_credentials' => [
@@ -526,9 +534,20 @@ class B2BReleaseEvidenceChecker
             'backup' => ['backup/backup-and-offhost-storage-verification.log'],
             'restore_rehearsal' => ['restore/staging-restore-drill.log'],
             'rollback_rehearsal' => ['rollback/staging-rollback-drill.log'],
+            'queue_runtime_drill' => [
+                'operations/b2b-queue-runtime-drill.log',
+                'operations/b2b-queue-runtime-evidence.json',
+            ],
             'prometheus_scrape' => ['observability/prometheus-scrape-and-rule-test.log'],
-            'alertmanager_notification' => ['observability/alertmanager-delivery-test.log'],
-            'log_shipping' => ['observability/b2b-log-shipping-validation.log'],
+            'alertmanager_notification' => [
+                'observability/alertmanager-delivery-test.log',
+                'observability/alertmanager-receiver-delivery-confirmation.log',
+            ],
+            'log_shipping' => [
+                'observability/b2b-log-shipping-validation.log',
+                'observability/b2b-log-shipping-external-delivery.log',
+            ],
+            'correlation_validation' => ['observability/b2b-correlation-validation.json'],
             'provider_credentials' => ['provider/provider-credential-approval-redacted.txt'],
             'provider_certification' => ['provider/provider-wallet-contract-certification-redacted.txt'],
             'legal_approval' => ['compliance/legal-launch-approval-redacted.txt'],
@@ -551,9 +570,11 @@ class B2BReleaseEvidenceChecker
             'websocket_public_proxy' => 'platform',
             'backup' => 'database-operations',
             'restore_rehearsal' => 'database-operations',
+            'queue_runtime_drill' => 'platform',
             'prometheus_scrape' => 'observability',
             'alertmanager_notification' => 'observability',
             'log_shipping' => 'observability',
+            'correlation_validation' => 'observability',
             'provider_credentials' => 'integrations',
             'provider_certification' => 'integrations',
             'legal_approval' => 'compliance',

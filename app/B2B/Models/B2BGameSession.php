@@ -49,6 +49,12 @@ class B2BGameSession extends Model
         'metadata' => 'array',
         'heartbeat_timeout_seconds' => 'integer',
         'launch_attempts' => 'integer',
+        'expires_at' => 'datetime',
+        'last_seen_at' => 'datetime',
+        'heartbeat_at' => 'datetime',
+        'stale_at' => 'datetime',
+        'launched_at' => 'datetime',
+        'closed_at' => 'datetime',
     ];
 
     protected $dates = [

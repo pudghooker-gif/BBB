@@ -84,6 +84,13 @@
                     </div>
                 </div>
 
+                @php
+                    $settlementStatus = isset($settlement['status']) && $settlement['status'] ? $settlement['status'] : 'exported';
+                    $canSubmit = $settlementStatus === 'exported';
+                    $canApprove = $settlementStatus === 'submitted';
+                    $canReject = $settlementStatus === 'submitted';
+                @endphp
+
                 <div class="box box-warning">
                     <div class="box-header with-border">
                         <h3 class="box-title">Settlement Actions</h3>
@@ -93,31 +100,49 @@
                         <input type="hidden" name="settlement_uid" value="{{ $settlement['settlement_uid'] }}">
                         <input type="hidden" name="redirect_to" value="{{ request()->getRequestUri() }}">
                         <div class="box-body">
-                            <div class="form-group">
-                                <label for="b2b-settlement-detail-reason">Reason</label>
-                                <textarea id="b2b-settlement-detail-reason" name="reason" rows="4" class="form-control" required>{{ old('reason') }}</textarea>
-                            </div>
+                            @if($canSubmit || $canApprove || $canReject)
+                                <div class="form-group">
+                                    <label for="b2b-settlement-detail-reason">Reason</label>
+                                    <textarea id="b2b-settlement-detail-reason" name="reason" rows="4" class="form-control" required>{{ old('reason') }}</textarea>
+                                </div>
+                            @else
+                                <p class="text-muted">No lifecycle staff actions are available for this settlement status.</p>
+                            @endif
                         </div>
                         <div class="box-footer">
-                            <button type="submit" formaction="{{ route('backend.b2b.settlements.submit') }}" class="btn btn-primary">
-                                <i class="fa fa-upload"></i> Submit
-                            </button>
-                            <button type="submit" formaction="{{ route('backend.b2b.settlements.approve') }}" class="btn btn-success">
-                                <i class="fa fa-check"></i> Approve
-                            </button>
-                            <button type="submit" formaction="{{ route('backend.b2b.settlements.reject') }}" class="btn btn-danger">
-                                <i class="fa fa-times"></i> Reject
-                            </button>
-                            <hr>
-                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'settlement.submit', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
-                                <i class="fa fa-shield"></i> Submit Step-Up
-                            </a>
-                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'settlement.approve', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
-                                <i class="fa fa-shield"></i> Approve Step-Up
-                            </a>
-                            <a href="{{ route('backend.b2b.step_up.show', ['action' => 'settlement.reject', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
-                                <i class="fa fa-shield"></i> Reject Step-Up
-                            </a>
+                            @if($canSubmit)
+                                <button type="submit" formaction="{{ route('backend.b2b.settlements.submit') }}" class="btn btn-primary">
+                                    <i class="fa fa-upload"></i> Submit
+                                </button>
+                            @endif
+                            @if($canApprove)
+                                <button type="submit" formaction="{{ route('backend.b2b.settlements.approve') }}" class="btn btn-success">
+                                    <i class="fa fa-check"></i> Approve
+                                </button>
+                            @endif
+                            @if($canReject)
+                                <button type="submit" formaction="{{ route('backend.b2b.settlements.reject') }}" class="btn btn-danger">
+                                    <i class="fa fa-times"></i> Reject
+                                </button>
+                            @endif
+                            @if($canSubmit || $canApprove || $canReject)
+                                <hr>
+                            @endif
+                            @if($canSubmit)
+                                <a href="{{ route('backend.b2b.step_up.show', ['action' => 'settlement.submit', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                    <i class="fa fa-shield"></i> Submit Step-Up
+                                </a>
+                            @endif
+                            @if($canApprove)
+                                <a href="{{ route('backend.b2b.step_up.show', ['action' => 'settlement.approve', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                    <i class="fa fa-shield"></i> Approve Step-Up
+                                </a>
+                            @endif
+                            @if($canReject)
+                                <a href="{{ route('backend.b2b.step_up.show', ['action' => 'settlement.reject', 'redirect_to' => request()->getRequestUri()]) }}" class="btn btn-default">
+                                    <i class="fa fa-shield"></i> Reject Step-Up
+                                </a>
+                            @endif
                         </div>
                     </form>
                 </div>

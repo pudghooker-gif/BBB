@@ -229,12 +229,17 @@ trait B2BApiTestHelpers
         Schema::create('b2b_game_catalog', function (Blueprint $table) {
             $table->increments('id');
             $table->string('game_uid')->unique();
+            $table->string('provider_game_id')->nullable();
+            $table->string('canonical_game_id')->nullable();
             $table->string('provider')->default('goldsvet_internal');
+            $table->string('slug')->nullable();
             $table->string('title');
             $table->string('category')->default('slots');
+            $table->string('platform', 30)->nullable();
             $table->decimal('rtp', 6, 2)->nullable();
             $table->string('volatility')->nullable();
             $table->string('thumbnail_url')->nullable();
+            $table->json('launch_config')->nullable();
             $table->boolean('demo_supported')->default(true);
             $table->boolean('real_supported')->default(true);
             $table->json('supported_currencies')->nullable();

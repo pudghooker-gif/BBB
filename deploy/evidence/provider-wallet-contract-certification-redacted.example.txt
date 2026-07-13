@@ -1,0 +1,18 @@
+BBB B2B Provider Wallet Contract Certification - Redacted Evidence
+
+release_id: replace-with-release-id
+environment: production-canary
+provider: replace-with-provider-code
+certified_by: replace-with-provider-or-integration-owner
+approved_by: replace-with-release-owner
+approved_at_utc: 2026-07-03T00:00:00Z
+
+certification_reference: replace-with-provider-ticket-or-document-id
+wallet_actions_certified: bet, win, refund, rollback, transaction_status
+idempotency_contract_reference: replace-with-non-secret-summary-or-doc-id
+rollback_semantics_reference: replace-with-non-secret-summary-or-doc-id
+reconciliation_contract_reference: replace-with-non-secret-summary-or-doc-id
+known_limitations: replace-with-reviewed-limitations-or-none
+
+Do not include provider API secrets, signed request samples containing live keys, player PII, raw wallet payloads, bearer tokens, private certificates, or unredacted provider documentation in this artifact.
+Store only redacted summaries and references to the approved provider certification package.

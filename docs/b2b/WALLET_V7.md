@@ -64,7 +64,7 @@ rollback
 transaction_status
 ```
 
-The first-party provider adapter exposes these actions through `GameProviderInterface::walletActionContracts()`. The production release gate checks that every registered provider declares the required mutation actions plus explicit `transaction_status` and `rollback` contracts before launch.
+The first-party provider adapter exposes these actions through `GameProviderInterface::walletActionContracts()`. The same interface also declares capability states (`supported`, `unsupported`, `not_applicable`, `degraded`) plus catalog listing, incoming-request validation, transaction normalization, launch/session close, round-close state, and health methods. The production release gate checks that every registered provider declares the required catalog/launch/wallet capabilities plus explicit `transaction_status` and `rollback` contracts before launch.
 
 If `wallet_secret` is configured for the operator, outbound wallet callbacks include:
 
@@ -151,7 +151,7 @@ This is still a reconciliation foundation. Final production readiness still need
 - A failed callback keeps `rollback_required` open until `B2B_WALLET_ROLLBACK_MAX_ATTEMPTS` is reached.
 - Exhausted rollback recovery moves the transaction to `manual_review`, resolves rollback items, and opens a manual-review item.
 
-This is an automated recovery foundation with an explicit internal provider contract. A B2B-RBAC and web-step-up protected manual action screen is available at `/backend/b2b/wallet/manual-actions` for controlled case handling. Operators still need provider-specific certification for rollback semantics before broad production operations.
+This is an automated recovery foundation with an explicit internal provider contract. A B2B-RBAC and web-step-up protected manual action screen is available at `/backend/b2b/wallet/manual-actions` for controlled case handling, and reconciliation case detail pages link into the manual-action form with transaction/operator/reason prefilled plus a safe local return path back to the case. Operators still need provider-specific certification for rollback semantics before broad production operations.
 
 ## Manual wallet actions
 

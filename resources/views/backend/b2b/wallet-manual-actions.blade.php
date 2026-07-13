@@ -18,6 +18,7 @@
                     </div>
                     <form method="post" action="{{ route('backend.b2b.wallet_manual_actions.store') }}">
                         @csrf
+                        <input type="hidden" name="redirect_to" value="{{ old('redirect_to', $form['redirect_to']) }}">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="b2b-wallet-transaction">Transaction UID / ID</label>
@@ -25,7 +26,7 @@
                                     id="b2b-wallet-transaction"
                                     type="text"
                                     name="transaction_uid"
-                                    value="{{ old('transaction_uid') }}"
+                                    value="{{ old('transaction_uid', $form['transaction_uid']) }}"
                                     class="form-control"
                                     autocomplete="off"
                                     required
@@ -39,7 +40,7 @@
                                     type="number"
                                     min="1"
                                     name="operator_id"
-                                    value="{{ old('operator_id') }}"
+                                    value="{{ old('operator_id', $form['operator_id']) }}"
                                     class="form-control"
                                 >
                             </div>
@@ -48,7 +49,7 @@
                                 <label for="b2b-wallet-action">Action</label>
                                 <select id="b2b-wallet-action" name="action" class="form-control" required>
                                     @foreach($actions as $action)
-                                        <option value="{{ $action }}" {{ old('action') === $action ? 'selected' : '' }}>
+                                        <option value="{{ $action }}" {{ old('action', $form['action']) === $action ? 'selected' : '' }}>
                                             {{ $action }}
                                         </option>
                                     @endforeach
@@ -63,7 +64,7 @@
                                     rows="4"
                                     class="form-control"
                                     required
-                                >{{ old('reason') }}</textarea>
+                                >{{ old('reason', $form['reason']) }}</textarea>
                             </div>
                         </div>
 

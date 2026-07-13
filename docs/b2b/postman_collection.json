@@ -55,6 +55,7 @@
     { "key": "sessionId", "value": "sess_xxx" },
     { "key": "transactionId", "value": "bet_001" },
     { "key": "settlementId", "value": "stl_xxx" },
+    { "key": "providerRequestId", "value": "pr_xxx" },
     { "key": "supportTicketId", "value": "sup_xxx" },
     { "key": "roundId", "value": "round_001" },
     { "key": "currency", "value": "USD" }
@@ -115,6 +116,7 @@
           "name": "Portal Overview",
           "request": {
             "method": "GET",
+            "description": "Returns the signed operator portal bootstrap JSON, including sanitized provider_health summary without provider secrets.",
             "url": "{{baseUrl}}/api/b2b/v1/portal/overview?limit=10"
           },
           "response": []
@@ -142,6 +144,17 @@
           "response": []
         },
         {
+          "name": "Portal Game Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/games/{{gameId}}?limit=20"
+          },
+          "response": []
+        },
+        {
           "name": "Portal Sessions",
           "request": {
             "method": "GET",
@@ -149,6 +162,17 @@
               { "key": "Accept", "value": "text/html" }
             ],
             "url": "{{baseUrl}}/api/b2b/v1/portal/sessions?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Session Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/sessions/{{sessionId}}?limit=20"
           },
           "response": []
         },
@@ -186,6 +210,17 @@
           "response": []
         },
         {
+          "name": "Portal Settlement Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/settlements/{{settlementId}}"
+          },
+          "response": []
+        },
+        {
           "name": "Portal Cases",
           "request": {
             "method": "GET",
@@ -204,6 +239,28 @@
               { "key": "Accept", "value": "text/html" }
             ],
             "url": "{{baseUrl}}/api/b2b/v1/portal/callbacks?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Diagnostics",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/diagnostics?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Diagnostic Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/diagnostics/{{providerRequestId}}"
           },
           "response": []
         },
@@ -327,6 +384,18 @@
           "response": []
         },
         {
+          "name": "Portal Support Ticket Reopen",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/b2b/v1/portal/support/tickets/{{supportTicketId}}/reopen",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Operator has new evidence for this ticket.\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Portal Docs",
           "request": {
             "method": "GET",
@@ -334,6 +403,28 @@
               { "key": "Accept", "value": "text/html" }
             ],
             "url": "{{baseUrl}}/api/b2b/v1/portal/docs?limit=10"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal OpenAPI Download",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/docs/openapi.json"
+          },
+          "response": []
+        },
+        {
+          "name": "Portal Postman Download",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/api/b2b/v1/portal/docs/postman_collection.json"
           },
           "response": []
         }
@@ -346,7 +437,7 @@
           "name": "List Games",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/b2b/v1/games?currency={{currency}}&country=BR&mode=real&limit=50&sort=title"
+            "url": "{{baseUrl}}/api/b2b/v1/games?currency={{currency}}&country=BR&platform=web&mode=real&limit=50&sort=title"
           },
           "response": []
         },

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Tests\Concerns\B2BApiTestHelpers;
 use Tests\TestCase;
+use VanguardLTE\B2B\Services\B2BGameCatalogCache;
 
 class B2BOperatorFlowIsolationTest extends TestCase
 {
@@ -80,9 +81,14 @@ class B2BOperatorFlowIsolationTest extends TestCase
         DB::table('b2b_game_catalog')->insert([
             [
                 'game_uid' => 'catalog_sort_zulu',
+                'provider_game_id' => 'provider_zulu',
+                'canonical_game_id' => 'catalog_sort_zulu',
                 'provider' => 'external_provider',
+                'slug' => 'zulu-sort',
                 'title' => 'Zulu Sort',
                 'category' => 'slots',
+                'platform' => 'web',
+                'launch_config' => json_encode(['launch_mode' => 'provider_redirect']),
                 'demo_supported' => true,
                 'real_supported' => true,
                 'supported_currencies' => json_encode(['USD']),
@@ -93,9 +99,14 @@ class B2BOperatorFlowIsolationTest extends TestCase
             ],
             [
                 'game_uid' => 'catalog_sort_alpha',
+                'provider_game_id' => 'provider_alpha',
+                'canonical_game_id' => 'catalog_sort_alpha',
                 'provider' => 'external_provider',
+                'slug' => 'alpha-sort',
                 'title' => 'Alpha Sort',
                 'category' => 'slots',
+                'platform' => 'web',
+                'launch_config' => json_encode(['launch_mode' => 'provider_redirect']),
                 'demo_supported' => true,
                 'real_supported' => true,
                 'supported_currencies' => json_encode(['USD']),
@@ -106,9 +117,14 @@ class B2BOperatorFlowIsolationTest extends TestCase
             ],
             [
                 'game_uid' => 'catalog_sort_table',
+                'provider_game_id' => 'provider_table',
+                'canonical_game_id' => 'catalog_sort_table',
                 'provider' => 'external_provider',
+                'slug' => 'table-sort',
                 'title' => 'Table Sort',
                 'category' => 'table',
+                'platform' => 'mobile',
+                'launch_config' => json_encode(['launch_mode' => 'provider_redirect']),
                 'demo_supported' => true,
                 'real_supported' => true,
                 'supported_currencies' => json_encode(['USD']),
@@ -123,20 +139,26 @@ class B2BOperatorFlowIsolationTest extends TestCase
             'op_flow_a',
             'key_flow_a',
             $this->secretA,
-            '/api/b2b/v1/games?provider=external_provider&category=slots&currency=USD&country=BR&mode=real&sort=title&limit=1',
+            '/api/b2b/v1/games?provider=external_provider&category=slots&platform=web&currency=USD&country=BR&mode=real&sort=title&limit=1',
             'flow-catalog-filter-sort'
         )
             ->assertStatus(200)
             ->assertJsonPath('success', true)
             ->assertJsonCount(1, 'data')
             ->assertJsonPath('data.0.game_uid', 'catalog_sort_alpha')
+            ->assertJsonPath('data.0.provider_game_id', 'provider_alpha')
+            ->assertJsonPath('data.0.canonical_game_id', 'catalog_sort_alpha')
+            ->assertJsonPath('data.0.slug', 'alpha-sort')
             ->assertJsonPath('data.0.title', 'Alpha Sort')
+            ->assertJsonPath('data.0.platform', 'web')
+            ->assertJsonPath('data.0.launch_config.launch_mode', 'provider_redirect')
             ->assertJsonPath('meta.limit', 1)
             ->assertJsonPath('meta.count', 1)
             ->assertJsonPath('meta.available_count', 2)
             ->assertJsonPath('meta.sort', 'title')
             ->assertJsonPath('meta.filters.provider', 'external_provider')
             ->assertJsonPath('meta.filters.category', 'slots')
+            ->assertJsonPath('meta.filters.platform', 'web')
             ->assertJsonPath('meta.filters.currency', 'USD')
             ->assertJsonPath('meta.filters.country', 'BR')
             ->assertJsonPath('meta.filters.mode', 'real')
@@ -152,6 +174,57 @@ class B2BOperatorFlowIsolationTest extends TestCase
             ->assertStatus(422)
             ->assertJsonPath('success', false)
             ->assertJsonPath('error.code', 'VALIDATION_FAILED');
+    }
+
+    public function testGameCatalogIndexUsesCacheUntilInvalidated()
+    {
+        config([
+            'b2b.game_catalog_cache_enabled' => true,
+            'b2b.game_catalog_cache_store' => 'array',
+            'b2b.game_catalog_cache_ttl_seconds' => 60,
+        ]);
+        Cache::store('array')->flush();
+
+        DB::table('b2b_game_catalog')->insert([
+            'game_uid' => 'catalog_cache_a',
+            'provider' => 'cache_provider',
+            'title' => 'Cached Catalog Title',
+            'category' => 'slots',
+            'demo_supported' => true,
+            'real_supported' => true,
+            'supported_currencies' => json_encode(['USD']),
+            'supported_countries' => json_encode(['BR']),
+            'status' => 'active',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $uri = '/api/b2b/v1/games?provider=cache_provider&currency=USD&country=BR&mode=real&limit=10';
+
+        $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, $uri, 'flow-catalog-cache-first')
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.0.game_uid', 'catalog_cache_a')
+            ->assertJsonPath('data.0.title', 'Cached Catalog Title');
+
+        DB::table('b2b_game_catalog')
+            ->where('game_uid', 'catalog_cache_a')
+            ->update([
+                'title' => 'Fresh Catalog Title',
+                'updated_at' => now(),
+            ]);
+
+        $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, $uri, 'flow-catalog-cache-stale')
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.0.title', 'Cached Catalog Title');
+
+        $this->assertTrue(app(B2BGameCatalogCache::class)->invalidate());
+
+        $this->signedGet('op_flow_a', 'key_flow_a', $this->secretA, $uri, 'flow-catalog-cache-fresh')
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.0.title', 'Fresh Catalog Title');
     }
 
     public function testLaunchRejectsGameFromAnotherOperatorShop()
@@ -211,7 +284,9 @@ class B2BOperatorFlowIsolationTest extends TestCase
             ->assertJsonPath('data.game_id', 'book_flow_a');
 
         $launchUrl = $response->json('data.launch_url');
-        $launchToken = basename((string) parse_url($launchUrl, PHP_URL_PATH));
+        $launchPath = (string) parse_url($launchUrl, PHP_URL_PATH);
+        $this->assertStringStartsWith('/b2b/launcher/book_flow_a/', $launchPath);
+        $launchToken = basename($launchPath);
         $this->assertSame(64, strlen($launchToken));
 
         $session = DB::table('b2b_game_sessions')
@@ -252,6 +327,24 @@ class B2BOperatorFlowIsolationTest extends TestCase
         $this->assertArrayNotHasKey('legacy_launch_url', $listedSession);
         $this->assertSame('[REDACTED]', $listedSession['metadata']['token']);
         $this->assertSame('[REDACTED]', $listedSession['metadata']['nested']['api_secret']);
+
+        $this->get($launchPath)
+            ->assertStatus(502);
+
+        $providerRequest = DB::table('b2b_provider_requests')
+            ->where('operator_id', $this->operatorA->id)
+            ->where('session_id', $session->session_uid)
+            ->where('action', 'launch')
+            ->first();
+
+        $this->assertNotNull($providerRequest);
+        $this->assertSame('goldsvet_internal', $providerRequest->provider);
+        $this->assertSame('failed', $providerRequest->status);
+        $this->assertNotNull($providerRequest->error_message);
+        $this->assertStringStartsWith('pr_', $providerRequest->request_uid);
+        $this->assertStringNotContainsString($launchToken, (string) $providerRequest->request_payload);
+        $this->assertStringNotContainsString($launchToken, (string) $providerRequest->response_payload);
+        $this->assertStringNotContainsString('legacy_launch_token', (string) $providerRequest->response_payload);
     }
 
     public function testPerApiKeyRateLimitBlocksLaunchBeforeSecondSessionCreation()
@@ -415,6 +508,61 @@ class B2BOperatorFlowIsolationTest extends TestCase
             ->assertJsonPath('error.code', 'GAME_NOT_AVAILABLE');
     }
 
+    public function testMaintenanceCatalogGameIsHiddenAndLaunchRejected()
+    {
+        DB::table('b2b_game_catalog')->insert([
+            'game_uid' => 'catalog_maintenance_a',
+            'provider' => 'maintenance_provider',
+            'title' => 'Maintenance Catalog A',
+            'category' => 'slots',
+            'demo_supported' => true,
+            'real_supported' => true,
+            'supported_currencies' => json_encode(['USD']),
+            'supported_countries' => json_encode(['BR']),
+            'status' => 'maintenance',
+            'metadata' => json_encode(['maintenance_reason' => 'provider_window']),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $this->signedGet(
+            'op_flow_a',
+            'key_flow_a',
+            $this->secretA,
+            '/api/b2b/v1/games?provider=maintenance_provider&currency=USD&country=BR',
+            'flow-catalog-maintenance-list'
+        )
+            ->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonCount(0, 'data');
+
+        $this->signedGet(
+            'op_flow_a',
+            'key_flow_a',
+            $this->secretA,
+            '/api/b2b/v1/games/catalog_maintenance_a?currency=USD&country=BR',
+            'flow-catalog-maintenance-detail'
+        )
+            ->assertStatus(503)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'GAME_UNDER_MAINTENANCE');
+
+        $body = json_encode([
+            'player_id' => 'player_maintenance',
+            'game_id' => 'catalog_maintenance_a',
+            'currency' => 'USD',
+            'country' => 'BR',
+            'return_url' => 'https://operator-a.example/casino',
+        ]);
+
+        $this->signedPost('op_flow_a', 'key_flow_a', $this->secretA, '/api/b2b/v1/games/launch', $body, 'flow-launch-maintenance')
+            ->assertStatus(503)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error.code', 'GAME_UNDER_MAINTENANCE');
+
+        $this->assertSame(2, DB::table('b2b_game_sessions')->count());
+    }
+
     public function testSessionDetailRejectsAnotherOperatorsNumericSessionId()
     {
         $foreignSession = DB::table('b2b_game_sessions')->where('session_uid', 'sess_flow_b')->first();
@@ -475,6 +623,16 @@ class B2BOperatorFlowIsolationTest extends TestCase
         $this->assertSame('closed', $closed->status);
         $this->assertNotNull($closed->closed_at);
         $this->assertSame('player_logout', $closed->close_reason);
+
+        $providerRequest = DB::table('b2b_provider_requests')
+            ->where('operator_id', $this->operatorA->id)
+            ->where('session_id', 'sess_flow_a')
+            ->where('action', 'close_session')
+            ->first();
+
+        $this->assertNotNull($providerRequest);
+        $this->assertSame('success', $providerRequest->status);
+        $this->assertStringContainsString('player_logout', (string) $providerRequest->request_payload);
 
         $this->signedPost(
             'op_flow_a',

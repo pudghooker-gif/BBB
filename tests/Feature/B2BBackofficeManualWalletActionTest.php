@@ -40,6 +40,20 @@ class B2BBackofficeManualWalletActionTest extends TestCase
             ->assertSee('tx_web_manual_screen');
     }
 
+    public function testManualWalletActionScreenPrefillsCaseWorkflow()
+    {
+        $detailPath = '/backend/b2b/cases/reconciliation/123';
+
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/wallet/manual-actions?transaction_uid=tx_web_manual_prefill&operator_id=' . $this->operator->id . '&action=resolve-success&reason=Case%20follow-up&redirect_to=' . rawurlencode($detailPath))
+            ->assertStatus(200)
+            ->assertSee('value="tx_web_manual_prefill"', false)
+            ->assertSee('value="' . $this->operator->id . '"', false)
+            ->assertSee('value="' . $detailPath . '"', false)
+            ->assertSee('Case follow-up')
+            ->assertSee('<option value="resolve-success" selected>', false);
+    }
+
     public function testManualWalletActionPostRequiresWebStepUp()
     {
         $transactionId = $this->insertWalletTransaction('tx_web_manual_step_up', 'manual_review');
@@ -98,6 +112,37 @@ class B2BBackofficeManualWalletActionTest extends TestCase
         $this->assertSame('b2b.wallet.manual_action', $metadata['permission']);
         $this->assertTrue($metadata['step_up']);
         $this->assertSame('web_backoffice', $metadata['source']);
+    }
+
+    public function testManualWalletActionReturnsToCaseDetailAfterFreshWebStepUp()
+    {
+        $admin = $this->adminUser();
+        $transactionId = $this->insertWalletTransaction('tx_web_manual_case_return', 'manual_review');
+        $guard = app(B2BWebStepUpGuard::class);
+        $detailPath = '/backend/b2b/cases/reconciliation/123';
+
+        $response = $this->actingAs($admin)
+            ->withSession([
+                '_token' => 'test-token',
+                $guard->sessionKey('wallet.manual_action') => [
+                    'user_id' => (string) $admin->getAuthIdentifier(),
+                    'verified_at' => time(),
+                    'password_verified_at' => time(),
+                ],
+            ])
+            ->post('/backend/b2b/wallet/manual-actions', [
+                '_token' => 'test-token',
+                'transaction_uid' => 'tx_web_manual_case_return',
+                'operator_id' => $this->operator->id,
+                'action' => 'resolve-success',
+                'reason' => 'Provider case WEB-3 confirms success.',
+                'redirect_to' => $detailPath,
+            ]);
+
+        $response->assertRedirect($detailPath);
+        $response->assertSessionMissing($guard->sessionKey('wallet.manual_action'));
+
+        $this->assertSame('success', DB::table('b2b_wallet_transactions')->where('id', $transactionId)->value('status'));
     }
 
     private function insertWalletTransaction($transactionUid, $status)

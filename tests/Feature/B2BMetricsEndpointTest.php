@@ -168,6 +168,7 @@ class B2BMetricsEndpointTest extends TestCase
         $this->assertStringContainsString('# HELP bbb_b2b_scheduler_heartbeat_age_seconds', $body);
         $this->assertStringContainsString('bbb_b2b_scheduler_heartbeat_fresh{cache_store="array"} 1', $body);
         $this->assertStringContainsString('bbb_b2b_scheduler_heartbeat_max_age_seconds{cache_store="array"} 180', $body);
+        $this->assertStringContainsString('bbb_b2b_provider_health_up{provider="goldsvet_internal",status="ok"} 1', $body);
         $this->assertStringContainsString('bbb_b2b_metrics_collection_errors 0', $body);
         $this->assertStringNotContainsString('op_metrics_a', $body);
         $this->assertStringNotContainsString('op_metrics_b', $body);

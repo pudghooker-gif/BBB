@@ -131,13 +131,25 @@ class B2BCredentialBackofficeController extends Controller
             return collect();
         }
 
-        $query = DB::table('b2b_operator_api_keys')
-            ->select('operator_id', 'key_id', 'status', 'max_rps', 'last_used_at', 'created_at')
-            ->orderBy('id', 'desc')
+        $query = DB::table('b2b_operator_api_keys as api_keys')
+            ->select(
+                'api_keys.operator_id',
+                'api_keys.key_id',
+                'api_keys.status',
+                'api_keys.max_rps',
+                'api_keys.last_used_at',
+                'api_keys.created_at'
+            )
+            ->orderBy('api_keys.id', 'desc')
             ->limit(100);
 
+        if (Schema::hasTable('b2b_operators')) {
+            $query->leftJoin('b2b_operators as operators', 'operators.id', '=', 'api_keys.operator_id')
+                ->addSelect('operators.operator_uid');
+        }
+
         if (Schema::hasColumn('b2b_operator_api_keys', 'scopes')) {
-            $query->addSelect('scopes');
+            $query->addSelect('api_keys.scopes');
         }
 
         return $query->get()->map(function ($apiKey) {

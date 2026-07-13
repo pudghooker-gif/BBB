@@ -59,7 +59,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Wallet Status</h3>
@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="box box-info">
                     <div class="box-header with-border">
                         <h3 class="box-title">Operator Status</h3>
@@ -103,7 +103,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="box box-success">
                     <div class="box-header with-border">
                         <h3 class="box-title">Settlement Status</h3>
@@ -118,6 +118,43 @@
                                 </tr>
                             @empty
                                 <tr><td colspan="2">No settlements</td></tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Provider Health</h3>
+                    </div>
+                    <div class="box-body no-padding">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Provider</th>
+                                <th>Status</th>
+                                <th>Games Table</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse((isset($provider_health['providers']) ? $provider_health['providers'] : []) as $provider)
+                                @php
+                                    $health = isset($provider['health']) && is_array($provider['health']) ? $provider['health'] : [];
+                                @endphp
+                                <tr>
+                                    <td>{{ $provider['provider'] ?: 'n/a' }}</td>
+                                    <td>
+                                        <span class="label {{ empty($provider['ok']) ? 'label-danger' : ($provider['status'] === 'degraded' ? 'label-warning' : 'label-success') }}">
+                                            {{ $provider['status'] ?: 'unknown' }}
+                                        </span>
+                                    </td>
+                                    <td>{{ array_key_exists('games_table_available', $health) ? ($health['games_table_available'] ? 'yes' : 'no') : 'n/a' }}</td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="3">No provider health checks</td></tr>
                             @endforelse
                             </tbody>
                         </table>

@@ -68,6 +68,9 @@
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-filter"></i> Apply
                                     </button>
+                                    <a href="{{ route('backend.b2b.audit.export', request()->query()) }}" class="btn btn-success">
+                                        <i class="fa fa-download"></i> Export CSV
+                                    </a>
                                     <a href="{{ route('backend.b2b.audit.index') }}" class="btn btn-default">
                                         <i class="fa fa-times"></i> Clear
                                     </a>

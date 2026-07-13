@@ -15,13 +15,14 @@ class B2BAuditTrailService
         $this->redactor = $redactor;
     }
 
-    public function events(array $filters = [], $limit = 100)
+    public function events(array $filters = [], $limit = 100, $maxLimit = 200)
     {
         if (!Schema::hasTable('b2b_operator_audit_events')) {
             return collect();
         }
 
-        $limit = max(1, min((int) $limit, 200));
+        $maxLimit = max(1, (int) $maxLimit);
+        $limit = max(1, min((int) $limit, $maxLimit));
         $select = [
             'ae.id',
             'ae.operator_id',

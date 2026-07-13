@@ -85,9 +85,51 @@ class B2BBackofficeSettlementWorkflowTest extends TestCase
             ->assertSee('Snapshot Metadata')
             ->assertSee('stl_web_detail')
             ->assertSee('Approve Step-Up')
+            ->assertSee('Reject Step-Up')
+            ->assertDontSee('Submit Step-Up')
             ->assertSee('/backend/b2b/settlements/approve', false)
+            ->assertSee('/backend/b2b/settlements/reject', false)
+            ->assertDontSee('/backend/b2b/settlements/submit', false)
             ->assertSee('[REDACTED]')
             ->assertDontSee('settlement-detail-secret');
+    }
+
+    public function testExportedSettlementDetailShowsOnlySubmitAction()
+    {
+        $this->insertSettlement('stl_web_exported_detail', 'exported');
+
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/settlements/detail/stl_web_exported_detail')
+            ->assertStatus(200)
+            ->assertSee('B2B Settlement Detail')
+            ->assertSee('Settlement Actions')
+            ->assertSee('Submit Step-Up')
+            ->assertSee('/backend/b2b/settlements/submit', false)
+            ->assertDontSee('Approve Step-Up')
+            ->assertDontSee('Reject Step-Up')
+            ->assertDontSee('/backend/b2b/settlements/approve', false)
+            ->assertDontSee('/backend/b2b/settlements/reject', false);
+    }
+
+    public function testApprovedSettlementDetailHidesLifecycleActions()
+    {
+        $this->insertSettlement('stl_web_approved_detail', 'approved', [
+            'approved_by' => 'web:b2b_finance',
+            'approved_at' => now(),
+        ]);
+
+        $this->actingAs($this->adminUser())
+            ->get('/backend/b2b/settlements/detail/stl_web_approved_detail')
+            ->assertStatus(200)
+            ->assertSee('B2B Settlement Detail')
+            ->assertSee('Settlement Actions')
+            ->assertSee('No lifecycle staff actions are available for this settlement status.')
+            ->assertDontSee('Submit Step-Up')
+            ->assertDontSee('Approve Step-Up')
+            ->assertDontSee('Reject Step-Up')
+            ->assertDontSee('/backend/b2b/settlements/submit', false)
+            ->assertDontSee('/backend/b2b/settlements/approve', false)
+            ->assertDontSee('/backend/b2b/settlements/reject', false);
     }
 
     public function testSettlementDetailPageRedirectsMissingSettlement()

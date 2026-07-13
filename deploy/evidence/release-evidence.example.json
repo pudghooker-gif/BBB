@@ -83,6 +83,19 @@
       "artifact": "rollback/staging-rollback-drill.log",
       "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
     },
+    "queue_runtime_drill": {
+      "status": "passed",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "platform",
+      "artifacts": [
+        "operations/b2b-queue-runtime-drill.log",
+        "operations/b2b-queue-runtime-evidence.json"
+      ],
+      "artifact_hashes": {
+        "operations/b2b-queue-runtime-drill.log": "0000000000000000000000000000000000000000000000000000000000000000",
+        "operations/b2b-queue-runtime-evidence.json": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
     "prometheus_scrape": {
       "status": "verified",
       "executed_at": "2026-07-03T00:00:00Z",
@@ -94,14 +107,33 @@
       "status": "verified",
       "executed_at": "2026-07-03T00:00:00Z",
       "owner": "observability",
-      "artifact": "observability/alertmanager-delivery-test.log",
-      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      "artifacts": [
+        "observability/alertmanager-delivery-test.log",
+        "observability/alertmanager-receiver-delivery-confirmation.log"
+      ],
+      "artifact_hashes": {
+        "observability/alertmanager-delivery-test.log": "0000000000000000000000000000000000000000000000000000000000000000",
+        "observability/alertmanager-receiver-delivery-confirmation.log": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
     },
     "log_shipping": {
       "status": "verified",
       "executed_at": "2026-07-03T00:00:00Z",
       "owner": "observability",
-      "artifact": "observability/b2b-log-shipping-validation.log",
+      "artifacts": [
+        "observability/b2b-log-shipping-validation.log",
+        "observability/b2b-log-shipping-external-delivery.log"
+      ],
+      "artifact_hashes": {
+        "observability/b2b-log-shipping-validation.log": "0000000000000000000000000000000000000000000000000000000000000000",
+        "observability/b2b-log-shipping-external-delivery.log": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "correlation_validation": {
+      "status": "verified",
+      "executed_at": "2026-07-03T00:00:00Z",
+      "owner": "observability",
+      "artifact": "observability/b2b-correlation-validation.json",
       "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
     },
     "provider_credentials": {

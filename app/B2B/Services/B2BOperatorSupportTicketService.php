@@ -196,6 +196,62 @@ class B2BOperatorSupportTicketService
         });
     }
 
+    public function reopen($operator, $ticketUid, $reason, array $context = [])
+    {
+        $this->assertTablesReady();
+        $this->assertOperator($operator);
+
+        $reason = $this->safeText($reason, 1000);
+        if ($reason === '') {
+            throw new InvalidArgumentException('Support ticket reopen reason is required.');
+        }
+
+        return DB::transaction(function () use ($operator, $ticketUid, $reason, $context) {
+            $ticket = $this->ownedTicket((int) $operator->id, $ticketUid, true);
+            if ((isset($ticket->status) ? $ticket->status : null) !== 'closed') {
+                throw new InvalidArgumentException('Support ticket is not closed.');
+            }
+
+            $now = Carbon::now();
+            $actor = 'operator:' . $operator->operator_uid;
+
+            $this->insertMessage($ticket->id, (int) $operator->id, $actor, $reason, [
+                'action' => 'reopened',
+                'request_id' => $this->contextValue($context, 'request_id'),
+            ], $now);
+
+            $this->updateTicket($ticket, [
+                'status' => 'open',
+                'context' => $this->redactor->json($this->appendTicketEvent($ticket, 'reopened', $actor, $reason, $context, $now)),
+                'last_message_at' => $now,
+                'closed_at' => null,
+                'updated_at' => $now,
+            ]);
+
+            $fresh = $this->ownedTicket((int) $operator->id, $ticketUid, true);
+
+            $this->audit->record(
+                (int) $operator->id,
+                'support_ticket.reopened',
+                'support_ticket',
+                $fresh->ticket_uid,
+                $actor,
+                $reason,
+                [
+                    'ticket_uid' => $fresh->ticket_uid,
+                    'previous_status' => 'closed',
+                    'new_status' => isset($fresh->status) ? $fresh->status : null,
+                    'source' => 'operator_portal',
+                    'request_id' => $this->contextValue($context, 'request_id'),
+                ],
+                $this->contextValue($context, 'ip_address'),
+                $this->contextValue($context, 'user_agent')
+            );
+
+            return $this->ticketPayload($fresh);
+        });
+    }
+
     public function show($operator, $ticketUid, $limit = 50)
     {
         $this->assertTablesReady();
@@ -482,6 +538,10 @@ class B2BOperatorSupportTicketService
             return null;
         }
 
+        $detailEndpoint = isset($ticket->ticket_uid) ? $this->supportTicketDetailEndpoint($ticket->ticket_uid) : null;
+        $isOpen = in_array(isset($ticket->status) ? $ticket->status : null, ['open', 'in_progress'], true);
+        $isClosed = (isset($ticket->status) ? $ticket->status : null) === 'closed';
+
         return [
             'ticket_uid' => $ticket->ticket_uid,
             'subject' => $this->safeText(isset($ticket->subject) ? $ticket->subject : null, 160),
@@ -490,6 +550,11 @@ class B2BOperatorSupportTicketService
             'category' => isset($ticket->category) ? $this->safeNullableText($ticket->category, 80) : null,
             'external_reference' => isset($ticket->external_reference) ? $this->safeNullableText($ticket->external_reference, 120) : null,
             'message_count' => $this->messageCount($ticket->id),
+            'detail_endpoint' => $detailEndpoint,
+            'thread_endpoint' => $detailEndpoint === null ? null : $detailEndpoint . '/thread',
+            'comment_endpoint' => $isOpen && $detailEndpoint !== null ? $detailEndpoint . '/comments' : null,
+            'close_endpoint' => $isOpen && $detailEndpoint !== null ? $detailEndpoint . '/close' : null,
+            'reopen_endpoint' => $isClosed && $detailEndpoint !== null ? $detailEndpoint . '/reopen' : null,
             'last_message_at' => $this->isoTime(isset($ticket->last_message_at) ? $ticket->last_message_at : null),
             'closed_at' => $this->isoTime(isset($ticket->closed_at) ? $ticket->closed_at : null),
             'created_at' => $this->isoTime(isset($ticket->created_at) ? $ticket->created_at : null),
@@ -565,6 +630,16 @@ class B2BOperatorSupportTicketService
                 'closed_by' => $actor,
                 'closed_reason' => $message,
                 'closed_at' => $now->toIso8601String(),
+            ];
+        }
+
+        if ($action === 'reopened') {
+            unset($contextPayload['ticket_closure']);
+            $contextPayload['ticket_reopened'] = [
+                'reopened_by' => $actor,
+                'reopened_reason' => $message,
+                'reopened_at' => $now->toIso8601String(),
+                'source' => 'operator_portal',
             ];
         }
 
@@ -785,6 +860,15 @@ class B2BOperatorSupportTicketService
             'metadata' => isset($row->metadata) ? $this->safeMetadata($row->metadata) : null,
             'created_at' => isset($row->created_at) ? $this->isoTime($row->created_at) : null,
         ];
+    }
+
+    private function supportTicketDetailEndpoint($ticketUid)
+    {
+        $ticketUid = trim((string) $ticketUid);
+
+        return $ticketUid === ''
+            ? null
+            : '/api/b2b/v1/portal/support/tickets/' . rawurlencode($ticketUid);
     }
 
     private function safeMetadata($value)
